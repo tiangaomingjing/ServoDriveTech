@@ -74,10 +74,6 @@ public:
 
   errcode_t enableCRC(bool enable)override;
 
-
-protected:
-  PcDebug(PcDebugPrivate &d);
-
   //--------读写RAM操作------------------
   errcode_t writeRAM16(uint8_t axis,uint16_t ofst,uint8_t page,int16_t value)override;
   errcode_t readRAM16(uint8_t axis,uint16_t ofst,uint8_t page,int16_t &value)override;
@@ -101,6 +97,11 @@ protected:
   errcode_t writeFPGAReg32(uint8_t fpgaInx,uint16_t address,int32_t value,uint16_t base)override;
   errcode_t readFPGAReg64(uint8_t fpgaInx,uint16_t address,int64_t &value,uint16_t base)override;
   errcode_t writeFPGAReg64(uint8_t fpgaInx,uint16_t address,int64_t value,uint16_t base)override;
+
+
+protected:
+  PcDebug(PcDebugPrivate &d);
+
 
 
 };

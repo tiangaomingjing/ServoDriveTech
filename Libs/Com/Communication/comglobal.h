@@ -104,10 +104,10 @@ typedef enum{
 }NetCardInfo;
 
 typedef enum{
-  ICOM_TYPE_PCDEBUG,
-  ICOM_TYPE_RNNET,
-  ICOM_TYPE_SOCKET,
-  ICOM_TYPE_VIRTUAL
+  ICOM_TYPE_PCDEBUG=0,
+  ICOM_TYPE_RNNET=1,
+  ICOM_TYPE_SOCKET=2,
+  ICOM_TYPE_VIRTUAL=3
 }IComType;
 
 typedef enum{

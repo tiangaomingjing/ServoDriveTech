@@ -13,6 +13,7 @@ ComWindowTest::ComWindowTest(QWidget *parent) :
   ui(new Ui::ComWindowTest)
 {
   ui->setupUi(this);
+  icom=new ComDriver::RnNet();
   ui->progressBar->setValue(0);
 }
 
@@ -24,29 +25,31 @@ ComWindowTest::~ComWindowTest()
 void ComWindowTest::on_btn_open_clicked()
 {
   ComDriver::uint16_t ret;
-  icom=new ComDriver::RnNet();
+
   ret=icom->open(processCallback,(void*)(ui->progressBar));
   qDebug()<<ret;
 
-  QString fileName="D:/Smart/ServoMaster/git-project/ServoDriveTech/ServoDriveTech/Libs/Com/CommunicationTest/FlashPrm_AllAxis.xml";
-
+//  QString fileName="D:/Smart/ServoMaster/git-project/ServoDriveTech/ServoDriveTech/Libs/Com/CommunicationTest/FlashPrm_AllAxis.xml";
+  QString fileName=QApplication::applicationDirPath()+"/FlashPrm_AllAxis.xml";
+  qDebug()<<fileName;
   QTreeWidget *tree=QtTreeManager::createTreeWidgetFromXmlFile(fileName);
   tree->expandAll();
   tree->resizeColumnToContents(0);
   tree->resizeColumnToContents(1);
   tree->resizeColumnToContents(2);
   tree->showMaximized();
-  QTreeWidgetItem *item;
-  QTreeWidgetItem *top;
-  top=tree->takeTopLevelItem(0);
-  for(int i=0;i<tree->topLevelItemCount();i++)
-  {
-    item=tree->topLevelItem(i);
-    write(item,i);
-  }
-  tree->insertTopLevelItem(0,top);
+//  QTreeWidgetItem *item;
+//  QTreeWidgetItem *top;
+//  top=tree->takeTopLevelItem(0);
+//  for(int i=0;i<tree->topLevelItemCount();i++)
+//  {
+//    item=tree->topLevelItem(i);
+//    write(item,i);
+//  }
+//  tree->insertTopLevelItem(0,top);
 
-  fileName="D:/Smart/ServoMaster/git-project/ServoDriveTech/ServoDriveTech/Libs/Com/CommunicationTest/ret.xml";
+//  fileName="D:/Smart/ServoMaster/git-project/ServoDriveTech/ServoDriveTech/Libs/Com/CommunicationTest/ret.xml";
+  fileName=QApplication::applicationDirPath()+"/ret.xml";
   QtTreeManager::writeTreeWidgetToXmlFile(fileName,tree);
 }
 
@@ -76,65 +79,70 @@ void ComWindowTest::write(QTreeWidgetItem *parent,int axis)
       if(itemChild->text(3)!="-1")
       {
         int bytesNum=2;
-        ComDriver::uint64_t value;
         ComDriver::uint16_t ofst=itemChild->text(3).toUShort();
 
         if(itemChild->text(2)=="int16")
         {
+          ComDriver::int16_t v;
+          icom->readFLASH16(axis,ofst,0,v);
 
-          icom->readFLASH(axis,ofst,0,value,bytesNum);
-          ComDriver::int16_t v=value;
           itemChild->setText(1,QString::number(v));
         }
         else if(itemChild->text(2)=="Uint16")
         {
 
-          icom->readFLASH(axis,ofst,0,value,bytesNum);
-          ComDriver::uint16_t v=value;
-          itemChild->setText(1,QString::number(v));
+          ComDriver::int16_t v;
+          icom->readFLASH16(axis,ofst,0,v);
+          ComDriver::uint16_t n=v;
+
+          itemChild->setText(1,QString::number(n));
         }
         else if(itemChild->text(2)=="int32")
         {
           bytesNum=4;
 
-          icom->readFLASH(axis,ofst,0,value,bytesNum);
-          ComDriver::int32_t v=value;
+          ComDriver::int32_t v;
+          icom->readFLASH32(axis,ofst,0,v);
+
           itemChild->setText(1,QString::number(v));
         }
         else if(itemChild->text(2)=="Uint32")
         {
           bytesNum=4;
 
-          icom->readFLASH(axis,ofst,0,value,bytesNum);
-          ComDriver::uint32_t v=value;
-          itemChild->setText(1,QString::number(v));
+          ComDriver::int32_t v;
+          icom->readFLASH32(axis,ofst,0,v);
+          ComDriver::uint32_t n=v;
+          itemChild->setText(1,QString::number(n));
         }
         else if(itemChild->text(2)=="int64")
         {
           bytesNum=8;
 
-          icom->readFLASH(axis,ofst,0,value,bytesNum);
-          ComDriver::int64_t v=value;
+          ComDriver::int64_t v;
+          icom->readFLASH64(axis,ofst,0,v);
+
           itemChild->setText(1,QString::number(v));
         }
         else if(itemChild->text(2)=="Uint64")
         {
           bytesNum=8;
 
-          icom->readFLASH(axis,ofst,0,value,bytesNum);
-          ComDriver::uint64_t v=value;
-          itemChild->setText(1,QString::number(v));
+          ComDriver::int64_t v;
+          icom->readFLASH64(axis,ofst,0,v);
+          ComDriver::uint64_t n=v;
+
+          itemChild->setText(1,QString::number(n));
         }
         else
         {
           bytesNum=2;
 
-          icom->readFLASH(axis,ofst,0,value,bytesNum);
-          ComDriver::int16_t v=value;
+          ComDriver::int16_t v;
+          icom->readFLASH16(axis,ofst,0,v);
+
           itemChild->setText(1,QString::number(v));
         }
-//        icom->readFLASH(axis,ofst,0,value,bytesNum);
-//        itemChild->setText(1,QString::number(value));
 
         itemChild->setBackgroundColor(1,QColor(Qt::red));
       }

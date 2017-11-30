@@ -46,14 +46,6 @@ public:
   virtual errcode_t getPosAdjRef(uint8_t axis,double &value)=0;
   virtual errcode_t setPosRef(uint8_t axis,double posRef)=0;
 
-  //--------读写RAM操作------------------
-  virtual errcode_t writeRAM(uint8_t axis,uint16_t ofst,uint8_t page,uint64_t value ,uint8_t bytesNum);
-  virtual errcode_t readRAM(uint8_t axis,uint16_t ofst,uint8_t page,uint64_t &value ,uint8_t bytesNum);
-
-  //--------读写铁电FLASH操作------------------
-  virtual errcode_t writeFLASH(uint8_t axis,uint16_t ofst,uint8_t page,uint64_t value ,uint8_t bytesNum);
-  virtual errcode_t readFLASH(uint8_t axis,uint16_t ofst,uint8_t page,uint64_t &value ,uint8_t bytesNum);
-
   //--------读写通用指令-----------
   //!读取后的结果也在pdu里面
   virtual errcode_t sendGeneralCmd(uint8_t axis,GeneralPDU &pdu)=0;
@@ -85,13 +77,9 @@ public:
   virtual errcode_t stopPlot(const PlotControlPrm &ctrPrm)=0;
   virtual errcode_t getPlotData(const PlotControlPrm &ctrPrm,CurveList &curveList)=0;
 
-  //------------FPGA寄存器操作----------------
-  virtual errcode_t readFPGAReg(uint8_t fpgaInx,uint16_t address,uint64_t &value,uint8_t bytesNum,uint16_t base=0);
-  virtual errcode_t writeFPGAReg(uint8_t fpgaInx,uint16_t address,uint64_t value,uint8_t bytesNum,uint16_t base=0);
 
   virtual errcode_t enableCRC(bool enable)=0;
 
-protected:
   //--------读写RAM操作------------------
   virtual errcode_t writeRAM16(uint8_t axis,uint16_t ofst,uint8_t page,int16_t value)=0;
   virtual errcode_t readRAM16(uint8_t axis,uint16_t ofst,uint8_t page,int16_t &value)=0;
