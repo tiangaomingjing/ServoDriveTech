@@ -4,6 +4,7 @@
 
 TEMPLATE = lib
 include (../Com.pri)
+
 CONFIG(debug, debug|release){
     TARGET = ServoDriverComDlld
     LIBS +=$${PWD}/NetCom/wpcap/lib/wpcap.lib

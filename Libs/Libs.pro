@@ -1,4 +1,8 @@
 TEMPLATE = subdirs
+CONFIG   += ordered
 
 SUBDIRS += \
-    Com
+    Com \
+    GTUtils
+
+include(./Libs.pri)

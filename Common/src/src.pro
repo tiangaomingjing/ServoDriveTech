@@ -5,10 +5,28 @@ TARGET = src
 CONFIG += console
 CONFIG -= app_bundle
 
-TEMPLATE = app
+INCLUDEPATH+=../../Libs/Com/Communication\
+             ../../Libs/GTUtils/QtTreeManager\
+             ../../Libs/GTUtils
+
+CONFIG(debug, debug|release){
+    COMMONSRC_OUT_PATH=$${PWD}/../../build/debug/bin
+    LIBPATH=$${COMMONSRC_OUT_PATH}
+    LIBS +=-lCommunicationd\
+           -lGTUtilsd
+    TARGET = CommonSrcAppd
+} else{
+    COMMONSRC_OUT_PATH=$${PWD}/../../build/release/bin
+    LIBPATH=$${COMMONSRC_OUT_PATH}
+#    LIBS +=$${COMMONSRC_OUT_PATH}\Communication.lib\
+#           $${COMMONSRC_OUT_PATH}\GTUtils.lib
+    LIBS +=-lCommunication\
+           -lGTUtils
+    TARGET = CommonSrcApp
+}
+DESTDIR =$${COMMONSRC_OUT_PATH}
 
 SOURCES += main.cpp \
-    Utils/utils.cpp \
     Kernel/idevreadwriter.cpp \
     Kernel/linksocket.cpp \
     Kernel/ictrboard.cpp \
@@ -18,12 +36,16 @@ SOURCES += main.cpp \
     Kernel/sevdevice.cpp \
     Kernel/iuicontroler.cpp \
     Kernel/sevuicontroler.cpp \
-    Kernel/sdassembly.cpp
+    Kernel/sdassembly.cpp \
+    Kernel/globalconfig.cpp \
+    Kernel/gconfigreadwriter.cpp \
+    Kernel/devtextrwriter.cpp \
+    Kernel/devcomrwriter.cpp \
+    Kernel/deviceconfig.cpp
 
 
 HEADERS += \
     sdtglobaldef.h \
-    Utils/utils.h \
     Kernel/idevreadwriter.h \
     Kernel/linksocket.h \
     Kernel/ictrboard.h \
@@ -33,7 +55,12 @@ HEADERS += \
     Kernel/sevdevice.h \
     Kernel/iuicontroler.h \
     Kernel/sevuicontroler.h \
-    Kernel/sdassembly.h
+    Kernel/sdassembly.h \
+    Kernel/globalconfig.h \
+    Kernel/gconfigreadwriter.h \
+    Kernel/devtextrwriter.h \
+    Kernel/devcomrwriter.h \
+    Kernel/deviceconfig.h
 
 
 

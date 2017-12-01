@@ -2,10 +2,10 @@
 #define IDEVREADWRITER_H
 
 #include <QObject>
-#include "sdtglobaldef.h"
-class QTreeWidget;
 
-GT_USE_NAMESPACE
+class QTreeWidget;
+class DeviceConfig;
+
 namespace ComDriver {
   class ICom;
 }
@@ -16,10 +16,11 @@ class IDevReadWriter:public QObject
 public:
   explicit IDevReadWriter(QTreeWidget *idMapTree,QObject *parent=0):QObject(parent),m_idMapTree(idMapTree){}
   virtual ~IDevReadWriter(){}
-  virtual DeviceConfig readConfig(ComDriver::ICom *icom,bool &isOk)=0;
-  virtual bool writeConfig(const DeviceConfig &config)=0;
+  virtual QList<DeviceConfig *>createConfig(bool &isOk)=0;
+  virtual bool saveConfig(const DeviceConfig *config)=0;
 protected:
   QTreeWidget *m_idMapTree;
+  DeviceConfig *m_config;
 };
 
 #endif // IDEVREADWRITER_H

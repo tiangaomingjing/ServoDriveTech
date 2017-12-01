@@ -25,7 +25,6 @@ protected:
   QTreeWidget *m_ramTree;
   QTreeWidget *m_flashTree;
 
-
 };
 
 #endif // IDSPMAP_H
