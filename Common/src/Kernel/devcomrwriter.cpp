@@ -1,6 +1,6 @@
 ﻿#include "devcomrwriter.h"
 
-DevComRWriter::DevComRWriter(QTreeWidget *idMapTree, QObject *parent):IDevReadWriter(idMapTree,parent)
+DevComRWriter::DevComRWriter(QObject *parent):IDevReadWriter(parent)
 {
 
 }

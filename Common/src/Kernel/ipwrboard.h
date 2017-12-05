@@ -2,12 +2,12 @@
 #define IPWRBOARD_H
 
 #include <QObject>
-class SevDevice;
+class SevDevicePrivate;
 class IPwrBoard : public QObject
 {
   Q_OBJECT
 public:
-  explicit IPwrBoard(SevDevice *sev,QObject *parent = 0);
+  explicit IPwrBoard(SevDevicePrivate *sev,QObject *parent = 0);
   virtual ~IPwrBoard(){}
 
 signals:
@@ -15,7 +15,7 @@ signals:
 public slots:
 
 protected:
-  SevDevice *q_ptr;
+  SevDevicePrivate *q_ptr;
 };
 
 #endif // IPWRBOARD_H

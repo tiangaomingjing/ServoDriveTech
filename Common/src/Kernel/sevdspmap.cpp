@@ -1,0 +1,43 @@
+﻿#include "sevdspmap.h"
+#include "sevdevice.h"
+#include "sevdeviceprivate_p.h"
+#include "axistreemap.h"
+#include "qttreemanager.h"
+#include "gtutils.h"
+#include "sdtglobaldef.h"
+
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
+
+SevDspMap::SevDspMap(SevDevicePrivate *sev, QObject *parent):IDspMap(sev,parent)
+{
+  initTreeMap();
+}
+SevDspMap::~SevDspMap()
+{
+  GT::deepClearList(m_treeMapList);
+}
+
+bool SevDspMap::initTreeMap()
+{
+  QTreeWidgetItem *target=q_ptr->m_targetTree;
+//    QTreeWidget *w=new QTreeWidget;
+//    w->addTopLevelItem(target);
+//    w->show();
+
+  AxisTreeMap *treeMap=NULL;
+  QString file;
+  for(int i=0;i<q_ptr->m_axisNum;i++)
+  {
+    treeMap=new AxisTreeMap(i,target,q_ptr->m_filePath);
+    Q_ASSERT(treeMap!=NULL);
+    m_treeMapList.append(treeMap);
+  }
+
+  file=q_ptr->m_filePath+RAM_ALL_PRM_NAME;
+  m_ramTree=QtTreeManager::createTreeWidgetFromXmlFile(file);
+  Q_ASSERT(m_ramTree!=NULL);
+
+  file=q_ptr->m_filePath+FLASH_ALL_PRM_NAME;
+  return true;
+}

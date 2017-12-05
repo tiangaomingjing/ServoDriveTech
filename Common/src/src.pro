@@ -1,4 +1,4 @@
-QT += core
+QT += core widgets
 QT -= gui
 
 TARGET = src
@@ -41,7 +41,10 @@ SOURCES += main.cpp \
     Kernel/gconfigreadwriter.cpp \
     Kernel/devtextrwriter.cpp \
     Kernel/devcomrwriter.cpp \
-    Kernel/deviceconfig.cpp
+    Kernel/deviceconfig.cpp \
+    Kernel/sevdspmap.cpp \
+    Kernel/sevpwrboard.cpp \
+    Kernel/PowerTreeManage/powertreemanage.cpp
 
 
 HEADERS += \
@@ -60,7 +63,11 @@ HEADERS += \
     Kernel/gconfigreadwriter.h \
     Kernel/devtextrwriter.h \
     Kernel/devcomrwriter.h \
-    Kernel/deviceconfig.h
+    Kernel/deviceconfig.h \
+    Kernel/sevdspmap.h \
+    Kernel/sevdeviceprivate_p.h \
+    Kernel/sevpwrboard.h \
+    Kernel/PowerTreeManage/powertreemanage.h
 
 
 

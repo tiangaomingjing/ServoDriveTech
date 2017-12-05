@@ -14,13 +14,20 @@ class IDevReadWriter:public QObject
 {
   Q_OBJECT
 public:
-  explicit IDevReadWriter(QTreeWidget *idMapTree,QObject *parent=0):QObject(parent),m_idMapTree(idMapTree){}
+  typedef enum{
+    COL_NAME,
+    COL_PRM,
+    COL_ID
+  }ConfigColumnInx;
+  explicit IDevReadWriter(QObject *parent=0);
   virtual ~IDevReadWriter(){}
   virtual QList<DeviceConfig *>createConfig(bool &isOk)=0;
   virtual bool saveConfig(const DeviceConfig *config)=0;
 protected:
+  bool createIdMapTree(const QString &fileName);
+protected:
   QTreeWidget *m_idMapTree;
-  DeviceConfig *m_config;
+  DeviceConfig *m_currentConfig;
 };
 
 #endif // IDEVREADWRITER_H

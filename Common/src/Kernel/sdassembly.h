@@ -6,6 +6,7 @@
 class GlobalConfig;
 class SevDevice;
 class IUiControler;
+
 class SdAssembly : public QObject
 {
   Q_OBJECT

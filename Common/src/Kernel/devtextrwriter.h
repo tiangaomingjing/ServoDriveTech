@@ -7,7 +7,7 @@ class DevTextRWriter:public IDevReadWriter
 {
   Q_OBJECT
 public:
-  explicit DevTextRWriter(QTreeWidget *idMapTree,QObject *parent=0);
+  explicit DevTextRWriter(QObject *parent=0);
   virtual ~DevTextRWriter(){}
   //获取全局设备配置文件路径，得到信息
   QList<DeviceConfig *>createConfig(bool &isOk)override;

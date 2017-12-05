@@ -7,7 +7,7 @@ class DevComRWriter:public IDevReadWriter
 {
   Q_OBJECT
 public:
-  explicit DevComRWriter(QTreeWidget *idMapTree, QObject *parent=0);
+  explicit DevComRWriter( QObject *parent=0);
   QList<DeviceConfig *>createConfig(bool &isOk)override;
   bool saveConfig(const DeviceConfig *config)override;
 };
