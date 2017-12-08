@@ -1,0 +1,12 @@
+#ifndef UICURRENT_GLOBAL_H
+#define UICURRENT_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(UICURRENT_LIBRARY)
+#  define UICURRENTSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define UICURRENTSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // UICURRENT_GLOBAL_H

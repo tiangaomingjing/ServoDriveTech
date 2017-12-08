@@ -7,7 +7,8 @@ CONFIG -= app_bundle
 
 INCLUDEPATH+=../../Libs/Com/Communication\
              ../../Libs/GTUtils/QtTreeManager\
-             ../../Libs/GTUtils
+             ../../Libs/GTUtils\
+             ../../Libs/UI
 
 CONFIG(debug, debug|release){
     COMMONSRC_OUT_PATH=$${PWD}/../../build/debug/bin
@@ -45,7 +46,8 @@ SOURCES += main.cpp \
     Kernel/sevdspmap.cpp \
     Kernel/sevpwrboard.cpp \
     Kernel/PowerTreeManage/powertreemanage.cpp \
-    Kernel/sevctrboard.cpp
+    Kernel/sevctrboard.cpp \
+    UiFactory/uifactory.cpp
 
 
 HEADERS += \
@@ -69,7 +71,9 @@ HEADERS += \
     Kernel/sevdeviceprivate_p.h \
     Kernel/sevpwrboard.h \
     Kernel/PowerTreeManage/powertreemanage.h \
-    Kernel/sevctrboard.h
+    Kernel/sevctrboard.h \
+    UiFactory/uifactory.h \
+    UiFactory/registerfunction.h
 
 
 

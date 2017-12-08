@@ -61,6 +61,7 @@ int main(int argc, char *argv[])
 
   uint hex = str.toUInt(&ok, 16);
   qDebug()<<hex;
+
   return a.exec();
 }
 

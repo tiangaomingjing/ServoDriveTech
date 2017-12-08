@@ -6,15 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>511</width>
-    <height>277</height>
+    <width>584</width>
+    <height>418</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>AppMainWindowTest</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0,0,0,0,0">
+    <item>
+     <widget class="QWidget" name="widget" native="true"/>
+    </item>
     <item>
      <widget class="QPushButton" name="pushButton">
       <property name="text">
@@ -37,9 +40,6 @@
      </widget>
     </item>
     <item>
-     <widget class="QWidget" name="widget" native="true"/>
-    </item>
-    <item>
      <widget class="QProgressBar" name="progressBar">
       <property name="value">
        <number>24</number>
@@ -60,7 +60,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>511</width>
+     <width>584</width>
      <height>23</height>
     </rect>
    </property>

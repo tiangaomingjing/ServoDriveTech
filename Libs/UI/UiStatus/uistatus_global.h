@@ -1,0 +1,12 @@
+#ifndef UISTATUS_GLOBAL_H
+#define UISTATUS_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(UISTATUS_LIBRARY)
+#  define UISTATUSSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define UISTATUSSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // UISTATUS_GLOBAL_H

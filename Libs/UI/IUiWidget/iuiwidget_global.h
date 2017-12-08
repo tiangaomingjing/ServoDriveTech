@@ -1,0 +1,12 @@
+#ifndef IUIWIDGET_GLOBAL_H
+#define IUIWIDGET_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(IUIWIDGET_LIBRARY)
+#  define IUIWIDGETSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define IUIWIDGETSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // IUIWIDGET_GLOBAL_H

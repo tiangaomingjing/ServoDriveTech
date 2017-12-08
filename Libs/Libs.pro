@@ -6,4 +6,3 @@ SUBDIRS += \
     GTUtils \
     UI
 
-include(./Libs.pri)

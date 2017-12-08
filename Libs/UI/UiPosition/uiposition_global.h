@@ -1,0 +1,12 @@
+#ifndef UIPOSITION_GLOBAL_H
+#define UIPOSITION_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(UIPOSITION_LIBRARY)
+#  define UIPOSITIONSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define UIPOSITIONSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // UIPOSITION_GLOBAL_H

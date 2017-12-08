@@ -1,0 +1,12 @@
+#ifndef UIVELOCITY_GLOBAL_H
+#define UIVELOCITY_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(UIVELOCITY_LIBRARY)
+#  define UIVELOCITYSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define UIVELOCITYSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // UIVELOCITY_GLOBAL_H
