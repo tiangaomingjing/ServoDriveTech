@@ -31,6 +31,11 @@
        <string>id</string>
       </property>
      </column>
+     <column>
+      <property name="text">
+       <string>prmEx0</string>
+      </property>
+     </column>
      <item>
       <property name="text">
        <string>Device</string>
@@ -40,6 +45,9 @@
       </property>
       <property name="text">
        <string>0</string>
+      </property>
+      <property name="text">
+       <string/>
       </property>
       <item>
        <property name="text">
@@ -51,12 +59,18 @@
        <property name="text">
         <string>0</string>
        </property>
+       <property name="text">
+        <string>0xf0</string>
+       </property>
        <item>
         <property name="text">
          <string>SD6x</string>
         </property>
         <property name="text">
          <string>6</string>
+        </property>
+        <property name="text">
+         <string/>
         </property>
         <property name="text">
          <string/>
@@ -71,6 +85,9 @@
          <property name="text">
           <string>21000541</string>
          </property>
+         <property name="text">
+          <string/>
+         </property>
          <item>
           <property name="text">
            <string>V129</string>
@@ -80,6 +97,9 @@
           </property>
           <property name="text">
            <string>0</string>
+          </property>
+          <property name="text">
+           <string/>
           </property>
          </item>
         </item>

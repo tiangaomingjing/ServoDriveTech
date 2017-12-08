@@ -20,8 +20,9 @@ class SevDevice : public QObject
   Q_DECLARE_PRIVATE(SevDevice)
 
 public:
-  explicit SevDevice(const DeviceConfig *dConfig,QObject *parent=0);
-  ~SevDevice(){}
+  explicit SevDevice(QObject *parent=0);
+  ~SevDevice();
+  bool init(const DeviceConfig *dConfig);
   void adjustSocket(ComDriver::ICom *com);
   QString typeName() const;
   QString modelName() const;
@@ -32,7 +33,7 @@ public:
   quint8 axisNum() const;
 
 signals:
-
+  void initProgressInfo(int value,QString msg);
 public slots:
 private:
   SevDevicePrivate *d_ptr;

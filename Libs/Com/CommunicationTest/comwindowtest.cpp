@@ -2,7 +2,7 @@
 #include "ui_comwindowtest.h"
 #include "icom.h"
 #include "rnnet.h"
-#include "../../../Common/QtTreeManager/qttreemanager.h"
+#include "QtTreeManager/qttreemanager.h"
 
 #include <QDebug>
 #include <QTreeWidget>
@@ -38,15 +38,15 @@ void ComWindowTest::on_btn_open_clicked()
   tree->resizeColumnToContents(1);
   tree->resizeColumnToContents(2);
   tree->showMaximized();
-//  QTreeWidgetItem *item;
-//  QTreeWidgetItem *top;
-//  top=tree->takeTopLevelItem(0);
-//  for(int i=0;i<tree->topLevelItemCount();i++)
-//  {
-//    item=tree->topLevelItem(i);
-//    write(item,i);
-//  }
-//  tree->insertTopLevelItem(0,top);
+  QTreeWidgetItem *item;
+  QTreeWidgetItem *top;
+  top=tree->takeTopLevelItem(0);
+  for(int i=0;i<tree->topLevelItemCount();i++)
+  {
+    item=tree->topLevelItem(i);
+    write(item,i);
+  }
+  tree->insertTopLevelItem(0,top);
 
 //  fileName="D:/Smart/ServoMaster/git-project/ServoDriveTech/ServoDriveTech/Libs/Com/CommunicationTest/ret.xml";
   fileName=QApplication::applicationDirPath()+"/ret.xml";

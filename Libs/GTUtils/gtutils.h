@@ -7,6 +7,7 @@
 #define DEVCONFIG_NAME                "DevConfig.ui"
 #define FLASH_ALL_PRM_NAME            "FlashPrm_AllAxis.xml"
 #define RAM_ALL_PRM_NAME              "RamPrm_AllAxis.xml"
+#define POWERBOAD_NAME                "PowerBoard.ui"
 
 class QTreeWidgetItem;
 class QTreeWidget;

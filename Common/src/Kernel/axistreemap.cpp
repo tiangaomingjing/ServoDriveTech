@@ -21,8 +21,9 @@ AxisTreeMap::AxisTreeMap(quint8 axis, const QTreeWidgetItem *targetTree, const Q
   QTreeWidgetItem *item=NULL;
   QString file;
 
-  qDebug()<<"childCount"<<axisItem->childCount();
+//  qDebug()<<"childCount"<<axisItem->childCount();
 
+  //找到Axis节点下所有的项
   for(int i=0;i<axisItem->childCount();i++)
   {
     item=axisItem->child(i);
@@ -39,15 +40,18 @@ AxisTreeMap::AxisTreeMap(quint8 axis, const QTreeWidgetItem *targetTree, const Q
 
     tree=QtTreeManager::createTreeWidgetFromXmlFile(file);
     Q_ASSERT(tree);
-  }
-  m_axisTreeList.append(tree);
 
+    m_axisTreeList.append(tree);
+  }
+
+
+  //找到global节点下所有的项
 //  QList<QTreeWidget *>m_globalTreeList;
 }
 
 AxisTreeMap::~AxisTreeMap()
 {
-  GT::deepClearList(m_axisTreeList);
-  GT::deepClearList(m_globalTreeList);
   qDebug()<<m_axis<<" AxisTreeMap-->destruct";
+  GT::deepClearList(m_axisTreeList);
+//  GT::deepClearList(m_globalTreeList);
 }

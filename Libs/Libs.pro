@@ -3,6 +3,7 @@ CONFIG   += ordered
 
 SUBDIRS += \
     Com \
-    GTUtils
+    GTUtils \
+    UI
 
 include(./Libs.pri)

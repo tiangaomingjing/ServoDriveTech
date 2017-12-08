@@ -17,7 +17,8 @@ public:
   typedef enum{
     COL_NAME,
     COL_PRM,
-    COL_ID
+    COL_ID,
+    COL_PRM_EX0
   }ConfigColumnInx;
   explicit IDevReadWriter(QObject *parent=0);
   virtual ~IDevReadWriter(){}

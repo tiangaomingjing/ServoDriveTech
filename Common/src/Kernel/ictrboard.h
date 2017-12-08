@@ -3,12 +3,12 @@
 
 #include <QObject>
 
-class SevDevice;
+class SevDevicePrivate;
 class ICtrBoard : public QObject
 {
   Q_OBJECT
 public:
-  explicit ICtrBoard(SevDevice *sev,QObject *parent = 0);
+  explicit ICtrBoard(SevDevicePrivate *sev,QObject *parent = 0);
   virtual~ICtrBoard(){}
 
 signals:
@@ -16,7 +16,7 @@ signals:
 public slots:
 
 protected:
-  SevDevice *q_ptr;
+  SevDevicePrivate *q_ptr;
 };
 
 #endif // ICTRBOARD_H

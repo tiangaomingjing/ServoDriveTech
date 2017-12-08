@@ -1,7 +1,8 @@
 ﻿#ifndef SEVPWRBOARD_H
 #define SEVPWRBOARD_H
+#include <QMap>
 #include "ipwrboard.h"
-#include "PowerTreeManage/powertreemanage.h"
+
 
 class SevPwrBoard:public IPwrBoard
 {
@@ -9,11 +10,9 @@ class SevPwrBoard:public IPwrBoard
 public:
   explicit SevPwrBoard(SevDevicePrivate *sev,QObject *parent = 0);
   ~ SevPwrBoard();
-  QList<QMap<QString, PowerBoardLimit> > *pwrLimitMapList();
-  SamplingDataInfo pwrSamplingDataInfo();
+  QList<QMap<QString, PowerBoardLimit> > *pwrLimitMapList()Q_DECL_OVERRIDE;
+  SamplingDataInfo pwrSamplingDataInfo()Q_DECL_OVERRIDE;
 private:
-  PowerTreeManage *m_pTreeManage;
-  QList<QMap<QString ,PowerBoardLimit>>m_powerLimitMapList;
 
 };
 

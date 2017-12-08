@@ -9,9 +9,8 @@ class IUiControler : public QObject
 {
   Q_OBJECT
 public:
-  explicit IUiControler(SevDevice *sev,GlobalConfig *gconfig,QObject *parent=0):QObject(parent)\
-  ,m_sev(sev),m_gConfig(gconfig){}
-  virtual ~IUiControler(){}
+  explicit IUiControler(SevDevice *sev,GlobalConfig *gconfig,QObject *parent=0);
+  virtual ~IUiControler();
   SevDevice *m_sev;
   GlobalConfig *m_gConfig;
 

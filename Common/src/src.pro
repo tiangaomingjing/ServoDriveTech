@@ -44,7 +44,8 @@ SOURCES += main.cpp \
     Kernel/deviceconfig.cpp \
     Kernel/sevdspmap.cpp \
     Kernel/sevpwrboard.cpp \
-    Kernel/PowerTreeManage/powertreemanage.cpp
+    Kernel/PowerTreeManage/powertreemanage.cpp \
+    Kernel/sevctrboard.cpp
 
 
 HEADERS += \
@@ -67,7 +68,8 @@ HEADERS += \
     Kernel/sevdspmap.h \
     Kernel/sevdeviceprivate_p.h \
     Kernel/sevpwrboard.h \
-    Kernel/PowerTreeManage/powertreemanage.h
+    Kernel/PowerTreeManage/powertreemanage.h \
+    Kernel/sevctrboard.h
 
 
 

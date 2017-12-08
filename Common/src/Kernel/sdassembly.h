@@ -6,21 +6,23 @@
 class GlobalConfig;
 class SevDevice;
 class IUiControler;
+class DeviceConfig;
 
 class SdAssembly : public QObject
 {
   Q_OBJECT
 public:
-  explicit SdAssembly(SevDevice *sev,IUiControler *ui,QObject *parent=0):QObject(parent),\
-    m_device(sev),m_uiControler(ui)
-  {}
-  ~SdAssembly(){}
-  SevDevice *m_device;
-  IUiControler *m_uiControler;
+  explicit SdAssembly(QObject *parent=0);
+  ~SdAssembly();
+
+  bool init(const DeviceConfig *dConfig,GlobalConfig *gConfig);
 
 signals:
-
+  void initProgressInfo(int value,QString msg);
 public slots:
+private:
+  SevDevice *m_device;
+  IUiControler *m_uiControler;
 };
 
 #endif // SDASSEMBLY_H

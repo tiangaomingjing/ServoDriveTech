@@ -8,9 +8,11 @@ class ICtrBoard;
 class IPwrBoard;
 class IDspMap;
 class LinkSocket;
+class DeviceConfig;
 
-class SevDevicePrivate
+class SevDevicePrivate:public QObject
 {
+  Q_OBJECT
   Q_DECLARE_PUBLIC(SevDevice)
 public :
   enum{
@@ -22,7 +24,7 @@ public :
     SYSCONFIG_COL_ISGLOBAL
   }SysConfigColumnInx;
 
-  SevDevicePrivate(SevDevice *sev);
+  SevDevicePrivate(SevDevice *sev, QObject *parent=0);
   ~SevDevicePrivate();
   void init(const DeviceConfig *dConfig);
   QTreeWidget* configTree();
@@ -51,12 +53,16 @@ public :
   QString m_filePath;
   QTreeWidgetItem *m_targetTree;
 
+signals:
+  void initProgressInfo(int value,QString msg);
+
 protected:
   SevDevice *q_ptr;
 private:
   QTreeWidget *m_configTree;
 
-
+private:
+  void initConfig(const DeviceConfig *dConfig);
 };
 
 #endif // SEVDEVICEPRIVATE_P_H

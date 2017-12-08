@@ -1,22 +1,36 @@
 ﻿#include "sevpwrboard.h"
+#include "gtutils.h"
+#include "qttreemanager.h"
+#include "sevdeviceprivate_p.h"
+#include "ipwrboard.h"
+
+#include <QDebug>
+#include <QTreeWidget>
 
 SevPwrBoard::SevPwrBoard(SevDevicePrivate *sev, QObject *parent):IPwrBoard(sev,parent)
 {
-//  m_pTreeManage=new PowerTreeManage();
+  bool isOk;
+
+  QString file=GTUtils::databasePath()+POWERBOAD_NAME;
+  QTreeWidget *pwrTree=QtTreeManager::createTreeWidgetFromXmlFile(file);
+  //待改进，加一个dsp版本相关，去找控制变量
+  PowerTreeManage * pwrTreeManage=new PowerTreeManage(pwrTree);
+  pwrTreeManage->updatePowerLimitMapList(sev->m_pwrId,m_powerLimitMapList);
+  m_samplingDataInfo=pwrTreeManage->samplingDataInfo(sev->m_pwrId,&isOk);
+  delete pwrTreeManage;
+  delete pwrTree;
 }
 
 SevPwrBoard::~SevPwrBoard()
 {
-  delete m_pTreeManage;
+  qDebug()<<"SevPwrBoard-->destruct";
 }
 QList<QMap<QString ,PowerBoardLimit>>* SevPwrBoard::pwrLimitMapList()
 {
-  m_powerLimitMapList.clear();
   return &m_powerLimitMapList;
 }
 
 SamplingDataInfo SevPwrBoard::pwrSamplingDataInfo()
 {
-  SamplingDataInfo sInfo;
-  return sInfo;
+  return m_samplingDataInfo;
 }

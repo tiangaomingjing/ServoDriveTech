@@ -26,9 +26,9 @@ CONFIG(debug, debug|release){
 
 SOURCES += main.cpp\
         comwindowtest.cpp \
-    ../../../Common/QtTreeManager/qttreemanager.cpp
+    QtTreeManager/qttreemanager.cpp
 
 HEADERS  += comwindowtest.h \
-    ../../../Common/QtTreeManager/qttreemanager.h
+    QtTreeManager/qttreemanager.h
 
 FORMS    += comwindowtest.ui

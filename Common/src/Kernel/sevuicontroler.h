@@ -8,8 +8,8 @@ class SevUiControler : public IUiControler
 {
   Q_OBJECT
 public:
-  explicit SevUiControler(SevDevice *sev,GlobalConfig *gconfig,QObject *parent=0):IUiControler(sev,gconfig,parent){}
-  ~SevUiControler(){}
+  explicit SevUiControler(SevDevice *sev,GlobalConfig *gconfig,QObject *parent=0);
+  ~SevUiControler();
 signals:
 
 public slots:

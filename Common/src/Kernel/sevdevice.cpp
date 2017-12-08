@@ -6,21 +6,31 @@
 #include "gtutils.h"
 #include "qttreemanager.h"
 #include "sevdspmap.h"
+#include "sevpwrboard.h"
+#include "sevctrboard.h"
 
 #include <QTreeWidget>
 #include <QStringList>
 #include <QDebug>
 
 
-SevDevicePrivate::SevDevicePrivate(SevDevice *sev):q_ptr(sev)
+SevDevicePrivate::SevDevicePrivate(SevDevice *sev, QObject *parent):QObject(parent),q_ptr(sev),m_configTree(NULL)
 {
 
 }
 
 SevDevicePrivate::~SevDevicePrivate()
 {
-  delete m_configTree;
+  qDebug()<<"SevDevicePrivate destruct-->";
+  if(m_configTree!=NULL)
+  {
+    delete m_configTree;
+    m_configTree=NULL;
+  }
   delete m_dspMap;
+  delete m_pwrBoard;
+  delete m_targetTree;
+  delete m_ctrBoard;
 }
 QTreeWidget *SevDevicePrivate::configTree()
 {
@@ -45,7 +55,7 @@ QTreeWidget *SevDevicePrivate::configTree()
   return m_configTree;
 }
 
-void SevDevicePrivate::init(const DeviceConfig *dConfig)
+void SevDevicePrivate::initConfig(const DeviceConfig *dConfig)
 {
   m_devId=dConfig->m_devId;
   m_comType=dConfig->m_comType;
@@ -56,13 +66,6 @@ void SevDevicePrivate::init(const DeviceConfig *dConfig)
   m_pwrId=dConfig->m_pwrId;
   m_ctrId=dConfig->m_ctrId;
   m_fpgaId=dConfig->m_fpgaId;
-
-  m_filePath=GTUtils::sysPath()+m_typeName+"/"+m_modeName+"/"+m_version+"/";
-
-  findTargetTree();
-
-  m_dspMap=new SevDspMap(this);
-
 }
 
 QTreeWidgetItem* SevDevicePrivate::findTargetTree()
@@ -106,14 +109,48 @@ QTreeWidgetItem* SevDevicePrivate::findTargetTree()
   return m_targetTree;
 }
 
-
-
-
-SevDevice::SevDevice(const DeviceConfig *dConfig, QObject *parent):QObject(parent),d_ptr(new SevDevicePrivate(this))
+void SevDevicePrivate::init(const DeviceConfig *dConfig)
 {
+  qDebug()<<"init Config";
+  emit initProgressInfo(3,tr("init Config"));
+  initConfig(dConfig);
+
+  m_filePath=GTUtils::sysPath()+m_typeName+"/"+m_modeName+"/"+m_version+"/";
+
+  qDebug()<<"findTargetTree";
+  emit initProgressInfo(5,tr("findTargetTree"));
+  findTargetTree();
+
+  qDebug()<<"new SevDspMap";
+  m_dspMap=new SevDspMap(this);
+  connect(m_dspMap,SIGNAL(initProgressInfo(int,QString)),this,SIGNAL(initProgressInfo(int,QString)));
+  m_dspMap->initTreeMap();
+
+  m_pwrBoard=new SevPwrBoard(this);
+  m_ctrBoard=new SevCtrBoard(this);
+
+}
+
+
+SevDevice::SevDevice(QObject *parent):QObject(parent)
+{
+
+}
+SevDevice::~SevDevice()
+{
+  qDebug()<<"SevDevice destruct-->";
+  delete d_ptr;
+}
+bool SevDevice::init(const DeviceConfig *dConfig)
+{
+  emit initProgressInfo(2,tr("SevDevice init"));
+  d_ptr=new SevDevicePrivate(this);
+  connect(d_ptr,SIGNAL(initProgressInfo(int,QString)),this,SIGNAL(initProgressInfo(int,QString)));
   Q_D(SevDevice);
   d->init(dConfig);
+  return true;
 }
+
 void SevDevice::adjustSocket(ComDriver::ICom *com)
 {
   Q_D(SevDevice);
