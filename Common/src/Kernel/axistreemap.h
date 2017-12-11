@@ -14,7 +14,7 @@ public:
     SYSCONFIG_COL_CLASSNAME,
     SYSCONFIG_COL_XMLNAME,
     SYSCONFIG_COL_INDEX,
-    SYSCONFIG_COL_ISGLOBAL
+    SYSCONFIG_COL_FILESRCTYPE
   }SysConfigColumnInx;
 
   explicit AxisTreeMap(quint8 axis, const QTreeWidgetItem *targetTree, const QString &filePath, QObject *parent = 0);

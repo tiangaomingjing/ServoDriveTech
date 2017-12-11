@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>603</width>
-    <height>564</height>
+    <width>670</width>
+    <height>543</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -43,7 +43,7 @@
      </column>
      <column>
       <property name="text">
-       <string>isGlobal</string>
+       <string>fileSrcType</string>
       </property>
      </column>
      <item>
@@ -317,7 +317,7 @@
              <string>7</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
            <item>
@@ -337,7 +337,7 @@
              <string>8</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
           </item>
@@ -362,26 +362,6 @@
            </property>
            <item>
             <property name="text">
-             <string>Plot</string>
-            </property>
-            <property name="text">
-             <string>NULL</string>
-            </property>
-            <property name="text">
-             <string>PlotWaveUi</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
              <string>IO</string>
             </property>
             <property name="text">
@@ -397,7 +377,27 @@
              <string/>
             </property>
             <property name="text">
-             <string>1</string>
+             <string>0</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Plot</string>
+            </property>
+            <property name="text">
+             <string>NULL</string>
+            </property>
+            <property name="text">
+             <string>PlotWaveUi</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="text">
+             <string>0</string>
             </property>
            </item>
           </item>
@@ -597,7 +597,7 @@
              <string>7</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
            <item>
@@ -617,7 +617,7 @@
              <string>8</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
           </item>
@@ -642,26 +642,6 @@
            </property>
            <item>
             <property name="text">
-             <string>Plot</string>
-            </property>
-            <property name="text">
-             <string>NULL</string>
-            </property>
-            <property name="text">
-             <string>PlotWaveUi</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
              <string>IO</string>
             </property>
             <property name="text">
@@ -677,7 +657,27 @@
              <string/>
             </property>
             <property name="text">
-             <string>1</string>
+             <string>0</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Plot</string>
+            </property>
+            <property name="text">
+             <string>NULL</string>
+            </property>
+            <property name="text">
+             <string>PlotWaveUi</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="text">
+             <string>0</string>
             </property>
            </item>
           </item>
@@ -897,7 +897,7 @@
              <string>7</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
            <item>
@@ -917,7 +917,7 @@
              <string>8</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
           </item>
@@ -942,26 +942,6 @@
            </property>
            <item>
             <property name="text">
-             <string>Plot</string>
-            </property>
-            <property name="text">
-             <string>NULL</string>
-            </property>
-            <property name="text">
-             <string>PlotWaveUi</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
              <string>IO</string>
             </property>
             <property name="text">
@@ -977,7 +957,27 @@
              <string/>
             </property>
             <property name="text">
-             <string>1</string>
+             <string>0</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Plot</string>
+            </property>
+            <property name="text">
+             <string>NULL</string>
+            </property>
+            <property name="text">
+             <string>PlotWaveUi</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="text">
+             <string>0</string>
             </property>
            </item>
           </item>
@@ -1177,7 +1177,7 @@
              <string>7</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
            <item>
@@ -1197,7 +1197,7 @@
              <string>8</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
           </item>
@@ -1222,26 +1222,6 @@
            </property>
            <item>
             <property name="text">
-             <string>Plot</string>
-            </property>
-            <property name="text">
-             <string>NULL</string>
-            </property>
-            <property name="text">
-             <string>PlotWaveUi</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
              <string>IO</string>
             </property>
             <property name="text">
@@ -1257,7 +1237,27 @@
              <string/>
             </property>
             <property name="text">
-             <string>1</string>
+             <string>0</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Plot</string>
+            </property>
+            <property name="text">
+             <string>NULL</string>
+            </property>
+            <property name="text">
+             <string>PlotWaveUi</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="text">
+             <string>0</string>
             </property>
            </item>
           </item>
@@ -1457,7 +1457,7 @@
              <string>7</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
            <item>
@@ -1477,7 +1477,7 @@
              <string>8</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
           </item>
@@ -1502,26 +1502,6 @@
            </property>
            <item>
             <property name="text">
-             <string>Plot</string>
-            </property>
-            <property name="text">
-             <string>NULL</string>
-            </property>
-            <property name="text">
-             <string>PlotWaveUi</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
              <string>IO</string>
             </property>
             <property name="text">
@@ -1537,7 +1517,27 @@
              <string/>
             </property>
             <property name="text">
-             <string>1</string>
+             <string>0</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Plot</string>
+            </property>
+            <property name="text">
+             <string>NULL</string>
+            </property>
+            <property name="text">
+             <string>PlotWaveUi</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="text">
+             <string>0</string>
             </property>
            </item>
           </item>
@@ -1777,7 +1777,7 @@
              <string>7</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
            <item>
@@ -1797,7 +1797,7 @@
              <string>8</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
           </item>
@@ -1822,26 +1822,6 @@
            </property>
            <item>
             <property name="text">
-             <string>Plot</string>
-            </property>
-            <property name="text">
-             <string>NULL</string>
-            </property>
-            <property name="text">
-             <string>PlotWaveUi</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
              <string>IO</string>
             </property>
             <property name="text">
@@ -1857,7 +1837,27 @@
              <string/>
             </property>
             <property name="text">
-             <string>1</string>
+             <string>0</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Plot</string>
+            </property>
+            <property name="text">
+             <string>NULL</string>
+            </property>
+            <property name="text">
+             <string>PlotWaveUi</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="text">
+             <string>0</string>
             </property>
            </item>
           </item>
@@ -2057,7 +2057,7 @@
              <string>7</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
            <item>
@@ -2077,7 +2077,7 @@
              <string>8</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
           </item>
@@ -2102,26 +2102,6 @@
            </property>
            <item>
             <property name="text">
-             <string>Plot</string>
-            </property>
-            <property name="text">
-             <string>NULL</string>
-            </property>
-            <property name="text">
-             <string>PlotWaveUi</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
              <string>IO</string>
             </property>
             <property name="text">
@@ -2137,7 +2117,27 @@
              <string/>
             </property>
             <property name="text">
-             <string>1</string>
+             <string>0</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Plot</string>
+            </property>
+            <property name="text">
+             <string>NULL</string>
+            </property>
+            <property name="text">
+             <string>PlotWaveUi</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="text">
+             <string>0</string>
             </property>
            </item>
           </item>
@@ -2357,7 +2357,7 @@
              <string>7</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
            <item>
@@ -2377,7 +2377,7 @@
              <string>8</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
           </item>
@@ -2402,26 +2402,6 @@
            </property>
            <item>
             <property name="text">
-             <string>Plot</string>
-            </property>
-            <property name="text">
-             <string>NULL</string>
-            </property>
-            <property name="text">
-             <string>PlotWaveUi</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
              <string>IO</string>
             </property>
             <property name="text">
@@ -2437,7 +2417,27 @@
              <string/>
             </property>
             <property name="text">
-             <string>1</string>
+             <string>0</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Plot</string>
+            </property>
+            <property name="text">
+             <string>NULL</string>
+            </property>
+            <property name="text">
+             <string>PlotWaveUi</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="text">
+             <string>0</string>
             </property>
            </item>
           </item>
@@ -2637,7 +2637,7 @@
              <string>7</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
            <item>
@@ -2657,7 +2657,7 @@
              <string>8</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
           </item>
@@ -2682,26 +2682,6 @@
            </property>
            <item>
             <property name="text">
-             <string>Plot</string>
-            </property>
-            <property name="text">
-             <string>NULL</string>
-            </property>
-            <property name="text">
-             <string>PlotWaveUi</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
              <string>IO</string>
             </property>
             <property name="text">
@@ -2717,7 +2697,27 @@
              <string/>
             </property>
             <property name="text">
-             <string>1</string>
+             <string>0</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Plot</string>
+            </property>
+            <property name="text">
+             <string>NULL</string>
+            </property>
+            <property name="text">
+             <string>PlotWaveUi</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="text">
+             <string>0</string>
             </property>
            </item>
           </item>
@@ -2985,7 +2985,7 @@
              <string>7</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
            <item>
@@ -3005,7 +3005,7 @@
              <string>8</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
           </item>
@@ -3030,26 +3030,6 @@
            </property>
            <item>
             <property name="text">
-             <string>Plot</string>
-            </property>
-            <property name="text">
-             <string>NULL</string>
-            </property>
-            <property name="text">
-             <string>PlotWaveUi</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
              <string>IO</string>
             </property>
             <property name="text">
@@ -3065,7 +3045,27 @@
              <string/>
             </property>
             <property name="text">
-             <string>1</string>
+             <string>0</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Plot</string>
+            </property>
+            <property name="text">
+             <string>NULL</string>
+            </property>
+            <property name="text">
+             <string>PlotWaveUi</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="text">
+             <string>0</string>
             </property>
            </item>
           </item>
@@ -3265,7 +3265,7 @@
              <string>7</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
            <item>
@@ -3285,7 +3285,7 @@
              <string>8</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
           </item>
@@ -3310,26 +3310,6 @@
            </property>
            <item>
             <property name="text">
-             <string>Plot</string>
-            </property>
-            <property name="text">
-             <string>NULL</string>
-            </property>
-            <property name="text">
-             <string>PlotWaveUi</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
              <string>IO</string>
             </property>
             <property name="text">
@@ -3345,7 +3325,27 @@
              <string/>
             </property>
             <property name="text">
-             <string>1</string>
+             <string>0</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Plot</string>
+            </property>
+            <property name="text">
+             <string>NULL</string>
+            </property>
+            <property name="text">
+             <string>PlotWaveUi</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="text">
+             <string>0</string>
             </property>
            </item>
           </item>
@@ -3565,7 +3565,7 @@
              <string>7</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
            <item>
@@ -3585,7 +3585,7 @@
              <string>8</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
           </item>
@@ -3610,26 +3610,6 @@
            </property>
            <item>
             <property name="text">
-             <string>Plot</string>
-            </property>
-            <property name="text">
-             <string>NULL</string>
-            </property>
-            <property name="text">
-             <string>PlotWaveUi</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
              <string>IO</string>
             </property>
             <property name="text">
@@ -3645,7 +3625,27 @@
              <string/>
             </property>
             <property name="text">
-             <string>1</string>
+             <string>0</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Plot</string>
+            </property>
+            <property name="text">
+             <string>NULL</string>
+            </property>
+            <property name="text">
+             <string>PlotWaveUi</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="text">
+             <string>0</string>
             </property>
            </item>
           </item>
@@ -3845,7 +3845,7 @@
              <string>7</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
            <item>
@@ -3865,7 +3865,7 @@
              <string>8</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
           </item>
@@ -3890,26 +3890,6 @@
            </property>
            <item>
             <property name="text">
-             <string>Plot</string>
-            </property>
-            <property name="text">
-             <string>NULL</string>
-            </property>
-            <property name="text">
-             <string>PlotWaveUi</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
              <string>IO</string>
             </property>
             <property name="text">
@@ -3925,7 +3905,27 @@
              <string/>
             </property>
             <property name="text">
-             <string>1</string>
+             <string>0</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Plot</string>
+            </property>
+            <property name="text">
+             <string>NULL</string>
+            </property>
+            <property name="text">
+             <string>PlotWaveUi</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="text">
+             <string>0</string>
             </property>
            </item>
           </item>
@@ -4125,7 +4125,7 @@
              <string>7</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
            <item>
@@ -4145,7 +4145,7 @@
              <string>8</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
           </item>
@@ -4170,26 +4170,6 @@
            </property>
            <item>
             <property name="text">
-             <string>Plot</string>
-            </property>
-            <property name="text">
-             <string>NULL</string>
-            </property>
-            <property name="text">
-             <string>PlotWaveUi</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
              <string>IO</string>
             </property>
             <property name="text">
@@ -4205,7 +4185,27 @@
              <string/>
             </property>
             <property name="text">
-             <string>1</string>
+             <string>0</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Plot</string>
+            </property>
+            <property name="text">
+             <string>NULL</string>
+            </property>
+            <property name="text">
+             <string>PlotWaveUi</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="text">
+             <string>0</string>
             </property>
            </item>
           </item>
@@ -4445,7 +4445,7 @@
              <string>7</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
            <item>
@@ -4465,7 +4465,7 @@
              <string>8</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
           </item>
@@ -4490,26 +4490,6 @@
            </property>
            <item>
             <property name="text">
-             <string>Plot</string>
-            </property>
-            <property name="text">
-             <string>NULL</string>
-            </property>
-            <property name="text">
-             <string>PlotWaveUi</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
              <string>IO</string>
             </property>
             <property name="text">
@@ -4525,9 +4505,29 @@
              <string/>
             </property>
             <property name="text">
-             <string>1</string>
+             <string>0</string>
             </property>
            </item>
+          </item>
+          <item>
+           <property name="text">
+            <string>Plot</string>
+           </property>
+           <property name="text">
+            <string>NULL</string>
+           </property>
+           <property name="text">
+            <string>PlotWaveUi</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="text">
+            <string>0</string>
+           </property>
           </item>
          </item>
          <item>
@@ -4576,7 +4576,7 @@
              <string>NULL</string>
             </property>
             <property name="text">
-             <string>CfgMotor</string>
+             <string>UiMotor</string>
             </property>
             <property name="text">
              <string>PrmFuncMotor</string>
@@ -4596,7 +4596,7 @@
              <string>NULL</string>
             </property>
             <property name="text">
-             <string>CfgEncoder</string>
+             <string>UiEncoder</string>
             </property>
             <property name="text">
              <string>PrmFuncEncoder</string>
@@ -4616,7 +4616,7 @@
              <string>NULL</string>
             </property>
             <property name="text">
-             <string>CfgDriverPower</string>
+             <string>UiPower</string>
             </property>
             <property name="text">
              <string>PrmFuncPower</string>
@@ -4636,7 +4636,7 @@
              <string>NULL</string>
             </property>
             <property name="text">
-             <string>CfgCurrentLoop</string>
+             <string>UiCurrent</string>
             </property>
             <property name="text">
              <string>PrmFuncCurrentloop</string>
@@ -4656,7 +4656,7 @@
              <string>NULL</string>
             </property>
             <property name="text">
-             <string>CfgSpeedLoop</string>
+             <string>UiVelocity</string>
             </property>
             <property name="text">
              <string>PrmFuncSpeedloop</string>
@@ -4676,7 +4676,7 @@
              <string>NULL</string>
             </property>
             <property name="text">
-             <string>CfgPositionLoop</string>
+             <string>UiPosition</string>
             </property>
             <property name="text">
              <string>PrmFuncPositionloop</string>
@@ -4696,7 +4696,7 @@
              <string>NULL</string>
             </property>
             <property name="text">
-             <string>CfgBrake</string>
+             <string>UiBrake</string>
             </property>
             <property name="text">
              <string>PrmFuncBrake</string>
@@ -4716,7 +4716,7 @@
              <string>NULL</string>
             </property>
             <property name="text">
-             <string>DeviceStatus</string>
+             <string>UiStatus</string>
             </property>
             <property name="text">
              <string>PrmFuncDeviceStatus</string>
@@ -4736,7 +4736,7 @@
              <string>NULL</string>
             </property>
             <property name="text">
-             <string>AdvRAM</string>
+             <string>UiRAM</string>
             </property>
             <property name="text">
              <string>PrmRAMAxis</string>
@@ -4745,7 +4745,7 @@
              <string>8</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
            <item>
@@ -4756,7 +4756,7 @@
              <string>NULL</string>
             </property>
             <property name="text">
-             <string>AdvFLASH</string>
+             <string>UiFLASH</string>
             </property>
             <property name="text">
              <string>PrmFlashAxis</string>
@@ -4765,7 +4765,7 @@
              <string>9</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
           </item>
@@ -4790,33 +4790,13 @@
            </property>
            <item>
             <property name="text">
-             <string>Plot</string>
-            </property>
-            <property name="text">
-             <string>NULL</string>
-            </property>
-            <property name="text">
-             <string>PlotWaveUi</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
              <string>IO</string>
             </property>
             <property name="text">
              <string>NULL</string>
             </property>
             <property name="text">
-             <string>ModuleIO</string>
+             <string>UiIO</string>
             </property>
             <property name="text">
              <string/>
@@ -4825,9 +4805,29 @@
              <string/>
             </property>
             <property name="text">
-             <string>1</string>
+             <string>0</string>
             </property>
            </item>
+          </item>
+          <item>
+           <property name="text">
+            <string>Plot</string>
+           </property>
+           <property name="text">
+            <string>NULL</string>
+           </property>
+           <property name="text">
+            <string>UiPlot</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="text">
+            <string>0</string>
+           </property>
           </item>
          </item>
         </item>
@@ -5045,7 +5045,7 @@
              <string>7</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
            <item>
@@ -5065,7 +5065,7 @@
              <string>8</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
           </item>
@@ -5090,26 +5090,6 @@
            </property>
            <item>
             <property name="text">
-             <string>Plot</string>
-            </property>
-            <property name="text">
-             <string>NULL</string>
-            </property>
-            <property name="text">
-             <string>PlotWaveUi</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
              <string>IO</string>
             </property>
             <property name="text">
@@ -5125,9 +5105,29 @@
              <string/>
             </property>
             <property name="text">
-             <string>1</string>
+             <string>0</string>
             </property>
            </item>
+          </item>
+          <item>
+           <property name="text">
+            <string>Plot</string>
+           </property>
+           <property name="text">
+            <string>NULL</string>
+           </property>
+           <property name="text">
+            <string>PlotWaveUi</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="text">
+            <string>0</string>
+           </property>
           </item>
          </item>
          <item>
@@ -5325,7 +5325,7 @@
              <string>7</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
            <item>
@@ -5345,7 +5345,7 @@
              <string>8</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
           </item>
@@ -5370,26 +5370,6 @@
            </property>
            <item>
             <property name="text">
-             <string>Plot</string>
-            </property>
-            <property name="text">
-             <string>NULL</string>
-            </property>
-            <property name="text">
-             <string>PlotWaveUi</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
              <string>IO</string>
             </property>
             <property name="text">
@@ -5405,9 +5385,29 @@
              <string/>
             </property>
             <property name="text">
-             <string>1</string>
+             <string>0</string>
             </property>
            </item>
+          </item>
+          <item>
+           <property name="text">
+            <string>Plot</string>
+           </property>
+           <property name="text">
+            <string>NULL</string>
+           </property>
+           <property name="text">
+            <string>PlotWaveUi</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="text">
+            <string>0</string>
+           </property>
           </item>
          </item>
         </item>

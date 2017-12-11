@@ -30,3 +30,8 @@ UiPlot::~UiPlot()
 {
 
 }
+
+QStackedWidget *UiPlot::getUiStackedWidget(void)
+{
+  return ui->stackedWidget;
+}

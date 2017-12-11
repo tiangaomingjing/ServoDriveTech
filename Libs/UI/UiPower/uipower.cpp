@@ -28,3 +28,8 @@ UiPower::~UiPower()
 {
 
 }
+
+QStackedWidget *UiPower::getUiStackedWidget(void)
+{
+  return ui->stackedWidget;
+}

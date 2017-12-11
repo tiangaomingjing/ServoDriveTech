@@ -29,3 +29,8 @@ UiStatus::~UiStatus()
 {
 
 }
+
+QStackedWidget *UiStatus::getUiStackedWidget(void)
+{
+  return ui->stackedWidget;
+}

@@ -23,6 +23,17 @@ bool SdAssembly::init(const DeviceConfig *dConfig,GlobalConfig *gConfig)
   m_device->init(dConfig);
 
   m_uiControler=new SevUiControler(m_device,gConfig,this);
+  connect(m_uiControler,SIGNAL(initProgressInfo(int,QString)),this,SIGNAL(initProgressInfo(int,QString)));
+  m_uiControler->createUis();
 
   return true;
+}
+SevDevice *SdAssembly::sevDevice()
+{
+  return m_device;
+}
+
+IUiControler *SdAssembly::uiControler()
+{
+  return m_uiControler;
 }

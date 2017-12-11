@@ -17,6 +17,8 @@ class UIPOSITIONSHARED_EXPORT UiPosition:public IUiWidget
 public:
   explicit UiPosition(QWidget *parent = 0);
   ~UiPosition();
+
+    QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;
 private:
   Ui::UiPosition *ui;
 };

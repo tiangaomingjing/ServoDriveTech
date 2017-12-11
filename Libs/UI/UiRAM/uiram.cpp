@@ -29,3 +29,8 @@ UiRAM::~UiRAM()
 {
 
 }
+
+QStackedWidget *UiRAM::getUiStackedWidget(void)
+{
+  return ui->stackedWidget;
+}

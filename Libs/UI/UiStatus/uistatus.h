@@ -18,6 +18,8 @@ class UISTATUSSHARED_EXPORT UiStatus:public IUiWidget
 public:
   explicit UiStatus(QWidget *parent = 0);
   ~UiStatus();
+
+  QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;
 private:
   Ui::UiStatus *ui;
 };

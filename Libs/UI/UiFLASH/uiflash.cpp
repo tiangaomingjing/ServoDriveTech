@@ -28,3 +28,8 @@ UiFLASH::~UiFLASH()
 {
 
 }
+
+QStackedWidget *UiFLASH::getUiStackedWidget(void)
+{
+  return ui->stackedWidget;
+}

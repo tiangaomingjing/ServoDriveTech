@@ -17,6 +17,8 @@ class UIBRAKESHARED_EXPORT UiBrake:public IUiWidget
 public:
   explicit UiBrake(QWidget *parent = 0);
   ~UiBrake();
+
+  QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;
 private:
   Ui::UiBrake *ui;
 };

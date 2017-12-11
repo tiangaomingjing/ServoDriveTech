@@ -17,6 +17,9 @@ class UIPOWERSHARED_EXPORT UiPower:public IUiWidget
 public:
   explicit UiPower(QWidget *parent = 0);
   ~UiPower();
+
+  QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;
+
 private:
   Ui::UiPower *ui;
 };

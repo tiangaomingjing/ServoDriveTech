@@ -17,6 +17,8 @@ class UIRAMSHARED_EXPORT UiRAM:public IUiWidget
 public:
   explicit UiRAM(QWidget *parent = 0);
   ~UiRAM();
+
+  QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;
 private:
   Ui::UiRAM *ui;
 };

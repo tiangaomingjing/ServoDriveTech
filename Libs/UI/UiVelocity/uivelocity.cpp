@@ -30,3 +30,8 @@ UiVelocity::~UiVelocity()
 {
 
 }
+
+QStackedWidget *UiVelocity::getUiStackedWidget(void)
+{
+  return ui->stackedWidget;
+}

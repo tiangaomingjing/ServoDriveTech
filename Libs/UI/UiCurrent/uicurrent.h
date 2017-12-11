@@ -17,6 +17,8 @@ class UICURRENTSHARED_EXPORT UiCurrent:public IUiWidget
 public:
   explicit UiCurrent(QWidget *parent = 0);
   ~UiCurrent();
+
+  QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;
 private:
   Ui::UiCurrent *ui;
 };

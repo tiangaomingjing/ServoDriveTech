@@ -17,6 +17,9 @@ class UIVELOCITYSHARED_EXPORT UiVelocity:public IUiWidget
 public:
   explicit UiVelocity(QWidget *parent = 0);
   ~UiVelocity();
+
+  QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;
+
 private:
   Ui::UiVelocity *ui;
 };

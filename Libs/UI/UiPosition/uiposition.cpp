@@ -29,3 +29,8 @@ UiPosition::~UiPosition()
 {
 
 }
+
+QStackedWidget *UiPosition::getUiStackedWidget(void)
+{
+  return ui->stackedWidget;
+}

@@ -17,6 +17,8 @@ class UIMOTORSHARED_EXPORT UiMotor:public IUiWidget
 public:
   explicit UiMotor(QWidget *parent = 0);
   ~UiMotor();
+
+  QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;
 private:
   Ui::UiMotor *ui;
 };

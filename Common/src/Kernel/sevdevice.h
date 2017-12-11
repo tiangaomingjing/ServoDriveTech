@@ -13,6 +13,7 @@ class ICtrBoard;
 class IPwrBoard;
 class IDspMap;
 class SevDevicePrivate;
+class QTreeWidgetItem;
 
 class SevDevice : public QObject
 {
@@ -31,6 +32,8 @@ public:
   quint32 ctrId() const;
   quint32 fpgaId() const ;
   quint8 axisNum() const;
+  QTreeWidgetItem* targetTree() const;
+
 
 signals:
   void initProgressInfo(int value,QString msg);

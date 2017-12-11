@@ -17,6 +17,9 @@ public:
 
   bool init(const DeviceConfig *dConfig,GlobalConfig *gConfig);
 
+  SevDevice *sevDevice();
+  IUiControler *uiControler();
+
 signals:
   void initProgressInfo(int value,QString msg);
 public slots:

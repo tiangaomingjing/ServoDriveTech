@@ -29,3 +29,8 @@ UiIO::~UiIO()
 {
 
 }
+
+QStackedWidget *UiIO::getUiStackedWidget(void)
+{
+  return ui->stackedWidget;
+}

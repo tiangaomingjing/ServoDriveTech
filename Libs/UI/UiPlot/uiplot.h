@@ -16,6 +16,9 @@ class UIPLOTSHARED_EXPORT UiPlot:public IUiWidget
 public:
   explicit UiPlot(QWidget *parent = 0);
   ~UiPlot();
+
+    QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;
+
 private:
   Ui::UiPlot *ui;
 };

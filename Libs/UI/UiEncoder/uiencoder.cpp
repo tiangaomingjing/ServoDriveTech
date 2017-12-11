@@ -29,3 +29,8 @@ UiEncoder::~UiEncoder()
 {
 
 }
+
+QStackedWidget *UiEncoder::getUiStackedWidget(void)
+{
+  return ui->stackedWidget;
+}

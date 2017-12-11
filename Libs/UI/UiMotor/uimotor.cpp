@@ -29,3 +29,8 @@ UiMotor::~UiMotor()
 {
 
 }
+
+QStackedWidget *UiMotor::getUiStackedWidget(void)
+{
+  return ui->stackedWidget;
+}

@@ -31,7 +31,7 @@ AxisTreeMap::AxisTreeMap(quint8 axis, const QTreeWidgetItem *targetTree, const Q
 
     file=filePath+item->text(SYSCONFIG_COL_XMLNAME);
 
-    if((item->text(SYSCONFIG_COL_NAME)=="RAM")||(item->text(SYSCONFIG_COL_NAME)=="FLASH"))
+    if((item->text(SYSCONFIG_COL_FILESRCTYPE)=="1")||(item->text(SYSCONFIG_COL_FILESRCTYPE)=="1"))
     {
       file+=QString::number(m_axis%2);
       qDebug()<<file;

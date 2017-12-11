@@ -1,0 +1,12 @@
+#ifndef PLOTUNIT_GLOBAL_H
+#define PLOTUNIT_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(PLOTUNIT_LIBRARY)
+#  define PLOTUNITSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define PLOTUNITSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // PLOTUNIT_GLOBAL_H

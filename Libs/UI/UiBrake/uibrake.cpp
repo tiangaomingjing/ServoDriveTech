@@ -29,3 +29,7 @@ UiBrake::~UiBrake()
 {
 
 }
+QStackedWidget *UiBrake::getUiStackedWidget(void)
+{
+  return ui->stackedWidget;
+}

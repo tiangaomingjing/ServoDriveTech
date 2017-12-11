@@ -43,11 +43,13 @@ bool SevDspMap::initTreeMap()
     m_treeMapList.append(treeMap);
   }
 
+  /*
   qDebug()<<"build ram tree";
   file=q_ptr->m_filePath+RAM_ALL_PRM_NAME;
   m_ramTree=QtTreeManager::createTreeWidgetFromXmlFile(file);
   Q_ASSERT(m_ramTree!=NULL);
 
   file=q_ptr->m_filePath+FLASH_ALL_PRM_NAME;
+  */
   return true;
 }

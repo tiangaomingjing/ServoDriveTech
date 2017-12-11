@@ -28,3 +28,8 @@ UiCurrent::~UiCurrent()
 {
 
 }
+
+QStackedWidget *UiCurrent::getUiStackedWidget(void)
+{
+  return ui->stackedWidget;
+}

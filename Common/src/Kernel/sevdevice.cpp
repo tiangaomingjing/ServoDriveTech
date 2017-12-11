@@ -193,3 +193,8 @@ quint8 SevDevice::axisNum() const
   Q_D(const SevDevice);
   return d->m_axisNum;
 }
+QTreeWidgetItem *SevDevice::targetTree() const
+{
+  Q_D(const SevDevice);
+  return d->m_targetTree;
+}

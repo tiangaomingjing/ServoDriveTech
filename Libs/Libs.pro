@@ -4,5 +4,6 @@ CONFIG   += ordered
 SUBDIRS += \
     Com \
     GTUtils \
-    UI
+    UI \
+    PlotUnit
 

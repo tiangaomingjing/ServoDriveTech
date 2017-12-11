@@ -17,6 +17,8 @@ class UIIOSHARED_EXPORT UiIO:public IUiWidget
 public:
   explicit UiIO(QWidget *parent = 0);
   ~UiIO();
+
+  QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;
 private:
   Ui::UiIO *ui;
 };

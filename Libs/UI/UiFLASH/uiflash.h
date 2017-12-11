@@ -17,6 +17,8 @@ class UIFLASHSHARED_EXPORT UiFLASH:public IUiWidget
 public:
   explicit UiFLASH(QWidget *parent = 0);
   ~UiFLASH();
+
+  QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;
 private:
   Ui::UiFLASH *ui;
 };

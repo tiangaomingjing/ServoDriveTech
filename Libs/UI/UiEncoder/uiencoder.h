@@ -16,6 +16,9 @@ class UIENCODERSHARED_EXPORT UiEncoder:public IUiWidget
 public:
   explicit UiEncoder(QWidget *parent = 0);
   ~UiEncoder();
+
+  QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;
+
 private:
   Ui::UiEncoder *ui;
 };

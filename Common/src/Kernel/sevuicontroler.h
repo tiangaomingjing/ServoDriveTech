@@ -10,6 +10,7 @@ class SevUiControler : public IUiControler
 public:
   explicit SevUiControler(SevDevice *sev,GlobalConfig *gconfig,QObject *parent=0);
   ~SevUiControler();
+  void createUis()Q_DECL_OVERRIDE;
 signals:
 
 public slots:
