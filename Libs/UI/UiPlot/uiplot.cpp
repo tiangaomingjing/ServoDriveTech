@@ -35,3 +35,11 @@ QStackedWidget *UiPlot::getUiStackedWidget(void)
 {
   return ui->stackedWidget;
 }
+QVBoxLayout *UiPlot::getVBoxLayout(void)
+{
+  return ui->verticalLayout_tree;
+}
+void UiPlot::setDefaultUi()
+{
+  setCurrentUiIndex(1);
+}

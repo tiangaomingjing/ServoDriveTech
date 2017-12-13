@@ -47,7 +47,8 @@ SOURCES += main.cpp \
     Kernel/sevpwrboard.cpp \
     Kernel/PowerTreeManage/powertreemanage.cpp \
     Kernel/sevctrboard.cpp \
-    UiFactory/uifactory.cpp
+    UiFactory/uifactory.cpp \
+    Kernel/globaluicontroler.cpp
 
 
 HEADERS += \
@@ -73,7 +74,8 @@ HEADERS += \
     Kernel/PowerTreeManage/powertreemanage.h \
     Kernel/sevctrboard.h \
     UiFactory/uifactory.h \
-    UiFactory/registerfunction.h
+    UiFactory/registerfunction.h \
+    Kernel/globaluicontroler.h
 
 
 

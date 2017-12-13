@@ -56,6 +56,11 @@
                             <string>framAddr</string>
                         </property>
                     </column>
+                    <column>
+                        <property name="text">
+                            <string>scale</string>
+                        </property>
+                    </column>
                     <item>
                         <property name="text">
                             <string>gSevDrv.sev_obj.cur.pwr.prm.dyn_brak_wait_tim</string>
@@ -79,7 +84,10 @@
                             <string>动态制动器等待时间</string>
                         </property>
                         <property name="text">
-                            <string>606</string>
+                            <string>33374</string>
+                        </property>
+                        <property name="text">
+                            <string>1</string>
                         </property>
                     </item>
                     <item>
@@ -105,7 +113,10 @@
                             <string>动态制动器保持时间 </string>
                         </property>
                         <property name="text">
-                            <string>607</string>
+                            <string>33375</string>
+                        </property>
+                        <property name="text">
+                            <string>1</string>
                         </property>
                     </item>
                     <item>
@@ -131,7 +142,10 @@
                             <string>外部制动器延迟时间</string>
                         </property>
                         <property name="text">
-                            <string>608</string>
+                            <string>33376</string>
+                        </property>
+                        <property name="text">
+                            <string>1</string>
                         </property>
                     </item>
                     <item>
@@ -157,7 +171,10 @@
                             <string>外部制动器等待时间</string>
                         </property>
                         <property name="text">
-                            <string>609</string>
+                            <string>33377</string>
+                        </property>
+                        <property name="text">
+                            <string>1</string>
                         </property>
                     </item>
                     <item>
@@ -183,7 +200,10 @@
                             <string>外部制动器保持时间</string>
                         </property>
                         <property name="text">
-                            <string>610</string>
+                            <string>33378</string>
+                        </property>
+                        <property name="text">
+                            <string>1</string>
                         </property>
                     </item>
                     <item>
@@ -209,7 +229,10 @@
                             <string>动态制动器滞后时间</string>
                         </property>
                         <property name="text">
-                            <string>611</string>
+                            <string>33379</string>
+                        </property>
+                        <property name="text">
+                            <string>1</string>
                         </property>
                     </item>
                     <item>
@@ -235,7 +258,10 @@
                             <string>外部制动器滞后时间</string>
                         </property>
                         <property name="text">
-                            <string>612</string>
+                            <string>33380</string>
+                        </property>
+                        <property name="text">
+                            <string>1</string>
                         </property>
                     </item>
                     <item>
@@ -261,7 +287,10 @@
                             <string>紧急停止减速时间</string>
                         </property>
                         <property name="text">
-                            <string>5100</string>
+                            <string>37868</string>
+                        </property>
+                        <property name="text">
+                            <string>1</string>
                         </property>
                     </item>
                 </widget>

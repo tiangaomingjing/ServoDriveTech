@@ -14,6 +14,8 @@ public:
   explicit IDspMap(SevDevicePrivate *sev,QObject *parent=0);
   virtual ~IDspMap();
   virtual bool initTreeMap()=0;
+  QTreeWidget *axisTreeWidget(int axis,int page) const ;
+  QTreeWidget *globalTreeWidget(int page) const ;
 
 signals:
 
@@ -21,7 +23,8 @@ public slots:
 
 protected:
   SevDevicePrivate *q_ptr;
-  QList<AxisTreeMap*>m_treeMapList;
+  QList<AxisTreeMap*>m_axisTreeMapList;//每一个轴axis page tree
+  QList<QTreeWidget *>m_globalTreeList;//整个设置公共的 page tree
   QTreeWidget *m_ramTree;
   QTreeWidget *m_flashTree;
 

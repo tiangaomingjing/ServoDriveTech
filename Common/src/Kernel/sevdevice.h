@@ -14,6 +14,7 @@ class IPwrBoard;
 class IDspMap;
 class SevDevicePrivate;
 class QTreeWidgetItem;
+class QTreeWidget;
 
 class SevDevice : public QObject
 {
@@ -33,11 +34,13 @@ public:
   quint32 fpgaId() const ;
   quint8 axisNum() const;
   QTreeWidgetItem* targetTree() const;
-
+  QTreeWidget *axisTreeSource(int axis,int page) const;
+  QTreeWidget *globalTreeSource(int page) const;
 
 signals:
   void initProgressInfo(int value,QString msg);
 public slots:
+  void onReadPageFlash(int axis,QTreeWidget *tree);
 private:
   SevDevicePrivate *d_ptr;
 };

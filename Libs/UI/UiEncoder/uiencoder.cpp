@@ -34,3 +34,12 @@ QStackedWidget *UiEncoder::getUiStackedWidget(void)
 {
   return ui->stackedWidget;
 }
+
+QVBoxLayout *UiEncoder::getVBoxLayout(void)
+{
+  return ui->verticalLayout_tree;
+}
+void UiEncoder::setDefaultUi()
+{
+  setCurrentUiIndex(1);
+}

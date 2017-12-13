@@ -35,3 +35,12 @@ QStackedWidget *UiVelocity::getUiStackedWidget(void)
 {
   return ui->stackedWidget;
 }
+
+QVBoxLayout *UiVelocity::getVBoxLayout(void)
+{
+  return ui->verticalLayout_tree;
+}
+void UiVelocity::setDefaultUi()
+{
+  setCurrentUiIndex(1);
+}

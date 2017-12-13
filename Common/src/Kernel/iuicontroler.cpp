@@ -3,8 +3,7 @@
 
 #include <QDebug>
 
-IUiControler::IUiControler(SevDevice *sev, GlobalConfig *gconfig, QObject *parent):QObject(parent)\
-,m_sev(sev),m_gConfig(gconfig)
+IUiControler::IUiControler(GlobalConfig *gconfig, QObject *parent):QObject(parent),m_gConfig(gconfig)
 {
 
 }

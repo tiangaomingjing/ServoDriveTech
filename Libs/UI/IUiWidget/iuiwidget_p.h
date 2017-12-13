@@ -3,6 +3,9 @@
 #include <QObject>
 class IUiWidget;
 class QStackedWidget;
+class QVBoxLayout;
+class QTreeWidget;
+class SevDevice;
 class IUiWidgetPrivate
 {
   Q_DECLARE_PUBLIC(IUiWidget)
@@ -10,10 +13,12 @@ public:
   IUiWidgetPrivate(){}
   virtual ~IUiWidgetPrivate(){}
 protected:
-  quint8 axisInx;
+  int axisInx;
   quint8 pageInx;
-  quint8 sdInx;
   QStackedWidget *m_uiStackedWidget;
+  QVBoxLayout *m_vboxLayout;
+  QTreeWidget *m_dataTree;
+  SevDevice *m_device;
   IUiWidget *q_ptr;
 };
 

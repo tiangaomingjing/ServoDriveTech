@@ -18,7 +18,9 @@ public:
   explicit UiRAM(QWidget *parent = 0);
   ~UiRAM();
 
-  QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;
+  QStackedWidget *getUiStackedWidget(void) Q_DECL_OVERRIDE;
+  QVBoxLayout *getVBoxLayout(void)Q_DECL_OVERRIDE;
+  void setDefaultUi()Q_DECL_OVERRIDE;
 private:
   Ui::UiRAM *ui;
 };

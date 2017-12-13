@@ -15,15 +15,6 @@ class SevDevicePrivate:public QObject
   Q_OBJECT
   Q_DECLARE_PUBLIC(SevDevice)
 public :
-  enum{
-    SYSCONFIG_COL_NAME,
-    SYSCONFIG_COL_PRM,
-    SYSCONFIG_COL_CLASSNAME,
-    SYSCONFIG_COL_XMLNAME,
-    SYSCONFIG_COL_INDEX,
-    SYSCONFIG_COL_ISGLOBAL
-  }SysConfigColumnInx;
-
   SevDevicePrivate(SevDevice *sev, QObject *parent=0);
   ~SevDevicePrivate();
   void init(const DeviceConfig *dConfig);

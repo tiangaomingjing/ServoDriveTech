@@ -56,6 +56,11 @@
                             <string>framAddr</string>
                         </property>
                     </column>
+                    <column>
+                        <property name="text">
+                            <string>scale</string>
+                        </property>
+                    </column>
                     <item>
                         <property name="text">
                             <string>gSevDrv.sev_obj.cur.ctl.prm.Tid_4</string>
@@ -79,7 +84,10 @@
                             <string>NULL</string>
                         </property>
                         <property name="text">
-                            <string>800</string>
+                            <string>33568</string>
+                        </property>
+                        <property name="text">
+                            <string>1</string>
                         </property>
                     </item>
                     <item>
@@ -105,7 +113,10 @@
                             <string>NULL</string>
                         </property>
                         <property name="text">
-                            <string>802</string>
+                            <string>33570</string>
+                        </property>
+                        <property name="text">
+                            <string>1</string>
                         </property>
                     </item>
                     <item>
@@ -131,7 +142,10 @@
                             <string>NULL</string>
                         </property>
                         <property name="text">
-                            <string>804</string>
+                            <string>33572</string>
+                        </property>
+                        <property name="text">
+                            <string>1</string>
                         </property>
                     </item>
                     <item>
@@ -157,7 +171,10 @@
                             <string>NULL</string>
                         </property>
                         <property name="text">
-                            <string>805</string>
+                            <string>33573</string>
+                        </property>
+                        <property name="text">
+                            <string>1</string>
                         </property>
                     </item>
                 </widget>

@@ -12,6 +12,7 @@
 #include <QTreeWidget>
 #include <QStringList>
 #include <QDebug>
+#include <QTreeWidgetItemIterator>
 
 
 SevDevicePrivate::SevDevicePrivate(SevDevice *sev, QObject *parent):QObject(parent),q_ptr(sev),m_configTree(NULL)
@@ -81,7 +82,7 @@ QTreeWidgetItem* SevDevicePrivate::findTargetTree()
   {
     itemType=item->child(i);
 //    qDebug()<<itemType->text(SYSCONFIG_COL_NAME)<<i;
-    if(itemType->text(SYSCONFIG_COL_NAME)==m_typeName)
+    if(itemType->text(GT::COL_TARGET_CONFIG_NAME)==m_typeName)
       break;
   }
   Q_ASSERT(itemType!=NULL);
@@ -89,14 +90,14 @@ QTreeWidgetItem* SevDevicePrivate::findTargetTree()
   {
     itemModel=itemType->child(i);
 //    qDebug()<<itemModel->text(SYSCONFIG_COL_NAME)<<m_modeName;
-    if(itemModel->text(SYSCONFIG_COL_NAME)==m_modeName)
+    if(itemModel->text(GT::COL_TARGET_CONFIG_NAME)==m_modeName)
       break;
   }
   Q_ASSERT(itemModel!=NULL);
   for(int i=0;i<itemModel->childCount();i++)
   {
     itemVer=itemModel->child(i);
-    if(itemVer->text(SYSCONFIG_COL_NAME)==m_version)
+    if(itemVer->text(GT::COL_TARGET_CONFIG_NAME)==m_version)
       break;
   }
   Q_ASSERT(itemVer!=NULL);
@@ -122,12 +123,13 @@ void SevDevicePrivate::init(const DeviceConfig *dConfig)
   findTargetTree();
 
   qDebug()<<"new SevDspMap";
-  m_dspMap=new SevDspMap(this);
+  m_dspMap=new SevDspMap(this,0);
   connect(m_dspMap,SIGNAL(initProgressInfo(int,QString)),this,SIGNAL(initProgressInfo(int,QString)));
   m_dspMap->initTreeMap();
 
-  m_pwrBoard=new SevPwrBoard(this);
-  m_ctrBoard=new SevCtrBoard(this);
+  qDebug()<<"new SevPwrBoard";
+  m_pwrBoard=new SevPwrBoard(this,0);
+  m_ctrBoard=new SevCtrBoard(this,0);
 
 }
 
@@ -197,4 +199,83 @@ QTreeWidgetItem *SevDevice::targetTree() const
 {
   Q_D(const SevDevice);
   return d->m_targetTree;
+}
+
+QTreeWidget *SevDevice::axisTreeSource(int axis,int page) const
+{
+  Q_D(const SevDevice);
+  return d->m_dspMap->axisTreeWidget(axis,page);
+}
+QTreeWidget *SevDevice::globalTreeSource(int page) const
+{
+  Q_D(const SevDevice);
+  return d->m_dspMap->globalTreeWidget(page);
+}
+
+void SevDevice::onReadPageFlash(int axis,QTreeWidget *tree)
+{
+  Q_D(SevDevice);
+//  if(d->m_socket->isConnected()==false)
+//    return;
+
+  QTreeWidgetItemIterator it(tree);
+  QTreeWidgetItem *item;
+
+  while (*it)
+  {
+    item=(*it);
+    qDebug()<<axis<<item->text(0);
+
+
+    d->m_socket->readPageFlash(axis,item);
+    {
+      QString type;
+      quint16 addr;
+      type=item->text(2);
+      addr=item->text(7).toUShort();
+      if(type=="Uint16")
+      {
+        quint16 value;
+        d->m_socket->readFLASH16(aixs,addr,0,value);
+        item->setText(1,QString::number(value));
+      }
+      else if(type=="int16")
+      {
+        qint16 value;
+        d->m_socket->readFLASH16(aixs,addr,0,value);
+        item->setText(1,QString::number(value));
+      }
+      else if(type=="Uint32")
+      {
+        quint32 value;
+        d->m_socket->readFLASH32(aixs,addr,0,value);
+        item->setText(1,QString::number(value));
+      }
+      else if(type=="int32")
+      {
+        qint32 value;
+        d->m_socket->readFLASH32(aixs,addr,0,value);
+        item->setText(1,QString::number(value));
+      }
+      else if(type=="Uint64")
+      {
+        quint64 value;
+        d->m_socket->readFLASH64(aixs,addr,0,value);
+        item->setText(1,QString::number(value));
+      }
+      else if(type=="int64")
+      {
+        qint64 value;
+        d->m_socket->readFLASH64(aixs,addr,0,value);
+        item->setText(1,QString::number(value));
+      }
+      else
+      {
+        quint16 value;
+        d->m_socket->m_com->readFLASH16(aixs,addr,0,value);
+        item->setText(1,QString::number(value));
+      }
+    }
+    it++;
+  }
 }

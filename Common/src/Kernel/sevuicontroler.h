@@ -14,6 +14,8 @@ public:
 signals:
 
 public slots:
+private:
+  SevDevice *m_sev;
 };
 
 #endif // SEVUICONTROLER_H

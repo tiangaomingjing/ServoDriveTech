@@ -12,10 +12,7 @@ AxisTreeMap::AxisTreeMap(quint8 axis, const QTreeWidgetItem *targetTree, const Q
   m_axis(axis)
 {
   QTreeWidgetItem *axisItem;
-  axisItem=targetTree->child(0);
-
-  QTreeWidgetItem *globalItem;
-  globalItem=targetTree->child(1);
+  axisItem=targetTree->child(GT::ROW_TARGET_CONFIG_AXIS);
 
   QTreeWidget *tree;
   QTreeWidgetItem *item=NULL;
@@ -29,12 +26,16 @@ AxisTreeMap::AxisTreeMap(quint8 axis, const QTreeWidgetItem *targetTree, const Q
     item=axisItem->child(i);
     Q_ASSERT(item!=NULL);
 
-    file=filePath+item->text(SYSCONFIG_COL_XMLNAME);
+    file=filePath;
 
-    if((item->text(SYSCONFIG_COL_FILESRCTYPE)=="1")||(item->text(SYSCONFIG_COL_FILESRCTYPE)=="1"))
+    if((item->text(GT::COL_TARGET_CONFIG_FILESRCTYPE)=="1"))
     {
-      file+=QString::number(m_axis%2);
-      qDebug()<<file;
+      file+="page/"+item->text(GT::COL_TARGET_CONFIG_XML)+QString::number(m_axis%2);
+//      qDebug()<<file;
+    }
+    else
+    {
+      file+=item->text(GT::COL_TARGET_CONFIG_XML);
     }
     file+=".xml";
 
@@ -43,10 +44,6 @@ AxisTreeMap::AxisTreeMap(quint8 axis, const QTreeWidgetItem *targetTree, const Q
 
     m_axisTreeList.append(tree);
   }
-
-
-  //找到global节点下所有的项
-//  QList<QTreeWidget *>m_globalTreeList;
 }
 
 AxisTreeMap::~AxisTreeMap()

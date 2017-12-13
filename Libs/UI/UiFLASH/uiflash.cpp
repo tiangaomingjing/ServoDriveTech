@@ -33,3 +33,12 @@ QStackedWidget *UiFLASH::getUiStackedWidget(void)
 {
   return ui->stackedWidget;
 }
+QVBoxLayout *UiFLASH::getVBoxLayout(void)
+{
+  return ui->verticalLayout_tree;
+}
+void UiFLASH::setDefaultUi()
+{
+  setCurrentUiIndex(1);
+}
+

@@ -20,6 +20,8 @@ public:
   ~UiStatus();
 
   QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;
+  QVBoxLayout *getVBoxLayout(void)Q_DECL_OVERRIDE;
+  void setDefaultUi()Q_DECL_OVERRIDE;
 private:
   Ui::UiStatus *ui;
 };

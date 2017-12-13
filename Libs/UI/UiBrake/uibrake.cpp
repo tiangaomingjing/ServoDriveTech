@@ -33,3 +33,11 @@ QStackedWidget *UiBrake::getUiStackedWidget(void)
 {
   return ui->stackedWidget;
 }
+QVBoxLayout *UiBrake::getVBoxLayout(void)
+{
+  return ui->verticalLayout_tree;
+}
+void UiBrake::setDefaultUi()
+{
+  setCurrentUiIndex(1);
+}

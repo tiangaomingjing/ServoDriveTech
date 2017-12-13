@@ -16,9 +16,26 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QStackedWidget" name="stackedWidget">
-     <widget class="QWidget" name="page_ui"/>
+     <widget class="QWidget" name="page_ui">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>first</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
      <widget class="QWidget" name="page_tree">
       <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>second</string>
+         </property>
+        </widget>
+       </item>
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_tree"/>
        </item>

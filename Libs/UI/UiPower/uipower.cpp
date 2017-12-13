@@ -33,3 +33,12 @@ QStackedWidget *UiPower::getUiStackedWidget(void)
 {
   return ui->stackedWidget;
 }
+
+QVBoxLayout *UiPower::getVBoxLayout(void)
+{
+  return ui->verticalLayout_tree;
+}
+void UiPower::setDefaultUi()
+{
+  setCurrentUiIndex(1);
+}

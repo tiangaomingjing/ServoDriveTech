@@ -38,7 +38,8 @@ SOURCES += main.cpp\
     ../../Common/src/Kernel/sevpwrboard.cpp \
     ../../Common/src/Kernel/sevuicontroler.cpp \
     ../../Common/src/Kernel/PowerTreeManage/powertreemanage.cpp \
-    ../../Common/src/UiFactory/uifactory.cpp
+    ../../Common/src/UiFactory/uifactory.cpp \
+    ../../Common/src/Kernel/globaluicontroler.cpp
 
 HEADERS  += uimainwindow.h \
     ../../Common/src/sdtglobaldef.h \
@@ -63,6 +64,7 @@ HEADERS  += uimainwindow.h \
     ../../Common/src/Kernel/sevuicontroler.h \
     ../../Common/src/Kernel/PowerTreeManage/powertreemanage.h \
     ../../Common/src/UiFactory/uifactory.h \
-    ../../Common/src/UiFactory/registerfunction.h
+    ../../Common/src/UiFactory/registerfunction.h \
+    ../../Common/src/Kernel/globaluicontroler.h
 
 FORMS    += uimainwindow.ui

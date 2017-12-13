@@ -34,3 +34,11 @@ QStackedWidget *UiStatus::getUiStackedWidget(void)
 {
   return ui->stackedWidget;
 }
+QVBoxLayout *UiStatus::getVBoxLayout(void)
+{
+  return ui->verticalLayout_tree;
+}
+void UiStatus::setDefaultUi()
+{
+  setCurrentUiIndex(1);
+}

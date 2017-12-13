@@ -56,6 +56,11 @@
                             <string>framAddr</string>
                         </property>
                     </column>
+                    <column>
+                        <property name="text">
+                            <string>scale</string>
+                        </property>
+                    </column>
                     <item>
                         <property name="text">
                             <string>gSevDrv.sev_obj.pos.ctl.prm.fn_fst_6</string>
@@ -79,7 +84,10 @@
                             <string>NULL</string>
                         </property>
                         <property name="text">
-                            <string>13389</string>
+                            <string>46157</string>
+                        </property>
+                        <property name="text">
+                            <string>10</string>
                         </property>
                     </item>
                     <item>
@@ -105,7 +113,10 @@
                             <string>NULL</string>
                         </property>
                         <property name="text">
-                            <string>13392</string>
+                            <string>46160</string>
+                        </property>
+                        <property name="text">
+                            <string>40.96</string>
                         </property>
                     </item>
                     <item>
@@ -131,7 +142,10 @@
                             <string>NULL</string>
                         </property>
                         <property name="text">
-                            <string>13393</string>
+                            <string>46161</string>
+                        </property>
+                        <property name="text">
+                            <string>40.96</string>
                         </property>
                     </item>
                     <item>
@@ -157,7 +171,10 @@
                             <string>NULL</string>
                         </property>
                         <property name="text">
-                            <string>13394</string>
+                            <string>46162</string>
+                        </property>
+                        <property name="text">
+                            <string>40.96</string>
                         </property>
                     </item>
                     <item>
@@ -183,7 +200,10 @@
                             <string>NULL</string>
                         </property>
                         <property name="text">
-                            <string>13489</string>
+                            <string>46257</string>
+                        </property>
+                        <property name="text">
+                            <string>40.96</string>
                         </property>
                     </item>
                     <item>
@@ -209,7 +229,10 @@
                             <string>NULL</string>
                         </property>
                         <property name="text">
-                            <string>13490</string>
+                            <string>46258</string>
+                        </property>
+                        <property name="text">
+                            <string>40.96</string>
                         </property>
                     </item>
                 </widget>

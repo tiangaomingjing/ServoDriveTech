@@ -72,8 +72,14 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionChangeAddr"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionChangeAddr">
+   <property name="text">
+    <string>changeAddr</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

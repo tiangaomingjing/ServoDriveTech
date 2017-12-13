@@ -34,3 +34,11 @@ QStackedWidget *UiMotor::getUiStackedWidget(void)
 {
   return ui->stackedWidget;
 }
+QVBoxLayout *UiMotor::getVBoxLayout(void)
+{
+  return ui->verticalLayout_tree;
+}
+void UiMotor::setDefaultUi()
+{
+  setCurrentUiIndex(1);
+}

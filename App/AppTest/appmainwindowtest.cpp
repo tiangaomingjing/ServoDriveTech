@@ -2,6 +2,8 @@
 #include "ui_appmainwindowtest.h"
 #include <QDebug>
 #include <QTreeWidget>
+#include <QFileInfo>
+#include <QFileDialog>
 
 #include "icom.h"
 #include "qttreemanager.h"
@@ -17,10 +19,13 @@
 #include "Kernel/sdassembly.h"
 #include "Kernel/devcomrwriter.h"
 
+#include "changframaddr.h"
+
 AppMainWindowTest::AppMainWindowTest(QWidget *parent) :
   QMainWindow(parent),
   ui(new Ui::AppMainWindowTest),
-  stop(false)
+  stop(false),
+  m_filePath(".")
 {
   ui->setupUi(this);
   initial();
@@ -41,7 +46,7 @@ void AppMainWindowTest::initial()
   //1 根据最近配置文件，生成device ，如果初次打开使用默认设备
   //2 根据device ,生成界面
   //3 加载首选项配置信息
-  mainFormInitTestCase();
+//  mainFormInitTestCase();
 }
 
 void AppMainWindowTest::mainFormInitTestCase()
@@ -63,7 +68,6 @@ void AppMainWindowTest::mainFormInitTestCase()
     sdriver->init(devConfigList.at(i),&gConfig);
     qDebug()<<"new SdAssembly";
     sdAssemblyList.append(sdriver);
-
   }
 
   delete idevRWriter;
@@ -164,4 +168,21 @@ void AppMainWindowTest::onProgressInfo(int v,QString msg)
 {
   ui->progressBar->setValue(v);
   ui->label->setText(msg);
+  qDebug()<<msg;
+}
+
+void AppMainWindowTest::on_actionChangeAddr_triggered()
+{
+  QString filename;
+  filename = QFileDialog::getOpenFileName(this, tr("Open XML File"), m_filePath, tr("XML Files(*.xml)"));
+  if (filename.isNull())
+  {
+    //QMessageBox::information(NULL, tr("Path"), tr("You didn't select any files."));
+    return;
+  }
+  QFileInfo fileInfo;
+  fileInfo.setFile(filename);
+  m_filePath=fileInfo.filePath()+"/";
+  ChangFramAddr::changeTreeAddr(filename,32768);
+  qDebug()<<"save file";
 }

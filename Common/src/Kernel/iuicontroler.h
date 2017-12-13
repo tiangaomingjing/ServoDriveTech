@@ -10,7 +10,7 @@ class IUiControler : public QObject
 {
   Q_OBJECT
 public:
-  explicit IUiControler(SevDevice *sev,GlobalConfig *gconfig,QObject *parent=0);
+  explicit IUiControler(GlobalConfig *gconfig,QObject *parent=0);
   virtual ~IUiControler();
   virtual void createUis()=0;
   quint16 uiCount();
@@ -20,7 +20,6 @@ signals:
   void initProgressInfo(int value,QString msg);
 public slots:
 protected:
-  SevDevice *m_sev;
   GlobalConfig *m_gConfig;
   QList<IUiWidget*>m_uiLists;
 };

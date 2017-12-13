@@ -33,6 +33,8 @@ private slots:
 
   void onProgressInfo(int v,QString msg);
 
+  void on_actionChangeAddr_triggered();
+
 private:
   void initial();
 
@@ -47,6 +49,7 @@ private:
   void mainFormInitTestCase();
   void mainConnectTestCase();
   void mainMemeryTestCase();
+  QString m_filePath;
 };
 
 #endif // APPMAINWINDOWTEST_H

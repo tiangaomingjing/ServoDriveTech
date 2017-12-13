@@ -56,6 +56,11 @@
                             <string>framAddr</string>
                         </property>
                     </column>
+                    <column>
+                        <property name="text">
+                            <string>scale</string>
+                        </property>
+                    </column>
                     <item>
                         <property name="text">
                             <string>gSevDrv.sev_obj.cur.rsv.prm.coder_typ_3</string>
@@ -79,33 +84,10 @@
                             <string>NULL</string>
                         </property>
                         <property name="text">
-                            <string>300</string>
-                        </property>
-                    </item>
-                    <item>
-                        <property name="text">
-                            <string>gSevDrv.sev_obj.cur.rsv.prm.line_num_3</string>
+                            <string>33068</string>
                         </property>
                         <property name="text">
-                            <string>0</string>
-                        </property>
-                        <property name="text">
-                            <string>int32</string>
-                        </property>
-                        <property name="text">
-                            <string>NULL</string>
-                        </property>
-                        <property name="text">
-                            <string>0</string>
-                        </property>
-                        <property name="text">
-                            <string>2147483647</string>
-                        </property>
-                        <property name="text">
-                            <string>NULL</string>
-                        </property>
-                        <property name="text">
-                            <string>312</string>
+                            <string>1</string>
                         </property>
                     </item>
                     <item>
@@ -131,7 +113,39 @@
                             <string>NULL</string>
                         </property>
                         <property name="text">
-                            <string>310</string>
+                            <string>33078</string>
+                        </property>
+                        <property name="text">
+                            <string>1</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>gSevDrv.sev_obj.cur.rsv.prm.line_num_3</string>
+                        </property>
+                        <property name="text">
+                            <string>0</string>
+                        </property>
+                        <property name="text">
+                            <string>int32</string>
+                        </property>
+                        <property name="text">
+                            <string>NULL</string>
+                        </property>
+                        <property name="text">
+                            <string>0</string>
+                        </property>
+                        <property name="text">
+                            <string>2147483647</string>
+                        </property>
+                        <property name="text">
+                            <string>NULL</string>
+                        </property>
+                        <property name="text">
+                            <string>33080</string>
+                        </property>
+                        <property name="text">
+                            <string>1</string>
                         </property>
                     </item>
                 </widget>
