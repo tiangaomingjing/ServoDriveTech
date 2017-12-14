@@ -40,19 +40,21 @@ public:
 private slots:
   void onProgressInfo(int v, QString msg);
 
-  void onActTestClicked();
-  void onActTest2Clicked();
+  void onActConnectTestClicked();
+  void onActDisConnectTestClicked();
   void onActNewTestClicked();
-  void onActAddTreeTestClicked();
+  void onActWriteFLASHTestClicked();
   void onActReadFlashTestClicked();
 
   void onNavTreeWidgetItemClicked(QTreeWidgetItem * item, int column);
+  static void processCallBack(void *argv,short *value);
 
 private:
   NavShowType getNavShowType();
 private:
   Ui::UiMainWindow *ui;
   UiMainWindowPrivate *d_ptr;
+  static short value;
 };
 
 #endif // UIMAINWINDOW_H

@@ -25,7 +25,11 @@ public:
   explicit SevDevice(QObject *parent=0);
   ~SevDevice();
   bool init(const DeviceConfig *dConfig);
+
   void adjustSocket(ComDriver::ICom *com);
+  bool enableConnection(void (*processCallBack)(void *argv, short *value), void *uiProcessBar);
+  void disableConnection();
+
   QString typeName() const;
   QString modelName() const;
   QString versionName()const;
@@ -41,6 +45,7 @@ signals:
   void initProgressInfo(int value,QString msg);
 public slots:
   void onReadPageFlash(int axis,QTreeWidget *tree);
+  void onWritePageFlash(int axis,QTreeWidget *tree);
 private:
   SevDevicePrivate *d_ptr;
 };

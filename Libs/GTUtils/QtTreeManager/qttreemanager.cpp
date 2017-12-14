@@ -45,6 +45,7 @@ QTreeWidget* QtTreeManager::createTreeWidgetFromXmlFile(const QString &fileName)
   if(tree!=NULL)
   {
     treeWidget=new QTreeWidget();
+
     QTreeWidgetItem *item;
     for(int i=0;i<tree->topLevelItemCount();i++)
     {

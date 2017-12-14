@@ -34,7 +34,7 @@ public:
   SdAssembly *m_currentSdAssembly;
 
   QAction *actTestNew;
-  QAction *actTestAddTree;
+  QAction *actTestWriteFlash;
   QAction *actTest;
   QAction *actTest2;
   QAction *actReadFlash;
@@ -301,21 +301,21 @@ void UiMainWindow::staticUiInit()
 {
   Q_D(UiMainWindow);
 
-  d->actTest=new QAction(tr("test"),this);
+  d->actTest=new QAction(tr("testConnet"),this);
   ui->mainToolBar->addAction(d->actTest);
-  connect(d->actTest,SIGNAL(triggered(bool)),this,SLOT(onActTestClicked()));
+  connect(d->actTest,SIGNAL(triggered(bool)),this,SLOT(onActConnectTestClicked()));
 
-  d->actTest2=new QAction(tr("test2"),this);
+  d->actTest2=new QAction(tr("testDisConnect"),this);
   ui->mainToolBar->addAction(d->actTest2);
-  connect(d->actTest2,SIGNAL(triggered(bool)),this,SLOT(onActTest2Clicked()));
+  connect(d->actTest2,SIGNAL(triggered(bool)),this,SLOT(onActDisConnectTestClicked()));
 
   d->actTestNew=new QAction(tr("testNew"),this);
   ui->mainToolBar->addAction(d->actTestNew);
   connect(d->actTestNew,SIGNAL(triggered(bool)),this,SLOT(onActNewTestClicked()));
 
-  d->actTestAddTree =new QAction(tr("testAddTree"),this);
-  ui->mainToolBar->addAction(d->actTestAddTree);
-  connect(d->actTestAddTree,SIGNAL(triggered(bool)),this,SLOT(onActAddTreeTestClicked()));
+  d->actTestWriteFlash =new QAction(tr("testWriteFlash"),this);
+  ui->mainToolBar->addAction(d->actTestWriteFlash);
+  connect(d->actTestWriteFlash,SIGNAL(triggered(bool)),this,SLOT(onActWriteFLASHTestClicked()));
 
   d->actReadFlash =new QAction(tr("ReadFLASH"),this);
   ui->mainToolBar->addAction(d->actReadFlash);
@@ -329,13 +329,40 @@ void UiMainWindow::onProgressInfo(int v, QString msg)
   ui->progressBar->setValue(v);
   qDebug()<<"progress infomation "<<msg;
 }
-void UiMainWindow::onActTestClicked()
+void UiMainWindow::processCallBack(void *argv,short *value)
 {
-  qDebug()<<"act test clicked";
+  qDebug()<<"progress value ="<<*value;
+  QProgressBar *bar=static_cast<QProgressBar *>(argv);
+  bar->setValue(*value);
+  qApp->processEvents();
 }
-void UiMainWindow::onActTest2Clicked()
+
+void UiMainWindow::onActConnectTestClicked()
 {
-  qDebug()<<"act test2 clicked";
+  Q_D(UiMainWindow);
+  qDebug()<<"act connect test clicked";
+  bool isConnect=true;
+  foreach (SdAssembly *sd, d->m_sdAssemblyList)
+  {
+    isConnect=sd->sevDevice()->enableConnection(processCallBack,(void *)ui->progressBar);
+    if(isConnect==false)
+    {
+      ui->progressBar->setValue(0);
+      qDebug()<<"connect false";
+      break;
+    }
+    qDebug()<<isConnect;
+  }
+}
+void UiMainWindow::onActDisConnectTestClicked()
+{
+  Q_D(UiMainWindow);
+  qDebug()<<"act disconnect test clicked";
+  foreach (SdAssembly *sd, d->m_sdAssemblyList)
+  {
+    sd->sevDevice()->disableConnection();
+  }
+  ui->progressBar->setValue(0);
 }
 void UiMainWindow::onActNewTestClicked()
 {
@@ -345,20 +372,21 @@ void UiMainWindow::onActNewTestClicked()
   init();
 }
 
-void UiMainWindow::onActAddTreeTestClicked()
+void UiMainWindow::onActWriteFLASHTestClicked()
 {
-  qDebug()<<"act add tree test clicked";
+  qDebug()<<"act add write flash test clicked";
+  QWidget *cw=ui->stackedWidget->currentWidget();
+  IUiWidget *ui=dynamic_cast<IUiWidget *>(cw);//向下转型时使用dynamic_cast
+  qDebug()<<ui->objectName();
+  ui->writePageFLASH();
 
-  QString file=GTUtils::sysPath()+"/SD6x/SD61/V129/RamPrm_AllAxis.xml";
-  QTreeWidget *tree=QtTreeManager::createTreeWidgetFromXmlFile(file);
-  ui->stackedWidget->addWidget(tree);
 }
 void UiMainWindow::onActReadFlashTestClicked()
 {
   QWidget *cw=ui->stackedWidget->currentWidget();
   IUiWidget *ui=dynamic_cast<IUiWidget *>(cw);//向下转型时使用dynamic_cast
   qDebug()<<ui->objectName();
-  ui->readFLASH();
+  ui->readPageFLASH();
 }
 
 void UiMainWindow::onNavTreeWidgetItemClicked(QTreeWidgetItem *item, int column)

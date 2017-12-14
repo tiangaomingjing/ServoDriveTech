@@ -26,6 +26,7 @@ public :
   //软件模块
   quint32 m_devId;
   quint8 m_comType;
+  quint8 m_rnStationId;
   quint8 m_axisNum;
   QString m_typeName;//SD4x
   QString m_modeName;//SD42

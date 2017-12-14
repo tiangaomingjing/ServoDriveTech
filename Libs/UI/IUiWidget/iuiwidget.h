@@ -2,12 +2,14 @@
 #define IUIWIDGET_H
 
 #include "iuiwidget_global.h"
+#include "iuiwidgetgdef.h"
 #include <QWidget>
 class IUiWidgetPrivate;
 class QTreeWidget;
 class QStackedWidget;
 class QVBoxLayout;
 class SevDevice;
+class QTreeWidgetItem;
 class IUIWIDGETSHARED_EXPORT IUiWidget:public QWidget
 {
   Q_OBJECT
@@ -19,8 +21,8 @@ public:
   virtual bool init(SevDevice*device);
   virtual void addTreeWidget(QTreeWidget* tree);
   void setUiIndexs(quint8 axisInx,quint8 pageInx);
-  virtual void readFLASH();
-  virtual void writeFLASH();
+  virtual void readPageFLASH();
+  virtual void writePageFLASH();
   virtual void setUiActive(bool actived);
 
 protected:
@@ -34,6 +36,10 @@ signals:
 
   //to device
   void sglReadPageFlash(int axis ,QTreeWidget *pTree);
+  void sglWritePageFlash(int axis ,QTreeWidget *pTree);
+
+protected slots:
+  virtual void onTreeItemClickedEdit(QTreeWidgetItem *item,int column);
 protected:
   IUiWidget(IUiWidgetPrivate&d, QWidget *parent=0);
   IUiWidgetPrivate *d_ptr;

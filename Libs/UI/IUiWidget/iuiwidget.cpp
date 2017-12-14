@@ -6,6 +6,7 @@
 #include <QStackedWidget>
 #include <QVBoxLayout>
 #include <QDebug>
+#include <QTreeWidgetItem>
 
 IUiWidget::IUiWidget(QWidget *parent):QWidget(parent),d_ptr(new IUiWidgetPrivate())
 {
@@ -44,6 +45,7 @@ void IUiWidget::addTreeWidget(QTreeWidget *tree)
   Q_D(IUiWidget);
   d->m_dataTree=tree;
   d->m_vboxLayout->addWidget(tree);
+  connect(tree,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(onTreeItemClickedEdit(QTreeWidgetItem*,int)));
 }
 void IUiWidget::setUiIndexs(quint8 axisInx, quint8 pageInx)
 {
@@ -51,18 +53,35 @@ void IUiWidget::setUiIndexs(quint8 axisInx, quint8 pageInx)
   d->axisInx=axisInx;
   d->pageInx=pageInx;
 }
-void IUiWidget::readFLASH()
+void IUiWidget::readPageFLASH()
 {
   Q_D(IUiWidget);
   qDebug()<<this->objectName()<<"read flash";
   emit sglReadPageFlash(d->axisInx,d->m_dataTree);
-//  d->m_device->readPageFlash(d->axisInx,d->m_dataTree);//委托设备去读取
 }
-void IUiWidget::writeFLASH()
+void IUiWidget::writePageFLASH()
 {
-
+  Q_D(IUiWidget);
+  qDebug()<<this->objectName()<<"read flash";
+  emit sglWritePageFlash(d->axisInx,d->m_dataTree);
 }
 void IUiWidget::setUiActive(bool actived)
 {
   Q_UNUSED(actived);
+}
+
+void IUiWidget::onTreeItemClickedEdit(QTreeWidgetItem *item, int column)
+{
+  Q_D(IUiWidget);
+  if(column==UI::COL_PAGE_TREE_VALUE)
+  {
+    if(item->childCount()==0)
+    {
+      item->setFlags(item->flags()|Qt::ItemIsEditable);
+      d->m_dataTree->editItem(item,column);
+      qDebug()<<"edit "<<item->text(0);
+    }
+  }
+  else item->setFlags(item->flags()&(~Qt::ItemIsEditable));
+  qDebug()<<"clicked";
 }

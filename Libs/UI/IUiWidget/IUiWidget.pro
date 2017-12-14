@@ -32,7 +32,8 @@ SOURCES += iuiwidget.cpp
 
 HEADERS += iuiwidget.h\
         iuiwidget_global.h \
-    iuiwidget_p.h
+    iuiwidget_p.h \
+    iuiwidgetgdef.h
 
 unix {
     target.path = /usr/lib

@@ -46,13 +46,11 @@ QTreeWidget* QtTreeManager::createTreeWidgetFromXmlFile(const QString &fileName)
   {
     treeWidget=new QTreeWidget();
     QTreeWidgetItem *item;
-    item=tree->invisibleRootItem();
-    treeWidget->addTopLevelItem(item->clone());
-//    for(int i=0;i<tree->topLevelItemCount();i++)
-//    {
-//      item=tree->topLevelItem(i)->clone();
-//      treeWidget->addTopLevelItem(item);
-//    }
+    for(int i=0;i<tree->topLevelItemCount();i++)
+    {
+      item=tree->topLevelItem(i)->clone();
+      treeWidget->addTopLevelItem(item);
+    }
     QTreeWidgetItem *head;
     head=tree->headerItem()->clone();
     treeWidget->setHeaderItem(head);

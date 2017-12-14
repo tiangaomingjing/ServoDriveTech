@@ -10,30 +10,38 @@ namespace ComDriver
   class ICom;
 }
 
-class SevDevice;
+class SevDevicePrivate;
+class QTreeWidgetItem;
 class LinkSocket : public QObject
 {
   Q_OBJECT
 public:
-  static LinkSocket *instance(SevDevice *sev,ComDriver::ICom *com,QObject *parent = 0);
+   explicit LinkSocket(SevDevicePrivate *sev,QObject *parent = 0);
   ~LinkSocket();
 
-  void connect(ComDriver::ICom *com);
+  bool connect(void (*processCallBack)(void *argv, short *value), void *uiProcessBar);
+  void disConnect();
   QString socketName()const;
   quint8 socketTypeId()const;
+  bool isConnected() const;
+  void setTryWriteCount(quint8 tryWriteCount);
+
+  bool readPageFlash(int axis,QTreeWidgetItem *item);
+  bool writePageFlash(int axis,QTreeWidgetItem *item);
+
+
 protected:
-  explicit LinkSocket(SevDevice *sev,ComDriver::ICom *com,QObject *parent = 0);
-  explicit LinkSocket(QObject *parent = 0);
+
 
 signals:
 
 public slots:
 
 private:
+  SevDevicePrivate *q_ptr;
+  bool m_isConnected;
   ComDriver::ICom *m_com;
-  static LinkSocket *m_instance;
-  static QMutex *m_mutex;
-  SevDevice *q_ptr;
+  quint8 m_tryWriteCount;
 };
 
 #endif // LINKSOCKET_H

@@ -67,6 +67,7 @@ void SevDevicePrivate::initConfig(const DeviceConfig *dConfig)
   m_pwrId=dConfig->m_pwrId;
   m_ctrId=dConfig->m_ctrId;
   m_fpgaId=dConfig->m_fpgaId;
+  m_rnStationId=dConfig->m_rnStationId;
 }
 
 QTreeWidgetItem* SevDevicePrivate::findTargetTree()
@@ -102,9 +103,11 @@ QTreeWidgetItem* SevDevicePrivate::findTargetTree()
   }
   Q_ASSERT(itemVer!=NULL);
   m_targetTree=itemVer->clone();
+
 //  QTreeWidget *w=new QTreeWidget;
 //  w->addTopLevelItem(m_targetTree);
 //  w->show();
+
   allTree->clear();
   delete allTree;
   return m_targetTree;
@@ -130,6 +133,7 @@ void SevDevicePrivate::init(const DeviceConfig *dConfig)
   qDebug()<<"new SevPwrBoard";
   m_pwrBoard=new SevPwrBoard(this,0);
   m_ctrBoard=new SevCtrBoard(this,0);
+  m_socket=new LinkSocket(this,0);
 
 }
 
@@ -156,7 +160,18 @@ bool SevDevice::init(const DeviceConfig *dConfig)
 void SevDevice::adjustSocket(ComDriver::ICom *com)
 {
   Q_D(SevDevice);
-  d->m_socket->connect(com);
+//  d->m_socket->connect();
+}
+bool SevDevice::enableConnection(void (*processCallBack)(void *argv, short *value), void *uiProcessBar)
+{
+  Q_D(SevDevice);
+  return d->m_socket->connect(processCallBack,uiProcessBar);
+}
+
+void SevDevice::disableConnection()
+{
+  Q_D(SevDevice);
+  d->m_socket->disConnect();
 }
 
 QString SevDevice::typeName() const
@@ -215,8 +230,8 @@ QTreeWidget *SevDevice::globalTreeSource(int page) const
 void SevDevice::onReadPageFlash(int axis,QTreeWidget *tree)
 {
   Q_D(SevDevice);
-//  if(d->m_socket->isConnected()==false)
-//    return;
+  if(d->m_socket->isConnected()==false)
+    return;
 
   QTreeWidgetItemIterator it(tree);
   QTreeWidgetItem *item;
@@ -226,56 +241,26 @@ void SevDevice::onReadPageFlash(int axis,QTreeWidget *tree)
     item=(*it);
     qDebug()<<axis<<item->text(0);
 
-
     d->m_socket->readPageFlash(axis,item);
-    {
-      QString type;
-      quint16 addr;
-      type=item->text(2);
-      addr=item->text(7).toUShort();
-      if(type=="Uint16")
-      {
-        quint16 value;
-        d->m_socket->readFLASH16(aixs,addr,0,value);
-        item->setText(1,QString::number(value));
-      }
-      else if(type=="int16")
-      {
-        qint16 value;
-        d->m_socket->readFLASH16(aixs,addr,0,value);
-        item->setText(1,QString::number(value));
-      }
-      else if(type=="Uint32")
-      {
-        quint32 value;
-        d->m_socket->readFLASH32(aixs,addr,0,value);
-        item->setText(1,QString::number(value));
-      }
-      else if(type=="int32")
-      {
-        qint32 value;
-        d->m_socket->readFLASH32(aixs,addr,0,value);
-        item->setText(1,QString::number(value));
-      }
-      else if(type=="Uint64")
-      {
-        quint64 value;
-        d->m_socket->readFLASH64(aixs,addr,0,value);
-        item->setText(1,QString::number(value));
-      }
-      else if(type=="int64")
-      {
-        qint64 value;
-        d->m_socket->readFLASH64(aixs,addr,0,value);
-        item->setText(1,QString::number(value));
-      }
-      else
-      {
-        quint16 value;
-        d->m_socket->m_com->readFLASH16(aixs,addr,0,value);
-        item->setText(1,QString::number(value));
-      }
-    }
+
+    it++;
+  }
+}
+void SevDevice::onWritePageFlash(int axis,QTreeWidget *tree)
+{
+  Q_D(SevDevice);
+  if(d->m_socket->isConnected()==false)
+    return;
+
+  QTreeWidgetItemIterator it(tree);
+  QTreeWidgetItem *item;
+
+  while (*it)
+  {
+    item=(*it);
+
+    d->m_socket->writePageFlash(axis,item);
+
     it++;
   }
 }

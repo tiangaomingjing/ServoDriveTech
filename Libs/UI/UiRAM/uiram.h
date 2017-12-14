@@ -21,6 +21,9 @@ public:
   QStackedWidget *getUiStackedWidget(void) Q_DECL_OVERRIDE;
   QVBoxLayout *getVBoxLayout(void)Q_DECL_OVERRIDE;
   void setDefaultUi()Q_DECL_OVERRIDE;
+  void readPageFLASH()Q_DECL_OVERRIDE{}
+  void writePageFLASH()Q_DECL_OVERRIDE{}
+
 private:
   Ui::UiRAM *ui;
 };

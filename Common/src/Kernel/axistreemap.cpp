@@ -27,6 +27,7 @@ AxisTreeMap::AxisTreeMap(quint8 axis, const QTreeWidgetItem *targetTree, const Q
     Q_ASSERT(item!=NULL);
 
     file=filePath;
+    qDebug()<<item->text(0)<<item->text(4)<<item->text(5);
 
     if((item->text(GT::COL_TARGET_CONFIG_FILESRCTYPE)=="1"))
     {
@@ -38,6 +39,7 @@ AxisTreeMap::AxisTreeMap(quint8 axis, const QTreeWidgetItem *targetTree, const Q
       file+=item->text(GT::COL_TARGET_CONFIG_XML);
     }
     file+=".xml";
+    qDebug()<<file;
 
     tree=QtTreeManager::createTreeWidgetFromXmlFile(file);
     Q_ASSERT(tree);

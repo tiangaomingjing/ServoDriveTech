@@ -37,6 +37,7 @@ void SevUiControler::createUis()
       ui->setUiIndexs(i,j);
       ui->addTreeWidget(m_sev->axisTreeSource(i,j));
       connect(ui,SIGNAL(sglReadPageFlash(int,QTreeWidget*)),m_sev,SLOT(onReadPageFlash(int,QTreeWidget*)));
+      connect(ui,SIGNAL(sglWritePageFlash(int,QTreeWidget*)),m_sev,SLOT(onWritePageFlash(int,QTreeWidget*)));
 
       m_uiLists.append(ui);
 //      qDebug()<<"class name "<<ui->objectName();
