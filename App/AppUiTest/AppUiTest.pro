@@ -68,3 +68,13 @@ HEADERS  += uimainwindow.h \
     ../../Common/src/Kernel/globaluicontroler.h
 
 FORMS    += uimainwindow.ui
+
+DISTFILES += \
+    ../../Common/src/QML/V129/UiBrake.qml \
+    ../../Common/src/QML/V129/UiCurrent.qml \
+    ../../Common/src/QML/V129/UiEncoder.qml \
+    ../../Common/src/QML/V129/UiMotor.qml \
+    ../../Common/src/QML/V129/UiPosition.qml \
+    ../../Common/src/QML/V129/UiPower.qml \
+    ../../Common/src/QML/V129/UiSpeed.qml \
+    ../../Common/src/QML/V129/UiStatus.qml

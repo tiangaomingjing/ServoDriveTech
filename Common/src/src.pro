@@ -77,5 +77,15 @@ HEADERS += \
     UiFactory/registerfunction.h \
     Kernel/globaluicontroler.h
 
+DISTFILES += \
+    QML/V129/UiMotor.qml \
+    QML/V129/UiBrake.qml \
+    QML/V129/UiCurrent.qml \
+    QML/V129/UiEncoder.qml \
+    QML/V129/UiPosition.qml \
+    QML/V129/UiPower.qml \
+    QML/V129/UiSpeed.qml \
+    QML/V129/UiStatus.qml
+
 
 
