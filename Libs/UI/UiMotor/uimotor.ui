@@ -10,6 +10,9 @@
     <height>300</height>
    </rect>
   </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::ActionsContextMenu</enum>
+  </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
@@ -17,7 +20,7 @@
    <item>
     <widget class="QStackedWidget" name="stackedWidget">
      <widget class="QWidget" name="page_ui">
-      <layout class="QVBoxLayout" name="verticalLayout_2">
+      <layout class="QHBoxLayout" name="qmlHboxLayout">
        <item>
         <widget class="QLabel" name="label_2">
          <property name="text">

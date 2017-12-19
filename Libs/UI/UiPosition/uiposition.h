@@ -17,10 +17,13 @@ class UIPOSITIONSHARED_EXPORT UiPosition:public IUiWidget
 public:
   explicit UiPosition(QWidget *parent = 0);
   ~UiPosition();
-
+private:
     QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;
     QVBoxLayout *getVBoxLayout(void)Q_DECL_OVERRIDE;
     void setDefaultUi()Q_DECL_OVERRIDE;
+    void setQmlContext()Q_DECL_OVERRIDE;
+    void setQmlSignalSlot()Q_DECL_OVERRIDE;
+    void addQmlWidget()Q_DECL_OVERRIDE;
 private:
   Ui::UiPosition *ui;
 };

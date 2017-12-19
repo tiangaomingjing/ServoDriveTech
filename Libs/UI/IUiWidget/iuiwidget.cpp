@@ -1,12 +1,16 @@
 ﻿#include "iuiwidget.h"
 #include "iuiwidget_p.h"
-
+#include "sevdevice.h"
+#include "gtutils.h"
 
 #include <QTreeWidget>
 #include <QStackedWidget>
 #include <QVBoxLayout>
 #include <QDebug>
 #include <QTreeWidgetItem>
+#include <QQuickWidget>
+#include <QQmlContext>
+#include <QAction>
 
 IUiWidget::IUiWidget(QWidget *parent):QWidget(parent),d_ptr(new IUiWidgetPrivate())
 {
@@ -39,6 +43,50 @@ void IUiWidget::setCurrentUiIndex(quint8 index)
     inx=d->m_uiStackedWidget->count()-1;
   d->m_uiStackedWidget->setCurrentIndex(inx);
 }
+void IUiWidget::setContextAction()
+{
+  Q_D(IUiWidget);
+  d->m_actSwitchView=new QAction(this);
+  d->m_actSwitchView->setText(tr("switch to list view"));
+  d->m_actSwitchView->setCheckable(true);
+  d->m_actSwitchView->setChecked(false);
+  connect(d->m_actSwitchView,SIGNAL(triggered(bool)),this,SLOT(onSwitchView(bool)));
+  this->addAction(d->m_actSwitchView);
+  QAction *actSeparator=new QAction(this);
+  actSeparator->setSeparator(true);
+  this->addAction(actSeparator);
+
+  d->m_actReadRAM=new QAction(this);
+  d->m_actReadRAM->setText(tr("RAM value"));
+  connect(d->m_actReadRAM,SIGNAL(triggered(bool)),this,SLOT(onActionReadRAM()));
+  this->addAction(d->m_actReadRAM);
+
+  d->m_actReadFLASH=new QAction(this);
+  d->m_actReadFLASH->setText(tr("FLASH value"));
+  connect(d->m_actReadFLASH,SIGNAL(triggered(bool)),this,SLOT(onActionReadFLASH()));
+  this->addAction(d->m_actReadFLASH);
+}
+
+void IUiWidget::createQmlWidget()
+{
+  Q_D(IUiWidget);
+
+  d->m_qmlpath=GTUtils::sysPath()+\
+      d->m_device->typeName()+"/"+\
+      d->m_device->modelName()+"/"+\
+      d->m_device->versionName()+"/ui/"+\
+      objectName()+".qml";
+  d->m_qwidget=new QQuickWidget(this);
+  d->m_qwidget->setMinimumSize(600,560);
+  qDebug()<<d->m_qmlpath;
+
+  d->m_qwidget->rootContext()->setContextProperty("cDevice",d->m_device);
+  setQmlContext();
+  d->m_qwidget->setResizeMode(QQuickWidget::SizeRootObjectToView );
+  d->m_qwidget->setSource(QUrl::fromLocalFile(d->m_qmlpath));
+  setQmlSignalSlot();
+  addQmlWidget();
+}
 
 void IUiWidget::addTreeWidget(QTreeWidget *tree)
 {
@@ -46,6 +94,8 @@ void IUiWidget::addTreeWidget(QTreeWidget *tree)
   d->m_dataTree=tree;
   d->m_vboxLayout->addWidget(tree);
   connect(tree,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(onTreeItemClickedEdit(QTreeWidgetItem*,int)));
+
+  setContextAction();
 }
 void IUiWidget::setUiIndexs(quint8 axisInx, quint8 pageInx)
 {
@@ -57,13 +107,15 @@ void IUiWidget::readPageFLASH()
 {
   Q_D(IUiWidget);
   qDebug()<<this->objectName()<<"read flash";
-  emit sglReadPageFlash(d->axisInx,d->m_dataTree);
+//  emit sglReadPageFlash(d->axisInx,d->m_dataTree);
+  d->m_device->onReadPageFlash(d->axisInx,d->m_dataTree);
 }
 void IUiWidget::writePageFLASH()
 {
   Q_D(IUiWidget);
   qDebug()<<this->objectName()<<"read flash";
-  emit sglWritePageFlash(d->axisInx,d->m_dataTree);
+//  emit sglWritePageFlash(d->axisInx,d->m_dataTree);
+  d->m_device->onWritePageFlash(d->axisInx,d->m_dataTree);
 }
 void IUiWidget::setUiActive(bool actived)
 {
@@ -84,4 +136,30 @@ void IUiWidget::onTreeItemClickedEdit(QTreeWidgetItem *item, int column)
   }
   else item->setFlags(item->flags()&(~Qt::ItemIsEditable));
   qDebug()<<"clicked";
+}
+
+void IUiWidget::onSwitchView(bool isList)
+{
+  Q_D(IUiWidget);
+  if(isList)
+  {
+    d->m_uiStackedWidget->setCurrentIndex(1);
+    d->m_actSwitchView->setText(tr("switch to graph view"));
+//    onActionReadFuncValueFromRam();
+  }
+  else
+  {
+    d->m_uiStackedWidget->setCurrentIndex(0);
+    d->m_actSwitchView->setText(tr("switch to list view"));
+  }
+}
+
+void IUiWidget::onActionReadRAM()
+{
+  qDebug()<<"read ram";
+}
+
+void IUiWidget::onActionReadFLASH()
+{
+  qDebug()<<"read flash";
 }

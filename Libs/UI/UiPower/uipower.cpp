@@ -2,6 +2,9 @@
 #include "ui_uipower.h"
 #include "iuiwidget_p.h"
 
+#include <QQuickWidget>
+#include <QQmlContext>
+
 class UiPowerPrivate:public IUiWidgetPrivate
 {
   Q_DECLARE_PUBLIC(UiPower)
@@ -40,5 +43,20 @@ QVBoxLayout *UiPower::getVBoxLayout(void)
 }
 void UiPower::setDefaultUi()
 {
-  setCurrentUiIndex(1);
+  setCurrentUiIndex(0);
+}
+void UiPower::setQmlContext()
+{
+
+}
+
+void UiPower::setQmlSignalSlot()
+{
+
+}
+
+void UiPower::addQmlWidget()
+{
+  Q_D(UiPower);
+  ui->qmlHboxLayout->addWidget(d->m_qwidget);
 }

@@ -2,6 +2,9 @@
 #include "ui_uivelocity.h"
 #include "iuiwidget_p.h"
 
+#include <QQuickWidget>
+#include <QQmlContext>
+
 class UiVelocityPrivate:public IUiWidgetPrivate
 {
   Q_DECLARE_PUBLIC(UiVelocity)
@@ -42,5 +45,20 @@ QVBoxLayout *UiVelocity::getVBoxLayout(void)
 }
 void UiVelocity::setDefaultUi()
 {
-  setCurrentUiIndex(1);
+  setCurrentUiIndex(0);
+}
+void UiVelocity::setQmlContext()
+{
+
+}
+
+void UiVelocity::setQmlSignalSlot()
+{
+
+}
+
+void UiVelocity::addQmlWidget()
+{
+  Q_D(UiVelocity);
+  ui->qmlHboxLayout->addWidget(d->m_qwidget);
 }

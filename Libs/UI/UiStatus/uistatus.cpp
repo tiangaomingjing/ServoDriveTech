@@ -2,6 +2,9 @@
 #include "ui_uistatus.h"
 #include "iuiwidget_p.h"
 
+#include <QQuickWidget>
+#include <QQmlContext>
+
 class UiStatusPrivate:public IUiWidgetPrivate
 {
   Q_DECLARE_PUBLIC(UiStatus)
@@ -40,5 +43,20 @@ QVBoxLayout *UiStatus::getVBoxLayout(void)
 }
 void UiStatus::setDefaultUi()
 {
-  setCurrentUiIndex(1);
+  setCurrentUiIndex(0);
+}
+void UiStatus::setQmlContext()
+{
+
+}
+
+void UiStatus::setQmlSignalSlot()
+{
+
+}
+
+void UiStatus::addQmlWidget()
+{
+  Q_D(UiStatus);
+  ui->qmlHboxLayout->addWidget(d->m_qwidget);
 }

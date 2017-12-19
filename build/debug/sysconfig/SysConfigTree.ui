@@ -3976,7 +3976,7 @@
              <string>NULL</string>
             </property>
             <property name="text">
-             <string>CfgMotor</string>
+             <string>UiMotor</string>
             </property>
             <property name="text">
              <string>PrmFuncMotor</string>
@@ -3985,7 +3985,7 @@
              <string>0</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
            <item>
@@ -3996,7 +3996,7 @@
              <string>NULL</string>
             </property>
             <property name="text">
-             <string>CfgEncoder</string>
+             <string>UiEncoder</string>
             </property>
             <property name="text">
              <string>PrmFuncEncoder</string>
@@ -4005,7 +4005,7 @@
              <string>1</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
            <item>
@@ -4016,7 +4016,7 @@
              <string>NULL</string>
             </property>
             <property name="text">
-             <string>CfgDriverPower</string>
+             <string>UiPower</string>
             </property>
             <property name="text">
              <string>PrmFuncPower</string>
@@ -4025,7 +4025,7 @@
              <string>2</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
            <item>
@@ -4036,7 +4036,7 @@
              <string>NULL</string>
             </property>
             <property name="text">
-             <string>CfgCurrentLoop</string>
+             <string>UiCurrent</string>
             </property>
             <property name="text">
              <string>PrmFuncCurrentloop</string>
@@ -4045,7 +4045,7 @@
              <string>3</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
            <item>
@@ -4056,7 +4056,7 @@
              <string>NULL</string>
             </property>
             <property name="text">
-             <string>CfgSpeedLoop</string>
+             <string>UiVelocity</string>
             </property>
             <property name="text">
              <string>PrmFuncSpeedloop</string>
@@ -4065,7 +4065,7 @@
              <string>4</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
            <item>
@@ -4076,7 +4076,7 @@
              <string>NULL</string>
             </property>
             <property name="text">
-             <string>CfgPositionLoop</string>
+             <string>UiPosition</string>
             </property>
             <property name="text">
              <string>PrmFuncPositionloop</string>
@@ -4085,7 +4085,7 @@
              <string>5</string>
             </property>
             <property name="text">
-             <string>0</string>
+             <string>1</string>
             </property>
            </item>
            <item>
@@ -4096,7 +4096,7 @@
              <string>NULL</string>
             </property>
             <property name="text">
-             <string>DeviceStatus</string>
+             <string>UiStatus</string>
             </property>
             <property name="text">
              <string>PrmFuncDeviceStatus</string>
@@ -4116,7 +4116,7 @@
              <string>NULL</string>
             </property>
             <property name="text">
-             <string>AdvRAM</string>
+             <string>UiRAM</string>
             </property>
             <property name="text">
              <string>PrmRAMAxis</string>
@@ -4136,7 +4136,7 @@
              <string>NULL</string>
             </property>
             <property name="text">
-             <string>AdvFLASH</string>
+             <string>UiFLASH</string>
             </property>
             <property name="text">
              <string>PrmFlashAxis</string>
@@ -4176,30 +4176,10 @@
              <string>NULL</string>
             </property>
             <property name="text">
-             <string>ModuleIO</string>
+             <string>UiIO</string>
             </property>
             <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="text">
-             <string>0</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Plot</string>
-            </property>
-            <property name="text">
-             <string>NULL</string>
-            </property>
-            <property name="text">
-             <string>PlotWaveUi</string>
-            </property>
-            <property name="text">
-             <string/>
+             <string>PrmIO</string>
             </property>
             <property name="text">
              <string/>

@@ -2,6 +2,9 @@
 #include "ui_uiencoder.h"
 #include "iuiwidget_p.h"
 
+#include <QQuickWidget>
+#include <QQmlContext>
+
 class UiEncoderPrivate:public IUiWidgetPrivate
 {
   Q_DECLARE_PUBLIC(UiEncoder)
@@ -41,5 +44,20 @@ QVBoxLayout *UiEncoder::getVBoxLayout(void)
 }
 void UiEncoder::setDefaultUi()
 {
-  setCurrentUiIndex(1);
+  setCurrentUiIndex(0);
+}
+void UiEncoder::setQmlContext()
+{
+
+}
+
+void UiEncoder::setQmlSignalSlot()
+{
+
+}
+
+void UiEncoder::addQmlWidget()
+{
+  Q_D(UiEncoder);
+  ui->qmlHboxLayout->addWidget(d->m_qwidget);
 }

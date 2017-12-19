@@ -18,11 +18,13 @@ public:
   explicit UiIO(QWidget *parent = 0);
   ~UiIO();
 
+  void readPageFLASH()Q_DECL_OVERRIDE{}
+  void writePageFLASH()Q_DECL_OVERRIDE{}
+  void createQmlWidget()Q_DECL_OVERRIDE{}
+private:
   QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;
   QVBoxLayout *getVBoxLayout(void)Q_DECL_OVERRIDE;
   void setDefaultUi()Q_DECL_OVERRIDE;
-  void readPageFLASH()Q_DECL_OVERRIDE{}
-  void writePageFLASH()Q_DECL_OVERRIDE{}
 
 private:
   Ui::UiIO *ui;

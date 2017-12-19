@@ -6,7 +6,6 @@
 include (../UI.pri)
 
 QT       += widgets
-
 QT       -= gui
 
 

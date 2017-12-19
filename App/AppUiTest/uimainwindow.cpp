@@ -2,6 +2,7 @@
 #include "ui_uimainwindow.h"
 
 #include <QDebug>
+#include <QtQml>
 
 #include "icom.h"
 #include "qttreemanager.h"
@@ -14,12 +15,12 @@
 #include "Kernel/idevreadwriter.h"
 #include "Kernel/devtextrwriter.h"
 #include "Kernel/deviceconfig.h"
-#include "Kernel/sevdevice.h"
 #include "Kernel/sevuicontroler.h"
 #include "Kernel/sdassembly.h"
 #include "Kernel/devcomrwriter.h"
 #include "Kernel/iuicontroler.h"
 #include "Kernel/globaluicontroler.h"
+#include "sevdevice.h"
 
 
 class UiMainWindowPrivate{
@@ -60,6 +61,7 @@ UiMainWindow::UiMainWindow(QWidget *parent) :
   ui->setupUi(this);
   d_ptr->q_ptr=this;
 
+  qmlRegisterType<SevDevice>("QtCppClass", 1, 0, "SevDevice");
   staticUiInit();
 
 }
@@ -71,6 +73,7 @@ UiMainWindow::~UiMainWindow()
 bool UiMainWindow::init()
 {
   Q_D(UiMainWindow);
+
   readConfig();
   deviceInit();
   navigationTreeInit();

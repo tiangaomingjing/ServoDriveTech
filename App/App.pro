@@ -2,4 +2,5 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     AppTest \
-    AppUiTest
+    AppUiTest\
+    UiSrcApp

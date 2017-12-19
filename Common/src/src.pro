@@ -85,7 +85,8 @@ DISTFILES += \
     QML/V129/UiPosition.qml \
     QML/V129/UiPower.qml \
     QML/V129/UiSpeed.qml \
-    QML/V129/UiStatus.qml
+    QML/V129/UiStatus.qml \
+    QML/V129/UiVelocity.qml
 
 
 

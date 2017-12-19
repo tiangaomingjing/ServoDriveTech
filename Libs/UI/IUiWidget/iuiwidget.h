@@ -4,6 +4,7 @@
 #include "iuiwidget_global.h"
 #include "iuiwidgetgdef.h"
 #include <QWidget>
+
 class IUiWidgetPrivate;
 class QTreeWidget;
 class QStackedWidget;
@@ -25,11 +26,18 @@ public:
   virtual void writePageFLASH();
   virtual void setUiActive(bool actived);
 
+  virtual void createQmlWidget();
+
 protected:
   virtual QStackedWidget *getUiStackedWidget(void)=0;
   virtual QVBoxLayout *getVBoxLayout(void)=0;
   virtual void setDefaultUi()=0;
   virtual void setCurrentUiIndex(quint8 index);//设置当前两页中显示的页
+  virtual void setQmlContext(){}
+  virtual void setQmlSignalSlot(){}
+  virtual void addQmlWidget(){}
+  virtual void setContextAction();
+
 signals:
   void sglQmlUpdataUi();
   void sglMainErrorInfo(int axis,QString msg);
@@ -40,6 +48,9 @@ signals:
 
 protected slots:
   virtual void onTreeItemClickedEdit(QTreeWidgetItem *item,int column);
+  void onSwitchView(bool isList);
+  void onActionReadRAM();
+  void onActionReadFLASH();
 protected:
   IUiWidget(IUiWidgetPrivate&d, QWidget *parent=0);
   IUiWidgetPrivate *d_ptr;

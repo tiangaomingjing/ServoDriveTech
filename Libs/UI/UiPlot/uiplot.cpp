@@ -41,5 +41,5 @@ QVBoxLayout *UiPlot::getVBoxLayout(void)
 }
 void UiPlot::setDefaultUi()
 {
-  setCurrentUiIndex(1);
+  setCurrentUiIndex(0);
 }

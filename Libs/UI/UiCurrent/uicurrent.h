@@ -18,9 +18,13 @@ public:
   explicit UiCurrent(QWidget *parent = 0);
   ~UiCurrent();
 
+private:
   QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;
   QVBoxLayout *getVBoxLayout(void)Q_DECL_OVERRIDE;
   void setDefaultUi()Q_DECL_OVERRIDE;
+  void setQmlContext()Q_DECL_OVERRIDE;
+  void setQmlSignalSlot()Q_DECL_OVERRIDE;
+  void addQmlWidget()Q_DECL_OVERRIDE;
 private:
   Ui::UiCurrent *ui;
 };

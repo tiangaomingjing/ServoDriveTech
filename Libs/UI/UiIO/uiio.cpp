@@ -41,5 +41,5 @@ QVBoxLayout *UiIO::getVBoxLayout(void)
 }
 void UiIO::setDefaultUi()
 {
-  setCurrentUiIndex(1);
+  setCurrentUiIndex(0);
 }

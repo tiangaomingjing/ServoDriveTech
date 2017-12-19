@@ -5,8 +5,10 @@
 #-------------------------------------------------
 
 include (../../Libs.pri)
+INCLUDEPATH+=$${PWD}/../../SDKernel\
+              $${PWD}/../../GTUtils
 
-QT       += widgets
+QT       += widgets quickwidgets qml
 
 QT       -= gui
 
@@ -17,9 +19,13 @@ DEFINES += IUIWIDGET_LIBRARY
 
 CONFIG(debug, debug|release){
     UI_OUT_PATH = $${APP_BUILD_PATH}/debug/bin
+    LIBS+=$${UI_OUT_PATH}/SDKerneld.lib\
+          $${UI_OUT_PATH}/GTUtilsd.lib
     TARGET = IUiWidgetd
 } else{
     UI_OUT_PATH = $${APP_BUILD_PATH}/release/bin
+    LIBS+=$${UI_OUT_PATH}/SDKernel.lib\
+          $${UI_OUT_PATH}/GTUtils.lib
     TARGET = IUiWidget
 }
 

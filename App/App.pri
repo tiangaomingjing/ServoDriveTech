@@ -2,11 +2,12 @@ LIBS_PATH=$${PWD}/../Libs
 COMMON_PATH=$${PWD}/../Common
 
 INCLUDEPATH+=$${LIBS_PATH}/Com/Communication\
-             $${LIBS_PATH}/GTUtils\
-             $${LIBS_PATH}/GTUtils/QtTreeManager\
-             $${LIBS_PATH}/UI\
-             $${LIBS_PATH}/UI/IUiWidget\
-             $${COMMON_PATH}/src
+            $${LIBS_PATH}/GTUtils\
+            $${LIBS_PATH}/GTUtils/QtTreeManager\
+            $${LIBS_PATH}/SDKernel\
+            $${LIBS_PATH}/UI\
+            $${LIBS_PATH}/UI/IUiWidget\
+            $${COMMON_PATH}/src
 
 
 CONFIG(debug, debug|release){
@@ -26,7 +27,8 @@ CONFIG(debug, debug|release){
           -lUiPowerd\
           -lUiRAMd\
           -lUiStatusd\
-          -lUiVelocityd
+          -lUiVelocityd\
+          -lSDKerneld
 } else{
     APPTEST_OUT_PATH=$${PWD}/../build/release/bin
     LIBPATH=$${APPTEST_OUT_PATH}
@@ -46,6 +48,7 @@ CONFIG(debug, debug|release){
           -lUiPower\
           -lUiRAM\
           -lUiStatus\
-          -lUiVelocity
+          -lUiVelocity\
+          -lSDKernel
 }
 DESTDIR =$${APPTEST_OUT_PATH}

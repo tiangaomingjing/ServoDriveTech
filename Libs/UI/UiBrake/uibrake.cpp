@@ -2,6 +2,9 @@
 #include "ui_uibrake.h"
 #include "iuiwidget_p.h"
 
+#include <QQuickWidget>
+#include <QQmlContext>
+
 class UiBrakePrivate:public IUiWidgetPrivate
 {
   Q_DECLARE_PUBLIC(UiBrake)
@@ -39,5 +42,20 @@ QVBoxLayout *UiBrake::getVBoxLayout(void)
 }
 void UiBrake::setDefaultUi()
 {
-  setCurrentUiIndex(1);
+  setCurrentUiIndex(0);
+}
+void UiBrake::setQmlContext()
+{
+
+}
+
+void UiBrake::setQmlSignalSlot()
+{
+
+}
+
+void UiBrake::addQmlWidget()
+{
+  Q_D(UiBrake);
+  ui->qmlHboxLayout->addWidget(d->m_qwidget);
 }
