@@ -30,7 +30,7 @@ UiEncoder::UiEncoder(QWidget *parent):IUiWidget(*(new UiEncoderPrivate),parent),
 }
 UiEncoder::~UiEncoder()
 {
-
+  delete ui;
 }
 
 QStackedWidget *UiEncoder::getUiStackedWidget(void)

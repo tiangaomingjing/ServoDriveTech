@@ -101,9 +101,6 @@ public:
 
 protected:
   PcDebug(PcDebugPrivate &d);
-
-
-
 };
 COM_NAMESPACE_END
 

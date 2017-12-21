@@ -31,7 +31,7 @@ UiVelocity::UiVelocity(QWidget *parent):IUiWidget(*(new UiVelocityPrivate),paren
 }
 UiVelocity::~UiVelocity()
 {
-
+  delete ui;
 }
 
 QStackedWidget *UiVelocity::getUiStackedWidget(void)

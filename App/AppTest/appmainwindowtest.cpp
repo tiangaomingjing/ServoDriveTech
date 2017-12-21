@@ -4,6 +4,7 @@
 #include <QTreeWidget>
 #include <QFileInfo>
 #include <QFileDialog>
+#include <QtQml>
 
 #include "icom.h"
 #include "qttreemanager.h"
@@ -14,12 +15,12 @@
 #include "Kernel/idevreadwriter.h"
 #include "Kernel/devtextrwriter.h"
 #include "Kernel/deviceconfig.h"
-#include "Kernel/sevdevice.h"
 #include "Kernel/sevuicontroler.h"
 #include "Kernel/sdassembly.h"
 #include "Kernel/devcomrwriter.h"
 
 #include "changframaddr.h"
+#include "sevdevice.h"
 
 AppMainWindowTest::AppMainWindowTest(QWidget *parent) :
   QMainWindow(parent),
@@ -28,6 +29,7 @@ AppMainWindowTest::AppMainWindowTest(QWidget *parent) :
   m_filePath(".")
 {
   ui->setupUi(this);
+  qmlRegisterType<SevDevice>("QtCppClass", 1, 0, "SevDevice");
   initial();
 }
 
@@ -46,7 +48,13 @@ void AppMainWindowTest::initial()
   //1 根据最近配置文件，生成device ，如果初次打开使用默认设备
   //2 根据device ,生成界面
   //3 加载首选项配置信息
-//  mainFormInitTestCase();
+  mainFormInitTestCase();
+}
+void AppMainWindowTest::processBarInfo(void *bar,short *v)
+{
+  int value=*v;
+  QProgressBar *pBar=static_cast<QProgressBar *>(bar);
+  pBar->setValue(value);
 }
 
 void AppMainWindowTest::mainFormInitTestCase()
@@ -58,7 +66,7 @@ void AppMainWindowTest::mainFormInitTestCase()
 
   IDevReadWriter *idevRWriter=new DevTextRWriter(NULL);
   bool isOk;
-  devConfigList=idevRWriter->createConfig(isOk);
+  devConfigList=idevRWriter->createConfig(processBarInfo,(void*)ui->progressBar,isOk);
   Q_ASSERT(isOk);
 
   for(int i=0;i<devConfigList.count();i++)
@@ -84,9 +92,11 @@ void AppMainWindowTest::mainConnectTestCase()
   IDevReadWriter *idevRWriter=new DevComRWriter(NULL);
   QList<DeviceConfig*> devConfigList;
   bool isOk;
-  devConfigList=idevRWriter->createConfig(isOk);
+  devConfigList=idevRWriter->createConfig(processBarInfo,(void*)ui->progressBar,isOk);
+  Q_ASSERT(isOk);
 
   int configCount=devConfigList.count();
+  qDebug()<<"devConfigList.count()"<<configCount;
 
   QList<SdAssembly*>sdAssemblyListTemp;
   DeviceConfig* devConfig;
@@ -98,9 +108,15 @@ void AppMainWindowTest::mainConnectTestCase()
     bool cp=false;
     for(int j=0;j<sdAssemblyList.count();j++)
     {
+
       currentSdAssembly=sdAssemblyList.at(j);
-      if(devConfig->m_devId==0)
+      DeviceConfig* tc=currentSdAssembly->sevDevice()->deviceConfig();
+      bool isEqual=devConfig->isEqual(*tc);
+      qDebug()<<"isEqual"<<isEqual;
+//      Q_ASSERT(isEqual);
+      if(isEqual)//与原有的匹配
       {
+        qDebug()<<"sdAssemblyListTemp.append(sdAssemblyList.takeAt(j))";
         sdAssemblyListTemp.append(sdAssemblyList.takeAt(j));
         cp=true;
         break;
@@ -109,7 +125,9 @@ void AppMainWindowTest::mainConnectTestCase()
     if(!cp)
     {
       //根据devConfig 新建 sd
+      qDebug()<<"new SdAssembly()";
       currentSdAssembly = new SdAssembly();
+      currentSdAssembly->init(devConfig,&gConfig);
       sdAssemblyListTemp.append(currentSdAssembly);
     }
   }
@@ -185,4 +203,10 @@ void AppMainWindowTest::on_actionChangeAddr_triggered()
   m_filePath=fileInfo.filePath()+"/";
   ChangFramAddr::changeTreeAddr(filename,32768);
   qDebug()<<"save file";
+}
+
+void AppMainWindowTest::on_pushButton_connectTest_clicked()
+{
+  qDebug()<<"connect test clicked";
+  mainConnectTestCase();
 }

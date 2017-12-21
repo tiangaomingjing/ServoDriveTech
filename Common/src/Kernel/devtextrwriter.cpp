@@ -12,8 +12,9 @@ DevTextRWriter::DevTextRWriter(QObject *parent):IDevReadWriter(parent)
 
 }
 
-QList<DeviceConfig *>DevTextRWriter::createConfig(bool &isOk)
+QList<DeviceConfig *>DevTextRWriter::createConfig(void (*processCallback)(void *pbar,short *value),void *processbar,bool &isOk)
 {
+  short pvalue=10;
   QList<DeviceConfig *> list;
   QString fileName=GTUtils::customPath()+DEVCONFIG_NAME;
   QTreeWidget *configTree=QtTreeManager::createTreeWidgetFromXmlFile(fileName);
@@ -22,6 +23,7 @@ QList<DeviceConfig *>DevTextRWriter::createConfig(bool &isOk)
   QTreeWidgetItem *typeItem;
   QTreeWidgetItem *modelItem;
   QTreeWidgetItem *versionItem;
+  processCallback(processbar,&pvalue);
   bool ok;
   if(configTree!=NULL)//能成功读取的
   {
@@ -46,6 +48,8 @@ QList<DeviceConfig *>DevTextRWriter::createConfig(bool &isOk)
       device->m_ctrId=versionItem->text(COL_ID).toUInt();
       device->m_fpgaId=comItem->text(COL_ID).toUInt();
       list.append(device);
+      pvalue+=40;
+      processCallback(processbar,&pvalue);
     }
   }
   else//不成功读取的加载系统默认配置

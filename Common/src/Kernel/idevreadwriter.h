@@ -22,12 +22,9 @@ public:
   }ConfigColumnInx;
   explicit IDevReadWriter(QObject *parent=0);
   virtual ~IDevReadWriter(){}
-  virtual QList<DeviceConfig *>createConfig(bool &isOk)=0;
+  virtual QList<DeviceConfig *>createConfig(void (*processCallback)(void *pbar,short *value),void *processbar,bool &isOk)=0;
   virtual bool saveConfig(const DeviceConfig *config)=0;
 protected:
-  bool createIdMapTree(const QString &fileName);
-protected:
-  QTreeWidget *m_idMapTree;
   DeviceConfig *m_currentConfig;
 };
 

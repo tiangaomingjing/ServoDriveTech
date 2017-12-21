@@ -24,6 +24,7 @@ public:
   static QString databasePath();
   static QString iconPath();
   static QString ubootPath();
+  static QString languagePath();
   static void delayms(quint16 ms);
 
   static void clearTreeWidgetList(QList<QTreeWidget*> &list);

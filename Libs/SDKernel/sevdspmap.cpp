@@ -5,6 +5,7 @@
 #include "qttreemanager.h"
 #include "gtutils.h"
 #include "sdtglobaldef.h"
+#include "deviceconfig.h"
 
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
@@ -32,10 +33,11 @@ bool SevDspMap::initTreeMap()
   AxisTreeMap *treeMap=NULL;
   QString file;
   qDebug()<<"new AxisTreeMap";
-  int inc=60/q_ptr->m_axisNum;
+
+  int inc=60/q_ptr->m_devConfig->m_axisNum;
   int sum=5;
   //建立每一个轴的数据
-  for(int i=0;i<q_ptr->m_axisNum;i++)
+  for(int i=0;i<q_ptr->m_devConfig->m_axisNum;i++)
   {
     sum+=inc;
     emit initProgressInfo(sum,tr("new AxisTreeMap %1").arg(i+1));

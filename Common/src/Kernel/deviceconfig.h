@@ -10,6 +10,7 @@ class DeviceConfig : public QObject
 public:
   explicit DeviceConfig(QObject *parent = 0);
   ~DeviceConfig();
+
   quint32 m_devId;
   quint8 m_comType;
   quint8 m_axisNum;
@@ -22,9 +23,9 @@ public:
   quint32 m_fpgaId;
 
   quint8 m_rnStationId;
-signals:
+  bool isEqual(const DeviceConfig &devConfig);
 
-public slots:
+
 };
 
 #endif // DEVICECONFIG_H

@@ -29,7 +29,7 @@ UiPower::UiPower(QWidget *parent):IUiWidget(*(new UiPowerPrivate),parent),ui(new
 }
 UiPower::~UiPower()
 {
-
+  delete ui;
 }
 
 QStackedWidget *UiPower::getUiStackedWidget(void)

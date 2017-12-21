@@ -28,7 +28,7 @@ UiPlot::UiPlot(QWidget *parent):IUiWidget(*(new UiPlotPrivate),parent),ui(new Ui
 }
 UiPlot::~UiPlot()
 {
-
+  delete ui;
 }
 
 QStackedWidget *UiPlot::getUiStackedWidget(void)

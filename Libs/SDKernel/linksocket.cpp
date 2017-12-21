@@ -3,6 +3,7 @@
 #include "sevdeviceprivate_p.h"
 #include "pcdebug.h"
 #include "rnnet.h"
+#include "deviceconfig.h"
 
 #include <QTreeWidgetItem>
 #include <QDebug>
@@ -12,16 +13,18 @@ using namespace ComDriver;
 LinkSocket::LinkSocket(SevDevicePrivate *sev, QObject *parent):QObject(parent),q_ptr(sev),m_isConnected(false),
   m_tryWriteCount(3)
 {
-  switch(sev->m_comType)
+  switch(sev->m_devConfig->m_comType)
   {
   case ICOM_TYPE_PCDEBUG:
     m_com=new PcDebug(tr("PcDebug").toStdString());
+    qDebug()<<"com is pcdebug";
     break;
   case ICOM_TYPE_RNNET:
   {
     RnNet *rnNet=new RnNet(tr("RnNet").toStdString());
-    rnNet->setRnStation(sev->m_rnStationId);
+    rnNet->setRnStation(sev->m_devConfig->m_rnStationId);
     m_com=rnNet;
+    qDebug()<<"com is rn net";
   }
     break;
   case ICOM_TYPE_SOCKET:
@@ -51,6 +54,7 @@ bool LinkSocket::connect(void (*processCallBack)(void *argv,short* value),void *
 void LinkSocket::disConnect()
 {
   m_com->close();
+  m_isConnected=false;
 }
 
 QString LinkSocket::socketName()const

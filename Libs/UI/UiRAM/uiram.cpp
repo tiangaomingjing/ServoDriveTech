@@ -27,7 +27,7 @@ UiRAM::UiRAM(QWidget *parent):IUiWidget(*(new UiRAMPrivate),parent),ui(new Ui::U
 }
 UiRAM::~UiRAM()
 {
-
+  delete ui;
 }
 
 QStackedWidget *UiRAM::getUiStackedWidget(void)

@@ -30,7 +30,7 @@ UiPosition::UiPosition(QWidget *parent):IUiWidget(*(new UiPositionPrivate),paren
 }
 UiPosition::~UiPosition()
 {
-
+  delete ui;
 }
 
 QStackedWidget *UiPosition::getUiStackedWidget(void)

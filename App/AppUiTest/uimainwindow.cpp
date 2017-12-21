@@ -3,6 +3,7 @@
 
 #include <QDebug>
 #include <QtQml>
+#include <QTranslator>
 
 #include "icom.h"
 #include "qttreemanager.h"
@@ -39,6 +40,16 @@ public:
   QAction *actTest;
   QAction *actTest2;
   QAction *actReadFlash;
+  QAction *actQuery;
+
+  QAction *actNewBySelect;
+  QAction *actConnect;
+  QAction *actDisConnect;
+
+  QAction *actLangChinese;
+  QAction *actLangEnglish;
+
+  QTranslator m_langTrans;
 
   UiMainWindow *q_ptr;
 };
@@ -59,6 +70,7 @@ UiMainWindow::UiMainWindow(QWidget *parent) :
   d_ptr(new UiMainWindowPrivate)
 {
   ui->setupUi(this);
+  clearStackedWidget();
   d_ptr->q_ptr=this;
 
   qmlRegisterType<SevDevice>("QtCppClass", 1, 0, "SevDevice");
@@ -70,21 +82,20 @@ UiMainWindow::~UiMainWindow()
 {
   delete ui;
 }
-bool UiMainWindow::init()
+void UiMainWindow::clearStackedWidget()
 {
-  Q_D(UiMainWindow);
-
-  readConfig();
-  deviceInit();
-  navigationTreeInit();
-  globalUiPageInit();
-
   int i=0;
   while (ui->stackedWidget->count()) {
     delete ui->stackedWidget->widget(0);
     qDebug()<<"delete stackedWidget "<<i;
     i++;
   }
+}
+
+void UiMainWindow::stackedWidgetInit()
+{
+  Q_D(UiMainWindow);
+
   IUiControler *uiCtr;
   QWidget *w;
   SdAssembly * sd;
@@ -110,6 +121,24 @@ bool UiMainWindow::init()
     w=static_cast<QWidget *>(uiCtr->uiAt(i));
     ui->stackedWidget->addWidget(w);
   }
+}
+void UiMainWindow::removeAllStackedWidget()
+{
+  int i=0;
+  while (ui->stackedWidget->count()) {
+    ui->stackedWidget->removeWidget(ui->stackedWidget->widget(0));
+    qDebug()<<"remove stackedWidget "<<i;
+    i++;
+  }
+}
+
+bool UiMainWindow::init()
+{
+  readConfig();
+  deviceInit();
+  navigationTreeInit();
+  globalUiPageInit();
+  stackedWidgetInit();
 
   return true;
 }
@@ -129,7 +158,7 @@ bool UiMainWindow::deviceInit()
 
   IDevReadWriter *idevRWriter=new DevTextRWriter(NULL);
   bool isOk;
-  devConfigList=idevRWriter->createConfig(isOk);
+  devConfigList=idevRWriter->createConfig(processCallBack,(void*)ui->progressBar,isOk);
   Q_ASSERT(isOk);
 
   for(int i=0;i<devConfigList.count();i++)
@@ -298,6 +327,7 @@ void UiMainWindow::clear()
   clearDevice();
   clearNavigationTree();
   clearGlobalUiPage();
+  clearStackedWidget();
 }
 
 void UiMainWindow::staticUiInit()
@@ -325,6 +355,50 @@ void UiMainWindow::staticUiInit()
   connect(d->actReadFlash,SIGNAL(triggered(bool)),this,SLOT(onActReadFlashTestClicked()));
 
   connect(ui->treeWidget,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(onNavTreeWidgetItemClicked(QTreeWidgetItem*,int)));
+
+  d->actQuery =new QAction(tr("queryConnect"),this);
+  ui->mainToolBar->addAction(d->actQuery);
+  connect(d->actQuery,SIGNAL(triggered(bool)),this,SLOT(onActQueryTestClicked()));
+
+  ui->mainToolBar->addSeparator();
+
+  d->actConnect =new QAction(tr("connect"),this);
+  d->actConnect->setCheckable(true);
+  d->actConnect->setChecked(false);
+  d->actConnect->setIcon(QIcon(GTUtils::iconPath()+"menu_connect.png"));
+  ui->mainToolBar->addAction(d->actConnect);
+  connect(d->actConnect,SIGNAL(triggered(bool)),this,SLOT(onActConnectClicked()));
+
+  d->actDisConnect =new QAction(tr("disnet"),this);
+  d->actDisConnect->setCheckable(true);
+  d->actDisConnect->setChecked(true);
+  d->actDisConnect->setIcon(QIcon(GTUtils::iconPath()+"menu_disconnect.png"));
+  ui->mainToolBar->addAction(d->actDisConnect);
+  connect(d->actDisConnect,SIGNAL(triggered(bool)),this,SLOT(onActDisConnectClicked()));
+
+  QActionGroup *aGroup=new QActionGroup(this);
+  aGroup->addAction(d->actConnect);
+  aGroup->addAction(d->actDisConnect);
+
+  ui->mainToolBar->addSeparator();
+
+  d->actNewBySelect =new QAction(tr("SelectNew"),this);
+  d->actNewBySelect->setIcon(QIcon(GTUtils::iconPath()+"menu_new.png"));
+  ui->mainToolBar->addAction(d->actNewBySelect);
+  connect(d->actNewBySelect,SIGNAL(triggered(bool)),this,SLOT(onActNewSelectClicked()));
+
+  ui->mainToolBar->addSeparator();
+  d->actLangChinese =new QAction(tr("chinese"),this);
+//  d->actLangChinese->setIcon(QIcon(GTUtils::iconPath()+"menu_new.png"));
+  ui->mainToolBar->addAction(d->actLangChinese);
+  connect(d->actLangChinese,SIGNAL(triggered(bool)),this,SLOT(onActChineseClicked()));
+
+  d->actLangEnglish =new QAction(tr("english"),this);
+//  d->actLangChinese->setIcon(QIcon(GTUtils::iconPath()+"menu_new.png"));
+  ui->mainToolBar->addAction(d->actLangEnglish);
+  connect(d->actLangEnglish,SIGNAL(triggered(bool)),this,SLOT(onActEnglishClicked()));
+
+
 }
 
 void UiMainWindow::onProgressInfo(int v, QString msg)
@@ -390,6 +464,148 @@ void UiMainWindow::onActReadFlashTestClicked()
   IUiWidget *ui=dynamic_cast<IUiWidget *>(cw);//向下转型时使用dynamic_cast
   qDebug()<<ui->objectName();
   ui->readPageFLASH();
+}
+void UiMainWindow::onActQueryTestClicked()
+{
+  qDebug()<<"query connect clicked";
+}
+void UiMainWindow::onActConnectClicked()
+{
+  qDebug()<<"connect clicked";
+}
+
+void UiMainWindow::onActDisConnectClicked()
+{
+  qDebug()<<"dis connect clicked";
+}
+
+void UiMainWindow::onActNewSelectClicked()
+{
+  Q_D(UiMainWindow);
+
+  QList<DeviceConfig *>configList;//just for test
+  qDebug()<<"new select  clicked";
+  //if 确定修改按下
+  DeviceConfig *config=new DeviceConfig;
+  //SD42 V129 test
+  config->m_pwrId= 21000509;
+  config->m_ctrId= 0;
+  config->m_version="V129";
+  config->m_comType=1;
+  config->m_axisNum=4;
+  config->m_devId=0;
+  config->m_fpgaId=0;
+  config->m_typeName="SD4x";
+  config->m_modeName="SD42";
+  config->m_rnStationId=0xf0;
+  configList.append(config);
+
+
+  //SD61 V129 test
+  config=new DeviceConfig;
+  config->m_pwrId= 21000541;
+  config->m_ctrId= 0;
+  config->m_version="V129";
+  config->m_comType=1;
+  config->m_axisNum=6;
+  config->m_devId=0;
+  config->m_fpgaId=0;
+  config->m_typeName="SD6x";
+  config->m_modeName="SD61";
+  config->m_rnStationId=0xf1;
+  configList.append(config);
+
+  int configCount=configList.count();
+  qDebug()<<"configList.count()"<<configCount;
+
+  QList<SdAssembly*>sdAssemblyListTemp;
+  DeviceConfig* devConfig;
+  SdAssembly* currentSdAssembly;
+
+  for(int i=0;i<configCount;i++)
+  {
+    devConfig=configList.at(i);
+    qDebug()<<"devconfig:"<<tr("pwrid=%1,ctrid=%2,comtype=%3,version=%4,stationid=%5").arg(devConfig->m_pwrId)\
+              .arg(devConfig->m_ctrId).arg(devConfig->m_comType).arg(devConfig->m_version).arg(devConfig->m_rnStationId);
+
+    bool cp=false;
+    for(int j=0;j<d->m_sdAssemblyList.count();j++)
+    {
+
+      currentSdAssembly=d->m_sdAssemblyList.at(j);
+      DeviceConfig* tc=currentSdAssembly->sevDevice()->deviceConfig();
+      bool isEqual=devConfig->isEqual(*tc);
+      qDebug()<<"isEqual"<<isEqual;
+//      Q_ASSERT(isEqual);
+      if(isEqual)//与原有的匹配
+      {
+        qDebug()<<"sdAssemblyListTemp.append(sdAssemblyList.takeAt(j))";
+        sdAssemblyListTemp.append(d->m_sdAssemblyList.takeAt(j));
+        cp=true;
+        break;
+      }
+    }
+    if(!cp)
+    {
+      //根据devConfig 新建 sd
+      qDebug()<<"new SdAssembly()";
+      currentSdAssembly = new SdAssembly();
+      connect(currentSdAssembly,SIGNAL(initProgressInfo(int,QString)),this,SLOT(onProgressInfo(int,QString)));
+      currentSdAssembly->init(devConfig,&d->m_gConfig);
+      sdAssemblyListTemp.append(currentSdAssembly);
+    }
+  }
+//  //清除多余的
+//  for(int j=0;j<d->m_sdAssemblyList.count();j++)
+//  {
+//    currentSdAssembly=d->m_sdAssemblyList.at(j);
+//    delete currentSdAssembly;
+//  }
+//  d->m_sdAssemblyList.clear();
+  GT::deepClearList(d->m_sdAssemblyList);
+
+
+  d->m_sdAssemblyList=sdAssemblyListTemp;
+  qDebug()<<"after sdAssembly list count"<<d->m_sdAssemblyList.count();
+
+  //这里还有内存泄漏
+//  removeAllStackedWidget();
+//  clearNavigationTree();
+//  clearGlobalUiPage();
+
+//  navigationTreeInit();
+//  globalUiPageInit();
+//  stackedWidgetInit();
+
+  GT::deepClearList(configList);
+}
+
+void UiMainWindow::onActChineseClicked()
+{
+  //测试没有通过
+  Q_D(UiMainWindow);
+  QString langPath= GTUtils::languagePath();
+  qDebug()<<"chinese"<<langPath;
+  d->m_langTrans.load("ch_main.qm",langPath);
+  qApp->installTranslator(&d->m_langTrans);
+  ui->retranslateUi(this);
+  //这个只能使用Ui工具生成的界面
+  //如果自己用代码生成的还要重新定义retranslate方法
+  //所以目前采用改变配置文件，main()里加载，重启生效
+}
+
+void UiMainWindow::onActEnglishClicked()
+{
+  //测试没有通过
+  Q_D(UiMainWindow);
+  QString langPath= GTUtils::languagePath();
+  qDebug()<<"english"<<langPath;
+  d->m_langTrans.load("en_main.qm",langPath);
+  qApp->installTranslator(&d->m_langTrans);
+  ui->retranslateUi(this);
+  //这个只能使用Ui工具生成的界面
+  //如果自己用代码生成的还要重新定义retranslate方法
+  //所以目前采用改变配置文件，main()里加载，重启生效
 }
 
 void UiMainWindow::onNavTreeWidgetItemClicked(QTreeWidgetItem *item, int column)

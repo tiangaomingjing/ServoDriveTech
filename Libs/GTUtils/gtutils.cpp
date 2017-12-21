@@ -12,6 +12,7 @@
 #define DIR_DATABASE "resource/database/"
 #define DIR_ICON "resource/icon/"
 #define DIR_UBOOT "resource/uboot/"
+#define DIR_LANGUAGE "resource/language/"
 
 
 GTUtils::GTUtils()
@@ -59,6 +60,12 @@ QString GTUtils::iconPath()
 QString GTUtils::ubootPath()
 {
   QString path=sdtPath()+DIR_UBOOT;
+  return path;
+}
+
+QString GTUtils::languagePath()
+{
+  QString path=sdtPath()+DIR_LANGUAGE;
   return path;
 }
 

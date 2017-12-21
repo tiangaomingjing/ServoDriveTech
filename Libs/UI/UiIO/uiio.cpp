@@ -27,7 +27,7 @@ UiIO::UiIO(QWidget *parent):IUiWidget(*(new UiIOPrivate),parent),ui(new Ui::UiIO
 }
 UiIO::~UiIO()
 {
-
+  delete ui;
 }
 
 QStackedWidget *UiIO::getUiStackedWidget(void)

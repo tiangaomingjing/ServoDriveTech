@@ -11,7 +11,6 @@
 #include "Kernel/idevreadwriter.h"
 #include "Kernel/devtextrwriter.h"
 #include "Kernel/deviceconfig.h"
-#include "Kernel/sevdevice.h"
 #include "Kernel/sevuicontroler.h"
 #include "Kernel/sdassembly.h"
 #include "Kernel/devcomrwriter.h"

@@ -15,7 +15,10 @@
 #include <QTreeWidgetItemIterator>
 
 
-SevDevicePrivate::SevDevicePrivate(SevDevice *sev, QObject *parent):QObject(parent),q_ptr(sev),m_configTree(NULL)
+SevDevicePrivate::SevDevicePrivate(SevDevice *sev, QObject *parent):QObject(parent),
+  q_ptr(sev),
+  m_configTree(NULL),
+  m_devConfig(new DeviceConfig)
 {
 
 }
@@ -32,42 +35,43 @@ SevDevicePrivate::~SevDevicePrivate()
   delete m_pwrBoard;
   delete m_targetTree;
   delete m_ctrBoard;
+  delete m_devConfig;
 }
 QTreeWidget *SevDevicePrivate::configTree()
 {
   m_configTree->clear();
-  QStringList list;
-  list<<"name"<<"parameter";
-  m_configTree->setHeaderLabels(list);
-  QTreeWidgetItem *item=new QTreeWidgetItem(m_configTree->invisibleRootItem());
-  item->setText(0,"Device");
-  QTreeWidgetItem *itemCom=new QTreeWidgetItem(item);
-  itemCom->setText(0,m_socket->socketName());
-  itemCom->setText(1,QString::number(m_socket->socketTypeId()));
-  QTreeWidgetItem *itemType=new QTreeWidgetItem(itemCom);
-  itemType->setText(0,m_typeName);
-  itemType->setText(1,QString::number(m_axisNum));
-  QTreeWidgetItem *itemModel=new QTreeWidgetItem(itemType);
-  itemModel->setText(0,m_modeName);
-  itemModel->setText(1,"NULL");
-  QTreeWidgetItem *itemVer=new QTreeWidgetItem(itemModel);
-  itemVer->setText(0,m_version);
-  itemVer->setText(1,"NULL");
+//  QStringList list;
+//  list<<"name"<<"parameter";
+//  m_configTree->setHeaderLabels(list);
+//  QTreeWidgetItem *item=new QTreeWidgetItem(m_configTree->invisibleRootItem());
+//  item->setText(0,"Device");
+//  QTreeWidgetItem *itemCom=new QTreeWidgetItem(item);
+//  itemCom->setText(0,m_socket->socketName());
+//  itemCom->setText(1,QString::number(m_socket->socketTypeId()));
+//  QTreeWidgetItem *itemType=new QTreeWidgetItem(itemCom);
+//  itemType->setText(0,m_typeName);
+//  itemType->setText(1,QString::number(m_axisNum));
+//  QTreeWidgetItem *itemModel=new QTreeWidgetItem(itemType);
+//  itemModel->setText(0,m_modeName);
+//  itemModel->setText(1,"NULL");
+//  QTreeWidgetItem *itemVer=new QTreeWidgetItem(itemModel);
+//  itemVer->setText(0,m_version);
+//  itemVer->setText(1,"NULL");
   return m_configTree;
 }
 
 void SevDevicePrivate::initConfig(const DeviceConfig *dConfig)
 {
-  m_devId=dConfig->m_devId;
-  m_comType=dConfig->m_comType;
-  m_axisNum=dConfig->m_axisNum;
-  m_typeName=dConfig->m_typeName;
-  m_modeName=dConfig->m_modeName;
-  m_version=dConfig->m_version;
-  m_pwrId=dConfig->m_pwrId;
-  m_ctrId=dConfig->m_ctrId;
-  m_fpgaId=dConfig->m_fpgaId;
-  m_rnStationId=dConfig->m_rnStationId;
+  m_devConfig->m_devId=dConfig->m_devId;
+  m_devConfig->m_comType=dConfig->m_comType;
+  m_devConfig->m_axisNum=dConfig->m_axisNum;
+  m_devConfig->m_typeName=dConfig->m_typeName;
+  m_devConfig->m_modeName=dConfig->m_modeName;
+  m_devConfig->m_version=dConfig->m_version;
+  m_devConfig->m_pwrId=dConfig->m_pwrId;
+  m_devConfig->m_ctrId=dConfig->m_ctrId;
+  m_devConfig->m_fpgaId=dConfig->m_fpgaId;
+  m_devConfig->m_rnStationId=dConfig->m_rnStationId;
 }
 
 QTreeWidgetItem* SevDevicePrivate::findTargetTree()
@@ -75,7 +79,7 @@ QTreeWidgetItem* SevDevicePrivate::findTargetTree()
   QString sysFile=GTUtils::sysPath()+SYSCONFIGTREE_NAME;
   QTreeWidget *allTree=QtTreeManager::createTreeWidgetFromXmlFile(sysFile);
   Q_ASSERT(allTree!=NULL);
-  QTreeWidgetItem *item=allTree->topLevelItem(0)->child(m_comType);
+  QTreeWidgetItem *item=allTree->topLevelItem(0)->child(m_devConfig->m_comType);
   QTreeWidgetItem *itemType=NULL;
   QTreeWidgetItem *itemModel=NULL;
   QTreeWidgetItem *itemVer=NULL;
@@ -83,7 +87,7 @@ QTreeWidgetItem* SevDevicePrivate::findTargetTree()
   {
     itemType=item->child(i);
 //    qDebug()<<itemType->text(SYSCONFIG_COL_NAME)<<i;
-    if(itemType->text(GT::COL_TARGET_CONFIG_NAME)==m_typeName)
+    if(itemType->text(GT::COL_TARGET_CONFIG_NAME)==m_devConfig->m_typeName)
       break;
   }
   Q_ASSERT(itemType!=NULL);
@@ -91,14 +95,14 @@ QTreeWidgetItem* SevDevicePrivate::findTargetTree()
   {
     itemModel=itemType->child(i);
 //    qDebug()<<itemModel->text(SYSCONFIG_COL_NAME)<<m_modeName;
-    if(itemModel->text(GT::COL_TARGET_CONFIG_NAME)==m_modeName)
+    if(itemModel->text(GT::COL_TARGET_CONFIG_NAME)==m_devConfig->m_modeName)
       break;
   }
   Q_ASSERT(itemModel!=NULL);
   for(int i=0;i<itemModel->childCount();i++)
   {
     itemVer=itemModel->child(i);
-    if(itemVer->text(GT::COL_TARGET_CONFIG_NAME)==m_version)
+    if(itemVer->text(GT::COL_TARGET_CONFIG_NAME)==m_devConfig->m_version)
       break;
   }
   Q_ASSERT(itemVer!=NULL);
@@ -119,7 +123,7 @@ void SevDevicePrivate::init(const DeviceConfig *dConfig)
   emit initProgressInfo(3,tr("init Config"));
   initConfig(dConfig);
 
-  m_filePath=GTUtils::sysPath()+m_typeName+"/"+m_modeName+"/"+m_version+"/";
+  m_filePath=GTUtils::sysPath()+m_devConfig->m_typeName+"/"+m_devConfig->m_modeName+"/"+m_devConfig->m_version+"/";
 
   qDebug()<<"findTargetTree";
   emit initProgressInfo(5,tr("findTargetTree"));
@@ -150,7 +154,7 @@ SevDevice::~SevDevice()
 bool SevDevice::init(const DeviceConfig *dConfig)
 {
   emit initProgressInfo(2,tr("SevDevice init"));
-  d_ptr=new SevDevicePrivate(this);
+  d_ptr=new SevDevicePrivate(this,0);
   connect(d_ptr,SIGNAL(initProgressInfo(int,QString)),this,SIGNAL(initProgressInfo(int,QString)));
   Q_D(SevDevice);
   d->init(dConfig);
@@ -177,38 +181,43 @@ void SevDevice::disableConnection()
 QString SevDevice::typeName() const
 {
   Q_D(const SevDevice);
-  return d->m_typeName;
+  return d->m_devConfig->m_typeName;
 }
 QString SevDevice::modelName() const
 {
   Q_D(const SevDevice);
-  return d->m_modeName;
+  return d->m_devConfig->m_modeName;
 }
 QString SevDevice::versionName()const
 {
   Q_D(const SevDevice);
-  return d->m_version;
+  return d->m_devConfig->m_version;
 }
 
 quint32 SevDevice::pwrId() const
 {
   Q_D(const SevDevice);
-  return d->m_pwrId;
+  return d->m_devConfig->m_pwrId;
 }
 quint32 SevDevice::ctrId() const
 {
   Q_D(const SevDevice);
-  return d->m_ctrId;
+  return d->m_devConfig->m_ctrId;
 }
 quint32 SevDevice::fpgaId() const
 {
   Q_D(const SevDevice);
-  return d->m_fpgaId;
+  return d->m_devConfig->m_fpgaId;
 }
 quint8 SevDevice::axisNum() const
 {
   Q_D(const SevDevice);
-  return d->m_axisNum;
+  return d->m_devConfig->m_axisNum;
+}
+DeviceConfig *SevDevice::deviceConfig() const
+{
+  Q_D(const SevDevice);
+  return d->m_devConfig;
 }
 QTreeWidgetItem *SevDevice::targetTree() const
 {

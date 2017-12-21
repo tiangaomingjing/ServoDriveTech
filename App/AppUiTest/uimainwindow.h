@@ -45,16 +45,27 @@ private slots:
   void onActNewTestClicked();
   void onActWriteFLASHTestClicked();
   void onActReadFlashTestClicked();
+  void onActQueryTestClicked();
+  void onActConnectClicked();
+  void onActDisConnectClicked();
+  void onActNewSelectClicked();
+  void onActChineseClicked();
+  void onActEnglishClicked();
 
   void onNavTreeWidgetItemClicked(QTreeWidgetItem * item, int column);
   static void processCallBack(void *argv,short *value);
 
 private:
   NavShowType getNavShowType();
+  void clearStackedWidget();
+  void stackedWidgetInit();
+  void removeAllStackedWidget();
+
 private:
   Ui::UiMainWindow *ui;
   UiMainWindowPrivate *d_ptr;
   static short value;
+
 };
 
 #endif // UIMAINWINDOW_H

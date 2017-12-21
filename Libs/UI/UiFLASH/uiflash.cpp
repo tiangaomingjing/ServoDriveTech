@@ -26,7 +26,7 @@ UiFLASH::UiFLASH(QWidget *parent):IUiWidget(*(new UiFLASHPrivate),parent),ui(new
 }
 UiFLASH::~UiFLASH()
 {
-
+  delete ui;
 }
 
 QStackedWidget *UiFLASH::getUiStackedWidget(void)

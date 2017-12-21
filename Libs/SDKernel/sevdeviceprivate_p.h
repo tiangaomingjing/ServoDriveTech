@@ -24,19 +24,20 @@ public :
   //控制板
   //功率板
   //软件模块
-  quint32 m_devId;
-  quint8 m_comType;
-  quint8 m_rnStationId;
-  quint8 m_axisNum;
-  QString m_typeName;//SD4x
-  QString m_modeName;//SD42
-  QString m_version;
+//  quint32 m_devId;
+//  quint8 m_comType;
+//  quint8 m_rnStationId;
+//  quint8 m_axisNum;
+//  QString m_typeName;//SD4x
+//  QString m_modeName;//SD42
+//  QString m_version;
   bool m_connected;
 
-  quint32 m_pwrId;   //id->SD?? 通过一个id映射表获得名字
-  quint32 m_ctrId;   //id->SD?? 通过一个id映射表获得名字
-  quint32 m_fpgaId;
+//  quint32 m_pwrId;   //id->SD?? 通过一个id映射表获得名字
+//  quint32 m_ctrId;   //id->SD?? 通过一个id映射表获得名字
+//  quint32 m_fpgaId;
 
+  DeviceConfig *m_devConfig;
   ICtrBoard *m_ctrBoard;
   IPwrBoard *m_pwrBoard;
   IDspMap *m_dspMap;
@@ -44,6 +45,7 @@ public :
 
   QString m_filePath;
   QTreeWidgetItem *m_targetTree;
+
 
 signals:
   void initProgressInfo(int value,QString msg);

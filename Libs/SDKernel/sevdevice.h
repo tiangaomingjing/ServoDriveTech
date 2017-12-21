@@ -38,6 +38,7 @@ public:
   quint32 ctrId() const;
   quint32 fpgaId() const ;
   quint8 axisNum() const;
+  DeviceConfig *deviceConfig() const;
   QTreeWidgetItem* targetTree() const;
   QTreeWidget *axisTreeSource(int axis,int page) const;
   QTreeWidget *globalTreeSource(int page) const;

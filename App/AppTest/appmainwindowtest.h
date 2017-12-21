@@ -35,8 +35,11 @@ private slots:
 
   void on_actionChangeAddr_triggered();
 
+  void on_pushButton_connectTest_clicked();
+
 private:
   void initial();
+  static void processBarInfo(void *bar, short *v);
 
 private:
   Ui::AppMainWindowTest *ui;

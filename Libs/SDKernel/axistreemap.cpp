@@ -39,7 +39,7 @@ AxisTreeMap::AxisTreeMap(quint8 axis, const QTreeWidgetItem *targetTree, const Q
       file+=item->text(GT::COL_TARGET_CONFIG_XML);
     }
     file+=".xml";
-    qDebug()<<file;
+//    qDebug()<<file;
 
     tree=QtTreeManager::createTreeWidgetFromXmlFile(file);
     Q_ASSERT(tree);

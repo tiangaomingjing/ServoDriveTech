@@ -30,7 +30,7 @@ UiBrake::UiBrake(QWidget *parent):IUiWidget(*(new UiBrakePrivate),parent),ui(new
 }
 UiBrake::~UiBrake()
 {
-
+  delete ui;
 }
 QStackedWidget *UiBrake::getUiStackedWidget(void)
 {

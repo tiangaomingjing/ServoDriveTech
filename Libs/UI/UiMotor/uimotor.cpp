@@ -32,7 +32,7 @@ UiMotor::UiMotor(QWidget *parent):IUiWidget(*(new UiMotorPrivate),parent),ui(new
 }
 UiMotor::~UiMotor()
 {
-
+  delete ui;
 }
 
 QStackedWidget *UiMotor::getUiStackedWidget(void)

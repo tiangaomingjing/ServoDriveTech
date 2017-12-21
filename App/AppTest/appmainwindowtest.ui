@@ -14,7 +14,7 @@
    <string>AppMainWindowTest</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0,0,0,0,0">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0,0,0,0,0,0">
     <item>
      <widget class="QWidget" name="widget" native="true"/>
     </item>
@@ -36,6 +36,13 @@
      <widget class="QPushButton" name="pushButton_memery">
       <property name="text">
        <string>memery test</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="pushButton_connectTest">
+      <property name="text">
+       <string>connect test</string>
       </property>
      </widget>
     </item>

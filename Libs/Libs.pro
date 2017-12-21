@@ -6,5 +6,6 @@ SUBDIRS += \
     GTUtils \
     SDKernel\
     UI \
-    PlotUnit
+    PlotUnit \
+    Option
 

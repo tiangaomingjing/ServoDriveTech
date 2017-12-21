@@ -132,7 +132,9 @@ void SevDevicePrivate::init(const DeviceConfig *dConfig)
 
   qDebug()<<"new SevPwrBoard";
   m_pwrBoard=new SevPwrBoard(this,0);
+  qDebug()<<"new SevCtrBoard";
   m_ctrBoard=new SevCtrBoard(this,0);
+  qDebug()<<"new LinkSocket";
   m_socket=new LinkSocket(this,0);
 
 }

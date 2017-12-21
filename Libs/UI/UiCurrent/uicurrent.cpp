@@ -29,7 +29,7 @@ UiCurrent::UiCurrent(QWidget *parent):IUiWidget(*(new UiCurrentPrivate),parent),
 }
 UiCurrent::~UiCurrent()
 {
-
+  delete ui;
 }
 
 QStackedWidget *UiCurrent::getUiStackedWidget(void)

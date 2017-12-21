@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     ../../Common/src/Kernel/sevuicontroler.cpp \
     ../../Common/src/UiFactory/uifactory.cpp \
     ../../Common/src/Kernel/globaluicontroler.cpp \
-    ../../Common/src/Kernel/deviceconfig.cpp
+    ../../Common/src/Kernel/deviceconfig.cpp \
+    ../../Common/src/Kernel/deviceidhelper.cpp
 
 HEADERS  += uimainwindow.h \
     ../../Common/src/sdtglobaldef.h \
@@ -44,7 +45,8 @@ HEADERS  += uimainwindow.h \
     ../../Common/src/UiFactory/uifactory.h \
     ../../Common/src/UiFactory/registerfunction.h \
     ../../Common/src/Kernel/globaluicontroler.h \
-    ../../Common/src/Kernel/deviceconfig.h
+    ../../Common/src/Kernel/deviceconfig.h \
+    ../../Common/src/Kernel/deviceidhelper.h
 
 FORMS    += uimainwindow.ui
 
@@ -57,3 +59,7 @@ DISTFILES += \
     ../../Common/src/QML/V129/UiPower.qml \
     ../../Common/src/QML/V129/UiSpeed.qml \
     ../../Common/src/QML/V129/UiStatus.qml
+
+RESOURCES += \
+    res.qrc
+TRANSLATIONS    += ch_main.ts en_main.ts

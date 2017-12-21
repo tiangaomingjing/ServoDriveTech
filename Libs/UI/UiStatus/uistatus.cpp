@@ -30,7 +30,7 @@ UiStatus::UiStatus(QWidget *parent):IUiWidget(*(new UiStatusPrivate),parent),ui(
 }
 UiStatus::~UiStatus()
 {
-
+  delete ui;
 }
 
 QStackedWidget *UiStatus::getUiStackedWidget(void)
