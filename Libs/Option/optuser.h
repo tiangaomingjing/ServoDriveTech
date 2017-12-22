@@ -14,9 +14,12 @@ class OPTIONSHARED_EXPORT OptUser : public IOpt
 public:
   explicit OptUser(const QString &optName, QWidget *parent = 0);
   ~OptUser();
-  void optActive();
+  bool optActive();
+
+  bool isAdmin() const;
 
 signals:
+  void usrChange(bool isAdmin);
 
 public slots:
 private:

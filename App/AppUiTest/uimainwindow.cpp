@@ -105,17 +105,18 @@ void UiMainWindow::stackedWidgetInit()
     sd=d->m_sdAssemblyList.at(i);
     uiCtr=sd->uiControler();
     uiCount=uiCtr->uiCount();
-    qDebug()<<"uiCount"<<uiCount;
+    qDebug()<<"sd"<<i<<"uiCount"<<uiCount;
     for(int i=0;i<uiCount;i++)
     {
       w=static_cast<QWidget *>(uiCtr->uiAt(i));
       ui->stackedWidget->addWidget(w);
     }
+    qApp->processEvents();
   }
 
   uiCtr=d->m_gUiControl;
   uiCount=uiCtr->uiCount();
-  qDebug()<<"uiCount"<<uiCount;
+  qDebug()<<"ui global Count"<<uiCount;
   for(int i=0;i<uiCount;i++)
   {
     w=static_cast<QWidget *>(uiCtr->uiAt(i));
@@ -126,9 +127,13 @@ void UiMainWindow::removeAllStackedWidget()
 {
   int i=0;
   while (ui->stackedWidget->count()) {
-    ui->stackedWidget->removeWidget(ui->stackedWidget->widget(0));
+    QWidget *w=ui->stackedWidget->widget(0);
+    ui->stackedWidget->removeWidget(w);
+    w->setParent(0);
     qDebug()<<"remove stackedWidget "<<i;
     i++;
+    ui->progressBar->setValue(i);
+    qApp->processEvents();
   }
 }
 
@@ -196,7 +201,6 @@ void UiMainWindow::navigationTreeInit()
     QTreeWidgetItem *plotItem=NULL;
     int axisNum=d->m_currentSdAssembly->sevDevice()->axisNum();
     int pageIndex=0;
-    int pageNum=0;
     for(int i=0;i<axisNum;i++)
     {
       axisItem=d->m_currentSdAssembly->sevDevice()->targetTree()->child(0)->clone();
@@ -209,7 +213,6 @@ void UiMainWindow::navigationTreeInit()
         pageIndex++;
       }
     }
-    pageNum=axisItem->childCount();
 
     globalItem=d->m_currentSdAssembly->sevDevice()->targetTree()->child(1);
     int globalCount=globalItem->childCount();
@@ -223,7 +226,6 @@ void UiMainWindow::navigationTreeInit()
     }
     qDebug()<<"globalCount"<<globalCount;
 
-    qDebug()<<"axisNum*pageNum+globalCount"<<axisNum*pageNum+globalCount;
     plotItem=new QTreeWidgetItem;
     plotItem->setText(0,tr("Plot"));
     plotItem->setText(4,QString::number(pageIndex));
@@ -250,7 +252,6 @@ void UiMainWindow::navigationTreeInit()
       qDebug()<<"deviceItem->setText";
 
       int axisNum=sd->sevDevice()->axisNum();
-      int pageNum=0;
       for(int i=0;i<axisNum;i++)
       {
         axisItem=sd->sevDevice()->targetTree()->child(0)->clone();
@@ -263,7 +264,6 @@ void UiMainWindow::navigationTreeInit()
         }
         deviceItem->addChild(axisItem);
       }
-      pageNum=axisItem->childCount();
 
       globalItem=sd->sevDevice()->targetTree()->child(1);
       int globalCount=globalItem->childCount();
@@ -485,9 +485,11 @@ void UiMainWindow::onActNewSelectClicked()
 
   QList<DeviceConfig *>configList;//just for test
   qDebug()<<"new select  clicked";
-  //if 确定修改按下
-  DeviceConfig *config=new DeviceConfig;
+  DeviceConfig *config=NULL;
+
+
   //SD42 V129 test
+  config=new DeviceConfig;
   config->m_pwrId= 21000509;
   config->m_ctrId= 0;
   config->m_version="V129";
@@ -525,7 +527,7 @@ void UiMainWindow::onActNewSelectClicked()
   for(int i=0;i<configCount;i++)
   {
     devConfig=configList.at(i);
-    qDebug()<<"devconfig:"<<tr("pwrid=%1,ctrid=%2,comtype=%3,version=%4,stationid=%5").arg(devConfig->m_pwrId)\
+    qDebug()<<"devconfig i="<<i<<"\n"<<tr("pwrid=%1,ctrid=%2,comtype=%3,version=%4,stationid=%5").arg(devConfig->m_pwrId)\
               .arg(devConfig->m_ctrId).arg(devConfig->m_comType).arg(devConfig->m_version).arg(devConfig->m_rnStationId);
 
     bool cp=false;
@@ -555,27 +557,21 @@ void UiMainWindow::onActNewSelectClicked()
       sdAssemblyListTemp.append(currentSdAssembly);
     }
   }
-//  //清除多余的
-//  for(int j=0;j<d->m_sdAssemblyList.count();j++)
-//  {
-//    currentSdAssembly=d->m_sdAssemblyList.at(j);
-//    delete currentSdAssembly;
-//  }
-//  d->m_sdAssemblyList.clear();
-  GT::deepClearList(d->m_sdAssemblyList);
 
+  GT::deepClearList(d->m_sdAssemblyList);
 
   d->m_sdAssemblyList=sdAssemblyListTemp;
   qDebug()<<"after sdAssembly list count"<<d->m_sdAssemblyList.count();
 
   //这里还有内存泄漏
-//  removeAllStackedWidget();
-//  clearNavigationTree();
-//  clearGlobalUiPage();
+  removeAllStackedWidget();
+  clearNavigationTree();
 
-//  navigationTreeInit();
-//  globalUiPageInit();
-//  stackedWidgetInit();
+  navigationTreeInit();
+  stackedWidgetInit();
+  ui->progressBar->setValue(100);
+
+  qDebug()<<"stackedWidget count="<<ui->stackedWidget->count();
 
   GT::deepClearList(configList);
 }

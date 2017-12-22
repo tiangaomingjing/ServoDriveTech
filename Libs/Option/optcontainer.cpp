@@ -2,7 +2,6 @@
 #include "iopt.h"
 
 #include <QHash>
-int OptContainer::aa=0;
 QHash<QString,IOpt*>OptContainer::m_optHash;
 
 

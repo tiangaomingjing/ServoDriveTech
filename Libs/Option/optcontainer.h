@@ -21,7 +21,6 @@ signals:
 public slots:
 private:
 static QHash<QString,IOpt*>m_optHash;
-static int aa;
 };
 
 #endif // OPTION_H

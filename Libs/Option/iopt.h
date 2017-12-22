@@ -14,8 +14,8 @@ public:
   QString name() const;
   bool isModify() const;
   void setModify(bool modify);
-  void execute();
-  virtual void optActive()=0;
+  bool execute();
+  virtual bool optActive()=0;
 
 signals:
 

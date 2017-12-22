@@ -45,13 +45,15 @@ void IOpt::setModify(bool modify)
   Q_D(IOpt);
   d->m_isModify=modify;
 }
-void IOpt::execute()
+bool IOpt::execute()
 {
   Q_D(IOpt);
+  bool ok=true;
   if(d->m_isModify)
   {
-    optActive();
+    ok=optActive();
     qDebug()<<d->m_name<<"execute";
     d->m_isModify=false;
   }
+  return ok;
 }

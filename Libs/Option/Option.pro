@@ -29,14 +29,20 @@ DESTDIR =$${OPT_OUT_PATH}
 SOURCES += \
     optcontainer.cpp \
     iopt.cpp \
-    optuser.cpp
+    optuser.cpp \
+    optface.cpp \
+    optplot.cpp \
+    optautoload.cpp
 
 HEADERS +=\
         option_global.h \
     optcontainer.h \
     iopt.h \
     iopt_p.h \
-    optuser.h
+    optuser.h \
+    optface.h \
+    optplot.h \
+    optautoload.h
 
 unix {
     target.path = /usr/lib
@@ -44,4 +50,7 @@ unix {
 }
 
 FORMS += \
-    optuser.ui
+    optuser.ui \
+    optface.ui \
+    optplot.ui \
+    optautoload.ui
