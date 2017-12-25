@@ -2,8 +2,24 @@
 #include "iopt.h"
 
 #include <QHash>
+#include <QMutex>
+#include <QMutexLocker>
 QHash<QString,IOpt*>OptContainer::m_optHash;
+OptContainer* OptContainer::m_instance=NULL;
 
+OptContainer *OptContainer::instance(QObject *parent)
+{
+  static QMutex mutex;
+  if(!m_instance)
+  {
+    QMutexLocker locker(&mutex);
+    if(!m_instance)
+    {
+      m_instance=new OptContainer(parent);
+    }
+  }
+  return m_instance;
+}
 
 OptContainer::OptContainer(QObject *parent):QObject(parent)
 {

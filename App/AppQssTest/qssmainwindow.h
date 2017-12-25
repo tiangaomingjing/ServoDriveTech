@@ -22,6 +22,8 @@ private slots:
 
   void on_actionQ3_triggered();
 
+  void on_pushButton_fontsize_clicked();
+
 private:
   Ui::QssMainWindow *ui;
 };

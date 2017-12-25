@@ -15,6 +15,8 @@ public:
   explicit OptFace(const QString &optName, QWidget *parent = 0);
   ~OptFace();
   bool optActive();
+  void setFaceStyle(const QString &css);
+  void setFaceFontSize(int size);
 
 signals:
 

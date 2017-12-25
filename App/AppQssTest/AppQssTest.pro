@@ -15,6 +15,7 @@ TEMPLATE = app
 SOURCES += main.cpp\
         qssmainwindow.cpp
 
-HEADERS  += qssmainwindow.h
+HEADERS  += qssmainwindow.h \
+    styleiconwidget.h
 
 FORMS    += qssmainwindow.ui

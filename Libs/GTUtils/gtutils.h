@@ -3,6 +3,7 @@
 
 #include "gtutils_global.h"
 
+//对应目录下相关文件名
 #define SYSCONFIGTREE_NAME            "SysConfigTree.ui"
 #define DEVCONFIG_NAME                "DevConfig.ui"
 #define FLASH_ALL_PRM_NAME            "FlashPrm_AllAxis.xml"

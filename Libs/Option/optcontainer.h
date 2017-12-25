@@ -11,16 +11,22 @@ class OPTIONSHARED_EXPORT OptContainer:public QObject
 {
   Q_OBJECT
 public:
-  explicit OptContainer(QObject *parent=0);
+  static OptContainer *instance(QObject *parent=0);
   ~OptContainer();
   void addOptItem(IOpt*opt);
   IOpt* optItem(const QString &optName);
   void saveOpt();
+protected:
+  OptContainer(QObject *parent=0);
 
 signals:
 public slots:
 private:
-static QHash<QString,IOpt*>m_optHash;
+  //防止默认拷贝构造函数发生
+  OptContainer(OptContainer &oc){}
+  static QHash<QString,IOpt*>m_optHash;
+  static OptContainer* m_instance;
+
 };
 
 #endif // OPTION_H

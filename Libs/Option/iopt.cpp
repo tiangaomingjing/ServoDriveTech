@@ -1,7 +1,10 @@
 ﻿#include "iopt.h"
 #include "iopt_p.h"
+#include "gtutils.h"
 
 #include <QDebug>
+
+QString IOptPrivate::m_optPath=GTUtils::customPath()+"option/";
 
 IOptPrivate::IOptPrivate():m_name("iopt"),m_isModify(false)
 {
