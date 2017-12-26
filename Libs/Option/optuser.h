@@ -14,10 +14,13 @@ class OPTIONSHARED_EXPORT OptUser : public IOpt
 public:
   explicit OptUser(const QString &optName, QWidget *parent = 0);
   ~OptUser();
-  bool optActive();
 
   bool isAdmin() const;
 
+protected:
+  bool optActive()Q_DECL_OVERRIDE;
+  bool readOpt(QSettings *settings)Q_DECL_OVERRIDE;
+  bool writeOpt(QSettings *settings)Q_DECL_OVERRIDE;
 signals:
   void usrChange(bool isAdmin);
 

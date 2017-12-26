@@ -21,10 +21,10 @@ QssMainWindow::QssMainWindow(QWidget *parent) :
   ui->verticalLayout->addLayout(gridLayout);
   QString fn="D:\\Smart\\ServoMaster\\git-project\\ServoDriveTech\\build-ServoDriveTech-Qt5_5_1Vs2013x86-Debug\\App\\AppQssTest\\qss\\icon";
 
-  StyleIconWidget *s1=new StyleIconWidget(fn+"\\s1.png","blue",this);
-  StyleIconWidget *s2=new StyleIconWidget(fn+"\\s2.png","gray",this);
-  StyleIconWidget *s3=new StyleIconWidget(fn+"\\s3.png","red",this);
-  StyleIconWidget *s4=new StyleIconWidget(fn+"\\s4.png","yellow",this);
+  StyleIconWidget *s1=new StyleIconWidget(fn+"\\s1.png","blue","blue",this);
+  StyleIconWidget *s2=new StyleIconWidget(fn+"\\s2.png","gray","gray",this);
+  StyleIconWidget *s3=new StyleIconWidget(fn+"\\s3.png","red","red",this);
+  StyleIconWidget *s4=new StyleIconWidget(fn+"\\s4.png","yellow","yellow",this);
   gridLayout->addWidget(s1,0,0);
   gridLayout->addWidget(s2,0,1);
   gridLayout->addWidget(s3,1,0);

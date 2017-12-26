@@ -30,6 +30,8 @@ OptUser::OptUser(const QString &optName, QWidget *parent) : IOpt(optName,*new Op
   ui(new Ui::OptUser)
 {
   ui->setupUi(this);
+  readOptFile();
+
   Q_D(OptUser);
 
   QString pwFile=GTUtils::customPath()+ADMINPW_FILE;
@@ -39,6 +41,7 @@ OptUser::OptUser(const QString &optName, QWidget *parent) : IOpt(optName,*new Op
   {
     QTextStream in(&file);
     d->m_pw=in.readAll();
+    file.close();
   }
   else
   {
@@ -46,8 +49,6 @@ OptUser::OptUser(const QString &optName, QWidget *parent) : IOpt(optName,*new Op
     d->m_pw="googol123";
   }
   qDebug()<<"password"<<d->m_pw;
-  file.close();
-
 }
 OptUser::~OptUser()
 {
@@ -56,6 +57,15 @@ OptUser::~OptUser()
 bool OptUser::optActive()
 {
   Q_D(OptUser);
+  return true;
+}
+bool OptUser::readOpt(QSettings *settings)
+{
+  qDebug()<<"optusr read opt";
+  return true;
+}
+bool OptUser::writeOpt(QSettings *settings)
+{
   return true;
 }
 

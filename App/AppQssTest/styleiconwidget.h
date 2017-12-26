@@ -6,36 +6,31 @@
 #include <QStyleOption>
 #include <QObject>
 #include <QPainter>
+#include <QDebug>
 
 class StyleIconWidget:public QWidget
 {
   Q_OBJECT
-  Q_PROPERTY(bool pressed READ isPressed WRITE setPressed NOTIFY pressed)
 public:
-  explicit StyleIconWidget(const QString &iconpath,const QString &text,QWidget *parent):QWidget(parent)
+  explicit StyleIconWidget(const QString &iconpath,const QString &title,const QString &css,QWidget *parent):QWidget(parent),
+    m_css(css)
   {
     QVBoxLayout *vlayout=new QVBoxLayout(this);
     m_icon=new QLabel(this);
     m_icon->setPixmap(QPixmap(iconpath));
     m_icon->setAlignment(Qt::AlignCenter);
-    m_text=new QLabel(this);
-    m_text->setText(text);
-    m_text->setAlignment(Qt::AlignCenter);
+    m_title=new QLabel(this);
+    m_title->setText(title);
+    m_title->setAlignment(Qt::AlignCenter);
     vlayout->addWidget(m_icon);
-    vlayout->addWidget(m_text);
+    vlayout->addWidget(m_title);
     vlayout->setStretch(0,1);
     vlayout->setStretch(1,0);
-    QString s="StyleIconWidget:hover:!pressed{\
+    QString s="StyleIconWidget:hover{\
         border: 2px solid red;\
         border-radius:5px;\
-      }\
-      StyleIconWidget:hover:pressed{\
-        border: 2px solid red;\
-        border-radius:5px;\
-        background:blue;\
       }";
     setStyleSheet(s);
-    update();
   }
 
   ~StyleIconWidget()
@@ -48,30 +43,19 @@ public:
   }
   void setIconText(const QString &text)
   {
-    m_text->setText(text);
-  }
-
-  bool isPressed()
-  {
-    return m_pressed;
-  }
-  void setPressed(bool press)
-  {
-    m_pressed=press;
+    m_title->setText(text);
   }
 
 signals:
-  void pressed();
+  void cssChanged(QString css);
 protected:
 
-  void mousePressEvent(QMouseEvent *)
-  {
-    m_pressed=true;
-    emit pressed();
-  }
   void mouseReleaseEvent(QMouseEvent *)
   {
-    m_pressed=false;
+    emit cssChanged(m_css);
+    qDebug()<<"emit css changed"<<m_css;
+    m_pressed=true;
+    update();
   }
 
   void paintEvent(QPaintEvent *event)
@@ -80,12 +64,20 @@ protected:
     opt.init(this);
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+    if(m_pressed)
+    {
+      QRect rect;
+      rect=this->rect();
+      p.fillRect(rect,Qt::gray);
+      m_pressed=false;
+    }
     QWidget::paintEvent(event);
   }
 
 private:
   QLabel *m_icon;
-  QLabel *m_text;
+  QLabel *m_title;
+  QString m_css;
   bool m_pressed;
 
 };

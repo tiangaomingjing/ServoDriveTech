@@ -9,14 +9,18 @@ class OptPlot;
 }
 class OptPlotPrivate;
 
-class OptPlot : public IOpt
+class OPTIONSHARED_EXPORT OptPlot : public IOpt
 {
   Q_OBJECT
   Q_DECLARE_PRIVATE(OptPlot)
 public:
   explicit OptPlot(const QString &optName, QWidget *parent = 0);
   ~OptPlot();
-  bool optActive();
+
+protected:
+  bool optActive()Q_DECL_OVERRIDE;
+  bool readOpt(QSettings *settings)Q_DECL_OVERRIDE;
+  bool writeOpt(QSettings *settings)Q_DECL_OVERRIDE;
 
 signals:
 

@@ -7,15 +7,20 @@ namespace Ui {
 class OptAutoLoad;
 }
 class OptAutoLoadPrivate;
+class QSettings;
 
-class OptAutoLoad : public IOpt
+class OPTIONSHARED_EXPORT OptAutoLoad : public IOpt
 {
   Q_OBJECT
   Q_DECLARE_PRIVATE(OptAutoLoad)
 public:
   explicit OptAutoLoad(const QString &optName,QWidget *parent = 0);
   ~OptAutoLoad();
-  bool optActive();
+
+protected:
+  bool optActive()Q_DECL_OVERRIDE;
+  bool readOpt(QSettings *settings)Q_DECL_OVERRIDE;
+  bool writeOpt(QSettings *settings)Q_DECL_OVERRIDE;
 
 signals:
 

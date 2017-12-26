@@ -576,9 +576,9 @@ void UiMainWindow::onActNewSelectClicked()
   GT::deepClearList(configList);
 }
 
+//测试没有通过
 void UiMainWindow::onActChineseClicked()
 {
-  //测试没有通过
   Q_D(UiMainWindow);
   QString langPath= GTUtils::languagePath();
   qDebug()<<"chinese"<<langPath;
@@ -590,9 +590,9 @@ void UiMainWindow::onActChineseClicked()
   //所以目前采用改变配置文件，main()里加载，重启生效
 }
 
+//测试没有通过
 void UiMainWindow::onActEnglishClicked()
 {
-  //测试没有通过
   Q_D(UiMainWindow);
   QString langPath= GTUtils::languagePath();
   qDebug()<<"english"<<langPath;

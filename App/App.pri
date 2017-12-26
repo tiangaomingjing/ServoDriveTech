@@ -7,6 +7,7 @@ INCLUDEPATH+=$${LIBS_PATH}/Com/Communication\
             $${LIBS_PATH}/SDKernel\
             $${LIBS_PATH}/UI\
             $${LIBS_PATH}/UI/IUiWidget\
+            $${LIBS_PATH}/Option\
             $${COMMON_PATH}/src
 
 
@@ -28,7 +29,8 @@ CONFIG(debug, debug|release){
           -lUiRAMd\
           -lUiStatusd\
           -lUiVelocityd\
-          -lSDKerneld
+          -lSDKerneld\
+          -lOptiond
 } else{
     APPTEST_OUT_PATH=$${PWD}/../build/release/bin
     LIBPATH=$${APPTEST_OUT_PATH}
@@ -49,6 +51,7 @@ CONFIG(debug, debug|release){
           -lUiRAM\
           -lUiStatus\
           -lUiVelocity\
-          -lSDKernel
+          -lSDKernel\
+          -lOption
 }
 DESTDIR =$${APPTEST_OUT_PATH}
