@@ -19,8 +19,11 @@ CONFIG(debug, debug|release){
 
 
 SOURCES += main.cpp\
-        optionmainwindow.cpp
+        optionmainwindow.cpp \
+    dialogoption.cpp
 
-HEADERS  += optionmainwindow.h
+HEADERS  += optionmainwindow.h \
+    dialogoption.h
 
-FORMS    += optionmainwindow.ui
+FORMS    += optionmainwindow.ui \
+    dialogoption.ui

@@ -4,7 +4,7 @@
 #include <QWidget>
 #include "option_global.h"
 class IOptPrivate;
-class QSettings;
+
 class OPTIONSHARED_EXPORT IOpt : public QWidget
 {
   Q_OBJECT
@@ -21,15 +21,14 @@ public:
 protected:
   IOpt(const QString &optName, IOptPrivate&dd, QWidget *parent = 0);
   virtual bool optActive()=0;
-  virtual bool readOpt(QSettings *settings)=0;
-  virtual bool writeOpt(QSettings *settings)=0;
+  virtual bool readOpt()=0;
+  virtual bool writeOpt()=0;
 
-  bool readOptFile();
   bool isModify() const;
   void setModify(bool modify);
 
-  void saveData(QSettings *settings,const QString &group,const QString &key,const QVariant &value);
-  QVariant data(QSettings *settings,const QString &group,const QString &key,const QVariant &defaultValue);
+  void saveData(const QString &group, const QString &key, const QVariant &value);
+  QVariant data(const QString &group,const QString &key,const QVariant &defaultValue);
 
 private:
 

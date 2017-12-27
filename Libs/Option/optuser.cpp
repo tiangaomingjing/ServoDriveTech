@@ -30,7 +30,7 @@ OptUser::OptUser(const QString &optName, QWidget *parent) : IOpt(optName,*new Op
   ui(new Ui::OptUser)
 {
   ui->setupUi(this);
-  readOptFile();
+  readOpt();
 
   Q_D(OptUser);
 
@@ -59,12 +59,12 @@ bool OptUser::optActive()
   Q_D(OptUser);
   return true;
 }
-bool OptUser::readOpt(QSettings *settings)
+bool OptUser::readOpt()
 {
   qDebug()<<"optusr read opt";
   return true;
 }
-bool OptUser::writeOpt(QSettings *settings)
+bool OptUser::writeOpt()
 {
   return true;
 }

@@ -1,4 +1,4 @@
-#ifndef OPTIONMAINWINDOW_H
+﻿#ifndef OPTIONMAINWINDOW_H
 #define OPTIONMAINWINDOW_H
 
 #include <QMainWindow>
@@ -14,6 +14,9 @@ class OptionMainWindow : public QMainWindow
 public:
   explicit OptionMainWindow(QWidget *parent = 0);
   ~OptionMainWindow();
+
+private slots:
+  void on_actionOption_triggered();
 
 private:
   Ui::OptionMainWindow *ui;

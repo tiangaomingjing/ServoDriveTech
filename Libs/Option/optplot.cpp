@@ -24,7 +24,7 @@ OptPlot::OptPlot(const QString &optName, QWidget *parent) : IOpt(optName,*new Op
   ui(new Ui::OptPlot)
 {
   ui->setupUi(this);
-  readOptFile();
+  readOpt();
 }
 OptPlot::~OptPlot()
 {
@@ -35,12 +35,12 @@ bool OptPlot::optActive()
 {
   return true;
 }
-bool OptPlot::readOpt(QSettings *settings)
+bool OptPlot::readOpt()
 {
   qDebug()<<"optplot read opt";
   return true;
 }
-bool OptPlot::writeOpt(QSettings *settings)
+bool OptPlot::writeOpt()
 {
   return true;
 }

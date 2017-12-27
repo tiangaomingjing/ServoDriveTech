@@ -97,7 +97,7 @@ OptFace::OptFace(const QString &optName, QWidget *parent) :  IOpt(optName,*new O
   ui(new Ui::OptFace)
 {
   ui->setupUi(this);
-  readOptFile();
+  readOpt();
   connect(ui->rbtn_ch,SIGNAL(clicked(bool)),this,SLOT(onRadioButtonClicked(bool)));
   ui->comboBox->addItem("12",12);
   ui->comboBox->addItem("14",14);
@@ -169,21 +169,21 @@ bool OptFace::optActive()
   //这里面的动作都是立即生效的，所以Ui操作之后就执行了
   return true;
 }
-bool OptFace::readOpt(QSettings *settings)
+bool OptFace::readOpt()
 {
   Q_D(OptFace);
-  d->m_css=data(settings,"face","css","gray").toString();
-  d->m_fontSize=data(settings,"face","fontsize",12).toInt();
-  d->m_lang=data(settings,"face","language","chinese").toString();
+  d->m_css=data("face","css","gray").toString();
+  d->m_fontSize=data("face","fontsize",12).toInt();
+  d->m_lang=data("face","language","chinese").toString();
   qDebug()<<d->m_name<<"read opt";
   return true;
 }
-bool OptFace::writeOpt(QSettings *settings)
+bool OptFace::writeOpt()
 {
   Q_D(OptFace);
-  saveData(settings,"face","css",d->m_css);
-  saveData(settings,"face","fontsize",d->m_fontSize);
-  saveData(settings,"face","language",d->m_lang);
+  saveData("face","css",d->m_css);
+  saveData("face","fontsize",d->m_fontSize);
+  saveData("face","language",d->m_lang);
   return true;
 }
 

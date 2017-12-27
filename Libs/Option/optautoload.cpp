@@ -24,7 +24,7 @@ OptAutoLoad::OptAutoLoad(const QString &optName, QWidget *parent) : IOpt(optName
   ui(new Ui::OptAutoLoad)
 {
   ui->setupUi(this);
-  readOptFile();
+  readOpt();
 }
 OptAutoLoad::~OptAutoLoad()
 {
@@ -34,12 +34,12 @@ bool OptAutoLoad::optActive()
 {
   return true;
 }
-bool OptAutoLoad::readOpt(QSettings *settings)
+bool OptAutoLoad::readOpt()
 {
   qDebug()<<"optautoload read opt";
   return true;
 }
-bool OptAutoLoad::writeOpt(QSettings *settings)
+bool OptAutoLoad::writeOpt()
 {
   return true;
 }

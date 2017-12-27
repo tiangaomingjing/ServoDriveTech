@@ -126,8 +126,9 @@ void UiMainWindow::stackedWidgetInit()
 void UiMainWindow::removeAllStackedWidget()
 {
   int i=0;
+  QWidget *w;
   while (ui->stackedWidget->count()) {
-    QWidget *w=ui->stackedWidget->widget(0);
+    w=ui->stackedWidget->widget(0);
     ui->stackedWidget->removeWidget(w);
     w->setParent(0);
     qDebug()<<"remove stackedWidget "<<i;

@@ -65,35 +65,29 @@ bool IOpt::execute()
 }
 bool IOpt::saveOptToFile()
 {
-  Q_D(IOpt);
-  QSettings settings(d->m_optPath+OPT_START_INI,
-                     QSettings::IniFormat);
-  writeOpt(&settings);
+  writeOpt();
   return true;
 }
 
-bool IOpt::readOptFile()
+void IOpt::saveData(const QString &group,const QString &key,const QVariant &value)
 {
   Q_D(IOpt);
-  bool ok=true;
+
   QSettings settings(d->m_optPath+OPT_START_INI,
                      QSettings::IniFormat);
-  qDebug()<<"iopt"<<"read opt file";
-  ok=readOpt(&settings);
-  return ok;
-}
-void IOpt::saveData(QSettings *settings,const QString &group,const QString &key,const QVariant &value)
-{
-  settings->beginGroup(group);
-  settings->setValue(key, value);
-  settings->endGroup();
+  settings.beginGroup(group);
+  settings.setValue(key, value);
+  settings.endGroup();
 }
 
-QVariant IOpt::data(QSettings *settings, const QString &group, const QString &key, const QVariant &defaultValue)
+QVariant IOpt::data(const QString &group, const QString &key, const QVariant &defaultValue)
 {
-  QVariant d;
-  settings->beginGroup(group);
-  d=settings->value(key,defaultValue);
-  settings->endGroup();
-  return d;
+  Q_D(IOpt);
+  QSettings settings(d->m_optPath+OPT_START_INI,
+                     QSettings::IniFormat);
+  QVariant vd;
+  settings.beginGroup(group);
+  vd=settings.value(key,defaultValue);
+  settings.endGroup();
+  return vd;
 }

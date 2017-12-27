@@ -15,6 +15,7 @@ public:
   ~OptContainer();
   void addOptItem(IOpt*opt);
   IOpt* optItem(const QString &optName);
+  QList<IOpt*> optItems();
   void saveOpt();
 protected:
   OptContainer(QObject *parent=0);
@@ -26,6 +27,7 @@ private:
   OptContainer(OptContainer &oc){}
   static QHash<QString,IOpt*>m_optHash;
   static OptContainer* m_instance;
+  QList<IOpt*> m_optList;
 
 };
 

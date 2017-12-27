@@ -47,8 +47,8 @@ public:
 
 protected:
   bool optActive()Q_DECL_OVERRIDE;
-  bool readOpt(QSettings *settings)Q_DECL_OVERRIDE;
-  bool writeOpt(QSettings *settings)Q_DECL_OVERRIDE;
+  bool readOpt()Q_DECL_OVERRIDE;
+  bool writeOpt()Q_DECL_OVERRIDE;
 
 signals:
 

@@ -8,6 +8,8 @@
 #include "optplot.h"
 #include "optuser.h"
 
+#include "dialogoption.h"
+
 #include <QDebug>
 
 OptionMainWindow::OptionMainWindow(QWidget *parent) :
@@ -16,20 +18,25 @@ OptionMainWindow::OptionMainWindow(QWidget *parent) :
 {
   ui->setupUi(this);
 
-  OptContainer *optc=OptContainer::instance(this);
+  OptContainer *optc=OptContainer::instance();
   IOpt *opt=new OptFace("optface",0);
   optc->addOptItem(opt);
   opt=new OptUser("optuser",0);
   optc->addOptItem(opt);
   opt=new OptAutoLoad("optautoload",0);
   optc->addOptItem(opt);
-  qDebug()<<".......................";
   opt=new OptPlot("optplot",0);
   optc->addOptItem(opt);
-  qDebug()<<".......................2";
+
 }
 
 OptionMainWindow::~OptionMainWindow()
 {
   delete ui;
+}
+
+void OptionMainWindow::on_actionOption_triggered()
+{
+    DialogOption dialogOpt;
+    dialogOpt.exec();
 }
