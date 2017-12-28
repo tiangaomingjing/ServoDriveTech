@@ -17,10 +17,15 @@ public:
   explicit OptAutoLoad(const QString &optName,QWidget *parent = 0);
   ~OptAutoLoad();
 
+  void uiInit()Q_DECL_OVERRIDE;
+
 protected:
   bool optActive()Q_DECL_OVERRIDE;
   bool readOpt()Q_DECL_OVERRIDE;
   bool writeOpt()Q_DECL_OVERRIDE;
+
+private slots:
+  void onCheckedBoxClicked();
 
 signals:
 

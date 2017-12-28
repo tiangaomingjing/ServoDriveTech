@@ -18,6 +18,8 @@ public:
 
   bool saveOptToFile();
 
+  virtual void uiInit()=0;
+
 protected:
   IOpt(const QString &optName, IOptPrivate&dd, QWidget *parent = 0);
   virtual bool optActive()=0;

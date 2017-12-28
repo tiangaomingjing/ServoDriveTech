@@ -54,5 +54,9 @@ QList<IOpt*> OptContainer::optItems()
 
 void OptContainer::saveOpt()
 {
-
+  foreach (IOpt *opt, m_optList)
+  {
+    opt->saveOptToFile();
+    qDebug()<<opt->name()<<"save opt file";
+  }
 }

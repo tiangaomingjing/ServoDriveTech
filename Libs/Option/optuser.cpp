@@ -29,10 +29,9 @@ OptUserPrivate::~OptUserPrivate()
 OptUser::OptUser(const QString &optName, QWidget *parent) : IOpt(optName,*new OptUserPrivate,parent),
   ui(new Ui::OptUser)
 {
+  Q_D(OptUser);
   ui->setupUi(this);
   readOpt();
-
-  Q_D(OptUser);
 
   QString pwFile=GTUtils::customPath()+ADMINPW_FILE;
   QFile file;
@@ -49,23 +48,36 @@ OptUser::OptUser(const QString &optName, QWidget *parent) : IOpt(optName,*new Op
     d->m_pw="googol123";
   }
   qDebug()<<"password"<<d->m_pw;
+
+  uiInit();
 }
 OptUser::~OptUser()
 {
   delete ui;
 }
+void OptUser::uiInit()
+{
+
+}
+
 bool OptUser::optActive()
 {
   Q_D(OptUser);
+  qDebug()<<"opt user execute active ";
   return true;
 }
 bool OptUser::readOpt()
 {
+  Q_D(OptUser);
+  d->m_isAdmin=data("usr","admin",false).toBool();
   qDebug()<<"optusr read opt";
+
   return true;
 }
 bool OptUser::writeOpt()
 {
+//  Q_D(OptUser);
+//  saveData("usr","admin",d->m_isAdmin);
   return true;
 }
 

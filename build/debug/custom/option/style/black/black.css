@@ -1,0 +1,49 @@
+QPushButton{
+  border-style: none;
+  border: 0px;
+  color: #F0F0F0;
+  padding: 5px;
+  min-height: 30px;
+  min-width: 50px;
+  border-radius:5px;
+  background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #4D4D4D, stop:1 #292929);
+}
+QPushButton:hover:!pressed{
+  border-style: none;
+  border: 0px;
+  color: #F0F0F0;
+  padding: 5px;
+  min-height: 30px;
+  min-width: 50px;
+  border-radius:5px;
+  background: lightblue;
+}
+QPushButton:hover:pressed{
+  border-style: none;
+  border: 0px;
+  color: #F0F0F0;
+  padding: 5px;
+  min-height: 30px;
+  min-width: 50px;
+  border-radius:5px;
+  background: gray;
+}
+QListView::item {
+	border: 1px solid #d9d9d9;
+	border-left-color: transparent;
+	border-top-color: transparent;
+}
+QListView::item:hover {
+	background: lightgray;
+	border: 1px solid #bfcde4;
+}
+QListView::item:selected {
+	border: none;
+}
+QListView::item:selected:active{
+	background: gray;
+}
+QListView::item:selected:!active {
+	background: gray;
+}
+

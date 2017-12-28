@@ -19,6 +19,9 @@ private slots:
   void on_actionOption_triggered();
 
 private:
+  void closeEvent(QCloseEvent *e);
+
+private:
   Ui::OptionMainWindow *ui;
 };
 

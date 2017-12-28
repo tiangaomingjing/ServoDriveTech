@@ -27,3 +27,5 @@ HEADERS  += optionmainwindow.h \
 
 FORMS    += optionmainwindow.ui \
     dialogoption.ui
+
+TRANSLATIONS    += ch_main_test.ts en_main_test.ts

@@ -60,5 +60,40 @@ void DialogOption::closeEvent(QCloseEvent *e)
     w->setParent(0);
     qDebug()<<"reparent";
   }
+//  m_optContainer->saveOpt();
+
   QDialog::closeEvent(e);
+}
+
+void DialogOption::on_btn_apply_clicked()
+{
+  qDebug()<<"apply clicked";
+  QWidget *w=ui->stackedWidget->currentWidget();
+  IOpt *opt=dynamic_cast<IOpt *>(w);
+  opt->execute();
+}
+
+void DialogOption::on_btn_ok_clicked()
+{
+  qDebug()<<"ok clicked";
+  OptContainer *optc=OptContainer::instance();
+  bool ok=true;
+  int errIndex;
+  int i=0;
+  foreach (IOpt *opt, optc->optItems())
+  {
+    ok=opt->execute();
+    if(!ok)
+      errIndex=i;
+    i++;
+  }
+  if(!ok)
+    ui->stackedWidget->setCurrentIndex(errIndex);
+  else
+    close();
+}
+
+void DialogOption::on_btn_cancel_clicked()
+{
+    close();
 }

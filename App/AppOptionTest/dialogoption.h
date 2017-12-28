@@ -16,6 +16,12 @@ public:
   ~DialogOption();
 private slots:
   void onListWidgetRowChanged(int index);
+  void on_btn_apply_clicked();
+
+  void on_btn_ok_clicked();
+
+  void on_btn_cancel_clicked();
+
 private:
   void closeEvent(QCloseEvent *e) override;
 

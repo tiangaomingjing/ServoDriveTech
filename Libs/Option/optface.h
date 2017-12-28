@@ -42,8 +42,12 @@ public:
   explicit OptFace(const QString &optName, QWidget *parent = 0);
   ~OptFace();
 
+  void uiInit()Q_DECL_OVERRIDE;
   void setFaceStyle(const QString &css);
   void setFaceFontSize(int size);
+  int fontSize() const;
+  QString css() const;
+  QString language() const;
 
 protected:
   bool optActive()Q_DECL_OVERRIDE;

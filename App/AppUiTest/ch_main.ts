@@ -43,74 +43,74 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="uimainwindow.cpp" line="201"/>
-        <location filename="uimainwindow.cpp" line="255"/>
+        <location filename="uimainwindow.cpp" line="208"/>
+        <location filename="uimainwindow.cpp" line="259"/>
         <source>Axis_%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="uimainwindow.cpp" line="226"/>
-        <location filename="uimainwindow.cpp" line="280"/>
+        <location filename="uimainwindow.cpp" line="231"/>
+        <location filename="uimainwindow.cpp" line="283"/>
         <source>Plot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="uimainwindow.cpp" line="335"/>
+        <location filename="uimainwindow.cpp" line="338"/>
         <source>testConnet</source>
         <translation type="unfinished">连接测试</translation>
     </message>
     <message>
-        <location filename="uimainwindow.cpp" line="339"/>
+        <location filename="uimainwindow.cpp" line="342"/>
         <source>testDisConnect</source>
         <translation type="unfinished">断开测试</translation>
     </message>
     <message>
-        <location filename="uimainwindow.cpp" line="343"/>
+        <location filename="uimainwindow.cpp" line="346"/>
         <source>testNew</source>
         <translation type="unfinished">新建</translation>
     </message>
     <message>
-        <location filename="uimainwindow.cpp" line="347"/>
+        <location filename="uimainwindow.cpp" line="350"/>
         <source>testWriteFlash</source>
         <translation type="unfinished">永久保存</translation>
     </message>
     <message>
-        <location filename="uimainwindow.cpp" line="351"/>
+        <location filename="uimainwindow.cpp" line="354"/>
         <source>ReadFLASH</source>
         <translation type="unfinished">读FLASH</translation>
     </message>
     <message>
-        <location filename="uimainwindow.cpp" line="357"/>
+        <location filename="uimainwindow.cpp" line="360"/>
         <source>queryConnect</source>
         <translation type="unfinished">查询连接</translation>
     </message>
     <message>
-        <location filename="uimainwindow.cpp" line="363"/>
+        <location filename="uimainwindow.cpp" line="366"/>
         <source>connect</source>
         <translation type="unfinished">连接</translation>
     </message>
     <message>
-        <location filename="uimainwindow.cpp" line="370"/>
+        <location filename="uimainwindow.cpp" line="373"/>
         <source>disnet</source>
         <translation type="unfinished">断开</translation>
     </message>
     <message>
-        <location filename="uimainwindow.cpp" line="383"/>
+        <location filename="uimainwindow.cpp" line="386"/>
         <source>SelectNew</source>
         <translation type="unfinished">选择新建</translation>
     </message>
     <message>
-        <location filename="uimainwindow.cpp" line="389"/>
+        <location filename="uimainwindow.cpp" line="392"/>
         <source>chinese</source>
         <translation type="unfinished">中文</translation>
     </message>
     <message>
-        <location filename="uimainwindow.cpp" line="394"/>
+        <location filename="uimainwindow.cpp" line="397"/>
         <source>english</source>
         <translation type="unfinished">英语</translation>
     </message>
     <message>
-        <location filename="uimainwindow.cpp" line="526"/>
+        <location filename="uimainwindow.cpp" line="531"/>
         <source>pwrid=%1,ctrid=%2,comtype=%3,version=%4,stationid=%5</source>
         <translation type="unfinished"></translation>
     </message>

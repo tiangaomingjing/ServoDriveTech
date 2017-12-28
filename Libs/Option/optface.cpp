@@ -16,7 +16,8 @@
 #include <QFileInfoList>
 
 StyleIconWidget::StyleIconWidget(const QString &iconpath,const QString &title,const QString &css,QWidget *parent):QWidget(parent),
-  m_css(css)
+  m_css(css),
+  m_pressed(false)
 {
   QVBoxLayout *vlayout=new QVBoxLayout(this);
   m_icon=new QLabel(this);
@@ -79,8 +80,8 @@ class OptFacePrivate:public IOptPrivate
 public:
   OptFacePrivate();
   ~OptFacePrivate();
-  QString m_css;
-  QString m_fontSize;
+  QString m_css;//立即生效的参数，所以不用点应用也保存了
+  quint8 m_fontSize;//立即生效的参数，所以不用点应用也保存了
   QString m_lang;
 
 };
@@ -96,9 +97,10 @@ OptFacePrivate::~OptFacePrivate()
 OptFace::OptFace(const QString &optName, QWidget *parent) :  IOpt(optName,*new OptFacePrivate,parent),
   ui(new Ui::OptFace)
 {
+  Q_D(OptFace);
   ui->setupUi(this);
   readOpt();
-  connect(ui->rbtn_ch,SIGNAL(clicked(bool)),this,SLOT(onRadioButtonClicked(bool)));
+
   ui->comboBox->addItem("12",12);
   ui->comboBox->addItem("14",14);
   ui->comboBox->addItem("16",16);
@@ -114,10 +116,8 @@ OptFace::OptFace(const QString &optName, QWidget *parent) :  IOpt(optName,*new O
   ui->comboBox->addItem("40",40);
   ui->comboBox->addItem("46",46);
   ui->comboBox->addItem("50",50);
-  connect(ui->comboBox,SIGNAL(currentIndexChanged(int)),this,SLOT(onCurrentIndexChanged(int)));
 
-  Q_D(OptFace);
-
+  //初始化样式列表
   QString fileName=d->m_optPath+"style/style.ini";
   QString iconWidgetPath=d->m_optPath+"style/common/gridview/";
 
@@ -159,14 +159,48 @@ OptFace::OptFace(const QString &optName, QWidget *parent) :  IOpt(optName,*new O
       connect(siconWidget,SIGNAL(cssChanged(QString)),this,SLOT(onStyleChanged(QString)));
     }
   }
+
+  uiInit();
+
+  connect(ui->comboBox,SIGNAL(currentIndexChanged(int)),this,SLOT(onCurrentIndexChanged(int)));
+  connect(ui->rbtn_ch,SIGNAL(clicked(bool)),this,SLOT(onRadioButtonClicked(bool)));
+  connect(ui->rbtn_en,SIGNAL(clicked(bool)),this,SLOT(onRadioButtonClicked(bool)));
+
 }
 OptFace::~OptFace()
 {
   delete ui;
 }
+void OptFace::uiInit()
+{
+  Q_D(OptFace);
+
+  if(d->m_lang=="english")
+    ui->rbtn_en->setChecked(true);
+  else
+    ui->rbtn_ch->setChecked(true);
+
+  for(int i=0;i<ui->comboBox->count();i++)
+  {
+    if(ui->comboBox->itemData(i)==d->m_fontSize)
+    {
+      ui->comboBox->setCurrentIndex(i);
+      break;
+    }
+  }
+}
+
 bool OptFace::optActive()
 {
   //这里面的动作都是立即生效的，所以Ui操作之后就执行了
+  Q_D(OptFace);
+  if(ui->rbtn_ch->isChecked())
+    d->m_lang="chinese";
+  else
+    d->m_lang="english";
+
+  qDebug()<<"opt face execute active ";
+
   return true;
 }
 bool OptFace::readOpt()
@@ -192,11 +226,11 @@ void OptFace::setFaceStyle(const QString &css)
   Q_D(OptFace);
   d->m_css=css;
 
-  QString filename=d->m_optPath+css;
+  QString filename=d->m_optPath+"style/"+css+"/"+css+".css";
 
   qDebug()<<filename;
   QFile file(filename);
-  if(!file.open(QFile::ReadOnly))
+  if(file.open(QFile::ReadOnly))
   {
     QTextStream in(&file);
 
@@ -217,11 +251,29 @@ void OptFace::setFaceFontSize(int size)
   qApp->setFont(font);
 }
 
+int OptFace::fontSize() const
+{
+  Q_D(const OptFace);
+  return d->m_fontSize;
+}
+
+QString OptFace::css() const
+{
+  Q_D(const OptFace);
+  return d->m_css;
+}
+
+QString OptFace::language() const
+{
+  Q_D(const OptFace);
+  return d->m_lang;
+}
 
 void OptFace::onRadioButtonClicked(bool checked)
 {
   Q_UNUSED(checked);
   setModify(true);
+  qDebug()<<"rbtn clicked";
 }
 void OptFace::onCurrentIndexChanged(int index)
 {
@@ -230,24 +282,7 @@ void OptFace::onCurrentIndexChanged(int index)
 }
 void OptFace::onStyleChanged(QString css)
 {
-  Q_D(OptFace);
-
-  QString fileName=d->m_optPath+"style/"+css+"/"+css+".css";
-  d->m_css=css;
-
-  qDebug()<<fileName;
-
-  QFile file(fileName);
-  if(file.open(QFile::ReadOnly))
-  {
-    QFont font=qApp->font();
-    font.setPixelSize(ui->comboBox->currentData().toInt());
-    qApp->setFont(font);
-
-    QTextStream in(&file);
-
-    QString qss = in.readAll();
-    qApp->setStyleSheet(qss);
-    file.close();
-  }
+  setFaceFontSize(ui->comboBox->currentData().toInt());
+  setFaceStyle(css);
+  setModify(true);
 }

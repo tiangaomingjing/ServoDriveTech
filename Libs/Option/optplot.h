@@ -16,7 +16,7 @@ class OPTIONSHARED_EXPORT OptPlot : public IOpt
 public:
   explicit OptPlot(const QString &optName, QWidget *parent = 0);
   ~OptPlot();
-
+  void uiInit()Q_DECL_OVERRIDE;
 protected:
   bool optActive()Q_DECL_OVERRIDE;
   bool readOpt()Q_DECL_OVERRIDE;

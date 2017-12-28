@@ -15,6 +15,8 @@ public:
   explicit OptUser(const QString &optName, QWidget *parent = 0);
   ~OptUser();
 
+  void uiInit()Q_DECL_OVERRIDE;
+
   bool isAdmin() const;
 
 protected:
