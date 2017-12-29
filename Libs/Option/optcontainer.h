@@ -24,7 +24,7 @@ signals:
 public slots:
 private:
   //防止默认拷贝构造函数发生
-  OptContainer(OptContainer &oc){}
+  OptContainer(OptContainer &oc);
   static QHash<QString,IOpt*>m_optHash;
   static OptContainer* m_instance;
   QList<IOpt*> m_optList;

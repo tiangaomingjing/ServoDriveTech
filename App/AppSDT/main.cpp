@@ -1,4 +1,4 @@
-﻿#include "optionmainwindow.h"
+﻿#include "sdtmainwindow.h"
 #include <QApplication>
 #include <QTranslator>
 #include <QDebug>
@@ -34,11 +34,11 @@ int main(int argc, char *argv[])
   QString lang;
   if(optFace->language()=="chinese")
   {
-    lang=langPath+"ch_main_test.qm";
+    lang=langPath+"ch_main.qm";
   }
   else
   {
-    lang=langPath+"en_main_test.qm";
+    lang=langPath+"en_main.qm";
   }
 
   optFace->setFaceStyle(optFace->css());
@@ -49,9 +49,7 @@ int main(int argc, char *argv[])
   trans.load(lang);
   a.installTranslator(&trans);
 
-
-
-  OptionMainWindow w;
+  SDTMainWindow w;
   w.show();
 
   return a.exec();

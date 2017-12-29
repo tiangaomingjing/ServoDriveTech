@@ -55,3 +55,7 @@ bool OptPlot::writeOpt()
   saveData("plot","delayTime",d->m_delayTime);
   return true;
 }
+void OptPlot::respondErrorExecute()
+{
+
+}

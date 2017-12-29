@@ -3,6 +3,8 @@
 #include "ui_optautoload.h"
 
 #include <QDebug>
+#include <QTimer>
+#include <QMessageBox>
 
 class OptAutoLoadPrivate:public IOptPrivate
 {
@@ -46,6 +48,7 @@ bool OptAutoLoad::optActive()
   Q_D(OptAutoLoad);
   d->m_auto=ui->checkBox->isChecked();
   qDebug()<<"opt auto load execute active ";
+//  return false;//test pass
   return true;
 }
 bool OptAutoLoad::readOpt()
@@ -62,6 +65,10 @@ bool OptAutoLoad::writeOpt()
   saveData("autoload","auto",d->m_auto);
   return true;
 }
+void OptAutoLoad::respondErrorExecute()
+{
+  QTimer::singleShot(100,this,SLOT(onRespondErrorExe()));
+}
 
 void OptAutoLoad::onCheckedBoxClicked()
 {
@@ -69,3 +76,8 @@ void OptAutoLoad::onCheckedBoxClicked()
   qDebug()<<"check box clicked";
 }
 
+void OptAutoLoad::onRespondErrorExe()
+{
+  QMessageBox::warning(0,"error","error");
+  qDebug()<<"error test";
+}

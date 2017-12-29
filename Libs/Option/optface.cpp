@@ -114,8 +114,6 @@ OptFace::OptFace(const QString &optName, QWidget *parent) :  IOpt(optName,*new O
   ui->comboBox->addItem("34",34);
   ui->comboBox->addItem("38",38);
   ui->comboBox->addItem("40",40);
-  ui->comboBox->addItem("46",46);
-  ui->comboBox->addItem("50",50);
 
   //初始化样式列表
   QString fileName=d->m_optPath+"style/style.ini";
@@ -199,6 +197,9 @@ bool OptFace::optActive()
   else
     d->m_lang="english";
 
+  setFaceFontSize(ui->comboBox->currentData().toInt());
+  setFaceStyle(d->m_css);
+
   qDebug()<<"opt face execute active ";
 
   return true;
@@ -219,6 +220,10 @@ bool OptFace::writeOpt()
   saveData("face","fontsize",d->m_fontSize);
   saveData("face","language",d->m_lang);
   return true;
+}
+void OptFace::respondErrorExecute()
+{
+
 }
 
 void OptFace::setFaceStyle(const QString &css)
@@ -284,5 +289,4 @@ void OptFace::onStyleChanged(QString css)
 {
   setFaceFontSize(ui->comboBox->currentData().toInt());
   setFaceStyle(css);
-  setModify(true);
 }

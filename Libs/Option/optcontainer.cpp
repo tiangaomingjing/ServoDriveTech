@@ -30,6 +30,11 @@ OptContainer::~OptContainer()
 {
 
 }
+OptContainer::OptContainer(OptContainer &oc)
+{
+  Q_UNUSED(oc);
+}
+
 void OptContainer::addOptItem(IOpt*opt)
 {
   if(!m_optHash.contains(opt->name()))

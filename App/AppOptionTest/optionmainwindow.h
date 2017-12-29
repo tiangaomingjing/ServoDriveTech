@@ -18,6 +18,8 @@ public:
 private slots:
   void on_actionOption_triggered();
 
+  void onToolBtnClicked();
+  void onToolBtnActionClicked();
 private:
   void closeEvent(QCloseEvent *e);
 

@@ -25,6 +25,7 @@ protected:
   virtual bool optActive()=0;
   virtual bool readOpt()=0;
   virtual bool writeOpt()=0;
+  virtual void respondErrorExecute()=0;
 
   bool isModify() const;
   void setModify(bool modify);

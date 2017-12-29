@@ -35,6 +35,7 @@ DialogOption::DialogOption(QWidget *parent) :
     ui->listWidget->addItem(item);
     qDebug()<<"opt name :"<<iopt->name();
   }
+  ui->listWidget->setCurrentRow(0);
   qDebug()<<"stacked widget count"<<ui->stackedWidget->count();
 }
 
@@ -78,7 +79,7 @@ void DialogOption::on_btn_ok_clicked()
   qDebug()<<"ok clicked";
   OptContainer *optc=OptContainer::instance();
   bool ok=true;
-  int errIndex;
+  int errIndex=-1;
   int i=0;
   foreach (IOpt *opt, optc->optItems())
   {
@@ -87,8 +88,12 @@ void DialogOption::on_btn_ok_clicked()
       errIndex=i;
     i++;
   }
-  if(!ok)
+  qDebug()<<"errIndex"<<errIndex;
+  if(errIndex!=-1)
+  {
     ui->stackedWidget->setCurrentIndex(errIndex);
+    ui->listWidget->setCurrentRow(errIndex);
+  }
   else
     close();
 }

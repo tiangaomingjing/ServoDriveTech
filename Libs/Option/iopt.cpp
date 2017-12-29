@@ -59,7 +59,10 @@ bool IOpt::execute()
   {
     ok=optActive();
     qDebug()<<d->m_name<<"execute";
-    d->m_isModify=false;
+    if(!ok)
+      respondErrorExecute();
+    else
+      d->m_isModify=false;
   }
   return ok;
 }

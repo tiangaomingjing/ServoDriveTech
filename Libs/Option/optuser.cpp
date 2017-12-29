@@ -81,6 +81,11 @@ bool OptUser::writeOpt()
   return true;
 }
 
+void OptUser::respondErrorExecute()
+{
+
+}
+
 bool OptUser::isAdmin() const
 {
   Q_D(const OptUser);

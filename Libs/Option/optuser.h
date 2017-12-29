@@ -23,6 +23,7 @@ protected:
   bool optActive()Q_DECL_OVERRIDE;
   bool readOpt()Q_DECL_OVERRIDE;
   bool writeOpt()Q_DECL_OVERRIDE;
+  void respondErrorExecute()Q_DECL_OVERRIDE;
 signals:
   void usrChange(bool isAdmin);
 
