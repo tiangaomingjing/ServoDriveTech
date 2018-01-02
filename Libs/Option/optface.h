@@ -56,6 +56,7 @@ protected:
   void respondErrorExecute()Q_DECL_OVERRIDE;
 
 signals:
+  void faceCssChanged(QString css);
 
 private slots:
   void onRadioButtonClicked(bool checked);

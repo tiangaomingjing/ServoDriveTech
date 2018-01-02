@@ -62,7 +62,7 @@ void OptUser::uiInit()
 
 bool OptUser::optActive()
 {
-  Q_D(OptUser);
+//  Q_D(OptUser);
   qDebug()<<"opt user execute active ";
   return true;
 }

@@ -5,6 +5,8 @@
 #-------------------------------------------------
 include(../App.pri)
 
+INCLUDEPATH+=$${PWD}/DialogOption
+
 QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -17,9 +19,14 @@ CONFIG(debug, debug|release){
 }
 
 SOURCES += main.cpp\
-        sdtmainwindow.cpp
+        sdtmainwindow.cpp \
+    DialogOption/dialogoption.cpp
 
 HEADERS  += sdtmainwindow.h \
-    appiconname.h
+    appiconname.h \
+    DialogOption/dialogoption.h
 
-FORMS    += sdtmainwindow.ui
+FORMS    += sdtmainwindow.ui \
+    DialogOption/dialogoption.ui
+
+TRANSLATIONS    += ch_main.ts en_main.ts

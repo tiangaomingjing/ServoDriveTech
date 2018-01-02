@@ -43,7 +43,72 @@
 </translation>
     </message>
     <message>
-        <location filename="optionmainwindow.ui" line="56"/>
+        <location filename="optionmainwindow.ui" line="35"/>
+        <location filename="optionmainwindow.ui" line="209"/>
+        <source>PushButton</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="optionmainwindow.ui" line="42"/>
+        <location filename="optionmainwindow.ui" line="216"/>
+        <location filename="optionmainwindow.ui" line="236"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="optionmainwindow.ui" line="50"/>
+        <source>aaaaa</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="optionmainwindow.ui" line="55"/>
+        <source>bbbbb</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="optionmainwindow.ui" line="60"/>
+        <source>ccccc</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="optionmainwindow.ui" line="65"/>
+        <source>dddd</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="optionmainwindow.ui" line="74"/>
+        <source>1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="optionmainwindow.ui" line="79"/>
+        <location filename="optionmainwindow.ui" line="84"/>
+        <location filename="optionmainwindow.ui" line="89"/>
+        <source>新建列</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="optionmainwindow.ui" line="94"/>
+        <location filename="optionmainwindow.ui" line="99"/>
+        <location filename="optionmainwindow.ui" line="108"/>
+        <location filename="optionmainwindow.ui" line="113"/>
+        <location filename="optionmainwindow.ui" line="119"/>
+        <location filename="optionmainwindow.ui" line="128"/>
+        <location filename="optionmainwindow.ui" line="133"/>
+        <location filename="optionmainwindow.ui" line="139"/>
+        <location filename="optionmainwindow.ui" line="144"/>
+        <location filename="optionmainwindow.ui" line="149"/>
+        <source>新建项目</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="optionmainwindow.ui" line="103"/>
+        <location filename="optionmainwindow.ui" line="123"/>
+        <source>新建子项目</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="optionmainwindow.ui" line="245"/>
         <source>option</source>
         <translation type="unfinished">选项</translation>
     </message>

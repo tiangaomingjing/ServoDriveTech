@@ -76,8 +76,8 @@ void IOpt::saveData(const QString &group,const QString &key,const QVariant &valu
 {
   Q_D(IOpt);
 
-  QSettings settings(d->m_optPath+OPT_START_INI,
-                     QSettings::IniFormat);
+  QString path=d->m_optPath+OPT_START_INI;
+  QSettings settings(path,QSettings::IniFormat);
   settings.beginGroup(group);
   settings.setValue(key, value);
   settings.endGroup();
@@ -86,8 +86,8 @@ void IOpt::saveData(const QString &group,const QString &key,const QVariant &valu
 QVariant IOpt::data(const QString &group, const QString &key, const QVariant &defaultValue)
 {
   Q_D(IOpt);
-  QSettings settings(d->m_optPath+OPT_START_INI,
-                     QSettings::IniFormat);
+  QString path=d->m_optPath+OPT_START_INI;
+  QSettings settings(path,QSettings::IniFormat);
   QVariant vd;
   settings.beginGroup(group);
   vd=settings.value(key,defaultValue);

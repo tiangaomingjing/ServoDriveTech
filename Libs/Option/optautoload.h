@@ -18,6 +18,7 @@ public:
   ~OptAutoLoad();
 
   void uiInit()Q_DECL_OVERRIDE;
+  bool autoLoad() const;
 
 protected:
   bool optActive()Q_DECL_OVERRIDE;
@@ -30,6 +31,7 @@ private slots:
   void onRespondErrorExe();
 
 signals:
+  void autoLoadChanged(bool changed);
 
 public slots:
 private:

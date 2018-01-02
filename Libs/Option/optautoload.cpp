@@ -42,12 +42,18 @@ void OptAutoLoad::uiInit()
   Q_D(OptAutoLoad);
   ui->checkBox->setChecked(d->m_auto);
 }
+bool OptAutoLoad::autoLoad() const
+{
+  Q_D(const OptAutoLoad);
+  return d->m_auto;
+}
 
 bool OptAutoLoad::optActive()
 {
   Q_D(OptAutoLoad);
   d->m_auto=ui->checkBox->isChecked();
   qDebug()<<"opt auto load execute active ";
+  emit autoLoadChanged(d->m_auto);
 //  return false;//test pass
   return true;
 }

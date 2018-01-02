@@ -289,4 +289,5 @@ void OptFace::onStyleChanged(QString css)
 {
   setFaceFontSize(ui->comboBox->currentData().toInt());
   setFaceStyle(css);
+  emit faceCssChanged(css);
 }

@@ -6,4 +6,5 @@ SUBDIRS += \
     UiSrcApp \
     AppQssTest \
     AppOptionTest \
-    AppSDT
+    AppSDT \
+    AppWidgetTest
