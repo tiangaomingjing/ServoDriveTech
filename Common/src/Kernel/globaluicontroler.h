@@ -3,11 +3,13 @@
 
 #include "iuicontroler.h"
 
+class GlobalConfig;
+
 class GlobalUiControler: public IUiControler
 {
   Q_OBJECT
 public:
-  explicit GlobalUiControler(GlobalConfig *gconfig,QObject *parent=0);
+  explicit GlobalUiControler(OptContainer *gconfig, QObject *parent=0);
   ~GlobalUiControler();
 
   void createUis()Q_DECL_OVERRIDE;

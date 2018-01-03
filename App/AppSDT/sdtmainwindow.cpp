@@ -7,27 +7,42 @@
 #include "optface.h"
 #include "optplot.h"
 #include "optuser.h"
+#include "dialogoption.h"
 
 #include "gtutils.h"
 #include "appiconname.h"
 
-#include "dialogoption.h"
+#include "deviceconfig.h"
+#include "idevreadwriter.h"
+#include "devtextrwriter.h"
+#include "sdassembly.h"
+#include "sdtglobaldef.h"
+#include "sevdevice.h"
+
+#include "sdtstatusbar.h"
 
 #include <QToolButton>
 #include <QDebug>
+#include <QTranslator>
+#include <QtQml>
 
 SDTMainWindow::SDTMainWindow(QWidget *parent) :
   QMainWindow(parent),
   ui(new Ui::SDTMainWindow)
 {
   ui->setupUi(this);
+  qmlRegisterType<SevDevice>("QtCppClass", 1, 0, "SevDevice");
   staticUiInit();
-  showMaximized();
 }
 
 SDTMainWindow::~SDTMainWindow()
 {
   delete ui;
+}
+bool SDTMainWindow::init()
+{
+  deviceInit();
+  return true;
 }
 
 void SDTMainWindow::staticUiInit()
@@ -35,6 +50,7 @@ void SDTMainWindow::staticUiInit()
   createActions();
   setAppIcon();
 
+  m_optc=OptContainer::instance();
   OptAutoLoad *optAuto=dynamic_cast<OptAutoLoad *>(OptContainer::instance()->optItem("optautoload"));
   if(optAuto!=NULL)
   {
@@ -45,6 +61,10 @@ void SDTMainWindow::staticUiInit()
   if(optface!=NULL)
     connect(optface,SIGNAL(faceCssChanged(QString)),this,SLOT(onOptFaceCssChanged(QString)));
 
+  m_statusBar=new SdtStatusBar(this);
+  ui->statusBar->addPermanentWidget(m_statusBar,0);
+  ui->statusBar->setToolTipDuration(2000);
+
 }
 void SDTMainWindow::createActions()
 {
@@ -52,6 +72,8 @@ void SDTMainWindow::createActions()
   ui->mainToolBar->setIconSize(QSize(32,32));
   m_actnConnect=new QAction(this);
   m_actnConnect->setText(tr("connet"));
+  m_actnConnect->setStatusTip(tr("connect to servo"));
+  m_actnConnect->setToolTip(tr("connect to servo"));
 
   m_actnDisNet=new QAction(this);
   m_actnDisNet->setText(tr("disnet"));
@@ -177,6 +199,34 @@ void SDTMainWindow::closeEvent(QCloseEvent *e)
   optc->saveOpt();
   QMainWindow::closeEvent(e);
 }
+void SDTMainWindow::processCallBack(void *argv,short *value)
+{
+  qDebug()<<"progress value ="<<*value;
+}
+
+bool SDTMainWindow::deviceInit()
+{
+  QList<DeviceConfig*> devConfigList;
+
+  IDevReadWriter *idevRWriter=new DevTextRWriter(NULL);
+  bool isOk;
+  devConfigList=idevRWriter->createConfig(processCallBack,NULL,isOk);
+  Q_ASSERT(isOk);
+
+  for(int i=0;i<devConfigList.count();i++)
+  {
+    qDebug()<<"************************new SdAssembly "<<i;
+    SdAssembly *sdriver=new SdAssembly();
+    connect(sdriver,SIGNAL(initProgressInfo(int,QString)),this,SLOT(onProgressInfo(int,QString)));
+    sdriver->init(devConfigList.at(i),m_optc);
+    m_sdAssemblyList.append(sdriver);
+  }
+
+  delete idevRWriter;
+  GT::deepClearList(devConfigList);
+  return true;
+}
+
 void SDTMainWindow::onActnOptionClicked()
 {
   DialogOption dialogOpt;
@@ -196,4 +246,9 @@ void SDTMainWindow::onOptFaceCssChanged(QString css)
 {
   setAppIcon();
   qDebug()<<"setAppIcon"<<css;
+}
+void SDTMainWindow::onProgressInfo(int barValue,QString msg)
+{
+  qDebug()<<"value"<<barValue<<"msg"<<msg;
+  emit initProgressInfo(barValue,msg);
 }

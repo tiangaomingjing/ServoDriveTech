@@ -8,7 +8,9 @@ INCLUDEPATH+=$${LIBS_PATH}/Com/Communication\
             $${LIBS_PATH}/UI\
             $${LIBS_PATH}/UI/IUiWidget\
             $${LIBS_PATH}/Option\
-            $${COMMON_PATH}/src
+            $${COMMON_PATH}/src\
+            $${COMMON_PATH}/src/Kernel\
+            $${COMMON_PATH}/src/UiFactory
 
 
 CONFIG(debug, debug|release){

@@ -23,6 +23,13 @@
 #include "Kernel/globaluicontroler.h"
 #include "sevdevice.h"
 
+#include "optautoload.h"
+#include "iopt.h"
+#include "optcontainer.h"
+#include "optface.h"
+#include "optplot.h"
+#include "optuser.h"
+
 
 class UiMainWindowPrivate{
   Q_DECLARE_PUBLIC(UiMainWindow)
@@ -33,6 +40,8 @@ public:
   QList<SdAssembly*>m_sdAssemblyList;
   IUiControler *m_gUiControl;
   GlobalConfig m_gConfig;
+  OptContainer *m_gOptc;
+
   SdAssembly *m_currentSdAssembly;
 
   QAction *actTestNew;
@@ -69,10 +78,10 @@ UiMainWindow::UiMainWindow(QWidget *parent) :
   ui(new Ui::UiMainWindow),
   d_ptr(new UiMainWindowPrivate)
 {
+  d_ptr->q_ptr=this;
+  d_ptr->m_gOptc=OptContainer::instance();
   ui->setupUi(this);
   clearStackedWidget();
-  d_ptr->q_ptr=this;
-
   qmlRegisterType<SevDevice>("QtCppClass", 1, 0, "SevDevice");
   staticUiInit();
 
@@ -155,6 +164,7 @@ void UiMainWindow::readConfig()
 
   GConfigReadWriter gRWriter;
   gRWriter.fillConfig(&d->m_gConfig);
+
 }
 
 bool UiMainWindow::deviceInit()
@@ -172,7 +182,7 @@ bool UiMainWindow::deviceInit()
     qDebug()<<"************************new SdAssembly "<<i;
     SdAssembly *sdriver=new SdAssembly();
     connect(sdriver,SIGNAL(initProgressInfo(int,QString)),this,SLOT(onProgressInfo(int,QString)));
-    sdriver->init(devConfigList.at(i),&d->m_gConfig);
+    sdriver->init(devConfigList.at(i),d->m_gOptc);
     d->m_sdAssemblyList.append(sdriver);
   }
 
@@ -298,7 +308,7 @@ void UiMainWindow::globalUiPageInit()
 {
   Q_D(UiMainWindow);
 
-  d->m_gUiControl=new GlobalUiControler(&d->m_gConfig);
+  d->m_gUiControl=new GlobalUiControler(d->m_gOptc);
   d->m_gUiControl->createUis();
 }
 
@@ -554,7 +564,7 @@ void UiMainWindow::onActNewSelectClicked()
       qDebug()<<"new SdAssembly()";
       currentSdAssembly = new SdAssembly();
       connect(currentSdAssembly,SIGNAL(initProgressInfo(int,QString)),this,SLOT(onProgressInfo(int,QString)));
-      currentSdAssembly->init(devConfig,&d->m_gConfig);
+      currentSdAssembly->init(devConfig,d->m_gOptc);
       sdAssemblyListTemp.append(currentSdAssembly);
     }
   }

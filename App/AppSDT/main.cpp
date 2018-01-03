@@ -12,6 +12,12 @@
 
 #include "gtutils.h"
 
+#include "registerfunction.h"
+
+#include "screenstartup.h"
+
+#define START_UP_PIXMAP "startup.png"
+
 int main(int argc, char *argv[])
 {
   QApplication a(argc, argv);
@@ -30,6 +36,11 @@ int main(int argc, char *argv[])
   opt=optc->optItem("optface");
   OptFace *optFace=dynamic_cast<OptFace *>(opt);
 
+  QString pixPath=GTUtils::customPath()+"option/style/"+optFace->css()+"/icon/"+START_UP_PIXMAP;
+  qDebug()<<"pixPath"<<pixPath;
+  QPixmap pixmap(pixPath);
+  ScreenStartup *startup=new ScreenStartup(pixmap);
+
   QString langPath=GTUtils::languagePath();
   QString lang;
   if(optFace->language()=="chinese")
@@ -40,17 +51,24 @@ int main(int argc, char *argv[])
   {
     lang=langPath+"en_main.qm";
   }
-
   optFace->setFaceStyle(optFace->css());
   optFace->setFaceFontSize(optFace->fontSize());
 
+  startup->show();
   qDebug()<<"language "<<lang;
   QTranslator trans;
   trans.load(lang);
   a.installTranslator(&trans);
 
+  RegisterFunction::registerUiClass();
+
   SDTMainWindow w;
-  w.show();
+  QObject::connect(&w,SIGNAL(initProgressInfo(int,QString)),startup,SLOT(onProgressMessage(int ,QString)));
+  w.init();
+  w.showMaximized();
+
+  startup->finish(&w);
+  delete startup;
 
   return a.exec();
 }

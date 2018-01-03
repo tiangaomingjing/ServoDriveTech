@@ -3,7 +3,7 @@
 
 #include <QDebug>
 
-IUiControler::IUiControler(GlobalConfig *gconfig, QObject *parent):QObject(parent),m_gConfig(gconfig)
+IUiControler::IUiControler(OptContainer *gconfig, QObject *parent):QObject(parent),mp_goptc(gconfig)
 {
 
 }

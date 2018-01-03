@@ -231,3 +231,21 @@ background-color: #B2C9E0;
 /*QWidget{
 background-color: #E6EBEF;
 }*/
+QLabel#startLabel{
+	color:white;
+}
+
+/*QProgressBar#startProgressBar {
+    border: none;
+    border-radius: 0px;
+    text-align: center;
+	background-color: transparent;
+	height:30px;
+	color:white;
+}*/
+/*QProgressBar#startProgressBar::chunk {
+	background-color: rgba(50%,50%,50%,0.8);
+    width: 5px;
+	height:30px;
+    margin: 0px;
+}*/

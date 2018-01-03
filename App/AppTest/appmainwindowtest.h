@@ -16,6 +16,7 @@ class ICom;
 }
 
 class SdAssembly;
+class OptContainer;
 class AppMainWindowTest : public QMainWindow
 {
   Q_OBJECT
@@ -46,7 +47,7 @@ private:
 
   //程序启动时测试用例
   QList<SdAssembly*>sdAssemblyList;
-  GlobalConfig gConfig;
+  OptContainer *gConfig;
   SdAssembly *currentSdAssembly;
   bool stop;
   void mainFormInitTestCase();

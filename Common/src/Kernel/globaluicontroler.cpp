@@ -5,7 +5,7 @@
 
 #include <QDebug>
 
-GlobalUiControler::GlobalUiControler(GlobalConfig *gconfig, QObject *parent):IUiControler(gconfig,parent)
+GlobalUiControler::GlobalUiControler(OptContainer *gconfig, QObject *parent):IUiControler(gconfig,parent)
 {
 
 }

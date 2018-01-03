@@ -15,7 +15,7 @@ SdAssembly::~SdAssembly()
 {
   qDebug()<<"SdAssembly-->destruct";
 }
-bool SdAssembly::init(const DeviceConfig *dConfig,GlobalConfig *gConfig)
+bool SdAssembly::init(const DeviceConfig *dConfig, OptContainer *gConfig)
 {
   emit initProgressInfo(10,tr("SdAssembly init"));
   m_device=new SevDevice(this);//生命由this控制，不用显性delete

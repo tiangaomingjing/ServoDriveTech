@@ -6,11 +6,12 @@ class GlobalConfig;
 
 class SevDevice;
 class IUiWidget;
+class OptContainer;
 class IUiControler : public QObject
 {
   Q_OBJECT
 public:
-  explicit IUiControler(GlobalConfig *gconfig,QObject *parent=0);
+  explicit IUiControler(OptContainer *gconfig, QObject *parent=0);
   virtual ~IUiControler();
   virtual void createUis()=0;
   quint16 uiCount();
@@ -20,7 +21,7 @@ signals:
   void initProgressInfo(int value,QString msg);
 public slots:
 protected:
-  GlobalConfig *m_gConfig;
+  OptContainer *mp_goptc;
   QList<IUiWidget*>m_uiLists;
 };
 

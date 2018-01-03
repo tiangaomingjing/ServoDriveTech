@@ -7,13 +7,25 @@ namespace Ui {
 class SDTMainWindow;
 }
 class QToolButton;
+class SdAssembly;
+class QTreeWidgetItem;
+class IUiControler;
+class OptContainer;
+class SdtStatusBar;
+
 class SDTMainWindow : public QMainWindow
 {
   Q_OBJECT
-
+  enum NavShowType{
+    NAV_SHOW_SINGLE,
+    NAV_SHOW_SINGLE_1_4_6,
+    NAV_SHOW_MIX
+  };
 public:
   explicit SDTMainWindow(QWidget *parent = 0);
   ~SDTMainWindow();
+
+  bool init();
 
 private:
   void staticUiInit();
@@ -21,6 +33,11 @@ private:
   void setAppIcon();
   void closeEvent(QCloseEvent *e)override;
 
+  static void processCallBack(void *argv,short *value);
+
+  bool deviceInit();
+signals:
+  void initProgressInfo(int barValue,QString msg);
 private slots:
   void onActnOptionClicked();
 
@@ -28,9 +45,12 @@ private slots:
   void onOptAutoLoadChanged(bool changed);
   void onOptFaceCssChanged(QString css);
 
-private:
-  Ui::SDTMainWindow *ui;
+  void onProgressInfo(int barValue, QString msg);
 
+private:
+
+  //---------ui--------------
+  Ui::SDTMainWindow *ui;
   QAction *m_actnDisNet;
   QAction *m_actnConnect;
   QAction *m_actnNewConfig;
@@ -49,6 +69,16 @@ private:
   QAction *m_actnUpdateFlash;
   QAction *m_actnOption;
   QAction *m_actnProduce;
+  SdtStatusBar *m_statusBar;
+
+  static short m_probarValue;
+
+  //-------servo-------
+  QList<SdAssembly*>m_sdAssemblyList;
+  IUiControler *m_gUiControl;
+  OptContainer *m_optc;
+  SdAssembly *m_currentSdAssembly;
+
 };
 
 #endif // SDTMAINWINDOW_H

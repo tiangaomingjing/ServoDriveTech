@@ -1,13 +1,19 @@
 ﻿#ifndef GLOBALCONFIG_H
 #define GLOBALCONFIG_H
 
+#include <QObject>
 
-class GlobalConfig
+class OptContainer;
+class GlobalConfig:public QObject
 {
+  Q_OBJECT
 public:
-  GlobalConfig();
+  explicit GlobalConfig(QObject *parent=0);
   ~GlobalConfig();
-  bool m_autoLoad;
+  void init();
+  static OptContainer * optContainer();
+private:
+  static OptContainer *m_optc;
 };
 
 #endif // GLOBALCONFIG_H

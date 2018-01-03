@@ -61,9 +61,6 @@ void AppMainWindowTest::mainFormInitTestCase()
 {
   QList<DeviceConfig*> devConfigList;
 
-  GConfigReadWriter gRWriter;
-  gRWriter.fillConfig(&gConfig);
-
   IDevReadWriter *idevRWriter=new DevTextRWriter(NULL);
   bool isOk;
   devConfigList=idevRWriter->createConfig(processBarInfo,(void*)ui->progressBar,isOk);
@@ -73,7 +70,7 @@ void AppMainWindowTest::mainFormInitTestCase()
   {
     SdAssembly *sdriver=new SdAssembly();
     connect(sdriver,SIGNAL(initProgressInfo(int,QString)),this,SLOT(onProgressInfo(int,QString)));
-    sdriver->init(devConfigList.at(i),&gConfig);
+    sdriver->init(devConfigList.at(i),gConfig);
     qDebug()<<"new SdAssembly";
     sdAssemblyList.append(sdriver);
   }
@@ -127,7 +124,7 @@ void AppMainWindowTest::mainConnectTestCase()
       //根据devConfig 新建 sd
       qDebug()<<"new SdAssembly()";
       currentSdAssembly = new SdAssembly();
-      currentSdAssembly->init(devConfig,&gConfig);
+      currentSdAssembly->init(devConfig,gConfig);
       sdAssemblyListTemp.append(currentSdAssembly);
     }
   }

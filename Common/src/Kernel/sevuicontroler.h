@@ -3,12 +3,12 @@
 
 #include "iuicontroler.h"
 
-
+class OptContainer;
 class SevUiControler : public IUiControler
 {
   Q_OBJECT
 public:
-  explicit SevUiControler(SevDevice *sev,GlobalConfig *gconfig,QObject *parent=0);
+  explicit SevUiControler(SevDevice *sev,OptContainer *gconfig,QObject *parent=0);
   ~SevUiControler();
   void createUis()Q_DECL_OVERRIDE;
 signals:

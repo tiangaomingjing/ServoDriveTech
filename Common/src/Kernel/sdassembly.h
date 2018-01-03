@@ -3,11 +3,10 @@
 
 #include <QObject>
 
-class GlobalConfig;
+class OptContainer;
 class SevDevice;
 class IUiControler;
 class DeviceConfig;
-
 class SdAssembly : public QObject
 {
   Q_OBJECT
@@ -15,7 +14,7 @@ public:
   explicit SdAssembly(QObject *parent=0);
   ~SdAssembly();
 
-  bool init(const DeviceConfig *dConfig,GlobalConfig *gConfig);
+  bool init(const DeviceConfig *dConfig, OptContainer *gConfig);
 
   SevDevice *sevDevice();
   IUiControler *uiControler();
