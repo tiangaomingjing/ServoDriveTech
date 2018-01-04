@@ -12,6 +12,7 @@ class QTreeWidgetItem;
 class IUiControler;
 class OptContainer;
 class SdtStatusBar;
+class QTreeWidget;
 
 class SDTMainWindow : public QMainWindow
 {
@@ -27,15 +28,22 @@ public:
 
   bool init();
 
+  QTreeWidget *navTreeWidget() const;
+
 private:
   void staticUiInit();
   void createActions();
   void setAppIcon();
+  void createConnections();
+  void clearStackedWidget();
   void closeEvent(QCloseEvent *e)override;
 
   static void processCallBack(void *argv,short *value);
 
   bool deviceInit();
+  void navigationTreeInit();
+  void globalUiPageInit();
+  void stackedWidgetInit();
 signals:
   void initProgressInfo(int barValue,QString msg);
 private slots:
@@ -46,6 +54,8 @@ private slots:
   void onOptFaceCssChanged(QString css);
 
   void onProgressInfo(int barValue, QString msg);
+
+  void onNavTreeWidgetItemClicked(QTreeWidgetItem * item, int column);
 
 private:
 

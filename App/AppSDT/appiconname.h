@@ -14,5 +14,9 @@
 #define ICON_MORE             "main_more.png"
 #define ICON_HELP             "main_help.png"
 
+#define ICON_STATUS_CONNECT   "status_connect.png"
+#define ICON_STATUS_DISCONNECT "status_disconnect.png"
+#define ICON_STATUS_ERROR      "status_error.png"
+
 #endif // APPICONNAME
 

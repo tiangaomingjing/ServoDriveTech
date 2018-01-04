@@ -197,6 +197,7 @@ void UiMainWindow::navigationTreeInit()
 
   NavShowType type;
   type=getNavShowType();
+  type=NAV_SHOW_MIX;
   switch (type)
   {
   case NAV_SHOW_SINGLE:
@@ -257,12 +258,15 @@ void UiMainWindow::navigationTreeInit()
     int pageIndex=0;
     for(int  i=0;i<d->m_sdAssemblyList.count();i++)
     {
+      int axisNum;
       sd=d->m_sdAssemblyList.at(i);
+      axisNum=sd->sevDevice()->axisNum();
       deviceItem=new QTreeWidgetItem;
       deviceItem->setText(0,sd->sevDevice()->modelName());
+      deviceItem->setText(1,QString::number(axisNum));
       qDebug()<<"deviceItem->setText";
 
-      int axisNum=sd->sevDevice()->axisNum();
+
       for(int i=0;i<axisNum;i++)
       {
         axisItem=sd->sevDevice()->targetTree()->child(0)->clone();

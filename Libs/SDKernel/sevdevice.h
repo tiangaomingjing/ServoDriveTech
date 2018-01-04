@@ -34,6 +34,8 @@ public:
   QString typeName() const;
   QString modelName() const;
   QString versionName()const;
+
+  quint32 devId() const;
   quint32 pwrId() const ;
   quint32 ctrId() const;
   quint32 fpgaId() const ;

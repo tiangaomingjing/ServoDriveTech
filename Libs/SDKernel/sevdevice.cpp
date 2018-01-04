@@ -193,7 +193,11 @@ QString SevDevice::versionName()const
   Q_D(const SevDevice);
   return d->m_devConfig->m_version;
 }
-
+quint32 SevDevice::devId() const
+{
+  Q_D(const SevDevice);
+  return d->m_devConfig->m_devId;
+}
 quint32 SevDevice::pwrId() const
 {
   Q_D(const SevDevice);

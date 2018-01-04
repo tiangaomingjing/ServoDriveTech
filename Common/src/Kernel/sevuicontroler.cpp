@@ -1,8 +1,8 @@
 ﻿#include "sevuicontroler.h"
 #include "sevdevice.h"
 #include "sdtglobaldef.h"
-#include "UiFactory/uifactory.h"
-#include "IUiWidget/iuiwidget.h"
+#include "uifactory.h"
+#include "iuiwidget.h"
 
 #include <QDebug>
 #include <QTreeWidgetItem>
@@ -34,9 +34,14 @@ void SevUiControler::createUis()
 
       ui=dynamic_cast<IUiWidget *> (UiFactory::createObject(className.toLatin1()));
       ui->init(m_sev);
-      ui->setUiIndexs(i,j);
+      UiIndexs index;
+      index.devInx=m_sev->devId();
+      index.aixsInx=i;
+      index.pageInx=j;
+      ui->setUiIndexs(index);
       ui->addTreeWidget(m_sev->axisTreeSource(i,j));
       ui->createQmlWidget();
+//      qDebug()<<"ui->objectName()"<<ui->objectName();
 //      connect(ui,SIGNAL(sglReadPageFlash(int,QTreeWidget*)),m_sev,SLOT(onReadPageFlash(int,QTreeWidget*)));
 //      connect(ui,SIGNAL(sglWritePageFlash(int,QTreeWidget*)),m_sev,SLOT(onWritePageFlash(int,QTreeWidget*)));
 
@@ -54,7 +59,11 @@ void SevUiControler::createUis()
     className=globalItem->child(i)->text(2);
     ui=dynamic_cast<IUiWidget *> (UiFactory::createObject(className.toLatin1()));
     ui->init(m_sev);
-    ui->setUiIndexs(-1,i);
+    UiIndexs index;
+    index.devInx=m_sev->devId();
+    index.aixsInx=-1;
+    index.pageInx=i;
+    ui->setUiIndexs(index);
     ui->addTreeWidget(m_sev->globalTreeSource(i));
     connect(ui,SIGNAL(sglReadPageFlash(int,QTreeWidget*)),m_sev,SLOT(onReadPageFlash(int,QTreeWidget*)));
 
@@ -70,4 +79,19 @@ SevUiControler::~SevUiControler()
 {
   qDebug()<<"SevUiControler-->destruct";
   GT::deepClearList(m_uiLists);
+}
+
+IUiWidget *SevUiControler::uiWidget(quint32 devInx,qint16 axisInx,const QString &uiName)const
+{
+  IUiWidget *ui=NULL;
+  foreach (IUiWidget *w, m_uiLists)
+  {
+    UiIndexs indexs=w->uiIndexs();
+    if(indexs.devInx==devInx&&indexs.aixsInx==axisInx&&w->objectName()==uiName)
+    {
+      ui=w;
+      break;
+    }
+  }
+  return ui;
 }

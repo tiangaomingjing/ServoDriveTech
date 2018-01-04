@@ -36,7 +36,8 @@ SOURCES += main.cpp\
     ../../Common/src/Kernel/sevuicontroler.cpp \
     ../../Common/src/UiFactory/uifactory.cpp \
     ScreenStartup/screenstartup.cpp \
-    SdtStatusBar/sdtstatusbar.cpp
+    SdtStatusBar/sdtstatusbar.cpp \
+    SdtStatusBar/statuserrdialog.cpp
 
 HEADERS  += sdtmainwindow.h \
     appiconname.h \
@@ -56,10 +57,13 @@ HEADERS  += sdtmainwindow.h \
     ../../Common/src/UiFactory/registerfunction.h \
     ../../Common/src/UiFactory/uifactory.h \
     ScreenStartup/screenstartup.h \
-    SdtStatusBar/sdtstatusbar.h
+    SdtStatusBar/sdtstatusbar.h \
+    SdtStatusBar/statuserrdialog.h \
+    ../../Common/src/sdtglobaldef.h
 
 FORMS    += sdtmainwindow.ui \
     DialogOption/dialogoption.ui \
-    SdtStatusBar/sdtstatusbar.ui
+    SdtStatusBar/sdtstatusbar.ui \
+    SdtStatusBar/statuserrdialog.ui
 
 TRANSLATIONS    += ch_main.ts en_main.ts

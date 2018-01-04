@@ -54,6 +54,7 @@ int main(int argc, char *argv[])
   optFace->setFaceStyle(optFace->css());
   optFace->setFaceFontSize(optFace->fontSize());
 
+  startup->setEnabled(false);
   startup->show();
   qDebug()<<"language "<<lang;
   QTranslator trans;

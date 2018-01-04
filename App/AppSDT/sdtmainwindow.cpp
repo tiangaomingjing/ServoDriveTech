@@ -21,10 +21,17 @@
 
 #include "sdtstatusbar.h"
 
+#include "globaluicontroler.h"
+#include "iuiwidget.h"
+
+#include "sdtglobaldef.h"
+
 #include <QToolButton>
 #include <QDebug>
 #include <QTranslator>
 #include <QtQml>
+
+using namespace GT;
 
 SDTMainWindow::SDTMainWindow(QWidget *parent) :
   QMainWindow(parent),
@@ -32,6 +39,7 @@ SDTMainWindow::SDTMainWindow(QWidget *parent) :
 {
   ui->setupUi(this);
   qmlRegisterType<SevDevice>("QtCppClass", 1, 0, "SevDevice");
+  clearStackedWidget();
   staticUiInit();
 }
 
@@ -42,7 +50,14 @@ SDTMainWindow::~SDTMainWindow()
 bool SDTMainWindow::init()
 {
   deviceInit();
+  navigationTreeInit();
+  globalUiPageInit();
+  stackedWidgetInit();
   return true;
+}
+QTreeWidget *SDTMainWindow::navTreeWidget() const
+{
+  return ui->treeWidget;
 }
 
 void SDTMainWindow::staticUiInit()
@@ -51,20 +66,11 @@ void SDTMainWindow::staticUiInit()
   setAppIcon();
 
   m_optc=OptContainer::instance();
-  OptAutoLoad *optAuto=dynamic_cast<OptAutoLoad *>(OptContainer::instance()->optItem("optautoload"));
-  if(optAuto!=NULL)
-  {
-    connect(optAuto,SIGNAL(autoLoadChanged(bool)),this,SLOT(onOptAutoLoadChanged(bool)));
-    m_actnNewConfig->setVisible(!optAuto->autoLoad());
-  }
-  OptFace *optface=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
-  if(optface!=NULL)
-    connect(optface,SIGNAL(faceCssChanged(QString)),this,SLOT(onOptFaceCssChanged(QString)));
 
-  m_statusBar=new SdtStatusBar(this);
+  m_statusBar=new SdtStatusBar(ui->treeWidget,this);
   ui->statusBar->addPermanentWidget(m_statusBar,0);
   ui->statusBar->setToolTipDuration(2000);
-
+  createConnections();
 }
 void SDTMainWindow::createActions()
 {
@@ -77,6 +83,13 @@ void SDTMainWindow::createActions()
 
   m_actnDisNet=new QAction(this);
   m_actnDisNet->setText(tr("disnet"));
+
+  m_actnConnect->setCheckable(true);
+  m_actnDisNet->setCheckable(true);
+  m_actnDisNet->setChecked(true);
+  QActionGroup *netGroup=new QActionGroup(this);
+  netGroup->addAction(m_actnConnect);
+  netGroup->addAction(m_actnDisNet);
 
   m_actnNewConfig=new QAction(this);
   m_actnNewConfig->setText(tr("new"));
@@ -171,8 +184,7 @@ void SDTMainWindow::createActions()
   ui->mainToolBar->addWidget(spacer);
   ui->mainToolBar->addWidget(m_tbtnMore);
 
-  //创建连接slots
-  connect(m_actnOption,SIGNAL(triggered(bool)),this,SLOT(onActnOptionClicked()));
+
 
 }
 
@@ -191,6 +203,33 @@ void SDTMainWindow::setAppIcon()
 
   m_tbtnHelp->setIcon(QIcon(iconPath+ICON_HELP));
   m_tbtnMore->setIcon(QIcon(iconPath+ICON_MORE));
+}
+
+void SDTMainWindow::createConnections()
+{
+  //创建连接slots
+  connect(m_actnOption,SIGNAL(triggered(bool)),this,SLOT(onActnOptionClicked()));
+
+  OptAutoLoad *optAuto=dynamic_cast<OptAutoLoad *>(OptContainer::instance()->optItem("optautoload"));
+  if(optAuto!=NULL)
+  {
+    connect(optAuto,SIGNAL(autoLoadChanged(bool)),this,SLOT(onOptAutoLoadChanged(bool)));
+    m_actnNewConfig->setVisible(!optAuto->autoLoad());
+  }
+  OptFace *optface=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
+  if(optface!=NULL)
+    connect(optface,SIGNAL(faceCssChanged(QString)),this,SLOT(onOptFaceCssChanged(QString)));
+
+  connect(ui->treeWidget,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(onNavTreeWidgetItemClicked(QTreeWidgetItem*,int)));
+}
+void SDTMainWindow::clearStackedWidget()
+{
+  int i=0;
+  while (ui->stackedWidget->count()) {
+    delete ui->stackedWidget->widget(0);
+    qDebug()<<"delete stackedWidget "<<i;
+    i++;
+  }
 }
 
 void SDTMainWindow::closeEvent(QCloseEvent *e)
@@ -227,6 +266,101 @@ bool SDTMainWindow::deviceInit()
   return true;
 }
 
+void SDTMainWindow::navigationTreeInit()
+{
+  qDebug()<<"build nav show mix";
+  QTreeWidgetItem *deviceItem;
+  QTreeWidgetItem *plotItem;
+  QTreeWidgetItem *axisItem;
+  QTreeWidgetItem *globalItem=NULL;
+  SdAssembly * sd;
+  int pageIndex=0;
+  for(int  i=0;i<m_sdAssemblyList.count();i++)
+  {
+    int axisNum;
+    sd=m_sdAssemblyList.at(i);
+    axisNum=sd->sevDevice()->axisNum();
+    deviceItem=new QTreeWidgetItem(ui->treeWidget);
+    deviceItem->setText(0,sd->sevDevice()->modelName());
+    deviceItem->setText(1,QString::number(axisNum));
+    qDebug()<<"deviceItem->setText";
+
+
+    for(int i=0;i<axisNum;i++)
+    {
+      axisItem=sd->sevDevice()->targetTree()->child(0)->clone();
+      axisItem->setText(0,tr("Axis_%1").arg(i+1));
+      for(int j=0;j<axisItem->childCount();j++)
+      {
+        axisItem->child(j)->setText(1,QString::number(i));
+        axisItem->child(j)->setText(4,QString::number(pageIndex));
+        pageIndex++;
+      }
+      deviceItem->addChild(axisItem);
+    }
+
+    globalItem=sd->sevDevice()->targetTree()->child(1);
+    int globalCount=globalItem->childCount();
+    QTreeWidgetItem *item=NULL;
+    for(int i=0;i<globalCount;i++)
+    {
+      item=globalItem->child(i)->clone();
+      item->setText(4,QString::number(pageIndex));
+      deviceItem->addChild(item);
+      pageIndex++;
+    }
+
+//    ui->treeWidget->addTopLevelItem(deviceItem);
+  }
+  plotItem=new QTreeWidgetItem(ui->treeWidget);
+  plotItem->setText(0,tr("Plot"));
+  plotItem->setText(1,tr("-1"));//代表不是设备
+  plotItem->setText(4,QString::number(pageIndex));
+//  ui->treeWidget->addTopLevelItem(plotItem);
+
+  ui->treeWidget->setColumnCount(6);
+  ui->treeWidget->expandItem(ui->treeWidget->topLevelItem(0));
+  ui->treeWidget->expandItem(ui->treeWidget->topLevelItem(0)->child(0));
+  ui->treeWidget->setHeaderHidden(false);
+
+  m_statusBar->updateDeviceWhenChanged(ui->treeWidget);
+}
+
+void SDTMainWindow::globalUiPageInit()
+{
+  m_gUiControl=new GlobalUiControler(m_optc);
+  m_gUiControl->createUis();
+}
+void SDTMainWindow::stackedWidgetInit()
+{
+  IUiControler *uiCtr;
+  QWidget *w;
+  SdAssembly * sd;
+  int uiCount;
+  for(int i=0;i<m_sdAssemblyList.count();i++)
+  {
+    sd=m_sdAssemblyList.at(i);
+    uiCtr=sd->uiControler();
+    uiCount=uiCtr->uiCount();
+    qDebug()<<"sd"<<i<<"uiCount"<<uiCount;
+    for(int i=0;i<uiCount;i++)
+    {
+      w=static_cast<QWidget *>(uiCtr->uiAt(i));
+      ui->stackedWidget->addWidget(w);
+    }
+    qApp->processEvents();
+  }
+
+  uiCtr=m_gUiControl;
+  uiCount=uiCtr->uiCount();
+  qDebug()<<"ui global Count"<<uiCount;
+  for(int i=0;i<uiCount;i++)
+  {
+    w=static_cast<QWidget *>(uiCtr->uiAt(i));
+    ui->stackedWidget->addWidget(w);
+  }
+}
+
 void SDTMainWindow::onActnOptionClicked()
 {
   DialogOption dialogOpt;
@@ -251,4 +385,15 @@ void SDTMainWindow::onProgressInfo(int barValue,QString msg)
 {
   qDebug()<<"value"<<barValue<<"msg"<<msg;
   emit initProgressInfo(barValue,msg);
+}
+void SDTMainWindow::onNavTreeWidgetItemClicked(QTreeWidgetItem *item, int column)
+{
+  Q_UNUSED(column);
+  if(item->childCount()==0)
+  {
+    int index=item->text(COL_TARGET_CONFIG_INDEX).toInt();
+    if(index<ui->stackedWidget->count())
+      ui->stackedWidget->setCurrentIndex(index);
+    qDebug()<<"index"<<index <<"ui->stackedWidget->count()"<<ui->stackedWidget->count();
+  }
 }

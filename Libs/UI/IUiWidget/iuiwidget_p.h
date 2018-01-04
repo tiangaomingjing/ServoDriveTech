@@ -1,6 +1,7 @@
 ﻿#ifndef IUIWIDGET_P_H
 #define IUIWIDGET_P_H
 #include <QObject>
+#include "iuiwidget.h"
 class IUiWidget;
 class QStackedWidget;
 class QVBoxLayout;
@@ -15,8 +16,7 @@ public:
   IUiWidgetPrivate(){}
   virtual ~IUiWidgetPrivate(){}
 protected:
-  int axisInx;
-  quint8 pageInx;
+  UiIndexs m_index;
   QStackedWidget *m_uiStackedWidget;
   QVBoxLayout *m_vboxLayout;
   QTreeWidget *m_dataTree;

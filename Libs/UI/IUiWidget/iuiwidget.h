@@ -11,6 +11,15 @@ class QStackedWidget;
 class QVBoxLayout;
 class SevDevice;
 class QTreeWidgetItem;
+
+class UiIndexs
+{
+public:
+  quint32 devInx;
+  qint16 aixsInx;
+  qint16 pageInx;
+};
+
 class IUIWIDGETSHARED_EXPORT IUiWidget:public QWidget
 {
   Q_OBJECT
@@ -21,7 +30,8 @@ public:
 
   virtual bool init(SevDevice*device);
   virtual void addTreeWidget(QTreeWidget* tree);
-  void setUiIndexs(quint8 axisInx,quint8 pageInx);
+  void setUiIndexs(const UiIndexs &indexs);
+  UiIndexs uiIndexs() const;
   virtual void readPageFLASH();
   virtual void writePageFLASH();
   virtual void setUiActive(bool actived);
