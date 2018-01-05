@@ -30,6 +30,7 @@
 #include <QDebug>
 #include <QTranslator>
 #include <QtQml>
+#include <QProgressBar>
 
 using namespace GT;
 
@@ -68,6 +69,7 @@ void SDTMainWindow::staticUiInit()
   m_optc=OptContainer::instance();
 
   m_statusBar=new SdtStatusBar(ui->treeWidget,this);
+  mp_progressBar=m_statusBar->statusProgressBar();
   ui->statusBar->addPermanentWidget(m_statusBar,0);
   ui->statusBar->setToolTipDuration(2000);
   createConnections();
@@ -221,6 +223,8 @@ void SDTMainWindow::createConnections()
     connect(optface,SIGNAL(faceCssChanged(QString)),this,SLOT(onOptFaceCssChanged(QString)));
 
   connect(ui->treeWidget,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(onNavTreeWidgetItemClicked(QTreeWidgetItem*,int)));
+
+  connect(m_statusBar,SIGNAL(statusPageChanged(int)),this,SLOT(onStatusBarPageChanged(int)));
 }
 void SDTMainWindow::clearStackedWidget()
 {
@@ -240,6 +244,8 @@ void SDTMainWindow::closeEvent(QCloseEvent *e)
 }
 void SDTMainWindow::processCallBack(void *argv,short *value)
 {
+  QProgressBar *pBar=static_cast<QProgressBar *>(argv);
+  pBar->setValue(*value);
   qDebug()<<"progress value ="<<*value;
 }
 
@@ -249,7 +255,7 @@ bool SDTMainWindow::deviceInit()
 
   IDevReadWriter *idevRWriter=new DevTextRWriter(NULL);
   bool isOk;
-  devConfigList=idevRWriter->createConfig(processCallBack,NULL,isOk);
+  devConfigList=idevRWriter->createConfig(processCallBack,(void *)mp_progressBar,isOk);
   Q_ASSERT(isOk);
 
   for(int i=0;i<devConfigList.count();i++)
@@ -281,31 +287,33 @@ void SDTMainWindow::navigationTreeInit()
     sd=m_sdAssemblyList.at(i);
     axisNum=sd->sevDevice()->axisNum();
     deviceItem=new QTreeWidgetItem(ui->treeWidget);
-    deviceItem->setText(0,sd->sevDevice()->modelName());
-    deviceItem->setText(1,QString::number(axisNum));
+    deviceItem->setText(COL_TARGET_CONFIG_NAME,sd->sevDevice()->modelName());
+    deviceItem->setText(COL_TARGET_CONFIG_PRM,QString::number(axisNum));
     qDebug()<<"deviceItem->setText";
 
 
     for(int i=0;i<axisNum;i++)
     {
-      axisItem=sd->sevDevice()->targetTree()->child(0)->clone();
-      axisItem->setText(0,tr("Axis_%1").arg(i+1));
+      axisItem=sd->sevDevice()->targetTree()->child(ROW_TARGET_CONFIG_AXIS)->clone();
+      axisItem->setText(COL_TARGET_CONFIG_NAME,tr("Axis_%1").arg(i+1));
       for(int j=0;j<axisItem->childCount();j++)
       {
-        axisItem->child(j)->setText(1,QString::number(i));
-        axisItem->child(j)->setText(4,QString::number(pageIndex));
+        axisItem->child(j)->setText(COL_TARGET_CONFIG_PRM,QString::number(i));
+        axisItem->child(j)->setText(COL_TARGET_CONFIG_INDEX,QString::number(pageIndex));
+        axisItem->child(j)->setText(COL_TARGET_CONFIG_ISPLOT,"-1");
         pageIndex++;
       }
       deviceItem->addChild(axisItem);
     }
 
-    globalItem=sd->sevDevice()->targetTree()->child(1);
+    globalItem=sd->sevDevice()->targetTree()->child(ROW_TARGET_CONFIG_GLOBAL);
     int globalCount=globalItem->childCount();
     QTreeWidgetItem *item=NULL;
     for(int i=0;i<globalCount;i++)
     {
       item=globalItem->child(i)->clone();
-      item->setText(4,QString::number(pageIndex));
+      item->setText(COL_TARGET_CONFIG_INDEX,QString::number(pageIndex));
+      item->setText(COL_TARGET_CONFIG_ISPLOT,"-1");
       deviceItem->addChild(item);
       pageIndex++;
     }
@@ -313,14 +321,19 @@ void SDTMainWindow::navigationTreeInit()
 //    ui->treeWidget->addTopLevelItem(deviceItem);
   }
   plotItem=new QTreeWidgetItem(ui->treeWidget);
-  plotItem->setText(0,tr("Plot"));
-  plotItem->setText(1,tr("-1"));//代表不是设备
-  plotItem->setText(4,QString::number(pageIndex));
+  plotItem->setText(COL_TARGET_CONFIG_NAME,tr("Plot"));
+  plotItem->setText(COL_TARGET_CONFIG_PRM,tr("-1"));//代表不是设备
+  plotItem->setText(COL_TARGET_CONFIG_INDEX,QString::number(pageIndex));
+  plotItem->setText(COL_TARGET_CONFIG_ISPLOT,"1");
 //  ui->treeWidget->addTopLevelItem(plotItem);
 
-  ui->treeWidget->setColumnCount(6);
+  QStringList headList;
+  headList<<"name"<<"prm"<<"classname"<<"filename"<<"ui index"<<"file src select"<<"is plot ui";
+  ui->treeWidget->setHeaderLabels(headList);
+  ui->treeWidget->setColumnCount(headList.count());
   ui->treeWidget->expandItem(ui->treeWidget->topLevelItem(0));
   ui->treeWidget->expandItem(ui->treeWidget->topLevelItem(0)->child(0));
+  ui->treeWidget->topLevelItem(0)->child(0)->child(0)->setSelected(true);
   ui->treeWidget->setHeaderHidden(false);
 
   m_statusBar->updateDeviceWhenChanged(ui->treeWidget);
@@ -361,6 +374,37 @@ void SDTMainWindow::stackedWidgetInit()
   }
 }
 
+void SDTMainWindow::disactiveAllUi()
+{
+  IUiWidget *uiWidget;
+  for(int i=0;i<ui->stackedWidget->count();i++)
+  {
+    uiWidget=dynamic_cast<IUiWidget *>(ui->stackedWidget->widget(i));
+    uiWidget->setUiActive(false);
+  }
+}
+
+void SDTMainWindow::activeCurrentUi()
+{
+  IUiWidget *uiWidget=dynamic_cast<IUiWidget *>(ui->stackedWidget->currentWidget());
+  uiWidget->setUiActive(true);
+}
+
+void SDTMainWindow::changeConfigSaveBtnStatus()
+{
+  IUiWidget *uiWidget=dynamic_cast<IUiWidget *>(ui->stackedWidget->currentWidget());
+  m_actnConfig->setEnabled(uiWidget->hasConfigFunc());
+  m_actnSave->setEnabled(uiWidget->hasSaveFunc());
+}
+
+void SDTMainWindow::showPlotUiOnly(bool show)
+{
+  if(show)
+    centralWidget()->hide();
+  else
+    centralWidget()->show();
+}
+
 void SDTMainWindow::onActnOptionClicked()
 {
   DialogOption dialogOpt;
@@ -393,7 +437,37 @@ void SDTMainWindow::onNavTreeWidgetItemClicked(QTreeWidgetItem *item, int column
   {
     int index=item->text(COL_TARGET_CONFIG_INDEX).toInt();
     if(index<ui->stackedWidget->count())
+    {
       ui->stackedWidget->setCurrentIndex(index);
-    qDebug()<<"index"<<index <<"ui->stackedWidget->count()"<<ui->stackedWidget->count();
+      qDebug()<<"index"<<index <<"ui->stackedWidget->count()"<<ui->stackedWidget->count();
+      GTUtils::delayms(10);
+
+      disactiveAllUi();
+      activeCurrentUi();
+      changeConfigSaveBtnStatus();
+      bool plotShow=false;
+      if(item->text(COL_TARGET_CONFIG_ISPLOT)=="1")
+        plotShow=true;
+      showPlotUiOnly(plotShow);
+    }
   }
+}
+
+void SDTMainWindow::onStatusBarPageChanged(int pIndex)
+{
+  IUiWidget *uiWidget=NULL;
+  ui->stackedWidget->setCurrentIndex(pIndex);
+  QWidget *w=ui->stackedWidget->widget(pIndex);
+  uiWidget=dynamic_cast<IUiWidget *>(w);
+  UiIndexs index=uiWidget->uiIndexs();
+  qDebug()<<"UiIndexs"<<tr("dev:%1,axis:%2,page:%3").arg(index.devInx).arg(index.aixsInx).arg(index.pageInx);
+  ui->treeWidget->clearSelection();
+  ui->treeWidget->collapseAll();
+  QTreeWidgetItem *selectDevItem=ui->treeWidget->topLevelItem(index.devInx);
+  QTreeWidgetItem *selectAxisItem=selectDevItem->child(index.aixsInx);
+  QTreeWidgetItem *selectItem=selectAxisItem->child(index.pageInx);
+  ui->treeWidget->expandItem(selectDevItem);
+  ui->treeWidget->expandItem(selectAxisItem);
+  ui->treeWidget->expandItem(selectItem);
+  selectItem->setSelected(true);
 }

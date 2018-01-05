@@ -33,6 +33,16 @@ UiEncoder::~UiEncoder()
   delete ui;
 }
 
+bool UiEncoder::hasConfigFunc()
+{
+  return false;
+}
+
+bool UiEncoder::hasSaveFunc()
+{
+  return true;
+}
+
 QStackedWidget *UiEncoder::getUiStackedWidget(void)
 {
   return ui->stackedWidget;

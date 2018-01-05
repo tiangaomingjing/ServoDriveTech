@@ -35,8 +35,10 @@ public:
   virtual void readPageFLASH();
   virtual void writePageFLASH();
   virtual void setUiActive(bool actived);
-
   virtual void createQmlWidget();
+
+  virtual bool hasConfigFunc();
+  virtual bool hasSaveFunc();
 
 protected:
   virtual QStackedWidget *getUiStackedWidget(void)=0;
@@ -47,9 +49,11 @@ protected:
   virtual void setQmlSignalSlot(){}
   virtual void addQmlWidget(){}
   virtual void setContextAction();
+  virtual void updateUi();
 
 signals:
   void sglQmlUpdataUi();
+  void sglQmlActived(bool active);
   void sglMainErrorInfo(int axis,QString msg);
 
   //to device

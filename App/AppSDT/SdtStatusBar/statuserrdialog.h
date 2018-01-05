@@ -24,7 +24,7 @@ signals:
 public slots:
   void onStatusError(quint32 devInx,qint16 axis,bool hasErr);
 private slots:
-
+  void onTreeWidgetItemClicked(QTreeWidgetItem *item,int column);
 private:
   void setItemStatus(QTreeWidgetItem *item,bool status);
   QTreeWidgetItem *findStatusItem(QTreeWidgetItem *axisItem) const;

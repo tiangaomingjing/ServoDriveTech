@@ -67,7 +67,8 @@ QList<DeviceConfig *>DevTextRWriter::createConfig(void (*processCallback)(void *
     device->m_fpgaId=0;
     list.append(device);
   }
-
+  pvalue=100;
+  processCallback(processbar,&pvalue);
 
   isOk=true;
 

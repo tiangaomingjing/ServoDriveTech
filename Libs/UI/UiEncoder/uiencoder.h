@@ -17,6 +17,9 @@ public:
   explicit UiEncoder(QWidget *parent = 0);
   ~UiEncoder();
 
+  bool hasConfigFunc()Q_DECL_OVERRIDE;
+  bool hasSaveFunc()Q_DECL_OVERRIDE;
+
 private:
   QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;
   QVBoxLayout *getVBoxLayout(void)Q_DECL_OVERRIDE;

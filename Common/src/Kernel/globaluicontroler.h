@@ -13,6 +13,7 @@ public:
   ~GlobalUiControler();
 
   void createUis()Q_DECL_OVERRIDE;
+  IUiWidget *getUiWidgetByClassName(const QString &name);
 signals:
 public slots:
 };

@@ -67,6 +67,11 @@ void IUiWidget::setContextAction()
   this->addAction(d->m_actReadFLASH);
 }
 
+void IUiWidget::updateUi()
+{
+  qDebug()<<this->objectName()<<"updateUi";
+}
+
 void IUiWidget::createQmlWidget()
 {
   Q_D(IUiWidget);
@@ -86,6 +91,15 @@ void IUiWidget::createQmlWidget()
   d->m_qwidget->setSource(QUrl::fromLocalFile(d->m_qmlpath));
   setQmlSignalSlot();
   addQmlWidget();
+}
+
+bool IUiWidget::hasConfigFunc()
+{
+  return true;
+}
+bool IUiWidget::hasSaveFunc()
+{
+  return true;
 }
 
 void IUiWidget::addTreeWidget(QTreeWidget *tree)
@@ -123,7 +137,9 @@ void IUiWidget::writePageFLASH()
 }
 void IUiWidget::setUiActive(bool actived)
 {
-  Q_UNUSED(actived);
+  if(actived)
+    updateUi();
+  emit sglQmlActived(actived);
 }
 
 void IUiWidget::onTreeItemClickedEdit(QTreeWidgetItem *item, int column)

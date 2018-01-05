@@ -7,6 +7,7 @@ class OptContainer;
 class SevDevice;
 class IUiControler;
 class DeviceConfig;
+class SevUiControler;
 class SdAssembly : public QObject
 {
   Q_OBJECT

@@ -5,6 +5,11 @@
 #include <QTextStream>
 #include <QDir>
 #include "styleiconwidget.h"
+#include <QProcess>
+#include "Windows.h"
+
+#include "SystemInfo/isysinfo.h"
+#include "SystemInfo/syswin.h"
 
 
 QssMainWindow::QssMainWindow(QWidget *parent) :
@@ -29,6 +34,11 @@ QssMainWindow::QssMainWindow(QWidget *parent) :
   gridLayout->addWidget(s2,0,1);
   gridLayout->addWidget(s3,1,0);
   gridLayout->addWidget(s4,1,1);
+
+  p=new QProcess;
+  qDebug()<<"processId"<<p->processId();
+
+  m_sysInfo=new SysWin;
 }
 
 QssMainWindow::~QssMainWindow()
@@ -51,6 +61,7 @@ void QssMainWindow::on_actionQss1_triggered()
 
   QString qss = in.readAll();
   qApp->setStyleSheet(qss);
+  qDebug()<<"processId"<<p->processId();
 
 }
 
@@ -89,4 +100,54 @@ void QssMainWindow::on_pushButton_fontsize_clicked()
   font.setPixelSize(ui->spinBox->value());
   qApp->setFont(font);
   //还要再设置一下样式，才能更新
+}
+
+void QssMainWindow::on_pushButton_clicked()
+{
+  QList<QWidget *>strList;
+  QWidget *stest;
+  for(int i=0;i<1000;i++)
+  {
+    stest=new QWidget;
+    stest->show();
+//    testCupInfo();
+    Sleep(10);
+    strList.append(stest);
+  }
+  qDebug()<<"release **********************";
+  for(int j=0;j<strList.count();j++)
+  {
+    delete strList.at(j);
+//    testCupInfo();
+  }
+  strList.clear();
+  qDebug()<<"clicked";
+}
+
+void QssMainWindow::testCupInfo()
+{
+  int nCpuRate = -1;
+//  int nMemTotal = -1;
+//  int nMemUsed = -1;
+//  int nDiskTotal = -1;
+//  int nDiskUsed = -1;
+//  int nProcessMemRate = -1;
+//  QMap<int,QString> pidMap;
+
+  m_sysInfo->GetSysCpu(nCpuRate);
+  qDebug()<<"CPU Rate:"<<nCpuRate<<"%";
+
+//  m_sysInfo->GetSysMemory(nMemTotal,nMemUsed);
+//  qDebug()<<"Mem Total:"<<nMemTotal<<"\t Mem Used:"<<nMemUsed;
+
+//  m_sysInfo->GetSysDisk(nDiskTotal,nDiskUsed);
+//  qDebug()<<"Disk Total:"<<(nDiskTotal/1024.0)<<"GB \t Disk Used:"<<(nDiskUsed/1024.0)<<"GB";
+
+//  m_sysInfo->GetProcessMemory(6472,nProcessMemRate);
+//  qDebug()<<"PID:6472;\t Mem Rate:"<<nProcessMemRate<<"%";
+
+//  pidMap = m_sysInfo->GetAllProcess();
+//  qDebug()<<"Process Number:"<<pidMap.size();
+
+  qDebug()<<"-------------------------------------------------------------------";
 }

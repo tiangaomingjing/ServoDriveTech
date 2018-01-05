@@ -7,4 +7,5 @@ SUBDIRS += \
     AppQssTest \
     AppOptionTest \
     AppSDT \
-    AppWidgetTest
+    AppWidgetTest \
+    AppCpuTest

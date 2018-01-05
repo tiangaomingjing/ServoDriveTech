@@ -24,3 +24,17 @@ void GlobalUiControler::createUis()
   uiPlot->init(NULL);
   m_uiLists.append(uiPlot);
 }
+
+IUiWidget *GlobalUiControler::getUiWidgetByClassName(const QString &name)
+{
+  IUiWidget *ui=NULL;
+  foreach (IUiWidget *w, m_uiLists)
+  {
+    if(w->objectName()==name)
+    {
+      ui=w;
+      break;
+    }
+  }
+  return ui;
+}

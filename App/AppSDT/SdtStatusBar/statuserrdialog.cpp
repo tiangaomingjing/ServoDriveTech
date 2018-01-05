@@ -12,6 +12,7 @@ StatusErrDialog::StatusErrDialog(QTreeWidget *navTree, QWidget *parent) :
   ui(new Ui::StatusErrDialog)
 {
   ui->setupUi(this);
+  connect(ui->treeWidget,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(onTreeWidgetItemClicked(QTreeWidgetItem*,int)));
   updateDevice(navTree);
 }
 
@@ -63,6 +64,17 @@ void StatusErrDialog::onStatusError(quint32 devInx,qint16 axis,bool hasErr)
     setItemStatus(itemChild,hasErr);
   }
 }
+void StatusErrDialog::onTreeWidgetItemClicked(QTreeWidgetItem *item, int column)
+{
+  Q_UNUSED(column);
+  if(item->childCount()==0)
+  {
+    int pageIndex=item->text(2).toInt();
+    emit statusPageChanged(pageIndex);
+    qDebug()<<"emit statusPageChanged"<<pageIndex;
+  }
+}
+
 void StatusErrDialog::setItemStatus(QTreeWidgetItem *item,bool status)
 {
   if(status)

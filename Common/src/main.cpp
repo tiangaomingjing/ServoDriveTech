@@ -6,17 +6,8 @@
 #include <QFileInfoList>
 #include <QFileInfo>
 
-#include "qttreemanager.h"
-#include "sdtglobaldef.h"
-#include "gtutils.h"
-#include "Kernel/globalconfig.h"
-#include "Kernel/gconfigreadwriter.h"
-#include "Kernel/idevreadwriter.h"
-#include "Kernel/devtextrwriter.h"
-#include "Kernel/deviceconfig.h"
-#include "Kernel/sevuicontroler.h"
-#include "Kernel/sdassembly.h"
-#include "Kernel/devcomrwriter.h"
+#include "test.h"
+
 
 
 template <typename T>
@@ -110,8 +101,17 @@ int main(int argc, char *argv[])
   qDebug()<<hex;
 
 //  getFileDirNameTest();
-  readStyleINI();
+//  readStyleINI();
 
+  QList<QString *>strList;
+  QString *stest;
+  for(int i=0;i<10;i++)
+  {
+    stest=new QString(QString::number(i));
+    strList.append(stest);
+  }
+  int s=sum(2,3);
+  qDebug()<<"sum"<<s;
   return a.exec();
 }
 

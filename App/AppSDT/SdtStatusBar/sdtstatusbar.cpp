@@ -18,6 +18,7 @@ SdtStatusBar::SdtStatusBar(QTreeWidget *navTree, QWidget *parent) :
 {
   ui->setupUi(this);
   m_errDialog=new StatusErrDialog(navTree,this);
+  connect(m_errDialog,SIGNAL(statusPageChanged(int)),this,SIGNAL(statusPageChanged(int)));
 
   QPalette pa;
   pa.setColor(QPalette::WindowText,Qt::red);
@@ -97,6 +98,10 @@ void SdtStatusBar::showErrorStatus(bool show)
 void SdtStatusBar::updateDeviceWhenChanged(QTreeWidget *navTree)
 {
   m_errDialog->updateDevice(navTree);
+}
+QProgressBar *SdtStatusBar::statusProgressBar()const
+{
+  return ui->progressBar;
 }
 
 //bool SdtStatusBar::eventFilter(QObject *watched, QEvent *event)

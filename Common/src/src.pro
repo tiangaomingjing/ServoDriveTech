@@ -10,7 +10,10 @@ INCLUDEPATH+=../../Libs/Com/Communication\
               ../../Libs/GTUtils\
               ../../Libs/UI\
               ../../Libs/UI/IUiWidget\
-              ../../Libs/SDKernel
+              ../../Libs/SDKernel\
+              ../../Libs/Option\
+              $${PWD}/UiFactory\
+              $${PWD}/Kernel
 
 CONFIG(debug, debug|release){
     COMMONSRC_OUT_PATH=$${PWD}/../../build/debug/bin
@@ -30,7 +33,8 @@ CONFIG(debug, debug|release){
           -lUiRAMd\
           -lUiStatusd\
           -lUiVelocityd\
-          -lSDKerneld
+          -lSDKerneld\
+          -lOptiond
     TARGET = CommonSrcAppd
 } else{
     COMMONSRC_OUT_PATH=$${PWD}/../../build/release/bin
@@ -52,7 +56,8 @@ CONFIG(debug, debug|release){
           -lUiRAM\
           -lUiStatus\
           -lUiVelocity\
-          -lSDKernel
+          -lSDKernel\
+          -lOption
     TARGET = CommonSrcApp
 }
 DESTDIR =$${COMMONSRC_OUT_PATH}
@@ -69,7 +74,8 @@ SOURCES += main.cpp \
     Kernel/deviceconfig.cpp \
     UiFactory/uifactory.cpp \
     Kernel/globaluicontroler.cpp \
-    Kernel/deviceidhelper.cpp
+    Kernel/deviceidhelper.cpp \
+    test.c
 
 
 HEADERS += \
@@ -86,7 +92,8 @@ HEADERS += \
     UiFactory/uifactory.h \
     UiFactory/registerfunction.h \
     Kernel/globaluicontroler.h \
-    Kernel/deviceidhelper.h
+    Kernel/deviceidhelper.h \
+    test.h
 
 DISTFILES += \
     QML/V129/UiMotor.qml \

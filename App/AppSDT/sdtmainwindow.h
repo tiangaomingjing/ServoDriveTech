@@ -13,6 +13,9 @@ class IUiControler;
 class OptContainer;
 class SdtStatusBar;
 class QTreeWidget;
+class QProgressBar;
+class GlobalUiControler;
+class IUiWidget;
 
 class SDTMainWindow : public QMainWindow
 {
@@ -44,6 +47,12 @@ private:
   void navigationTreeInit();
   void globalUiPageInit();
   void stackedWidgetInit();
+
+  void disactiveAllUi();
+  void activeCurrentUi();
+  void changeConfigSaveBtnStatus();
+  void showPlotUiOnly(bool show);
+
 signals:
   void initProgressInfo(int barValue,QString msg);
 private slots:
@@ -56,6 +65,8 @@ private slots:
   void onProgressInfo(int barValue, QString msg);
 
   void onNavTreeWidgetItemClicked(QTreeWidgetItem * item, int column);
+
+  void onStatusBarPageChanged(int pIndex);
 
 private:
 
@@ -80,12 +91,13 @@ private:
   QAction *m_actnOption;
   QAction *m_actnProduce;
   SdtStatusBar *m_statusBar;
+  QProgressBar *mp_progressBar;
 
   static short m_probarValue;
 
   //-------servo-------
   QList<SdAssembly*>m_sdAssemblyList;
-  IUiControler *m_gUiControl;
+  GlobalUiControler *m_gUiControl;
   OptContainer *m_optc;
   SdAssembly *m_currentSdAssembly;
 

@@ -6,7 +6,8 @@
 namespace Ui {
 class QssMainWindow;
 }
-
+class QProcess;
+class ISysInfo;
 class QssMainWindow : public QMainWindow
 {
   Q_OBJECT
@@ -24,8 +25,15 @@ private slots:
 
   void on_pushButton_fontsize_clicked();
 
+  void on_pushButton_clicked();
+
+private:
+  void testCupInfo();
+
 private:
   Ui::QssMainWindow *ui;
+  QProcess *p;
+  ISysInfo *m_sysInfo;
 };
 
 #endif // QSSMAINWINDOW_H
