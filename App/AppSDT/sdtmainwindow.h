@@ -20,10 +20,11 @@ class IUiWidget;
 class SDTMainWindow : public QMainWindow
 {
   Q_OBJECT
-  enum NavShowType{
-    NAV_SHOW_SINGLE,
-    NAV_SHOW_SINGLE_1_4_6,
-    NAV_SHOW_MIX
+  enum UiShowStatus{
+    UI_STA_FUNCF,
+    UI_STA_FUNCNF,
+    UI_STA_PLOTF,
+    UI_STA_PLOTNF
   };
 public:
   explicit SDTMainWindow(QWidget *parent = 0);
@@ -52,6 +53,9 @@ private:
   void activeCurrentUi();
   void changeConfigSaveBtnStatus();
   void showPlotUiOnly(bool show);
+
+  void removeDockWidgetAll();
+  void setUiShowStatus(UiShowStatus status);
 
 signals:
   void initProgressInfo(int barValue,QString msg);
@@ -92,6 +96,7 @@ private:
   QAction *m_actnProduce;
   SdtStatusBar *m_statusBar;
   QProgressBar *mp_progressBar;
+  UiShowStatus m_currentUiStatus;
 
   static short m_probarValue;
 

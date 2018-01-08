@@ -8,4 +8,5 @@ SUBDIRS += \
     AppOptionTest \
     AppSDT \
     AppWidgetTest \
-    AppCpuTest
+    AppCpuTest \
+    AppPlotFloatTest
