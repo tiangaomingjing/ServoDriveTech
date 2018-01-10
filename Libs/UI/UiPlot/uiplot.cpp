@@ -43,3 +43,8 @@ void UiPlot::setDefaultUi()
 {
   setCurrentUiIndex(0);
 }
+
+QHBoxLayout *UiPlot::hBoxLayout()
+{
+  return ui->qmlHboxLayout;
+}

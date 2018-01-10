@@ -26,6 +26,9 @@
 
 #include "sdtglobaldef.h"
 
+#include "plotunit.h"
+#include "UiPlot/uiplot.h"
+
 #include <QToolButton>
 #include <QDebug>
 #include <QTranslator>
@@ -43,12 +46,16 @@ SDTMainWindow::SDTMainWindow(QWidget *parent) :
   qmlRegisterType<SevDevice>("QtCppClass", 1, 0, "SevDevice");
   clearStackedWidget();
   staticUiInit();
-  ui->dockWidgetPlot->hide();
 }
 
 SDTMainWindow::~SDTMainWindow()
 {
+  delete m_plot;
+  GT::deepClearList(m_sdAssemblyList);
+  delete m_gUiControl;
+  delete m_optc;
   delete ui;
+
 }
 bool SDTMainWindow::init()
 {
@@ -65,15 +72,15 @@ QTreeWidget *SDTMainWindow::navTreeWidget() const
 
 void SDTMainWindow::staticUiInit()
 {
-  createActions();
-  setAppIcon();
-
   m_optc=OptContainer::instance();
 
   m_statusBar=new SdtStatusBar(ui->treeWidget,this);
   mp_progressBar=m_statusBar->statusProgressBar();
   ui->statusBar->addPermanentWidget(m_statusBar,0);
   ui->statusBar->setToolTipDuration(2000);
+
+  createActions();
+  setAppIcon();
   createConnections();
 }
 void SDTMainWindow::createActions()
@@ -187,7 +194,6 @@ void SDTMainWindow::createActions()
   ui->mainToolBar->addWidget(m_tbtnHelp);
   ui->mainToolBar->addWidget(spacer);
   ui->mainToolBar->addWidget(m_tbtnMore);
-
 }
 
 void SDTMainWindow::setAppIcon()
@@ -350,6 +356,11 @@ void SDTMainWindow::globalUiPageInit()
 {
   m_gUiControl=new GlobalUiControler(m_optc);
   m_gUiControl->createUis();
+
+  m_plot=new PlotUnit;
+  connect(m_plot,SIGNAL(floatingChanged(bool)),this,SLOT(onPlotFloatingChanged(bool)));
+  UiPlot *uiplot=dynamic_cast<UiPlot *>(m_gUiControl->getUiWidgetByClassName("UiPlot"));
+  uiplot->hBoxLayout()->addWidget(m_plot);
 }
 void SDTMainWindow::stackedWidgetInit()
 {
@@ -404,77 +415,24 @@ void SDTMainWindow::changeConfigSaveBtnStatus()
   m_actnSave->setEnabled(uiWidget->hasSaveFunc());
 }
 
-void SDTMainWindow::removeDockWidgetAll()
-{
-  removeDockWidget(ui->dockWidgetNav);
-  removeDockWidget(ui->dockWidgetPlot);
-}
-void SDTMainWindow::setUiShowStatus(UiShowStatus status)
-{
-  removeDockWidgetAll();
-  addDockWidget(Qt::LeftDockWidgetArea,ui->dockWidgetNav);
-
-  switch (status)
-  {
-  case UI_STA_FUNCF:
-    centralWidget()->show();
-    ui->dockWidgetNav->show();
-    ui->dockWidgetPlot->show();
-    break;
-  case UI_STA_FUNCNF:
-    ui->dockWidgetNav->show();
-    centralWidget()->show();
-    ui->dockWidgetPlot->hide();
-    break;
-  case UI_STA_PLOTF:
-    centralWidget()->show();
-    ui->dockWidgetNav->show();
-    ui->dockWidgetPlot->show();
-    break;
-  case UI_STA_PLOTNF:
-    centralWidget()->hide();
-    splitDockWidget(ui->dockWidgetNav,ui->dockWidgetPlot,Qt::Horizontal);
-    ui->dockWidgetPlot->show();
-    ui->dockWidgetNav->show();
-    break;
-  default:
-    centralWidget()->show();
-    ui->dockWidgetNav->show();
-    ui->dockWidgetPlot->hide();
-    break;
-  }
-  ui->dockWidgetNav->setBaseSize(QSize(300,500));
-}
-
 void SDTMainWindow::showPlotUiOnly(bool show)
 {
+  qDebug()<<show;
   if(show)
+    m_plot->show();
+}
+void SDTMainWindow::setNavCurrentSelectedInfo()
+{
+  QTreeWidgetItem *item=ui->treeWidget->currentItem();
+  QString info;
+  QTreeWidgetItem *itemParent=NULL;
+  while ((itemParent=item->parent())!=NULL)
   {
-    centralWidget()->hide();
-    ui->dockWidgetPlot->show();
+    info.prepend(item->text(0)+" ");
+    item=itemParent;
   }
-  else
-  {
-    centralWidget()->show();
-    ui->dockWidgetPlot->hide();
-  }
-
-//  bool isFloat=ui->dockWidgetPlot->isFloating();
-//  if(isFloat)
-//  {
-//    if(show)
-//      m_currentUiStatus=UI_STA_PLOTF;
-//    else
-//      m_currentUiStatus=UI_STA_FUNCF;
-//  }
-//  else
-//  {
-//    if(show)
-//      m_currentUiStatus=UI_STA_PLOTNF;
-//    else
-//      m_currentUiStatus=UI_STA_FUNCNF;
-//  }
-//  setUiShowStatus(m_currentUiStatus);
+  info.prepend(item->text(0)+" ");
+  ui->dockWidgetNav->setWindowTitle(info);
 }
 
 void SDTMainWindow::onActnOptionClicked()
@@ -521,6 +479,7 @@ void SDTMainWindow::onNavTreeWidgetItemClicked(QTreeWidgetItem *item, int column
       if(item->text(COL_TARGET_CONFIG_ISPLOT)=="1")
         plotShow=true;
       showPlotUiOnly(plotShow);
+      setNavCurrentSelectedInfo();
     }
   }
 }
@@ -542,4 +501,22 @@ void SDTMainWindow::onStatusBarPageChanged(int pIndex)
   ui->treeWidget->expandItem(selectAxisItem);
   ui->treeWidget->expandItem(selectItem);
   selectItem->setSelected(true);
+}
+
+void SDTMainWindow::onPlotFloatingChanged(bool floating)
+{
+  UiPlot *uiplot=dynamic_cast<UiPlot *>(m_gUiControl->getUiWidgetByClassName("UiPlot"));
+  if(floating)
+  {
+    uiplot->hBoxLayout()->removeWidget(m_plot);
+    m_plot->setParent(0);
+    m_plot->showMaximized();
+  }
+  else
+  {
+    uiplot->hBoxLayout()->addWidget(m_plot);
+    m_plot->show();
+  }
+
+
 }

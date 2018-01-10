@@ -578,7 +578,6 @@ void UiMainWindow::onActNewSelectClicked()
   d->m_sdAssemblyList=sdAssemblyListTemp;
   qDebug()<<"after sdAssembly list count"<<d->m_sdAssemblyList.count();
 
-  //这里还有内存泄漏
   removeAllStackedWidget();
   clearNavigationTree();
 

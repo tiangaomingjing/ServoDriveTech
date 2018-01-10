@@ -8,6 +8,7 @@ INCLUDEPATH+=$${LIBS_PATH}/Com/Communication\
             $${LIBS_PATH}/UI\
             $${LIBS_PATH}/UI/IUiWidget\
             $${LIBS_PATH}/Option\
+            $${LIBS_PATH}/PlotUnit\
             $${COMMON_PATH}/src\
             $${COMMON_PATH}/src/Kernel\
             $${COMMON_PATH}/src/UiFactory
@@ -32,7 +33,8 @@ CONFIG(debug, debug|release){
           -lUiStatusd\
           -lUiVelocityd\
           -lSDKerneld\
-          -lOptiond
+          -lOptiond\
+          -lPlotUnitd
 } else{
     APPTEST_OUT_PATH=$${PWD}/../build/release/bin
     LIBPATH=$${APPTEST_OUT_PATH}
@@ -54,6 +56,7 @@ CONFIG(debug, debug|release){
           -lUiStatus\
           -lUiVelocity\
           -lSDKernel\
-          -lOption
+          -lOption\
+          -lPlotUnit
 }
 DESTDIR =$${APPTEST_OUT_PATH}

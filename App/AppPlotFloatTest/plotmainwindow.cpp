@@ -29,9 +29,9 @@ void PlotMainWindow::on_actionFloat_triggered()
 {
 //    ui->label->setParent(0);
 //    ui->label->showMaximized();
-//  ui->verticalLayout_2->removeWidget(mw);
+  ui->verticalLayout_2->removeWidget(mw);
   mw->setParent(0);
-  mw->showMaximized();
+  mw->show();
 }
 
 void PlotMainWindow::on_actionInFloat_triggered()

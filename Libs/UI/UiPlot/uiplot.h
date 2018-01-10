@@ -9,6 +9,7 @@ class UiPlot;
 }
 class QWidget;
 class UiPlotPrivate;
+class QHBoxLayout;
 class UIPLOTSHARED_EXPORT UiPlot:public IUiWidget
 {
   Q_OBJECT
@@ -20,6 +21,7 @@ public:
   void readPageFLASH()Q_DECL_OVERRIDE{}
   void writePageFLASH()Q_DECL_OVERRIDE{}
   void createQmlWidget()Q_DECL_OVERRIDE{}
+  QHBoxLayout *hBoxLayout();
 
 private:
     QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;

@@ -484,6 +484,13 @@ errcode_t PcDebug::stopPlot(const PlotControlPrm &ctrPrm)
   return ret;
 }
 
+///
+/// \brief PcDebug::getPlotData 得到的是一个dsp的数据
+/// \param ctrPrm 对应该dsp的控制参数
+/// \param curveList 输出的曲线
+/// \return
+///
+
 errcode_t PcDebug::getPlotData(const PlotControlPrm &ctrPrm, CurveList &curveList)
 {
   Q_D(PcDebug);
@@ -495,15 +502,18 @@ errcode_t PcDebug::getPlotData(const PlotControlPrm &ctrPrm, CurveList &curveLis
   curveList.clear();
   ret=GTSD_CMD_PcGetWaveData(axis, &ptr, retNumber,d->m_comType);
 
+  if(ret!=0)
+    return ret;
+
   if(retNumber>0)
   {
-    for(int i=0;i<ctrPrm.number;i++)
+    for(int row=0;row<ctrPrm.number;row++)
     {
       CurveDatas curveDatas;
       double value;
       for(int col=0;col<retNumber;col++)
       {
-        value=*(ptr+i*PLOT_ARRAY_COLUMN_SIZE+col);
+        value=*(ptr+row*PLOT_ARRAY_COLUMN_SIZE+col);
         curveDatas.push_back(value);
       }
       curveList.push_back(curveDatas);

@@ -16,6 +16,7 @@ class QTreeWidget;
 class QProgressBar;
 class GlobalUiControler;
 class IUiWidget;
+class PlotUnit;
 
 class SDTMainWindow : public QMainWindow
 {
@@ -54,8 +55,7 @@ private:
   void changeConfigSaveBtnStatus();
   void showPlotUiOnly(bool show);
 
-  void removeDockWidgetAll();
-  void setUiShowStatus(UiShowStatus status);
+  void setNavCurrentSelectedInfo();
 
 signals:
   void initProgressInfo(int barValue,QString msg);
@@ -71,6 +71,8 @@ private slots:
   void onNavTreeWidgetItemClicked(QTreeWidgetItem * item, int column);
 
   void onStatusBarPageChanged(int pIndex);
+
+  void onPlotFloatingChanged(bool floating);
 
 private:
 
@@ -105,6 +107,8 @@ private:
   GlobalUiControler *m_gUiControl;
   OptContainer *m_optc;
   SdAssembly *m_currentSdAssembly;
+
+  PlotUnit *m_plot;
 
 };
 

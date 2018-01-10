@@ -77,7 +77,6 @@ public:
   virtual errcode_t stopPlot(const PlotControlPrm &ctrPrm)=0;
   virtual errcode_t getPlotData(const PlotControlPrm &ctrPrm,CurveList &curveList)=0;
 
-
   virtual errcode_t enableCRC(bool enable)=0;
 
   //--------读写RAM操作------------------

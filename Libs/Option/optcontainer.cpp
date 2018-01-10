@@ -42,6 +42,8 @@ void OptContainer::addOptItem(IOpt*opt)
       m_optHash.insert(opt->name(),opt);
       m_optList.append(opt);
   }
+  else
+    delete opt;
 }
 
 IOpt* OptContainer::optItem(const QString &optName)
