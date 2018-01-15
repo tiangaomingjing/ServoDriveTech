@@ -11,6 +11,7 @@ class QmlStyleHelper : public QObject
   Q_PROPERTY(QString css READ css WRITE setCss NOTIFY cssChanged)
 public:
   explicit QmlStyleHelper(QObject *parent = 0);
+  explicit QmlStyleHelper(int fontSize,const QString &lang,const QString &css,QObject *parent = 0);
 
   int fontSize() const;
   void setFontSize(int fontSize);

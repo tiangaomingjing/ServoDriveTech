@@ -1,0 +1,5 @@
+module MyQmlStyle
+IStyle 1.0 IStyle.qml
+StyleLoader 1.0 StyleLoader.qml
+Qmlw1Style 1.0 blue/Qmlw1Style.qml
+Qmlw2Style 1.0 blue/Qmlw2Style.qml

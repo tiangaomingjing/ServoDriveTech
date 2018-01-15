@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -61,8 +61,20 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionBlueTest"/>
+   <addaction name="actionBlackTest"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionBlueTest">
+   <property name="text">
+    <string>blueTest</string>
+   </property>
+  </action>
+  <action name="actionBlackTest">
+   <property name="text">
+    <string>blackTest</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

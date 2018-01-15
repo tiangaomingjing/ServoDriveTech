@@ -1,0 +1,13 @@
+﻿import QtQuick 2.0
+
+Item{
+    id:styleLoderRoot;
+    objectName: "StyleLoader";
+    property string styleTarget: " ";
+    property IStyle iStyle:m_styleLoader.item;
+    Loader{
+        id:m_styleLoader;
+        source: Qt.resolvedUrl(qsTr("./%1/%2.qml").arg(qmlStyleHelper.css).arg(styleTarget));
+    }
+//    onIStyleChanged: console.log("url= "+Qt.resolvedUrl(qsTr("./%1/%2.qml").arg(qmlStyleHelper.css).arg(styleTarget)));
+}
