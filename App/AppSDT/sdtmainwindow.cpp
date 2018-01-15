@@ -50,10 +50,10 @@ SDTMainWindow::SDTMainWindow(QWidget *parent) :
 
 SDTMainWindow::~SDTMainWindow()
 {
-  delete m_plot;
-  GT::deepClearList(m_sdAssemblyList);
-  delete m_gUiControl;
-  delete m_optc;
+//  delete m_plot;
+//  GT::deepClearList(m_sdAssemblyList);
+//  delete m_gUiControl;
+//  delete m_optc;
   delete ui;
 
 }
@@ -116,6 +116,7 @@ void SDTMainWindow::createActions()
 
   m_actnConfig=new QAction(this);
   m_actnConfig->setText(tr("config"));
+  m_actnConfig->setEnabled(false);
 
   m_actnSave=new QAction(this);
   m_actnSave->setText(tr("save"));
@@ -138,8 +139,8 @@ void SDTMainWindow::createActions()
   //----------------more toolbutton----------------------------
   m_tbtnMore=new QToolButton(this);
 //  m_tbtnMore->setToolButtonStyle(Qt::ToolButtonIconOnly);
-  m_tbtnMore->setPopupMode(QToolButton::MenuButtonPopup);
-//  m_tbtnMore->setPopupMode(QToolButton::InstantPopup);
+//  m_tbtnMore->setPopupMode(QToolButton::MenuButtonPopup);
+  m_tbtnMore->setPopupMode(QToolButton::InstantPopup);
 
   m_actnOnMode=new QAction(m_tbtnMore);
   m_actnOnMode->setText(tr("online"));
@@ -215,8 +216,8 @@ void SDTMainWindow::setAppIcon()
 
 void SDTMainWindow::createConnections()
 {
-  //创建连接slots
   connect(m_actnOption,SIGNAL(triggered(bool)),this,SLOT(onActnOptionClicked()));
+//  connect(m_tbtnMore,SIGNAL(clicked(bool)),this,SLOT(onActnTbtnMoreClicked()));
 
   OptAutoLoad *optAuto=dynamic_cast<OptAutoLoad *>(OptContainer::instance()->optItem("optautoload"));
   if(optAuto!=NULL)
@@ -246,6 +247,12 @@ void SDTMainWindow::closeEvent(QCloseEvent *e)
 {
   OptContainer *optc=OptContainer::instance();
   optc->saveOpt();
+
+  delete m_plot;
+  GT::deepClearList(m_sdAssemblyList);
+  delete m_gUiControl;
+  delete m_optc;
+
   QMainWindow::closeEvent(e);
 }
 void SDTMainWindow::processCallBack(void *argv,short *value)
@@ -445,6 +452,12 @@ void SDTMainWindow::onActnOptionClicked()
   }
   dialogOpt.exec();
 }
+void SDTMainWindow::onActnTbtnMoreClicked()
+{
+  m_tbtnMore->showMenu();
+  qDebug()<<"btn more show menu";
+}
+
 void SDTMainWindow::onOptAutoLoadChanged(bool changed)
 {
   m_actnNewConfig->setVisible(!changed);

@@ -52,21 +52,52 @@ QListView::item:selected:!active {
 QWidget#dockWidgetContents_2{
 background-color: rgb(161, 161, 161);
 }
+QToolBar {
+	border:none;
+    background: rgb(113, 113, 113);
+    spacing: 3px; /* spacing between items in the tool bar */
+}
 QToolButton { /* all types of tool button */
-    border: 2px solid #8f8f91;
-	margin:1px;
+    border: none;
+	padding-top:5px;
+	padding-bottom:5px;
+	padding-left:0px;
+	padding-right:0px;
+	color:white;
     border-radius: 5px;
-    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                      stop: 0 #f6f7fa, stop: 1 #dadbde);
+    background-color:rgb(113, 113, 113);
 }
 
 QToolButton[popupMode="1"] { /* only for MenuButtonPopup */
     padding-right: 20px; /* make way for the popup button */
 }
 
-QToolButton:pressed {
-    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                      stop: 0 #dadbde, stop: 1 #f6f7fa);
+QToolButton:hover:!pressed {
+    background-color: gray;
+	border:1px solid white;
+}
+QToolButton:hover:pressed {
+    background-color: rgb(86, 86, 86);
+}
+/*QToolButton:checked {
+    background-color: rgb(40, 40, 40);
+	border-radius:0px;
+}*/
+QToolButton:checked {
+	/*border-radius:0px;
+	border-color:white;
+	border-width:1px;
+	border-style:solid;*/
+	background-color: blue;
+	border-radius:0px;
+}
+QToolButton:hover:checked {
+	/*border-radius:0px;
+	border-color:white;
+	border-width:1px;
+	border-style:solid;*/
+	background-color: blue;
+	border-radius:0px;
 }
 
 /* the subcontrols below are used only in the MenuButtonPopup mode */

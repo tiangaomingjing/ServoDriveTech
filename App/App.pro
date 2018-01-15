@@ -9,4 +9,6 @@ SUBDIRS += \
     AppSDT \
     AppWidgetTest \
     AppCpuTest \
-    AppPlotFloatTest
+    AppPlotFloatTest \
+    QmlSingletonTest \
+    QmlStyleTest

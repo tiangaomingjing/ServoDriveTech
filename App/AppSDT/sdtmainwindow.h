@@ -61,6 +61,7 @@ signals:
   void initProgressInfo(int barValue,QString msg);
 private slots:
   void onActnOptionClicked();
+  void onActnTbtnMoreClicked();
 
   //响应option选项slots
   void onOptAutoLoadChanged(bool changed);
