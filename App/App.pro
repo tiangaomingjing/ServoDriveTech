@@ -11,4 +11,6 @@ SUBDIRS += \
     AppCpuTest \
     AppPlotFloatTest \
     QmlSingletonTest \
-    QmlStyleTest
+    QmlStyleTest \
+    EpromManager \
+    TestDB
