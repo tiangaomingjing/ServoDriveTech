@@ -68,13 +68,5 @@ FORMS    += sdtmainwindow.ui \
 
 TRANSLATIONS    += ch_main.ts en_main.ts
 
-DISTFILES += \
-    ../../Common/src/QML/V129/UiBrake.qml \
-    ../../Common/src/QML/V129/UiCurrent.qml \
-    ../../Common/src/QML/V129/UiEncoder.qml \
-    ../../Common/src/QML/V129/UiMotor.qml \
-    ../../Common/src/QML/V129/UiPosition.qml \
-    ../../Common/src/QML/V129/UiPower.qml \
-    ../../Common/src/QML/V129/UiSpeed.qml \
-    ../../Common/src/QML/V129/UiStatus.qml \
-    ../../Common/src/QML/V129/UiVelocity.qml
+
+QML_IMPORT_TRACE=1

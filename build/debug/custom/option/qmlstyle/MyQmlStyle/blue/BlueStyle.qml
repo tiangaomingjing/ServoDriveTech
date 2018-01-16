@@ -9,7 +9,9 @@ IStyle {
     frameBoderColor: "white";
 
     buttonBorderColor: "yellow";
-    buttonBackgroundColor: "blue";
+    buttonBackgroundColor: "lightblue";
+    buttonHoverColor: "red"
+    buttonPressedColor: "gray"
     buttonTextColor: "white";
 }
 

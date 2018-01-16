@@ -1,11 +1,13 @@
 ﻿#include "iuicontroler.h"
 #include "sdtglobaldef.h"
 
+#include "Option"
+
 #include <QDebug>
 
-IUiControler::IUiControler(OptContainer *gconfig, QObject *parent):QObject(parent),mp_goptc(gconfig)
+IUiControler::IUiControler(QObject *parent):QObject(parent)
 {
-
+  m_optc=OptContainer::instance();
 }
 IUiControler::~IUiControler()
 {

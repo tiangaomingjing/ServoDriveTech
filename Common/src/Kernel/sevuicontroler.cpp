@@ -7,7 +7,7 @@
 #include <QDebug>
 #include <QTreeWidgetItem>
 
-SevUiControler::SevUiControler(SevDevice *sev, OptContainer *gconfig, QObject *parent):IUiControler(gconfig,parent),
+SevUiControler::SevUiControler(SevDevice *sev, QObject *parent):IUiControler(parent),
   m_sev(sev)
 {
 
