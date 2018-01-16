@@ -20,6 +20,11 @@ Rectangle {
         border.color: uiStyle.buttonBorderColor;
         border.width: uiStyle.buttonBorderWidth;
         Component.onCompleted: console.log(qsTr("%1:Rectangle init").arg(step++));
+        Text{
+            anchors.centerIn: parent;
+            text:qsTr("mybutton");
+            color:uiStyle.buttonTextColor;
+        }
     }
 
     StyleLoader{

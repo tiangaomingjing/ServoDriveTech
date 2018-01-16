@@ -28,5 +28,6 @@ Item {
     property color      buttonHoverColor: "lightblue";
     property color      buttonPressedColor: "blue";
     property color      buttonBackgroundColor: "#F0F0F0";
+    property color      buttonTextColor: "black";
 }
 

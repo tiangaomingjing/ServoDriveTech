@@ -42,7 +42,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionmainwindow.ui" line="35"/>
         <location filename="optionmainwindow.ui" line="209"/>
         <source>PushButton</source>
         <translation type="unfinished"></translation>
@@ -52,6 +51,11 @@
         <location filename="optionmainwindow.ui" line="216"/>
         <location filename="optionmainwindow.ui" line="236"/>
         <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="optionmainwindow.ui" line="35"/>
+        <source>PushButton_test_folder_filelist</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

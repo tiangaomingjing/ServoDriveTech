@@ -35,3 +35,5 @@ unix {
 
 FORMS += \
     plotunit.ui
+
+TRANSLATIONS    += ch_plotunit.ts en_plotunit.ts

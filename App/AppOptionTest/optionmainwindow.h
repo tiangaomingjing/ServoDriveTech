@@ -20,8 +20,11 @@ private slots:
 
   void onToolBtnClicked();
   void onToolBtnActionClicked();
+  void on_pushButton_clicked();
+
 private:
   void closeEvent(QCloseEvent *e);
+  void TEST_getAllFileInOneFolder();
 
 private:
   Ui::OptionMainWindow *ui;

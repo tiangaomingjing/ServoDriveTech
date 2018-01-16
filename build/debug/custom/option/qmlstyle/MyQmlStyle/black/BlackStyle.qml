@@ -11,4 +11,5 @@ IStyle {
 
     buttonBorderColor: "white";
     buttonBackgroundColor: "lightgray";
+    buttonTextColor: "black";
 }

@@ -32,7 +32,7 @@
     <item>
      <widget class="QPushButton" name="pushButton">
       <property name="text">
-       <string>PushButton</string>
+       <string>PushButton_test_folder_filelist</string>
       </property>
      </widget>
     </item>

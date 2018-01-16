@@ -12,6 +12,7 @@
 #include "gtutils.h"
 
 #include <QDebug>
+#include <QDir>
 
 OptionMainWindow::OptionMainWindow(QWidget *parent) :
   QMainWindow(parent),
@@ -157,4 +158,27 @@ void OptionMainWindow::closeEvent(QCloseEvent *e)
   OptContainer *optc=OptContainer::instance();
   optc->saveOpt();
   QMainWindow::closeEvent(e);
+}
+void OptionMainWindow::TEST_getAllFileInOneFolder()
+{
+  QString langPath=GTUtils::languagePath()+"ch/";
+  qDebug()<<"langPath="<<langPath;
+  QDir dir(langPath);
+//  dir.setFilter(QDir::Files | QDir::Hidden | QDir::NoSymLinks);
+
+//  dir.setSorting(QDir::Size | QDir::Reversed);
+
+  QStringList nameFilters,list;
+  nameFilters<<"*.qm";
+//  list=dir.entryList();
+  list=dir.entryList(nameFilters,QDir::Files|QDir::Hidden|QDir::NoSymLinks,QDir::Name);
+  qDebug()<<"list count"<<list.count();
+  foreach (QString s, list) {
+    qDebug()<<s;
+  }
+}
+
+void OptionMainWindow::on_pushButton_clicked()
+{
+    TEST_getAllFileInOneFolder();
 }

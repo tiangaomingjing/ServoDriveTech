@@ -16,7 +16,31 @@
 
 #include "screenstartup.h"
 
+#include <QDir>
+
 #define START_UP_PIXMAP "startup.png"
+
+void setupTranslators(const QString &langPath )
+{
+  QStringList qmlist;
+  QDir dir(langPath);
+//  dir.setFilter(QDir::Files | QDir::Hidden | QDir::NoSymLinks);
+//  dir.setSorting(QDir::Size | QDir::Reversed);
+  QStringList nameFilters;
+  nameFilters<<"*.qm";
+  qmlist=dir.entryList(nameFilters,QDir::Files|QDir::Hidden|QDir::NoSymLinks,QDir::Name);
+  qDebug()<<"qm count"<<qmlist.count();
+
+  QTranslator *trans=NULL;
+  foreach (QString qm, qmlist)
+  {
+    trans=new QTranslator;
+    QString fileqm=langPath+qm;
+    qDebug()<<"load"<<fileqm;
+    trans->load(fileqm);
+    qApp->installTranslator(trans);
+  }
+}
 
 int main(int argc, char *argv[])
 {
@@ -38,28 +62,21 @@ int main(int argc, char *argv[])
 
   QString pixPath=GTUtils::customPath()+"option/style/"+optFace->css()+"/icon/"+START_UP_PIXMAP;
   qDebug()<<"pixPath"<<pixPath;
-  QPixmap pixmap(pixPath);
-  ScreenStartup *startup=new ScreenStartup(pixmap);
+  ScreenStartup *startup=new ScreenStartup(QPixmap(pixPath));
 
   QString langPath=GTUtils::languagePath();
   QString lang;
   if(optFace->language()=="chinese")
-  {
-    lang=langPath+"ch_main.qm";
-  }
+    lang=langPath+"ch/";
   else
-  {
-    lang=langPath+"en_main.qm";
-  }
+    lang=langPath+"en/";
+  setupTranslators(lang);
+
   optFace->setFaceStyle(optFace->css());
   optFace->setFaceFontSize(optFace->fontSize());
 
   startup->setEnabled(false);
   startup->show();
-  qDebug()<<"language "<<lang;
-  QTranslator trans;
-  trans.load(lang);
-  a.installTranslator(&trans);
 
   RegisterFunction::registerUiClass();
 
