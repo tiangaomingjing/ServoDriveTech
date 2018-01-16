@@ -34,6 +34,7 @@ private:
 
 };
 class QSettings;
+class QmlStyleHelper;
 class OPTIONSHARED_EXPORT OptFace : public IOpt
 {
   Q_OBJECT
@@ -48,6 +49,7 @@ public:
   int fontSize() const;
   QString css() const;
   QString language() const;
+  QmlStyleHelper *qmlStyleHelper() const;
 
 protected:
   bool optActive()Q_DECL_OVERRIDE;

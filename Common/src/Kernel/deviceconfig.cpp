@@ -23,3 +23,11 @@ bool DeviceConfig::isEqual(const DeviceConfig &devConfig)
       (m_version==devConfig.m_version)&&\
       (m_rnStationId==devConfig.m_rnStationId);
 }
+bool DeviceConfig::operator ==(const DeviceConfig &dev)const
+{
+  return (m_pwrId==dev.m_pwrId)&&\
+         (m_ctrId==dev.m_ctrId)&&\
+      (m_comType==dev.m_comType)&&\
+      (m_version==dev.m_version)&&\
+      (m_rnStationId==dev.m_rnStationId);
+}

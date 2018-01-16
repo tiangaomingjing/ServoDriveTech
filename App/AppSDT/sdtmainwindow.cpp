@@ -1,12 +1,7 @@
 ﻿#include "sdtmainwindow.h"
 #include "ui_sdtmainwindow.h"
 
-#include "optautoload.h"
-#include "iopt.h"
-#include "optcontainer.h"
-#include "optface.h"
-#include "optplot.h"
-#include "optuser.h"
+#include "Option"
 #include "dialogoption.h"
 
 #include "gtutils.h"
@@ -44,6 +39,7 @@ SDTMainWindow::SDTMainWindow(QWidget *parent) :
 {
   ui->setupUi(this);
   qmlRegisterType<SevDevice>("QtCppClass", 1, 0, "SevDevice");
+  qmlRegisterType<QmlStyleHelper>("QtCppClass", 1, 0, "QmlStyleHelper");
   clearStackedWidget();
   staticUiInit();
 }
@@ -276,7 +272,7 @@ bool SDTMainWindow::deviceInit()
     qDebug()<<"************************new SdAssembly "<<i;
     SdAssembly *sdriver=new SdAssembly();
     connect(sdriver,SIGNAL(initProgressInfo(int,QString)),this,SLOT(onProgressInfo(int,QString)));
-    sdriver->init(devConfigList.at(i),m_optc);
+    sdriver->init(devConfigList.at(i));
     m_sdAssemblyList.append(sdriver);
   }
 

@@ -11,7 +11,7 @@ class IUiControler : public QObject
 {
   Q_OBJECT
 public:
-  explicit IUiControler(OptContainer *gconfig, QObject *parent=0);
+  explicit IUiControler(QObject *parent=0);
   virtual ~IUiControler();
   virtual void createUis()=0;
   quint16 uiCount();
@@ -21,7 +21,7 @@ signals:
   void initProgressInfo(int value,QString msg);
 public slots:
 protected:
-  OptContainer *mp_goptc;
+  OptContainer *m_optc;
   QList<IUiWidget*>m_uiLists;
 };
 

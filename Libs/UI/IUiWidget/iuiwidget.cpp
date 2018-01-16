@@ -3,6 +3,8 @@
 #include "sevdevice.h"
 #include "gtutils.h"
 
+#include "Option"
+
 #include <QTreeWidget>
 #include <QStackedWidget>
 #include <QVBoxLayout>
@@ -11,6 +13,7 @@
 #include <QQuickWidget>
 #include <QQmlContext>
 #include <QAction>
+#include <QQmlEngine>
 
 IUiWidget::IUiWidget(QWidget *parent):QWidget(parent),d_ptr(new IUiWidgetPrivate())
 {
@@ -85,7 +88,15 @@ void IUiWidget::createQmlWidget()
   d->m_qwidget->setMinimumSize(600,560);
   qDebug()<<"load qml from:"<<d->m_qmlpath;
 
+  //style context
+  QString qmlStyleModulePath=GTUtils::customPath()+"option/qmlstyle/";
+  d->m_qwidget->engine()->addImportPath(qmlStyleModulePath);
+  OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
+  QmlStyleHelper *helper=face->qmlStyleHelper();
+  d->m_qwidget->rootContext()->setContextProperty("qmlStyleHelper",helper);
+
   d->m_qwidget->rootContext()->setContextProperty("cDevice",d->m_device);
+
   setQmlContext();
   d->m_qwidget->setResizeMode(QQuickWidget::SizeRootObjectToView );
   d->m_qwidget->setSource(QUrl::fromLocalFile(d->m_qmlpath));

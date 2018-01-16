@@ -78,6 +78,7 @@ QList<DeviceConfig *>DevComRWriter::createConfig(void (*processCallback)(void *p
     list.append(config);
   }
 
+  com->close();
   delete com;
   return list;
 }
@@ -98,7 +99,7 @@ DeviceConfig* DevComRWriter::buildConfigFromCom(quint8 devId, quint8 rnstation, 
   config->m_comType=com->iComType();
   config->m_axisNum=idHelper.axisNumFromIdMap();
   config->m_devId=devId;
-  config->m_fpgaId=0;
+  config->m_fpgaId=idHelper.readFpgaId();
   config->m_modeName=idHelper.modeNameFromIdMap();
   config->m_typeName=idHelper.typeNameFromIdMap();
   config->m_rnStationId=rnstation;

@@ -9,7 +9,7 @@ class GlobalUiControler: public IUiControler
 {
   Q_OBJECT
 public:
-  explicit GlobalUiControler(OptContainer *gconfig, QObject *parent=0);
+  explicit GlobalUiControler(QObject *parent=0);
   ~GlobalUiControler();
 
   void createUis()Q_DECL_OVERRIDE;

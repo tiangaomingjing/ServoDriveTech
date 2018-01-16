@@ -15,7 +15,7 @@ public:
   explicit SdAssembly(QObject *parent=0);
   ~SdAssembly();
 
-  bool init(const DeviceConfig *dConfig, OptContainer *gConfig);
+  bool init(const DeviceConfig *dConfig);
 
   SevDevice *sevDevice();
   IUiControler *uiControler();

@@ -23,12 +23,7 @@
 #include "Kernel/globaluicontroler.h"
 #include "sevdevice.h"
 
-#include "optautoload.h"
-#include "iopt.h"
-#include "optcontainer.h"
-#include "optface.h"
-#include "optplot.h"
-#include "optuser.h"
+#include "Option"
 
 
 class UiMainWindowPrivate{
@@ -83,6 +78,8 @@ UiMainWindow::UiMainWindow(QWidget *parent) :
   ui->setupUi(this);
   clearStackedWidget();
   qmlRegisterType<SevDevice>("QtCppClass", 1, 0, "SevDevice");
+  qmlRegisterType<QmlStyleHelper>("QtCppClass", 1, 0, "QmlStyleHelper");
+
   staticUiInit();
 
 }
@@ -182,7 +179,7 @@ bool UiMainWindow::deviceInit()
     qDebug()<<"************************new SdAssembly "<<i;
     SdAssembly *sdriver=new SdAssembly();
     connect(sdriver,SIGNAL(initProgressInfo(int,QString)),this,SLOT(onProgressInfo(int,QString)));
-    sdriver->init(devConfigList.at(i),d->m_gOptc);
+    sdriver->init(devConfigList.at(i));
     d->m_sdAssemblyList.append(sdriver);
   }
 
@@ -483,6 +480,17 @@ void UiMainWindow::onActReadFlashTestClicked()
 void UiMainWindow::onActQueryTestClicked()
 {
   qDebug()<<"query connect clicked";
+
+  QList<DeviceConfig*> configList;
+
+  IDevReadWriter *idevRWriter=new DevComRWriter(0);
+  bool isOk;
+  configList=idevRWriter->createConfig(processCallBack,(void*)ui->progressBar,isOk);
+  Q_ASSERT(isOk);
+  createSdAssemblyByDevConfig(configList);
+
+  GT::deepClearList(configList);
+  delete idevRWriter;
 }
 void UiMainWindow::onActConnectClicked()
 {
@@ -492,6 +500,66 @@ void UiMainWindow::onActConnectClicked()
 void UiMainWindow::onActDisConnectClicked()
 {
   qDebug()<<"dis connect clicked";
+}
+
+void UiMainWindow::createSdAssemblyByDevConfig(const QList<DeviceConfig *> &configList)
+{
+  Q_D(UiMainWindow);
+
+  int configCount=configList.count();
+  qDebug()<<"configList.count()"<<configCount;
+
+  QList<SdAssembly*>sdAssemblyListTemp;
+  DeviceConfig* devConfig;
+  SdAssembly* currentSdAssembly;
+
+  for(int i=0;i<configCount;i++)
+  {
+    devConfig=configList.at(i);
+    qDebug()<<"devconfig i="<<i<<"\n"<<tr("pwrid=%1,ctrid=%2,comtype=%3,version=%4,stationid=%5").arg(devConfig->m_pwrId)\
+              .arg(devConfig->m_ctrId).arg(devConfig->m_comType).arg(devConfig->m_version).arg(devConfig->m_rnStationId);
+
+    bool cp=false;
+    for(int j=0;j<d->m_sdAssemblyList.count();j++)
+    {
+
+      currentSdAssembly=d->m_sdAssemblyList.at(j);
+      DeviceConfig* tc=currentSdAssembly->sevDevice()->deviceConfig();
+      bool isEqual=devConfig->isEqual(*tc);
+      qDebug()<<"isEqual"<<isEqual;
+//      Q_ASSERT(isEqual);
+      if(isEqual)//与原有的匹配
+      {
+        qDebug()<<"sdAssemblyListTemp.append(sdAssemblyList.takeAt(j))";
+        sdAssemblyListTemp.append(d->m_sdAssemblyList.takeAt(j));
+        cp=true;
+        break;
+      }
+    }
+    if(!cp)
+    {
+      //根据devConfig 新建 sd
+      qDebug()<<"new SdAssembly()";
+      currentSdAssembly = new SdAssembly();
+      connect(currentSdAssembly,SIGNAL(initProgressInfo(int,QString)),this,SLOT(onProgressInfo(int,QString)));
+      currentSdAssembly->init(devConfig);
+      sdAssemblyListTemp.append(currentSdAssembly);
+    }
+  }
+
+  GT::deepClearList(d->m_sdAssemblyList);
+
+  d->m_sdAssemblyList=sdAssemblyListTemp;
+  qDebug()<<"after sdAssembly list count"<<d->m_sdAssemblyList.count();
+
+  removeAllStackedWidget();
+  clearNavigationTree();
+
+  navigationTreeInit();
+  stackedWidgetInit();
+  ui->progressBar->setValue(100);
+
+  qDebug()<<"stackedWidget count="<<ui->stackedWidget->count();
 }
 
 void UiMainWindow::onActNewSelectClicked()
@@ -532,60 +600,7 @@ void UiMainWindow::onActNewSelectClicked()
   config->m_rnStationId=0xf1;
   configList.append(config);
 
-  int configCount=configList.count();
-  qDebug()<<"configList.count()"<<configCount;
-
-  QList<SdAssembly*>sdAssemblyListTemp;
-  DeviceConfig* devConfig;
-  SdAssembly* currentSdAssembly;
-
-  for(int i=0;i<configCount;i++)
-  {
-    devConfig=configList.at(i);
-    qDebug()<<"devconfig i="<<i<<"\n"<<tr("pwrid=%1,ctrid=%2,comtype=%3,version=%4,stationid=%5").arg(devConfig->m_pwrId)\
-              .arg(devConfig->m_ctrId).arg(devConfig->m_comType).arg(devConfig->m_version).arg(devConfig->m_rnStationId);
-
-    bool cp=false;
-    for(int j=0;j<d->m_sdAssemblyList.count();j++)
-    {
-
-      currentSdAssembly=d->m_sdAssemblyList.at(j);
-      DeviceConfig* tc=currentSdAssembly->sevDevice()->deviceConfig();
-      bool isEqual=devConfig->isEqual(*tc);
-      qDebug()<<"isEqual"<<isEqual;
-//      Q_ASSERT(isEqual);
-      if(isEqual)//与原有的匹配
-      {
-        qDebug()<<"sdAssemblyListTemp.append(sdAssemblyList.takeAt(j))";
-        sdAssemblyListTemp.append(d->m_sdAssemblyList.takeAt(j));
-        cp=true;
-        break;
-      }
-    }
-    if(!cp)
-    {
-      //根据devConfig 新建 sd
-      qDebug()<<"new SdAssembly()";
-      currentSdAssembly = new SdAssembly();
-      connect(currentSdAssembly,SIGNAL(initProgressInfo(int,QString)),this,SLOT(onProgressInfo(int,QString)));
-      currentSdAssembly->init(devConfig,d->m_gOptc);
-      sdAssemblyListTemp.append(currentSdAssembly);
-    }
-  }
-
-  GT::deepClearList(d->m_sdAssemblyList);
-
-  d->m_sdAssemblyList=sdAssemblyListTemp;
-  qDebug()<<"after sdAssembly list count"<<d->m_sdAssemblyList.count();
-
-  removeAllStackedWidget();
-  clearNavigationTree();
-
-  navigationTreeInit();
-  stackedWidgetInit();
-  ui->progressBar->setValue(100);
-
-  qDebug()<<"stackedWidget count="<<ui->stackedWidget->count();
+  createSdAssemblyByDevConfig(configList);
 
   GT::deepClearList(configList);
 }

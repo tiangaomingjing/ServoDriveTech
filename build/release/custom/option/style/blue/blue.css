@@ -1,0 +1,255 @@
+QMainWindow::separator #dockWidgetToolBar{
+    background: blue;
+    width: 10px; /* when vertical */
+    height: 10px; /* when horizontal */
+}
+
+QMainWindow::separator:hover {
+    background: red;
+}
+QPushButton{
+  border-style: none;
+  border: 0px;
+  color: black;
+  padding: 5px;
+  min-height: 24px;
+  min-width: 40px;
+  border-radius:5px;
+  background: transparent;
+}
+
+QPushButton:hover:!pressed{
+  border: 1px solid gray;
+  color: black;
+  padding: 5px;
+  min-height: 24px;
+  min-width: 40px;
+  border-radius:5px;
+  background: transparent;
+}
+QPushButton:hover:pressed{
+  border: 1px solid gray;
+  color: #F0F0F0;
+  padding: 5px;
+  min-height: 30px;
+  min-width: 50px;
+  border-radius:5px;
+  background: #6F89A1;
+}
+
+/* //不同对象处理通过
+QListView#listWidget::item {
+	border: 1px solid #d9d9d9;
+	border-left-color: transparent;
+	border-top-color: transparent;
+}
+QListView#listWidget::item:hover {
+	background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #e7effd, stop: 1 #cbdaf1);
+	border: 1px solid #bfcde4;
+}
+QListView#listWidget::item:selected {
+	border: 1px solid #567dbc;
+}
+QListView#listWidget::item:selected:active{
+	background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #6ea1f1, stop: 1 #567dbc);
+}
+QListView#listWidget::item:selected:!active {
+	background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #6b9be8, stop: 1 #577fbf);
+}
+
+
+QListView#listw_main::item {
+	border: 1px solid #d9d9d9;
+	border-left-color: transparent;
+	border-top-color: transparent;
+}
+QListView#listw_main::item:hover {
+	background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #e7effd, stop: 1 #cbdaf1);
+	border: yellow;
+}
+QListView#listw_main::item:selected {
+	border: 1px solid #567dbc;
+}
+QListView#listw_main::item:selected:active{
+	background: red;
+}
+QListView#listw_main::item:selected:!active {
+	background:blue;
+}"
+*/
+
+QListView::item {
+	border: 1px solid #d9d9d9;
+	border-left-color: transparent;
+	border-top-color: transparent;
+}
+QListView::item:hover {
+	background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #e7effd, stop: 1 #cbdaf1);
+	border: 1px solid #bfcde4;
+}
+QListView::item:selected {
+	border: 1px solid #567dbc;
+}
+QListView::item:selected:active{
+	background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #6ea1f1, stop: 1 #567dbc);
+}
+QListView::item:selected:!active {
+	background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #6b9be8, stop: 1 #577fbf);
+}
+
+QTreeView#treeWidget{
+	padding:2px;
+	show-decoration-selected: 1;
+	border:1px solid gray;
+	border-radius: 2px;
+}
+QTreeView#treeWidget::item {
+	border: 1px solid #d9d9d9;
+	border-left-color: transparent;
+	border-top-color: transparent;
+	min-height:30px;
+}
+QTreeView#treeWidget::item:hover {
+	background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #e7effd, stop: 1 #cbdaf1);
+	border: 1px solid #bfcde4;
+
+}
+QTreeView#treeWidget::item:selected{
+	border: 1px solid #567dbc;
+
+}
+ QTreeView#treeWidget::item:selected:active{
+	background: #567DBC;
+
+}
+QTreeView#treeWidget::item:selected:!active {
+	background: #567DBC;
+
+}
+
+
+
+
+QMenuBar {
+	spacing: 2px; /* spacing between menu bar items */
+    background-color: #F0F0F0;
+}
+
+QMenuBar::item {
+    padding: 6px 10px 6px 10px;
+    background: transparent;
+	color:black;
+}
+
+QMenuBar::item:selected { /* when selected using mouse or keyboard */
+    background: #E0DDDD;
+	color:black;
+	border-left:1px solid #BBB9B9;
+	border-top:1px solid #BBB9B9;
+	border-right:1px solid #BBB9B9;
+}
+
+QMenuBar::item:pressed {
+    background: #E0DDDD;
+	color:black;
+}
+
+QMenu {
+    background-color: #E0DDDD; /* sets background of the menu */
+    border-left:1px solid #BBB9B9;
+	border-bottom:1px solid #BBB9B9;
+	border-right:1px solid #BBB9B9;
+}
+
+QMenu::item {
+    /* sets background of menu item. set this to something non-transparent
+        if you want menu color and menu item color to be different */
+    background-color: transparent;
+}
+
+QMenu::item:selected { /* when user selects item using mouse or keyboard */
+    background-color: #567DBC;
+}
+QToolBar {
+	background: #F0F0F0;
+	spacing: 3px; 
+	border-bottom:1 solid lightgray;
+	padding:3px;
+}
+
+/*combobox*/
+QComboBox{
+        border-radius: 3px;
+        padding: 5px;
+        border: 1px solid gray;
+        background-color:white;
+}
+QComboBox:hover{
+        border-radius: 3px;
+        padding: 5px;
+        border: 1px solid black;
+        /*background-color: #cbdaf1;*/
+		background-color: red;
+}
+QComboBox::drop-down{
+        subcontrol-origin: padding;
+        subcontrol-position: top right;
+        width: 15px; 
+        border-left-width: 1px;
+        border-left-style: solid;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+        border-left-color: lightgray;
+}
+QComboBox::drop-down:hover{
+	subcontrol-origin: padding;
+	subcontrol-position: top right;
+	width: 15px; 
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-left-color: black;
+}
+QComboBox::down-arrow{
+	image: url(:/image/array_down.png);
+}
+QComboBox QAbstractItemView {
+	border: 1px solid gray;
+	background-color:#E0DDDD;
+}
+QComboBox QAbstractItemView::item{
+    height:30px;
+}
+QComboBox QAbstractItemView::item:selected{
+	height:30px;
+	background-color:#567DBC;
+}
+
+QWidget#dockWidgetContentsTool{
+background-color: #B2C9E0;
+}
+/*QWidget{
+background-color: #E6EBEF;
+}*/
+QLabel#startLabel{
+	color:white;
+}
+
+/*QProgressBar#startProgressBar {
+    border: none;
+    border-radius: 0px;
+    text-align: center;
+	background-color: transparent;
+	height:30px;
+	color:white;
+}*/
+/*QProgressBar#startProgressBar::chunk {
+	background-color: rgba(50%,50%,50%,0.8);
+    width: 5px;
+	height:30px;
+    margin: 0px;
+}*/
+/*QWidget#statusBar{
+background-color: rgb(113, 113, 113);
+}*/

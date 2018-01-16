@@ -6,7 +6,8 @@
 
 include (../../Libs.pri)
 INCLUDEPATH+=$${PWD}/../../SDKernel\
-              $${PWD}/../../GTUtils
+              $${PWD}/../../GTUtils\
+              $${PWD}/../../Option
 
 QT       += widgets quickwidgets qml
 
@@ -20,12 +21,14 @@ DEFINES += IUIWIDGET_LIBRARY
 CONFIG(debug, debug|release){
     UI_OUT_PATH = $${APP_BUILD_PATH}/debug/bin
     LIBS+=$${UI_OUT_PATH}/SDKerneld.lib\
-          $${UI_OUT_PATH}/GTUtilsd.lib
+          $${UI_OUT_PATH}/GTUtilsd.lib\
+          $${UI_OUT_PATH}/Optiond.lib
     TARGET = IUiWidgetd
 } else{
     UI_OUT_PATH = $${APP_BUILD_PATH}/release/bin
     LIBS+=$${UI_OUT_PATH}/SDKernel.lib\
-          $${UI_OUT_PATH}/GTUtils.lib
+          $${UI_OUT_PATH}/GTUtils.lib\
+          $${UI_OUT_PATH}/Option.lib
     TARGET = IUiWidget
 }
 
@@ -46,4 +49,4 @@ unix {
     INSTALLS += target
 }
 
-
+QML_IMPORT_TRACE=1
