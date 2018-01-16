@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>453</width>
+    <height>537</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTreeWidget" name="treeWidget">
+     <column>
+      <property name="text">
+       <string>title</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>dspNum</string>
+      </property>
+     </column>
+     <item>
+      <property name="text">
+       <string>SD4x</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>SD41</string>
+       </property>
+       <property name="text">
+        <string>2</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>SD42</string>
+       </property>
+       <property name="text">
+        <string>2</string>
+       </property>
+      </item>
+     </item>
+     <item>
+      <property name="text">
+       <string>SD6x</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>SD61</string>
+       </property>
+       <property name="text">
+        <string>3</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>SD61_MINI</string>
+       </property>
+       <property name="text">
+        <string>3</string>
+       </property>
+      </item>
+     </item>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
