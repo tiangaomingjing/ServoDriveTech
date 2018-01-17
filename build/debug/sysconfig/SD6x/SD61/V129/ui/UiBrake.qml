@@ -5,6 +5,7 @@ Rectangle {
     width: 800;
     height: 600;
     color:"yellow";
+	
     Text {
         anchors.centerIn: parent;
         text: qsTr("Brake")

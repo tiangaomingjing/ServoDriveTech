@@ -76,7 +76,7 @@ void SevDevicePrivate::initConfig(const DeviceConfig *dConfig)
 
 QTreeWidgetItem* SevDevicePrivate::findTargetTree()
 {
-  QString sysFile=GTUtils::sysPath()+SYSCONFIGTREE_NAME;
+  /*QString sysFile=GTUtils::sysPath()+SYSCONFIGTREE_NAME;
   QTreeWidget *allTree=QtTreeManager::createTreeWidgetFromXmlFile(sysFile);
   Q_ASSERT(allTree!=NULL);
   QTreeWidgetItem *item=allTree->topLevelItem(0)->child(m_devConfig->m_comType);
@@ -114,6 +114,30 @@ QTreeWidgetItem* SevDevicePrivate::findTargetTree()
 
   allTree->clear();
   delete allTree;
+  return m_targetTree;*/
+  QString comIndexFile=GTUtils::sysPath()+"SysMap/"+COMINDEX_NAME;
+  QTreeWidget *comInxTree=QtTreeManager::createTreeWidgetFromXmlFile(comIndexFile);
+  QString comName="RnNet";
+  quint8 comId=m_devConfig->m_comType;
+  for(int i=0;i<comInxTree->invisibleRootItem()->childCount();i++)
+  {
+    quint8 id=comInxTree->topLevelItem(i)->text(0).toUInt();
+    if(id=comId)
+    {
+      comName=comInxTree->topLevelItem(i)->text(1);
+      break;
+    }
+  }
+  QString targetTreePath=GTUtils::sysPath()+"SysMap/"+comName+"/"+\
+      m_devConfig->m_typeName+"/"+\
+      m_devConfig->m_modeName+"/"+\
+      m_devConfig->m_version+"/"+TARGET_CONFIG_TREE_NAME;
+
+  QTreeWidget *targetTree=QtTreeManager::createTreeWidgetFromXmlFile(targetTreePath);
+  m_targetTree=targetTree->topLevelItem(0)->clone();
+
+  delete comInxTree;
+  delete targetTree;
   return m_targetTree;
 }
 

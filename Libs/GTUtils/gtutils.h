@@ -9,6 +9,9 @@
 #define FLASH_ALL_PRM_NAME            "FlashPrm_AllAxis.xml"
 #define RAM_ALL_PRM_NAME              "RamPrm_AllAxis.xml"
 #define POWERBOAD_NAME                "PowerBoard.ui"
+#define COMINDEX_NAME                 "ComIndex.ui"
+#define CONFIG_SELECTTREE_NAME         "ConfigSelectTree.ui"
+#define TARGET_CONFIG_TREE_NAME       "TargetTree.ui"
 
 class QTreeWidgetItem;
 class QTreeWidget;
