@@ -4,8 +4,9 @@ CONFIG   += ordered
 SUBDIRS += \
     Com \
     GTUtils \
+    Option\
     SDKernel\
     UI \
-    PlotUnit \
-    Option
+    PlotUnit
+
 

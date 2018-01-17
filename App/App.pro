@@ -13,4 +13,5 @@ SUBDIRS += \
     QmlSingletonTest \
     QmlStyleTest \
     EpromManager \
-    TestDB
+    TestDB \
+    QmlQuickWidgetMaxTest

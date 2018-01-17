@@ -12,7 +12,7 @@ CONFIG(debug, debug|release){
           $${UI_OUT_PATH}/Optiond.lib
 } else{
     UI_OUT_PATH = $${APP_BUILD_PATH}/release/bin
-    LIBS+=$${UI_OUT_PATH}/IUiWidgetd.lib\
+    LIBS+=$${UI_OUT_PATH}/IUiWidget.lib\
           $${UI_OUT_PATH}/SDKernel.lib\
           $${UI_OUT_PATH}/Option.lib
 }

@@ -85,7 +85,7 @@ void IUiWidget::createQmlWidget()
       d->m_device->versionName()+"/ui/"+\
       objectName()+".qml";
   d->m_qwidget=new QQuickWidget(this);
-  d->m_qwidget->setMinimumSize(600,560);
+//  d->m_qwidget->setMinimumSize(600,560);
   qDebug()<<"load qml from:"<<d->m_qmlpath;
 
   //style context
