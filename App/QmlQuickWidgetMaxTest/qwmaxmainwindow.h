@@ -18,6 +18,8 @@ public:
 private slots:
   void on_actionQuickwidgetTest_triggered();
 
+  void on_actionSceneViewTest_triggered();
+
 private:
   Ui::QwMaxMainWindow *ui;
 };

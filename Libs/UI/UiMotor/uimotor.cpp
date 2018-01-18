@@ -35,6 +35,11 @@ UiMotor::~UiMotor()
   delete ui;
 }
 
+void UiMotor::addGraphWidget(QWidget *w)
+{
+  ui->qmlHboxLayout->addWidget(w);
+}
+
 QStackedWidget *UiMotor::getUiStackedWidget(void)
 {
   return ui->stackedWidget;

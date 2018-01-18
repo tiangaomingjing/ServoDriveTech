@@ -30,7 +30,7 @@ quint32 DeviceIdHelper::readPwrId()
   //需要从硬件读取
 //  quint32 id=21000509;//test for SD42
 //  m_com->readEEPROM();//从硬件读取ID
-//  m_pwrId=21000541;//test for SD61
+  m_pwrId=21000541;//test for SD61
   QString idMapPath=GTUtils::databasePath()+IDMAP_FILENAME;
   QTreeWidget *idMapTree=QtTreeManager::createTreeWidgetFromXmlFile(idMapPath);
 

@@ -42,6 +42,10 @@ bool UiEncoder::hasSaveFunc()
 {
   return true;
 }
+void UiEncoder::addGraphWidget(QWidget *w)
+{
+  ui->qmlHboxLayout->addWidget(w);
+}
 
 QStackedWidget *UiEncoder::getUiStackedWidget(void)
 {

@@ -21,6 +21,9 @@ public:
   void readPageFLASH()Q_DECL_OVERRIDE{}
   void writePageFLASH()Q_DECL_OVERRIDE{}
   void createQmlWidget()Q_DECL_OVERRIDE{}
+
+  void addGraphWidget(QWidget*w) Q_DECL_OVERRIDE;
+
 private:
   QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;
   QVBoxLayout *getVBoxLayout(void)Q_DECL_OVERRIDE;

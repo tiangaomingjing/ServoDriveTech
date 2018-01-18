@@ -37,12 +37,36 @@ CONFIG(debug, debug|release){
 DESTDIR =$${UI_OUT_PATH}
 
 
-SOURCES += iuiwidget.cpp
+SOURCES += iuiwidget.cpp \
+    igraphmotor.cpp \
+    igraphencoder.cpp \
+    igraphbrake.cpp \
+    igraphcurrent.cpp \
+    igraphposition.cpp \
+    igraphpower.cpp \
+    igraphstatus.cpp \
+    igraphvelocity.cpp
 
 HEADERS += iuiwidget.h\
         iuiwidget_global.h \
     iuiwidget_p.h \
-    iuiwidgetgdef.h
+    iuiwidgetgdef.h \
+    igraphmotor.h \
+    igraphencoder.h \
+    igraphbrake.h \
+    igraphcurrent.h \
+    igraphposition.h \
+    igraphpower.h \
+    igraphstatus.h \
+    igraphvelocity.h \
+    igraphbrake_p.h \
+    igraphcurrent_p.h \
+    igraphencoder_p.h \
+    igraphmotor_p.h \
+    igraphposition_p.h \
+    igraphpower_p.h \
+    igraphstatus_p.h \
+    igraphvelocity_p.h
 
 unix {
     target.path = /usr/lib

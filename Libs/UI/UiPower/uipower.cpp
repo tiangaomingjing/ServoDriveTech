@@ -32,6 +32,11 @@ UiPower::~UiPower()
   delete ui;
 }
 
+void UiPower::addGraphWidget(QWidget *w)
+{
+  ui->qmlHboxLayout->addWidget(w);
+}
+
 QStackedWidget *UiPower::getUiStackedWidget(void)
 {
   return ui->stackedWidget;

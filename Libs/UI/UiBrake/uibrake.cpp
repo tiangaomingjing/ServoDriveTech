@@ -32,6 +32,11 @@ UiBrake::~UiBrake()
 {
   delete ui;
 }
+void UiBrake::addGraphWidget(QWidget *w)
+{
+  ui->qmlHboxLayout->addWidget(w);
+}
+
 QStackedWidget *UiBrake::getUiStackedWidget(void)
 {
   return ui->stackedWidget;

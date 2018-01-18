@@ -23,7 +23,8 @@ protected:
   SevDevice *m_device;
   IUiWidget *q_ptr;
   QString m_qmlpath;
-  QQuickWidget *m_qwidget;
+//  QQuickWidget *m_qwidget;
+  QWidget *m_qwidget;
   QAction *m_actSwitchView;
   QAction *m_actReadRAM;
   QAction *m_actReadFLASH;

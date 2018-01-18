@@ -20,10 +20,12 @@ CONFIG(debug, debug|release){
     TARGET = UiEncoder
 }
 
-SOURCES += uiencoder.cpp
+SOURCES += uiencoder.cpp \
+    graphencoder129.cpp
 
 HEADERS += uiencoder.h\
-        uiencoder_global.h
+        uiencoder_global.h \
+    graphencoder129.h
 
 unix {
     target.path = /usr/lib
@@ -31,4 +33,5 @@ unix {
 }
 
 FORMS += \
-    uiencoder.ui
+    uiencoder.ui \
+    graphencoder129.ui

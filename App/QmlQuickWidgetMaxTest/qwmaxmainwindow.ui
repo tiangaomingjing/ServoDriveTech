@@ -22,10 +22,31 @@
      </widget>
     </item>
     <item>
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>quickwidget</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QSpinBox" name="spinBox">
       <property name="maximum">
        <number>999</number>
       </property>
+      <property name="value">
+       <number>20</number>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>scene</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QSpinBox" name="spinBox_2">
       <property name="value">
        <number>20</number>
       </property>
@@ -51,11 +72,17 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionQuickwidgetTest"/>
+   <addaction name="actionSceneViewTest"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionQuickwidgetTest">
    <property name="text">
     <string>quickwidgetTest</string>
+   </property>
+  </action>
+  <action name="actionSceneViewTest">
+   <property name="text">
+    <string>sceneViewTest</string>
    </property>
   </action>
  </widget>

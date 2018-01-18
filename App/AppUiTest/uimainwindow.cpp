@@ -25,6 +25,7 @@
 
 #include "Option"
 
+#include <QMessageBox>
 
 class UiMainWindowPrivate{
   Q_DECLARE_PUBLIC(UiMainWindow)
@@ -487,9 +488,13 @@ void UiMainWindow::onActQueryTestClicked()
   bool isOk;
   configList=idevRWriter->createConfig(processCallBack,(void*)ui->progressBar,isOk);
   Q_ASSERT(isOk);
-  createSdAssemblyByDevConfig(configList);
-
-  GT::deepClearList(configList);
+  if(isOk)
+  {
+    createSdAssemblyByDevConfig(configList);
+    GT::deepClearList(configList);
+  }
+  else
+    QMessageBox::information(0,tr("error"),tr("can not connect !"));
   delete idevRWriter;
 }
 void UiMainWindow::onActConnectClicked()
@@ -506,6 +511,7 @@ void UiMainWindow::createSdAssemblyByDevConfig(const QList<DeviceConfig *> &conf
 {
   Q_D(UiMainWindow);
 
+   QList<DeviceConfig *> devConfigBuf;
   int configCount=configList.count();
   qDebug()<<"configList.count()"<<configCount;
 
@@ -538,16 +544,22 @@ void UiMainWindow::createSdAssemblyByDevConfig(const QList<DeviceConfig *> &conf
     }
     if(!cp)
     {
-      //根据devConfig 新建 sd
-      qDebug()<<"new SdAssembly()";
-      currentSdAssembly = new SdAssembly();
-      connect(currentSdAssembly,SIGNAL(initProgressInfo(int,QString)),this,SLOT(onProgressInfo(int,QString)));
-      currentSdAssembly->init(devConfig);
-      sdAssemblyListTemp.append(currentSdAssembly);
+      //新将找不到的devConfig缓存起来
+      //到删除原来的后再新建，这样可以减少内存消耗
+      devConfigBuf.append(devConfig);
     }
   }
 
   GT::deepClearList(d->m_sdAssemblyList);
+
+  foreach (DeviceConfig *cfg, devConfigBuf)
+  {
+    qDebug()<<"new SdAssembly()";
+    currentSdAssembly = new SdAssembly();
+    connect(currentSdAssembly,SIGNAL(initProgressInfo(int,QString)),this,SLOT(onProgressInfo(int,QString)));
+    currentSdAssembly->init(cfg);
+    sdAssemblyListTemp.append(currentSdAssembly);
+  }
 
   d->m_sdAssemblyList=sdAssemblyListTemp;
   qDebug()<<"after sdAssembly list count"<<d->m_sdAssemblyList.count();

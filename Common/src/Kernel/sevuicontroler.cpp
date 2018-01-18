@@ -15,6 +15,11 @@ SevUiControler::SevUiControler(SevDevice *sev, QObject *parent):IUiControler(par
 void SevUiControler::createUis()
 {
   QTreeWidgetItem *targetTree=m_sev->targetTree();
+//  QTreeWidget *t=new QTreeWidget;
+//  t->addTopLevelItem(targetTree);
+//  t->setColumnCount(7);
+//  t->show();
+
   Q_ASSERT(targetTree);
 
   QTreeWidgetItem *axisItem=targetTree->child(0);
@@ -22,15 +27,17 @@ void SevUiControler::createUis()
 
   IUiWidget *ui=NULL;
   QString className;
+  QString uiGraphName;
   double sum=65;
   double dec=35.0/(m_sev->axisNum()*axisItem->childCount());
   //与轴相关的模块
 
-  for(int i=0;i<m_sev->axisNum();i++)
+  for(int i=0;i<m_sev->axisNum();i++)//哪一个轴
   {
-    for(int j=0;j<axisItem->childCount();j++)
+    for(int j=0;j<axisItem->childCount();j++)//哪一页
     {
       className=axisItem->child(j)->text(2);
+      uiGraphName=axisItem->child(j)->text(6);
 
       ui=dynamic_cast<IUiWidget *> (UiFactory::createObject(className.toLatin1()));
       ui->init(m_sev);
@@ -40,10 +47,14 @@ void SevUiControler::createUis()
       index.pageInx=j;
       ui->setUiIndexs(index);
       ui->addTreeWidget(m_sev->axisTreeSource(i,j));
-      ui->createQmlWidget();
-//      qDebug()<<"ui->objectName()"<<ui->objectName();
-//      connect(ui,SIGNAL(sglReadPageFlash(int,QTreeWidget*)),m_sev,SLOT(onReadPageFlash(int,QTreeWidget*)));
-//      connect(ui,SIGNAL(sglWritePageFlash(int,QTreeWidget*)),m_sev,SLOT(onWritePageFlash(int,QTreeWidget*)));
+//      qDebug()<<"graph name"<<uiGraphName;
+      if(uiGraphName!="NULL")
+      {
+        QWidget *uiGraph=UiFactory::createObject(uiGraphName.toLatin1());
+        ui->addGraphWidget(uiGraph);
+      }
+//      ui->createQmlWidget();
+
 
       m_uiLists.append(ui);
 //      qDebug()<<"class name "<<ui->objectName();

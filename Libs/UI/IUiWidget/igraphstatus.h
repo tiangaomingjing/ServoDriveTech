@@ -1,0 +1,23 @@
+﻿#ifndef IGRAPHSTATUS_H
+#define IGRAPHSTATUS_H
+
+#include <QWidget>
+#include "iuiwidget_global.h"
+
+class IGraphStatusPrivate;
+class IUIWIDGETSHARED_EXPORT IGraphStatus : public QWidget
+{
+  Q_OBJECT
+  Q_DECLARE_PRIVATE(IGraphStatus)
+public:
+  explicit IGraphStatus(QWidget *parent = 0);
+
+signals:
+
+public slots:
+protected:
+  IGraphStatus(IGraphStatusPrivate&d, QWidget *parent=0);
+  IGraphStatusPrivate *d_ptr;
+};
+
+#endif // IGRAPHSTATUS_H

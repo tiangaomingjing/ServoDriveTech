@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>711</width>
+    <width>852</width>
     <height>431</height>
    </rect>
   </property>
@@ -44,6 +44,11 @@
      <column>
       <property name="text">
        <string>fileSrcType</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>uiGraph</string>
       </property>
      </column>
      <item>
@@ -103,6 +108,9 @@
         <property name="text">
          <string>1</string>
         </property>
+        <property name="text">
+         <string>GraphMotor129</string>
+        </property>
        </item>
        <item>
         <property name="text">
@@ -122,6 +130,9 @@
         </property>
         <property name="text">
          <string>1</string>
+        </property>
+        <property name="text">
+         <string>GraphEncoder129</string>
         </property>
        </item>
        <item>
@@ -143,6 +154,9 @@
         <property name="text">
          <string>1</string>
         </property>
+        <property name="text">
+         <string>GraphPower129</string>
+        </property>
        </item>
        <item>
         <property name="text">
@@ -162,6 +176,9 @@
         </property>
         <property name="text">
          <string>1</string>
+        </property>
+        <property name="text">
+         <string>GraphCurrent129</string>
         </property>
        </item>
        <item>
@@ -183,6 +200,9 @@
         <property name="text">
          <string>1</string>
         </property>
+        <property name="text">
+         <string>GraphVelocity129</string>
+        </property>
        </item>
        <item>
         <property name="text">
@@ -202,6 +222,9 @@
         </property>
         <property name="text">
          <string>1</string>
+        </property>
+        <property name="text">
+         <string>GraphPosition129</string>
         </property>
        </item>
        <item>
@@ -223,6 +246,9 @@
         <property name="text">
          <string>1</string>
         </property>
+        <property name="text">
+         <string>GraphBrake129</string>
+        </property>
        </item>
        <item>
         <property name="text">
@@ -242,6 +268,9 @@
         </property>
         <property name="text">
          <string>0</string>
+        </property>
+        <property name="text">
+         <string>GraphStatus129</string>
         </property>
        </item>
        <item>
@@ -263,6 +292,9 @@
         <property name="text">
          <string>1</string>
         </property>
+        <property name="text">
+         <string>NULL</string>
+        </property>
        </item>
        <item>
         <property name="text">
@@ -282,6 +314,9 @@
         </property>
         <property name="text">
          <string>1</string>
+        </property>
+        <property name="text">
+         <string>NULL</string>
         </property>
        </item>
       </item>
@@ -322,6 +357,9 @@
         </property>
         <property name="text">
          <string>0</string>
+        </property>
+        <property name="text">
+         <string>NULL</string>
         </property>
        </item>
       </item>

@@ -10,6 +10,7 @@
 #include "deviceconfig.h"
 #include "idevreadwriter.h"
 #include "devtextrwriter.h"
+#include "devcomrwriter.h"
 #include "sdassembly.h"
 #include "sdtglobaldef.h"
 #include "sevdevice.h"
@@ -29,13 +30,15 @@
 #include <QTranslator>
 #include <QtQml>
 #include <QProgressBar>
+#include <QMessageBox>
 
 using namespace GT;
 
 SDTMainWindow::SDTMainWindow(QWidget *parent) :
   QMainWindow(parent),
   ui(new Ui::SDTMainWindow),
-  m_currentUiStatus(UI_STA_FUNCNF)
+  m_currentUiStatus(UI_STA_FUNCNF),
+  m_connecting(false)
 {
   ui->setupUi(this);
   qmlRegisterType<SevDevice>("QtCppClass", 1, 0, "SevDevice");
@@ -214,6 +217,8 @@ void SDTMainWindow::createConnections()
 {
   connect(m_actnOption,SIGNAL(triggered(bool)),this,SLOT(onActnOptionClicked()));
 //  connect(m_tbtnMore,SIGNAL(clicked(bool)),this,SLOT(onActnTbtnMoreClicked()));
+  connect(m_actnConnect,SIGNAL(triggered(bool)),this,SLOT(onActnConnectClicked(bool)));
+  connect(m_actnDisNet,SIGNAL(triggered(bool)),this,SLOT(onActnDisConnectClicked(bool)));
 
   OptAutoLoad *optAuto=dynamic_cast<OptAutoLoad *>(OptContainer::instance()->optItem("optautoload"));
   if(optAuto!=NULL)
@@ -270,9 +275,7 @@ bool SDTMainWindow::deviceInit()
   for(int i=0;i<devConfigList.count();i++)
   {
     qDebug()<<"************************new SdAssembly "<<i;
-    SdAssembly *sdriver=new SdAssembly();
-    connect(sdriver,SIGNAL(initProgressInfo(int,QString)),this,SLOT(onProgressInfo(int,QString)));
-    sdriver->init(devConfigList.at(i));
+    SdAssembly *sdriver=createSdAssembly(devConfigList.at(i));
     m_sdAssemblyList.append(sdriver);
   }
 
@@ -355,6 +358,11 @@ void SDTMainWindow::navigationTreeInit()
   m_statusBar->updateDeviceWhenChanged(ui->treeWidget);
 }
 
+void SDTMainWindow::clearNavigationTree()
+{
+  ui->treeWidget->clear();
+}
+
 void SDTMainWindow::globalUiPageInit()
 {
   m_gUiControl=new GlobalUiControler(m_optc);
@@ -392,6 +400,21 @@ void SDTMainWindow::stackedWidgetInit()
   {
     w=static_cast<QWidget *>(uiCtr->uiAt(i));
     ui->stackedWidget->addWidget(w);
+  }
+}
+
+void SDTMainWindow::removeAllStackedWidget()
+{
+  int i=0;
+  QWidget *w;
+  while (ui->stackedWidget->count()) {
+    w=ui->stackedWidget->widget(0);
+    ui->stackedWidget->removeWidget(w);
+    w->setParent(0);
+    qDebug()<<"remove stackedWidget "<<i;
+    i++;
+    m_statusBar->statusProgressBar()->setValue(i);
+    qApp->processEvents();
   }
 }
 
@@ -452,6 +475,34 @@ void SDTMainWindow::onActnTbtnMoreClicked()
 {
   m_tbtnMore->showMenu();
   qDebug()<<"btn more show menu";
+}
+void SDTMainWindow::onActnConnectClicked(bool checked)
+{
+  if(!m_connecting)
+  {
+    setUiAllEnable(false);
+    bool isOpen=setConnect(true);
+    if(isOpen)
+    {
+      m_connecting=true;
+    }
+    else
+    {
+      setUiStatusConnect(false);
+    }
+    setUiAllEnable(true);
+  }
+  qDebug()<<"checked"<<checked;
+
+}
+void SDTMainWindow::onActnDisConnectClicked(bool checked)
+{
+  if(m_connecting)
+  {
+    setConnect(false);
+    m_connecting=false;
+  }
+  qDebug()<<"checked"<<checked;
 }
 
 void SDTMainWindow::onOptAutoLoadChanged(bool changed)
@@ -528,4 +579,134 @@ void SDTMainWindow::onPlotFloatingChanged(bool floating)
   }
 
 
+}
+SdAssembly *SDTMainWindow::createSdAssembly(DeviceConfig *cfg)
+{
+  SdAssembly *sd= new SdAssembly();
+  connect(sd,SIGNAL(initProgressInfo(int,QString)),this,SLOT(onProgressInfo(int,QString)));
+  sd->init(cfg);
+  return sd;
+}
+void SDTMainWindow::setUiStatusConnect(bool isNet)
+{
+  m_actnConnect->setChecked(isNet);
+  m_actnDisNet->setChecked(!isNet);
+}
+void SDTMainWindow::setUiAllEnable(bool en)
+{
+  ui->treeWidget->setEnabled(en);
+  ui->mainToolBar->setEnabled(en);
+  ui->stackedWidget->setEnabled(en);
+}
+
+bool SDTMainWindow::setConnect(bool net)
+{
+  //打开
+  if(net)
+  {
+    OptAutoLoad *optAuto=dynamic_cast<OptAutoLoad *>(OptContainer::instance()->optItem("optautoload"));
+    QProgressBar *bar=m_statusBar->statusProgressBar();
+    if(optAuto->autoLoad())
+    {
+      QList<DeviceConfig*> configList;
+      bool isOk;
+      IDevReadWriter *idevRWriter=new DevComRWriter(0);
+      configList=idevRWriter->createConfig(processCallBack,(void *)(bar),isOk);
+      if(isOk)
+      {
+        createSdAssemblyByDevConfig(configList);
+        GT::deepClearList(configList);
+        delete idevRWriter;
+      }
+      else
+      {
+        QMessageBox::information(0,tr("connect error"),tr("can not connect \nmaybe \n1 net is not connecting \n2 net cable is not 1000M\n3 device net error"));
+        delete idevRWriter;
+        return false;
+      }
+    }
+
+    bool isConnect=true;
+    foreach (SdAssembly *sd, m_sdAssemblyList)
+    {
+      isConnect=sd->sevDevice()->enableConnection(processCallBack,(void *)(bar));
+      if(isConnect==false)
+      {
+        bar->setValue(0);
+        sd->sevDevice()->disableConnection();
+        QMessageBox::information(0,tr("connect error"),tr("can not connect \nmaybe \n1 net is not connecting \n2 net cable is not 1000M\n3 device net error"));
+        break;
+      }
+      qDebug()<<isConnect;
+    }
+    return isConnect;
+  }
+  else//关闭
+  {
+    foreach (SdAssembly *sd, m_sdAssemblyList)
+    {
+      sd->sevDevice()->disableConnection();
+      qDebug()<<"disconnect ";
+    }
+    return true;
+  }
+}
+
+void SDTMainWindow::createSdAssemblyByDevConfig(const QList<DeviceConfig *> &configList)
+{
+
+  QList<DeviceConfig *> devConfigBuf;
+  int configCount=configList.count();
+  qDebug()<<"configList.count()"<<configCount;
+
+  QList<SdAssembly*>sdAssemblyListTemp;
+  DeviceConfig* devConfig;
+  SdAssembly* currentSdAssembly;
+
+  for(int i=0;i<configCount;i++)
+  {
+    devConfig=configList.at(i);
+    bool cp=false;
+    for(int j=0;j<m_sdAssemblyList.count();j++)
+    {
+      currentSdAssembly=m_sdAssemblyList.at(j);
+      DeviceConfig* tc=currentSdAssembly->sevDevice()->deviceConfig();
+      bool isEqual=devConfig->isEqual(*tc);
+      qDebug()<<"isEqual"<<isEqual;
+      if(isEqual)//与原有的匹配
+      {
+        qDebug()<<"sdAssemblyListTemp.append(sdAssemblyList.takeAt(j))";
+        sdAssemblyListTemp.append(m_sdAssemblyList.takeAt(j));
+        cp=true;
+        break;
+      }
+    }
+    if(!cp)
+    {
+      //新将找不到的devConfig缓存起来
+      //到删除原来的后再新建，这样可以减少内存消耗
+      devConfigBuf.append(devConfig);
+    }
+  }
+
+  GT::deepClearList(m_sdAssemblyList);
+
+  foreach (DeviceConfig *cfg, devConfigBuf)
+  {
+    qDebug()<<"new SdAssembly()";
+    currentSdAssembly=createSdAssembly(cfg);
+    sdAssemblyListTemp.append(currentSdAssembly);
+  }
+
+  m_sdAssemblyList=sdAssemblyListTemp;
+  qDebug()<<"after sdAssembly list count"<<m_sdAssemblyList.count();
+
+  removeAllStackedWidget();
+  clearNavigationTree();
+
+  navigationTreeInit();
+  stackedWidgetInit();
+//  ui->progressBar->setValue(100);
+
+  qDebug()<<"stackedWidget count="<<ui->stackedWidget->count();
 }

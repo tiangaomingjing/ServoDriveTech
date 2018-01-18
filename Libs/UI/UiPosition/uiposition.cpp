@@ -33,6 +33,11 @@ UiPosition::~UiPosition()
   delete ui;
 }
 
+void UiPosition::addGraphWidget(QWidget *w)
+{
+  ui->qmlHboxLayout->addWidget(w);
+}
+
 QStackedWidget *UiPosition::getUiStackedWidget(void)
 {
   return ui->stackedWidget;

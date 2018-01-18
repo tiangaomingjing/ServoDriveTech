@@ -14,6 +14,7 @@
 #include <QQmlContext>
 #include <QAction>
 #include <QQmlEngine>
+#include <QLabel>
 
 IUiWidget::IUiWidget(QWidget *parent):QWidget(parent),d_ptr(new IUiWidgetPrivate())
 {
@@ -79,7 +80,7 @@ void IUiWidget::createQmlWidget()
 {
   Q_D(IUiWidget);
 
-  d->m_qmlpath=GTUtils::sysPath()+\
+  /*d->m_qmlpath=GTUtils::sysPath()+\
       d->m_device->typeName()+"/"+\
       d->m_device->modelName()+"/"+\
       d->m_device->versionName()+"/ui/"+\
@@ -101,7 +102,19 @@ void IUiWidget::createQmlWidget()
   d->m_qwidget->setResizeMode(QQuickWidget::SizeRootObjectToView );
   d->m_qwidget->setSource(QUrl::fromLocalFile(d->m_qmlpath));
   setQmlSignalSlot();
+  addQmlWidget();*/
+
+  d->m_qwidget=new QWidget(this);
+  QVBoxLayout *layout=new QVBoxLayout(d->m_qwidget);
+  QLabel *label=new QLabel(this);
+  label->setText(this->objectName());
+  layout->addWidget(label);
+  d->m_qwidget->setLayout(layout);
   addQmlWidget();
+}
+void IUiWidget::addGraphWidget(QWidget *w)
+{
+  Q_UNUSED(w);
 }
 
 bool IUiWidget::hasConfigFunc()

@@ -32,6 +32,10 @@ UiStatus::~UiStatus()
 {
   delete ui;
 }
+void UiStatus::addGraphWidget(QWidget *w)
+{
+  ui->qmlHboxLayout->addWidget(w);
+}
 
 QStackedWidget *UiStatus::getUiStackedWidget(void)
 {
