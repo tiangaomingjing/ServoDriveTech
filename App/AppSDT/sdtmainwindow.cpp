@@ -478,8 +478,10 @@ void SDTMainWindow::onActnTbtnMoreClicked()
 }
 void SDTMainWindow::onActnConnectClicked(bool checked)
 {
+
   if(!m_connecting)
   {
+     m_statusBar->statusProgressBar()->setVisible(true);
     setUiAllEnable(false);
     bool isOpen=setConnect(true);
     if(isOpen)
@@ -491,6 +493,7 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
       setUiStatusConnect(false);
     }
     setUiAllEnable(true);
+    m_statusBar->statusProgressBar()->setVisible(false);
   }
   qDebug()<<"checked"<<checked;
 

@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include "iuiwidget_global.h"
+//#include "igraphwidget.h"
+
 class IGraphMotorPrivate;
 class IUIWIDGETSHARED_EXPORT IGraphMotor : public QWidget
 {

@@ -3,8 +3,10 @@
 
 #include <QWidget>
 #include "iuiwidget_global.h"
+#include "igraphwidget.h"
+
 class IGraphPositionPrivate;
-class IUIWIDGETSHARED_EXPORT IGraphPosition : public QWidget
+class IUIWIDGETSHARED_EXPORT IGraphPosition : public IGraphWidget
 {
   Q_OBJECT
   Q_DECLARE_PRIVATE(IGraphPosition)

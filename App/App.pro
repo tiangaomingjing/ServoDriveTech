@@ -14,4 +14,5 @@ SUBDIRS += \
     QmlStyleTest \
     EpromManager \
     TestDB \
-    QmlQuickWidgetMaxTest
+    QmlQuickWidgetMaxTest \
+    GraphFramework

@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "iuiwidget_global.h"
+//#include "igraphwidget.h"
 
 class IGraphStatusPrivate;
 class IUIWIDGETSHARED_EXPORT IGraphStatus : public QWidget

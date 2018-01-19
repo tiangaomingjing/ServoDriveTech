@@ -55,6 +55,8 @@ background-color: rgb(161, 161, 161);
 QToolBar {
 	border:none;
     background: rgb(113, 113, 113);
+	/*background: #000066;
+	background: seagreen;*/
     spacing: 3px; /* spacing between items in the tool bar */
 }
 QToolButton { /* all types of tool button */
@@ -66,6 +68,8 @@ QToolButton { /* all types of tool button */
 	color:white;
     border-radius: 5px;
     background-color:rgb(113, 113, 113);
+	/*background-color:#000066;
+	background-color:seagreen;*/
 }
 
 QToolButton[popupMode="1"] { /* only for MenuButtonPopup */

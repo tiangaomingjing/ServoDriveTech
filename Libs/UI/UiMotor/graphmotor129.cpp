@@ -15,6 +15,13 @@ GraphMotor129::GraphMotor129(QWidget *parent) :
   ui(new Ui::GraphMotor129)
 {
   ui->setupUi(this);
+  QGridLayout *glayout=new QGridLayout(this);
+  glayout->addLayout(ui->hlayout_motorBtn,0,2,0,1);
+  glayout->addWidget(ui->widget_currentPrm,1,0);
+  glayout->addWidget(ui->widget_machinePrm,1,1,1,2);
+  glayout->addWidget(ui->widget_velocityPrm,2,0);
+  glayout->addWidget(ui->widget_impedancePrm,2,1);
+  glayout->addWidget(ui->widget_torquePrm,2,2);
 }
 
 GraphMotor129::~GraphMotor129()

@@ -3,8 +3,9 @@
 
 #include <QWidget>
 #include "iuiwidget_global.h"
+#include "igraphwidget.h"
 class IGraphCurrentPrivate;
-class IUIWIDGETSHARED_EXPORT IGraphCurrent : public QWidget
+class IUIWIDGETSHARED_EXPORT IGraphCurrent : public IGraphWidget
 {
   Q_OBJECT
   Q_DECLARE_PRIVATE(IGraphCurrent)

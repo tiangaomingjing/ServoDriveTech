@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include "iuiwidget_global.h"
+//#include "igraphwidget.h"
+
 class IGraphBrakePrivate;
 class IUIWIDGETSHARED_EXPORT IGraphBrake : public QWidget
 {

@@ -3,9 +3,10 @@
 
 #include <QWidget>
 #include "iuiwidget_global.h"
+#include "igraphwidget.h"
 
 class IGraphVelocityPrivate;
-class IUIWIDGETSHARED_EXPORT IGraphVelocity : public QWidget
+class IUIWIDGETSHARED_EXPORT IGraphVelocity : public IGraphWidget
 {
   Q_OBJECT
   Q_DECLARE_PRIVATE(IGraphVelocity)

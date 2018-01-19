@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "iuiwidget_global.h"
+//#include "igraphwidget.h"
 
 class IGraphPowerPrivate;
 class IUIWIDGETSHARED_EXPORT IGraphPower : public QWidget
