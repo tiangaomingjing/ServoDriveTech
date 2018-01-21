@@ -1,0 +1,108 @@
+QMainWindow::separator {
+    background: transparent;
+    width: 1px; /* when vertical */
+    height: 1px; /* when horizontal */
+}
+
+QMainWindow::separator:hover {
+    background: white;
+	width: 10px; /* when vertical */
+    height: 10px; /* when horizontal */
+}
+
+
+
+/*------------tool bar-----------------------------*/
+QToolBar#mainToolBar {
+	background: rgb(38, 83, 159);
+	spacing: 3px; 
+	border-bottom:1 solid lightgray;
+	padding:3px;
+}
+/*------------tool button-------------------------*/
+QToolButton { /* all types of tool button */
+	color:white;
+}
+
+/*---------------main treeWidget 导航栏----------------------*/
+QDockWidget  QTreeView {
+    show-decoration-selected: 1;
+    background-color:rgb(38, 83, 159);
+	border:none;
+}
+
+QDockWidget  QTreeView::item {
+	border:none;
+	color:white;
+	min-height:25px;
+	font:normal;
+}
+QDockWidget  QTreeView:focus {
+	outline:none;
+}
+
+QDockWidget  QTreeView::item:hover ,QDockWidget QTreeView::branch:hover{
+    color:white;
+    background-color:rgb(19, 37, 81);
+}
+
+QDockWidget  QTreeView::item:selected,QDockWidget QTreeView::branch:selected {
+    color:white;
+    background-color:rgb(19, 37, 81);
+    border-left:none;
+    border-right:none;
+    border-top:1px solid;
+    border-top-color:rgb(190, 208, 238);
+    border-bottom:1px solid;
+    border-bottom-color:rgb(190, 208, 238);
+}
+
+QDockWidget  QTreeView::item:selected:active{
+    color:white;
+    background-color:rgb(19, 37, 81);
+    border-left:none;
+    border-right:none;
+    border-top:1px solid;
+    border-top-color:rgb(190, 208, 238);
+    border-bottom:1px solid;
+    border-bottom-color:rgb(190, 208, 238);
+	font:bold;
+	min-height:30px;
+}
+QWidget#dockWidgetNav{
+	background-color:rgb(19, 37, 81);
+	border:none;
+	color:white;
+}
+
+/*-----------主窗口-----------------*/
+QWidget#stackedWidget{
+	background-color:rgb(19, 37, 81);
+	border-radius:5px;
+}
+/*-----------状态栏------------------*/
+QWidget#statusBar{
+background-color: rgb(38, 83, 159);
+}
+
+/*------------电机界面------------------*/
+QWidget#widget_machinePrm{
+background-color: rgb(211, 211, 211);
+border-radius:5px;
+}
+QWidget#widget_currentPrm{
+background-color: rgb(211, 211, 211);
+border-radius:5px;
+}
+QWidget#widget_impedancePrm{
+background-color: rgb(211, 211, 211);
+border-radius:5px;
+}
+QWidget#widget_torquePrm{
+background-color: rgb(211, 211, 211);
+border-radius:5px;
+}
+QWidget#widget_velocityPrm{
+background-color: rgb(211, 211, 211);
+border-radius:5px;
+}

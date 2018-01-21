@@ -219,6 +219,8 @@ void SDTMainWindow::createConnections()
 //  connect(m_tbtnMore,SIGNAL(clicked(bool)),this,SLOT(onActnTbtnMoreClicked()));
   connect(m_actnConnect,SIGNAL(triggered(bool)),this,SLOT(onActnConnectClicked(bool)));
   connect(m_actnDisNet,SIGNAL(triggered(bool)),this,SLOT(onActnDisConnectClicked(bool)));
+  connect(m_tbtnHelp,SIGNAL(clicked(bool)),this,SLOT(onActnHelpDeviceInfo()));
+  connect(m_actnAboutHardware,SIGNAL(triggered(bool)),this,SLOT(onActnHelpDeviceInfo()));
 
   OptAutoLoad *optAuto=dynamic_cast<OptAutoLoad *>(OptContainer::instance()->optItem("optautoload"));
   if(optAuto!=NULL)
@@ -507,6 +509,15 @@ void SDTMainWindow::onActnDisConnectClicked(bool checked)
   }
   qDebug()<<"checked"<<checked;
 }
+void SDTMainWindow::onActnHelpDeviceInfo()
+{
+  static bool test=true;
+  if(test)
+    this->showFullScreen();
+  else
+    showMaximized();
+  test=!test;
+}
 
 void SDTMainWindow::onOptAutoLoadChanged(bool changed)
 {
@@ -526,6 +537,16 @@ void SDTMainWindow::onProgressInfo(int barValue,QString msg)
 void SDTMainWindow::onNavTreeWidgetItemClicked(QTreeWidgetItem *item, int column)
 {
   Q_UNUSED(column);
+  QFont font;
+  font.setBold(false);
+  QTreeWidgetItemIterator it(ui->treeWidget);
+  while (*it) {
+    (*it)->setFont(column,font);
+    it++;
+  }
+  font.setBold(true);
+  item->setFont(column,font);
+
   if(item->childCount()==0)
   {
     int index=item->text(COL_TARGET_CONFIG_INDEX).toInt();

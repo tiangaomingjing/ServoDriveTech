@@ -25,7 +25,7 @@
      <number>0</number>
     </property>
     <property name="rightMargin">
-     <number>0</number>
+     <number>2</number>
     </property>
     <property name="bottomMargin">
      <number>0</number>
@@ -76,16 +76,29 @@
    </attribute>
    <widget class="QWidget" name="dockWidgetContentsNav">
     <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
      <item>
       <widget class="QTreeWidget" name="treeWidget">
+       <property name="rootIsDecorated">
+        <bool>true</bool>
+       </property>
        <attribute name="headerVisible">
         <bool>false</bool>
        </attribute>
-       <column>
-        <property name="text">
-         <string notr="true">1</string>
-        </property>
-       </column>
       </widget>
      </item>
     </layout>
