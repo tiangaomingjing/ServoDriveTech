@@ -92,16 +92,18 @@ QToolButton:checked {
 	border-color:white;
 	border-width:1px;
 	border-style:solid;*/
-	background-color: blue;
+	background-color: #DBDBDB;
 	border-radius:0px;
+	color:black;
 }
 QToolButton:hover:checked {
 	/*border-radius:0px;
 	border-color:white;
 	border-width:1px;
 	border-style:solid;*/
-	background-color: blue;
+	background-color: #DBDBDB;
 	border-radius:0px;
+	color:black;
 }
 
 /* the subcontrols below are used only in the MenuButtonPopup mode */
@@ -123,7 +125,7 @@ QToolButton::menu-arrow:open {
 QWidget#statusBar{
 background-color: #F0F0F0;
 }
-QWidget#stackedWidget{
+QWidget#mainStackedWidget{
 background-color: #F0F0F0;
 }
 

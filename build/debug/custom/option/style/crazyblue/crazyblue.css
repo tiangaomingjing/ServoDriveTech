@@ -1,13 +1,20 @@
+QMainWindow {
+    background: rgb(38, 83, 159);
+}
 QMainWindow::separator {
-    background: transparent;
+    background:transparent;
+	border:none;
     width: 1px; /* when vertical */
     height: 1px; /* when horizontal */
+	margin-left:0px;
+	margin-right:0px;
+	margin-top:0px;
+	margin-bottom:0px;
+	padding:0px;
 }
 
 QMainWindow::separator:hover {
     background: white;
-	width: 10px; /* when vertical */
-    height: 10px; /* when horizontal */
 }
 
 
@@ -16,8 +23,10 @@ QMainWindow::separator:hover {
 QToolBar#mainToolBar {
 	background: rgb(38, 83, 159);
 	spacing: 3px; 
-	border-bottom:1 solid lightgray;
+	border:none;
 	padding:3px;
+	margin-top:5px;
+	margin-bottom:5px;
 }
 /*------------tool button-------------------------*/
 QToolButton { /* all types of tool button */
@@ -34,7 +43,7 @@ QDockWidget  QTreeView {
 QDockWidget  QTreeView::item {
 	border:none;
 	color:white;
-	min-height:25px;
+	min-height:30px;
 	font:normal;
 }
 QDockWidget  QTreeView:focus {
@@ -52,9 +61,9 @@ QDockWidget  QTreeView::item:selected,QDockWidget QTreeView::branch:selected {
     border-left:none;
     border-right:none;
     border-top:1px solid;
-    border-top-color:rgb(190, 208, 238);
+    border-top-color:gray;
     border-bottom:1px solid;
-    border-bottom-color:rgb(190, 208, 238);
+    border-bottom-color:gray;
 }
 
 QDockWidget  QTreeView::item:selected:active{
@@ -63,22 +72,31 @@ QDockWidget  QTreeView::item:selected:active{
     border-left:none;
     border-right:none;
     border-top:1px solid;
-    border-top-color:rgb(190, 208, 238);
+    border-top-color:gray;
     border-bottom:1px solid;
-    border-bottom-color:rgb(190, 208, 238);
+    border-bottom-color:gray;
 	font:bold;
-	min-height:30px;
 }
-QWidget#dockWidgetNav{
-	background-color:rgb(19, 37, 81);
+QDockWidget#dockWidgetNav {
+    /*border: 1px solid lightgray;*/
 	border:none;
+    background-color:rgb(38, 83, 159);
 	color:white;
+}
+QDockWidget#dockWidgetNav::title {
+    text-align: left; /* align the text to the left */
+    background: rgb(38, 83, 159);
+    padding-left: 5px;
+	color:white;
+	margin-bottom:10px;
+	margin-top:10px;
 }
 
 /*-----------主窗口-----------------*/
-QWidget#stackedWidget{
+QWidget#mainStackedWidget{
 	background-color:rgb(19, 37, 81);
-	border-radius:5px;
+	border-radius:15px;
+	border:1px solid gray;
 }
 /*-----------状态栏------------------*/
 QWidget#statusBar{

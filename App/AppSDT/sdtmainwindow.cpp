@@ -239,8 +239,8 @@ void SDTMainWindow::createConnections()
 void SDTMainWindow::clearStackedWidget()
 {
   int i=0;
-  while (ui->stackedWidget->count()) {
-    delete ui->stackedWidget->widget(0);
+  while (ui->mainStackedWidget->count()) {
+    delete ui->mainStackedWidget->widget(0);
     qDebug()<<"delete stackedWidget "<<i;
     i++;
   }
@@ -390,7 +390,7 @@ void SDTMainWindow::stackedWidgetInit()
     for(int i=0;i<uiCount;i++)
     {
       w=static_cast<QWidget *>(uiCtr->uiAt(i));
-      ui->stackedWidget->addWidget(w);
+      ui->mainStackedWidget->addWidget(w);
     }
     qApp->processEvents();
   }
@@ -401,7 +401,7 @@ void SDTMainWindow::stackedWidgetInit()
   for(int i=0;i<uiCount;i++)
   {
     w=static_cast<QWidget *>(uiCtr->uiAt(i));
-    ui->stackedWidget->addWidget(w);
+    ui->mainStackedWidget->addWidget(w);
   }
 }
 
@@ -409,9 +409,9 @@ void SDTMainWindow::removeAllStackedWidget()
 {
   int i=0;
   QWidget *w;
-  while (ui->stackedWidget->count()) {
-    w=ui->stackedWidget->widget(0);
-    ui->stackedWidget->removeWidget(w);
+  while (ui->mainStackedWidget->count()) {
+    w=ui->mainStackedWidget->widget(0);
+    ui->mainStackedWidget->removeWidget(w);
     w->setParent(0);
     qDebug()<<"remove stackedWidget "<<i;
     i++;
@@ -423,22 +423,22 @@ void SDTMainWindow::removeAllStackedWidget()
 void SDTMainWindow::disactiveAllUi()
 {
   IUiWidget *uiWidget;
-  for(int i=0;i<ui->stackedWidget->count();i++)
+  for(int i=0;i<ui->mainStackedWidget->count();i++)
   {
-    uiWidget=dynamic_cast<IUiWidget *>(ui->stackedWidget->widget(i));
+    uiWidget=dynamic_cast<IUiWidget *>(ui->mainStackedWidget->widget(i));
     uiWidget->setUiActive(false);
   }
 }
 
 void SDTMainWindow::activeCurrentUi()
 {
-  IUiWidget *uiWidget=dynamic_cast<IUiWidget *>(ui->stackedWidget->currentWidget());
+  IUiWidget *uiWidget=dynamic_cast<IUiWidget *>(ui->mainStackedWidget->currentWidget());
   uiWidget->setUiActive(true);
 }
 
 void SDTMainWindow::changeConfigSaveBtnStatus()
 {
-  IUiWidget *uiWidget=dynamic_cast<IUiWidget *>(ui->stackedWidget->currentWidget());
+  IUiWidget *uiWidget=dynamic_cast<IUiWidget *>(ui->mainStackedWidget->currentWidget());
   m_actnConfig->setEnabled(uiWidget->hasConfigFunc());
   m_actnSave->setEnabled(uiWidget->hasSaveFunc());
 }
@@ -550,10 +550,10 @@ void SDTMainWindow::onNavTreeWidgetItemClicked(QTreeWidgetItem *item, int column
   if(item->childCount()==0)
   {
     int index=item->text(COL_TARGET_CONFIG_INDEX).toInt();
-    if(index<ui->stackedWidget->count())
+    if(index<ui->mainStackedWidget->count())
     {
-      ui->stackedWidget->setCurrentIndex(index);
-      qDebug()<<"index"<<index <<"ui->stackedWidget->count()"<<ui->stackedWidget->count();
+      ui->mainStackedWidget->setCurrentIndex(index);
+      qDebug()<<"index"<<index <<"ui->mainStackedWidget->count()"<<ui->mainStackedWidget->count();
       GTUtils::delayms(10);
 
       disactiveAllUi();
@@ -571,8 +571,8 @@ void SDTMainWindow::onNavTreeWidgetItemClicked(QTreeWidgetItem *item, int column
 void SDTMainWindow::onStatusBarPageChanged(int pIndex)
 {
   IUiWidget *uiWidget=NULL;
-  ui->stackedWidget->setCurrentIndex(pIndex);
-  QWidget *w=ui->stackedWidget->widget(pIndex);
+  ui->mainStackedWidget->setCurrentIndex(pIndex);
+  QWidget *w=ui->mainStackedWidget->widget(pIndex);
   uiWidget=dynamic_cast<IUiWidget *>(w);
   UiIndexs index=uiWidget->uiIndexs();
   qDebug()<<"UiIndexs"<<tr("dev:%1,axis:%2,page:%3").arg(index.devInx).arg(index.aixsInx).arg(index.pageInx);
@@ -620,7 +620,7 @@ void SDTMainWindow::setUiAllEnable(bool en)
 {
   ui->treeWidget->setEnabled(en);
   ui->mainToolBar->setEnabled(en);
-  ui->stackedWidget->setEnabled(en);
+  ui->mainStackedWidget->setEnabled(en);
 }
 
 bool SDTMainWindow::setConnect(bool net)
@@ -732,5 +732,5 @@ void SDTMainWindow::createSdAssemblyByDevConfig(const QList<DeviceConfig *> &con
   stackedWidgetInit();
 //  ui->progressBar->setValue(100);
 
-  qDebug()<<"stackedWidget count="<<ui->stackedWidget->count();
+  qDebug()<<"stackedWidget count="<<ui->mainStackedWidget->count();
 }

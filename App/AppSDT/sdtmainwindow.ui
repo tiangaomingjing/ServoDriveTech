@@ -31,7 +31,7 @@
      <number>0</number>
     </property>
     <item>
-     <widget class="QStackedWidget" name="stackedWidget">
+     <widget class="QStackedWidget" name="mainStackedWidget">
       <widget class="QWidget" name="page"/>
       <widget class="QWidget" name="page_2"/>
      </widget>
@@ -99,6 +99,11 @@
        <attribute name="headerVisible">
         <bool>false</bool>
        </attribute>
+       <column>
+        <property name="text">
+         <string notr="true">1</string>
+        </property>
+       </column>
       </widget>
      </item>
     </layout>
