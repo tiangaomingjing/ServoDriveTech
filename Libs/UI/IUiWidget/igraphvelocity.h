@@ -6,12 +6,15 @@
 #include "igraphwidget.h"
 
 class IGraphVelocityPrivate;
+class IUiWidget;
 class IUIWIDGETSHARED_EXPORT IGraphVelocity : public IGraphWidget
 {
   Q_OBJECT
   Q_DECLARE_PRIVATE(IGraphVelocity)
 public:
   explicit IGraphVelocity(QWidget *parent = 0);
+  virtual ~IGraphVelocity();
+  virtual void accept(IUiWidget*ui)=0;
 
 signals:
 

@@ -16,6 +16,7 @@ class UIBRAKESHARED_EXPORT GraphBrake129 : public IGraphBrake
 public:
   explicit GraphBrake129(QWidget *parent = 0);
   ~GraphBrake129();
+  void accept(IUiWidget *ui)Q_DECL_OVERRIDE;
 
 signals:
 

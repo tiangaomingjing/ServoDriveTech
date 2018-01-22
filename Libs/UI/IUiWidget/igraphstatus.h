@@ -6,12 +6,15 @@
 //#include "igraphwidget.h"
 
 class IGraphStatusPrivate;
+class IUiWidget;
 class IUIWIDGETSHARED_EXPORT IGraphStatus : public QWidget
 {
   Q_OBJECT
   Q_DECLARE_PRIVATE(IGraphStatus)
 public:
   explicit IGraphStatus(QWidget *parent = 0);
+  virtual ~IGraphStatus();
+  virtual void accept(IUiWidget*ui)=0;
 
 signals:
 

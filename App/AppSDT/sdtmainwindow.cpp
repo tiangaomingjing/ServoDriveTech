@@ -575,11 +575,11 @@ void SDTMainWindow::onStatusBarPageChanged(int pIndex)
   QWidget *w=ui->mainStackedWidget->widget(pIndex);
   uiWidget=dynamic_cast<IUiWidget *>(w);
   UiIndexs index=uiWidget->uiIndexs();
-  qDebug()<<"UiIndexs"<<tr("dev:%1,axis:%2,page:%3").arg(index.devInx).arg(index.aixsInx).arg(index.pageInx);
+  qDebug()<<"UiIndexs"<<tr("dev:%1,axis:%2,page:%3").arg(index.devInx).arg(index.axisInx).arg(index.pageInx);
   ui->treeWidget->clearSelection();
   ui->treeWidget->collapseAll();
   QTreeWidgetItem *selectDevItem=ui->treeWidget->topLevelItem(index.devInx);
-  QTreeWidgetItem *selectAxisItem=selectDevItem->child(index.aixsInx);
+  QTreeWidgetItem *selectAxisItem=selectDevItem->child(index.axisInx);
   QTreeWidgetItem *selectItem=selectAxisItem->child(index.pageInx);
   ui->treeWidget->expandItem(selectDevItem);
   ui->treeWidget->expandItem(selectAxisItem);

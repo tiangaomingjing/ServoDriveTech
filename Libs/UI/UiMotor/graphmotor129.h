@@ -16,6 +16,9 @@ class UIMOTORSHARED_EXPORT GraphMotor129 : public IGraphMotor
 public:
   explicit GraphMotor129(QWidget *parent = 0);
   ~GraphMotor129();
+  void accept(IUiWidget *ui)Q_DECL_OVERRIDE;
+protected:
+  bool eventFilter(QObject *obj, QEvent *event);
 
 private:
   Ui::GraphMotor129 *ui;

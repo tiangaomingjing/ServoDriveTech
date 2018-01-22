@@ -46,7 +46,9 @@ SOURCES += iuiwidget.cpp \
     igraphpower.cpp \
     igraphstatus.cpp \
     igraphvelocity.cpp \
-    igraphwidget.cpp
+    igraphwidget.cpp \
+    edititemmapping.cpp \
+    imapping.cpp
 
 HEADERS += iuiwidget.h\
         iuiwidget_global.h \
@@ -68,7 +70,9 @@ HEADERS += iuiwidget.h\
     igraphpower_p.h \
     igraphstatus_p.h \
     igraphvelocity_p.h \
-    igraphwidget.h
+    igraphwidget.h \
+    edititemmapping.h \
+    imapping.h
 
 unix {
     target.path = /usr/lib

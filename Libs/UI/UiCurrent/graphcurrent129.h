@@ -17,6 +17,7 @@ class UICURRENTSHARED_EXPORT GraphCurrent129 : public IGraphCurrent
 public:
   explicit GraphCurrent129(QWidget *parent = 0);
   ~GraphCurrent129();
+  void accept(IUiWidget *ui)Q_DECL_OVERRIDE;
 
 private:
   Ui::GraphCurrent129 *ui;

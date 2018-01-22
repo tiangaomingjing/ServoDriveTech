@@ -20,3 +20,7 @@ GraphPosition129::~GraphPosition129()
 {
   delete ui;
 }
+void GraphPosition129::accept(IUiWidget *ui)
+{
+
+}

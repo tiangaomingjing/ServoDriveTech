@@ -75,6 +75,11 @@ void IUiWidget::updateUi()
 {
   qDebug()<<this->objectName()<<"updateUi";
 }
+SevDevice*IUiWidget::device()
+{
+  Q_D(IUiWidget);
+  return d->m_device;
+}
 
 void IUiWidget::createQmlWidget()
 {
@@ -150,14 +155,14 @@ void IUiWidget::readPageFLASH()
   Q_D(IUiWidget);
   qDebug()<<this->objectName()<<"read flash";
 //  emit sglReadPageFlash(d->axisInx,d->m_dataTree);
-  d->m_device->onReadPageFlash(d->m_index.aixsInx,d->m_dataTree);
+  d->m_device->onReadPageFlash(d->m_index.axisInx,d->m_dataTree);
 }
 void IUiWidget::writePageFLASH()
 {
   Q_D(IUiWidget);
   qDebug()<<this->objectName()<<"read flash";
 //  emit sglWritePageFlash(d->axisInx,d->m_dataTree);
-  d->m_device->onWritePageFlash(d->m_index.aixsInx,d->m_dataTree);
+  d->m_device->onWritePageFlash(d->m_index.axisInx,d->m_dataTree);
 }
 void IUiWidget::setUiActive(bool actived)
 {

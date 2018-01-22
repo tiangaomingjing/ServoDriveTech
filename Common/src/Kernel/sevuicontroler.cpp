@@ -43,7 +43,7 @@ void SevUiControler::createUis()
       ui->init(m_sev);
       UiIndexs index;
       index.devInx=m_sev->devId();
-      index.aixsInx=i;
+      index.axisInx=i;
       index.pageInx=j;
       ui->setUiIndexs(index);
       ui->addTreeWidget(m_sev->axisTreeSource(i,j));
@@ -72,7 +72,7 @@ void SevUiControler::createUis()
     ui->init(m_sev);
     UiIndexs index;
     index.devInx=m_sev->devId();
-    index.aixsInx=-1;
+    index.axisInx=-1;
     index.pageInx=i;
     ui->setUiIndexs(index);
     ui->addTreeWidget(m_sev->globalTreeSource(i));
@@ -98,7 +98,7 @@ IUiWidget *SevUiControler::uiWidget(quint32 devInx,qint16 axisInx,const QString 
   foreach (IUiWidget *w, m_uiLists)
   {
     UiIndexs indexs=w->uiIndexs();
-    if(indexs.devInx==devInx&&indexs.aixsInx==axisInx&&w->objectName()==uiName)
+    if(indexs.devInx==devInx&&indexs.axisInx==axisInx&&w->objectName()==uiName)
     {
       ui=w;
       break;

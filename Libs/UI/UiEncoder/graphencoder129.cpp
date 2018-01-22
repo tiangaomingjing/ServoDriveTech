@@ -21,3 +21,7 @@ GraphEncoder129::~GraphEncoder129()
 {
   delete ui;
 }
+void GraphEncoder129::accept(IUiWidget *ui)
+{
+
+}

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>556</width>
+    <height>304</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -56,6 +56,9 @@
        <widget class="QSpinBox" name="spinBox"/>
       </item>
       <item>
+       <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
+      </item>
+      <item>
        <widget class="QPushButton" name="pushButton_fontsize">
         <property name="text">
          <string>setfontsize</string>
@@ -78,7 +81,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>556</width>
      <height>23</height>
     </rect>
    </property>
@@ -93,6 +96,12 @@
    <addaction name="actionQss1"/>
    <addaction name="actionQss2"/>
    <addaction name="actionQ3"/>
+   <addaction name="actionSpinDefault"/>
+   <addaction name="actionSpinEditting"/>
+   <addaction name="actionSpinReady"/>
+   <addaction name="actionSpinError"/>
+   <addaction name="actionStyleTest1"/>
+   <addaction name="actionStyleTest2"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionQss1">
@@ -108,6 +117,36 @@
   <action name="actionQ3">
    <property name="text">
     <string>q3</string>
+   </property>
+  </action>
+  <action name="actionSpinDefault">
+   <property name="text">
+    <string>spinDefault</string>
+   </property>
+  </action>
+  <action name="actionSpinReady">
+   <property name="text">
+    <string>spinReady</string>
+   </property>
+  </action>
+  <action name="actionSpinError">
+   <property name="text">
+    <string>spinError</string>
+   </property>
+  </action>
+  <action name="actionSpinEditting">
+   <property name="text">
+    <string>spinEditting</string>
+   </property>
+  </action>
+  <action name="actionStyleTest1">
+   <property name="text">
+    <string>styleTest1</string>
+   </property>
+  </action>
+  <action name="actionStyleTest2">
+   <property name="text">
+    <string>styleTest2</string>
    </property>
   </action>
  </widget>

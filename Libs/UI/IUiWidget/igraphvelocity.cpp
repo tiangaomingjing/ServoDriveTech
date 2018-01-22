@@ -5,6 +5,10 @@ IGraphVelocity::IGraphVelocity(QWidget *parent) : IGraphWidget(parent)
 {
   d_ptr->q_ptr=this;
 }
+IGraphVelocity::~IGraphVelocity()
+{
+
+}
 
 IGraphVelocity::IGraphVelocity(IGraphVelocityPrivate &d, QWidget *parent):IGraphWidget(parent),d_ptr(&d)
 {

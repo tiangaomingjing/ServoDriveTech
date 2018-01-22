@@ -6,12 +6,15 @@
 //#include "igraphwidget.h"
 
 class IGraphMotorPrivate;
+class IUiWidget;
 class IUIWIDGETSHARED_EXPORT IGraphMotor : public QWidget
 {
   Q_OBJECT
   Q_DECLARE_PRIVATE(IGraphMotor)
 public:
   explicit IGraphMotor(QWidget *parent = 0);
+  virtual ~IGraphMotor();
+  virtual void accept(IUiWidget*ui)=0;
 
 signals:
 

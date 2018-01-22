@@ -2,6 +2,7 @@
 #include "ui_uimotor.h"
 #include "iuiwidget_p.h"
 #include "sevdevice.h"
+#include "igraphmotor.h"
 
 #include <QQuickWidget>
 #include <QQmlContext>
@@ -38,6 +39,8 @@ UiMotor::~UiMotor()
 void UiMotor::addGraphWidget(QWidget *w)
 {
   ui->qmlHboxLayout->addWidget(w);
+  IGraphMotor *graphMotor=dynamic_cast<IGraphMotor *>(w);
+  graphMotor->accept(this);
 }
 
 QStackedWidget *UiMotor::getUiStackedWidget(void)

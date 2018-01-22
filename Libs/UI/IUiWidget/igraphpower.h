@@ -6,12 +6,15 @@
 //#include "igraphwidget.h"
 
 class IGraphPowerPrivate;
+class IUiWidget;
 class IUIWIDGETSHARED_EXPORT IGraphPower : public QWidget
 {
   Q_OBJECT
   Q_DECLARE_PRIVATE(IGraphPower)
 public:
   explicit IGraphPower(QWidget *parent = 0);
+  virtual ~IGraphPower();
+  virtual void accept(IUiWidget*ui)=0;
 
 signals:
 

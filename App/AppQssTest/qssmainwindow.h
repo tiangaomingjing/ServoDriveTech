@@ -2,6 +2,7 @@
 #define QSSMAINWINDOW_H
 
 #include <QMainWindow>
+#include "stylewidget.h"
 
 namespace Ui {
 class QssMainWindow;
@@ -27,6 +28,18 @@ private slots:
 
   void on_pushButton_clicked();
 
+  void on_actionSpinDefault_triggered();
+
+  void on_actionSpinReady_triggered();
+
+  void on_actionSpinError_triggered();
+
+  void on_actionSpinEditting_triggered();
+
+  void on_actionStyleTest1_triggered();
+
+  void on_actionStyleTest2_triggered();
+
 private:
   void testCupInfo();
 
@@ -34,6 +47,7 @@ private:
   Ui::QssMainWindow *ui;
   QProcess *p;
   ISysInfo *m_sysInfo;
+  StyleWidget style;
 };
 
 #endif // QSSMAINWINDOW_H

@@ -4,6 +4,10 @@ IGraphMotor::IGraphMotor(QWidget *parent) : QWidget(parent)
 {
   d_ptr->q_ptr=this;
 }
+IGraphMotor::~IGraphMotor()
+{
+
+}
 
 IGraphMotor::IGraphMotor(IGraphMotorPrivate &d, QWidget *parent):QWidget(parent),d_ptr(&d)
 {

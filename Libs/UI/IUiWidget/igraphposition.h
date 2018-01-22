@@ -6,13 +6,15 @@
 #include "igraphwidget.h"
 
 class IGraphPositionPrivate;
+class IUiWidget;
 class IUIWIDGETSHARED_EXPORT IGraphPosition : public IGraphWidget
 {
   Q_OBJECT
   Q_DECLARE_PRIVATE(IGraphPosition)
 public:
   explicit IGraphPosition(QWidget *parent = 0);
-
+  virtual ~IGraphPosition();
+  virtual void accept(IUiWidget*ui)=0;
 signals:
 
 public slots:

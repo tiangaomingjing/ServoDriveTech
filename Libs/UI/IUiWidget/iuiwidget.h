@@ -16,7 +16,7 @@ class UiIndexs
 {
 public:
   quint32 devInx;
-  qint16 aixsInx;
+  qint16 axisInx;
   qint16 pageInx;
 };
 
@@ -41,6 +41,8 @@ public:
   virtual bool hasConfigFunc();
   virtual bool hasSaveFunc();
 
+  SevDevice*device();
+
 protected:
   virtual QStackedWidget *getUiStackedWidget(void)=0;
   virtual QVBoxLayout *getVBoxLayout(void)=0;
@@ -51,6 +53,7 @@ protected:
   virtual void addQmlWidget(){}
   virtual void setContextAction();
   virtual void updateUi();
+
 
 signals:
   void sglQmlUpdataUi();
