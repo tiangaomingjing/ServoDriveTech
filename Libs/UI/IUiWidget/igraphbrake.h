@@ -14,7 +14,7 @@ class IUIWIDGETSHARED_EXPORT IGraphBrake : public QWidget
 public:
   explicit IGraphBrake(QWidget *parent = 0);
   virtual ~IGraphBrake();
-  virtual void accept(IUiWidget*ui)=0;
+  virtual void visit(IUiWidget*ui)=0;
 
 signals:
 

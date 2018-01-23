@@ -34,7 +34,7 @@ UiVelocity::~UiVelocity()
   delete ui;
 }
 
-void UiVelocity::addGraphWidget(QWidget *w)
+void UiVelocity::accept(QWidget *w)
 {
   ui->qmlHboxLayout->addWidget(w);
 }

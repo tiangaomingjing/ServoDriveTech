@@ -20,7 +20,7 @@ GraphPower129::~GraphPower129()
 {
   delete ui;
 }
-void GraphPower129::accept(IUiWidget *ui)
+void GraphPower129::visit(IUiWidget *ui)
 {
 
 }

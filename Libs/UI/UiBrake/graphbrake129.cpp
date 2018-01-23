@@ -22,7 +22,7 @@ GraphBrake129::~GraphBrake129()
   delete ui;
 }
 
-void GraphBrake129::accept(IUiWidget *ui)
+void GraphBrake129::visit(IUiWidget *ui)
 {
 
 }

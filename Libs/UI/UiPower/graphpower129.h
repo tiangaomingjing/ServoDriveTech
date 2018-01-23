@@ -17,7 +17,7 @@ class UIPOWERSHARED_EXPORT GraphPower129 : public IGraphPower
 public:
   explicit GraphPower129(QWidget *parent = 0);
   ~GraphPower129();
-  void accept(IUiWidget *ui)Q_DECL_OVERRIDE;
+  void visit(IUiWidget *ui)Q_DECL_OVERRIDE;
 
 private:
   Ui::GraphPower129 *ui;

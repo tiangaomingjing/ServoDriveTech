@@ -42,7 +42,7 @@ bool UiEncoder::hasSaveFunc()
 {
   return true;
 }
-void UiEncoder::addGraphWidget(QWidget *w)
+void UiEncoder::accept(QWidget *w)
 {
   ui->qmlHboxLayout->addWidget(w);
 }

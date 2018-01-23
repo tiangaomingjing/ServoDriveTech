@@ -36,7 +36,7 @@ public:
   virtual void writePageFLASH();
   virtual void setUiActive(bool actived);
   virtual void createQmlWidget();
-  virtual void addGraphWidget(QWidget*w);
+  virtual void accept(QWidget*w);
 
   virtual bool hasConfigFunc();
   virtual bool hasSaveFunc();

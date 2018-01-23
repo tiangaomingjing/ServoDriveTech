@@ -30,7 +30,7 @@ UiIO::~UiIO()
   delete ui;
 }
 
-void UiIO::addGraphWidget(QWidget *w)
+void UiIO::accept(QWidget *w)
 {
   ui->qmlHboxLayout->addWidget(w);
 }

@@ -51,7 +51,7 @@ void SevUiControler::createUis()
       if(uiGraphName!="NULL")
       {
         QWidget *uiGraph=UiFactory::createObject(uiGraphName.toLatin1());
-        ui->addGraphWidget(uiGraph);
+        ui->accept(uiGraph);
       }
 //      ui->createQmlWidget();
 

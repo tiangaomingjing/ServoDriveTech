@@ -17,7 +17,7 @@ class UIVELOCITYSHARED_EXPORT GraphVelocity129 : public IGraphVelocity
 public:
   explicit GraphVelocity129(QWidget *parent = 0);
   ~GraphVelocity129();
-  void accept(IUiWidget *ui)Q_DECL_OVERRIDE;
+  void visit(IUiWidget *ui)Q_DECL_OVERRIDE;
 
 private:
   Ui::GraphVelocity129 *ui;

@@ -15,7 +15,7 @@ class IUIWIDGETSHARED_EXPORT IGraphEncoder : public QWidget
 public:
   explicit IGraphEncoder(QWidget *parent = 0);
   virtual ~IGraphEncoder();
-  virtual void accept(IUiWidget*ui)=0;
+  virtual void visit(IUiWidget*ui)=0;
 
 signals:
 

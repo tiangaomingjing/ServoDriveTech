@@ -22,7 +22,7 @@ public:
   void writePageFLASH()Q_DECL_OVERRIDE{}
   void createQmlWidget()Q_DECL_OVERRIDE{}
 
-  void addGraphWidget(QWidget*w) Q_DECL_OVERRIDE;
+  void accept(QWidget*w) Q_DECL_OVERRIDE;
 
 private:
   QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;

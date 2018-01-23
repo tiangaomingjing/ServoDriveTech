@@ -20,7 +20,7 @@ GraphCurrent129::~GraphCurrent129()
 {
   delete ui;
 }
-void GraphCurrent129::accept(IUiWidget *ui)
+void GraphCurrent129::visit(IUiWidget *ui)
 {
 
 }

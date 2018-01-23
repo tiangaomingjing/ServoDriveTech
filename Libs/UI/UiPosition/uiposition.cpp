@@ -33,7 +33,7 @@ UiPosition::~UiPosition()
   delete ui;
 }
 
-void UiPosition::addGraphWidget(QWidget *w)
+void UiPosition::accept(QWidget *w)
 {
   ui->qmlHboxLayout->addWidget(w);
 }

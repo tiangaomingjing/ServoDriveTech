@@ -14,7 +14,7 @@ class IUIWIDGETSHARED_EXPORT IGraphPower : public QWidget
 public:
   explicit IGraphPower(QWidget *parent = 0);
   virtual ~IGraphPower();
-  virtual void accept(IUiWidget*ui)=0;
+  virtual void visit(IUiWidget*ui)=0;
 
 signals:
 

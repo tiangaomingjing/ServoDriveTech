@@ -18,7 +18,7 @@ class UIENCODERSHARED_EXPORT GraphEncoder129 : public IGraphEncoder
 public:
   explicit GraphEncoder129(QWidget *parent = 0);
   ~GraphEncoder129();
-  void accept(IUiWidget *ui)Q_DECL_OVERRIDE;
+  void visit(IUiWidget *ui)Q_DECL_OVERRIDE;
 
 private:
   Ui::GraphEncoder129 *ui;

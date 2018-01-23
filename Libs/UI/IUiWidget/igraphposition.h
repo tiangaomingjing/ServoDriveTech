@@ -14,7 +14,7 @@ class IUIWIDGETSHARED_EXPORT IGraphPosition : public IGraphWidget
 public:
   explicit IGraphPosition(QWidget *parent = 0);
   virtual ~IGraphPosition();
-  virtual void accept(IUiWidget*ui)=0;
+  virtual void visit(IUiWidget*ui)=0;
 signals:
 
 public slots:

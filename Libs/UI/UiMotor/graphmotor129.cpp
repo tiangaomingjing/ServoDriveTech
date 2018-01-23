@@ -43,11 +43,11 @@ GraphMotor129::~GraphMotor129()
 {
   delete ui;
 }
-void GraphMotor129::accept(IUiWidget *ui)
+void GraphMotor129::visit(IUiWidget *ui)
 {
   Q_D(GraphMotor129);
 
-  qDebug()<<"graph motor 129 accept"<<ui->objectName();
+  qDebug()<<"graph motor 129 visit"<<ui->objectName();
   d->m_dev=ui->device();
   int axis=ui->uiIndexs().axisInx;
   int page=ui->uiIndexs().pageInx;

@@ -18,7 +18,7 @@ public:
   explicit UiBrake(QWidget *parent = 0);
   ~UiBrake();
 
-  void addGraphWidget(QWidget*w) Q_DECL_OVERRIDE;
+  void accept(QWidget*w) Q_DECL_OVERRIDE;
 
 private:
   QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;

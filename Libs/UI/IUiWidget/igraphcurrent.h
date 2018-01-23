@@ -13,7 +13,7 @@ class IUIWIDGETSHARED_EXPORT IGraphCurrent : public IGraphWidget
 public:
   explicit IGraphCurrent(QWidget *parent = 0);
   virtual ~IGraphCurrent();
-  virtual void accept(IUiWidget*ui)=0;
+  virtual void visit(IUiWidget*ui)=0;
 
 signals:
 

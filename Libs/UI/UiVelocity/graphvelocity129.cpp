@@ -22,7 +22,7 @@ GraphVelocity129::~GraphVelocity129()
 {
   delete ui;
 }
-void GraphVelocity129::accept(IUiWidget *ui)
+void GraphVelocity129::visit(IUiWidget *ui)
 {
 
 }

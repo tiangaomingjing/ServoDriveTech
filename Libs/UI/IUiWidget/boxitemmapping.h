@@ -5,21 +5,22 @@
 #include <QHash>
 
 #include "iuiwidgetgdef.h"
+#include "iuiwidget_global.h"
 
 class QDoubleSpinBox;
 class QTreeWidgetItem;
 
-class EditItemMapping : public QObject
+class IUIWIDGETSHARED_EXPORT BoxItemMapping : public QObject
 {
   Q_OBJECT
 public:
-  explicit EditItemMapping(QObject *parent = 0);
-  ~EditItemMapping();
+  explicit BoxItemMapping(QObject *parent = 0);
+  ~BoxItemMapping();
   void insertBox2Item(QDoubleSpinBox*box,QTreeWidgetItem*item);
-  void insertItem2Box(QTreeWidgetItem*,QDoubleSpinBox*);
-  void syncEditText2TreeItem(QObject *obj);
-  void syncTreeItem2EditText(QTreeWidgetItem *item);
-  void setEditStatusByQueryItem(QTreeWidgetItem *item,UI::StatusEditText sta);
+  void insertItem2Box(QTreeWidgetItem*item,QDoubleSpinBox*box);
+  void syncBoxText2Item(QDoubleSpinBox *obj);
+  void syncItem2BoxText(QTreeWidgetItem *item);
+  void setBoxStatusByQueryItem(QTreeWidgetItem *item,UI::StatusEditText sta);
 
 signals:
 

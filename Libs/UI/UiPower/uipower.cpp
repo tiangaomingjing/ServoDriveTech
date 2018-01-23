@@ -32,7 +32,7 @@ UiPower::~UiPower()
   delete ui;
 }
 
-void UiPower::addGraphWidget(QWidget *w)
+void UiPower::accept(QWidget *w)
 {
   ui->qmlHboxLayout->addWidget(w);
 }

@@ -107,6 +107,9 @@ border-right:none;
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::NoButtons</enum>
         </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
        </widget>
       </item>
       <item>
@@ -126,6 +129,9 @@ border-right:none;
         </property>
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::NoButtons</enum>
+        </property>
+        <property name="decimals">
+         <number>3</number>
         </property>
        </widget>
       </item>
@@ -184,6 +190,9 @@ border-right:none;
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::NoButtons</enum>
         </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
        </widget>
       </item>
       <item row="2" column="1">
@@ -196,6 +205,9 @@ border-right:none;
         </property>
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::NoButtons</enum>
+        </property>
+        <property name="decimals">
+         <number>3</number>
         </property>
        </widget>
       </item>
@@ -224,6 +236,9 @@ border-right:none;
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::NoButtons</enum>
         </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
        </widget>
       </item>
       <item row="4" column="1">
@@ -236,6 +251,9 @@ border-right:none;
         </property>
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::NoButtons</enum>
+        </property>
+        <property name="decimals">
+         <number>3</number>
         </property>
        </widget>
       </item>
@@ -284,6 +302,9 @@ border-right:none;
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::NoButtons</enum>
         </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
        </widget>
       </item>
       <item>
@@ -304,6 +325,9 @@ border-right:none;
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::NoButtons</enum>
         </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
        </widget>
       </item>
       <item>
@@ -323,6 +347,9 @@ border-right:none;
         </property>
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::NoButtons</enum>
+        </property>
+        <property name="decimals">
+         <number>3</number>
         </property>
        </widget>
       </item>
@@ -371,6 +398,9 @@ border-right:none;
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::NoButtons</enum>
         </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
        </widget>
       </item>
       <item>
@@ -391,6 +421,9 @@ border-right:none;
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::NoButtons</enum>
         </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
        </widget>
       </item>
       <item>
@@ -410,6 +443,9 @@ border-right:none;
         </property>
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::NoButtons</enum>
+        </property>
+        <property name="decimals">
+         <number>3</number>
         </property>
        </widget>
       </item>
@@ -458,6 +494,9 @@ border-right:none;
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::NoButtons</enum>
         </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
        </widget>
       </item>
       <item>
@@ -478,6 +517,9 @@ border-right:none;
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::NoButtons</enum>
         </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
        </widget>
       </item>
       <item>
@@ -497,6 +539,9 @@ border-right:none;
         </property>
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::NoButtons</enum>
+        </property>
+        <property name="decimals">
+         <number>3</number>
         </property>
        </widget>
       </item>

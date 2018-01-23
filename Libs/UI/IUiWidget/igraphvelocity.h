@@ -14,7 +14,7 @@ class IUIWIDGETSHARED_EXPORT IGraphVelocity : public IGraphWidget
 public:
   explicit IGraphVelocity(QWidget *parent = 0);
   virtual ~IGraphVelocity();
-  virtual void accept(IUiWidget*ui)=0;
+  virtual void visit(IUiWidget*ui)=0;
 
 signals:
 

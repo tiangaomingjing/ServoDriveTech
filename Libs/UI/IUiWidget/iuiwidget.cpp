@@ -22,7 +22,7 @@ IUiWidget::IUiWidget(QWidget *parent):QWidget(parent),d_ptr(new IUiWidgetPrivate
 }
 IUiWidget::~IUiWidget()
 {
-
+  delete d_ptr;
 }
 IUiWidget::IUiWidget(IUiWidgetPrivate &d,QWidget *parent):QWidget(parent),d_ptr(&d)
 {
@@ -117,7 +117,7 @@ void IUiWidget::createQmlWidget()
   d->m_qwidget->setLayout(layout);
   addQmlWidget();
 }
-void IUiWidget::addGraphWidget(QWidget *w)
+void IUiWidget::accept(QWidget *w)
 {
   Q_UNUSED(w);
 }

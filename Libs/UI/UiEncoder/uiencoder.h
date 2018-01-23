@@ -20,7 +20,7 @@ public:
   bool hasConfigFunc()Q_DECL_OVERRIDE;
   bool hasSaveFunc()Q_DECL_OVERRIDE;
 
-  void addGraphWidget(QWidget*w) Q_DECL_OVERRIDE;
+  void accept(QWidget*w) Q_DECL_OVERRIDE;
 
 private:
   QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;

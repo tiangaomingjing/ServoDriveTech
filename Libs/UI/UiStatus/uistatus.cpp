@@ -32,7 +32,7 @@ UiStatus::~UiStatus()
 {
   delete ui;
 }
-void UiStatus::addGraphWidget(QWidget *w)
+void UiStatus::accept(QWidget *w)
 {
   ui->qmlHboxLayout->addWidget(w);
 }

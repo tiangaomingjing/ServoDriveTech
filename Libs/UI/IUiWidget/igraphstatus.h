@@ -14,7 +14,7 @@ class IUIWIDGETSHARED_EXPORT IGraphStatus : public QWidget
 public:
   explicit IGraphStatus(QWidget *parent = 0);
   virtual ~IGraphStatus();
-  virtual void accept(IUiWidget*ui)=0;
+  virtual void visit(IUiWidget*ui)=0;
 
 signals:
 

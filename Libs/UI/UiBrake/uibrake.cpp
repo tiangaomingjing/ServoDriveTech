@@ -32,7 +32,7 @@ UiBrake::~UiBrake()
 {
   delete ui;
 }
-void UiBrake::addGraphWidget(QWidget *w)
+void UiBrake::accept(QWidget *w)
 {
   ui->qmlHboxLayout->addWidget(w);
 }

@@ -21,7 +21,7 @@ GraphStatus129::~GraphStatus129()
   delete ui;
 }
 
-void GraphStatus129::accept(IUiWidget *ui)
+void GraphStatus129::visit(IUiWidget *ui)
 {
 
 }
