@@ -1,16 +1,25 @@
 ﻿#include "igraphstatus.h"
 #include "igraphstatus_p.h"
-
-IGraphStatus::IGraphStatus(QWidget *parent) : QWidget(parent)
+IGraphStatusPrivate::IGraphStatusPrivate()
 {
-  d_ptr->q_ptr=this;
+
+}
+
+IGraphStatusPrivate::~IGraphStatusPrivate()
+{
+
+}
+
+IGraphStatus::IGraphStatus(QWidget *parent) : IGraph(*(new IGraphStatusPrivate),parent)
+{
+
 }
 IGraphStatus::~IGraphStatus()
 {
 
 }
 
-IGraphStatus::IGraphStatus(IGraphStatusPrivate &d, QWidget *parent):QWidget(parent),d_ptr(&d)
+IGraphStatus::IGraphStatus(IGraphStatusPrivate &d, QWidget *parent):IGraph(d,parent)
 {
-  d_ptr->q_ptr=this;
+
 }

@@ -1,16 +1,25 @@
 ﻿#include "igraphvelocity.h"
 #include "igraphvelocity_p.h"
-
-IGraphVelocity::IGraphVelocity(QWidget *parent) : IGraphWidget(parent)
+IGraphVelocityPrivate::IGraphVelocityPrivate()
 {
-  d_ptr->q_ptr=this;
+
+}
+
+IGraphVelocityPrivate::~IGraphVelocityPrivate()
+{
+
+}
+
+IGraphVelocity::IGraphVelocity(QWidget *parent) : IGraphWidget(parent),IGraph(*(new IGraphVelocityPrivate),parent)
+{
+
 }
 IGraphVelocity::~IGraphVelocity()
 {
 
 }
 
-IGraphVelocity::IGraphVelocity(IGraphVelocityPrivate &d, QWidget *parent):IGraphWidget(parent),d_ptr(&d)
+IGraphVelocity::IGraphVelocity(IGraphVelocityPrivate &d, QWidget *parent):IGraphWidget(parent),IGraph(d,parent)
 {
-  d_ptr->q_ptr=this;
+
 }

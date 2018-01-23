@@ -4,30 +4,25 @@
 
 #include <QDebug>
 
-IGraphMotorPrivate::IGraphMotorPrivate():
-  m_dev(NULL),
-  m_treeWidget(NULL),
-  m_mapping(new BoxItemMapping)
+IGraphMotorPrivate::IGraphMotorPrivate()
 {
 
 }
 IGraphMotorPrivate::~IGraphMotorPrivate()
 {
-   delete m_mapping;
+
 }
 
-IGraphMotor::IGraphMotor(QWidget *parent) : QWidget(parent),
-  d_ptr(new IGraphMotorPrivate)
+IGraphMotor::IGraphMotor(QWidget *parent) : IGraph(*(new IGraphMotorPrivate),parent)
 {
-  d_ptr->q_ptr=this;
+
 }
 IGraphMotor::~IGraphMotor()
 {
   qDebug()<<"IGraphMotor destruct-->";
-  delete d_ptr;
 }
 
-IGraphMotor::IGraphMotor(IGraphMotorPrivate &d, QWidget *parent):QWidget(parent),d_ptr(&d)
+IGraphMotor::IGraphMotor(IGraphMotorPrivate &d, QWidget *parent):IGraph(d,parent)
 {
-  d_ptr->q_ptr=this;
+
 }

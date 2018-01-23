@@ -1,16 +1,26 @@
 ﻿#include "igraphcurrent.h"
 #include "igraphcurrent_p.h"
-
-IGraphCurrent::IGraphCurrent(QWidget *parent) : IGraphWidget(parent)
+IGraphCurrentPrivate::IGraphCurrentPrivate()
 {
-  d_ptr->q_ptr=this;
+
+}
+
+IGraphCurrentPrivate::~IGraphCurrentPrivate()
+{
+
+}
+
+
+IGraphCurrent::IGraphCurrent(QWidget *parent) : IGraphWidget(parent),IGraph(*(new IGraphCurrentPrivate),parent)
+{
+
 }
 IGraphCurrent::~IGraphCurrent()
 {
 
 }
 
-IGraphCurrent::IGraphCurrent(IGraphCurrentPrivate &d, QWidget *parent):IGraphWidget(parent),d_ptr(&d)
+IGraphCurrent::IGraphCurrent(IGraphCurrentPrivate &d, QWidget *parent):IGraphWidget(parent),IGraph(d,parent)
 {
-  d_ptr->q_ptr=this;
+
 }

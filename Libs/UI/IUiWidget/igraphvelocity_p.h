@@ -1,14 +1,15 @@
 ﻿#ifndef IGRAPHBRAKE_P_H
 #define IGRAPHBRAKE_P_H
 #include "igraphvelocity.h"
-class IGraphVelocityPrivate
+#include "igraph_p.h"
+class IUIWIDGETSHARED_EXPORT IGraphVelocityPrivate:public IGraphPrivate
 {
   Q_DECLARE_PUBLIC(IGraphVelocity)
 public:
-  IGraphVelocityPrivate(){}
-  virtual ~IGraphVelocityPrivate(){}
+  IGraphVelocityPrivate();
+  virtual ~IGraphVelocityPrivate();
 protected:
-  IGraphVelocity *q_ptr;
+
 };
 
 #endif // IGRAPHBRAKE_P_H

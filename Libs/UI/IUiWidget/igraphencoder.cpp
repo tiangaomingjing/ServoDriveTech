@@ -1,16 +1,25 @@
 ﻿#include "igraphencoder.h"
 #include "igraphencoder_p.h"
-
-IGraphEncoder::IGraphEncoder(QWidget *parent) : QWidget(parent)
+IGraphEncoderPrivate::IGraphEncoderPrivate()
 {
-  d_ptr->q_ptr=this;
+
+}
+
+IGraphEncoderPrivate::~IGraphEncoderPrivate()
+{
+
+}
+
+IGraphEncoder::IGraphEncoder(QWidget *parent) :IGraph(*(new IGraphEncoderPrivate),parent)
+{
+
 }
 IGraphEncoder::~IGraphEncoder()
 {
 
 }
 
-IGraphEncoder::IGraphEncoder(IGraphEncoderPrivate &d, QWidget *parent):QWidget(parent),d_ptr(&d)
+IGraphEncoder::IGraphEncoder(IGraphEncoderPrivate &d, QWidget *parent):IGraph(d,parent)
 {
-  d_ptr->q_ptr=this;
+
 }

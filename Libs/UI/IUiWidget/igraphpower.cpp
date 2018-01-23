@@ -1,16 +1,26 @@
 ﻿#include "igraphpower.h"
 #include "igraphpower_p.h"
 
-IGraphPower::IGraphPower(QWidget *parent) : QWidget(parent)
+IGraphPowerPrivate::IGraphPowerPrivate()
 {
-  d_ptr->q_ptr=this;
+
+}
+
+IGraphPowerPrivate::~IGraphPowerPrivate()
+{
+
+}
+
+IGraphPower::IGraphPower(QWidget *parent) : IGraph(*(new IGraphPowerPrivate),parent)
+{
+
 }
 IGraphPower::~IGraphPower()
 {
 
 }
 
-IGraphPower::IGraphPower(IGraphPowerPrivate &d, QWidget *parent):QWidget(parent),d_ptr(&d)
+IGraphPower::IGraphPower(IGraphPowerPrivate &d, QWidget *parent):IGraph(d,parent)
 {
-  d_ptr->q_ptr=this;
+
 }

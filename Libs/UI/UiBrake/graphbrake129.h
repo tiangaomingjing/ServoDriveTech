@@ -2,7 +2,7 @@
 #define GRAPHBRAKE129_H
 
 #include <QWidget>
-#include "graphbrake.h"
+#include "igraphbrake.h"
 #include "uibrake_global.h"
 
 namespace Ui {

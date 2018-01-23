@@ -2,6 +2,7 @@
 #define IGRAPH_H
 
 #include <QWidget>
+#include "iuiwidget_global.h"
 class IUiWidget;
 class IGraphPrivate;
 

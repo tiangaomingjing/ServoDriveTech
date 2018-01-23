@@ -1,5 +1,19 @@
 ﻿#include "igraph.h"
 #include "igraph_p.h"
+#include "boxitemmapping.h"
+
+IGraphPrivate::IGraphPrivate():
+  m_dev(NULL),
+  m_treeWidget(NULL),
+  m_mapping(new BoxItemMapping)
+{
+
+}
+
+IGraphPrivate::~IGraphPrivate()
+{
+  delete m_mapping;
+}
 
 IGraph::IGraph(QWidget *parent) : QWidget(parent),
   d_ptr(new IGraphPrivate)
