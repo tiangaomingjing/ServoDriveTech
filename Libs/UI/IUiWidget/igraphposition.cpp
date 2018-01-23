@@ -1,15 +1,26 @@
 ﻿#include "igraphposition.h"
 #include "igraphposition_p.h"
-IGraphPosition::IGraphPosition(QWidget *parent) : IGraphWidget(parent)
+
+IGraphPositionPrivate::IGraphPositionPrivate()
 {
-  d_ptr->q_ptr=this;
+
+}
+
+IGraphPositionPrivate::~IGraphPositionPrivate()
+{
+
+}
+
+IGraphPosition::IGraphPosition(QWidget *parent) : IGraphWidget(parent),IGraph(*(new IGraphPositionPrivate),parent)
+{
+
 }
 IGraphPosition::~IGraphPosition()
 {
 
 }
 
-IGraphPosition::IGraphPosition(IGraphPositionPrivate &d, QWidget *parent):IGraphWidget(parent),d_ptr(&d)
+IGraphPosition::IGraphPosition(IGraphPositionPrivate &d, QWidget *parent):IGraphWidget(parent),IGraph(d,parent)
 {
-  d_ptr->q_ptr=this;
+
 }

@@ -3,25 +3,25 @@
 
 #include <QWidget>
 #include "iuiwidget_global.h"
-//#include "igraphwidget.h"
+#include "igraph.h"
 
 class IGraphBrakePrivate;
 class IUiWidget;
-class IUIWIDGETSHARED_EXPORT IGraphBrake : public QWidget
+
+class IUIWIDGETSHARED_EXPORT IGraphBrake : public IGraph
 {
   Q_OBJECT
   Q_DECLARE_PRIVATE(IGraphBrake)
 public:
   explicit IGraphBrake(QWidget *parent = 0);
   virtual ~IGraphBrake();
-  virtual void visit(IUiWidget*ui)=0;
+  virtual void visit(IUiWidget*ui)Q_DECL_OVERRIDE =0;
 
 signals:
 
 public slots:
 protected:
   IGraphBrake(IGraphBrakePrivate&d, QWidget *parent=0);
-  IGraphBrakePrivate *d_ptr;
 };
 
 #endif // IGRAPHBRAKE_H

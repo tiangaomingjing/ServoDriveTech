@@ -4,6 +4,7 @@
 #include "iuiwidget.h"
 #include "uimotor.h"
 #include "sevdevice.h"
+#include "boxitemmapping.h"
 
 #include <QDebug>
 #include <QTreeWidget>
@@ -52,6 +53,22 @@ void GraphMotor129::visit(IUiWidget *ui)
   int axis=ui->uiIndexs().axisInx;
   int page=ui->uiIndexs().pageInx;
   d->m_treeWidget=d->m_dev->axisTreeSource(axis,page);
+
+  d->m_mapping->insertBox2Item(this->ui->dspinBox_iRat,d->m_treeWidget->topLevelItem(0));
+  d->m_mapping->insertBox2Item(this->ui->dspinBox_iMax,d->m_treeWidget->topLevelItem(1));
+  d->m_mapping->insertBox2Item(this->ui->dspinBox_vRat,d->m_treeWidget->topLevelItem(2));
+  d->m_mapping->insertBox2Item(this->ui->dspinBox_vOver,d->m_treeWidget->topLevelItem(3));
+  d->m_mapping->insertBox2Item(this->ui->dspinBox_vMax,d->m_treeWidget->topLevelItem(4));
+  d->m_mapping->insertBox2Item(this->ui->dspinBox_torque,d->m_treeWidget->topLevelItem(5));
+  d->m_mapping->insertBox2Item(this->ui->dspinBox_pole,d->m_treeWidget->topLevelItem(6));
+  d->m_mapping->insertBox2Item(this->ui->dspinBox_maxVoltage,d->m_treeWidget->topLevelItem(7));
+  d->m_mapping->insertBox2Item(this->ui->dspinBox_phim,d->m_treeWidget->topLevelItem(8));
+  d->m_mapping->insertBox2Item(this->ui->dspinBox_ldm,d->m_treeWidget->topLevelItem(9));
+  d->m_mapping->insertBox2Item(this->ui->dspinBox_lqm,d->m_treeWidget->topLevelItem(10));
+  d->m_mapping->insertBox2Item(this->ui->dspinBox_rm,d->m_treeWidget->topLevelItem(11));
+  d->m_mapping->insertBox2Item(this->ui->dspinBox_Jm,d->m_treeWidget->topLevelItem(12));
+  d->m_mapping->insertBox2Item(this->ui->dspinBox_JmPercent,d->m_treeWidget->topLevelItem(13));
+  d->m_mapping->insertBox2Item(this->ui->dspinBox_fcoe,d->m_treeWidget->topLevelItem(14));
 }
 bool GraphMotor129::eventFilter(QObject *obj, QEvent *event)
 {
@@ -61,9 +78,10 @@ bool GraphMotor129::eventFilter(QObject *obj, QEvent *event)
     if (keyEvent->key() == Qt::Key_Return || keyEvent->key() == Qt::Key_Enter)
     {
       Q_D(GraphMotor129);
+
 //      if(obj==ui->dsp)
       qDebug()<<"enter clicked"<<"object name"<<obj->objectName();
-      d->m_treeWidget->topLevelItem(0)->setText(1,QString::number(ui->dspinBox_fcoe->value()));
+      d->m_mapping->syncBoxText2Item(static_cast<QDoubleSpinBox*>(obj));
     }
   }
   return QWidget::eventFilter(obj,event);

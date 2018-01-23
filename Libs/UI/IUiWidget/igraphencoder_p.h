@@ -1,14 +1,16 @@
 ﻿#ifndef IGRAPHBRAKE_P_H
 #define IGRAPHBRAKE_P_H
 #include "igraphencoder.h"
-class IGraphEncoderPrivate
+#include "igraph_p.h"
+
+class IUIWIDGETSHARED_EXPORT IGraphEncoderPrivate:public IGraphPrivate
 {
   Q_DECLARE_PUBLIC(IGraphEncoder)
 public:
-  IGraphEncoderPrivate(){}
-  virtual ~IGraphEncoderPrivate(){}
+  IGraphEncoderPrivate();
+  virtual ~IGraphEncoderPrivate();
 protected:
-  IGraphEncoder *q_ptr;
+
 };
 
 #endif // IGRAPHBRAKE_P_H

@@ -2,6 +2,7 @@
 
 #include <QDoubleSpinBox>
 #include <QTreeWidgetItem>
+#include <QDebug>
 using namespace UI;
 
 BoxItemMapping::BoxItemMapping(QObject *parent) : QObject(parent)
@@ -24,12 +25,14 @@ void BoxItemMapping::insertItem2Box(QTreeWidgetItem*item, QDoubleSpinBox*box)
 
 void BoxItemMapping::syncBoxText2Item(QDoubleSpinBox *obj)
 {
+  qDebug()<<"sync boxtext to itme"<<obj->objectName();
   if(m_box2ItemHash.contains(obj))
   {
     QTreeWidgetItem *item=m_box2ItemHash.value(obj);
     double gain=item->text(COL_PAGE_TREE_SCALE).toDouble();
     double value=obj->value()*gain;
     item->setText(COL_PAGE_TREE_VALUE,QString::number(value,'f',3));
+    qDebug()<<"gain "<<gain<<"value"<<value;
   }
 }
 

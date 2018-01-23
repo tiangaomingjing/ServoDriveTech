@@ -1,18 +1,28 @@
 ﻿#include "igraphbrake.h"
 #include "igraphbrake_p.h"
 
-IGraphBrake::IGraphBrake(QWidget *parent) : QWidget(parent),
-  d_ptr(new IGraphBrakePrivate)
+IGraphBrakePrivate::IGraphBrakePrivate()
 {
-  d_ptr->q_ptr=this;
+
+}
+
+IGraphBrakePrivate:: ~IGraphBrakePrivate()
+{
+
+}
+
+
+IGraphBrake::IGraphBrake(QWidget *parent) : IGraph(*(new IGraphBrakePrivate),parent)
+{
+
 }
 IGraphBrake::~IGraphBrake()
 {
-
+  //*(new GraphBrakePrivate)这里不做释放，只做在这个GraphBrakePrivate独有的数据new出来的才delete
 }
 
-IGraphBrake::IGraphBrake(IGraphBrakePrivate &d, QWidget *parent):QWidget(parent),d_ptr(&d)
+IGraphBrake::IGraphBrake(IGraphBrakePrivate &d, QWidget *parent):IGraph(d,parent)
 {
-  d_ptr->q_ptr=this;
+
 }
 

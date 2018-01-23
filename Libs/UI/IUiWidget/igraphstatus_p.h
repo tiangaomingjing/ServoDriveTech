@@ -1,14 +1,16 @@
 ﻿#ifndef IGRAPHBRAKE_P_H
 #define IGRAPHBRAKE_P_H
 #include "igraphstatus.h"
-class IGraphStatusPrivate
+#include "igraph_p.h"
+
+class IUIWIDGETSHARED_EXPORT IGraphStatusPrivate:public IGraphPrivate
 {
   Q_DECLARE_PUBLIC(IGraphStatus)
 public:
-  IGraphStatusPrivate(){}
-  virtual ~IGraphStatusPrivate(){}
+  IGraphStatusPrivate();
+  virtual ~IGraphStatusPrivate();
 protected:
-  IGraphStatus *q_ptr;
+
 };
 
 #endif // IGRAPHBRAKE_P_H
