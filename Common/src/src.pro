@@ -17,6 +17,7 @@ INCLUDEPATH+=../../Libs/Com/Communication\
 
 CONFIG(debug, debug|release){
     COMMONSRC_OUT_PATH=$${PWD}/../../build/debug/bin
+    QML_IMPORT_PATH +=$${PWD}/../../build/debug/custom/option/qmlstyle
     LIBPATH=$${COMMONSRC_OUT_PATH}
     LIBS +=-lCommunicationd\
           -lGTUtilsd\
@@ -38,6 +39,7 @@ CONFIG(debug, debug|release){
     TARGET = CommonSrcAppd
 } else{
     COMMONSRC_OUT_PATH=$${PWD}/../../build/release/bin
+    QML_IMPORT_PATH +=$${PWD}/../../build/release/custom/option/qmlstyle
     LIBPATH=$${COMMONSRC_OUT_PATH}
 #    LIBS +=$${COMMONSRC_OUT_PATH}\Communication.lib\
 #           $${COMMONSRC_OUT_PATH}\GTUtils.lib
@@ -96,15 +98,38 @@ HEADERS += \
     test.h
 
 DISTFILES += \
-    QML/V129/UiMotor.qml \
-    QML/V129/UiBrake.qml \
-    QML/V129/UiCurrent.qml \
-    QML/V129/UiEncoder.qml \
-    QML/V129/UiPosition.qml \
-    QML/V129/UiPower.qml \
-    QML/V129/UiSpeed.qml \
-    QML/V129/UiStatus.qml \
-    QML/V129/UiVelocity.qml
+    ../../build/debug/custom/option/qmlstyle/MyQmlStyle/qmldir \
+    ../../build/debug/custom/option/qmlstyle/MyQmlStyle/IStyle.qml \
+    ../../build/debug/custom/option/qmlstyle/MyQmlStyle/StyleLoader.qml \
+    ../../build/debug/custom/option/qmlstyle/MyQmlStyle/black/BlackStyle.qml \
+    ../../build/debug/custom/option/qmlstyle/MyQmlStyle/blue/BlueStyle.qml \
+    ../../build/debug/custom/option/qmlstyle/MyQmlStyle/black/UiBrakeStyle.qml \
+    ../../build/debug/custom/option/qmlstyle/MyQmlStyle/black/UiCurrentStyle.qml \
+    ../../build/debug/custom/option/qmlstyle/MyQmlStyle/black/UiEncoderStyle.qml \
+    ../../build/debug/custom/option/qmlstyle/MyQmlStyle/black/UiMotorStyle.qml \
+    ../../build/debug/custom/option/qmlstyle/MyQmlStyle/black/UiPositionStyle.qml \
+    ../../build/debug/custom/option/qmlstyle/MyQmlStyle/black/UiPowerStyle.qml \
+    ../../build/debug/custom/option/qmlstyle/MyQmlStyle/black/UiSpeedStyle.qml \
+    ../../build/debug/custom/option/qmlstyle/MyQmlStyle/black/UiStatusStyle.qml \
+    ../../build/debug/custom/option/qmlstyle/MyQmlStyle/black/UiVelocityStyle.qml \
+    ../../build/debug/custom/option/qmlstyle/MyQmlStyle/blue/UiBrakeStyle.qml \
+    ../../build/debug/custom/option/qmlstyle/MyQmlStyle/blue/UiCurrentStyle.qml \
+    ../../build/debug/custom/option/qmlstyle/MyQmlStyle/blue/UiEncoderStyle.qml \
+    ../../build/debug/custom/option/qmlstyle/MyQmlStyle/blue/UiMotorStyle.qml \
+    ../../build/debug/custom/option/qmlstyle/MyQmlStyle/blue/UiPositionStyle.qml \
+    ../../build/debug/custom/option/qmlstyle/MyQmlStyle/blue/UiSpeedStyle.qml \
+    ../../build/debug/custom/option/qmlstyle/MyQmlStyle/blue/UiStatusStyle.qml \
+    ../../build/debug/custom/option/qmlstyle/MyQmlStyle/blue/UiVelocityStyle.qml \
+    QML/SD4x/V129/UiBrake.qml \
+    QML/SD4x/V129/UiCurrent.qml \
+    QML/SD4x/V129/UiEncoder.qml \
+    QML/SD4x/V129/UiMotor.qml \
+    QML/SD4x/V129/UiPosition.qml \
+    QML/SD4x/V129/UiPower.qml \
+    QML/SD4x/V129/UiSpeed.qml \
+    QML/SD4x/V129/UiStatus.qml \
+    QML/SD4x/V129/UiVelocity.qml
+
 
 
 

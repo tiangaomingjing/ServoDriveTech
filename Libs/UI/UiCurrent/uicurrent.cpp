@@ -32,6 +32,11 @@ UiCurrent::~UiCurrent()
   delete ui;
 }
 
+void UiCurrent::accept(QWidget *w)
+{
+  ui->qmlHboxLayout->addWidget(w);
+}
+
 QStackedWidget *UiCurrent::getUiStackedWidget(void)
 {
   return ui->stackedWidget;

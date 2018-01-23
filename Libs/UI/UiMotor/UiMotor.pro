@@ -19,10 +19,12 @@ CONFIG(debug, debug|release){
     TARGET = UiMotor
 }
 
-SOURCES += uimotor.cpp
+SOURCES += uimotor.cpp \
+    graphmotor129.cpp
 
 HEADERS += uimotor.h\
-        uimotor_global.h
+        uimotor_global.h \
+    graphmotor129.h
 
 unix {
     target.path = /usr/lib
@@ -30,4 +32,5 @@ unix {
 }
 
 FORMS += \
-    uimotor.ui
+    uimotor.ui \
+    graphmotor129.ui

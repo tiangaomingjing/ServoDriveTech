@@ -26,8 +26,8 @@ public:
   void setMathExp(const QStringList &mathExp);
 
 private:
-  QVector<quint8> m_types;
-  QVector<double>m_values;
+  QVector<quint8> m_types;//储存每一个轴对应的采样类型
+  QVector<double>m_values;//储存每一个轴对应类型下的采样值
   QStringList m_mathExp;
 };
 

@@ -20,15 +20,7 @@
    <item>
     <widget class="QStackedWidget" name="stackedWidget">
      <widget class="QWidget" name="page_ui">
-      <layout class="QHBoxLayout" name="qmlHboxLayout">
-       <item>
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>first</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <layout class="QHBoxLayout" name="qmlHboxLayout"/>
      </widget>
      <widget class="QWidget" name="page_tree">
       <layout class="QVBoxLayout" name="verticalLayout_3">

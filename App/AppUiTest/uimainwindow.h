@@ -10,6 +10,8 @@ class UiMainWindow;
 class SdAssembly;
 class UiMainWindowPrivate;
 class QTreeWidgetItem;
+class DeviceConfig;
+
 class UiMainWindow : public QMainWindow
 {
   Q_OBJECT
@@ -66,6 +68,7 @@ private:
   UiMainWindowPrivate *d_ptr;
   static short value;
 
+  void createSdAssemblyByDevConfig(const QList<DeviceConfig *> &configList);
 };
 
 #endif // UIMAINWINDOW_H

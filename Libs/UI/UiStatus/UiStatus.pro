@@ -19,10 +19,12 @@ CONFIG(debug, debug|release){
     TARGET = UiStatus
 }
 
-SOURCES += uistatus.cpp
+SOURCES += uistatus.cpp \
+    graphstatus129.cpp
 
 HEADERS += uistatus.h\
-        uistatus_global.h
+        uistatus_global.h \
+    graphstatus129.h
 
 unix {
     target.path = /usr/lib
@@ -30,4 +32,5 @@ unix {
 }
 
 FORMS += \
-    uistatus.ui
+    uistatus.ui \
+    graphstatus129.ui

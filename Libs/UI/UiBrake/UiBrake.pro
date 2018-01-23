@@ -18,10 +18,12 @@ CONFIG(debug, debug|release){
     TARGET = UiBrake
 }
 
-SOURCES += uibrake.cpp
+SOURCES += uibrake.cpp \
+    graphbrake129.cpp
 
 HEADERS += uibrake.h\
-        uibrake_global.h
+        uibrake_global.h \
+    graphbrake129.h
 
 unix {
     target.path = /usr/lib
@@ -29,4 +31,5 @@ unix {
 }
 
 FORMS += \
-    uibrake.ui
+    uibrake.ui \
+    graphbrake129.ui

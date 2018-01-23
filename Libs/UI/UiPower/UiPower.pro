@@ -20,10 +20,12 @@ CONFIG(debug, debug|release){
     TARGET = UiPower
 }
 
-SOURCES += uipower.cpp
+SOURCES += uipower.cpp \
+    graphpower129.cpp
 
 HEADERS += uipower.h\
-        uipower_global.h
+        uipower_global.h \
+    graphpower129.h
 
 unix {
     target.path = /usr/lib
@@ -31,4 +33,5 @@ unix {
 }
 
 FORMS += \
-    uipower.ui
+    uipower.ui \
+    graphpower129.ui

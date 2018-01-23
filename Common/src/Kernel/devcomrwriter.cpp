@@ -17,7 +17,7 @@ DevComRWriter::DevComRWriter(QObject *parent):IDevReadWriter(parent)
 QList<DeviceConfig *>DevComRWriter::createConfig(void (*processCallback)(void *pbar,short *value),void *processbar,bool &isOk)
 {
   QList<DeviceConfig *> list;
-  ICom *com=new RnNet("rnnet");
+  ICom *com=new RnNet("RnNet");
   qDebug()<<"comtype"<<(int)com->iComType();
   errcode_t err=com->open(processCallback,processbar);
   isOk=true;
@@ -25,7 +25,7 @@ QList<DeviceConfig *>DevComRWriter::createConfig(void (*processCallback)(void *p
   {
     com->close();
     delete com;
-    com=new PcDebug("pcdebug");
+    com=new PcDebug("PcDebug");
     err=com->open(processCallback,processbar);
     if(err!=0)
     {
@@ -78,6 +78,7 @@ QList<DeviceConfig *>DevComRWriter::createConfig(void (*processCallback)(void *p
     list.append(config);
   }
 
+  com->close();
   delete com;
   return list;
 }
@@ -98,7 +99,7 @@ DeviceConfig* DevComRWriter::buildConfigFromCom(quint8 devId, quint8 rnstation, 
   config->m_comType=com->iComType();
   config->m_axisNum=idHelper.axisNumFromIdMap();
   config->m_devId=devId;
-  config->m_fpgaId=0;
+  config->m_fpgaId=idHelper.readFpgaId();
   config->m_modeName=idHelper.modeNameFromIdMap();
   config->m_typeName=idHelper.typeNameFromIdMap();
   config->m_rnStationId=rnstation;

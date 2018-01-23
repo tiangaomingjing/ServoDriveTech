@@ -18,6 +18,8 @@ public:
   explicit UiCurrent(QWidget *parent = 0);
   ~UiCurrent();
 
+  void accept(QWidget*w) Q_DECL_OVERRIDE;
+
 private:
   QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;
   QVBoxLayout *getVBoxLayout(void)Q_DECL_OVERRIDE;

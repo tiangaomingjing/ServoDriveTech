@@ -13,6 +13,16 @@
 #include "UiStatus/uistatus.h"
 #include "UiVelocity/uivelocity.h"
 #include "UiFactory/uifactory.h"
+
+#include "UiBrake/graphbrake129.h"
+#include "UiCurrent/graphcurrent129.h"
+#include "UiEncoder/graphencoder129.h"
+#include "UiMotor/graphmotor129.h"
+#include "UiPosition/graphposition129.h"
+#include "UiPower/graphpower129.h"
+#include "UiStatus/graphstatus129.h"
+#include "UiVelocity/graphvelocity129.h"
+
 namespace RegisterFunction {
 void registerUiClass(){
   UiFactory::registerClass<UiBrake>();
@@ -27,6 +37,15 @@ void registerUiClass(){
   UiFactory::registerClass<UiRAM>();
   UiFactory::registerClass<UiStatus>();
   UiFactory::registerClass<UiVelocity>();
+
+  UiFactory::registerClass<GraphBrake129>();
+  UiFactory::registerClass<GraphCurrent129>();
+  UiFactory::registerClass<GraphEncoder129>();
+  UiFactory::registerClass<GraphMotor129>();
+  UiFactory::registerClass<GraphPosition129>();
+  UiFactory::registerClass<GraphPower129>();
+  UiFactory::registerClass<GraphStatus129>();
+  UiFactory::registerClass<GraphVelocity129>();
 }
 
 }

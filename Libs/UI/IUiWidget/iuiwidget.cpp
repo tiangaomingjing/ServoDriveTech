@@ -3,6 +3,8 @@
 #include "sevdevice.h"
 #include "gtutils.h"
 
+#include "Option"
+
 #include <QTreeWidget>
 #include <QStackedWidget>
 #include <QVBoxLayout>
@@ -11,6 +13,8 @@
 #include <QQuickWidget>
 #include <QQmlContext>
 #include <QAction>
+#include <QQmlEngine>
+#include <QLabel>
 
 IUiWidget::IUiWidget(QWidget *parent):QWidget(parent),d_ptr(new IUiWidgetPrivate())
 {
@@ -18,7 +22,7 @@ IUiWidget::IUiWidget(QWidget *parent):QWidget(parent),d_ptr(new IUiWidgetPrivate
 }
 IUiWidget::~IUiWidget()
 {
-
+  delete d_ptr;
 }
 IUiWidget::IUiWidget(IUiWidgetPrivate &d,QWidget *parent):QWidget(parent),d_ptr(&d)
 {
@@ -71,26 +75,51 @@ void IUiWidget::updateUi()
 {
   qDebug()<<this->objectName()<<"updateUi";
 }
+SevDevice*IUiWidget::device()
+{
+  Q_D(IUiWidget);
+  return d->m_device;
+}
 
 void IUiWidget::createQmlWidget()
 {
   Q_D(IUiWidget);
 
-  d->m_qmlpath=GTUtils::sysPath()+\
+  /*d->m_qmlpath=GTUtils::sysPath()+\
       d->m_device->typeName()+"/"+\
       d->m_device->modelName()+"/"+\
       d->m_device->versionName()+"/ui/"+\
       objectName()+".qml";
   d->m_qwidget=new QQuickWidget(this);
-  d->m_qwidget->setMinimumSize(600,560);
+//  d->m_qwidget->setMinimumSize(600,560);
   qDebug()<<"load qml from:"<<d->m_qmlpath;
 
+  //style context
+  QString qmlStyleModulePath=GTUtils::customPath()+"option/qmlstyle/";
+  d->m_qwidget->engine()->addImportPath(qmlStyleModulePath);
+  OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
+  QmlStyleHelper *helper=face->qmlStyleHelper();
+  d->m_qwidget->rootContext()->setContextProperty("qmlStyleHelper",helper);
+
   d->m_qwidget->rootContext()->setContextProperty("cDevice",d->m_device);
+
   setQmlContext();
   d->m_qwidget->setResizeMode(QQuickWidget::SizeRootObjectToView );
   d->m_qwidget->setSource(QUrl::fromLocalFile(d->m_qmlpath));
   setQmlSignalSlot();
+  addQmlWidget();*/
+
+  d->m_qwidget=new QWidget(this);
+  QVBoxLayout *layout=new QVBoxLayout(d->m_qwidget);
+  QLabel *label=new QLabel(this);
+  label->setText(this->objectName());
+  layout->addWidget(label);
+  d->m_qwidget->setLayout(layout);
   addQmlWidget();
+}
+void IUiWidget::accept(QWidget *w)
+{
+  Q_UNUSED(w);
 }
 
 bool IUiWidget::hasConfigFunc()
@@ -126,14 +155,14 @@ void IUiWidget::readPageFLASH()
   Q_D(IUiWidget);
   qDebug()<<this->objectName()<<"read flash";
 //  emit sglReadPageFlash(d->axisInx,d->m_dataTree);
-  d->m_device->onReadPageFlash(d->m_index.aixsInx,d->m_dataTree);
+  d->m_device->onReadPageFlash(d->m_index.axisInx,d->m_dataTree);
 }
 void IUiWidget::writePageFLASH()
 {
   Q_D(IUiWidget);
   qDebug()<<this->objectName()<<"read flash";
 //  emit sglWritePageFlash(d->axisInx,d->m_dataTree);
-  d->m_device->onWritePageFlash(d->m_index.aixsInx,d->m_dataTree);
+  d->m_device->onWritePageFlash(d->m_index.axisInx,d->m_dataTree);
 }
 void IUiWidget::setUiActive(bool actived)
 {

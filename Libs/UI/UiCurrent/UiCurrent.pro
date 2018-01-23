@@ -19,10 +19,12 @@ CONFIG(debug, debug|release){
     TARGET = UiCurrent
 }
 
-SOURCES += uicurrent.cpp
+SOURCES += uicurrent.cpp \
+    graphcurrent129.cpp
 
 HEADERS += uicurrent.h\
-        uicurrent_global.h
+        uicurrent_global.h \
+    graphcurrent129.h
 
 unix {
     target.path = /usr/lib
@@ -30,4 +32,5 @@ unix {
 }
 
 FORMS += \
-    uicurrent.ui
+    uicurrent.ui \
+    graphcurrent129.ui

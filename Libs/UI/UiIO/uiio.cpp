@@ -30,6 +30,11 @@ UiIO::~UiIO()
   delete ui;
 }
 
+void UiIO::accept(QWidget *w)
+{
+  ui->qmlHboxLayout->addWidget(w);
+}
+
 QStackedWidget *UiIO::getUiStackedWidget(void)
 {
   return ui->stackedWidget;
