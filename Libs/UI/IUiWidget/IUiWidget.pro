@@ -40,7 +40,6 @@ DESTDIR =$${UI_OUT_PATH}
 SOURCES += iuiwidget.cpp \
     igraphmotor.cpp \
     igraphencoder.cpp \
-    igraphbrake.cpp \
     igraphcurrent.cpp \
     igraphposition.cpp \
     igraphpower.cpp \
@@ -48,7 +47,9 @@ SOURCES += iuiwidget.cpp \
     igraphvelocity.cpp \
     igraphwidget.cpp \
     imapping.cpp \
-    boxitemmapping.cpp
+    boxitemmapping.cpp\
+    igraph.cpp \
+    graphbrake.cpp
 
 HEADERS += iuiwidget.h\
         iuiwidget_global.h \
@@ -56,13 +57,11 @@ HEADERS += iuiwidget.h\
     iuiwidgetgdef.h \
     igraphmotor.h \
     igraphencoder.h \
-    igraphbrake.h \
     igraphcurrent.h \
     igraphposition.h \
     igraphpower.h \
     igraphstatus.h \
     igraphvelocity.h \
-    igraphbrake_p.h \
     igraphcurrent_p.h \
     igraphencoder_p.h \
     igraphmotor_p.h \
@@ -72,7 +71,11 @@ HEADERS += iuiwidget.h\
     igraphvelocity_p.h \
     igraphwidget.h \
     imapping.h \
-    boxitemmapping.h
+    boxitemmapping.h\
+    igraph.h \
+    igraph_p.h \
+    graphbrake.h \
+    graphbrake_p.h
 
 unix {
     target.path = /usr/lib

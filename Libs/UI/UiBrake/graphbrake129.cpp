@@ -1,5 +1,5 @@
 ﻿#include "graphbrake129.h"
-#include "igraphbrake_p.h"
+#include "graphbrake_p.h"
 #include "ui_graphbrake129.h"
 
 class GraphBrake129Private:public IGraphBrakePrivate
