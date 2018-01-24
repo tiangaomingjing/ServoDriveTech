@@ -20,6 +20,7 @@ public:
   void insertItem2Box(QTreeWidgetItem*item,QDoubleSpinBox*box);
   void syncBoxText2Item(QDoubleSpinBox *obj);
   void syncItem2BoxText(QTreeWidgetItem *item);
+  void syncAllItem2BoxText();
   void setBoxStatusByQueryItem(QTreeWidgetItem *item,UI::StatusEditText sta);
 
 signals:

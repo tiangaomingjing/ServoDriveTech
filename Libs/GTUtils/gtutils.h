@@ -15,6 +15,7 @@
 
 class QTreeWidgetItem;
 class QTreeWidget;
+class QTranslator;
 class GTUTILSSHARED_EXPORT GTUtils
 {
 
@@ -30,6 +31,8 @@ public:
   static QString ubootPath();
   static QString languagePath();
   static void delayms(quint16 ms);
+
+  static QList<QTranslator*>setupTranslators(const QString &path);
 
   static void clearTreeWidgetList(QList<QTreeWidget*> &list);
 

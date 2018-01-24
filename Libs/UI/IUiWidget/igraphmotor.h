@@ -19,9 +19,14 @@ protected:
   virtual void setUiVersionName()Q_DECL_OVERRIDE =0;
   virtual void visitActive(IUiWidget*uiWidget)Q_DECL_OVERRIDE =0;
 
+
+
 signals:
 
 public slots:
+protected slots:
+  virtual void onUiActivedChanged(bool actived){Q_UNUSED(actived);}
+
 protected:
   IGraphMotor(IGraphMotorPrivate&dd, QWidget *parent=0);
 

@@ -445,7 +445,7 @@ void SDTMainWindow::changeConfigSaveBtnStatus()
 
 void SDTMainWindow::showPlotUiOnly(bool show)
 {
-  qDebug()<<show;
+  qDebug()<<"showPlotUiOnly "<<show;
   if(show)
     m_plot->show();
 }

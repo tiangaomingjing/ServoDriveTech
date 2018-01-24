@@ -15,7 +15,7 @@ IGraphPrivate::~IGraphPrivate()
   delete m_mapping;
 }
 
-IGraph::IGraph(QWidget *parent) : QWidget(parent),
+IGraph::IGraph(QWidget *parent) :QWidget(parent),
   d_ptr(new IGraphPrivate)
 {
   d_ptr->q_ptr=this;
@@ -24,7 +24,7 @@ IGraph::~IGraph()
 {
   delete d_ptr;
 }
-IGraph::IGraph(IGraphPrivate &dd, QWidget *parent):QWidget(parent),d_ptr(&dd)
+IGraph::IGraph(IGraphPrivate &dd,QWidget *parent):d_ptr(&dd),QWidget(parent)
 {
   d_ptr->q_ptr=this;
 }

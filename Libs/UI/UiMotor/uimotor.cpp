@@ -80,3 +80,7 @@ void UiMotor::addQmlWidget()
   Q_D(UiMotor);
   ui->qmlHboxLayout->addWidget(d->m_qwidget);
 }
+void UiMotor::updateUi()
+{
+  readPageFLASH();
+}

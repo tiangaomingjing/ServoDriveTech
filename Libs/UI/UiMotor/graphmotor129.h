@@ -24,6 +24,9 @@ protected:
 protected:
   bool eventFilter(QObject *obj, QEvent *event);
 
+protected slots:
+  void onUiActivedChanged(bool actived)Q_DECL_OVERRIDE;
+
 private:
   Ui::GraphMotor129 *ui;
 };

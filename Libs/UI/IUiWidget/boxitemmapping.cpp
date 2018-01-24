@@ -11,6 +11,8 @@ BoxItemMapping::BoxItemMapping(QObject *parent) : QObject(parent)
 }
 BoxItemMapping::~BoxItemMapping()
 {
+  m_box2ItemHash.clear();
+  m_item2BoxHash.clear();
 
 }
 void BoxItemMapping::insertBox2Item(QDoubleSpinBox*box,QTreeWidgetItem*item)
@@ -45,6 +47,15 @@ void BoxItemMapping::syncItem2BoxText(QTreeWidgetItem *item)
     double gain=item->text(COL_PAGE_TREE_SCALE).toDouble();
     box->setValue(value/gain);
   }
+}
+void BoxItemMapping::syncAllItem2BoxText()
+{
+  qDebug()<<"m_item2BoxHash.keys() count"<<m_item2BoxHash.keys().count();
+  foreach (QTreeWidgetItem *item, m_item2BoxHash.keys()) {
+    syncItem2BoxText(item);
+    qDebug()<<"syncAllItem2BoxText item="<<item->text(0);
+  }
+
 }
 
 void BoxItemMapping::setBoxStatusByQueryItem(QTreeWidgetItem *item,StatusEditText sta)

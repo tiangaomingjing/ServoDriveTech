@@ -3,9 +3,15 @@
 #include "sdtglobaldef.h"
 #include "uifactory.h"
 #include "iuiwidget.h"
+#include "deviceconfig.h"
+#include "gtutils.h"
+
+#include "Option"
 
 #include <QDebug>
 #include <QTreeWidgetItem>
+#include <QApplication>
+#include <QTranslator>
 
 SevUiControler::SevUiControler(SevDevice *sev, QObject *parent):IUiControler(parent),
   m_sev(sev)
@@ -31,6 +37,7 @@ void SevUiControler::createUis()
   double sum=65;
   double dec=35.0/(m_sev->axisNum()*axisItem->childCount());
   //与轴相关的模块
+  setTransLanguage();
 
   for(int i=0;i<m_sev->axisNum();i++)//哪一个轴
   {
@@ -89,6 +96,7 @@ void SevUiControler::createUis()
 SevUiControler::~SevUiControler()
 {
   qDebug()<<"SevUiControler-->destruct";
+  clearTransLanguage();
   GT::deepClearList(m_uiLists);
 }
 
@@ -105,4 +113,26 @@ IUiWidget *SevUiControler::uiWidget(quint32 devInx,qint16 axisInx,const QString 
     }
   }
   return ui;
+}
+
+void SevUiControler::setTransLanguage()
+{
+  QString ver=m_sev->deviceConfig()->m_version;
+  OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
+  QString langPath=GTUtils::languagePath();
+  QString lang;
+  if(face->language()=="chinese")
+    lang=langPath+"ch/";
+  else
+    lang=langPath+"en/";
+  QString path=lang+"page/"+ver+"/";
+  qDebug()<<"the language version path="<<path;
+  m_transList=GTUtils::setupTranslators(path);
+}
+void SevUiControler::clearTransLanguage()
+{
+  foreach (QTranslator *tr, m_transList) {
+    qApp->removeTranslator(tr);
+  }
+  GT::deepClearList(m_transList);
 }

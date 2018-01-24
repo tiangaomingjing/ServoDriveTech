@@ -6,12 +6,12 @@
 class IUiWidget;
 class IGraphPrivate;
 
-class IUIWIDGETSHARED_EXPORT IGraph : public QWidget
+class IUIWIDGETSHARED_EXPORT IGraph:public QWidget
 {
   Q_OBJECT
   Q_DECLARE_PRIVATE(IGraph)
 public:
-  explicit IGraph(QWidget *parent = 0);
+  explicit IGraph(QWidget *parent=0);
   virtual ~IGraph();
   virtual void visit(IUiWidget*uiWidget);
 
@@ -23,7 +23,7 @@ signals:
 
 public slots:
 protected:
-  IGraph(IGraphPrivate&dd,QWidget *parent = 0);
+  IGraph(IGraphPrivate&dd,QWidget *parent=0);
   IGraphPrivate *d_ptr;
 
 };
