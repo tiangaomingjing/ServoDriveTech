@@ -21,7 +21,7 @@ PcDebug::PcDebug(const string &objectName):ICom(*new PcDebugPrivate())
   d->m_comType=ICOM_TYPE_PCDEBUG;
   printf("pcdebug object name =%s\n",objectName.c_str());
 }
-PcDebug::PcDebug(PcDebugPrivate &d):ICom(d)
+PcDebug::PcDebug(PcDebugPrivate &dd):ICom(dd)
 {
 
 }

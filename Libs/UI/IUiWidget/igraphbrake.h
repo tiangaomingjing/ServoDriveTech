@@ -15,13 +15,15 @@ class IUIWIDGETSHARED_EXPORT IGraphBrake : public IGraph
 public:
   explicit IGraphBrake(QWidget *parent = 0);
   virtual ~IGraphBrake();
-  virtual void visit(IUiWidget*ui)Q_DECL_OVERRIDE =0;
+protected:
+  virtual void setUiVersionName()Q_DECL_OVERRIDE =0;
+  virtual void visitActive(IUiWidget*uiWidget)Q_DECL_OVERRIDE =0;
 
 signals:
 
 public slots:
 protected:
-  IGraphBrake(IGraphBrakePrivate&d, QWidget *parent=0);
+  IGraphBrake(IGraphBrakePrivate&dd, QWidget *parent=0);
 };
 
 #endif // IGRAPHBRAKE_H

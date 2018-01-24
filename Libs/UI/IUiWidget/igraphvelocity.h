@@ -8,20 +8,23 @@
 
 class IGraphVelocityPrivate;
 class IUiWidget;
-class IUIWIDGETSHARED_EXPORT IGraphVelocity : public IGraphWidget,public IGraph
+class IUIWIDGETSHARED_EXPORT IGraphVelocity : public IGraphWidget
 {
   Q_OBJECT
   Q_DECLARE_PRIVATE(IGraphVelocity)
 public:
   explicit IGraphVelocity(QWidget *parent = 0);
   virtual ~IGraphVelocity();
-  virtual void visit(IUiWidget*ui)Q_DECL_OVERRIDE=0;
+
+protected:
+  virtual void setUiVersionName()Q_DECL_OVERRIDE =0;
+  virtual void visitActive(IUiWidget*uiWidget)Q_DECL_OVERRIDE =0;
 
 signals:
 
 public slots:
 protected:
-  IGraphVelocity(IGraphVelocityPrivate&d, QWidget *parent=0);
+  IGraphVelocity(IGraphVelocityPrivate&dd, QWidget *parent=0);
 
 };
 

@@ -19,7 +19,7 @@ IGraphStatus::~IGraphStatus()
 
 }
 
-IGraphStatus::IGraphStatus(IGraphStatusPrivate &d, QWidget *parent):IGraph(d,parent)
+IGraphStatus::IGraphStatus(IGraphStatusPrivate &dd, QWidget *parent):IGraph(dd,parent)
 {
 
 }

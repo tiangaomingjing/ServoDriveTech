@@ -110,6 +110,9 @@ border-right:none;
         <property name="decimals">
          <number>3</number>
         </property>
+        <property name="maximum">
+         <double>4294967296.000000000000000</double>
+        </property>
        </widget>
       </item>
       <item>
@@ -132,6 +135,9 @@ border-right:none;
         </property>
         <property name="decimals">
          <number>3</number>
+        </property>
+        <property name="maximum">
+         <double>4294967296.000000000000000</double>
         </property>
        </widget>
       </item>
@@ -193,6 +199,9 @@ border-right:none;
         <property name="decimals">
          <number>3</number>
         </property>
+        <property name="maximum">
+         <double>4294967296.000000000000000</double>
+        </property>
        </widget>
       </item>
       <item row="2" column="1">
@@ -208,6 +217,9 @@ border-right:none;
         </property>
         <property name="decimals">
          <number>3</number>
+        </property>
+        <property name="maximum">
+         <double>4294967296.000000000000000</double>
         </property>
        </widget>
       </item>
@@ -239,6 +251,9 @@ border-right:none;
         <property name="decimals">
          <number>3</number>
         </property>
+        <property name="maximum">
+         <double>4294967296.000000000000000</double>
+        </property>
        </widget>
       </item>
       <item row="4" column="1">
@@ -254,6 +269,9 @@ border-right:none;
         </property>
         <property name="decimals">
          <number>3</number>
+        </property>
+        <property name="maximum">
+         <double>4294967296.000000000000000</double>
         </property>
        </widget>
       </item>
@@ -305,6 +323,9 @@ border-right:none;
         <property name="decimals">
          <number>3</number>
         </property>
+        <property name="maximum">
+         <double>4294967296.000000000000000</double>
+        </property>
        </widget>
       </item>
       <item>
@@ -328,12 +349,15 @@ border-right:none;
         <property name="decimals">
          <number>3</number>
         </property>
+        <property name="maximum">
+         <double>4294967296.000000000000000</double>
+        </property>
        </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_7">
         <property name="text">
-         <string>max current(rpm)</string>
+         <string>max velocity(rpm)</string>
         </property>
        </widget>
       </item>
@@ -350,6 +374,9 @@ border-right:none;
         </property>
         <property name="decimals">
          <number>3</number>
+        </property>
+        <property name="maximum">
+         <double>4294967296.000000000000000</double>
         </property>
        </widget>
       </item>
@@ -401,6 +428,9 @@ border-right:none;
         <property name="decimals">
          <number>3</number>
         </property>
+        <property name="maximum">
+         <double>4294967296.000000000000000</double>
+        </property>
        </widget>
       </item>
       <item>
@@ -424,6 +454,9 @@ border-right:none;
         <property name="decimals">
          <number>3</number>
         </property>
+        <property name="maximum">
+         <double>4294967296.000000000000000</double>
+        </property>
        </widget>
       </item>
       <item>
@@ -446,6 +479,9 @@ border-right:none;
         </property>
         <property name="decimals">
          <number>3</number>
+        </property>
+        <property name="maximum">
+         <double>4294967296.000000000000000</double>
         </property>
        </widget>
       </item>
@@ -497,6 +533,9 @@ border-right:none;
         <property name="decimals">
          <number>3</number>
         </property>
+        <property name="maximum">
+         <double>4294967296.000000000000000</double>
+        </property>
        </widget>
       </item>
       <item>
@@ -520,6 +559,9 @@ border-right:none;
         <property name="decimals">
          <number>3</number>
         </property>
+        <property name="maximum">
+         <double>4294967296.000000000000000</double>
+        </property>
        </widget>
       </item>
       <item>
@@ -542,6 +584,9 @@ border-right:none;
         </property>
         <property name="decimals">
          <number>3</number>
+        </property>
+        <property name="maximum">
+         <double>380.000000000000000</double>
         </property>
        </widget>
       </item>

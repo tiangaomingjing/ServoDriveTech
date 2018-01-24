@@ -21,7 +21,12 @@ GraphEncoder129::~GraphEncoder129()
 {
   delete ui;
 }
-void GraphEncoder129::visit(IUiWidget *ui)
+void GraphEncoder129::visitActive(IUiWidget *uiWidget)
 {
 
+}
+void GraphEncoder129::setUiVersionName()
+{
+  Q_D(GraphEncoder129);
+  d->m_versionName="V129";
 }

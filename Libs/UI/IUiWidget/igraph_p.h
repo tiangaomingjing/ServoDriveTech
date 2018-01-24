@@ -1,6 +1,9 @@
 ﻿#ifndef IGRAPH_P_H
 #define IGRAPH_P_H
+
 #include "iuiwidget_global.h"
+#include <QTranslator>
+
 class SevDevice;
 class QTreeWidget;
 class BoxItemMapping;
@@ -16,6 +19,8 @@ protected:
   SevDevice *m_dev;
   QTreeWidget *m_treeWidget;
   BoxItemMapping*m_mapping;
+  QTranslator m_trans;
+  QString m_versionName;
 };
 
 #endif // IGRAPH_P_H

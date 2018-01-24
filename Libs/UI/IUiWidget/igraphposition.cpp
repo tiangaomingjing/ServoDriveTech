@@ -11,7 +11,7 @@ IGraphPositionPrivate::~IGraphPositionPrivate()
 
 }
 
-IGraphPosition::IGraphPosition(QWidget *parent) : IGraphWidget(parent),IGraph(*(new IGraphPositionPrivate),parent)
+IGraphPosition::IGraphPosition(QWidget *parent) : IGraphWidget(*(new IGraphPositionPrivate),parent)
 {
 
 }
@@ -20,7 +20,7 @@ IGraphPosition::~IGraphPosition()
 
 }
 
-IGraphPosition::IGraphPosition(IGraphPositionPrivate &d, QWidget *parent):IGraphWidget(parent),IGraph(d,parent)
+IGraphPosition::IGraphPosition(IGraphPositionPrivate &dd, QWidget *parent):IGraphWidget(dd,parent)
 {
 
 }

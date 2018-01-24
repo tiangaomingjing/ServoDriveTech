@@ -24,7 +24,13 @@ IGraph::~IGraph()
 {
   delete d_ptr;
 }
-IGraph::IGraph(IGraphPrivate &d, QWidget *parent):QWidget(parent),d_ptr(&d)
+IGraph::IGraph(IGraphPrivate &dd, QWidget *parent):QWidget(parent),d_ptr(&dd)
 {
   d_ptr->q_ptr=this;
+}
+
+void IGraph::visit(IUiWidget *uiWidget)
+{
+  setUiVersionName();
+  visitActive(uiWidget);
 }

@@ -24,7 +24,7 @@ IUiWidget::~IUiWidget()
 {
   delete d_ptr;
 }
-IUiWidget::IUiWidget(IUiWidgetPrivate &d,QWidget *parent):QWidget(parent),d_ptr(&d)
+IUiWidget::IUiWidget(IUiWidgetPrivate &dd,QWidget *parent):QWidget(parent),d_ptr(&dd)
 {
   d_ptr->q_ptr=this;
 }

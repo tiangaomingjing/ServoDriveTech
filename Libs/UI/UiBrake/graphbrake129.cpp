@@ -22,7 +22,12 @@ GraphBrake129::~GraphBrake129()
   delete ui;
 }
 
-void GraphBrake129::visit(IUiWidget *ui)
+void GraphBrake129::visitActive(IUiWidget *uiWidget)
 {
 
+}
+void GraphBrake129::setUiVersionName()
+{
+  Q_D(GraphBrake129);
+  d->m_versionName="V129";
 }

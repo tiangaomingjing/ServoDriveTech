@@ -16,7 +16,10 @@ class UISTATUSSHARED_EXPORT GraphStatus129 : public IGraphStatus
 public:
   explicit GraphStatus129(QWidget *parent = 0);
   ~GraphStatus129();
-  void visit(IUiWidget*ui) Q_DECL_OVERRIDE;
+
+protected:
+  void visitActive(IUiWidget *uiWidget)Q_DECL_OVERRIDE;
+  void setUiVersionName()Q_DECL_OVERRIDE;
 
 private:
   Ui::GraphStatus129 *ui;

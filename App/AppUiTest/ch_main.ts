@@ -29,8 +29,8 @@
 <context>
     <name>SevUiControler</name>
     <message>
-        <location filename="../../Common/src/Kernel/sevuicontroler.cpp" line="52"/>
-        <location filename="../../Common/src/Kernel/sevuicontroler.cpp" line="74"/>
+        <location filename="../../Common/src/Kernel/sevuicontroler.cpp" line="63"/>
+        <location filename="../../Common/src/Kernel/sevuicontroler.cpp" line="85"/>
         <source>build ui %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -43,74 +43,84 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="uimainwindow.cpp" line="219"/>
-        <location filename="uimainwindow.cpp" line="273"/>
+        <location filename="uimainwindow.cpp" line="217"/>
+        <location filename="uimainwindow.cpp" line="271"/>
         <source>Axis_%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="uimainwindow.cpp" line="242"/>
-        <location filename="uimainwindow.cpp" line="297"/>
+        <location filename="uimainwindow.cpp" line="240"/>
+        <location filename="uimainwindow.cpp" line="295"/>
         <source>Plot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="uimainwindow.cpp" line="352"/>
+        <location filename="uimainwindow.cpp" line="350"/>
         <source>testConnet</source>
         <translation type="unfinished">连接测试</translation>
     </message>
     <message>
-        <location filename="uimainwindow.cpp" line="356"/>
+        <location filename="uimainwindow.cpp" line="354"/>
         <source>testDisConnect</source>
         <translation type="unfinished">断开测试</translation>
     </message>
     <message>
-        <location filename="uimainwindow.cpp" line="360"/>
+        <location filename="uimainwindow.cpp" line="358"/>
         <source>testNew</source>
         <translation type="unfinished">新建</translation>
     </message>
     <message>
-        <location filename="uimainwindow.cpp" line="364"/>
+        <location filename="uimainwindow.cpp" line="362"/>
         <source>testWriteFlash</source>
         <translation type="unfinished">永久保存</translation>
     </message>
     <message>
-        <location filename="uimainwindow.cpp" line="368"/>
+        <location filename="uimainwindow.cpp" line="366"/>
         <source>ReadFLASH</source>
         <translation type="unfinished">读FLASH</translation>
     </message>
     <message>
-        <location filename="uimainwindow.cpp" line="374"/>
+        <location filename="uimainwindow.cpp" line="372"/>
         <source>queryConnect</source>
         <translation type="unfinished">查询连接</translation>
     </message>
     <message>
-        <location filename="uimainwindow.cpp" line="380"/>
+        <location filename="uimainwindow.cpp" line="378"/>
         <source>connect</source>
         <translation type="unfinished">连接</translation>
     </message>
     <message>
-        <location filename="uimainwindow.cpp" line="387"/>
+        <location filename="uimainwindow.cpp" line="385"/>
         <source>disnet</source>
         <translation type="unfinished">断开</translation>
     </message>
     <message>
-        <location filename="uimainwindow.cpp" line="400"/>
+        <location filename="uimainwindow.cpp" line="398"/>
         <source>SelectNew</source>
         <translation type="unfinished">选择新建</translation>
     </message>
     <message>
-        <location filename="uimainwindow.cpp" line="406"/>
+        <location filename="uimainwindow.cpp" line="404"/>
         <source>chinese</source>
         <translation type="unfinished">中文</translation>
     </message>
     <message>
-        <location filename="uimainwindow.cpp" line="411"/>
+        <location filename="uimainwindow.cpp" line="409"/>
         <source>english</source>
         <translation type="unfinished">英语</translation>
     </message>
     <message>
-        <location filename="uimainwindow.cpp" line="545"/>
+        <location filename="uimainwindow.cpp" line="497"/>
+        <source>error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="uimainwindow.cpp" line="497"/>
+        <source>can not connect !</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="uimainwindow.cpp" line="525"/>
         <source>pwrid=%1,ctrid=%2,comtype=%3,version=%4,stationid=%5</source>
         <translation type="unfinished"></translation>
     </message>

@@ -15,13 +15,16 @@ class IUIWIDGETSHARED_EXPORT IGraphEncoder : public IGraph
 public:
   explicit IGraphEncoder(QWidget *parent = 0);
   virtual ~IGraphEncoder();
-  virtual void visit(IUiWidget*ui)Q_DECL_OVERRIDE =0;
+
+protected:
+  virtual void setUiVersionName()Q_DECL_OVERRIDE =0;
+  virtual void visitActive(IUiWidget*uiWidget)Q_DECL_OVERRIDE =0;
 
 signals:
 
 public slots:
 protected:
-  IGraphEncoder(IGraphEncoderPrivate&d, QWidget *parent=0);
+  IGraphEncoder(IGraphEncoderPrivate&dd, QWidget *parent=0);
 };
 
 #endif // IGRAPHENCODER_H

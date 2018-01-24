@@ -20,7 +20,12 @@ GraphPower129::~GraphPower129()
 {
   delete ui;
 }
-void GraphPower129::visit(IUiWidget *ui)
+void GraphPower129::visitActive(IUiWidget *uiWidget)
 {
 
+}
+void GraphPower129::setUiVersionName()
+{
+  Q_D(GraphPower129);
+  d->m_versionName="V129";
 }

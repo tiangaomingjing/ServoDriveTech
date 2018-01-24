@@ -70,7 +70,7 @@ protected slots:
   void onActionReadRAM();
   void onActionReadFLASH();
 protected:
-  IUiWidget(IUiWidgetPrivate&d, QWidget *parent=0);
+  IUiWidget(IUiWidgetPrivate&dd, QWidget *parent=0);
   IUiWidgetPrivate *d_ptr;
 };
 

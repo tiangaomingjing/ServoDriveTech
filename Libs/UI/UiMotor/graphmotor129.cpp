@@ -23,14 +23,6 @@ GraphMotor129::GraphMotor129(QWidget *parent) :
   ui(new Ui::GraphMotor129)
 {
   ui->setupUi(this);
-//  QGridLayout *glayout=new QGridLayout(this);
-////  glayout->addWidget(ui->pushButton,0,2);
-//  glayout->addLayout(ui->hlayout_btn,0,0);
-//  glayout->addWidget(ui->widget_currentPrm,1,0);
-//  glayout->addWidget(ui->widget_machinePrm,1,1,1,2);
-//  glayout->addWidget(ui->widget_velocityPrm,2,0);
-//  glayout->addWidget(ui->widget_impedancePrm,2,1);
-//  glayout->addWidget(ui->widget_torquePrm,2,2);
 
   QList<QDoubleSpinBox *> allBox = findChildren<QDoubleSpinBox *>();
   qDebug()<<"all box count="<<allBox.count();
@@ -44,15 +36,17 @@ GraphMotor129::~GraphMotor129()
 {
   delete ui;
 }
-void GraphMotor129::visit(IUiWidget *ui)
+void GraphMotor129::visitActive(IUiWidget *uiWidget)
 {
   Q_D(GraphMotor129);
 
-  qDebug()<<"graph motor 129 visit"<<ui->objectName();
-  d->m_dev=ui->device();
-  int axis=ui->uiIndexs().axisInx;
-  int page=ui->uiIndexs().pageInx;
+  qDebug()<<"graph motor 129 visit"<<uiWidget->objectName();
+  d->m_dev=uiWidget->device();
+  int axis=uiWidget->uiIndexs().axisInx;
+  int page=uiWidget->uiIndexs().pageInx;
   d->m_treeWidget=d->m_dev->axisTreeSource(axis,page);
+
+  this->ui->dspinBox_maxVoltage->setEnabled(false);
 
   d->m_mapping->insertBox2Item(this->ui->dspinBox_iRat,d->m_treeWidget->topLevelItem(0));
   d->m_mapping->insertBox2Item(this->ui->dspinBox_iMax,d->m_treeWidget->topLevelItem(1));
@@ -70,6 +64,11 @@ void GraphMotor129::visit(IUiWidget *ui)
   d->m_mapping->insertBox2Item(this->ui->dspinBox_JmPercent,d->m_treeWidget->topLevelItem(13));
   d->m_mapping->insertBox2Item(this->ui->dspinBox_fcoe,d->m_treeWidget->topLevelItem(14));
 }
+void GraphMotor129::setUiVersionName()
+{
+  Q_D(GraphMotor129);
+  d->m_versionName="V129";
+}
 bool GraphMotor129::eventFilter(QObject *obj, QEvent *event)
 {
   if (event->type()==QEvent::KeyPress)
@@ -78,10 +77,9 @@ bool GraphMotor129::eventFilter(QObject *obj, QEvent *event)
     if (keyEvent->key() == Qt::Key_Return || keyEvent->key() == Qt::Key_Enter)
     {
       Q_D(GraphMotor129);
-
-//      if(obj==ui->dsp)
       qDebug()<<"enter clicked"<<"object name"<<obj->objectName();
       d->m_mapping->syncBoxText2Item(static_cast<QDoubleSpinBox*>(obj));
+      return true;
     }
   }
   return QWidget::eventFilter(obj,event);

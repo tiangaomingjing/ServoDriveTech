@@ -16,7 +16,9 @@ class UIPOSITIONSHARED_EXPORT GraphPosition129 : public IGraphPosition
 public:
   explicit GraphPosition129(QWidget *parent = 0);
   ~GraphPosition129();
-  void visit(IUiWidget *ui)Q_DECL_OVERRIDE;
+protected:
+  void visitActive(IUiWidget *uiWidget)Q_DECL_OVERRIDE;
+  void setUiVersionName()Q_DECL_OVERRIDE;
 
 private:
   Ui::GraphPosition129 *ui;

@@ -14,13 +14,16 @@ class IUIWIDGETSHARED_EXPORT IGraphMotor : public IGraph
 public:
   explicit IGraphMotor(QWidget *parent = 0);
   virtual ~IGraphMotor();
-  virtual void visit(IUiWidget*ui)Q_DECL_OVERRIDE=0;
+
+protected:
+  virtual void setUiVersionName()Q_DECL_OVERRIDE =0;
+  virtual void visitActive(IUiWidget*uiWidget)Q_DECL_OVERRIDE =0;
 
 signals:
 
 public slots:
 protected:
-  IGraphMotor(IGraphMotorPrivate&d, QWidget *parent=0);
+  IGraphMotor(IGraphMotorPrivate&dd, QWidget *parent=0);
 
 };
 

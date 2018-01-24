@@ -22,7 +22,12 @@ GraphVelocity129::~GraphVelocity129()
 {
   delete ui;
 }
-void GraphVelocity129::visit(IUiWidget *ui)
+void GraphVelocity129::visitActive(IUiWidget *uiWidget)
 {
 
+}
+void GraphVelocity129::setUiVersionName()
+{
+  Q_D(GraphVelocity129);
+  d->m_versionName="V129";
 }

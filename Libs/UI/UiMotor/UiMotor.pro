@@ -34,3 +34,5 @@ unix {
 FORMS += \
     uimotor.ui \
     graphmotor129.ui
+
+TRANSLATIONS    += ch_uimotor.ts en_uimotor.ts

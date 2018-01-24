@@ -14,13 +14,16 @@ class IUIWIDGETSHARED_EXPORT IGraphPower : public IGraph
 public:
   explicit IGraphPower(QWidget *parent = 0);
   virtual ~IGraphPower();
-  virtual void visit(IUiWidget*ui)Q_DECL_OVERRIDE =0;
+
+protected:
+  virtual void setUiVersionName()Q_DECL_OVERRIDE =0;
+  virtual void visitActive(IUiWidget*uiWidget)Q_DECL_OVERRIDE =0;
 
 signals:
 
 public slots:
 protected:
-  IGraphPower(IGraphPowerPrivate&d, QWidget *parent=0);
+  IGraphPower(IGraphPowerPrivate&dd, QWidget *parent=0);
 };
 
 #endif // IGRAPHPOWER_H

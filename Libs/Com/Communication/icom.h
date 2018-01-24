@@ -104,7 +104,7 @@ public:
   virtual errcode_t writeFPGAReg64(uint8_t fpgaInx,uint16_t address,int64_t value,uint16_t base)=0;
 
 protected:
-  ICom(IComPrivate &d);
+  ICom(IComPrivate &dd);
   IComPrivate *const d_ptr;
 
 };

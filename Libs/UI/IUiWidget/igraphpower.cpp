@@ -20,7 +20,7 @@ IGraphPower::~IGraphPower()
 
 }
 
-IGraphPower::IGraphPower(IGraphPowerPrivate &d, QWidget *parent):IGraph(d,parent)
+IGraphPower::IGraphPower(IGraphPowerPrivate &dd, QWidget *parent):IGraph(dd,parent)
 {
 
 }

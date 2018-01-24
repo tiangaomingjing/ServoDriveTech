@@ -38,7 +38,7 @@ IComType ICom::iComType(void) const
   return d->m_comType;
 }
 
-ICom::ICom(IComPrivate &d):d_ptr(&d)
+ICom::ICom(IComPrivate &dd):d_ptr(&dd)
 {
   d_ptr->q_ptr=this;
 }

@@ -100,7 +100,7 @@ public:
 
 
 protected:
-  PcDebug(PcDebugPrivate &d);
+  PcDebug(PcDebugPrivate &dd);
 };
 COM_NAMESPACE_END
 
