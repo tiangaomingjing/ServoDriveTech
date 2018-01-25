@@ -14,4 +14,5 @@ SUBDIRS += \
     EpromManager \
     TestDB \
     QmlQuickWidgetMaxTest \
-    GraphFramework
+    GraphFramework \
+    AppConfigDialogTest

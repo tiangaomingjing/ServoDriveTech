@@ -24,7 +24,7 @@ QList<DeviceConfig *>DevTextRWriter::createConfig(void (*processCallback)(void *
   QTreeWidgetItem *modelItem;
   QTreeWidgetItem *versionItem;
   processCallback(processbar,&pvalue);
-  bool ok;
+
   if(configTree!=NULL)//能成功读取的
   {
     for(int i=0;i<configTree->topLevelItemCount();i++)
@@ -37,7 +37,7 @@ QList<DeviceConfig *>DevTextRWriter::createConfig(void (*processCallback)(void *
       DeviceConfig *device=new DeviceConfig();
       device->m_devId=devItem->text(COL_ID).toUInt();
       device->m_comType=comItem->text(COL_PRM).toUInt();
-      device->m_rnStationId=comItem->text(COL_PRM_EX0).toUInt(&ok,16);
+      device->m_rnStationId=comItem->text(COL_PRM_EX0).toUInt();
       device->m_axisNum=typeItem->text(COL_PRM).toUInt();
       device->m_typeName=typeItem->text(COL_NAME);
       device->m_modeName=modelItem->text(COL_NAME);

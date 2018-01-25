@@ -60,7 +60,7 @@
         <string>0</string>
        </property>
        <property name="text">
-        <string>0xf0</string>
+        <string>240</string>
        </property>
        <item>
         <property name="text">
@@ -106,7 +106,7 @@
        </item>
       </item>
      </item>
-<item>
+     <item>
       <property name="text">
        <string>Device</string>
       </property>
@@ -130,7 +130,7 @@
         <string>0</string>
        </property>
        <property name="text">
-        <string>0xf0</string>
+        <string>241</string>
        </property>
        <item>
         <property name="text">
@@ -176,7 +176,7 @@
        </item>
       </item>
      </item>
-<item>
+     <item>
       <property name="text">
        <string>Device</string>
       </property>
@@ -200,7 +200,7 @@
         <string>0</string>
        </property>
        <property name="text">
-        <string>0xf0</string>
+        <string>242</string>
        </property>
        <item>
         <property name="text">
