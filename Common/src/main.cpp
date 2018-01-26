@@ -63,6 +63,7 @@ void getFileDirNameTest()
     qDebug()<<"dirName"<<fileInfo.dir().dirName();
   }
 }
+//[TEST]
 void readStyleINI()
 {
   QString filename="D:/Smart/ServoMaster/git-project/ServoDriveTech/ServoDriveTech/build/debug/custom/option/style/style.ini";

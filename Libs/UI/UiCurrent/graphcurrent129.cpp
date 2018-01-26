@@ -20,7 +20,12 @@ GraphCurrent129::~GraphCurrent129()
 {
   delete ui;
 }
-void GraphCurrent129::visit(IUiWidget *ui)
+void GraphCurrent129::visitActive(IUiWidget *uiWidget)
 {
 
+}
+void GraphCurrent129::setUiVersionName()
+{
+  Q_D(GraphCurrent129);
+  d->m_versionName="V129";
 }

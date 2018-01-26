@@ -5,6 +5,7 @@
 
 class OptContainer;
 class IUiWidget;
+class QTranslator;
 class SevUiControler : public IUiControler
 {
   Q_OBJECT
@@ -17,8 +18,13 @@ public:
 signals:
 
 public slots:
+
+private:
+  void setTransLanguage();
+  void clearTransLanguage();
 private:
   SevDevice *m_sev;
+  QList<QTranslator*>m_transList;
 };
 
 #endif // SEVUICONTROLER_H

@@ -2,6 +2,7 @@
 #define IUIWIDGET_P_H
 #include <QObject>
 #include "iuiwidget.h"
+
 class IUiWidget;
 class QStackedWidget;
 class QVBoxLayout;

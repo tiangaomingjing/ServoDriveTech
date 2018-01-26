@@ -35,7 +35,7 @@ public:
   virtual void readPageFLASH();
   virtual void writePageFLASH();
   virtual void setUiActive(bool actived);
-  virtual void createQmlWidget();
+  virtual void createQmlWidget();//no use
   virtual void accept(QWidget*w);
 
   virtual bool hasConfigFunc();
@@ -56,9 +56,10 @@ protected:
 
 
 signals:
-  void sglQmlUpdataUi();
-  void sglQmlActived(bool active);
+  void sglQmlUpdataUi();//no use
+  void sglQmlActived(bool active);//no use
   void sglMainErrorInfo(int axis,QString msg);
+  void uiActiveChanged(bool active);//send to graph to update data or do other things
 
   //to device
   void sglReadPageFlash(int axis ,QTreeWidget *pTree);
@@ -70,7 +71,7 @@ protected slots:
   void onActionReadRAM();
   void onActionReadFLASH();
 protected:
-  IUiWidget(IUiWidgetPrivate&d, QWidget *parent=0);
+  IUiWidget(IUiWidgetPrivate&dd, QWidget *parent=0);
   IUiWidgetPrivate *d_ptr;
 };
 

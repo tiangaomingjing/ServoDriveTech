@@ -11,7 +11,7 @@ IGraphCurrentPrivate::~IGraphCurrentPrivate()
 }
 
 
-IGraphCurrent::IGraphCurrent(QWidget *parent) : IGraphWidget(parent),IGraph(*(new IGraphCurrentPrivate),parent)
+IGraphCurrent::IGraphCurrent(QWidget *parent) : IGraphWidget(*(new IGraphCurrentPrivate),parent)
 {
 
 }
@@ -20,7 +20,7 @@ IGraphCurrent::~IGraphCurrent()
 
 }
 
-IGraphCurrent::IGraphCurrent(IGraphCurrentPrivate &d, QWidget *parent):IGraphWidget(parent),IGraph(d,parent)
+IGraphCurrent::IGraphCurrent(IGraphCurrentPrivate &dd, QWidget *parent):IGraphWidget(dd,parent)
 {
 
 }

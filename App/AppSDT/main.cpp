@@ -20,27 +20,27 @@
 
 #define START_UP_PIXMAP "startup.png"
 
-void setupTranslators(const QString &langPath )
-{
-  QStringList qmlist;
-  QDir dir(langPath);
-//  dir.setFilter(QDir::Files | QDir::Hidden | QDir::NoSymLinks);
-//  dir.setSorting(QDir::Size | QDir::Reversed);
-  QStringList nameFilters;
-  nameFilters<<"*.qm";
-  qmlist=dir.entryList(nameFilters,QDir::Files|QDir::Hidden|QDir::NoSymLinks,QDir::Name);
-  qDebug()<<"qm count"<<qmlist.count();
+//void setupTranslators(const QString &langPath )
+//{
+//  QStringList qmlist;
+//  QDir dir(langPath);
+////  dir.setFilter(QDir::Files | QDir::Hidden | QDir::NoSymLinks);
+////  dir.setSorting(QDir::Size | QDir::Reversed);
+//  QStringList nameFilters;
+//  nameFilters<<"*.qm";
+//  qmlist=dir.entryList(nameFilters,QDir::Files|QDir::Hidden|QDir::NoSymLinks,QDir::Name);
+//  qDebug()<<"qm count"<<qmlist.count();
 
-  QTranslator *trans=NULL;
-  foreach (QString qm, qmlist)
-  {
-    trans=new QTranslator;
-    QString fileqm=langPath+qm;
-    qDebug()<<"load"<<fileqm;
-    trans->load(fileqm);
-    qApp->installTranslator(trans);
-  }
-}
+//  QTranslator *trans=NULL;
+//  foreach (QString qm, qmlist)
+//  {
+//    trans=new QTranslator;
+//    QString fileqm=langPath+qm;
+//    qDebug()<<"load"<<fileqm;
+//    trans->load(fileqm);
+//    qApp->installTranslator(trans);
+//  }
+//}
 
 int main(int argc, char *argv[])
 {
@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
     lang=langPath+"ch/";
   else
     lang=langPath+"en/";
-  setupTranslators(lang);
+  GTUtils::setupTranslators(lang);
 
   optFace->setFaceStyle(optFace->css());
   optFace->setFaceFontSize(optFace->fontSize());

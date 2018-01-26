@@ -27,6 +27,7 @@ private:
   void setQmlContext()Q_DECL_OVERRIDE;
   void setQmlSignalSlot()Q_DECL_OVERRIDE;
   void addQmlWidget()Q_DECL_OVERRIDE;
+  void updateUi();
 private:
   Ui::UiMotor *ui;
 };

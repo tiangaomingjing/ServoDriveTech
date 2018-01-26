@@ -25,6 +25,64 @@
     </message>
 </context>
 <context>
+    <name>FormLangTest1</name>
+    <message>
+        <location filename="formlangtest1.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished">窗口1</translation>
+    </message>
+    <message>
+        <location filename="formlangtest1.ui" line="20"/>
+        <source>PushButton</source>
+        <translation type="unfinished">测试按钮xxxxx</translation>
+    </message>
+    <message>
+        <location filename="formlangtest1.ui" line="27"/>
+        <source>TextLabel_1</source>
+        <translation type="unfinished">文本_1xxxxx</translation>
+    </message>
+    <message>
+        <location filename="formlangtest1.ui" line="34"/>
+        <source>TextLabel_text_from_code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="formlangtest1.cpp" line="9"/>
+        <location filename="formlangtest1.cpp" line="14"/>
+        <source>this is text form coding_1</source>
+        <translation type="unfinished">这是来自编码的文本_1xxxxxx</translation>
+    </message>
+</context>
+<context>
+    <name>FormLangTest2</name>
+    <message>
+        <location filename="formlangtest2.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished">窗口2</translation>
+    </message>
+    <message>
+        <location filename="formlangtest2.ui" line="20"/>
+        <source>PushButton</source>
+        <translation type="unfinished">按钮2xxxxxx</translation>
+    </message>
+    <message>
+        <location filename="formlangtest2.ui" line="27"/>
+        <source>TextLabel_2</source>
+        <translation type="unfinished">文本_2xxxxx</translation>
+    </message>
+    <message>
+        <location filename="formlangtest2.ui" line="34"/>
+        <source>TextLabel_text_from_code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="formlangtest2.cpp" line="9"/>
+        <location filename="formlangtest2.cpp" line="14"/>
+        <source>this is text form coding_2</source>
+        <translation type="unfinished">这是来自编码的文本_2xxxxx</translation>
+    </message>
+</context>
+<context>
     <name>OptionMainWindow</name>
     <message>
         <location filename="optionmainwindow.ui" line="14"/>
@@ -43,14 +101,14 @@
 </translation>
     </message>
     <message>
-        <location filename="optionmainwindow.ui" line="209"/>
+        <location filename="optionmainwindow.ui" line="211"/>
         <source>PushButton</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="optionmainwindow.ui" line="42"/>
-        <location filename="optionmainwindow.ui" line="216"/>
-        <location filename="optionmainwindow.ui" line="236"/>
+        <location filename="optionmainwindow.ui" line="218"/>
+        <location filename="optionmainwindow.ui" line="238"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -112,9 +170,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionmainwindow.ui" line="245"/>
+        <location filename="optionmainwindow.ui" line="247"/>
         <source>option</source>
         <translation type="unfinished">选项</translation>
+    </message>
+    <message>
+        <location filename="optionmainwindow.ui" line="252"/>
+        <source>transTest1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="optionmainwindow.ui" line="257"/>
+        <source>transTest2</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

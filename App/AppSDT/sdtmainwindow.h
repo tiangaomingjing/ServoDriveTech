@@ -43,6 +43,7 @@ private:
   void createConnections();
   void clearStackedWidget();
   void closeEvent(QCloseEvent *e)override;
+//  void changeEvent(QEvent *event);//可用于捕抓语言改变事件
 
   static void processCallBack(void *argv,short *value);
 

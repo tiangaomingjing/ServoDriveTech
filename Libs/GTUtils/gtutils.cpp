@@ -3,6 +3,8 @@
 #include <QDir>
 #include <QTime>
 #include <QTreeWidget>
+#include <QDebug>
+#include <QTranslator>
 
 //这些路径都是相对debug/release目录下
 #define DIR_COMMON "common/"
@@ -74,6 +76,30 @@ void GTUtils::delayms(quint16 ms)
   QTime dieTime = QTime::currentTime().addMSecs(ms);
   while( QTime::currentTime() < dieTime )
     QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+}
+QList<QTranslator*> GTUtils::setupTranslators(const QString &path)
+{
+  QList<QTranslator*> trList;
+  QStringList qmlist;
+  QDir dir(path);
+//  dir.setFilter(QDir::Files | QDir::Hidden | QDir::NoSymLinks);
+//  dir.setSorting(QDir::Size | QDir::Reversed);
+  QStringList nameFilters;
+  nameFilters<<"*.qm";
+  qmlist=dir.entryList(nameFilters,QDir::Files|QDir::Hidden|QDir::NoSymLinks,QDir::Name);
+  qDebug()<<"qm count"<<qmlist.count();
+
+  QTranslator *trans=NULL;
+  foreach (QString qm, qmlist)
+  {
+    trans=new QTranslator;
+    trList.append(trans);
+    QString fileqm=path+qm;
+    qDebug()<<"load"<<fileqm;
+    trans->load(fileqm);
+    qApp->installTranslator(trans);
+  }
+  return trList;
 }
 
 void GTUtils::clearTreeWidgetList(QList<QTreeWidget *> &list)

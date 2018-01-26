@@ -19,7 +19,7 @@ IGraphEncoder::~IGraphEncoder()
 
 }
 
-IGraphEncoder::IGraphEncoder(IGraphEncoderPrivate &d, QWidget *parent):IGraph(d,parent)
+IGraphEncoder::IGraphEncoder(IGraphEncoderPrivate &dd, QWidget *parent):IGraph(dd,parent)
 {
 
 }

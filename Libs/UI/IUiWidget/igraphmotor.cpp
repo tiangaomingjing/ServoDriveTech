@@ -22,7 +22,7 @@ IGraphMotor::~IGraphMotor()
   qDebug()<<"IGraphMotor destruct-->";
 }
 
-IGraphMotor::IGraphMotor(IGraphMotorPrivate &d, QWidget *parent):IGraph(d,parent)
+IGraphMotor::IGraphMotor(IGraphMotorPrivate &dd, QWidget *parent):IGraph(dd,parent)
 {
 
 }

@@ -14,13 +14,16 @@ class IUIWIDGETSHARED_EXPORT IGraphStatus : public IGraph
 public:
   explicit IGraphStatus(QWidget *parent = 0);
   virtual ~IGraphStatus();
-  virtual void visit(IUiWidget*ui)Q_DECL_OVERRIDE =0;
+
+protected:
+  virtual void setUiVersionName()Q_DECL_OVERRIDE =0;
+  virtual void visitActive(IUiWidget*uiWidget)Q_DECL_OVERRIDE =0;
 
 signals:
 
 public slots:
 protected:
-  IGraphStatus(IGraphStatusPrivate&d, QWidget *parent=0);
+  IGraphStatus(IGraphStatusPrivate&dd, QWidget *parent=0);
 
 };
 

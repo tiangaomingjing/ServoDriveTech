@@ -10,7 +10,7 @@ IGraphVelocityPrivate::~IGraphVelocityPrivate()
 
 }
 
-IGraphVelocity::IGraphVelocity(QWidget *parent) : IGraphWidget(parent),IGraph(*(new IGraphVelocityPrivate),parent)
+IGraphVelocity::IGraphVelocity(QWidget *parent) : IGraphWidget(*(new IGraphVelocityPrivate),parent)
 {
 
 }
@@ -19,7 +19,7 @@ IGraphVelocity::~IGraphVelocity()
 
 }
 
-IGraphVelocity::IGraphVelocity(IGraphVelocityPrivate &d, QWidget *parent):IGraphWidget(parent),IGraph(d,parent)
+IGraphVelocity::IGraphVelocity(IGraphVelocityPrivate &dd, QWidget *parent):IGraphWidget(dd,parent)
 {
 
 }

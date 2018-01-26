@@ -445,7 +445,7 @@ void SDTMainWindow::changeConfigSaveBtnStatus()
 
 void SDTMainWindow::showPlotUiOnly(bool show)
 {
-  qDebug()<<show;
+  qDebug()<<"showPlotUiOnly "<<show;
   if(show)
     m_plot->show();
 }
@@ -661,7 +661,7 @@ bool SDTMainWindow::setConnect(bool net)
         QMessageBox::information(0,tr("connect error"),tr("can not connect \nmaybe \n1 net is not connecting \n2 net cable is not 1000M\n3 device net error"));
         break;
       }
-      qDebug()<<isConnect;
+      qDebug()<<"isConnect="<<isConnect;
     }
     return isConnect;
   }

@@ -1,9 +1,9 @@
 ﻿#ifndef IGRAPHBRAKE_P_H
 #define IGRAPHBRAKE_P_H
 #include "igraphposition.h"
-#include "igraph_p.h"
+#include "igraphwidget_p.h"
 
-class IUIWIDGETSHARED_EXPORT IGraphPositionPrivate:public IGraphPrivate
+class IUIWIDGETSHARED_EXPORT IGraphPositionPrivate:public IGraphWidgetPrivate
 {
   Q_DECLARE_PUBLIC(IGraphPosition)
 public:

@@ -11,6 +11,7 @@ public:
   QList<DeviceConfig *>createConfig(void (*processCallback)(void *pbar,short *value),void *processbar,bool &isOk)override;
   bool saveConfig(const DeviceConfig *config)override;
 
+private:
   DeviceConfig* buildConfigFromCom(quint8 devId, quint8 rnstation, ComDriver::ICom *com);
   static void printfInfo(void *argv, short *v);
 };

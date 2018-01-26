@@ -49,124 +49,140 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="91"/>
+        <location filename="sdtmainwindow.cpp" line="90"/>
         <source>connet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="sdtmainwindow.cpp" line="91"/>
         <location filename="sdtmainwindow.cpp" line="92"/>
-        <location filename="sdtmainwindow.cpp" line="93"/>
         <source>connect to servo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="96"/>
+        <location filename="sdtmainwindow.cpp" line="95"/>
         <source>disnet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="106"/>
+        <location filename="sdtmainwindow.cpp" line="105"/>
         <source>new</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="109"/>
+        <location filename="sdtmainwindow.cpp" line="108"/>
         <source>dwnload</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="112"/>
+        <location filename="sdtmainwindow.cpp" line="111"/>
         <source>upload</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="115"/>
+        <location filename="sdtmainwindow.cpp" line="114"/>
         <source>compare</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="118"/>
+        <location filename="sdtmainwindow.cpp" line="117"/>
         <source>config</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="122"/>
+        <location filename="sdtmainwindow.cpp" line="121"/>
         <source>save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="130"/>
+        <location filename="sdtmainwindow.cpp" line="129"/>
         <source>help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="132"/>
+        <location filename="sdtmainwindow.cpp" line="131"/>
         <source>hinfo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="134"/>
+        <location filename="sdtmainwindow.cpp" line="133"/>
         <source>sinfo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="146"/>
+        <location filename="sdtmainwindow.cpp" line="145"/>
         <source>online</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="150"/>
+        <location filename="sdtmainwindow.cpp" line="149"/>
         <source>offline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="158"/>
+        <location filename="sdtmainwindow.cpp" line="157"/>
         <source>update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="159"/>
+        <location filename="sdtmainwindow.cpp" line="158"/>
         <source>rstdsp</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="161"/>
+        <location filename="sdtmainwindow.cpp" line="160"/>
         <source>option</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="162"/>
+        <location filename="sdtmainwindow.cpp" line="161"/>
         <source>produce</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="173"/>
+        <location filename="sdtmainwindow.cpp" line="172"/>
         <source>UpdateFirmware</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="174"/>
+        <location filename="sdtmainwindow.cpp" line="173"/>
         <source>softmode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="311"/>
+        <location filename="sdtmainwindow.cpp" line="312"/>
         <source>Axis_%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="337"/>
+        <location filename="sdtmainwindow.cpp" line="338"/>
         <source>Plot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="338"/>
+        <location filename="sdtmainwindow.cpp" line="339"/>
         <source>-1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="507"/>
+        <location filename="sdtmainwindow.cpp" line="578"/>
         <source>dev:%1,axis:%2,page:%3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sdtmainwindow.cpp" line="647"/>
+        <location filename="sdtmainwindow.cpp" line="661"/>
+        <source>connect error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sdtmainwindow.cpp" line="647"/>
+        <location filename="sdtmainwindow.cpp" line="661"/>
+        <source>can not connect 
+maybe 
+1 net is not connecting 
+2 net cable is not 1000M
+3 device net error</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -209,8 +225,8 @@
 <context>
     <name>SevUiControler</name>
     <message>
-        <location filename="../../Common/src/Kernel/sevuicontroler.cpp" line="52"/>
-        <location filename="../../Common/src/Kernel/sevuicontroler.cpp" line="74"/>
+        <location filename="../../Common/src/Kernel/sevuicontroler.cpp" line="63"/>
+        <location filename="../../Common/src/Kernel/sevuicontroler.cpp" line="85"/>
         <source>build ui %1</source>
         <translation type="unfinished"></translation>
     </message>

@@ -3,7 +3,6 @@ TEMPLATE = subdirs
 SUBDIRS += \
     AppTest \
     AppUiTest\
-    UiSrcApp \
     AppQssTest \
     AppOptionTest \
     AppSDT \
@@ -15,4 +14,5 @@ SUBDIRS += \
     EpromManager \
     TestDB \
     QmlQuickWidgetMaxTest \
-    GraphFramework
+    GraphFramework \
+    AppConfigDialogTest
