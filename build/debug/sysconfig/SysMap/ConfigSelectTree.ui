@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>485</width>
-    <height>287</height>
+    <width>586</width>
+    <height>392</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,12 +26,28 @@
        <string>parameter</string>
       </property>
      </column>
+     <column>
+      <property name="text">
+       <string>id</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>prmEx0</string>
+      </property>
+     </column>
      <item>
       <property name="text">
        <string>PcDebug</string>
       </property>
       <property name="text">
        <string>0</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
       </property>
       <item>
        <property name="text">
@@ -40,12 +56,24 @@
        <property name="text">
         <string>4</string>
        </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
        <item>
         <property name="text">
          <string>SD41</string>
         </property>
         <property name="text">
-         <string>NULL</string>
+         <string>4</string>
+        </property>
+        <property name="text">
+         <string>21000509</string>
+        </property>
+        <property name="text">
+         <string/>
         </property>
         <item>
          <property name="text">
@@ -54,6 +82,12 @@
          <property name="text">
           <string>NULL</string>
          </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
         </item>
         <item>
          <property name="text">
@@ -61,6 +95,12 @@
          </property>
          <property name="text">
           <string>NULL</string>
+         </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="text">
+          <string/>
          </property>
         </item>
        </item>
@@ -69,7 +109,13 @@
          <string>SD42</string>
         </property>
         <property name="text">
-         <string>NULL</string>
+         <string>4</string>
+        </property>
+        <property name="text">
+         <string>21000509</string>
+        </property>
+        <property name="text">
+         <string/>
         </property>
         <item>
          <property name="text">
@@ -77,6 +123,12 @@
          </property>
          <property name="text">
           <string>NULL</string>
+         </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="text">
+          <string/>
          </property>
         </item>
         <item>
@@ -86,6 +138,12 @@
          <property name="text">
           <string>NULL</string>
          </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
         </item>
         <item>
          <property name="text">
@@ -93,6 +151,12 @@
          </property>
          <property name="text">
           <string>NULL</string>
+         </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="text">
+          <string/>
          </property>
         </item>
        </item>
@@ -105,6 +169,12 @@
       <property name="text">
        <string>1</string>
       </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="text">
+       <string>240</string>
+      </property>
       <item>
        <property name="text">
         <string>SD4x</string>
@@ -112,12 +182,24 @@
        <property name="text">
         <string>4</string>
        </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
        <item>
         <property name="text">
          <string>SD42</string>
         </property>
         <property name="text">
-         <string>NULL</string>
+         <string>4</string>
+        </property>
+        <property name="text">
+         <string>21000509</string>
+        </property>
+        <property name="text">
+         <string/>
         </property>
         <item>
          <property name="text">
@@ -125,6 +207,12 @@
          </property>
          <property name="text">
           <string>NULL</string>
+         </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="text">
+          <string/>
          </property>
         </item>
         <item>
@@ -134,6 +222,12 @@
          <property name="text">
           <string>NULL</string>
          </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
         </item>
         <item>
          <property name="text">
@@ -141,6 +235,12 @@
          </property>
          <property name="text">
           <string>NULL</string>
+         </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="text">
+          <string/>
          </property>
         </item>
        </item>
@@ -152,12 +252,24 @@
        <property name="text">
         <string>6</string>
        </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
        <item>
         <property name="text">
          <string>SD61</string>
         </property>
         <property name="text">
-         <string>NULL</string>
+         <string>6</string>
+        </property>
+        <property name="text">
+         <string>21000541</string>
+        </property>
+        <property name="text">
+         <string/>
         </property>
         <item>
          <property name="text">
@@ -166,6 +278,12 @@
          <property name="text">
           <string>NULL</string>
          </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
         </item>
         <item>
          <property name="text">
@@ -173,6 +291,12 @@
          </property>
          <property name="text">
           <string>NULL</string>
+         </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="text">
+          <string/>
          </property>
         </item>
        </item>
@@ -181,7 +305,13 @@
          <string>SD61_MINI</string>
         </property>
         <property name="text">
-         <string>NULL</string>
+         <string>6</string>
+        </property>
+        <property name="text">
+         <string>21000595</string>
+        </property>
+        <property name="text">
+         <string/>
         </property>
         <item>
          <property name="text">
@@ -190,6 +320,12 @@
          <property name="text">
           <string>NULL</string>
          </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
         </item>
         <item>
          <property name="text">
@@ -197,6 +333,12 @@
          </property>
          <property name="text">
           <string>NULL</string>
+         </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="text">
+          <string/>
          </property>
         </item>
        </item>

@@ -25,6 +25,8 @@
 #include "plotunit.h"
 #include "UiPlot/uiplot.h"
 
+#include "configdialog.h"
+
 #include <QToolButton>
 #include <QDebug>
 #include <QTranslator>
@@ -219,8 +221,9 @@ void SDTMainWindow::createConnections()
 //  connect(m_tbtnMore,SIGNAL(clicked(bool)),this,SLOT(onActnTbtnMoreClicked()));
   connect(m_actnConnect,SIGNAL(triggered(bool)),this,SLOT(onActnConnectClicked(bool)));
   connect(m_actnDisNet,SIGNAL(triggered(bool)),this,SLOT(onActnDisConnectClicked(bool)));
-  connect(m_tbtnHelp,SIGNAL(clicked(bool)),this,SLOT(onActnHelpDeviceInfo()));
-  connect(m_actnAboutHardware,SIGNAL(triggered(bool)),this,SLOT(onActnHelpDeviceInfo()));
+  connect(m_tbtnHelp,SIGNAL(clicked(bool)),this,SLOT(onActnHelpDeviceInfoClicked()));
+  connect(m_actnAboutHardware,SIGNAL(triggered(bool)),this,SLOT(onActnHelpDeviceInfoClicked()));
+  connect(m_actnNewConfig,SIGNAL(triggered(bool)),this,SLOT(onActnNewConfigClicked()));
 
   OptAutoLoad *optAuto=dynamic_cast<OptAutoLoad *>(OptContainer::instance()->optItem("optautoload"));
   if(optAuto!=NULL)
@@ -509,7 +512,7 @@ void SDTMainWindow::onActnDisConnectClicked(bool checked)
   }
   qDebug()<<"checked"<<checked;
 }
-void SDTMainWindow::onActnHelpDeviceInfo()
+void SDTMainWindow::onActnHelpDeviceInfoClicked()
 {
   static bool test=true;
   if(test)
@@ -517,6 +520,16 @@ void SDTMainWindow::onActnHelpDeviceInfo()
   else
     showMaximized();
   test=!test;
+}
+void SDTMainWindow::onActnNewConfigClicked()
+{
+  QList<DeviceConfig *>list;
+  ConfigDialog dia(&list,0);
+  dia.exec();
+  m_statusBar->setWarningMsg("");
+  m_statusBar->setVisible(true);
+  createSdAssemblyByDevConfig(list);
+  m_statusBar->setVisible(false);
 }
 
 void SDTMainWindow::onOptAutoLoadChanged(bool changed)
@@ -532,6 +545,12 @@ void SDTMainWindow::onOptFaceCssChanged(QString css)
 void SDTMainWindow::onProgressInfo(int barValue,QString msg)
 {
   qDebug()<<"value"<<barValue<<"msg"<<msg;
+  if(this->isVisible())
+  {
+    mp_progressBar->setValue(barValue);
+    m_statusBar->setWarningMsg(msg);
+    qDebug()<<"visible processbar value="<<barValue;
+  }
   emit initProgressInfo(barValue,msg);
 }
 void SDTMainWindow::onNavTreeWidgetItemClicked(QTreeWidgetItem *item, int column)
@@ -678,7 +697,8 @@ bool SDTMainWindow::setConnect(bool net)
 
 void SDTMainWindow::createSdAssemblyByDevConfig(const QList<DeviceConfig *> &configList)
 {
-
+  if(configList.count()==0)
+    return;
   QList<DeviceConfig *> devConfigBuf;
   int configCount=configList.count();
   qDebug()<<"configList.count()"<<configCount;

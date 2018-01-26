@@ -78,7 +78,8 @@ private slots:
   void onActnTbtnMoreClicked();
   void onActnConnectClicked(bool checked);
   void onActnDisConnectClicked(bool checked);
-  void onActnHelpDeviceInfo();
+  void onActnHelpDeviceInfoClicked();
+  void onActnNewConfigClicked();
 
   //响应option选项slots
   void onOptAutoLoadChanged(bool changed);
