@@ -43,7 +43,8 @@ SOURCES += \
     sevdspmap.cpp \
     sevpwrboard.cpp \
     PowerTreeManage/powertreemanage.cpp \
-    ../../Common/src/Kernel/deviceconfig.cpp
+    ../../Common/src/Kernel/deviceconfig.cpp \
+    sdkernel_global.cpp
 
 HEADERS += \
     sdkernel_global.h \

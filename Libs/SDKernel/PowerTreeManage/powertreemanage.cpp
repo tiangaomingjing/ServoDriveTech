@@ -1,4 +1,7 @@
 ﻿#include "powertreemanage.h"
+#include "sdkernel_global.h"
+#include "qttreemanager.h"
+#include "gtutils.h"
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 #include <QDebug>
@@ -58,58 +61,74 @@ void SamplingDataInfo::setMathExp(const QStringList &mathExp)
 }
 
 
-PowerTreeManage::PowerTreeManage(QTreeWidget *powerTree, QObject *parent) : QObject(parent),
-  m_powerTree(powerTree),
-  m_pwrTarget(NULL)
+PowerTreeManage::PowerTreeManage(const quint32 id, QObject *parent) : QObject(parent)
+//  m_powerTree(powerTree),
+//  m_pwrTarget(NULL)
 {
-
+    m_powerTree = NULL;
+    m_pwrTarget = NULL;
+    QString idStr = QString::number(id, 10);
+    qDebug()<<idStr;
+    QString path = GTUtils::databasePath() + "Board/PB/";
+    QString filePath = path + "pbindex.ui";
+    qDebug()<<filePath;
+    QTreeWidget *indexTree = QtTreeManager::createTreeWidgetFromXmlFile(filePath);
+    QTreeWidgetItem* targetItem = GLO::findItem(idStr, indexTree, PWR_COL_INX_VALUE);
+    if (targetItem == NULL) {
+        return;
+    }
+    path = path + GLO::getPath(targetItem);
+    m_filterPath = path + GLO::getFilterPath(targetItem);
+    m_powerTree = QtTreeManager::createTreeWidgetFromXmlFile(path);
+    m_pwrTarget = GLO::findItem(idStr, m_powerTree, PWR_COL_INX_VALUE);
+    delete indexTree;
 }
 /**
  * @brief PowerTreeManage::findTargetBoard
  * @param id
  * @return NULL :没有找到
  */
-QTreeWidgetItem *PowerTreeManage::findTargetBoard(const quint32 id)
-{
-  QTreeWidgetItem *itemLevel_1;
-  QTreeWidgetItem *itemLevel_2;
-  QTreeWidgetItem *itemLevel_3;
-  QTreeWidgetItem *itemLevel_4;
-  QTreeWidgetItem *retItem=NULL;
-  for(int i=0;i<m_powerTree->topLevelItem(PWR_ROW_INX_BASIC)->childCount();i++)
-  {
-    itemLevel_1=m_powerTree->topLevelItem(PWR_ROW_INX_BASIC)->child(i);
-    qDebug()<<"level 1 "<<itemLevel_1->text(0);
-    for(int j=0;j<itemLevel_1->childCount();j++)
-    {
-      itemLevel_2=itemLevel_1->child(j);
-      qDebug()<<"level 2 "<<itemLevel_2->text(0);
-      for(int k=0;k<itemLevel_2->childCount();k++)
-      {
-        itemLevel_3=itemLevel_2->child(k);
-        qDebug()<<"level 3 "<<itemLevel_3->text(0);
-        for(int n=0;n<itemLevel_3->childCount();n++)
-        {
-          itemLevel_4=itemLevel_3->child(n);
-          qDebug()<<"level 4 "<<itemLevel_4->text(0);
-          if(itemLevel_4->text(PWR_COL_INX_VALUE).toUInt()==id)
-          {
-            retItem=itemLevel_4;
-            qDebug()<<"find id item:"<<retItem->text(0)<<"="<<retItem->text(1);
-            return retItem;
-          }
-        }
-      }
-    }
-  }
-  return NULL;
-}
+//QTreeWidgetItem *PowerTreeManage::findTargetBoard(const quint32 id)
+//{
+//  QTreeWidgetItem *itemLevel_1;
+//  QTreeWidgetItem *itemLevel_2;
+//  QTreeWidgetItem *itemLevel_3;
+//  QTreeWidgetItem *itemLevel_4;
+//  QTreeWidgetItem *retItem=NULL;
+//  for(int i=0;i<m_powerTree->topLevelItem(PWR_ROW_INX_BASIC)->childCount();i++)
+//  {
+//    itemLevel_1=m_powerTree->topLevelItem(PWR_ROW_INX_BASIC)->child(i);
+//    qDebug()<<"level 1 "<<itemLevel_1->text(0);
+//    for(int j=0;j<itemLevel_1->childCount();j++)
+//    {
+//      itemLevel_2=itemLevel_1->child(j);
+//      qDebug()<<"level 2 "<<itemLevel_2->text(0);
+//      for(int k=0;k<itemLevel_2->childCount();k++)
+//      {
+//        itemLevel_3=itemLevel_2->child(k);
+//        qDebug()<<"level 3 "<<itemLevel_3->text(0);
+//        for(int n=0;n<itemLevel_3->childCount();n++)
+//        {
+//          itemLevel_4=itemLevel_3->child(n);
+//          qDebug()<<"level 4 "<<itemLevel_4->text(0);
+//          if(itemLevel_4->text(PWR_COL_INX_VALUE).toUInt()==id)
+//          {
+//            retItem=itemLevel_4;
+//            qDebug()<<"find id item:"<<retItem->text(0)<<"="<<retItem->text(1);
+//            return retItem;
+//          }
+//        }
+//      }
+//    }
+//  }
+//  return NULL;
+//}
 /**
  * @brief PowerTreeManage::powerLimitMapList
  * @param id 设备EPROM ID
  * @return
  */
-QTreeWidgetItem * PowerTreeManage::basicInfoTreeItem(QTreeWidgetItem*target)
+QTreeWidgetItem* PowerTreeManage::basicInfoTreeItem(QTreeWidgetItem*target)
 {
   QTreeWidgetItem *basicItem;
   basicItem=target->child(DEV_ROW_INX_BASICINFO);
@@ -125,22 +144,27 @@ QTreeWidgetItem * PowerTreeManage::detailInfoTreeItem(QTreeWidgetItem *target)
   return detailItem;
 }
 
-bool PowerTreeManage::updatePowerLimitMapList(const quint32 id, QList<QMap<QString, PowerBoardLimit> > &powerLimitMapList)
+bool PowerTreeManage::updatePowerLimitMapList(QString version, QList<QMap<QString, PowerBoardLimit> > &powerLimitMapList)
 {
-  m_pwrTarget=findTargetBoard(id);
   if(m_pwrTarget==NULL)
     return false;
 
   int axisNum;
 //  QTreeWidgetItem *item;
   powerLimitMapList.clear();
+  m_filterPath = m_filterPath + "V" + version + ".ui";
+  QTreeWidget* filterTree = QtTreeManager::createTreeWidgetFromXmlFile(m_filterPath);
+
+  for (int i = 0; i < filterTree->topLevelItemCount(); i++) {
+      m_filterList.append(filterTree->topLevelItem(i)->text(0));
+  }
   //basic information
   QTreeWidgetItem *basicItem = basicInfoTreeItem(m_pwrTarget);
   //detailed information
   QTreeWidgetItem *detailItem = detailInfoTreeItem(m_pwrTarget);
   axisNum=detailItem->child(DETINFO_ROW_INX_AXISNUM)->childCount();
 
-  for(int i=0;i<axisNum;i++)
+  for(int i=0;i < axisNum; i++)
   {
     QMap<QString ,PowerBoardLimit> plimitMap;
     //basic
@@ -161,22 +185,20 @@ bool PowerTreeManage::updatePowerLimitMapList(const quint32 id, QList<QMap<QStri
   return true;
 }
 
-SamplingDataInfo PowerTreeManage::samplingDataInfo(const quint32 id, bool *isOK)
+SamplingDataInfo PowerTreeManage::samplingDataInfo(bool *isOK)
 {
   SamplingDataInfo samplingInfo;
   *isOK=true;
   if(m_pwrTarget==NULL)
   {
-    m_pwrTarget=findTargetBoard(id);
-    if(m_pwrTarget==NULL)
       *isOK=false;
+      return samplingInfo;
   }
-
+qDebug()<<*isOK;
   QTreeWidgetItem *detailItem = detailInfoTreeItem(m_pwrTarget);
-
   int axisNum;
   axisNum=detailItem->child(DETINFO_ROW_INX_AXISNUM)->childCount();
-
+    qDebug()<<"b";
   QVector<quint8> types;
   QVector<double> values;
   for(int i=0;i<axisNum;i++)
@@ -213,18 +235,21 @@ SamplingDataInfo PowerTreeManage::samplingDataInfo(const quint32 id, bool *isOK)
       QMessageBox::information(0,tr("error"),tr("cannot find Sampling type item"));
       *isOK=false;
     }
+    qDebug()<<"c";
     types.append(type);
     values.append(value);
+    qDebug()<<"d";
   }
-
+qDebug()<<"e";
   samplingInfo.setTypes(types);
   samplingInfo.setValues(values);
+  qDebug()<<"f";
   return samplingInfo;
 }
 
 void PowerTreeManage::insertLimit(QTreeWidgetItem *item, QMap<QString ,PowerBoardLimit> &limitMap)
 {
-  if((item->text(PWR_COL_INX_CTLNAME)!="null")&&(item->text(PWR_COL_INX_CTLNAME)!=""))
+  if((item->text(PWR_COL_INX_CTLNAME)!="null")&&(item->text(PWR_COL_INX_CTLNAME)!="") && m_filterList.contains(item->text(PWR_COL_INX_CTLNAME), Qt::CaseSensitive))
   {
     QString name=item->text(PWR_COL_INX_CTLNAME);
     PowerBoardLimit limit;
@@ -241,7 +266,7 @@ void PowerTreeManage::insertLimitRecursion(QTreeWidgetItem *item, QMap<QString, 
   for(int i=0;i<item->childCount();i++)
   {
     itemChild=item->child(i);
-    if((itemChild->text(PWR_COL_INX_CTLNAME)!="null")&&(itemChild->text(PWR_COL_INX_CTLNAME)!=""))
+    if((itemChild->text(PWR_COL_INX_CTLNAME)!="null")&&(itemChild->text(PWR_COL_INX_CTLNAME)!="") && m_filterList.contains(item->text(PWR_COL_INX_CTLNAME), Qt::CaseSensitive))
     {
       QString name=itemChild->text(PWR_COL_INX_CTLNAME);
       PowerBoardLimit limit;

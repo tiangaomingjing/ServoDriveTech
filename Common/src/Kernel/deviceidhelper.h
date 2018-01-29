@@ -2,6 +2,7 @@
 #define DEVICEIDHELPER_H
 
 #include <QObject>
+
 namespace ComDriver {
   class ICom;
 }

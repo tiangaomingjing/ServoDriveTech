@@ -44,7 +44,8 @@ HEADERS +=\
     optface.h \
     optplot.h \
     optautoload.h \
-    qmlstylehelper.h
+    qmlstylehelper.h \
+    Option
 
 unix {
     target.path = /usr/lib
