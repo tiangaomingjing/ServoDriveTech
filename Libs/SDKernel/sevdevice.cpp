@@ -62,6 +62,7 @@ QTreeWidget *SevDevicePrivate::configTree()
 
 void SevDevicePrivate::initConfig(const DeviceConfig *dConfig)
 {
+    qDebug()<<"initial private";
   m_devConfig->m_devId=dConfig->m_devId;
   m_devConfig->m_comType=dConfig->m_comType;
   m_devConfig->m_axisNum=dConfig->m_axisNum;
@@ -118,6 +119,9 @@ QTreeWidgetItem* SevDevicePrivate::findTargetTree()
 
   QString comIndexFile=GTUtils::sysPath()+"SysMap/"+COMINDEX_NAME;
   QTreeWidget *comInxTree=QtTreeManager::createTreeWidgetFromXmlFile(comIndexFile);
+//  if (comInxTree == NULL) {
+//      return NULL;
+//  }
   QString comName="RnNet";
   quint8 comId=m_devConfig->m_comType;
 //  qDebug()<<"comId ="<<comId;

@@ -31,6 +31,9 @@ public:
   static QString ubootPath();
   static QString languagePath();
   static void delayms(quint16 ms);
+//  static QTreeWidgetItem* findItem(QString text, QTreeWidget* tree, int col);
+//  static QTreeWidgetItem* findItemByValue(Uint8* value, Uint16 num, QTreeWidget *tree);
+//  static QString getPath(QTreeWidgetItem *item);
 
   static QList<QTranslator*>setupTranslators(const QString &path);
 

@@ -2,6 +2,7 @@
 #include "pcdebug_p.h"
 #include "comglobal.h"
 #include "ServoDriverComDll.h"
+#include <QDebug>
 
 COM_USE_NAMESPACE
 
@@ -386,6 +387,9 @@ errcode_t PcDebug::readEEPROM(uint16_t ofst, uint8_t* value, uint16_t num,uint8_
 
   int16_t ret=-1;
   EEPROMSelect select=EEPROMSelect(cs);
+  qDebug()<<"ofst"<<ofst;
+  qDebug()<<"num"<<num;
+  qDebug()<<"select"<<select;
   switch (select)
   {
   case EEPROM_CS_CONTROL:
