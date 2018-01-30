@@ -44,6 +44,16 @@ static void deepClearList(QList<T*>&list)
   list.clear();
 }
 
+template <typename T>
+static void deletePtrObject(T*obj)
+{
+  if(obj!=NULL)
+  {
+    delete obj;
+    obj=NULL;
+  }
+}
+
 GT_NAMESPACE_END
 #endif // SDTGLOBALDEF
 

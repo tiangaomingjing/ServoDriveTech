@@ -17,7 +17,7 @@ class SevDevicePrivate:public QObject
 public :
   SevDevicePrivate(SevDevice *sev, QObject *parent=0);
   ~SevDevicePrivate();
-  void init(const DeviceConfig *dConfig);
+  bool init(const DeviceConfig *dConfig);
   QTreeWidget* configTree();
   QTreeWidgetItem* findTargetTree();
   //通信口

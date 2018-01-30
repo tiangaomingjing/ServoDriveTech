@@ -84,6 +84,8 @@ void SDTMainWindow::staticUiInit()
   ui->statusBar->addPermanentWidget(m_statusBar,0);
   ui->statusBar->setToolTipDuration(2000);
 
+  ui->treeWidget->setMinimumWidth(150);
+
   createActions();
   setAppIcon();
   createConnections();
@@ -341,6 +343,7 @@ void SDTMainWindow::navigationTreeInit()
 
 //    ui->treeWidget->addTopLevelItem(deviceItem);
   }
+
   plotItem=new QTreeWidgetItem(ui->treeWidget);
   plotItem->setText(COL_TARGET_CONFIG_NAME,tr("Plot"));
   plotItem->setText(COL_TARGET_CONFIG_PRM,tr("-1"));//代表不是设备
@@ -352,9 +355,17 @@ void SDTMainWindow::navigationTreeInit()
   headList<<"name"<<"prm"<<"classname"<<"filename"<<"ui index"<<"file src select"<<"is plot ui";
   ui->treeWidget->setHeaderLabels(headList);
   ui->treeWidget->setColumnCount(headList.count());
-  ui->treeWidget->expandItem(ui->treeWidget->topLevelItem(0));
-  ui->treeWidget->expandItem(ui->treeWidget->topLevelItem(0)->child(0));
-  ui->treeWidget->topLevelItem(0)->child(0)->child(0)->setSelected(true);
+
+  if(ui->treeWidget->topLevelItem(0)!=NULL)
+  {
+    ui->treeWidget->expandItem(ui->treeWidget->topLevelItem(0));
+    if(ui->treeWidget->topLevelItem(0)->child(0)!=NULL)
+    {
+      ui->treeWidget->expandItem(ui->treeWidget->topLevelItem(0)->child(0));
+      if(ui->treeWidget->topLevelItem(0)->child(0)->child(0)!=NULL)
+        ui->treeWidget->topLevelItem(0)->child(0)->child(0)->setSelected(true);
+    }
+  }
 //  ui->treeWidget->setHeaderHidden(false);
   ui->treeWidget->setHeaderHidden(true);
   ui->treeWidget->setColumnHidden(1,true);
@@ -497,6 +508,19 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
     if(isOpen)
     {
       m_connecting=true;
+      if(isAutoLoad())
+      {
+        //2 根据版本判断是否加CRC
+        //3 是否要进行参数检查 m_versionNeedCheck=(softIsBigger128&&hardIsBigger128);
+      }
+      else
+      {
+        //1 读软件版本校验 不对要提示相关信息
+        //2 根据版本判断是否加CRC
+        //3 是否要进行参数检查 m_versionNeedCheck=(softIsBigger128&&hardIsBigger128);
+      }
+      //检查一下P-C-V-F是否匹配 ?不匹配加提示
+
       m_statusBar->statusProgressBar()->setValue(100);
       activeCurrentUi();
     }
@@ -541,6 +565,7 @@ void SDTMainWindow::onActnNewConfigClicked()
   createSdAssemblyByDevConfig(list);
   m_statusBar->statusProgressBar()->setVisible(false);
   m_statusBar->statusProgressBar()->setValue(100);
+  m_statusBar->setMsg("");
 }
 
 void SDTMainWindow::onOptAutoLoadChanged(bool changed)
@@ -640,10 +665,17 @@ void SDTMainWindow::onPlotFloatingChanged(bool floating)
 }
 SdAssembly *SDTMainWindow::createSdAssembly(DeviceConfig *cfg)
 {
+  bool initOK=true;
   SdAssembly *sd= new SdAssembly();
   connect(sd,SIGNAL(initProgressInfo(int,QString)),this,SLOT(onProgressInfo(int,QString)));
-  sd->init(cfg);
-  return sd;
+  initOK=sd->init(cfg);
+  if(initOK)
+    return sd;
+  else
+  {
+    delete sd;
+    return NULL;
+  }
 }
 void SDTMainWindow::setUiStatusConnect(bool isNet)
 {
@@ -663,9 +695,8 @@ bool SDTMainWindow::setConnect(bool net)
   //打开
   if(net)
   {
-    OptAutoLoad *optAuto=dynamic_cast<OptAutoLoad *>(OptContainer::instance()->optItem("optautoload"));
     QProgressBar *bar=m_statusBar->statusProgressBar();
-    if(optAuto->autoLoad())
+    if(isAutoLoad())
     {
       QList<DeviceConfig*> configList;
       bool isOk;
@@ -707,6 +738,11 @@ bool SDTMainWindow::setConnect(bool net)
     }
     return true;
   }
+}
+bool SDTMainWindow::isAutoLoad()
+{
+  OptAutoLoad *optAuto=dynamic_cast<OptAutoLoad *>(OptContainer::instance()->optItem("optautoload"));
+  return optAuto->autoLoad();
 }
 
 void SDTMainWindow::createSdAssemblyByDevConfig(const QList<DeviceConfig *> &configList)
@@ -753,7 +789,10 @@ void SDTMainWindow::createSdAssemblyByDevConfig(const QList<DeviceConfig *> &con
   {
     qDebug()<<"new SdAssembly()";
     currentSdAssembly=createSdAssembly(cfg);
-    sdAssemblyListTemp.append(currentSdAssembly);
+    if(currentSdAssembly!=NULL)
+    {
+      sdAssemblyListTemp.append(currentSdAssembly);
+    }
   }
 
   m_sdAssemblyList=sdAssemblyListTemp;
@@ -763,6 +802,7 @@ void SDTMainWindow::createSdAssemblyByDevConfig(const QList<DeviceConfig *> &con
   clearNavigationTree();
 
   navigationTreeInit();
+  qDebug()<<"stackedWidgetInit";
   stackedWidgetInit();
 //  ui->progressBar->setValue(100);
 
