@@ -67,9 +67,7 @@ bool SDTMainWindow::init()
   globalUiPageInit();
   stackedWidgetInit();
   m_statusBar->resetStatus();
-//  m_statusBar->setErrorStatus(false);
-//  m_statusBar->statusProgressBar()->setVisible(false);
-//  m_statusBar->setMsg("",SdtStatusBar::MSG_TYPE_NORMAL);
+
   return true;
 }
 QTreeWidget *SDTMainWindow::navTreeWidget() const
@@ -500,10 +498,12 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
     {
       m_connecting=true;
       m_statusBar->statusProgressBar()->setValue(100);
+      activeCurrentUi();
     }
     else
     {
       m_statusBar->statusProgressBar()->setValue(50);
+      QMessageBox::information(0,tr("connect error"),tr("can not connect \nmaybe \n1 net is not connecting \n2 net cable is not 1000M\n3 device net error"));
     }
     setUiStatusConnect(m_connecting);
     setUiAllEnable(true);
@@ -679,7 +679,6 @@ bool SDTMainWindow::setConnect(bool net)
       }
       else
       {
-        QMessageBox::information(0,tr("connect error"),tr("can not connect \nmaybe \n1 net is not connecting \n2 net cable is not 1000M\n3 device net error"));
         delete idevRWriter;
         return false;
       }
@@ -693,7 +692,6 @@ bool SDTMainWindow::setConnect(bool net)
       {
         bar->setValue(0);
         sd->sevDevice()->disableConnection();
-        QMessageBox::information(0,tr("connect error"),tr("can not connect \nmaybe \n1 net is not connecting \n2 net cable is not 1000M\n3 device net error"));
         break;
       }
       qDebug()<<"isConnect="<<isConnect;

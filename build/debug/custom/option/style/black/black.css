@@ -128,6 +128,21 @@ background-color: #F0F0F0;
 QWidget#mainStackedWidget{
 background-color: #F0F0F0;
 }
+/*==============================状态栏====================================*/
+QToolButton#tbtnError,QToolButton#tbtnNet { /* all types of tool button */
+    border: none;
+	padding-top:5px;
+	padding-bottom:5px;
+	padding-left:0px;
+	padding-right:0px;
+	color:red;
+    border-radius: 5px;
+    background-color: transparent;
+}
+QToolButton#tbtnError:hover{
+    background-color: rgb(80, 80, 80);
+	color:white;
+}
 
 /*============自定义stylewidget 可以在C++环境中索引到其值=================*/
 StyleWidget{
@@ -142,3 +157,25 @@ StyleWidget{
 	qproperty-msgErrorColor:red;
 }
 
+
+/*====================电机界面===================*/
+QWidget#widget_machinePrm{
+background-color: rgb(211, 211, 211);
+border-radius:5px;
+}
+QWidget#widget_currentPrm{
+background-color: rgb(211, 211, 211);
+border-radius:5px;
+}
+QWidget#widget_impedancePrm{
+background-color: rgb(211, 211, 211);
+border-radius:5px;
+}
+QWidget#widget_torquePrm{
+background-color: rgb(211, 211, 211);
+border-radius:5px;
+}
+QWidget#widget_velocityPrm{
+background-color: rgb(211, 211, 211);
+border-radius:5px;
+}
