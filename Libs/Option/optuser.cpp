@@ -57,6 +57,8 @@ OptUser::~OptUser()
 }
 void OptUser::uiInit()
 {
+    QIcon icon = new QIcon("ff");
+    ui->btn_Ordinary->setIcon();
 
 }
 
