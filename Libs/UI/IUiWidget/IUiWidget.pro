@@ -76,7 +76,8 @@ HEADERS += iuiwidget.h\
     igraph_p.h \
     igraphbrake.h \
     igraphbrake_p.h \
-    igraphwidget_p.h
+    igraphwidget_p.h \
+    ../../Option/Option
 
 unix {
     target.path = /usr/lib
