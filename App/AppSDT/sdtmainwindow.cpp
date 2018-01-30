@@ -44,17 +44,19 @@ SDTMainWindow::SDTMainWindow(QWidget *parent) :
 {
   ui->setupUi(this);
   qmlRegisterType<SevDevice>("QtCppClass", 1, 0, "SevDevice");
-  qmlRegisterType<QmlStyleHelper>("QtCppClass", 1, 0, "QmlStyleHelper");
+//  qmlRegisterType<QmlStyleHelper>("QtCppClass", 1, 0, "QmlStyleHelper");
   clearStackedWidget();
   staticUiInit();
 }
 
 SDTMainWindow::~SDTMainWindow()
 {
+  //在关闭的时候已经delete
 //  delete m_plot;
 //  GT::deepClearList(m_sdAssemblyList);
 //  delete m_gUiControl;
 //  delete m_optc;
+
   delete ui;
 
 }
@@ -64,6 +66,10 @@ bool SDTMainWindow::init()
   navigationTreeInit();
   globalUiPageInit();
   stackedWidgetInit();
+  m_statusBar->resetStatus();
+//  m_statusBar->setErrorStatus(false);
+//  m_statusBar->statusProgressBar()->setVisible(false);
+//  m_statusBar->setMsg("",SdtStatusBar::MSG_TYPE_NORMAL);
   return true;
 }
 QTreeWidget *SDTMainWindow::navTreeWidget() const
@@ -486,17 +492,20 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
 
   if(!m_connecting)
   {
-     m_statusBar->statusProgressBar()->setVisible(true);
+    m_statusBar->statusProgressBar()->setVisible(true);
     setUiAllEnable(false);
+    m_statusBar->statusProgressBar()->setValue(5);
     bool isOpen=setConnect(true);
     if(isOpen)
     {
       m_connecting=true;
+      m_statusBar->statusProgressBar()->setValue(100);
     }
     else
     {
-      setUiStatusConnect(false);
+      m_statusBar->statusProgressBar()->setValue(50);
     }
+    setUiStatusConnect(m_connecting);
     setUiAllEnable(true);
     m_statusBar->statusProgressBar()->setVisible(false);
   }
@@ -509,6 +518,7 @@ void SDTMainWindow::onActnDisConnectClicked(bool checked)
   {
     setConnect(false);
     m_connecting=false;
+    setUiStatusConnect(m_connecting);
   }
   qDebug()<<"checked"<<checked;
 }
@@ -526,10 +536,11 @@ void SDTMainWindow::onActnNewConfigClicked()
   QList<DeviceConfig *>list;
   ConfigDialog dia(&list,0);
   dia.exec();
-  m_statusBar->setWarningMsg("");
-  m_statusBar->setVisible(true);
+  m_statusBar->statusProgressBar()->setVisible(true);
+  m_statusBar->statusProgressBar()->setValue(0);
   createSdAssemblyByDevConfig(list);
-  m_statusBar->setVisible(false);
+  m_statusBar->statusProgressBar()->setVisible(false);
+  m_statusBar->statusProgressBar()->setValue(100);
 }
 
 void SDTMainWindow::onOptAutoLoadChanged(bool changed)
@@ -537,7 +548,7 @@ void SDTMainWindow::onOptAutoLoadChanged(bool changed)
   m_actnNewConfig->setVisible(!changed);
   qDebug()<<"m_actnNewConfig->setVisible"<<!changed;
 }
-void SDTMainWindow::onOptFaceCssChanged(QString css)
+void SDTMainWindow::onOptFaceCssChanged(const QString &css)
 {
   setAppIcon();
   qDebug()<<"setAppIcon"<<css;
@@ -545,11 +556,15 @@ void SDTMainWindow::onOptFaceCssChanged(QString css)
 void SDTMainWindow::onProgressInfo(int barValue,QString msg)
 {
   qDebug()<<"value"<<barValue<<"msg"<<msg;
+  static int styleTest=0;
   if(this->isVisible())
   {
     mp_progressBar->setValue(barValue);
-    m_statusBar->setWarningMsg(msg);
+    m_statusBar->setMsg(msg,(SdtStatusBar::MsgType)styleTest);
     qDebug()<<"visible processbar value="<<barValue;
+    styleTest++;
+    if(styleTest>2)
+      styleTest=0;
   }
   emit initProgressInfo(barValue,msg);
 }
@@ -634,6 +649,7 @@ void SDTMainWindow::setUiStatusConnect(bool isNet)
 {
   m_actnConnect->setChecked(isNet);
   m_actnDisNet->setChecked(!isNet);
+  m_statusBar->setConnectStatus(isNet);
 }
 void SDTMainWindow::setUiAllEnable(bool en)
 {

@@ -34,7 +34,8 @@ private:
 
 };
 class QSettings;
-class QmlStyleHelper;
+//class QmlStyleHelper;
+class StyleWidget;
 class OPTIONSHARED_EXPORT OptFace : public IOpt
 {
   Q_OBJECT
@@ -49,7 +50,8 @@ public:
   int fontSize() const;
   QString css() const;
   QString language() const;
-  QmlStyleHelper *qmlStyleHelper() const;
+//  QmlStyleHelper *qmlStyleHelper() const;
+  StyleWidget *customStyleWidget();
 
 protected:
   bool optActive()Q_DECL_OVERRIDE;
@@ -58,7 +60,7 @@ protected:
   void respondErrorExecute()Q_DECL_OVERRIDE;
 
 signals:
-  void faceCssChanged(QString css);
+  void faceCssChanged(const QString &css);
 
 private slots:
   void onRadioButtonClicked(bool checked);

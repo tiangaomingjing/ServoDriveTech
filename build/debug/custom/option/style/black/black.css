@@ -129,3 +129,16 @@ QWidget#mainStackedWidget{
 background-color: #F0F0F0;
 }
 
+/*============自定义stylewidget 可以在C++环境中索引到其值=================*/
+StyleWidget{
+	qproperty-dsBoxBackgroundDefColor:white;
+	qproperty-dsBoxBackgroundReadyColor:green;
+	qproperty-dsBoxBackgroundErrorColor:#FF00FF;
+	qproperty-dsBoxTextEditColor:blue;
+	qproperty-dsBoxTextDefColor:black;
+	
+	qproperty-msgNormalColor:black;
+	qproperty-msgWarningColor:blue;
+	qproperty-msgErrorColor:red;
+}
+

@@ -5,8 +5,7 @@
 #include <QMenu>
 
 #include "gtutils.h"
-#include "optcontainer.h"
-#include "optface.h"
+#include "Option"
 #include "appiconname.h"
 
 #include "statuserrdialog.h"
@@ -20,9 +19,9 @@ SdtStatusBar::SdtStatusBar(QTreeWidget *navTree, QWidget *parent) :
   m_errDialog=new StatusErrDialog(navTree,this);
   connect(m_errDialog,SIGNAL(statusPageChanged(int)),this,SIGNAL(statusPageChanged(int)));
 
-  QPalette pa;
-  pa.setColor(QPalette::WindowText,Qt::red);
-  ui->labelMsg->setPalette(pa);
+//  QPalette pa;
+//  pa.setColor(QPalette::WindowText,Qt::red);
+//  ui->labelMsg->setPalette(pa);
 //  ui->tbtnError->setPopupMode(QToolButton::MenuButtonPopup);
   ui->tbtnError->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
   ui->tbtnError->setText(tr("Error"));
@@ -48,7 +47,7 @@ SdtStatusBar::SdtStatusBar(QTreeWidget *navTree, QWidget *parent) :
 
 //  resetStatus();
   setConnectStatus(false);
-  showErrorStatus(true);
+  setErrorStatus(true);
 }
 
 SdtStatusBar::~SdtStatusBar()
@@ -60,15 +59,36 @@ void SdtStatusBar::resetStatus()
 {
   ui->labelMsg->setText("");
   ui->progressBar->setValue(0);
-  ui->labelMsg->hide();
-  ui->progressBar->hide();
-  ui->tbtnError->hide();
+  ui->progressBar->setVisible(false);
+  ui->tbtnError->setVisible(false);
 }
 
-void SdtStatusBar::setWarningMsg(const QString &str)
+void SdtStatusBar::setMsg(const QString &str,MsgType type)
 {
+  OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
+  StyleWidget *style=face->customStyleWidget();
+  int r,g,b;
+  QString ss;
+  QColor color;
+  switch (type)
+  {
+  case MSG_TYPE_NORMAL:
+    color=style->msgNormalColor();
+    break;
+  case MSG_TYPE_WARNING:
+    color=style->msgWarningColor();
+    break;
+  case MSG_TYPE_ERROR:
+    color=style->msgErrorColor();
+    break;
+  default:
+    break;
+  }
+  FILL_RGB(color,r,g,b);
+  ss=QString("QLabel{color:rgb(%1,%2,%3);}").arg(r).arg(g).arg(b);
+  qDebug()<<"setMsg "<<ss;
   ui->labelMsg->setText(str);
-
+  ui->labelMsg->setStyleSheet(ss);
 }
 
 void SdtStatusBar::setConnectStatus(bool connected)
@@ -84,15 +104,15 @@ void SdtStatusBar::setConnectStatus(bool connected)
   ui->tbtnNet->setIcon(QIcon(path));
 }
 
-void SdtStatusBar::showErrorStatus(bool show)
+void SdtStatusBar::setErrorStatus(bool hasError)
 {
-  if(show)
+  if(hasError)
   {
     OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
     QString path=GTUtils::customPath()+"option/style/"+face->css()+"/icon/"+ICON_STATUS_ERROR;
     ui->tbtnError->setIcon(QIcon(path));
   }
-  ui->tbtnError->setVisible(show);
+  ui->tbtnError->setVisible(hasError);
 }
 
 void SdtStatusBar::updateDeviceWhenChanged(QTreeWidget *navTree)

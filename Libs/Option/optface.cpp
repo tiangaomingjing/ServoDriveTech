@@ -1,7 +1,8 @@
 ﻿#include "optface.h"
 #include "ui_optface.h"
 #include "iopt_p.h"
-#include "qmlstylehelper.h"
+//#include "qmlstylehelper.h"
+#include "stylewidget.h"
 
 #include <QDebug>
 #include <QFile>
@@ -84,7 +85,8 @@ public:
   QString m_css;//立即生效的参数，所以不用点应用也保存了
   quint8 m_fontSize;//立即生效的参数，所以不用点应用也保存了
   QString m_lang;
-  QmlStyleHelper *m_qmlHelper;
+//  QmlStyleHelper *m_qmlHelper;
+  StyleWidget m_customStyle;
 
 };
 OptFacePrivate::OptFacePrivate()
@@ -103,7 +105,7 @@ OptFace::OptFace(const QString &optName, QWidget *parent) :  IOpt(optName,*new O
   ui->setupUi(this);
   readOpt();
 
-  d->m_qmlHelper=new QmlStyleHelper(d->m_fontSize,d->m_lang,d->m_css,this);
+//  d->m_qmlHelper=new QmlStyleHelper(d->m_fontSize,d->m_lang,d->m_css,this);
 
   ui->comboBox->addItem("12",12);
   ui->comboBox->addItem("14",14);
@@ -199,12 +201,12 @@ bool OptFace::optActive()
   if(ui->rbtn_ch->isChecked())
   {
     d->m_lang="chinese";
-    d->m_qmlHelper->setLanguage("chinese");
+//    d->m_qmlHelper->setLanguage("chinese");
   }
   else
   {
     d->m_lang="english";
-    d->m_qmlHelper->setLanguage("english");
+//    d->m_qmlHelper->setLanguage("english");
   }
 
   setFaceFontSize(ui->comboBox->currentData().toInt());
@@ -253,8 +255,8 @@ void OptFace::setFaceStyle(const QString &css)
     qApp->setStyleSheet(qss);
     file.close();
 
-    d->m_qmlHelper->setCss(css);
-    d->m_qmlHelper->setFontSize(d->m_fontSize);
+//    d->m_qmlHelper->setCss(css);
+//    d->m_qmlHelper->setFontSize(d->m_fontSize);
   }
   else
     qDebug()<<"open file :"<<filename<<"error";
@@ -287,11 +289,17 @@ QString OptFace::language() const
   return d->m_lang;
 }
 
-QmlStyleHelper *OptFace::qmlStyleHelper() const
+StyleWidget *OptFace::customStyleWidget()
 {
-  Q_D(const OptFace);
-  return d->m_qmlHelper;
+  Q_D(OptFace);
+  return &d->m_customStyle;
 }
+
+//QmlStyleHelper *OptFace::qmlStyleHelper() const
+//{
+//  Q_D(const OptFace);
+//  return d->m_qmlHelper;
+//}
 
 void OptFace::onRadioButtonClicked(bool checked)
 {

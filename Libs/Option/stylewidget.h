@@ -3,8 +3,14 @@
 
 #include <QWidget>
 
-//must be inherit from QWidget
-class StyleWidget : public QWidget
+#include "option_global.h"
+
+#define FILL_RGB(Color,r,g,b) \
+                  r=Color.red();\
+                  g=Color.green();\
+                  b=Color.blue();\
+
+class OPTIONSHARED_EXPORT StyleWidget : public QWidget
 {
   Q_OBJECT
   Q_PROPERTY(QColor dsBoxBackgroundDefColor READ dsBoxBackgroundDefColor WRITE setdsBoxBackgroundDefColor NOTIFY dsBoxBackgroundDefColorChanged)

@@ -26,7 +26,7 @@ IOpt::IOpt(const QString &optName, QWidget *parent) : QWidget(parent),d_ptr(new 
 }
 IOpt::~IOpt()
 {
-
+  delete d_ptr;
 }
 
 IOpt::IOpt(const QString &optName, IOptPrivate&dd, QWidget *parent):QWidget(parent),d_ptr(&dd)

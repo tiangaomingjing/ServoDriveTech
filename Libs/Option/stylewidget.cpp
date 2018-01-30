@@ -1,6 +1,14 @@
 ﻿#include "stylewidget.h"
 
-StyleWidget::StyleWidget(QWidget *parent) : QWidget(parent)
+StyleWidget::StyleWidget(QWidget *parent) : QWidget(parent),
+  m_dsBoxBackgroundDefColor(Qt::white),
+  m_dsBoxBackgroundReadyColor(Qt::yellow),
+  m_dsBoxBackgroundErrorColor(Qt::red),
+  m_dsBoxTextDefColor(Qt::black),
+  m_dsBoxTextEditColor(Qt::red),
+  m_msgNormalColor(Qt::black),
+  m_msgWarningColor(Qt::yellow),
+  m_msgErrorColor(Qt::red)
 {
 
 }
