@@ -3,11 +3,17 @@
 #include "sdtglobaldef.h"
 #include "uifactory.h"
 #include "iuiwidget.h"
+#include "deviceconfig.h"
+#include "gtutils.h"
+
+#include "Option"
 
 #include <QDebug>
 #include <QTreeWidgetItem>
+#include <QApplication>
+#include <QTranslator>
 
-SevUiControler::SevUiControler(SevDevice *sev, OptContainer *gconfig, QObject *parent):IUiControler(gconfig,parent),
+SevUiControler::SevUiControler(SevDevice *sev, QObject *parent):IUiControler(parent),
   m_sev(sev)
 {
 
@@ -15,6 +21,11 @@ SevUiControler::SevUiControler(SevDevice *sev, OptContainer *gconfig, QObject *p
 void SevUiControler::createUis()
 {
   QTreeWidgetItem *targetTree=m_sev->targetTree();
+//  QTreeWidget *t=new QTreeWidget;
+//  t->addTopLevelItem(targetTree);
+//  t->setColumnCount(7);
+//  t->show();
+
   Q_ASSERT(targetTree);
 
   QTreeWidgetItem *axisItem=targetTree->child(0);
@@ -22,28 +33,35 @@ void SevUiControler::createUis()
 
   IUiWidget *ui=NULL;
   QString className;
+  QString uiGraphName;
   double sum=65;
   double dec=35.0/(m_sev->axisNum()*axisItem->childCount());
   //与轴相关的模块
+  setTransLanguage();
 
-  for(int i=0;i<m_sev->axisNum();i++)
+  for(int i=0;i<m_sev->axisNum();i++)//哪一个轴
   {
-    for(int j=0;j<axisItem->childCount();j++)
+    for(int j=0;j<axisItem->childCount();j++)//哪一页
     {
       className=axisItem->child(j)->text(2);
+      uiGraphName=axisItem->child(j)->text(6);
 
       ui=dynamic_cast<IUiWidget *> (UiFactory::createObject(className.toLatin1()));
       ui->init(m_sev);
       UiIndexs index;
       index.devInx=m_sev->devId();
-      index.aixsInx=i;
+      index.axisInx=i;
       index.pageInx=j;
       ui->setUiIndexs(index);
       ui->addTreeWidget(m_sev->axisTreeSource(i,j));
-      ui->createQmlWidget();
-//      qDebug()<<"ui->objectName()"<<ui->objectName();
-//      connect(ui,SIGNAL(sglReadPageFlash(int,QTreeWidget*)),m_sev,SLOT(onReadPageFlash(int,QTreeWidget*)));
-//      connect(ui,SIGNAL(sglWritePageFlash(int,QTreeWidget*)),m_sev,SLOT(onWritePageFlash(int,QTreeWidget*)));
+//      qDebug()<<"graph name"<<uiGraphName;
+      if(uiGraphName!="NULL")
+      {
+        QWidget *uiGraph=UiFactory::createObject(uiGraphName.toLatin1());
+        ui->accept(uiGraph);
+      }
+//      ui->createQmlWidget();
+
 
       m_uiLists.append(ui);
 //      qDebug()<<"class name "<<ui->objectName();
@@ -61,7 +79,7 @@ void SevUiControler::createUis()
     ui->init(m_sev);
     UiIndexs index;
     index.devInx=m_sev->devId();
-    index.aixsInx=-1;
+    index.axisInx=-1;
     index.pageInx=i;
     ui->setUiIndexs(index);
     ui->addTreeWidget(m_sev->globalTreeSource(i));
@@ -78,6 +96,7 @@ void SevUiControler::createUis()
 SevUiControler::~SevUiControler()
 {
   qDebug()<<"SevUiControler-->destruct";
+  clearTransLanguage();
   GT::deepClearList(m_uiLists);
 }
 
@@ -87,11 +106,33 @@ IUiWidget *SevUiControler::uiWidget(quint32 devInx,qint16 axisInx,const QString 
   foreach (IUiWidget *w, m_uiLists)
   {
     UiIndexs indexs=w->uiIndexs();
-    if(indexs.devInx==devInx&&indexs.aixsInx==axisInx&&w->objectName()==uiName)
+    if(indexs.devInx==devInx&&indexs.axisInx==axisInx&&w->objectName()==uiName)
     {
       ui=w;
       break;
     }
   }
   return ui;
+}
+
+void SevUiControler::setTransLanguage()
+{
+  QString ver=m_sev->deviceConfig()->m_version;
+  OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
+  QString langPath=GTUtils::languagePath();
+  QString lang;
+  if(face->language()=="chinese")
+    lang=langPath+"ch/";
+  else
+    lang=langPath+"en/";
+  QString path=lang+"page/"+ver+"/";
+  qDebug()<<"the language version path="<<path;
+  m_transList=GTUtils::setupTranslators(path);
+}
+void SevUiControler::clearTransLanguage()
+{
+  foreach (QTranslator *tr, m_transList) {
+    qApp->removeTranslator(tr);
+  }
+  GT::deepClearList(m_transList);
 }

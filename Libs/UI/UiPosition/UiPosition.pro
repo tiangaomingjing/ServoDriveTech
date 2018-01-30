@@ -19,10 +19,12 @@ CONFIG(debug, debug|release){
     TARGET = UiPosition
 }
 
-SOURCES += uiposition.cpp
+SOURCES += uiposition.cpp \
+    graphposition129.cpp
 
 HEADERS += uiposition.h\
-        uiposition_global.h
+        uiposition_global.h \
+    graphposition129.h
 
 unix {
     target.path = /usr/lib
@@ -30,4 +32,5 @@ unix {
 }
 
 FORMS += \
-    uiposition.ui
+    uiposition.ui \
+    graphposition129.ui

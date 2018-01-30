@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>453</width>
-    <height>537</height>
+    <width>492</width>
+    <height>318</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <widget class="QTreeWidget" name="treeWidget">
      <column>
       <property name="text">
-       <string>title</string>
+       <string>name</string>
       </property>
      </column>
      <column>
@@ -60,14 +60,14 @@
         <string>0</string>
        </property>
        <property name="text">
-        <string>0xf0</string>
+        <string>240</string>
        </property>
        <item>
         <property name="text">
-         <string>SD4x</string>
+         <string>SD6x</string>
         </property>
         <property name="text">
-         <string>4</string>
+         <string>6</string>
         </property>
         <property name="text">
          <string/>
@@ -77,13 +77,13 @@
         </property>
         <item>
          <property name="text">
-          <string>SD42</string>
+          <string>SD61</string>
          </property>
          <property name="text">
           <string>NULL</string>
          </property>
          <property name="text">
-          <string>21000509</string>
+          <string>21000541</string>
          </property>
          <property name="text">
           <string/>

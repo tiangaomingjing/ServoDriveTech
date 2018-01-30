@@ -16,7 +16,7 @@ class UiIndexs
 {
 public:
   quint32 devInx;
-  qint16 aixsInx;
+  qint16 axisInx;
   qint16 pageInx;
 };
 
@@ -35,10 +35,13 @@ public:
   virtual void readPageFLASH();
   virtual void writePageFLASH();
   virtual void setUiActive(bool actived);
-  virtual void createQmlWidget();
+  virtual void createQmlWidget();//no use
+  virtual void accept(QWidget*w);
 
   virtual bool hasConfigFunc();
   virtual bool hasSaveFunc();
+
+  SevDevice*device();
 
 protected:
   virtual QStackedWidget *getUiStackedWidget(void)=0;
@@ -51,10 +54,12 @@ protected:
   virtual void setContextAction();
   virtual void updateUi();
 
+
 signals:
-  void sglQmlUpdataUi();
-  void sglQmlActived(bool active);
+  void sglQmlUpdataUi();//no use
+  void sglQmlActived(bool active);//no use
   void sglMainErrorInfo(int axis,QString msg);
+  void uiActiveChanged(bool active);//send to graph to update data or do other things
 
   //to device
   void sglReadPageFlash(int axis ,QTreeWidget *pTree);
@@ -66,7 +71,7 @@ protected slots:
   void onActionReadRAM();
   void onActionReadFLASH();
 protected:
-  IUiWidget(IUiWidgetPrivate&d, QWidget *parent=0);
+  IUiWidget(IUiWidgetPrivate&dd, QWidget *parent=0);
   IUiWidgetPrivate *d_ptr;
 };
 

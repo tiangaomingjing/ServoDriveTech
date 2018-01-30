@@ -1,0 +1,13 @@
+StyleWidget{
+	qproperty-dsBoxBackgroundDefColor:white;
+	qproperty-dsBoxBackgroundReadyColor:yellow;
+	qproperty-dsBoxBackgroundErrorColor:red;
+	qproperty-dsBoxTextEditColor:red;
+	qproperty-dsBoxTextDefColor:black;
+}
+QPushButton{
+	color:green;
+}
+QWidget{
+	background-color:gray;
+}

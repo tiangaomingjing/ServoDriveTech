@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/new/icon">
+        <file>Resources/Icon/connect.png</file>
+        <file>Resources/Icon/Control.png</file>
+        <file>Resources/Icon/disconnect.png</file>
+        <file>Resources/Icon/menu_restoresetting.png</file>
+        <file>Resources/Icon/Power.png</file>
+    </qresource>
+</RCC>

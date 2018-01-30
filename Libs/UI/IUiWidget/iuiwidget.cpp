@@ -3,6 +3,8 @@
 #include "sevdevice.h"
 #include "gtutils.h"
 
+#include "Option"
+
 #include <QTreeWidget>
 #include <QStackedWidget>
 #include <QVBoxLayout>
@@ -11,6 +13,8 @@
 #include <QQuickWidget>
 #include <QQmlContext>
 #include <QAction>
+#include <QQmlEngine>
+#include <QLabel>
 
 IUiWidget::IUiWidget(QWidget *parent):QWidget(parent),d_ptr(new IUiWidgetPrivate())
 {
@@ -18,9 +22,9 @@ IUiWidget::IUiWidget(QWidget *parent):QWidget(parent),d_ptr(new IUiWidgetPrivate
 }
 IUiWidget::~IUiWidget()
 {
-
+  delete d_ptr;
 }
-IUiWidget::IUiWidget(IUiWidgetPrivate &d,QWidget *parent):QWidget(parent),d_ptr(&d)
+IUiWidget::IUiWidget(IUiWidgetPrivate &dd,QWidget *parent):QWidget(parent),d_ptr(&dd)
 {
   d_ptr->q_ptr=this;
 }
@@ -67,30 +71,58 @@ void IUiWidget::setContextAction()
   this->addAction(d->m_actReadFLASH);
 }
 
+//!
+//! \brief IUiWidget::updateUi 每一个子类中更新 ui的方法不一样，主要是从ram 还是从flash里读取数据更新树
+//!
 void IUiWidget::updateUi()
 {
   qDebug()<<this->objectName()<<"updateUi";
+}
+SevDevice*IUiWidget::device()
+{
+  Q_D(IUiWidget);
+  return d->m_device;
 }
 
 void IUiWidget::createQmlWidget()
 {
   Q_D(IUiWidget);
 
-  d->m_qmlpath=GTUtils::sysPath()+\
+  /*d->m_qmlpath=GTUtils::sysPath()+\
       d->m_device->typeName()+"/"+\
       d->m_device->modelName()+"/"+\
       d->m_device->versionName()+"/ui/"+\
       objectName()+".qml";
   d->m_qwidget=new QQuickWidget(this);
-  d->m_qwidget->setMinimumSize(600,560);
+//  d->m_qwidget->setMinimumSize(600,560);
   qDebug()<<"load qml from:"<<d->m_qmlpath;
 
+  //style context
+  QString qmlStyleModulePath=GTUtils::customPath()+"option/qmlstyle/";
+  d->m_qwidget->engine()->addImportPath(qmlStyleModulePath);
+  OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
+  QmlStyleHelper *helper=face->qmlStyleHelper();
+  d->m_qwidget->rootContext()->setContextProperty("qmlStyleHelper",helper);
+
   d->m_qwidget->rootContext()->setContextProperty("cDevice",d->m_device);
+
   setQmlContext();
   d->m_qwidget->setResizeMode(QQuickWidget::SizeRootObjectToView );
   d->m_qwidget->setSource(QUrl::fromLocalFile(d->m_qmlpath));
   setQmlSignalSlot();
+  addQmlWidget();*/
+
+  d->m_qwidget=new QWidget(this);
+  QVBoxLayout *layout=new QVBoxLayout(d->m_qwidget);
+  QLabel *label=new QLabel(this);
+  label->setText(this->objectName());
+  layout->addWidget(label);
+  d->m_qwidget->setLayout(layout);
   addQmlWidget();
+}
+void IUiWidget::accept(QWidget *w)
+{
+  Q_UNUSED(w);
 }
 
 bool IUiWidget::hasConfigFunc()
@@ -121,25 +153,32 @@ UiIndexs IUiWidget::uiIndexs() const
   Q_D(const IUiWidget);
   return d->m_index;
 }
+//!
+//! \brief IUiWidget::readPageFLASH 委托设备去读FLASH
+//!
 void IUiWidget::readPageFLASH()
 {
   Q_D(IUiWidget);
   qDebug()<<this->objectName()<<"read flash";
 //  emit sglReadPageFlash(d->axisInx,d->m_dataTree);
-  d->m_device->onReadPageFlash(d->m_index.aixsInx,d->m_dataTree);
+  d->m_device->onReadPageFlash(d->m_index.axisInx,d->m_dataTree);
 }
+
+//!
+//! \brief IUiWidget::writePageFLASH 委托设备去写FLASH
+//!
 void IUiWidget::writePageFLASH()
 {
   Q_D(IUiWidget);
   qDebug()<<this->objectName()<<"read flash";
 //  emit sglWritePageFlash(d->axisInx,d->m_dataTree);
-  d->m_device->onWritePageFlash(d->m_index.aixsInx,d->m_dataTree);
+  d->m_device->onWritePageFlash(d->m_index.axisInx,d->m_dataTree);
 }
 void IUiWidget::setUiActive(bool actived)
 {
   if(actived)
     updateUi();
-  emit sglQmlActived(actived);
+  emit uiActiveChanged(actived);
 }
 
 void IUiWidget::onTreeItemClickedEdit(QTreeWidgetItem *item, int column)

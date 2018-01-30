@@ -9,9 +9,13 @@
 #define FLASH_ALL_PRM_NAME            "FlashPrm_AllAxis.xml"
 #define RAM_ALL_PRM_NAME              "RamPrm_AllAxis.xml"
 #define POWERBOAD_NAME                "PowerBoard.ui"
+#define COMINDEX_NAME                 "ComIndex.ui"
+#define CONFIG_SELECTTREE_NAME         "ConfigSelectTree.ui"
+#define TARGET_CONFIG_TREE_NAME       "TargetTree.ui"
 
 class QTreeWidgetItem;
 class QTreeWidget;
+class QTranslator;
 class GTUTILSSHARED_EXPORT GTUtils
 {
 
@@ -27,6 +31,11 @@ public:
   static QString ubootPath();
   static QString languagePath();
   static void delayms(quint16 ms);
+//  static QTreeWidgetItem* findItem(QString text, QTreeWidget* tree, int col);
+//  static QTreeWidgetItem* findItemByValue(Uint8* value, Uint16 num, QTreeWidget *tree);
+//  static QString getPath(QTreeWidgetItem *item);
+
+  static QList<QTranslator*>setupTranslators(const QString &path);
 
   static void clearTreeWidgetList(QList<QTreeWidget*> &list);
 

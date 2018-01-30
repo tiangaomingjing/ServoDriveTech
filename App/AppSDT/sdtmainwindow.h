@@ -17,6 +17,7 @@ class QProgressBar;
 class GlobalUiControler;
 class IUiWidget;
 class PlotUnit;
+class DeviceConfig;
 
 class SDTMainWindow : public QMainWindow
 {
@@ -42,13 +43,16 @@ private:
   void createConnections();
   void clearStackedWidget();
   void closeEvent(QCloseEvent *e)override;
+//  void changeEvent(QEvent *event);//可用于捕抓语言改变事件
 
   static void processCallBack(void *argv,short *value);
 
   bool deviceInit();
   void navigationTreeInit();
+  void clearNavigationTree();
   void globalUiPageInit();
   void stackedWidgetInit();
+  void removeAllStackedWidget();
 
   void disactiveAllUi();
   void activeCurrentUi();
@@ -57,11 +61,24 @@ private:
 
   void setNavCurrentSelectedInfo();
 
+  void createSdAssemblyByDevConfig(const QList<DeviceConfig *> &configList);
+
+  SdAssembly *createSdAssembly(DeviceConfig *cfg);
+
+  //ui显示状态相关
+  void setUiStatusConnect(bool isNet);
+  void setUiAllEnable(bool en);
+
+  bool setConnect(bool net);
+
 signals:
   void initProgressInfo(int barValue,QString msg);
 private slots:
   void onActnOptionClicked();
   void onActnTbtnMoreClicked();
+  void onActnConnectClicked(bool checked);
+  void onActnDisConnectClicked(bool checked);
+  void onActnHelpDeviceInfo();
 
   //响应option选项slots
   void onOptAutoLoadChanged(bool changed);
@@ -74,6 +91,7 @@ private slots:
   void onStatusBarPageChanged(int pIndex);
 
   void onPlotFloatingChanged(bool floating);
+
 
 private:
 
@@ -110,6 +128,7 @@ private:
   SdAssembly *m_currentSdAssembly;
 
   PlotUnit *m_plot;
+  bool m_connecting;
 
 };
 

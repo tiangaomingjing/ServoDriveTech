@@ -24,6 +24,7 @@ public:
 
   quint8 m_rnStationId;
   bool isEqual(const DeviceConfig &devConfig);
+  inline bool operator == (const DeviceConfig &dev) const;
 
 
 };

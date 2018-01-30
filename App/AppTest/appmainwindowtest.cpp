@@ -70,7 +70,7 @@ void AppMainWindowTest::mainFormInitTestCase()
   {
     SdAssembly *sdriver=new SdAssembly();
     connect(sdriver,SIGNAL(initProgressInfo(int,QString)),this,SLOT(onProgressInfo(int,QString)));
-    sdriver->init(devConfigList.at(i),gConfig);
+    sdriver->init(devConfigList.at(i));
     qDebug()<<"new SdAssembly";
     sdAssemblyList.append(sdriver);
   }
@@ -124,7 +124,7 @@ void AppMainWindowTest::mainConnectTestCase()
       //根据devConfig 新建 sd
       qDebug()<<"new SdAssembly()";
       currentSdAssembly = new SdAssembly();
-      currentSdAssembly->init(devConfig,gConfig);
+      currentSdAssembly->init(devConfig);
       sdAssemblyListTemp.append(currentSdAssembly);
     }
   }

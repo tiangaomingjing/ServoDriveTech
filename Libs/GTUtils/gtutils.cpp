@@ -3,6 +3,8 @@
 #include <QDir>
 #include <QTime>
 #include <QTreeWidget>
+#include <QDebug>
+#include <QTranslator>
 
 //这些路径都是相对debug/release目录下
 #define DIR_COMMON "common/"
@@ -75,6 +77,30 @@ void GTUtils::delayms(quint16 ms)
   while( QTime::currentTime() < dieTime )
     QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 }
+QList<QTranslator*> GTUtils::setupTranslators(const QString &path)
+{
+  QList<QTranslator*> trList;
+  QStringList qmlist;
+  QDir dir(path);
+//  dir.setFilter(QDir::Files | QDir::Hidden | QDir::NoSymLinks);
+//  dir.setSorting(QDir::Size | QDir::Reversed);
+  QStringList nameFilters;
+  nameFilters<<"*.qm";
+  qmlist=dir.entryList(nameFilters,QDir::Files|QDir::Hidden|QDir::NoSymLinks,QDir::Name);
+  qDebug()<<"qm count"<<qmlist.count();
+
+  QTranslator *trans=NULL;
+  foreach (QString qm, qmlist)
+  {
+    trans=new QTranslator;
+    trList.append(trans);
+    QString fileqm=path+qm;
+    qDebug()<<"load"<<fileqm;
+    trans->load(fileqm);
+    qApp->installTranslator(trans);
+  }
+  return trList;
+}
 
 void GTUtils::clearTreeWidgetList(QList<QTreeWidget *> &list)
 {
@@ -86,6 +112,50 @@ void GTUtils::clearTreeWidgetList(QList<QTreeWidget *> &list)
   }
   list.clear();
 }
+
+//QTreeWidgetItem* findItem(QString text, QTreeWidget* tree, int col) {
+//    QTreeWidgetItemIterator treeIter(tree);
+//    QTreeWidgetItem *result = NULL;
+//    while (*treeIter){
+//        if ((*treeIter)->text(col).compare(text) == 0) {
+//            result = *treeIter;
+//            return result;
+//        }
+//        ++treeIter;
+//    }
+//    return result;
+//}
+
+//QTreeWidgetItem* findItemByValue(Uint8* value, Uint16 num, QTreeWidget *tree) {
+//    int tempValue = 0;
+//    for (int i = 0; i < num; i++) {
+//        tempValue = tempValue + (value[i] << (i * 8));
+//    }
+//    QTreeWidgetItemIterator treeIter(tree);
+//    QTreeWidgetItem *result = NULL;
+//    while (*treeIter){
+//        if ((*treeIter)->text(TREE_VALUE) == QString::number(tempValue, 10)) {
+//            result = *treeIter;
+//            return result;
+//        }
+//        ++treeIter;
+//    }
+//    return result;
+//}
+
+//QString getPath(QTreeWidgetItem *item) {
+//    QString result = item->text(TREE_NAME);
+//    QString fileName = item->text(TREE_NAME) + ".ui";
+//    int count = 0;
+//    QTreeWidgetItem *currentItem = item;
+//    while (count < 3) {
+//        currentItem = currentItem->parent();
+//        result = currentItem->text(TREE_NAME) + "/" + result;
+//        count++;
+//    }
+//    result = result + "/" + fileName;
+//    return result;
+//}
 
 //--------------------private function-------------------------------
 QString GTUtils::sdtPath()

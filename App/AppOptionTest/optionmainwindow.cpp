@@ -11,12 +11,17 @@
 
 #include "gtutils.h"
 
+#include "formlangtest1.h"
+#include "formlangtest2.h"
+
 #include <QDebug>
 #include <QDir>
 
 OptionMainWindow::OptionMainWindow(QWidget *parent) :
   QMainWindow(parent),
-  ui(new Ui::OptionMainWindow)
+  ui(new Ui::OptionMainWindow),
+  form1(NULL),
+  form2(NULL)
 {
   ui->setupUi(this);
   QString icopath=GTUtils::iconPath();
@@ -181,4 +186,48 @@ void OptionMainWindow::TEST_getAllFileInOneFolder()
 void OptionMainWindow::on_pushButton_clicked()
 {
     TEST_getAllFileInOneFolder();
+
+    for(int i=0;i<1000;i++)
+    {
+      if(form2!=NULL)
+      {
+        delete form2;
+        form2=NULL;
+      }
+      form1=new FormLangTest1;
+      form1->show();
+
+      GTUtils::delayms(10);
+
+      if(form1!=NULL)
+      {
+        delete form1;
+        form1=NULL;
+      }
+      form2=new FormLangTest2;
+      form2->show();
+      GTUtils::delayms(10);
+    }
+}
+
+void OptionMainWindow::on_actionTransTest1_triggered()
+{
+  if(form2!=NULL)
+  {
+    delete form2;
+    form2=NULL;
+  }
+  form1=new FormLangTest1;
+  form1->show();
+}
+
+void OptionMainWindow::on_actionTransTest2_triggered()
+{
+  if(form1!=NULL)
+  {
+    delete form1;
+    form1=NULL;
+  }
+  form2=new FormLangTest2;
+  form2->show();
 }

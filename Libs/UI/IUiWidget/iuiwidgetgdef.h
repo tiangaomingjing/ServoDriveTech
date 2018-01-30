@@ -1,6 +1,7 @@
 ﻿#ifndef IUIWIDGETGDEF_H
 #define IUIWIDGETGDEF_H
 namespace UI {
+
 typedef enum{
   COL_PAGE_TREE_NAME,
   COL_PAGE_TREE_VALUE,
@@ -12,6 +13,14 @@ typedef enum{
   COL_PAGE_TREE_ADDR,
   COL_PAGE_TREE_SCALE
 }PageTreeColumn;
+
+typedef enum{
+  STATUS_EDIT_TEXT_DEFAULT,
+  STATUS_EDIT_TEXT_READY,
+  STATUS_EDIT_TEXT_EDITTING,
+  STATUS_EDIT_TEXT_ERROR=-1
+}StatusEditText;
+
 }
 
 #endif // IUIWIDGETGDEF_H

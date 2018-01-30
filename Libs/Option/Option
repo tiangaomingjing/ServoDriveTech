@@ -1,0 +1,7 @@
+#include "optautoload.h"
+#include "iopt.h"
+#include "optcontainer.h"
+#include "optface.h"
+#include "optplot.h"
+#include "optuser.h"
+#include "qmlstylehelper.h"

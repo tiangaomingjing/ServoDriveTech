@@ -27,7 +27,7 @@ CONFIG(debug, debug|release){
 } else{
     SDKERNEL_OUT_PATH = $${APP_BUILD_PATH}/release/bin
     LIBS+=$${SDKERNEL_OUT_PATH}/Communication.lib\
-          $${SDKERNEL_OUT_PATH}/GTUtilsd.lib
+          $${SDKERNEL_OUT_PATH}/GTUtils.lib
     TARGET = SDKernel
 }
 DESTDIR =$${SDKERNEL_OUT_PATH}
@@ -43,7 +43,8 @@ SOURCES += \
     sevdspmap.cpp \
     sevpwrboard.cpp \
     PowerTreeManage/powertreemanage.cpp \
-    ../../Common/src/Kernel/deviceconfig.cpp
+    ../../Common/src/Kernel/deviceconfig.cpp \
+    sdkernel_global.cpp
 
 HEADERS += \
     sdkernel_global.h \

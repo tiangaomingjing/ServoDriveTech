@@ -165,12 +165,14 @@
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
-    <enum>BottomToolBarArea</enum>
+    <enum>TopToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
    <addaction name="actionOption"/>
+   <addaction name="actionTransTest1"/>
+   <addaction name="actionTransTest2"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QDockWidget" name="dockWidget">
@@ -243,6 +245,16 @@
   <action name="actionOption">
    <property name="text">
     <string>option</string>
+   </property>
+  </action>
+  <action name="actionTransTest1">
+   <property name="text">
+    <string>transTest1</string>
+   </property>
+  </action>
+  <action name="actionTransTest2">
+   <property name="text">
+    <string>transTest2</string>
    </property>
   </action>
  </widget>

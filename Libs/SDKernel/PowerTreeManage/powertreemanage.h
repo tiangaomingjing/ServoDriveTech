@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QVector>
 
+
 class QTreeWidgetItem;
 class QTreeWidget;
 
@@ -26,8 +27,8 @@ public:
   void setMathExp(const QStringList &mathExp);
 
 private:
-  QVector<quint8> m_types;
-  QVector<double>m_values;
+  QVector<quint8> m_types;//储存每一个轴对应的采样类型
+  QVector<double>m_values;//储存每一个轴对应类型下的采样值
   QStringList m_mathExp;
 };
 
@@ -35,28 +36,17 @@ class PowerTreeManage : public QObject
 {
   Q_OBJECT
 public:
-  enum PwrColumnInx{
-    PWR_COL_INX_NAME,
-    PWR_COL_INX_VALUE,
-    PWR_COL_INX_UNIT,
-    PWR_COL_INX_SCALE,
-    PWR_COL_INX_DESCRIPTION,
-    PWR_COL_INX_TYPE,
-    PWR_COL_INX_ADDR,
-    PWR_COL_INX_CTLNAME,
-    PWR_COL_INX_CTLMAX,
-    PWR_COL_INX_CTLMIN,
-    PWR_COL_INX_UNIQUENAME
-  };
-  explicit PowerTreeManage(QTreeWidget *powerTree,QObject *parent = 0);
 
-  bool updatePowerLimitMapList(const quint32 id,QList<QMap<QString ,PowerBoardLimit>>&powerLimitMapList);
-  SamplingDataInfo samplingDataInfo(const quint32 id,bool *isOK);
+  //explicit PowerTreeManage(QTreeWidget *powerTree,QObject *parent = 0);
+  explicit PowerTreeManage(const quint32 id,QObject *parent = 0);
+
+  bool updatePowerLimitMapList(QString version, QList<QMap<QString ,PowerBoardLimit>>&powerLimitMapList);
+  SamplingDataInfo samplingDataInfo(bool *isOK);
 signals:
 
 public slots:
 private:
-  QTreeWidgetItem *findTargetBoard(const quint32 id);
+  //QTreeWidgetItem *findTargetBoard(const quint32 id);
   void insertLimit(QTreeWidgetItem *item, QMap<QString ,PowerBoardLimit> &limitMap);
   void insertLimitRecursion(QTreeWidgetItem *item, QMap<QString ,PowerBoardLimit> &limitMap);
   QTreeWidgetItem *findItemByName(QTreeWidgetItem *item,QString &targetName);
@@ -66,6 +56,8 @@ private:
 private:
   QTreeWidget *m_powerTree;
   QTreeWidgetItem *m_pwrTarget;
+  QString m_filterPath;
+  QStringList m_filterList;
 
 };
 

@@ -20,12 +20,18 @@ CONFIG(debug, debug|release){
 
 SOURCES += main.cpp\
         optionmainwindow.cpp \
-    dialogoption.cpp
+    dialogoption.cpp \
+    formlangtest1.cpp \
+    formlangtest2.cpp
 
 HEADERS  += optionmainwindow.h \
-    dialogoption.h
+    dialogoption.h \
+    formlangtest1.h \
+    formlangtest2.h
 
 FORMS    += optionmainwindow.ui \
-    dialogoption.ui
+    dialogoption.ui \
+    formlangtest1.ui \
+    formlangtest2.ui
 
 TRANSLATIONS    += ch_main_test.ts en_main_test.ts

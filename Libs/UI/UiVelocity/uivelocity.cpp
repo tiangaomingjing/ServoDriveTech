@@ -34,6 +34,11 @@ UiVelocity::~UiVelocity()
   delete ui;
 }
 
+void UiVelocity::accept(QWidget *w)
+{
+  ui->qmlHboxLayout->addWidget(w);
+}
+
 QStackedWidget *UiVelocity::getUiStackedWidget(void)
 {
   return ui->stackedWidget;
