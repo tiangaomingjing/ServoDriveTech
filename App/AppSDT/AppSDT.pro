@@ -7,7 +7,8 @@ include(../App.pri)
 
 INCLUDEPATH+= $${PWD}/DialogOption\
               $${PWD}/ScreenStartup\
-              $${PWD}/SdtStatusBar
+              $${PWD}/SdtStatusBar\
+              $${PWD}/ConfigDialog
 
 QT       += core gui qml
 
@@ -37,7 +38,8 @@ SOURCES += main.cpp\
     ../../Common/src/UiFactory/uifactory.cpp \
     ScreenStartup/screenstartup.cpp \
     SdtStatusBar/sdtstatusbar.cpp \
-    SdtStatusBar/statuserrdialog.cpp
+    SdtStatusBar/statuserrdialog.cpp \
+    ConfigDialog/configdialog.cpp
 
 HEADERS  += sdtmainwindow.h \
     appiconname.h \
@@ -59,12 +61,14 @@ HEADERS  += sdtmainwindow.h \
     ScreenStartup/screenstartup.h \
     SdtStatusBar/sdtstatusbar.h \
     SdtStatusBar/statuserrdialog.h \
-    ../../Common/src/sdtglobaldef.h
+    ../../Common/src/sdtglobaldef.h \
+    ConfigDialog/configdialog.h
 
 FORMS    += sdtmainwindow.ui \
     DialogOption/dialogoption.ui \
     SdtStatusBar/sdtstatusbar.ui \
-    SdtStatusBar/statuserrdialog.ui
+    SdtStatusBar/statuserrdialog.ui \
+    ConfigDialog/configdialog.ui
 
 TRANSLATIONS    += ch_main.ts en_main.ts
 

@@ -87,12 +87,12 @@
     <message>
         <location filename="sdtmainwindow.cpp" line="117"/>
         <source>config</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">配置</translation>
     </message>
     <message>
         <location filename="sdtmainwindow.cpp" line="121"/>
         <source>save</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">保存</translation>
     </message>
     <message>
         <location filename="sdtmainwindow.cpp" line="129"/>

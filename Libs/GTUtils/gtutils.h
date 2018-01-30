@@ -39,6 +39,8 @@ public:
 
   static void clearTreeWidgetList(QList<QTreeWidget*> &list);
 
+  static QTreeWidgetItem* findTopLevelItem(QTreeWidgetItem *item);
+
 private:
   inline static QString sdtPath();
 };

@@ -33,7 +33,8 @@ SOURCES += \
     optface.cpp \
     optplot.cpp \
     optautoload.cpp \
-    qmlstylehelper.cpp
+    qmlstylehelper.cpp \
+    stylewidget.cpp
 
 HEADERS +=\
         option_global.h \
@@ -45,6 +46,7 @@ HEADERS +=\
     optplot.h \
     optautoload.h \
     qmlstylehelper.h \
+    stylewidget.h \
     Option
 
 unix {

@@ -112,6 +112,13 @@ void GTUtils::clearTreeWidgetList(QList<QTreeWidget *> &list)
   }
   list.clear();
 }
+QTreeWidgetItem* GTUtils::findTopLevelItem(QTreeWidgetItem *item)
+{
+  QTreeWidgetItem* top=item;
+  while(top->parent()!=NULL)
+    top=top->parent();
+  return top;
+}
 
 //QTreeWidgetItem* findItem(QString text, QTreeWidget* tree, int col) {
 //    QTreeWidgetItemIterator treeIter(tree);

@@ -59,7 +59,7 @@ signals:
   void sglQmlUpdataUi();//no use
   void sglQmlActived(bool active);//no use
   void sglMainErrorInfo(int axis,QString msg);
-  void uiActiveChanged(bool active);//send to graph to update data or do other things
+  void uiActiveChanged(bool active);//send to ui graph to update data or do other things
 
   //to device
   void sglReadPageFlash(int axis ,QTreeWidget *pTree);

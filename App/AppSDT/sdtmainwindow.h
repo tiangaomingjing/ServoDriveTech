@@ -78,11 +78,12 @@ private slots:
   void onActnTbtnMoreClicked();
   void onActnConnectClicked(bool checked);
   void onActnDisConnectClicked(bool checked);
-  void onActnHelpDeviceInfo();
+  void onActnHelpDeviceInfoClicked();
+  void onActnNewConfigClicked();
 
   //响应option选项slots
   void onOptAutoLoadChanged(bool changed);
-  void onOptFaceCssChanged(QString css);
+  void onOptFaceCssChanged(const QString &css);
 
   void onProgressInfo(int barValue, QString msg);
 
