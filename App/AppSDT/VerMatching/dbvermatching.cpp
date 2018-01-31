@@ -36,4 +36,9 @@ void DbVerMatching::fillVerLinkLists(QStringList &list)
   list<<"P1-C1-V1-F1";
   //增加数据库的link
 }
+bool DbVerMatching::hasComponent(const VerInfo &verinfo)
+{
+  return true;
+}
+
 

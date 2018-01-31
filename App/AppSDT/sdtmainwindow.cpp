@@ -525,6 +525,7 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
       }*/
       DeviceIdHelper idHelper;
       IVerMatching *vMatch=new MemeryVerMatching;
+      IVerMatching::CheckStatus checkStatus;
       vMatch->open();
       foreach (SdAssembly*sd, m_sdAssemblyList)
       {
@@ -549,17 +550,21 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
         c=idHelper.readCtrId();
         v=idHelper.readVersion().remove(0,1).toUInt();
         f=idHelper.readFpgaId();
-        bool checked=true;
 //        sd->sevDevice()->attributeActive();
         VerInfo verInfo;
         verInfo.c=c;
         verInfo.f=f;
         verInfo.p=p;
         verInfo.v=v;
-        checked=vMatch->check(verInfo);
-        if(checked==false)
+        checkStatus=vMatch->check(verInfo);
+        if(checkStatus!=IVerMatching::CHECK_STA_OK)
         {
-          bool accept=MessageBoxAsk(tr("device's componoent P%1-C%2-V%3-F%4 is not supported\nit maybe cause some error!\ndo you want to continue?\n").arg(p).arg(c).arg(v).arg(f));
+          QString msg;
+          if(checkStatus==IVerMatching::CHECK_STA_NSUPPORT)
+            msg=tr("device's componoent C%1-V%2-F%3-P%4 is not supported\nit maybe cause some error!\ndo you want to continue?\n").arg(c).arg(v).arg(f).arg(p);
+          else
+            msg=tr("device's componoent C%1-V%2-F%3-P%4 can not find in your soft database\nyou should update your software from\nhttp://www.googoltech.com.cn\nif you force to continue it maybe cause some error!\ndo you want to continue?\n").arg(c).arg(v).arg(f).arg(p);
+          bool accept=MessageBoxAsk(msg);
           if(accept==false)
           {
             isContinue=false;
