@@ -6,6 +6,7 @@
 #include <QTextStream>
 #include <QFile>
 #include <QDebug>
+#include <QMessageBox>
 #define ADMINPW_FILE "adminpw/admin.psw"
 
 class OptUserPrivate:public IOptPrivate
@@ -50,6 +51,8 @@ OptUser::OptUser(const QString &optName, QWidget *parent) : IOpt(optName,*new Op
   qDebug()<<"password"<<d->m_pw;
 
   uiInit();
+  connect(ui->btn_Admin, SIGNAL(clicked()), this, SLOT(onActionBtnChecked()));
+  connect(ui->btn_General, SIGNAL(clicked()), this, SLOT(onActionBtnChecked()));
 }
 OptUser::~OptUser()
 {
@@ -57,15 +60,27 @@ OptUser::~OptUser()
 }
 void OptUser::uiInit()
 {
-    //QIcon icon = new QIcon("ff");
-    //ui->btn_Ordinary->setIcon();
-
+    Q_D(OptUser);
+    ui->pswWidget->setVisible(d->m_isAdmin);
+    ui->btn_Admin->setChecked(d->m_isAdmin);
+    ui->btn_General->setChecked(!d->m_isAdmin);
 }
 
 bool OptUser::optActive()
 {
-//  Q_D(OptUser);
+  Q_D(OptUser);
   qDebug()<<"opt user execute active ";
+  if (d->m_isAdmin) {
+    QString password = ui->lineEdit->text();
+    if (password.compare(d->m_pw) == 0) {
+        emit usrChange(d->m_isAdmin, ui->box_NeedCheck->isChecked());
+    } else {
+        QMessageBox::warning(this, tr("Warning"), tr("Wrong Password!"), QMessageBox::Ok);
+        return false;
+    }
+  } else {
+      emit usrChange(d->m_isAdmin, ui->box_NeedCheck->isChecked());
+  }
   return true;
 }
 bool OptUser::readOpt()
@@ -78,8 +93,8 @@ bool OptUser::readOpt()
 }
 bool OptUser::writeOpt()
 {
-//  Q_D(OptUser);
-//  saveData("usr","admin",d->m_isAdmin);
+  Q_D(OptUser);
+  saveData("usr","admin",d->m_isAdmin);
   return true;
 }
 
@@ -92,4 +107,16 @@ bool OptUser::isAdmin() const
 {
   Q_D(const OptUser);
   return d->m_isAdmin;
+}
+
+void OptUser::onActionBtnChecked() {
+    Q_D(OptUser);
+    setModify(true);
+    if (ui->btn_Admin->isChecked()) {
+        d->m_isAdmin = true;
+        ui->pswWidget->setVisible(true);
+    } else {
+        d->m_isAdmin = false;
+        ui->pswWidget->setVisible(false);
+    }
 }

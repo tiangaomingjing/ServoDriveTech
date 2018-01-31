@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "ivermatching.h"
+#include <QtSql/QSqlDatabase>
 
 class DbVerMatching : public IVerMatching
 {
@@ -19,7 +20,7 @@ signals:
 
 public slots:
 private:
-
+    QSqlDatabase db;
 };
 
 #endif // DBVERMATCHING_H

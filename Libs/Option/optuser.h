@@ -25,11 +25,13 @@ protected:
   bool writeOpt()Q_DECL_OVERRIDE;
   void respondErrorExecute()Q_DECL_OVERRIDE;
 signals:
-  void usrChange(bool isAdmin);
+  void usrChange(bool isAdmin, bool isChecked);
 
 public slots:
 private:
   Ui::OptUser *ui;
+private slots:
+  void onActionBtnChecked();
 };
 
 #endif // OPTUSER_H

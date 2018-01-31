@@ -8,8 +8,8 @@
 #include <QTreeWidgetItem>
 #include <QTreeWidgetItemIterator>
 #include <QDebug>
-#define IDMAP_FILENAME "IdMap.ui"
-#define IDMAP_FILENAME_COPY "IdMap_copy.ui"
+#define IDMAP_FILENAME "IdMap_Power.ui"
+//#define IDMAP_FILENAME_COPY "IdMap_copy.ui"
 #define PWR_BASE_ADDR 64
 #define CTR_BASE_ADDR 128
 using namespace ComDriver;
@@ -61,7 +61,7 @@ quint32 DeviceIdHelper::readPwrId()
   }
   m_pwrId = id;
 
-  QString idMapPath=GTUtils::databasePath()+IDMAP_FILENAME;
+  QString idMapPath=GTUtils::databasePath() + "Board/PB/" + IDMAP_FILENAME;
   QTreeWidget *idMapTree=QtTreeManager::createTreeWidgetFromXmlFile(idMapPath);
 
   {

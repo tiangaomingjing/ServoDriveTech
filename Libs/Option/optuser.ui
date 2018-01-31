@@ -14,109 +14,120 @@
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="spacing">
-    <number>0</number>
-   </property>
-   <property name="leftMargin">
-    <number>0</number>
-   </property>
-   <property name="topMargin">
-    <number>0</number>
-   </property>
-   <property name="rightMargin">
-    <number>0</number>
-   </property>
-   <property name="bottomMargin">
-    <number>0</number>
-   </property>
    <item>
-    <widget class="QStackedWidget" name="stackedWidget">
-     <property name="styleSheet">
-      <string notr="true">QRadioButton::indicator::unchecked#btn_Admin {
-    image:url(:/user_admin_unchecked.png)
-}
-
-QRadioButton::indicator:unchecked:hover#btn_Admin {
-    image:url(:/user_admin_hover.png)
-}
-
-
-QRadioButton::indicator::checked#btn_Admin {
-    image:url(:/user_admin_checked.png)
-}
-
-QRadioButton::indicator:checked:hover#btn_Admin {
-    image:url(:/user_admin_checked.png)
-}
-
-QRadioButton::indicator::unchecked#btn_General {
-    image:url(:/user_general_unchecked.png)
-}
-
-QRadioButton::indicator:unchecked:hover#btn_General {
-    image:url(:/user_general_hover.png)
-}
-
-
-QRadioButton::indicator::checked#btn_General {
-    image:url(:/user_general_checked.png)
-}
-
-QRadioButton::indicator:checked:hover#btn_General {
-    image:url(:/user_general_checked.png)
-}</string>
-     </property>
+    <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="page">
-      <widget class="QGroupBox" name="groupBox">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>30</y>
-         <width>371</width>
-         <height>181</height>
-        </rect>
-       </property>
-       <property name="title">
-        <string>UserType</string>
-       </property>
-       <widget class="QRadioButton" name="btn_General">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>90</y>
-          <width>151</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Ordinary User</string>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-        <property name="checked">
-         <bool>false</bool>
-        </property>
-       </widget>
-       <widget class="QRadioButton" name="btn_Admin">
-        <property name="geometry">
-         <rect>
-          <x>220</x>
-          <y>90</y>
-          <width>132</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Senior User</string>
-        </property>
-       </widget>
-      </widget>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>User</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QGroupBox" name="userBox">
+         <property name="title">
+          <string>UserType</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QRadioButton" name="btn_General">
+            <property name="text">
+             <string> </string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="btn_Admin">
+            <property name="text">
+             <string> </string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="pswWidget" native="true">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>100</height>
+          </size>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_3">
+          <item row="0" column="0">
+           <widget class="QGroupBox" name="pswBox">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>100</height>
+             </size>
+            </property>
+            <property name="title">
+             <string>Password:</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout">
+             <item row="0" column="0">
+              <widget class="QLineEdit" name="lineEdit"/>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
      </widget>
-     <widget class="QWidget" name="page_2"/>
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
+       <string>Need Check</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QCheckBox" name="box_NeedCheck">
+         <property name="text">
+          <string>Need Check</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>243</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="0">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>235</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
   </layout>

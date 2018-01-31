@@ -1,4 +1,4 @@
-QMainWindow {
+﻿QMainWindow {
     background: rgb(38, 83, 159);
 }
 QMainWindow::separator {
@@ -137,3 +137,54 @@ background-color: rgb(211, 211, 211);
 border-radius:5px;
 }
 
+
+/*============自定义stylewidget 可以在C++环境中索引到其值=================*/
+StyleWidget{
+	qproperty-dsBoxBackgroundDefColor:white;
+	qproperty-dsBoxBackgroundReadyColor:green;
+	qproperty-dsBoxBackgroundErrorColor:#FF00FF;
+	qproperty-dsBoxTextEditColor:blue;
+	qproperty-dsBoxTextDefColor:black;
+	
+	qproperty-msgNormalColor:white;
+	qproperty-msgWarningColor:yellow;
+	qproperty-msgErrorColor:red;
+}
+
+QRadioButton::indicator::unchecked#btn_Admin {
+    image:url(../custom/option/style/black/icon/user_admin_unchecked.png)
+}
+
+QRadioButton::indicator:unchecked:hover#btn_Admin {
+    image:url(../custom/option/style/black/icon/user_admin_hover.png)
+}
+
+
+QRadioButton::indicator::checked#btn_Admin {
+    image:url(../custom/option/style/black/icon/user_admin_checked.png)
+}
+
+QRadioButton::indicator:checked:hover#btn_Admin {
+    image:url(../custom/option/style/black/icon/user_admin_checked.png)
+}
+
+QRadioButton::indicator::unchecked#btn_General {
+    image:url(../custom/option/style/black/icon/user_general_unchecked.png)
+}
+
+QRadioButton::indicator:unchecked:hover#btn_General {
+    image:url(../custom/option/style/black/icon/user_general_hover.png)
+}
+
+
+QRadioButton::indicator::checked#btn_General {
+    image:url(../custom/option/style/black/icon/user_general_checked.png)
+}
+
+QRadioButton::indicator:checked:hover#btn_General {
+    image:url(../custom/option/style/black/icon/user_general_checked.png)
+}
+
+QWidget#pswWidget {
+    background-color:lightgray;
+}
