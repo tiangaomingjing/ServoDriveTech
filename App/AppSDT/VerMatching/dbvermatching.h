@@ -14,6 +14,7 @@ public:
   bool close()Q_DECL_OVERRIDE;
 private:
   void fillVerLinkLists(QStringList &list)Q_DECL_OVERRIDE;
+  bool hasComponent(const VerInfo &verinfo)Q_DECL_OVERRIDE;
 
 signals:
 

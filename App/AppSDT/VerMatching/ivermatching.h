@@ -16,10 +16,16 @@ class IVerMatching : public QObject
 {
   Q_OBJECT
 public:
+  enum CheckStatus{
+    CHECK_STA_OK,
+    CHECK_STA_NSUPPORT,
+    CHECK_STA_SOFT_OLD
+  };
+
   explicit IVerMatching(QObject *parent = 0);
   virtual ~IVerMatching();
   virtual bool open()=0;
-  bool check(const VerInfo &verinfo);
+  CheckStatus check(const VerInfo &verinfo);
   virtual bool close()=0;
   QStringList *verLinkLists();
 
@@ -30,6 +36,7 @@ public slots:
 
 protected:
   virtual void fillVerLinkLists(QStringList &list)=0;
+  virtual bool hasComponent(const VerInfo &verinfo)=0;
 protected:
   QStringList m_verLinkLists;
 };
