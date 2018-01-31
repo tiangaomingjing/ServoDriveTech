@@ -8,7 +8,8 @@ include(../App.pri)
 INCLUDEPATH+= $${PWD}/DialogOption\
               $${PWD}/ScreenStartup\
               $${PWD}/SdtStatusBar\
-              $${PWD}/ConfigDialog
+              $${PWD}/ConfigDialog\
+              $${PWD}/VerMatching
 
 QT       += core gui qml
 
@@ -39,7 +40,10 @@ SOURCES += main.cpp\
     ScreenStartup/screenstartup.cpp \
     SdtStatusBar/sdtstatusbar.cpp \
     SdtStatusBar/statuserrdialog.cpp \
-    ConfigDialog/configdialog.cpp
+    ConfigDialog/configdialog.cpp \
+    VerMatching/ivermatching.cpp \
+    VerMatching/memeryvermatching.cpp \
+    VerMatching/dbvermatching.cpp
 
 HEADERS  += sdtmainwindow.h \
     appiconname.h \
@@ -62,7 +66,10 @@ HEADERS  += sdtmainwindow.h \
     SdtStatusBar/sdtstatusbar.h \
     SdtStatusBar/statuserrdialog.h \
     ../../Common/src/sdtglobaldef.h \
-    ConfigDialog/configdialog.h
+    ConfigDialog/configdialog.h \
+    VerMatching/ivermatching.h \
+    VerMatching/memeryvermatching.h \
+    VerMatching/dbvermatching.h
 
 FORMS    += sdtmainwindow.ui \
     DialogOption/dialogoption.ui \

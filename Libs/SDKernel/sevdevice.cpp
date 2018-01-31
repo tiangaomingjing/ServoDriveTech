@@ -208,6 +208,11 @@ void SevDevice::adjustSocket(ComDriver::ICom *com)
   Q_D(SevDevice);
 //  d->m_socket->connect();
 }
+ComDriver::ICom *SevDevice::socketCom() const
+{
+  Q_D(const SevDevice);
+  return d->m_socket->comObject();
+}
 bool SevDevice::enableConnection(void (*processCallBack)(void *argv, short *value), void *uiProcessBar)
 {
   Q_D(SevDevice);

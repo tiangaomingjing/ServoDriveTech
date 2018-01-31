@@ -247,3 +247,8 @@ void LinkSocket::setTryWriteCount(quint8 tryWriteCount)
 {
   m_tryWriteCount = tryWriteCount;
 }
+
+ComDriver::ICom *LinkSocket::comObject() const
+{
+  return m_com;
+}

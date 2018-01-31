@@ -19,9 +19,11 @@ public:
     COL_IDMAP_NICKNAME,
     COL_IDMAP_AXISNUM
   }IdMapColumn;
+  explicit DeviceIdHelper(QObject *parent = 0);
   explicit DeviceIdHelper(ComDriver::ICom *com,QObject *parent = 0);
   ~DeviceIdHelper();
 
+  void setCom(ComDriver::ICom *com);
   quint32 readPwrId();
   quint32 readCtrId();
   quint32 readFpgaId();

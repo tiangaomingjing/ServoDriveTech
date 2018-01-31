@@ -13,6 +13,18 @@
 #define PWR_BASE_ADDR 64
 #define CTR_BASE_ADDR 128
 using namespace ComDriver;
+DeviceIdHelper::DeviceIdHelper(QObject *parent):QObject(parent),
+  m_com(NULL),
+  m_pwrId(21000509),
+  m_ctrId(0),
+  m_fpgaId(0),
+  m_axisNum(4),
+  m_typeName("SD4x"),
+  m_modeName("SD41")
+{
+
+}
+
 DeviceIdHelper::DeviceIdHelper(ComDriver::ICom *com, QObject *parent) : QObject(parent),m_com(com),
   m_pwrId(21000509),
   m_ctrId(0),
@@ -26,6 +38,10 @@ DeviceIdHelper::DeviceIdHelper(ComDriver::ICom *com, QObject *parent) : QObject(
 DeviceIdHelper::~DeviceIdHelper()
 {
 
+}
+void DeviceIdHelper::setCom(ComDriver::ICom *com)
+{
+  m_com=com;
 }
 
 quint32 DeviceIdHelper::readPwrId()

@@ -29,6 +29,8 @@ public:
   bool readPageFlash(int axis,QTreeWidgetItem *item);
   bool writePageFlash(int axis,QTreeWidgetItem *item);
 
+  ComDriver::ICom *comObject() const;
+
 
 protected:
 

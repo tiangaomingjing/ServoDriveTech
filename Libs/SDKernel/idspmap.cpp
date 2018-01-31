@@ -18,5 +18,8 @@ QTreeWidget *IDspMap::axisTreeWidget(int axis,int page) const
 
 QTreeWidget *IDspMap::globalTreeWidget(int page) const
 {
-  return m_globalTreeList.at(page);
+  if(page<m_globalTreeList.count())
+    return m_globalTreeList.at(page);
+  else
+    return NULL;
 }

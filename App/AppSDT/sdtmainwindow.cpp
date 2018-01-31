@@ -14,6 +14,7 @@
 #include "sdassembly.h"
 #include "sdtglobaldef.h"
 #include "sevdevice.h"
+#include "deviceidhelper.h"
 
 #include "sdtstatusbar.h"
 
@@ -26,6 +27,10 @@
 #include "UiPlot/uiplot.h"
 
 #include "configdialog.h"
+
+#include "ivermatching.h"
+#include "memeryvermatching.h"
+#include "dbvermatching.h"
 
 #include <QToolButton>
 #include <QDebug>
@@ -498,17 +503,16 @@ void SDTMainWindow::onActnTbtnMoreClicked()
 }
 void SDTMainWindow::onActnConnectClicked(bool checked)
 {
-
   if(!m_connecting)
   {
+    bool isContinue=true;
     m_statusBar->statusProgressBar()->setVisible(true);
     setUiAllEnable(false);
     m_statusBar->statusProgressBar()->setValue(5);
     bool isOpen=setConnect(true);
     if(isOpen)
     {
-      m_connecting=true;
-      if(isAutoLoad())
+      /*if(isAutoLoad())
       {
         //2 根据版本判断是否加CRC
         //3 是否要进行参数检查 m_versionNeedCheck=(softIsBigger128&&hardIsBigger128);
@@ -518,11 +522,62 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
         //1 读软件版本校验 不对要提示相关信息
         //2 根据版本判断是否加CRC
         //3 是否要进行参数检查 m_versionNeedCheck=(softIsBigger128&&hardIsBigger128);
-      }
-      //检查一下P-C-V-F是否匹配 ?不匹配加提示
+      }*/
+      DeviceIdHelper idHelper;
+      IVerMatching *vMatch=new MemeryVerMatching;
+      vMatch->open();
+      foreach (SdAssembly*sd, m_sdAssemblyList)
+      {
+        if(isAutoLoad()==false)
+        {
+          ComDriver::ICom *com=sd->sevDevice()->socketCom();
+          idHelper.setCom(com);
+          QString ver=idHelper.readVersion();
+          QString verCurrent=sd->sevDevice()->versionName();
+          if(ver!=verCurrent)
+          {
+            bool accept=MessageBoxAsk(tr("current SDT version = %1\ndevice version = %2\nnot match !\ndo you want to force to continue?\n").arg(verCurrent).arg(ver));
+            if(accept==false)
+            {
+              isContinue=false;
+              break;
+            }
+          }
+        }
+        quint32 p,c,v,f;
+        p=idHelper.readPwrId();
+        c=idHelper.readCtrId();
+        v=idHelper.readVersion().remove(0,1).toUInt();
+        f=idHelper.readFpgaId();
+        bool checked=true;
+//        sd->sevDevice()->attributeActive();
+        checked=vMatch->check(p,c,v,f);
+        if(checked==false)
+        {
+          bool accept=MessageBoxAsk(tr("device's componoent P%1-C%2-V%3-F%4 is not supported\nit maybe cause some error!\ndo you want to continue?\n").arg(p).arg(c).arg(v).arg(f));
+          if(accept==false)
+          {
+            isContinue=false;
+            break;
+          }
+        }
 
-      m_statusBar->statusProgressBar()->setValue(100);
-      activeCurrentUi();
+      }
+      vMatch->close();
+      delete vMatch;
+
+      if(isContinue)
+      {
+        m_connecting=true;
+        m_statusBar->statusProgressBar()->setValue(100);
+        activeCurrentUi();
+      }
+      else
+      {
+        m_connecting=false;
+        setConnect(false);
+      }
+
     }
     else
     {
@@ -743,6 +798,14 @@ bool SDTMainWindow::isAutoLoad()
 {
   OptAutoLoad *optAuto=dynamic_cast<OptAutoLoad *>(OptContainer::instance()->optItem("optautoload"));
   return optAuto->autoLoad();
+}
+bool SDTMainWindow::MessageBoxAsk(const QString &msg)
+{
+  QMessageBox::StandardButton rb = QMessageBox::question(this, tr("Warring"), msg, QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+  if (rb == QMessageBox::Yes)
+    return true;
+  else
+    return false;
 }
 
 void SDTMainWindow::createSdAssemblyByDevConfig(const QList<DeviceConfig *> &configList)
