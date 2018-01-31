@@ -9,11 +9,11 @@ IVerMatching::~IVerMatching()
 {
   m_verLinkLists.clear();
 }
-bool IVerMatching::check(quint32 p, quint32 c, quint32 v, quint32 f)
+bool IVerMatching::check(const VerInfo &verinfo)
 {
   if(m_verLinkLists.isEmpty())
     fillVerLinkLists(m_verLinkLists);
-  QString matLink=QString("P%1-C%2-V%3-F%4").arg(p).arg(c).arg(v).arg(f);
+  QString matLink=QString("C%1-V%2-F%3-P%4").arg(verinfo.c).arg(verinfo.v).arg(verinfo.f).arg(verinfo.p);
   return m_verLinkLists.contains(matLink);
 }
 

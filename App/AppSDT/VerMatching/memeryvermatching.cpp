@@ -23,6 +23,6 @@ bool MemeryVerMatching::close()
 
 void MemeryVerMatching::fillVerLinkLists(QStringList &list)
 {
-  list<<"P21000541-C21000543-V130-F34307";
+  list<<"C21000543-V130-F4307-P21000541";
   //增加数据库的link
 }

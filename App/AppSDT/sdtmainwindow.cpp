@@ -551,7 +551,12 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
         f=idHelper.readFpgaId();
         bool checked=true;
 //        sd->sevDevice()->attributeActive();
-        checked=vMatch->check(p,c,v,f);
+        VerInfo verInfo;
+        verInfo.c=c;
+        verInfo.f=f;
+        verInfo.p=p;
+        verInfo.v=v;
+        checked=vMatch->check(verInfo);
         if(checked==false)
         {
           bool accept=MessageBoxAsk(tr("device's componoent P%1-C%2-V%3-F%4 is not supported\nit maybe cause some error!\ndo you want to continue?\n").arg(p).arg(c).arg(v).arg(f));
