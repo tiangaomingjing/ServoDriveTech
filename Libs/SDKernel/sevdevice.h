@@ -48,6 +48,8 @@ public:
   QTreeWidget *axisTreeSource(int axis,int page) const;
   QTreeWidget *globalTreeSource(int page) const;
 
+  void setVersionAttributeActive();
+
   Q_INVOKABLE void qmlTest();
 
 signals:

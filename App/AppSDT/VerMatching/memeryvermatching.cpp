@@ -29,5 +29,6 @@ void MemeryVerMatching::fillVerLinkLists(QStringList &list)
 bool MemeryVerMatching::hasComponent(const VerInfo &verinfo)
 {
   Q_UNUSED(verinfo);
-  return false;
+//  return false;//TEST
+  return true;
 }

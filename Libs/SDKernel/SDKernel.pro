@@ -10,6 +10,7 @@ QT       -= gui
 
 INCLUDEPATH+=$${PWD}/../GTUtils\
             $${PWD}/../GTUtils/QtTreeManager\
+            $${PWD}/../GTUtils/DeviceIdHelper\
             $${PWD}/../Com/Communication\
             $${PWD}/../../Common/src\
             $${PWD}/../../Common/src/kernel
@@ -44,7 +45,8 @@ SOURCES += \
     sevpwrboard.cpp \
     PowerTreeManage/powertreemanage.cpp \
     ../../Common/src/Kernel/deviceconfig.cpp \
-    sdkernel_global.cpp
+    sdkernel_global.cpp \
+    verattribute.cpp
 
 HEADERS += \
     sdkernel_global.h \
@@ -59,7 +61,8 @@ HEADERS += \
     sevdspmap.h \
     sevpwrboard.h \
     PowerTreeManage/powertreemanage.h \
-    ../../Common/src/Kernel/deviceconfig.h
+    ../../Common/src/Kernel/deviceconfig.h \
+    verattribute.h
 
 unix {
     target.path = /usr/lib

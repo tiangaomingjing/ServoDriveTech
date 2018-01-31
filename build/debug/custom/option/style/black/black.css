@@ -123,7 +123,7 @@ QToolButton::menu-button {
 }
 
 QToolButton::menu-arrow {
-    image: url(downarrow.png);
+    /*image: url(downarrow.png);*/
 }
 
 QToolButton::menu-arrow:open {

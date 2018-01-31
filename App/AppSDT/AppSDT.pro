@@ -27,7 +27,6 @@ SOURCES += main.cpp\
     DialogOption/dialogoption.cpp \
     ../../Common/src/Kernel/devcomrwriter.cpp \
     ../../Common/src/Kernel/deviceconfig.cpp \
-    ../../Common/src/Kernel/deviceidhelper.cpp \
     ../../Common/src/Kernel/devtextrwriter.cpp \
     ../../Common/src/Kernel/gconfigreadwriter.cpp \
     ../../Common/src/Kernel/globalconfig.cpp \
@@ -50,7 +49,6 @@ HEADERS  += sdtmainwindow.h \
     DialogOption/dialogoption.h \
     ../../Common/src/Kernel/devcomrwriter.h \
     ../../Common/src/Kernel/deviceconfig.h \
-    ../../Common/src/Kernel/deviceidhelper.h \
     ../../Common/src/Kernel/devtextrwriter.h \
     ../../Common/src/Kernel/gconfigreadwriter.h \
     ../../Common/src/Kernel/globalconfig.h \

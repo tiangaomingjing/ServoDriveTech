@@ -150,9 +150,11 @@ void SDTMainWindow::createActions()
 
   //----------------more toolbutton----------------------------
   m_tbtnMore=new QToolButton(this);
+  m_tbtnMore->setText(tr("more"));
+  m_tbtnMore->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
 //  m_tbtnMore->setToolButtonStyle(Qt::ToolButtonIconOnly);
 //  m_tbtnMore->setPopupMode(QToolButton::MenuButtonPopup);
-  m_tbtnMore->setPopupMode(QToolButton::InstantPopup);
+//  m_tbtnMore->setPopupMode(QToolButton::InstantPopup);
 
   m_actnOnMode=new QAction(m_tbtnMore);
   m_actnOnMode->setText(tr("online"));
@@ -229,7 +231,7 @@ void SDTMainWindow::setAppIcon()
 void SDTMainWindow::createConnections()
 {
   connect(m_actnOption,SIGNAL(triggered(bool)),this,SLOT(onActnOptionClicked()));
-//  connect(m_tbtnMore,SIGNAL(clicked(bool)),this,SLOT(onActnTbtnMoreClicked()));
+  connect(m_tbtnMore,SIGNAL(clicked(bool)),this,SLOT(onActnTbtnMoreClicked()));
   connect(m_actnConnect,SIGNAL(triggered(bool)),this,SLOT(onActnConnectClicked(bool)));
   connect(m_actnDisNet,SIGNAL(triggered(bool)),this,SLOT(onActnDisConnectClicked(bool)));
   connect(m_tbtnHelp,SIGNAL(clicked(bool)),this,SLOT(onActnHelpDeviceInfoClicked()));
@@ -510,6 +512,7 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
     setUiAllEnable(false);
     m_statusBar->statusProgressBar()->setValue(5);
     bool isOpen=setConnect(true);
+    qDebug()<<"bool isOpen=setConnect(true)";
     if(isOpen)
     {
       /*if(isAutoLoad())
@@ -529,11 +532,12 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
       vMatch->open();
       foreach (SdAssembly*sd, m_sdAssemblyList)
       {
+        ComDriver::ICom *com=sd->sevDevice()->socketCom();
+        idHelper.setCom(com);
         if(isAutoLoad()==false)
         {
-          ComDriver::ICom *com=sd->sevDevice()->socketCom();
-          idHelper.setCom(com);
-          QString ver=idHelper.readVersion();
+          bool vok=true;
+          QString ver=idHelper.readVersion(vok);
           QString verCurrent=sd->sevDevice()->versionName();
           if(ver!=verCurrent)
           {
@@ -546,11 +550,14 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
           }
         }
         quint32 p,c,v,f;
-        p=idHelper.readPwrId();
-        c=idHelper.readCtrId();
-        v=idHelper.readVersion().remove(0,1).toUInt();
-        f=idHelper.readFpgaId();
-//        sd->sevDevice()->attributeActive();
+        bool pok=true;
+        bool cok=true;
+        bool vok=true;
+        bool fok=true;
+        p=idHelper.readPwrId(pok);
+        c=idHelper.readCtrId(cok);
+        v=idHelper.readVersion(vok).remove(0,1).toUInt();
+        f=idHelper.readFpgaId(fok);
         VerInfo verInfo;
         verInfo.c=c;
         verInfo.f=f;
@@ -571,6 +578,7 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
             break;
           }
         }
+        sd->sevDevice()->setVersionAttributeActive();
 
       }
       vMatch->close();
@@ -592,7 +600,7 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
     else
     {
       m_statusBar->statusProgressBar()->setValue(50);
-      QMessageBox::information(0,tr("connect error"),tr("can not connect \nmaybe \n1 net is not connecting \n2 net cable is not 1000M\n3 device net error"));
+      QMessageBox::information(0,tr("connect error"),tr("can not connect \nmaybe:\n1 net is not connecting \n2 net cable is not 1000M\n3 device net error\n4 device EEPROM read error\n"));
     }
     setUiStatusConnect(m_connecting);
     setUiAllEnable(true);
@@ -651,7 +659,7 @@ void SDTMainWindow::onProgressInfo(int barValue,QString msg)
   {
     mp_progressBar->setValue(barValue);
     m_statusBar->setMsg(msg,(SdtStatusBar::MsgType)styleTest);
-    qDebug()<<"visible processbar value="<<barValue;
+//    qDebug()<<"visible processbar value="<<barValue;
     styleTest++;
     if(styleTest>2)
       styleTest=0;
@@ -769,8 +777,11 @@ bool SDTMainWindow::setConnect(bool net)
       configList=idevRWriter->createConfig(processCallBack,(void *)(bar),isOk);
       if(isOk)
       {
-        createSdAssemblyByDevConfig(configList);
-        GT::deepClearList(configList);
+        if(!configList.isEmpty())
+        {
+          createSdAssemblyByDevConfig(configList);
+          GT::deepClearList(configList);
+        }
         delete idevRWriter;
       }
       else
@@ -820,7 +831,7 @@ bool SDTMainWindow::MessageBoxAsk(const QString &msg)
 
 void SDTMainWindow::createSdAssemblyByDevConfig(const QList<DeviceConfig *> &configList)
 {
-  if(configList.count()==0)
+  if(configList.isEmpty())
     return;
   QList<DeviceConfig *> devConfigBuf;
   int configCount=configList.count();

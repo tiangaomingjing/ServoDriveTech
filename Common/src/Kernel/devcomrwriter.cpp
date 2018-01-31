@@ -49,7 +49,7 @@ QList<DeviceConfig *>DevComRWriter::createConfig(void (*processCallback)(void *p
     std::vector<uint8_t>::iterator it=vtr.begin();
     while(it!=vtr.end())
     {
-      qDebug()<<(*it);
+      qDebug()<<"station="<<(*it);
       ++it;
     }
     QVector<uint8_t> v;
@@ -68,7 +68,13 @@ QList<DeviceConfig *>DevComRWriter::createConfig(void (*processCallback)(void *p
       qDebug()<<"DeviceConfig m_modeName="<<config->m_modeName;
       qDebug()<<"DeviceConfig m_typeName="<<config->m_typeName;
       qDebug()<<"DeviceConfig m_rnStationId="<<config->m_rnStationId;
-      list.append(config);
+      if(config!=NULL)
+        list.append(config);
+      else
+      {
+        isOk=false;
+        break;
+      }
       i++;
     }
   }
@@ -91,26 +97,44 @@ bool DevComRWriter::saveConfig(const DeviceConfig *config)
 
 DeviceConfig* DevComRWriter::buildConfigFromCom(quint8 devId, quint8 rnstation, ComDriver::ICom *com)
 {
-  DeviceConfig *config=new DeviceConfig;
   DeviceIdHelper idHelper(com);
-  config->m_pwrId= idHelper.readPwrId();
-  qDebug()<<"config->m_pwrId"<<config->m_pwrId;
-  config->m_ctrId= idHelper.readCtrId();
-  qDebug()<<"config->m_ctrId"<<config->m_ctrId;
-  config->m_version=idHelper.readVersion();
-  qDebug()<<"config->m_version"<<config->m_version;
-  config->m_comType=com->iComType();
-  qDebug()<<"config->m_comType"<<config->m_comType;
-  config->m_axisNum=idHelper.axisNumFromIdMap();
-  qDebug()<<"m_axisNum"<<config->m_axisNum;
-  config->m_devId=devId;
-  config->m_fpgaId=idHelper.readFpgaId();
-  qDebug()<<"config->m_fpgaId"<<config->m_fpgaId;
-  config->m_modeName=idHelper.modeNameFromIdMap();
-  qDebug()<<"config->m_modeName"<<config->m_modeName;
-  config->m_typeName=idHelper.typeNameFromIdMap();
-  qDebug()<<"config->m_typeName"<<config->m_typeName;
-  config->m_rnStationId=rnstation;
+  DeviceConfig *config=NULL;
+  bool pok=true;
+  bool cok=true;
+  bool vok=true;
+  bool fok=true;
+  quint32 pid,cid,fid;
+  QString version;
+  pid= idHelper.readPwrId(pok);
+  cid= idHelper.readCtrId(cok);
+  version=idHelper.readVersion(vok);
+  fid=idHelper.readFpgaId(fok);
+
+  if(pok&&cok&&vok&&fok)
+  {
+    config=new DeviceConfig(0);
+    config->m_pwrId= pid;
+    config->m_ctrId= cid;
+    config->m_version=version;
+    config->m_fpgaId=fid;
+    config->m_comType=com->iComType();
+    config->m_axisNum=idHelper.axisNumFromIdMap();
+    config->m_devId=devId;
+
+    config->m_modeName=idHelper.modeNameFromIdMap();
+    config->m_typeName=idHelper.typeNameFromIdMap();
+    config->m_rnStationId=rnstation;
+    qDebug()<<"config->m_pwrId"<<config->m_pwrId;
+    qDebug()<<"config->m_ctrId"<<config->m_ctrId;
+    qDebug()<<"config->m_version"<<config->m_version;
+    qDebug()<<"config->m_comType"<<config->m_comType;
+    qDebug()<<"m_axisNum"<<config->m_axisNum;
+    qDebug()<<"config->m_fpgaId"<<config->m_fpgaId;
+    qDebug()<<"config->m_modeName"<<config->m_modeName;
+    qDebug()<<"config->m_typeName"<<config->m_typeName;
+  }
+  qDebug()<<"TEST_OUT";
+
   return config;
 }
 void DevComRWriter::printfInfo(void *argv, short *v)

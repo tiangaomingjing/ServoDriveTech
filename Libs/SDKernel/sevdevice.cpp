@@ -8,6 +8,7 @@
 #include "sevdspmap.h"
 #include "sevpwrboard.h"
 #include "sevctrboard.h"
+#include "verattribute.h"
 
 #include <QTreeWidget>
 #include <QStringList>
@@ -22,6 +23,7 @@ SevDevicePrivate::SevDevicePrivate(SevDevice *sev, QObject *parent):QObject(pare
   m_dspMap(NULL),
   m_pwrBoard(NULL),
   m_ctrBoard(NULL),
+  m_verAttribute(NULL),
   m_devConfig(new DeviceConfig)
 {
 
@@ -36,6 +38,7 @@ SevDevicePrivate::~SevDevicePrivate()
   GT::deletePtrObject(m_pwrBoard);
   GT::deletePtrObject(m_ctrBoard);
   GT::deletePtrObject(m_devConfig);
+  GT::deletePtrObject(m_verAttribute);
 }
 QTreeWidget *SevDevicePrivate::configTree()
 {
@@ -181,6 +184,7 @@ bool SevDevicePrivate::init(const DeviceConfig *dConfig)
   m_pwrBoard=new SevPwrBoard(this,0);
   m_ctrBoard=new SevCtrBoard(this,0);
   m_socket=new LinkSocket(this,0);
+  m_verAttribute=new VerAttribute(0);
   return true;
 }
 
@@ -286,6 +290,12 @@ QTreeWidget *SevDevice::globalTreeSource(int page) const
   Q_D(const SevDevice);
   return d->m_dspMap->globalTreeWidget(page);
 }
+void SevDevice::setVersionAttributeActive()
+{
+  Q_D(SevDevice);
+  d->m_verAttribute->setActive(this);
+}
+
 void SevDevice::qmlTest()
 {
   qDebug()<<"this is qml signals to device";
