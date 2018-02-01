@@ -113,7 +113,7 @@ quint32 DeviceIdHelper::readCtrId(bool &isOk)
   uint8_t value[4];
   uint8_t cs = 1;
   errcode_t err=0;
-  qDebug()<<"ofst"<<ofst;
+//  qDebug()<<"ofst"<<ofst;
 
   err=m_com->readEEPROM(ofst, value, num, cs);
   if(err!=0)

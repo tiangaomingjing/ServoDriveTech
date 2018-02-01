@@ -32,6 +32,8 @@
 #include "memeryvermatching.h"
 #include "dbvermatching.h"
 
+#include "icom.h"
+
 #include <QToolButton>
 #include <QDebug>
 #include <QTranslator>
@@ -508,11 +510,11 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
   if(!m_connecting)
   {
     bool isContinue=true;
+    SdtError::instance()->errorStringList()->clear();
     m_statusBar->statusProgressBar()->setVisible(true);
     setUiAllEnable(false);
     m_statusBar->statusProgressBar()->setValue(5);
     bool isOpen=setConnect(true);
-    qDebug()<<"bool isOpen=setConnect(true)";
     if(isOpen)
     {
       /*if(isAutoLoad())
@@ -528,12 +530,14 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
       }*/
       DeviceIdHelper idHelper;
       IVerMatching *vMatch=new MemeryVerMatching;
-      IVerMatching::CheckStatus checkStatus;
+      IVerMatching::CheckStatus checkStatus=IVerMatching::CHECK_STA_OK;
       vMatch->open();
       foreach (SdAssembly*sd, m_sdAssemblyList)
       {
         ComDriver::ICom *com=sd->sevDevice()->socketCom();
         idHelper.setCom(com);
+
+        //-------如果不是自动匹配，要进行V版本配对检查------
         if(isAutoLoad()==false)
         {
           bool vok=true;
@@ -549,21 +553,28 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
             }
           }
         }
+
+        //------组合版本匹配-------
         quint32 p,c,v,f;
-        bool pok=true;
-        bool cok=true;
-        bool vok=true;
-        bool fok=true;
-        p=idHelper.readPwrId(pok);
-        c=idHelper.readCtrId(cok);
-        v=idHelper.readVersion(vok).remove(0,1).toUInt();
-        f=idHelper.readFpgaId(fok);
-        VerInfo verInfo;
-        verInfo.c=c;
-        verInfo.f=f;
-        verInfo.p=p;
-        verInfo.v=v;
-        checkStatus=vMatch->check(verInfo);
+        p=c=v=f=0;
+        if(com->iComType()!=ComDriver::ICOM_TYPE_PCDEBUG)
+        {
+          bool pok=true;
+          bool cok=true;
+          bool vok=true;
+          bool fok=true;
+          p=idHelper.readPwrId(pok);
+          c=idHelper.readCtrId(cok);
+          v=idHelper.readVersion(vok).remove(0,1).toUInt();
+          f=idHelper.readFpgaId(fok);
+          VerInfo verInfo;
+          verInfo.c=c;
+          verInfo.f=f;
+          verInfo.p=p;
+          verInfo.v=v;
+          checkStatus=vMatch->check(verInfo);
+        }
+
         if(checkStatus!=IVerMatching::CHECK_STA_OK)
         {
           QString msg;
@@ -578,6 +589,7 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
             break;
           }
         }
+
         sd->sevDevice()->setVersionAttributeActive();
 
       }
@@ -600,8 +612,14 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
     else
     {
       m_statusBar->statusProgressBar()->setValue(50);
-      QMessageBox::information(0,tr("connect error"),tr("can not connect \nmaybe:\n1 net is not connecting \n2 net cable is not 1000M\n3 device net error\n4 device EEPROM read error\n"));
+      if(!isAutoLoad())
+      {
+        SdtError::instance()->errorStringList()->append(tr("your connect com is worong"));
+        SdtError::instance()->errorStringList()->append(tr("your select com type is wrong"));
+      }
+      QMessageBox::information(0,tr("connect error"),tr("Net Error\n\nexception cause maybe:\n%1\n").arg(SdtError::instance()->errorStringList()->join("\n")));
     }
+
     setUiStatusConnect(m_connecting);
     setUiAllEnable(true);
     m_statusBar->statusProgressBar()->setVisible(false);
@@ -611,12 +629,9 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
 }
 void SDTMainWindow::onActnDisConnectClicked(bool checked)
 {
-  if(m_connecting)
-  {
-    setConnect(false);
-    m_connecting=false;
-    setUiStatusConnect(m_connecting);
-  }
+  setConnect(false);
+  m_connecting=false;
+  setUiStatusConnect(m_connecting);
   qDebug()<<"checked"<<checked;
 }
 void SDTMainWindow::onActnHelpDeviceInfoClicked()
@@ -853,7 +868,6 @@ void SDTMainWindow::createSdAssemblyByDevConfig(const QList<DeviceConfig *> &con
       qDebug()<<"isEqual"<<isEqual;
       if(isEqual)//与原有的匹配
       {
-        qDebug()<<"sdAssemblyListTemp.append(sdAssemblyList.takeAt(j))";
         sdAssemblyListTemp.append(m_sdAssemblyList.takeAt(j));
         cp=true;
         break;

@@ -42,7 +42,8 @@ SOURCES += main.cpp\
     ConfigDialog/configdialog.cpp \
     VerMatching/ivermatching.cpp \
     VerMatching/memeryvermatching.cpp \
-    VerMatching/dbvermatching.cpp
+    VerMatching/dbvermatching.cpp \
+    sdtglobaldef.cpp
 
 HEADERS  += sdtmainwindow.h \
     appiconname.h \
