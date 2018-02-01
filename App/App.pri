@@ -12,7 +12,8 @@ INCLUDEPATH+=$${LIBS_PATH}/Com/Communication\
             $${LIBS_PATH}/PlotUnit\
             $${COMMON_PATH}/src\
             $${COMMON_PATH}/src/Kernel\
-            $${COMMON_PATH}/src/UiFactory
+            $${COMMON_PATH}/src/UiFactory\
+            $${COMMON_PATH}/src/SdtGlobal
 
 
 CONFIG(debug, debug|release){

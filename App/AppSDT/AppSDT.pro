@@ -43,7 +43,7 @@ SOURCES += main.cpp\
     VerMatching/ivermatching.cpp \
     VerMatching/memeryvermatching.cpp \
     VerMatching/dbvermatching.cpp \
-    sdtglobaldef.cpp
+    ../../Common/src/SdtGlobal/sdtglobaldef.cpp
 
 HEADERS  += sdtmainwindow.h \
     appiconname.h \
@@ -64,11 +64,11 @@ HEADERS  += sdtmainwindow.h \
     ScreenStartup/screenstartup.h \
     SdtStatusBar/sdtstatusbar.h \
     SdtStatusBar/statuserrdialog.h \
-    ../../Common/src/sdtglobaldef.h \
     ConfigDialog/configdialog.h \
     VerMatching/ivermatching.h \
     VerMatching/memeryvermatching.h \
-    VerMatching/dbvermatching.h
+    VerMatching/dbvermatching.h \
+    ../../Common/src/SdtGlobal/sdtglobaldef.h
 
 FORMS    += sdtmainwindow.ui \
     DialogOption/dialogoption.ui \

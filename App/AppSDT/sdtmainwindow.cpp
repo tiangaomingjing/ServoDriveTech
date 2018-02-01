@@ -103,8 +103,7 @@ void SDTMainWindow::createActions()
   ui->mainToolBar->setIconSize(QSize(24,24));
   m_actnConnect=new QAction(this);
   m_actnConnect->setText(tr("connet"));
-  m_actnConnect->setStatusTip(tr("connect to servo"));
-  m_actnConnect->setToolTip(tr("connect to servo"));
+  m_actnConnect->setStatusTip(tr("connect to servo:you can manul to load by change:toogle More->Option->AutoLoad"));
 
   m_actnDisNet=new QAction(this);
   m_actnDisNet->setText(tr("disnet"));
@@ -118,22 +117,28 @@ void SDTMainWindow::createActions()
 
   m_actnNewConfig=new QAction(this);
   m_actnNewConfig->setText(tr("new"));
+  m_actnNewConfig->setToolTip(tr("select your correct system"));
 
   m_actnDownload=new QAction(this);
   m_actnDownload->setText(tr("dwnload"));
+  m_actnDownload->setToolTip(tr("download the  parameters to device"));
 
   m_actnUpload=new QAction(this);
   m_actnUpload->setText(tr("upload"));
+  m_actnUpload->setToolTip(tr("save the device parameters to xml files"));
 
   m_actnCompare=new QAction(this);
   m_actnCompare->setText(tr("compare"));
+  m_actnCompare->setToolTip(tr("compare the old xml with new xml files"));
 
   m_actnConfig=new QAction(this);
   m_actnConfig->setText(tr("config"));
   m_actnConfig->setEnabled(false);
+  m_actnConfig->setToolTip(tr("download the parameters to device and immediately active"));
 
   m_actnSave=new QAction(this);
   m_actnSave->setText(tr("save"));
+  m_actnSave->setToolTip(tr("permanently save the parameters to device\nyou should reset the system to make it active"));
 
   QWidget *spacer=new QWidget(this);
   spacer->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
@@ -142,6 +147,7 @@ void SDTMainWindow::createActions()
   m_tbtnHelp->setPopupMode(QToolButton::MenuButtonPopup);
   m_tbtnHelp->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
   m_tbtnHelp->setText(tr("help"));
+  m_tbtnHelp->setToolTip(tr("query the hardware and software infomation"));
   m_actnAboutHardware=new QAction(this);
   m_actnAboutHardware->setText(tr("hinfo"));
   m_actnAboutSoftware=new QAction(this);
