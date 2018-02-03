@@ -1,6 +1,8 @@
 ﻿#ifndef SDTGLOBALDEF
 #define SDTGLOBALDEF
 #include <QObject>
+#include <QMutexLocker>
+#include <QMutex>
 
 #define GT_NAMESPACE_BEGIN namespace GT {
 #define GT_NAMESPACE_END }
@@ -43,6 +45,44 @@ static void deepClearList(QList<T*>&list)
   }
   list.clear();
 }
+
+template <typename T>
+static void deletePtrObject(T*obj)
+{
+  if(obj!=NULL)
+  {
+    delete obj;
+    obj=NULL;
+  }
+}
+
+class  SdtError
+{
+public:
+  static SdtError *instance()
+  {
+    static QMutex mutex;
+    if(!m_instance)
+    {
+      QMutexLocker locker(&mutex);
+      if(!m_instance)
+        m_instance=new SdtError();
+    }
+    return m_instance;
+  }
+
+  ~SdtError(){}
+
+  static QStringList *errorStringList()
+  {
+    return &m_errList;
+  }
+protected:
+  SdtError(){}
+private:
+  static QStringList m_errList;
+  static SdtError *m_instance;
+};
 
 GT_NAMESPACE_END
 #endif // SDTGLOBALDEF

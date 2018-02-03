@@ -86,7 +86,7 @@ void SdtStatusBar::setMsg(const QString &str,MsgType type)
   }
   FILL_RGB(color,r,g,b);
   ss=QString("QLabel{color:rgb(%1,%2,%3);}").arg(r).arg(g).arg(b);
-  qDebug()<<"setMsg "<<ss;
+//  qDebug()<<"setMsg "<<ss;
   ui->labelMsg->setText(str);
   ui->labelMsg->setStyleSheet(ss);
 }

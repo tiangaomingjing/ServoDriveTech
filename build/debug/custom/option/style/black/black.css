@@ -1,3 +1,9 @@
+/*==========================main treeWidget 导航栏=====================*/
+QDockWidget  QTreeView {
+	border:1px solid lightgray;
+	border-bottom-color:transparent;
+	border-top-color:transparent;
+}
 QPushButton{
   border-style: none;
   border: 0px;
@@ -52,9 +58,10 @@ QListView::item:selected:!active {
 QWidget#dockWidgetContents_2{
 background-color: rgb(161, 161, 161);
 }
+/*====================工具栏=======================*/
 QToolBar {
 	border:none;
-    background-color: rgb(80, 80, 80);
+    background-color: #252A3E;
 	/*background: #000066;
 	background: seagreen;*/
     spacing: 3px; /* spacing between items in the tool bar */
@@ -67,7 +74,7 @@ QToolButton { /* all types of tool button */
 	padding-right:0px;
 	color:white;
     border-radius: 5px;
-    background-color: rgb(80, 80, 80);
+    background-color: #252A3E;
 	/*background-color:#000066;
 	background-color:seagreen;*/
 }
@@ -116,7 +123,7 @@ QToolButton::menu-button {
 }
 
 QToolButton::menu-arrow {
-    image: url(downarrow.png);
+    /*image: url(downarrow.png);*/
 }
 
 QToolButton::menu-arrow:open {
@@ -128,6 +135,30 @@ background-color: #F0F0F0;
 QWidget#mainStackedWidget{
 background-color: #F0F0F0;
 }
+/*==============================状态栏====================================*/
+QWidget#statusBar{
+	border:none;
+	/*border-left-color:transparent;
+	border-bottom-color:transparent;
+	border-right-color:transparent;*/
+	background-color:#E0DDDD;
+}
+QToolButton#tbtnError,QToolButton#tbtnNet { /* all types of tool button */
+    border: none;
+	padding-top:5px;
+	padding-bottom:5px;
+	padding-left:0px;
+	padding-right:0px;
+	color:red;
+    border-radius: 5px;
+    background-color: transparent;
+}
+QToolButton#tbtnError:hover{
+    background-color: #252A3E;
+	color:white;
+}
+
+
 
 /*============自定义stylewidget 可以在C++环境中索引到其值=================*/
 StyleWidget{
@@ -142,3 +173,30 @@ StyleWidget{
 	qproperty-msgErrorColor:red;
 }
 
+
+/*====================电机界面===================*/
+QWidget#widget_machinePrm{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+QWidget#widget_currentPrm{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+QWidget#widget_impedancePrm{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+QWidget#widget_torquePrm{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+QWidget#widget_velocityPrm{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}

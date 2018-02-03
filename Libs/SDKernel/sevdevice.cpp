@@ -8,6 +8,7 @@
 #include "sevdspmap.h"
 #include "sevpwrboard.h"
 #include "sevctrboard.h"
+#include "verattribute.h"
 
 #include <QTreeWidget>
 #include <QStringList>
@@ -18,6 +19,11 @@
 SevDevicePrivate::SevDevicePrivate(SevDevice *sev, QObject *parent):QObject(parent),
   q_ptr(sev),
   m_configTree(NULL),
+  m_targetTree(NULL),
+  m_dspMap(NULL),
+  m_pwrBoard(NULL),
+  m_ctrBoard(NULL),
+  m_verAttribute(NULL),
   m_devConfig(new DeviceConfig)
 {
 
@@ -26,16 +32,13 @@ SevDevicePrivate::SevDevicePrivate(SevDevice *sev, QObject *parent):QObject(pare
 SevDevicePrivate::~SevDevicePrivate()
 {
   qDebug()<<"SevDevicePrivate destruct-->";
-  if(m_configTree!=NULL)
-  {
-    delete m_configTree;
-    m_configTree=NULL;
-  }
-  delete m_dspMap;
-  delete m_pwrBoard;
-  delete m_targetTree;
-  delete m_ctrBoard;
-  delete m_devConfig;
+  GT::deletePtrObject(m_configTree);
+  GT::deletePtrObject(m_targetTree);
+  GT::deletePtrObject(m_dspMap);
+  GT::deletePtrObject(m_pwrBoard);
+  GT::deletePtrObject(m_ctrBoard);
+  GT::deletePtrObject(m_devConfig);
+  GT::deletePtrObject(m_verAttribute);
 }
 QTreeWidget *SevDevicePrivate::configTree()
 {
@@ -119,9 +122,11 @@ QTreeWidgetItem* SevDevicePrivate::findTargetTree()
 
   QString comIndexFile=GTUtils::sysPath()+"SysMap/"+COMINDEX_NAME;
   QTreeWidget *comInxTree=QtTreeManager::createTreeWidgetFromXmlFile(comIndexFile);
-//  if (comInxTree == NULL) {
-//      return NULL;
-//  }
+  if (comInxTree == NULL)
+  {
+    qDebug()<<"can not create comInxTree...........";
+    return NULL;
+  }
   QString comName="RnNet";
   quint8 comId=m_devConfig->m_comType;
 //  qDebug()<<"comId ="<<comId;
@@ -144,6 +149,11 @@ QTreeWidgetItem* SevDevicePrivate::findTargetTree()
 //  qDebug()<<"targetTreePath :"<<targetTreePath;
 
   QTreeWidget *targetTree=QtTreeManager::createTreeWidgetFromXmlFile(targetTreePath);
+  if(targetTree==NULL)
+  {
+    delete comInxTree;
+    return NULL;
+  }
   m_targetTree=targetTree->topLevelItem(0)->clone();
 
   delete comInxTree;
@@ -151,7 +161,7 @@ QTreeWidgetItem* SevDevicePrivate::findTargetTree()
   return m_targetTree;
 }
 
-void SevDevicePrivate::init(const DeviceConfig *dConfig)
+bool SevDevicePrivate::init(const DeviceConfig *dConfig)
 {
   qDebug()<<"init Config";
   emit initProgressInfo(3,tr("init Config"));
@@ -161,7 +171,9 @@ void SevDevicePrivate::init(const DeviceConfig *dConfig)
 
   qDebug()<<"findTargetTree";
   emit initProgressInfo(5,tr("findTargetTree"));
-  findTargetTree();
+  QTreeWidgetItem *target=findTargetTree();
+  if(target==NULL)
+    return false;
 
   qDebug()<<"new SevDspMap";
   m_dspMap=new SevDspMap(this,0);
@@ -172,7 +184,8 @@ void SevDevicePrivate::init(const DeviceConfig *dConfig)
   m_pwrBoard=new SevPwrBoard(this,0);
   m_ctrBoard=new SevCtrBoard(this,0);
   m_socket=new LinkSocket(this,0);
-
+  m_verAttribute=new VerAttribute(0);
+  return true;
 }
 
 
@@ -191,14 +204,18 @@ bool SevDevice::init(const DeviceConfig *dConfig)
   d_ptr=new SevDevicePrivate(this,0);
   connect(d_ptr,SIGNAL(initProgressInfo(int,QString)),this,SIGNAL(initProgressInfo(int,QString)));
   Q_D(SevDevice);
-  d->init(dConfig);
-  return true;
+  return d->init(dConfig);
 }
 
 void SevDevice::adjustSocket(ComDriver::ICom *com)
 {
   Q_D(SevDevice);
 //  d->m_socket->connect();
+}
+ComDriver::ICom *SevDevice::socketCom() const
+{
+  Q_D(const SevDevice);
+  return d->m_socket->comObject();
 }
 bool SevDevice::enableConnection(void (*processCallBack)(void *argv, short *value), void *uiProcessBar)
 {
@@ -273,6 +290,12 @@ QTreeWidget *SevDevice::globalTreeSource(int page) const
   Q_D(const SevDevice);
   return d->m_dspMap->globalTreeWidget(page);
 }
+void SevDevice::setVersionAttributeActive()
+{
+  Q_D(SevDevice);
+  d->m_verAttribute->setActive(this);
+}
+
 void SevDevice::qmlTest()
 {
   qDebug()<<"this is qml signals to device";

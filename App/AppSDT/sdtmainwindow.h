@@ -71,6 +71,10 @@ private:
 
   bool setConnect(bool net);
 
+  bool isAutoLoad();
+
+  bool MessageBoxAsk(const QString &msg);
+
 signals:
   void initProgressInfo(int barValue,QString msg);
 private slots:

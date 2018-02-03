@@ -120,6 +120,7 @@ QTreeWidgetItem* GTUtils::findTopLevelItem(QTreeWidgetItem *item)
   return top;
 }
 
+
 //QTreeWidgetItem* findItem(QString text, QTreeWidget* tree, int col) {
 //    QTreeWidgetItemIterator treeIter(tree);
 //    QTreeWidgetItem *result = NULL;

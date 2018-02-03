@@ -2,7 +2,7 @@
 #define DEVCOMRWRITER_H
 
 #include "idevreadwriter.h"
-
+class QTreeWidgetItem;
 class DevComRWriter:public IDevReadWriter
 {
   Q_OBJECT
@@ -14,6 +14,8 @@ public:
 private:
   DeviceConfig* buildConfigFromCom(quint8 devId, quint8 rnstation, ComDriver::ICom *com);
   static void printfInfo(void *argv, short *v);
+  QTreeWidgetItem* findItemByText(QTreeWidgetItem*srcItem,const QString &text);
+  bool checkSupport(DeviceConfig *config);
 };
 
 #endif // DEVCOMRWRITER_H

@@ -4,6 +4,7 @@ COMMON_PATH=$${PWD}/../Common
 INCLUDEPATH+=$${LIBS_PATH}/Com/Communication\
             $${LIBS_PATH}/GTUtils\
             $${LIBS_PATH}/GTUtils/QtTreeManager\
+            $${LIBS_PATH}/GTUtils/DeviceIdHelper\
             $${LIBS_PATH}/SDKernel\
             $${LIBS_PATH}/UI\
             $${LIBS_PATH}/UI/IUiWidget\
@@ -11,7 +12,8 @@ INCLUDEPATH+=$${LIBS_PATH}/Com/Communication\
             $${LIBS_PATH}/PlotUnit\
             $${COMMON_PATH}/src\
             $${COMMON_PATH}/src/Kernel\
-            $${COMMON_PATH}/src/UiFactory
+            $${COMMON_PATH}/src/UiFactory\
+            $${COMMON_PATH}/src/SdtGlobal
 
 
 CONFIG(debug, debug|release){

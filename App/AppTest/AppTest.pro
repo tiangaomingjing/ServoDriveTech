@@ -34,13 +34,12 @@ SOURCES += main.cpp\
     ../../Common/src/Kernel/iuicontroler.cpp \
     ../../Common/src/Kernel/sdassembly.cpp \
     ../../Common/src/Kernel/sevuicontroler.cpp \
-    ../../Common/src/UiFactory/uifactory.cpp \
-    ../../Common/src/Kernel/deviceidhelper.cpp
+    ../../Common/src/UiFactory/uifactory.cpp\
+    ../../Common/src/SdtGlobal/sdtglobaldef.cpp
 
 
 HEADERS  += appmainwindowtest.h \
     changframaddr.h \
-    ../../Common/src/sdtglobaldef.h \
     ../../Common/src/Kernel/devcomrwriter.h \
     ../../Common/src/Kernel/deviceconfig.h \
     ../../Common/src/Kernel/devtextrwriter.h \
@@ -53,6 +52,6 @@ HEADERS  += appmainwindowtest.h \
     ../../Common/src/Kernel/sevuicontroler.h \
     ../../Common/src/UiFactory/registerfunction.h \
     ../../Common/src/UiFactory/uifactory.h \
-    ../../Common/src/Kernel/deviceidhelper.h
+    ../../Common/src/SdtGlobal/sdtglobaldef.h
 
 FORMS    += appmainwindowtest.ui

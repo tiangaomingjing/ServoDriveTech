@@ -19,7 +19,7 @@ QMainWindow::separator:hover {
 
 
 
-/*------------tool bar-----------------------------*/
+/*===================tool bar===================*/
 QToolBar#mainToolBar {
 	background: rgb(38, 83, 159);
 	spacing: 3px; 
@@ -28,12 +28,12 @@ QToolBar#mainToolBar {
 	margin-top:5px;
 	margin-bottom:5px;
 }
-/*------------tool button-------------------------*/
+/*====================tool button=====================*/
 QToolButton { /* all types of tool button */
 	color:white;
 }
 
-/*---------------main treeWidget 导航栏----------------------*/
+/*==========================main treeWidget 导航栏=====================*/
 QDockWidget  QTreeView {
     show-decoration-selected: 1;
     background-color:rgb(38, 83, 159);
@@ -98,12 +98,24 @@ QWidget#mainStackedWidget{
 	border-radius:15px;
 	border:1px solid gray;
 }
-/*-----------状态栏------------------*/
+/*==============================状态栏=========================*/
 QWidget#statusBar{
 background-color: rgb(38, 83, 159);
 }
+/*============自定义stylewidget 可以在C++环境中索引到其值=================*/
+StyleWidget{
+	qproperty-dsBoxBackgroundDefColor:white;
+	qproperty-dsBoxBackgroundReadyColor:green;
+	qproperty-dsBoxBackgroundErrorColor:#FF00FF;
+	qproperty-dsBoxTextEditColor:blue;
+	qproperty-dsBoxTextDefColor:black;
+	
+	qproperty-msgNormalColor:white;
+	qproperty-msgWarningColor:yellow;
+	qproperty-msgErrorColor:red;
+}
 
-/*------------电机界面------------------*/
+/*====================电机界面===================*/
 QWidget#widget_machinePrm{
 background-color: rgb(211, 211, 211);
 border-radius:5px;
@@ -125,15 +137,3 @@ background-color: rgb(211, 211, 211);
 border-radius:5px;
 }
 
-/*============自定义stylewidget 可以在C++环境中索引到其值=================*/
-StyleWidget{
-	qproperty-dsBoxBackgroundDefColor:white;
-	qproperty-dsBoxBackgroundReadyColor:green;
-	qproperty-dsBoxBackgroundErrorColor:#FF00FF;
-	qproperty-dsBoxTextEditColor:blue;
-	qproperty-dsBoxTextDefColor:black;
-	
-	qproperty-msgNormalColor:white;
-	qproperty-msgWarningColor:yellow;
-	qproperty-msgErrorColor:red;
-}

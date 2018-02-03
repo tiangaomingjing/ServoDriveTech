@@ -28,8 +28,11 @@ public:
   bool init(const DeviceConfig *dConfig);
 
   void adjustSocket(ComDriver::ICom *com);
+  ComDriver::ICom *socketCom() const;
+
   bool enableConnection(void (*processCallBack)(void *argv, short *value), void *uiProcessBar);
   void disableConnection();
+
 
   QString typeName() const;
   QString modelName() const;
@@ -44,6 +47,8 @@ public:
   QTreeWidgetItem* targetTree() const;
   QTreeWidget *axisTreeSource(int axis,int page) const;
   QTreeWidget *globalTreeSource(int page) const;
+
+  void setVersionAttributeActive();
 
   Q_INVOKABLE void qmlTest();
 
