@@ -18,8 +18,8 @@ public:
   explicit UiRAM(QWidget *parent = 0);
   ~UiRAM();
 
-  void readPageFLASH()Q_DECL_OVERRIDE{}
-  void writePageFLASH()Q_DECL_OVERRIDE{}
+  bool readPageFLASH()Q_DECL_OVERRIDE{return true;}
+  bool writePageFLASH()Q_DECL_OVERRIDE{return true;}
   void createQmlWidget()Q_DECL_OVERRIDE{}
 private:
   QStackedWidget *getUiStackedWidget(void) Q_DECL_OVERRIDE;

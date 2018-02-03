@@ -34,3 +34,7 @@ void IGraph::visit(IUiWidget *uiWidget)
   setUiVersionName();
   visitActive(uiWidget);
 }
+void IGraph::syncTreeDataToUiFace()
+{
+
+}

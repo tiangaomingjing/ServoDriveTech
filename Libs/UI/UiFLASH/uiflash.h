@@ -18,8 +18,8 @@ public:
   explicit UiFLASH(QWidget *parent = 0);
   ~UiFLASH();
 
-  void readPageFLASH()Q_DECL_OVERRIDE{}
-  void writePageFLASH()Q_DECL_OVERRIDE{}
+  bool readPageFLASH()Q_DECL_OVERRIDE{return true;}
+  bool writePageFLASH()Q_DECL_OVERRIDE{return true;}
   void createQmlWidget()Q_DECL_OVERRIDE{}
 
 private:

@@ -302,35 +302,38 @@ void SevDevice::qmlTest()
   qDebug()<<"this is qml signals to device";
 }
 
-void SevDevice::onReadPageFlash(int axis,QTreeWidget *tree)
+bool SevDevice::onReadPageFlash(int axis,QTreeWidget *tree)
 {
   Q_D(SevDevice);
   if(d->m_socket->isConnected()==false)
-    return;
+    return false;
 
   QTreeWidgetItemIterator it(tree);
   QTreeWidgetItem *item;
-
+  bool rOk=true;
   while (*it)
   {
     item=(*it);
-    qDebug()<<axis<<item->text(0);
-
-    d->m_socket->readPageFlash(axis,item);
-
+    rOk=d->m_socket->readPageFlash(axis,item);
+    if(!rOk)
+    {
+      rOk=false;
+      break;
+    }
     it++;
   }
+  return rOk;
 }
-void SevDevice::onWritePageFlash(int axis,QTreeWidget *tree)
+bool SevDevice::onWritePageFlash(int axis,QTreeWidget *tree)
 {
   Q_D(SevDevice);
   if(d->m_socket->isConnected()==false)
-    return;
+    return false;
 
   bool checkOk=true;
   checkOk=checkParameters(axis,tree);
   if(!checkOk)
-    return;
+    return false;
 
 
   QTreeWidgetItemIterator it(tree);
@@ -356,6 +359,7 @@ void SevDevice::onWritePageFlash(int axis,QTreeWidget *tree)
 
     it++;
   }
+  return writeOk;
 }
 
 bool SevDevice::checkPropertyParameters(QTreeWidgetItem *item)

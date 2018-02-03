@@ -37,6 +37,13 @@ GraphMotor129::~GraphMotor129()
 {
   delete ui;
 }
+void GraphMotor129::syncTreeDataToUiFace()
+{
+  //将树的数据全更新到用户界面上
+  Q_D(GraphMotor129);
+  d->m_mapping->syncAllItem2BoxText();
+}
+
 void GraphMotor129::visitActive(IUiWidget *uiWidget)
 {
   Q_D(GraphMotor129);
@@ -92,7 +99,6 @@ void GraphMotor129::visitActive(IUiWidget *uiWidget)
 //  d->m_mapping->insertBox2Item(this->ui->dspinBox_JmPercent,d->m_treeWidget->topLevelItem(13));
 //  d->m_mapping->insertBox2Item(this->ui->dspinBox_fcoe,d->m_treeWidget->topLevelItem(14));
 
-  connect(uiWidget,SIGNAL(uiActiveChanged(bool)),this,SLOT(onUiActivedChanged(bool)));
   connect(d->m_dev,SIGNAL(itemRangeValid(QTreeWidgetItem*,int)),this,SLOT(onItemBoxEditTextError(QTreeWidgetItem*,int)));
 
 }
@@ -118,16 +124,7 @@ bool GraphMotor129::eventFilter(QObject *obj, QEvent *event)
   }
   return QWidget::eventFilter(obj,event);
 }
-void GraphMotor129::onUiActivedChanged(bool actived)
-{
-  qDebug()<<"onUiActivedChanged actived="<<actived;
-  if(actived)
-  {
-    //将树的数据全更新到用户界面上
-    Q_D(GraphMotor129);
-    d->m_mapping->syncAllItem2BoxText();
-  }
-}
+
 void GraphMotor129::onItemBoxEditTextError(QTreeWidgetItem *item,int status)
 {
   Q_D(GraphMotor129);
