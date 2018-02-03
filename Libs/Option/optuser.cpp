@@ -2,7 +2,6 @@
 #include "iopt_p.h"
 #include "ui_optuser.h"
 #include "gtutils.h"
-//#include "ui_usercheckwidgetprivate.h"
 
 #include <QTextStream>
 #include <QFile>
@@ -20,6 +19,8 @@ public:
   bool m_checkShown;
   bool m_isChecked;
   QString m_pw;
+  UserCheckWidgetPrivate* m_page;
+  QString m_errMsg;
 };
 OptUserPrivate::OptUserPrivate():m_isAdmin(false),m_pw("")
 {
@@ -30,29 +31,66 @@ OptUserPrivate::~OptUserPrivate()
 
 }
 
-//class UserCheckWidgetPrivate : public QWidget
-//{
-//    //Q_OBJECT
-//    Q_DECLARE_PUBLIC(QWidget)
-//public:
-//    explicit UserCheckWidgetPrivate(QWidget *parent = 0);
-//    ~UserCheckWidgetPrivate();
+UserCheckWidgetPrivate::UserCheckWidgetPrivate(QWidget *parent) :
+    QWidget(parent)
+{
+    gridLayout = new QGridLayout(this);
+    gridLayout->setObjectName(QStringLiteral("gridLayout"));
+    checkBox = new QCheckBox(this);
+    checkBox->setObjectName(QStringLiteral("checkBox"));
 
-//private:
-//    Ui::UserCheckWidgetPrivate *ui;
-//};
+    gridLayout->addWidget(checkBox, 0, 0, 1, 2);
 
-//UserCheckWidgetPrivate::UserCheckWidgetPrivate(QWidget *parent) :
-//    QWidget(parent),
-//    ui(new Ui::UserCheckWidgetPrivate)
-//{
-//    ui->setupUi(this);
-//}
+    horizontalSpacer = new QSpacerItem(249, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-//UserCheckWidgetPrivate::~UserCheckWidgetPrivate()
-//{
-//    delete ui;
-//}
+    gridLayout->addItem(horizontalSpacer, 0, 2, 1, 1);
+
+    label = new QLabel(this);
+    label->setObjectName(QStringLiteral("label"));
+
+    gridLayout->addWidget(label, 1, 0, 1, 1);
+
+    lineEdit = new QLineEdit(this);
+    lineEdit->setObjectName(QStringLiteral("lineEdit"));
+
+    gridLayout->addWidget(lineEdit, 1, 1, 1, 2);
+
+    verticalSpacer = new QSpacerItem(20, 205, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+    gridLayout->addItem(verticalSpacer, 2, 1, 1, 1);
+    checkBox->setText(QApplication::translate("UserCheckWidgetPrivate", "CheckBox", 0));
+    label->setText(QApplication::translate("UserCheckWidgetPrivate", "Password:", 0));
+
+    lineEdit->setEchoMode(QLineEdit::Password);
+    connect(checkBox, SIGNAL(clicked()), this, SLOT(onStateChanged()));
+}
+
+UserCheckWidgetPrivate::~UserCheckWidgetPrivate()
+{
+
+}
+
+void UserCheckWidgetPrivate::setCheck(bool isChecked) {
+    checkBox->setChecked(isChecked);
+}
+
+bool UserCheckWidgetPrivate::isChecked() {
+    return checkBox->isChecked();
+}
+
+QString UserCheckWidgetPrivate::getPsw() {
+    return lineEdit->text();
+}
+
+void UserCheckWidgetPrivate::onStateChanged() {
+    qDebug()<<"ss";
+    emit stateChanged();
+}
+
+void UserCheckWidgetPrivate::pswClear() {
+    lineEdit->clear();
+}
+
 
 OptUser::OptUser(const QString &optName, QWidget *parent) : IOpt(optName,*new OptUserPrivate,parent),
   ui(new Ui::OptUser)
@@ -76,7 +114,7 @@ OptUser::OptUser(const QString &optName, QWidget *parent) : IOpt(optName,*new Op
     d->m_pw="googol123";
   }
   qDebug()<<"password"<<d->m_pw;
-  m_page = new UserCheckWidgetPrivate;
+  d->m_page = new UserCheckWidgetPrivate;
   uiInit();
   connect(ui->btn_Admin, SIGNAL(clicked()), this, SLOT(onActionBtnChecked()));
   connect(ui->btn_General, SIGNAL(clicked()), this, SLOT(onActionBtnChecked()));
@@ -91,8 +129,8 @@ void OptUser::uiInit()
     Q_D(OptUser);
     setModify(false);
     //ui->box_NeedCheck->setVisible(d->m_checkShown);
-    m_page->setCheck(d->m_isChecked);
-    connect(m_page, SIGNAL(stateChanged()), this, SLOT(onActionLineChange()));
+    d->m_page->setCheck(d->m_isChecked);
+    connect(d->m_page, SIGNAL(stateChanged()), this, SLOT(onActionLineChange()));
     //d->m_page->setParent(this);
     if (ui->tabWidget->count() == 1) {
         d->m_checkShown = false;
@@ -114,22 +152,24 @@ bool OptUser::optActive()
         if (password.compare(d->m_pw) == 0) {
             ui->lineEdit->setReadOnly(true);
             if (d->m_checkShown) {
-                qDebug()<<m_page->getPsw();
-                if (m_page->getPsw().compare(d->m_pw) == 0) {
-                    d->m_isChecked = m_page->isChecked();
+                qDebug()<<d->m_page->getPsw();
+                if (d->m_page->getPsw().compare(d->m_pw) == 0) {
+                    d->m_isChecked = d->m_page->isChecked();
                 } else {
-                    QMessageBox::warning(this, tr("Warning"), tr("Wrong Need Check Password!"), QMessageBox::Ok);
+                    d->m_errMsg = "Wrong Need Check Password!";
+                    //QMessageBox::warning(this, tr("Warning"), tr("Wrong Need Check Password!"), QMessageBox::Ok);
                     return false;
                 }
             } else {
-                ui->tabWidget->addTab(m_page, "Check");
+                ui->tabWidget->addTab(d->m_page, "Check");
                 d->m_checkShown = true;
                 emit usrChange(d->m_isAdmin);
                 //ui->box_NeedCheck->setVisible(d->m_checkShown);
             }
         } else {
             ui->lineEdit->clear();
-            QMessageBox::warning(this, tr("Warning"), tr("Wrong Password!"), QMessageBox::Ok);
+            d->m_errMsg = "Wrong Password!";
+            //QMessageBox::warning(this, tr("Warning"), tr("Wrong Password!"), QMessageBox::Ok);
             return false;
         }
     } else {
@@ -148,14 +188,15 @@ bool OptUser::readOpt()
 }
 bool OptUser::writeOpt()
 {
-  Q_D(OptUser);
+    Q_D(OptUser);
   saveData("usr","admin",d->m_isAdmin);
   return true;
 }
 
 void OptUser::respondErrorExecute()
 {
-
+    Q_D(OptUser);
+    QMessageBox::warning(this, tr("Warning"), d->m_errMsg, QMessageBox::Ok);
 }
 
 bool OptUser::isAdmin() const
@@ -179,11 +220,12 @@ void OptUser::onActionBtnChecked() {
         d->m_isAdmin = false;
         d->m_checkShown = false;
         ui->lineEdit->clear();
+        d->m_page->pswClear();
         ui->lineEdit->setReadOnly(false);
         ui->pswWidget->setVisible(false);
         //ui->box_NeedCheck->setVisible(d->m_checkShown);
         if (ui->tabWidget->count() > 1) {
-            m_page->setCheck(d->m_isChecked);
+            d->m_page->setCheck(d->m_isChecked);
             ui->tabWidget->removeTab(1);
         }
     }

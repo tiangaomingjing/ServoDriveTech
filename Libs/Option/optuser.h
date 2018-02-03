@@ -2,12 +2,16 @@
 #define OPTUSER_H
 
 #include <QObject>
+#include <QWidget>
+#include <QLayout>
+#include <QCheckBox>
+#include <QLabel>
+#include <QLineEdit>
 #include "iopt.h"
-#include "usercheckwidgetprivate.h"
 namespace Ui {
 class OptUser;
-//class UserCheckWidgetPrivate;
 }
+
 class OptUserPrivate;
 
 class OPTIONSHARED_EXPORT OptUser : public IOpt
@@ -37,7 +41,31 @@ private slots:
   void onActionBtnChecked();
   void onActionLineChange();
 private:
-  UserCheckWidgetPrivate* m_page;
+};
+
+class UserCheckWidgetPrivate : public QWidget
+{
+    Q_OBJECT
+
+public:
+    explicit UserCheckWidgetPrivate(QWidget *parent = 0);
+    ~UserCheckWidgetPrivate();
+    void setCheck(bool isChecked);
+    bool isChecked();
+    QString getPsw();
+    void pswClear();
+signals:
+    void stateChanged();
+
+private:
+    QGridLayout *gridLayout;
+    QCheckBox *checkBox;
+    QSpacerItem *horizontalSpacer;
+    QLabel *label;
+    QLineEdit *lineEdit;
+    QSpacerItem *verticalSpacer;
+private slots:
+    void onStateChanged();
 };
 
 #endif // OPTUSER_H
