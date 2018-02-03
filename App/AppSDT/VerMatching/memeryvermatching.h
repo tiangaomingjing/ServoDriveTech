@@ -19,6 +19,8 @@ private:
 signals:
 
 public slots:
+private:
+
 };
 
 #endif // MEMERYVERMATCHING_H

@@ -3,10 +3,13 @@
 
 #include <QObject>
 #include "iopt.h"
+#include "usercheckwidgetprivate.h"
 namespace Ui {
 class OptUser;
+//class UserCheckWidgetPrivate;
 }
 class OptUserPrivate;
+
 class OPTIONSHARED_EXPORT OptUser : public IOpt
 {
   Q_OBJECT
@@ -18,20 +21,23 @@ public:
   void uiInit()Q_DECL_OVERRIDE;
 
   bool isAdmin() const;
-
+  bool isChecked() const;
 protected:
   bool optActive()Q_DECL_OVERRIDE;
   bool readOpt()Q_DECL_OVERRIDE;
   bool writeOpt()Q_DECL_OVERRIDE;
   void respondErrorExecute()Q_DECL_OVERRIDE;
 signals:
-  void usrChange(bool isAdmin, bool isChecked);
+  void usrChange(bool isAdmin);
 
 public slots:
 private:
   Ui::OptUser *ui;
 private slots:
   void onActionBtnChecked();
+  void onActionLineChange();
+private:
+  UserCheckWidgetPrivate* m_page;
 };
 
 #endif // OPTUSER_H

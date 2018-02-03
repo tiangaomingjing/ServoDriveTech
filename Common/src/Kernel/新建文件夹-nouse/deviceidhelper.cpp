@@ -54,35 +54,43 @@ quint32 DeviceIdHelper::readPwrId()
   uint16_t num = 4;
   uint8_t value[4];
   uint8_t cs = 0;
-  m_com->readEEPROM(ofst, value, num, cs);
-  int id = 0;
-  for (int i = 0; i < num; i++) {
-      id = id + (value[i] << (i * 8));
-  }
-  m_pwrId = id;
-
-  QString idMapPath=GTUtils::databasePath() + "Board/PB/" + IDMAP_FILENAME;
-  QTreeWidget *idMapTree=QtTreeManager::createTreeWidgetFromXmlFile(idMapPath);
-
-  {
-    QTreeWidgetItem *item;
-    QTreeWidgetItemIterator it(idMapTree);
-    while(*it)
-    {
-      item=*it;
-      quint32 id=item->text(COL_IDMAP_ID).toUInt();
-      if(id==m_pwrId)
-      {
-        m_typeName=item->text(COL_IDMAP_TYPE);
-        m_modeName=item->text(COL_IDMAP_MODE);
-        m_axisNum=item->text(COL_IDMAP_AXISNUM).toUInt();
-        qDebug()<<tr("typeName=%1,modeName=%2,axisNum=%3").arg(m_typeName).arg(m_modeName).arg(m_axisNum);
-        break;
-      }
-      it++;
+  int16_t ret;
+  ret = m_com->readEEPROM(ofst, value, num, cs);
+  if (ret == 0) {
+    int id = 0;
+    for (int i = 0; i < num; i++) {
+        id = id + (value[i] << (i * 8));
     }
+    m_pwrId = id;
+
+    QString idMapPath=GTUtils::databasePath() + "Board/PB/" + IDMAP_FILENAME;
+    QTreeWidget *idMapTree=QtTreeManager::createTreeWidgetFromXmlFile(idMapPath);
+
+    {
+        QTreeWidgetItem *item;
+        QTreeWidgetItemIterator it(idMapTree);
+        while(*it)
+        {
+            item=*it;
+            quint32 id=item->text(COL_IDMAP_ID).toUInt();
+            if(id==m_pwrId)
+            {
+            m_typeName=item->text(COL_IDMAP_TYPE);
+            m_modeName=item->text(COL_IDMAP_MODE);
+            m_axisNum=item->text(COL_IDMAP_AXISNUM).toUInt();
+            qDebug()<<tr("typeName=%1,modeName=%2,axisNum=%3").arg(m_typeName).arg(m_modeName).arg(m_axisNum);
+            break;
+            }
+        it++;
+        }
+    }
+    delete idMapTree;
+  } else {
+      m_pwrId = 0;
+      m_typeName = "";
+      m_modeName = "";
+      m_axisNum = 0;
   }
-  delete idMapTree;
   return m_pwrId;
 }
 
@@ -93,14 +101,17 @@ quint32 DeviceIdHelper::readCtrId()
     uint16_t num = 4;
     uint8_t value[4];
     uint8_t cs = 1;
-    qDebug()<<"ofst"<<ofst;
-    m_com->readEEPROM(ofst, value, num, cs);
-    qDebug()<<"value[0]"<<value[0];
-    int id = 0;
-    for (int i = 0; i < num; i++) {
-        id = id + (value[i] << (i * 8));
+    int16_t ret;
+    ret = m_com->readEEPROM(ofst, value, num, cs);
+    if (ret == 0) {
+        int id = 0;
+        for (int i = 0; i < num; i++) {
+            id = id + (value[i] << (i * 8));
+        }
+        m_ctrId = id;
+    } else {
+        m_ctrId = 0;
     }
-    m_ctrId = id;
   return m_ctrId;
 }
 quint32 DeviceIdHelper::readFpgaId()
@@ -108,8 +119,13 @@ quint32 DeviceIdHelper::readFpgaId()
   //需要从硬件读取
     uint8_t fpgaInx = 0;
     uint16_t version;
-    m_com->readFPGAVersion(fpgaInx, version);
-    m_fpgaId = version;
+    int16_t ret;
+    ret = m_com->readFPGAVersion(fpgaInx, version);
+    if (ret == 0) {
+        m_fpgaId = version;
+    } else {
+        m_fpgaId = 0;
+    }
   return m_fpgaId;
 }
 
@@ -118,8 +134,14 @@ QString DeviceIdHelper::readVersion()
   //需要从硬件读取
     uint8_t dspInx = 0;
     uint16_t version;
-    m_com->readDSPVersion(dspInx, version);
-    QString result = "V" + QString::number(version, 10);
+    int16_t ret;
+    ret = m_com->readDSPVersion(dspInx, version);
+    QString result;
+    if (ret == 0) {
+        result = "V" + QString::number(version, 10);
+    } else {
+        result = "";
+    }
     return result;
 }
 

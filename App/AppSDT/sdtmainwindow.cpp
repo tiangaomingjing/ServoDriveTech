@@ -32,8 +32,6 @@
 #include "memeryvermatching.h"
 #include "dbvermatching.h"
 
-#include "icom.h"
-
 #include <QToolButton>
 #include <QDebug>
 #include <QTranslator>
@@ -103,7 +101,8 @@ void SDTMainWindow::createActions()
   ui->mainToolBar->setIconSize(QSize(24,24));
   m_actnConnect=new QAction(this);
   m_actnConnect->setText(tr("connet"));
-  m_actnConnect->setStatusTip(tr("connect to servo:you can manul to load by change:toogle More->Option->AutoLoad"));
+  m_actnConnect->setStatusTip(tr("connect to servo"));
+  m_actnConnect->setToolTip(tr("connect to servo"));
 
   m_actnDisNet=new QAction(this);
   m_actnDisNet->setText(tr("disnet"));
@@ -117,28 +116,22 @@ void SDTMainWindow::createActions()
 
   m_actnNewConfig=new QAction(this);
   m_actnNewConfig->setText(tr("new"));
-  m_actnNewConfig->setToolTip(tr("select your correct system"));
 
   m_actnDownload=new QAction(this);
   m_actnDownload->setText(tr("dwnload"));
-  m_actnDownload->setToolTip(tr("download the  parameters to device"));
 
   m_actnUpload=new QAction(this);
   m_actnUpload->setText(tr("upload"));
-  m_actnUpload->setToolTip(tr("save the device parameters to xml files"));
 
   m_actnCompare=new QAction(this);
   m_actnCompare->setText(tr("compare"));
-  m_actnCompare->setToolTip(tr("compare the old xml with new xml files"));
 
   m_actnConfig=new QAction(this);
   m_actnConfig->setText(tr("config"));
   m_actnConfig->setEnabled(false);
-  m_actnConfig->setToolTip(tr("download the parameters to device and immediately active"));
 
   m_actnSave=new QAction(this);
   m_actnSave->setText(tr("save"));
-  m_actnSave->setToolTip(tr("permanently save the parameters to device\nyou should reset the system to make it active"));
 
   QWidget *spacer=new QWidget(this);
   spacer->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
@@ -147,7 +140,6 @@ void SDTMainWindow::createActions()
   m_tbtnHelp->setPopupMode(QToolButton::MenuButtonPopup);
   m_tbtnHelp->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
   m_tbtnHelp->setText(tr("help"));
-  m_tbtnHelp->setToolTip(tr("query the hardware and software infomation"));
   m_actnAboutHardware=new QAction(this);
   m_actnAboutHardware->setText(tr("hinfo"));
   m_actnAboutSoftware=new QAction(this);
@@ -158,11 +150,9 @@ void SDTMainWindow::createActions()
 
   //----------------more toolbutton----------------------------
   m_tbtnMore=new QToolButton(this);
-  m_tbtnMore->setText(tr("more"));
-  m_tbtnMore->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
 //  m_tbtnMore->setToolButtonStyle(Qt::ToolButtonIconOnly);
 //  m_tbtnMore->setPopupMode(QToolButton::MenuButtonPopup);
-//  m_tbtnMore->setPopupMode(QToolButton::InstantPopup);
+  m_tbtnMore->setPopupMode(QToolButton::InstantPopup);
 
   m_actnOnMode=new QAction(m_tbtnMore);
   m_actnOnMode->setText(tr("online"));
@@ -239,7 +229,7 @@ void SDTMainWindow::setAppIcon()
 void SDTMainWindow::createConnections()
 {
   connect(m_actnOption,SIGNAL(triggered(bool)),this,SLOT(onActnOptionClicked()));
-  connect(m_tbtnMore,SIGNAL(clicked(bool)),this,SLOT(onActnTbtnMoreClicked()));
+//  connect(m_tbtnMore,SIGNAL(clicked(bool)),this,SLOT(onActnTbtnMoreClicked()));
   connect(m_actnConnect,SIGNAL(triggered(bool)),this,SLOT(onActnConnectClicked(bool)));
   connect(m_actnDisNet,SIGNAL(triggered(bool)),this,SLOT(onActnDisConnectClicked(bool)));
   connect(m_tbtnHelp,SIGNAL(clicked(bool)),this,SLOT(onActnHelpDeviceInfoClicked()));
@@ -516,7 +506,6 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
   if(!m_connecting)
   {
     bool isContinue=true;
-    SdtError::instance()->errorStringList()->clear();
     m_statusBar->statusProgressBar()->setVisible(true);
     setUiAllEnable(false);
     m_statusBar->statusProgressBar()->setValue(5);
@@ -536,18 +525,15 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
       }*/
       DeviceIdHelper idHelper;
       IVerMatching *vMatch=new MemeryVerMatching;
-      IVerMatching::CheckStatus checkStatus=IVerMatching::CHECK_STA_OK;
+      IVerMatching::CheckStatus checkStatus;
       vMatch->open();
       foreach (SdAssembly*sd, m_sdAssemblyList)
       {
         ComDriver::ICom *com=sd->sevDevice()->socketCom();
         idHelper.setCom(com);
-
-        //-------如果不是自动匹配，要进行V版本配对检查------
         if(isAutoLoad()==false)
         {
-          bool vok=true;
-          QString ver=idHelper.readVersion(vok);
+          QString ver=idHelper.readVersion();
           QString verCurrent=sd->sevDevice()->versionName();
           if(ver!=verCurrent)
           {
@@ -559,28 +545,19 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
             }
           }
         }
-
-        //------组合版本匹配-------
         quint32 p,c,v,f;
-        p=c=v=f=0;
-        if(com->iComType()!=ComDriver::ICOM_TYPE_PCDEBUG)
-        {
-          bool pok=true;
-          bool cok=true;
-          bool vok=true;
-          bool fok=true;
-          p=idHelper.readPwrId(pok);
-          c=idHelper.readCtrId(cok);
-          v=idHelper.readVersion(vok).remove(0,1).toUInt();
-          f=idHelper.readFpgaId(fok);
-          VerInfo verInfo;
-          verInfo.c=c;
-          verInfo.f=f;
-          verInfo.p=p;
-          verInfo.v=v;
-          checkStatus=vMatch->check(verInfo);
-        }
-
+        p=idHelper.readPwrId();
+        c=idHelper.readCtrId();
+        v=idHelper.readVersion().remove(0,1).toUInt();
+        f=idHelper.readFpgaId();
+//        sd->sevDevice()->attributeActive();
+        VerInfo verInfo;
+        verInfo.c=c;
+        verInfo.f=f;
+        verInfo.p=p;
+        verInfo.v=v;
+        checkStatus=vMatch->check(verInfo);
+        qDebug()<<checkStatus;
         if(checkStatus!=IVerMatching::CHECK_STA_OK)
         {
           QString msg;
@@ -595,8 +572,6 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
             break;
           }
         }
-
-        sd->sevDevice()->setVersionAttributeActive();
 
       }
       vMatch->close();
@@ -618,14 +593,8 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
     else
     {
       m_statusBar->statusProgressBar()->setValue(50);
-      if(!isAutoLoad())
-      {
-        SdtError::instance()->errorStringList()->append(tr("your connect com is worong"));
-        SdtError::instance()->errorStringList()->append(tr("your select com type is wrong"));
-      }
-      QMessageBox::information(0,tr("connect error"),tr("Net Error\n\nexception cause maybe:\n%1\n").arg(SdtError::instance()->errorStringList()->join("\n")));
+      QMessageBox::information(0,tr("connect error"),tr("can not connect \nmaybe \n1 net is not connecting \n2 net cable is not 1000M\n3 device net error"));
     }
-
     setUiStatusConnect(m_connecting);
     setUiAllEnable(true);
     m_statusBar->statusProgressBar()->setVisible(false);
@@ -635,9 +604,12 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
 }
 void SDTMainWindow::onActnDisConnectClicked(bool checked)
 {
-  setConnect(false);
-  m_connecting=false;
-  setUiStatusConnect(m_connecting);
+  if(m_connecting)
+  {
+    setConnect(false);
+    m_connecting=false;
+    setUiStatusConnect(m_connecting);
+  }
   qDebug()<<"checked"<<checked;
 }
 void SDTMainWindow::onActnHelpDeviceInfoClicked()
@@ -680,7 +652,7 @@ void SDTMainWindow::onProgressInfo(int barValue,QString msg)
   {
     mp_progressBar->setValue(barValue);
     m_statusBar->setMsg(msg,(SdtStatusBar::MsgType)styleTest);
-//    qDebug()<<"visible processbar value="<<barValue;
+    qDebug()<<"visible processbar value="<<barValue;
     styleTest++;
     if(styleTest>2)
       styleTest=0;
@@ -798,11 +770,8 @@ bool SDTMainWindow::setConnect(bool net)
       configList=idevRWriter->createConfig(processCallBack,(void *)(bar),isOk);
       if(isOk)
       {
-        if(!configList.isEmpty())
-        {
-          createSdAssemblyByDevConfig(configList);
-          GT::deepClearList(configList);
-        }
+        createSdAssemblyByDevConfig(configList);
+        GT::deepClearList(configList);
         delete idevRWriter;
       }
       else
@@ -852,7 +821,7 @@ bool SDTMainWindow::MessageBoxAsk(const QString &msg)
 
 void SDTMainWindow::createSdAssemblyByDevConfig(const QList<DeviceConfig *> &configList)
 {
-  if(configList.isEmpty())
+  if(configList.count()==0)
     return;
   QList<DeviceConfig *> devConfigBuf;
   int configCount=configList.count();
@@ -874,6 +843,7 @@ void SDTMainWindow::createSdAssemblyByDevConfig(const QList<DeviceConfig *> &con
       qDebug()<<"isEqual"<<isEqual;
       if(isEqual)//与原有的匹配
       {
+        qDebug()<<"sdAssemblyListTemp.append(sdAssemblyList.takeAt(j))";
         sdAssemblyListTemp.append(m_sdAssemblyList.takeAt(j));
         cp=true;
         break;

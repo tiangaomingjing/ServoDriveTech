@@ -201,7 +201,10 @@ background-color: #E0DDDD;
 border-radius:5px;
 border:2px solid #BBB9B9;
 }
-=======
+
+/*====================设置对话框===================*/
+
+/*--------------------用户-------------------------*/
 QRadioButton::indicator::unchecked#btn_Admin {
     image:url(../custom/option/style/black/icon/user_admin_unchecked.png)
 }
@@ -238,4 +241,12 @@ QRadioButton::indicator:checked:hover#btn_General {
 
 QWidget#pswWidget {
     background-color:lightgray;
+}
+
+QGroupBox#userBox {
+	border:0px
+}
+
+QGroupBox#pswBox {
+	border:0px
 }

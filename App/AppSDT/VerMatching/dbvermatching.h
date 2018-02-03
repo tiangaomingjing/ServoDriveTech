@@ -21,7 +21,8 @@ signals:
 
 public slots:
 private:
-    QSqlDatabase db;
+  QSqlDatabase db;
+  QStringList m_typeList;
 };
 
 #endif // DBVERMATCHING_H

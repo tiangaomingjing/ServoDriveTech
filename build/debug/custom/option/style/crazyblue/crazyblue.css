@@ -188,3 +188,11 @@ QRadioButton::indicator:checked:hover#btn_General {
 QWidget#pswWidget {
     background-color:lightgray;
 }
+
+QGroupBox#userBox {
+	border:0px
+}
+
+QGroupBox#pswBox {
+	border:0px
+}
