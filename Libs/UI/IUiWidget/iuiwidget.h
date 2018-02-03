@@ -32,8 +32,8 @@ public:
   virtual void addTreeWidget(QTreeWidget* tree);
   void setUiIndexs(const UiIndexs &indexs);
   UiIndexs uiIndexs() const;
-  virtual void readPageFLASH();
-  virtual void writePageFLASH();
+  virtual bool readPageFLASH();
+  virtual bool writePageFLASH();//响应界面save 功能
   virtual void setUiActive(bool actived);
   virtual void createQmlWidget();//no use
   virtual void accept(QWidget*w);
@@ -52,7 +52,6 @@ protected:
   virtual void setQmlSignalSlot(){}
   virtual void addQmlWidget(){}
   virtual void setContextAction();
-  virtual void updateUi();
 
 
 signals:

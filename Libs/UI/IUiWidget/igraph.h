@@ -14,6 +14,7 @@ public:
   explicit IGraph(QWidget *parent=0);
   virtual ~IGraph();
   virtual void visit(IUiWidget*uiWidget);
+  virtual void syncTreeDataToUiFace();
 
 protected:
   virtual void setUiVersionName()=0;

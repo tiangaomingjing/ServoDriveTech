@@ -165,7 +165,7 @@ QToolButton#tbtnError:hover{
 StyleWidget{
 	qproperty-dsBoxBackgroundDefColor:white;
 	qproperty-dsBoxBackgroundReadyColor:green;
-	qproperty-dsBoxBackgroundErrorColor:#FF00FF;
+	qproperty-dsBoxBackgroundErrorColor:#E61EE4;
 	qproperty-dsBoxTextEditColor:blue;
 	qproperty-dsBoxTextDefColor:black;
 	

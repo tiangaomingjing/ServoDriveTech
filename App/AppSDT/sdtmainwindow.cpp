@@ -245,6 +245,7 @@ void SDTMainWindow::createConnections()
   connect(m_tbtnHelp,SIGNAL(clicked(bool)),this,SLOT(onActnHelpDeviceInfoClicked()));
   connect(m_actnAboutHardware,SIGNAL(triggered(bool)),this,SLOT(onActnHelpDeviceInfoClicked()));
   connect(m_actnNewConfig,SIGNAL(triggered(bool)),this,SLOT(onActnNewConfigClicked()));
+  connect(m_actnSave,SIGNAL(triggered(bool)),this,SLOT(onActnSaveClicked()));
 
   OptAutoLoad *optAuto=dynamic_cast<OptAutoLoad *>(OptContainer::instance()->optItem("optautoload"));
   if(optAuto!=NULL)
@@ -660,6 +661,14 @@ void SDTMainWindow::onActnNewConfigClicked()
   m_statusBar->statusProgressBar()->setVisible(false);
   m_statusBar->statusProgressBar()->setValue(100);
   m_statusBar->setMsg("");
+}
+void SDTMainWindow::onActnSaveClicked()
+{
+  qDebug()<<"act add write flash test clicked";
+  QWidget *cw=ui->mainStackedWidget->currentWidget();
+  IUiWidget *ui=dynamic_cast<IUiWidget *>(cw);//向下转型时使用dynamic_cast
+  qDebug()<<ui->objectName();
+  ui->writePageFLASH();
 }
 
 void SDTMainWindow::onOptAutoLoadChanged(bool changed)

@@ -11,6 +11,7 @@ QT       -= gui
 INCLUDEPATH+=$${PWD}/../GTUtils\
             $${PWD}/../GTUtils/QtTreeManager\
             $${PWD}/../GTUtils/DeviceIdHelper\
+            $${PWD}/../Option\
             $${PWD}/../Com/Communication\
             $${PWD}/../../Common/src\
             $${PWD}/../../Common/src/kernel\
@@ -23,13 +24,15 @@ DEFINES += SDKERNEL_LIBRARY
 CONFIG(debug, debug|release){
     SDKERNEL_OUT_PATH = $${APP_BUILD_PATH}/debug/bin
     LIBS+=$${SDKERNEL_OUT_PATH}/Communicationd.lib\
-          $${SDKERNEL_OUT_PATH}/GTUtilsd.lib
+          $${SDKERNEL_OUT_PATH}/GTUtilsd.lib\
+          $${SDKERNEL_OUT_PATH}/Optiond.lib
 
     TARGET = SDKerneld
 } else{
     SDKERNEL_OUT_PATH = $${APP_BUILD_PATH}/release/bin
     LIBS+=$${SDKERNEL_OUT_PATH}/Communication.lib\
-          $${SDKERNEL_OUT_PATH}/GTUtils.lib
+          $${SDKERNEL_OUT_PATH}/GTUtils.lib\
+          $${SDKERNEL_OUT_PATH}/Option.lib
     TARGET = SDKernel
 }
 DESTDIR =$${SDKERNEL_OUT_PATH}

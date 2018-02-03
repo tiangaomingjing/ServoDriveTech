@@ -23,6 +23,7 @@ public:
   void syncAllItem2BoxText();
   QList<QDoubleSpinBox*>boxLists();
   QList<QTreeWidgetItem*>itemLists();
+  QDoubleSpinBox* box(QTreeWidgetItem*item);
 
 signals:
 

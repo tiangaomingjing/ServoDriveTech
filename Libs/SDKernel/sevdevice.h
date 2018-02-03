@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "sdkernel_global.h"
+#include "sevpwrboard.h"
 
 namespace ComDriver {
 class ICom;
@@ -54,9 +55,14 @@ public:
 
 signals:
   void initProgressInfo(int value,QString msg);
+  void itemRangeValid(QTreeWidgetItem *item,int status);
 public slots:
-  void onReadPageFlash(int axis,QTreeWidget *tree);
-  void onWritePageFlash(int axis,QTreeWidget *tree);
+  bool onReadPageFlash(int axis,QTreeWidget *tree);
+  bool onWritePageFlash(int axis,QTreeWidget *tree);
+private:
+  bool checkPropertyParameters(QTreeWidgetItem *item);
+  bool checkPowerBoardParameters(QTreeWidgetItem *item,const QMap<QString ,PowerBoardLimit> *limit);
+  bool checkParameters(int axis,QTreeWidget *tree);
 private:
   SevDevicePrivate *d_ptr;
 };
