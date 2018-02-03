@@ -113,6 +113,9 @@ int main(int argc, char *argv[])
   }
   int s=sum(2,3);
   qDebug()<<"sum"<<s;
+
+  qDebug()<<"10.00 toUshort"<<QString("10.00").toUShort();
+  qDebug()<<"10.00.toDouble()"<<QString("10.00").toDouble();
   return a.exec();
 }
 

@@ -93,6 +93,7 @@ void GraphMotor129::visitActive(IUiWidget *uiWidget)
 //  d->m_mapping->insertBox2Item(this->ui->dspinBox_fcoe,d->m_treeWidget->topLevelItem(14));
 
   connect(uiWidget,SIGNAL(uiActiveChanged(bool)),this,SLOT(onUiActivedChanged(bool)));
+  connect(d->m_dev,SIGNAL(itemRangeValid(QTreeWidgetItem*,int)),this,SLOT(onItemBoxEditTextError(QTreeWidgetItem*,int)));
 
 }
 void GraphMotor129::setUiVersionName()
@@ -126,6 +127,13 @@ void GraphMotor129::onUiActivedChanged(bool actived)
     Q_D(GraphMotor129);
     d->m_mapping->syncAllItem2BoxText();
   }
+}
+void GraphMotor129::onItemBoxEditTextError(QTreeWidgetItem *item,int status)
+{
+  Q_D(GraphMotor129);
+  QDoubleSpinBox *box=d->m_mapping->box(item);
+  if(box!=NULL)
+    setEditTextStatus(box,OptFace::EditTextStatus(status));
 }
 
 void GraphMotor129::setEditTextStatus(QDoubleSpinBox *box,OptFace::EditTextStatus status)

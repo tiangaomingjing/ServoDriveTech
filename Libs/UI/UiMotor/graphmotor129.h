@@ -11,6 +11,7 @@ class GraphMotor129;
 }
 class GraphMotor129Private;
 class QDoubleSpinBox;
+class QTreeWidgetItem;
 class UIMOTORSHARED_EXPORT GraphMotor129 : public IGraphMotor
 {
   Q_OBJECT
@@ -28,6 +29,7 @@ protected:
 
 protected slots:
   void onUiActivedChanged(bool actived)Q_DECL_OVERRIDE;
+  void onItemBoxEditTextError(QTreeWidgetItem *item,int status);
 
 private:
   void setEditTextStatus(QDoubleSpinBox *box,OptFace::EditTextStatus status);

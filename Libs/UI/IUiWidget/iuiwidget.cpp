@@ -170,7 +170,7 @@ void IUiWidget::readPageFLASH()
 void IUiWidget::writePageFLASH()
 {
   Q_D(IUiWidget);
-  qDebug()<<this->objectName()<<"read flash";
+  qDebug()<<this->objectName()<<"write page flash";
 //  emit sglWritePageFlash(d->axisInx,d->m_dataTree);
   d->m_device->onWritePageFlash(d->m_index.axisInx,d->m_dataTree);
 }
@@ -184,7 +184,7 @@ void IUiWidget::setUiActive(bool actived)
 void IUiWidget::onTreeItemClickedEdit(QTreeWidgetItem *item, int column)
 {
   Q_D(IUiWidget);
-  if(column==UI::COL_PAGE_TREE_VALUE)
+  if(column==GT::COL_PAGE_TREE_VALUE)
   {
     if(item->childCount()==0)
     {
