@@ -1,4 +1,5 @@
 ﻿#include "ivermatching.h"
+#include <QDebug>
 
 IVerMatching::IVerMatching(QObject *parent) : QObject(parent)
 {

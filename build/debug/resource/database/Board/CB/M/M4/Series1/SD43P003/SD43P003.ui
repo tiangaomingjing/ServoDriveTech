@@ -504,6 +504,32 @@
             </item>
             <item>
              <property name="text">
+              <string>Reserved code</string>
+             </property>
+             <property name="text">
+              <string>0</string>
+             </property>
+             <property name="text">
+              <string>-1</string>
+             </property>
+             <property name="text">
+              <string>1</string>
+             </property>
+             <property name="text">
+              <string>预留空位</string>
+             </property>
+             <property name="text">
+              <string>Uint32</string>
+             </property>
+             <property name="text">
+              <string>1</string>
+             </property>
+             <property name="text">
+              <string>null</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
               <string>PCB code</string>
              </property>
              <property name="text">
