@@ -9,6 +9,7 @@ class IPwrBoard;
 class IDspMap;
 class LinkSocket;
 class DeviceConfig;
+class VerAttribute;
 
 class SevDevicePrivate:public QObject
 {
@@ -24,24 +25,15 @@ public :
   //控制板
   //功率板
   //软件模块
-//  quint32 m_devId;
-//  quint8 m_comType;
-//  quint8 m_rnStationId;
-//  quint8 m_axisNum;
-//  QString m_typeName;//SD4x
-//  QString m_modeName;//SD42
-//  QString m_version;
+  //随版本属性附加类
   bool m_connected;
 
-//  quint32 m_pwrId;   //id->SD?? 通过一个id映射表获得名字
-//  quint32 m_ctrId;   //id->SD?? 通过一个id映射表获得名字
-//  quint32 m_fpgaId;
-
-  DeviceConfig *m_devConfig;
+  LinkSocket *m_socket;
   ICtrBoard *m_ctrBoard;
   IPwrBoard *m_pwrBoard;
   IDspMap *m_dspMap;
-  LinkSocket *m_socket;
+  DeviceConfig *m_devConfig;
+  VerAttribute *m_verAttribute;
 
   QString m_filePath;
   QTreeWidgetItem *m_targetTree;

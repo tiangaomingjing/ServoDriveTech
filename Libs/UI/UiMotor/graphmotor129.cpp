@@ -5,6 +5,7 @@
 #include "uimotor.h"
 #include "sevdevice.h"
 #include "boxitemmapping.h"
+#include "Option"
 
 #include <QDebug>
 #include <QTreeWidget>
@@ -108,7 +109,9 @@ bool GraphMotor129::eventFilter(QObject *obj, QEvent *event)
     {
       Q_D(GraphMotor129);
       qDebug()<<"enter clicked"<<"object name"<<obj->objectName();
-      d->m_mapping->syncBoxText2Item(static_cast<QDoubleSpinBox*>(obj));
+      QDoubleSpinBox* box=dynamic_cast<QDoubleSpinBox*>(obj);
+      d->m_mapping->syncBoxText2Item(box);
+      setEditTextStatus(box,OptFace::EDIT_TEXT_STATUS_READY);
       return true;
     }
   }
@@ -122,5 +125,19 @@ void GraphMotor129::onUiActivedChanged(bool actived)
     //将树的数据全更新到用户界面上
     Q_D(GraphMotor129);
     d->m_mapping->syncAllItem2BoxText();
+  }
+}
+
+void GraphMotor129::setEditTextStatus(QDoubleSpinBox *box,OptFace::EditTextStatus status)
+{
+  OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
+  face->setEditTextStatus(box,status);
+}
+void GraphMotor129::setEditTextStatusDefaultAll()
+{
+  Q_D(GraphMotor129);
+  foreach (QDoubleSpinBox *box, d->m_mapping->boxLists())
+  {
+    setEditTextStatus(box,OptFace::EDIT_TEXT_STATUS_DEFAULT);
   }
 }

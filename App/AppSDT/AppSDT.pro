@@ -27,7 +27,6 @@ SOURCES += main.cpp\
     DialogOption/dialogoption.cpp \
     ../../Common/src/Kernel/devcomrwriter.cpp \
     ../../Common/src/Kernel/deviceconfig.cpp \
-    ../../Common/src/Kernel/deviceidhelper.cpp \
     ../../Common/src/Kernel/devtextrwriter.cpp \
     ../../Common/src/Kernel/gconfigreadwriter.cpp \
     ../../Common/src/Kernel/globalconfig.cpp \
@@ -43,14 +42,14 @@ SOURCES += main.cpp\
     ConfigDialog/configdialog.cpp \
     VerMatching/ivermatching.cpp \
     VerMatching/memeryvermatching.cpp \
-    VerMatching/dbvermatching.cpp
+    VerMatching/dbvermatching.cpp \
+    ../../Common/src/SdtGlobal/sdtglobaldef.cpp
 
 HEADERS  += sdtmainwindow.h \
     appiconname.h \
     DialogOption/dialogoption.h \
     ../../Common/src/Kernel/devcomrwriter.h \
     ../../Common/src/Kernel/deviceconfig.h \
-    ../../Common/src/Kernel/deviceidhelper.h \
     ../../Common/src/Kernel/devtextrwriter.h \
     ../../Common/src/Kernel/gconfigreadwriter.h \
     ../../Common/src/Kernel/globalconfig.h \
@@ -65,11 +64,11 @@ HEADERS  += sdtmainwindow.h \
     ScreenStartup/screenstartup.h \
     SdtStatusBar/sdtstatusbar.h \
     SdtStatusBar/statuserrdialog.h \
-    ../../Common/src/sdtglobaldef.h \
     ConfigDialog/configdialog.h \
     VerMatching/ivermatching.h \
     VerMatching/memeryvermatching.h \
-    VerMatching/dbvermatching.h
+    VerMatching/dbvermatching.h \
+    ../../Common/src/SdtGlobal/sdtglobaldef.h
 
 FORMS    += sdtmainwindow.ui \
     DialogOption/dialogoption.ui \

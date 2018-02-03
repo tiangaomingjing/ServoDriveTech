@@ -57,8 +57,13 @@ void BoxItemMapping::syncAllItem2BoxText()
   }
 
 }
-
-void BoxItemMapping::setBoxStatusByQueryItem(QTreeWidgetItem *item,StatusEditText sta)
+QList<QDoubleSpinBox*>BoxItemMapping::boxLists()
 {
-
+  return m_box2ItemHash.keys();
 }
+
+QList<QTreeWidgetItem *> BoxItemMapping::itemLists()
+{
+  return m_box2ItemHash.values();
+}
+

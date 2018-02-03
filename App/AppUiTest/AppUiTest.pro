@@ -30,10 +30,10 @@ SOURCES += main.cpp\
     ../../Common/src/UiFactory/uifactory.cpp \
     ../../Common/src/Kernel/globaluicontroler.cpp \
     ../../Common/src/Kernel/deviceconfig.cpp \
-    ../../Common/src/Kernel/deviceidhelper.cpp
+    ../../Common/src/SdtGlobal/sdtglobaldef.cpp
 
 HEADERS  += uimainwindow.h \
-    ../../Common/src/sdtglobaldef.h \
+    ../../Common/src/SdtGlobal/sdtglobaldef.h\
     ../../Common/src/Kernel/devcomrwriter.h \
     ../../Common/src/Kernel/devtextrwriter.h \
     ../../Common/src/Kernel/gconfigreadwriter.h \
@@ -45,8 +45,7 @@ HEADERS  += uimainwindow.h \
     ../../Common/src/UiFactory/uifactory.h \
     ../../Common/src/UiFactory/registerfunction.h \
     ../../Common/src/Kernel/globaluicontroler.h \
-    ../../Common/src/Kernel/deviceconfig.h \
-    ../../Common/src/Kernel/deviceidhelper.h
+    ../../Common/src/Kernel/deviceconfig.h
 
 FORMS    += uimainwindow.ui
 

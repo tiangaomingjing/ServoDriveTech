@@ -4,11 +4,13 @@
 #include <QWidget>
 #include "uimotor_global.h"
 #include "igraphmotor.h"
+#include "optface.h"
 
 namespace Ui {
 class GraphMotor129;
 }
 class GraphMotor129Private;
+class QDoubleSpinBox;
 class UIMOTORSHARED_EXPORT GraphMotor129 : public IGraphMotor
 {
   Q_OBJECT
@@ -26,6 +28,10 @@ protected:
 
 protected slots:
   void onUiActivedChanged(bool actived)Q_DECL_OVERRIDE;
+
+private:
+  void setEditTextStatus(QDoubleSpinBox *box,OptFace::EditTextStatus status);
+  void setEditTextStatusDefaultAll();
 
 private:
   Ui::GraphMotor129 *ui;

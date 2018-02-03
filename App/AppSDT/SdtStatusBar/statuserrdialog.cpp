@@ -42,7 +42,7 @@ void StatusErrDialog::updateDevice(QTreeWidget *navTree)
         itemStatus=new QTreeWidgetItem(itemDev);
         itemAxisSrc=itemDevSrc->child(j);
         itemStatus->setText(0,itemAxisSrc->text(COL_TARGET_CONFIG_NAME));
-        qDebug()<<"itemAxisSrc->text(COL_TARGET_CONFIG_NAME)"<<itemAxisSrc->text(COL_TARGET_CONFIG_NAME);
+//        qDebug()<<"itemAxisSrc->text(COL_TARGET_CONFIG_NAME)"<<itemAxisSrc->text(COL_TARGET_CONFIG_NAME);
         setItemStatus(itemStatus,true);
         itemStatusSrc=findStatusItem(itemAxisSrc);
         if(itemStatusSrc!=NULL)
@@ -92,7 +92,7 @@ QTreeWidgetItem *StatusErrDialog::findStatusItem(QTreeWidgetItem *axisItem) cons
     if(axisItem->child(i)->text(COL_TARGET_CONFIG_CLASS)==STATUS_CLASSNAME)
     {
       item=axisItem->child(i);
-      qDebug()<<"find item"<<item->text(0);
+//      qDebug()<<"find item"<<item->text(0);
       break;
     }
   }
