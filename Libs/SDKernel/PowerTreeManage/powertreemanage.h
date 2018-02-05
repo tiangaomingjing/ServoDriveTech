@@ -39,9 +39,15 @@ class PowerTreeManage : public QObject
 public:
 
   //explicit PowerTreeManage(QTreeWidget *powerTree,QObject *parent = 0);
+<<<<<<< HEAD
   explicit PowerTreeManage(DeviceConfig *dev, QObject *parent = 0);
   ~PowerTreeManage();
   bool updatePowerLimitMapList(QList<QMap<QString ,PowerBoardLimit>>&powerLimitMapList);
+=======
+  explicit PowerTreeManage(const quint32 id,QObject *parent = 0);
+
+  bool updatePowerLimitMapList(const QString &version, QList<QMap<QString ,PowerBoardLimit>>&powerLimitMapList);
+>>>>>>> upstream/jiang
   SamplingDataInfo samplingDataInfo(bool *isOK);
 signals:
 
