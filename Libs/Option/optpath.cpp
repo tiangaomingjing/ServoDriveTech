@@ -59,19 +59,19 @@ void OptPath::uiInit()
 {
     Q_D(OptPath);
     qDebug()<< "list count "<<d->m_nameList.count();
-//    for (int i = 0; i < d->m_nameList.count(); i++) {
-//        QVBoxLayout *vBox = new QVBoxLayout;
-//        QHBoxLayout *hBox = new QHBoxLayout;
-//        QLabel* label = new QLabel(d->m_nameList.at(i));
-//        QToolButton* toolButton = new QToolButton;
-//        QLineEdit* lineEdit = new QLineEdit;
-//        lineEdit->setText(d->m_pathList.at(i));
-//        hBox->addWidget(lineEdit);
-//        hBox->addWidget(toolButton);
-//        vBox->addWidget(label);
-//        vBox->addLayout(hBox);
-//        ui->verticalLayout->addLayout(vBox);
-//    }
+    for (int i = 0; i < d->m_nameList.count(); i++) {
+        QVBoxLayout *vBox = new QVBoxLayout;
+        QHBoxLayout *hBox = new QHBoxLayout;
+        QLabel* label = new QLabel(d->m_nameList.at(i));
+        QToolButton* toolButton = new QToolButton;
+        QLineEdit* lineEdit = new QLineEdit;
+        lineEdit->setText(d->m_pathList.at(i));
+        hBox->addWidget(lineEdit);
+        hBox->addWidget(toolButton);
+        vBox->addWidget(label);
+        vBox->addLayout(hBox);
+        ui->verticalLayout->addLayout(vBox);
+    }
 }
 
 bool OptPath::optActive()

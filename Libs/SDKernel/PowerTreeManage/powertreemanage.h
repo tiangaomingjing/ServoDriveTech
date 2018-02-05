@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QVector>
+#include <deviceconfig.h>
 
 
 class QTreeWidgetItem;
@@ -38,9 +39,9 @@ class PowerTreeManage : public QObject
 public:
 
   //explicit PowerTreeManage(QTreeWidget *powerTree,QObject *parent = 0);
-  explicit PowerTreeManage(const quint32 id,QObject *parent = 0);
+  explicit PowerTreeManage(DeviceConfig *dev, QObject *parent = 0);
   ~PowerTreeManage();
-  bool updatePowerLimitMapList(QString version, QList<QMap<QString ,PowerBoardLimit>>&powerLimitMapList);
+  bool updatePowerLimitMapList(QList<QMap<QString ,PowerBoardLimit>>&powerLimitMapList);
   SamplingDataInfo samplingDataInfo(bool *isOK);
 signals:
 
@@ -53,12 +54,14 @@ private:
   QTreeWidgetItem *findItemByNameRecursion(QTreeWidgetItem *item,QString &targetName);
   QTreeWidgetItem * detailInfoTreeItem(QTreeWidgetItem *target);
   QTreeWidgetItem * basicInfoTreeItem(QTreeWidgetItem *target);
+  QString getPath(QTreeWidgetItem *item);
+  QString getFilterPath(QTreeWidgetItem *item);
 private:
   QTreeWidget *m_powerTree;
   QTreeWidgetItem *m_pwrTarget;
   QString m_filterPath;
   QStringList m_filterList;
-
+  DeviceConfig *m_sev;
 };
 
 #endif // POWERTREEMANAGE_H
