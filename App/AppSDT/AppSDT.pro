@@ -11,7 +11,7 @@ INCLUDEPATH+= $${PWD}/DialogOption\
               $${PWD}/ConfigDialog\
               $${PWD}/VerMatching
 
-QT       += core gui qml
+QT       += core gui qml sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
