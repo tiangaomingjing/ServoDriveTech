@@ -70,8 +70,8 @@ Thumbs.db
 *.dll
 *.exe
 *.exp
-build/debug/bin/*.lib
-build/release/bin/*.lib
+/build/debug/bin/*.lib
+/build/release/bin/*.lib
 
 
 
