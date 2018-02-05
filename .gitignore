@@ -72,6 +72,8 @@ Thumbs.db
 *.exp
 /build/debug/bin/*.lib
 /build/release/bin/*.lib
+!/build/debug/bin/qwtd.dll
+!/build/release/bin/qwt*.dll
 
 
 

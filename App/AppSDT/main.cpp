@@ -83,6 +83,7 @@ int main(int argc, char *argv[])
   SDTMainWindow w;
   QObject::connect(&w,SIGNAL(initProgressInfo(int,QString)),startup,SLOT(onProgressMessage(int ,QString)));
   w.init();
+  optFace->setFaceStyle(optFace->css());
   w.showMaximized();
 
   startup->finish(&w);

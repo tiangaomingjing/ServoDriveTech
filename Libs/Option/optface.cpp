@@ -168,7 +168,7 @@ OptFace::OptFace(const QString &optName, QWidget *parent) :  IOpt(optName,*new O
 
   uiInit();
 
-  updateEditTextStyleSheetList();
+//  updateEditTextStyleSheetList();
 
   connect(ui->comboBox,SIGNAL(currentIndexChanged(int)),this,SLOT(onCurrentIndexChanged(int)));
   connect(ui->rbtn_ch,SIGNAL(clicked(bool)),this,SLOT(onRadioButtonClicked(bool)));
@@ -257,14 +257,18 @@ void OptFace::setFaceStyle(const QString &css)
 
     QString qss = in.readAll();
     qApp->setStyleSheet(qss);
-    file.close();
+
     updateEditTextStyleSheetList();
 
-//    d->m_qmlHelper->setCss(css);
-//    d->m_qmlHelper->setFontSize(d->m_fontSize);
+    file.close();
+
+
+    //    d->m_qmlHelper->setCss(css);
+    //    d->m_qmlHelper->setFontSize(d->m_fontSize);
   }
   else
     qDebug()<<"open file :"<<filename<<"error";
+  emit faceCssChanged(css);
 }
 
 void OptFace::setFaceFontSize(int size)
@@ -304,7 +308,11 @@ void OptFace::setEditTextStatus(QDoubleSpinBox *box,EditTextStatus sta)
 {
   Q_D(OptFace);
   int index=(int)sta;
-  box->setStyleSheet(d->m_editTextStyleSheetList.at(index));
+  if(index<d->m_editTextStyleSheetList.count())
+  {
+    box->setStyleSheet(d->m_editTextStyleSheetList.at(index));
+    qDebug()<<"box->setStyleSheet"<<d->m_editTextStyleSheetList.at(index);
+  }
 }
 
 //QmlStyleHelper *OptFace::qmlStyleHelper() const
@@ -328,7 +336,6 @@ void OptFace::onStyleChanged(QString css)
 {
   setFaceFontSize(ui->comboBox->currentData().toInt());
   setFaceStyle(css);
-  emit faceCssChanged(css);
 }
 void OptFace::updateEditTextStyleSheetList()
 {
@@ -340,22 +347,26 @@ void OptFace::updateEditTextStyleSheetList()
   FILL_RGB(d->m_customStyle.dsBoxBackgroundDefColor(),br,bg,bb);
   QString str=QString("QDoubleSpinBox{color:rgb(%1,%2,%3);background-color:rgb(%4,%5,%6);}").arg(r).arg(g).arg(b).arg(br).arg(bg).arg(bb);
   d->m_editTextStyleSheetList.append(str);
+  qDebug()<<"====================\ndefault style"<<str;
 
   //Ready
   FILL_RGB(d->m_customStyle.dsBoxTextDefColor(),r,g,b);
   FILL_RGB(d->m_customStyle.dsBoxBackgroundReadyColor(),br,bg,bb);
   str=QString("QDoubleSpinBox{color:rgb(%1,%2,%3);background-color:rgb(%4,%5,%6);}").arg(r).arg(g).arg(b).arg(br).arg(bg).arg(bb);
   d->m_editTextStyleSheetList.append(str);
+  qDebug()<<"ready style"<<str;
 
   //Editting
   FILL_RGB(d->m_customStyle.dsBoxTextEditColor(),r,g,b);
   FILL_RGB(d->m_customStyle.dsBoxBackgroundDefColor(),br,bg,bb);
   str=QString("QDoubleSpinBox{color:rgb(%1,%2,%3);background-color:rgb(%4,%5,%6);}").arg(r).arg(g).arg(b).arg(br).arg(bg).arg(bb);
   d->m_editTextStyleSheetList.append(str);
+  qDebug()<<"editting style"<<str;
 
   //Error
   FILL_RGB(d->m_customStyle.dsBoxTextDefColor(),r,g,b);
   FILL_RGB(d->m_customStyle.dsBoxBackgroundErrorColor(),br,bg,bb);
   str=QString("QDoubleSpinBox{color:rgb(%1,%2,%3);background-color:rgb(%4,%5,%6);}").arg(r).arg(g).arg(b).arg(br).arg(bg).arg(bb);
   d->m_editTextStyleSheetList.append(str);
+  qDebug()<<"error style"<<str<<"\n=========================\n";
 }

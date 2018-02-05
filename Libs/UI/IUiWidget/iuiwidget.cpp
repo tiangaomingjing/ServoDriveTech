@@ -173,7 +173,7 @@ bool IUiWidget::writePageFLASH()
 }
 void IUiWidget::setUiActive(bool actived)
 {
-  qDebug()<<"TEST_OUT ui"<<this->objectName()<<"active"<<actived;
+//  qDebug()<<"TEST_OUT ui"<<this->objectName()<<"active"<<actived;
 }
 
 void IUiWidget::onTreeItemClickedEdit(QTreeWidgetItem *item, int column)

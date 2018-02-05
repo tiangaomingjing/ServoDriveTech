@@ -83,6 +83,8 @@ void GraphMotor129::visitActive(IUiWidget *uiWidget)
     }
   }
 
+  setEditTextStatusDefaultAll();
+
 //  d->m_mapping->insertBox2Item(this->ui->dspinBox_iRat,d->m_treeWidget->topLevelItem(0));
 //  d->m_mapping->insertBox2Item(this->ui->dspinBox_iMax,d->m_treeWidget->topLevelItem(1));
 //  d->m_mapping->insertBox2Item(this->ui->dspinBox_vRat,d->m_treeWidget->topLevelItem(2));
@@ -100,7 +102,8 @@ void GraphMotor129::visitActive(IUiWidget *uiWidget)
 //  d->m_mapping->insertBox2Item(this->ui->dspinBox_fcoe,d->m_treeWidget->topLevelItem(14));
 
   connect(d->m_dev,SIGNAL(itemRangeValid(QTreeWidgetItem*,int)),this,SLOT(onItemBoxEditTextError(QTreeWidgetItem*,int)));
-
+  OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
+  connect(face,SIGNAL(faceCssChanged(QString)),this,SLOT(onFaceCssChanged(QString)));
 }
 void GraphMotor129::setUiVersionName()
 {
@@ -132,6 +135,11 @@ void GraphMotor129::onItemBoxEditTextError(QTreeWidgetItem *item,int status)
   if(box!=NULL)
     setEditTextStatus(box,OptFace::EditTextStatus(status));
 }
+void GraphMotor129::onFaceCssChanged(const QString &css)
+{
+  Q_UNUSED(css);
+  setEditTextStatusDefaultAll();
+}
 
 void GraphMotor129::setEditTextStatus(QDoubleSpinBox *box,OptFace::EditTextStatus status)
 {
@@ -144,5 +152,6 @@ void GraphMotor129::setEditTextStatusDefaultAll()
   foreach (QDoubleSpinBox *box, d->m_mapping->boxLists())
   {
     setEditTextStatus(box,OptFace::EDIT_TEXT_STATUS_DEFAULT);
+//    setEditTextStatus(box,OptFace::EDIT_TEXT_STATUS_READY);
   }
 }
