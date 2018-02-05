@@ -58,12 +58,8 @@ signals:
     void stateChanged();
 
 private:
-    QGridLayout *gridLayout;
     QCheckBox *checkBox;
-    QSpacerItem *horizontalSpacer;
-    QLabel *label;
     QLineEdit *lineEdit;
-    QSpacerItem *verticalSpacer;
 private slots:
     void onStateChanged();
 };

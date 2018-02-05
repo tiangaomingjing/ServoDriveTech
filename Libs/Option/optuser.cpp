@@ -34,18 +34,18 @@ OptUserPrivate::~OptUserPrivate()
 UserCheckWidgetPrivate::UserCheckWidgetPrivate(QWidget *parent) :
     QWidget(parent)
 {
-    gridLayout = new QGridLayout(this);
+    QGridLayout*gridLayout = new QGridLayout(this);
     gridLayout->setObjectName(QStringLiteral("gridLayout"));
     checkBox = new QCheckBox(this);
     checkBox->setObjectName(QStringLiteral("checkBox"));
 
     gridLayout->addWidget(checkBox, 0, 0, 1, 2);
 
-    horizontalSpacer = new QSpacerItem(249, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+    QSpacerItem *horizontalSpacer = new QSpacerItem(249, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
     gridLayout->addItem(horizontalSpacer, 0, 2, 1, 1);
 
-    label = new QLabel(this);
+    QLabel*label = new QLabel(this);
     label->setObjectName(QStringLiteral("label"));
 
     gridLayout->addWidget(label, 1, 0, 1, 1);
@@ -55,11 +55,11 @@ UserCheckWidgetPrivate::UserCheckWidgetPrivate(QWidget *parent) :
 
     gridLayout->addWidget(lineEdit, 1, 1, 1, 2);
 
-    verticalSpacer = new QSpacerItem(20, 205, QSizePolicy::Minimum, QSizePolicy::Expanding);
+    QSpacerItem *verticalSpacer = new QSpacerItem(20, 205, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
     gridLayout->addItem(verticalSpacer, 2, 1, 1, 1);
-    checkBox->setText(QApplication::translate("UserCheckWidgetPrivate", "CheckBox", 0));
-    label->setText(QApplication::translate("UserCheckWidgetPrivate", "Password:", 0));
+    checkBox->setText(tr("parameters check"));
+    label->setText(tr("password:"));
 
     lineEdit->setEchoMode(QLineEdit::Password);
     connect(checkBox, SIGNAL(clicked()), this, SLOT(onStateChanged()));
@@ -83,7 +83,6 @@ QString UserCheckWidgetPrivate::getPsw() {
 }
 
 void UserCheckWidgetPrivate::onStateChanged() {
-    qDebug()<<"ss";
     emit stateChanged();
 }
 
@@ -98,40 +97,27 @@ OptUser::OptUser(const QString &optName, QWidget *parent) : IOpt(optName,*new Op
   Q_D(OptUser);
   ui->setupUi(this);
   ui->lineEdit->setEchoMode(QLineEdit::Password);
+  d->m_page = new UserCheckWidgetPrivate();
+
   readOpt();
-  QString pwFile=GTUtils::customPath()+ADMINPW_FILE;
-  QFile file;
-  file.setFileName(pwFile);
-  if(file.open(QIODevice::ReadOnly))
-  {
-    QTextStream in(&file);
-    d->m_pw=in.readAll();
-    file.close();
-  }
-  else
-  {
-    qDebug()<<"can not open file:"<<pwFile;
-    d->m_pw="googol123";
-  }
-  qDebug()<<"password"<<d->m_pw;
-  d->m_page = new UserCheckWidgetPrivate;
   uiInit();
   connect(ui->btn_Admin, SIGNAL(clicked()), this, SLOT(onActionBtnChecked()));
   connect(ui->btn_General, SIGNAL(clicked()), this, SLOT(onActionBtnChecked()));
   connect(ui->lineEdit, SIGNAL(textEdited(QString)), this, SLOT(onActionLineChange()));
+  connect(d->m_page, SIGNAL(stateChanged()), this, SLOT(onActionLineChange()));
 }
 OptUser::~OptUser()
 {
+  Q_D(OptUser);
+  delete d->m_page;
   delete ui;
 }
 void OptUser::uiInit()
 {
     Q_D(OptUser);
     setModify(false);
-    //ui->box_NeedCheck->setVisible(d->m_checkShown);
     d->m_page->setCheck(d->m_isChecked);
-    connect(d->m_page, SIGNAL(stateChanged()), this, SLOT(onActionLineChange()));
-    //d->m_page->setParent(this);
+
     if (ui->tabWidget->count() == 1) {
         d->m_checkShown = false;
     } else {
@@ -161,13 +147,12 @@ bool OptUser::optActive()
                     return false;
                 }
             } else {
-                ui->tabWidget->addTab(d->m_page, "Check");
+                ui->tabWidget->addTab(d->m_page, tr("Check"));
                 d->m_checkShown = true;
                 emit usrChange(d->m_isAdmin);
                 //ui->box_NeedCheck->setVisible(d->m_checkShown);
             }
         } else {
-            ui->lineEdit->clear();
             d->m_errMsg = "Wrong Password!";
             //QMessageBox::warning(this, tr("Warning"), tr("Wrong Password!"), QMessageBox::Ok);
             return false;
@@ -182,7 +167,23 @@ bool OptUser::readOpt()
   Q_D(OptUser);
   d->m_isAdmin=data("usr","admin",false).toBool();
   d->m_isChecked = data("usr", "check", true).toBool();
+  d->m_pw=data("usr","psw","googol123").toString();
   qDebug()<<"optusr read opt";
+
+//  QString pwFile=GTUtils::customPath()+ADMINPW_FILE;
+//  QFile file;
+//  file.setFileName(pwFile);
+//  if(file.open(QIODevice::ReadOnly))
+//  {
+//    QTextStream in(&file);
+//    d->m_pw=in.readAll();
+//    file.close();
+//  }
+//  else
+//  {
+//    qDebug()<<"can not open file:"<<pwFile;
+//    d->m_pw="googol123";
+//  }
 
   return true;
 }
@@ -190,6 +191,8 @@ bool OptUser::writeOpt()
 {
     Q_D(OptUser);
   saveData("usr","admin",d->m_isAdmin);
+  saveData("usr","check",d->m_isChecked);
+  saveData("usr","psw",d->m_pw);
   return true;
 }
 

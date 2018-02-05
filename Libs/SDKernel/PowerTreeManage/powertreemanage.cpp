@@ -144,7 +144,7 @@ QTreeWidgetItem * PowerTreeManage::detailInfoTreeItem(QTreeWidgetItem *target)
   return detailItem;
 }
 
-bool PowerTreeManage::updatePowerLimitMapList(QString version, QList<QMap<QString, PowerBoardLimit> > &powerLimitMapList)
+bool PowerTreeManage::updatePowerLimitMapList(const QString &version, QList<QMap<QString, PowerBoardLimit> > &powerLimitMapList)
 {
   if(m_pwrTarget==NULL)
     return false;
@@ -152,6 +152,7 @@ bool PowerTreeManage::updatePowerLimitMapList(QString version, QList<QMap<QStrin
   int axisNum;
 //  QTreeWidgetItem *item;
   powerLimitMapList.clear();
+  qDebug()<<"updatePowerLimitMapList "<<version;
   m_filterPath = m_filterPath + "V" + version + ".ui";
   QTreeWidget* filterTree = QtTreeManager::createTreeWidgetFromXmlFile(m_filterPath);
 
