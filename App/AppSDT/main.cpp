@@ -9,6 +9,7 @@
 #include "optface.h"
 #include "optplot.h"
 #include "optuser.h"
+#include "optpath.h"
 
 #include "gtutils.h"
 
@@ -55,6 +56,8 @@ int main(int argc, char *argv[])
   opt=new OptPlot("optplot",0);
   optc->addOptItem(opt);
   opt=new OptFace("optface",0);
+  optc->addOptItem(opt);
+  opt = new OptPath("optpath", 0);
   optc->addOptItem(opt);
 
   opt=optc->optItem("optface");

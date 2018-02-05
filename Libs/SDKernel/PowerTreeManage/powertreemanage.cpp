@@ -83,6 +83,12 @@ PowerTreeManage::PowerTreeManage(const quint32 id, QObject *parent) : QObject(pa
     m_pwrTarget = GLO::findItem(idStr, m_powerTree, PWR_COL_INX_VALUE);
     delete indexTree;
 }
+
+PowerTreeManage::~PowerTreeManage() {
+    delete m_powerTree;
+    delete m_pwrTarget;
+}
+
 /**
  * @brief PowerTreeManage::findTargetBoard
  * @param id

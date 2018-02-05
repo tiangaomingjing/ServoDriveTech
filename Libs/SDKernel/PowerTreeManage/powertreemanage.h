@@ -39,7 +39,7 @@ public:
 
   //explicit PowerTreeManage(QTreeWidget *powerTree,QObject *parent = 0);
   explicit PowerTreeManage(const quint32 id,QObject *parent = 0);
-
+  ~PowerTreeManage();
   bool updatePowerLimitMapList(QString version, QList<QMap<QString ,PowerBoardLimit>>&powerLimitMapList);
   SamplingDataInfo samplingDataInfo(bool *isOK);
 signals:
