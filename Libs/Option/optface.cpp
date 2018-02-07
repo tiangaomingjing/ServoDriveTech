@@ -275,7 +275,7 @@ void OptFace::setFaceFontSize(int size)
 {
   Q_D(OptFace);
   d->m_fontSize=size;
-  QFont font=qApp->font();
+  QFont font;
   font.setPixelSize(size);
   qApp->setFont(font);
 }

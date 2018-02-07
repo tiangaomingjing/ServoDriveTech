@@ -1,4 +1,4 @@
-/* -*- mode: C++ ; c-file-style: "stroustrup" -*- *****************************
+﻿/* -*- mode: C++ ; c-file-style: "stroustrup" -*- *****************************
  * Qwt Widget Library
  * Copyright (C) 1997   Josef Wilgen
  * Copyright (C) 2002   Uwe Rathmann
@@ -94,6 +94,7 @@ public:
     explicit QwtDial( QWidget *parent = NULL );
     virtual ~QwtDial();
 
+    void setTitle(const QString &text);
     void setFrameShadow( Shadow );
     Shadow frameShadow() const;
 

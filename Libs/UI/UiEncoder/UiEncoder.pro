@@ -4,6 +4,8 @@
 #
 #-------------------------------------------------
 include (../UI.pri)
+QWT=$${PWD}/../../ThirdParty/qwt6.1.2
+INCLUDEPATH+=$${QWT}/includes
 
 QT       += widgets
 
@@ -15,8 +17,10 @@ TEMPLATE = lib
 DEFINES += UIENCODER_LIBRARY
 
 CONFIG(debug, debug|release){
+    LIBS+=$${QWT}/libs/qwtd.lib
     TARGET = UiEncoderd
 } else{
+    LIBS+=$${QWT}/libs/qwt.lib
     TARGET = UiEncoder
 }
 

@@ -9,6 +9,7 @@ namespace Ui {
 class GraphEncoder129;
 }
 class GraphEncoder129Private;
+class QwtDial;
 
 class UIENCODERSHARED_EXPORT GraphEncoder129 : public IGraphEncoder
 {
@@ -22,7 +23,14 @@ public:
 protected:
   void visitActive(IUiWidget *uiWidget)Q_DECL_OVERRIDE;
   void setUiVersionName()Q_DECL_OVERRIDE;
-
+private slots:
+  void onBtnEncConfigClicked(bool checked);
+  void onRadioBtnClicked();
+  void onBtnSearchPhaseClicked();
+private:
+  void initDial(QwtDial *dial);
+  void setEncConfigUiEnable(bool en);
+  void setEncErrorUiEnable(bool en);
 private:
   Ui::GraphEncoder129 *ui;
 };
