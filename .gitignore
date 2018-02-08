@@ -70,10 +70,12 @@ Thumbs.db
 *.dll
 *.exe
 *.exp
-/build/debug/bin/*.lib
-/build/release/bin/*.lib
-!/build/debug/bin/qwtd.dll
-!/build/release/bin/qwt*.dll
+build/debug/custom/option/opt.ini
+build/debug/bin/*.lib
+build/release/bin/*.lib
+!build/debug/bin/qwtd.dll
+!build/release/bin/qwt*.dll
+!Libs/ThirdParty
 
 
 

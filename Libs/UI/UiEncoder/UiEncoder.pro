@@ -25,11 +25,15 @@ CONFIG(debug, debug|release){
 }
 
 SOURCES += uiencoder.cpp \
-    graphencoder129.cpp
+    graphencoder129.cpp \
+    encconfigmanage.cpp \
+    iencconfigitem.cpp
 
 HEADERS += uiencoder.h\
         uiencoder_global.h \
-    graphencoder129.h
+    graphencoder129.h \
+    encconfigmanage.h \
+    iencconfigitem.h
 
 unix {
     target.path = /usr/lib
