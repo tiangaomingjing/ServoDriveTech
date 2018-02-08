@@ -1,9 +1,11 @@
 ﻿#include "uiencoder.h"
 #include "ui_uiencoder.h"
 #include "iuiwidget_p.h"
+#include "igraphencoder.h"
 
 #include <QQuickWidget>
 #include <QQmlContext>
+
 
 class UiEncoderPrivate:public IUiWidgetPrivate
 {
@@ -12,6 +14,7 @@ public:
   UiEncoderPrivate();
   ~UiEncoderPrivate();
 protected:
+  IGraphEncoder *m_graphEncoder;
 
 };
 UiEncoderPrivate::UiEncoderPrivate()
@@ -30,7 +33,9 @@ UiEncoder::UiEncoder(QWidget *parent):IUiWidget(*(new UiEncoderPrivate),parent),
 }
 UiEncoder::~UiEncoder()
 {
+  Q_D(UiEncoder);
   delete ui;
+  delete d->m_graphEncoder;
 }
 
 bool UiEncoder::hasConfigFunc()
@@ -44,7 +49,10 @@ bool UiEncoder::hasSaveFunc()
 }
 void UiEncoder::accept(QWidget *w)
 {
+  Q_D(UiEncoder);
   ui->qmlHboxLayout->addWidget(w);
+  d->m_graphEncoder=dynamic_cast<IGraphEncoder *>(w);
+  d->m_graphEncoder->visit(this);
 }
 
 QStackedWidget *UiEncoder::getUiStackedWidget(void)

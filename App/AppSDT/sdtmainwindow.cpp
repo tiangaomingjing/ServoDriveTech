@@ -33,6 +33,7 @@
 #include "dbvermatching.h"
 
 #include "icom.h"
+#include "sdterror.h"
 
 #include <QToolButton>
 #include <QDebug>

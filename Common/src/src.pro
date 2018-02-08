@@ -79,7 +79,8 @@ SOURCES += main.cpp \
     UiFactory/uifactory.cpp \
     Kernel/globaluicontroler.cpp \
     test.c \
-    SdtGlobal/sdtglobaldef.cpp
+    SdtGlobal/sdtglobaldef.cpp \
+    Kernel/sdterror.cpp
 
 
 HEADERS += \
@@ -96,7 +97,8 @@ HEADERS += \
     UiFactory/registerfunction.h \
     Kernel/globaluicontroler.h \
     test.h \
-    SdtGlobal/sdtglobaldef.h
+    SdtGlobal/sdtglobaldef.h \
+    Kernel/sdterror.h
 
 DISTFILES += \
     ../../build/debug/custom/option/qmlstyle/MyQmlStyle/qmldir \

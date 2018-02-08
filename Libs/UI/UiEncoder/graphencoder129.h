@@ -23,10 +23,14 @@ public:
 protected:
   void visitActive(IUiWidget *uiWidget)Q_DECL_OVERRIDE;
   void setUiVersionName()Q_DECL_OVERRIDE;
+  void syncTreeDataToUiFace()Q_DECL_OVERRIDE;
+
 private slots:
   void onBtnEncConfigClicked(bool checked);
+  void onBtnEncConfigSaveClicked();
   void onRadioBtnClicked();
   void onBtnSearchPhaseClicked();
+
 private:
   void initDial(QwtDial *dial);
   void setEncConfigUiEnable(bool en);

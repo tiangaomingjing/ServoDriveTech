@@ -17,7 +17,7 @@ RnNet::RnNet(const string &objectName):PcDebug(*new RnNetPrivate())
   d->m_objectName=objectName;
   d->m_comType=ICOM_TYPE_RNNET;
   d->m_rnStation=0xf0;
-  printf("net object name =%s\n",objectName.c_str());
+//  printf("net object name =%s\n",objectName.c_str());
 }
 RnNet::~RnNet()
 {

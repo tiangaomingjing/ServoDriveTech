@@ -1,0 +1,12 @@
+﻿#ifndef ENCCONFIG
+#define ENCCONFIG
+#include "encconfigduomoitem.h"
+#include "encconfighaidehanitem.h"
+#include "encconfigmanage.h"
+#include "encconfignikangitem.h"
+#include "encconfigsanxieitem.h"
+#include "encconfigsongxiaitem.h"
+#include "encconfigyaskawaitem.h"
+
+#endif // ENCCONFIG
+

@@ -9,11 +9,9 @@ class IEncConfigItem : public QObject
   Q_OBJECT
 public:
   enum EncType{
-    ENC_TYPE_DUOMOCHUAN,
-    ENC_TYPE_NIKANG,
-    ENC_TYPE_HADEHAN,
-    ENC_TYPE_SANXIE,
-    ENC_TYPE_SONGXIA
+    ENC_TYPE_ABSOLUTE,
+    ENC_TYPE_INCREASE,
+    ENC_TYPE_NONE
   };
   explicit IEncConfigItem(QObject *parent = 0);
   virtual ~IEncConfigItem();
@@ -21,28 +19,31 @@ public:
   virtual QStringList errorStrings(quint16 errorCode);
   virtual bool hasWarnig(quint16 errorCode);
   virtual bool hasLostError(quint16 errorCode);
+  virtual void attributeUiInit();
+  virtual bool execute();
 
   EncType encType() const;
-  void setEncType(const EncType &encType);
+  void setEncType(const EncType encType);
 
   quint16 encConfigData() const;
-  void setEncConfigData(const quint16 &encConfigData);
+  void setEncConfigData(const quint16 encConfigData);
 
   quint32 lineNumber() const;
-  void setLineNumber(const quint32 &lineNumber);
-
-  quint16 lostOper() const;
-  void setLostOper(const quint16 &lostOper);
-
-  quint16 alarmOper() const;
-  void setAlarmOper(const quint16 &alarmOper);
+  void setLineNumber(const quint32 lineNumber);
 
   QWidget *attributeUi() const;
 
   void setWarningsString(const QStringList &warnings);
 
+  quint16 lostOper() const;
+  void setLostOper(const quint16 lostOper);
+
+  quint16 alarmOper() const;
+  void setAlarmOper(const quint16 alarmOper);
+
   quint16 crcErrOper() const;
-  void setCrcErrOper(const quint16 &crcErrOper);
+  void setCrcErrOper(const quint16 crcErrOper);
+
 
 signals:
 

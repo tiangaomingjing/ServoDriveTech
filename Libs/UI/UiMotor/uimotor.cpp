@@ -27,7 +27,6 @@ UiMotorPrivate::UiMotorPrivate():
 }
 UiMotorPrivate::~UiMotorPrivate()
 {
-  delete m_graphMotor;
   qDebug()<<"UiMotorPrivate destruct-->";
 }
 
@@ -38,7 +37,9 @@ UiMotor::UiMotor(QWidget *parent):IUiWidget(*(new UiMotorPrivate),parent),ui(new
 }
 UiMotor::~UiMotor()
 {
+  Q_D(UiMotor);
   delete ui;
+  delete d->m_graphMotor;
 }
 
 //!

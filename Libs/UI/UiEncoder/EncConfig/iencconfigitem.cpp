@@ -1,7 +1,9 @@
 ﻿#include "iencconfigitem.h"
 
+#include <QDebug>
+
 IEncConfigItem::IEncConfigItem(QObject *parent) : QObject(parent),
-  m_encType(ENC_TYPE_DUOMOCHUAN),
+  m_encType(ENC_TYPE_ABSOLUTE),
   m_encConfigData(0x0000),
   m_lineNumber(131072),
   m_lostOper(0x0020),
@@ -22,6 +24,7 @@ IEncConfigItem::IEncConfigItem(QObject *parent) : QObject(parent),
    <<tr("10 encoder memery accessing...")
   <<tr("11 position error,absolute is not equal to increase")
   <<tr("12 single absolute value working now....");
+  setObjectName(tr("IEncConfig"));
 }
 IEncConfigItem::~IEncConfigItem()
 {
@@ -29,7 +32,18 @@ IEncConfigItem::~IEncConfigItem()
 }
 QStringList IEncConfigItem::errorStrings(quint16 errorCode)
 {
-
+  quint16 almCode;
+  QStringList list;
+  quint16 oper=0x0001;
+  quint16 andValue=0x0000;
+  almCode=errorCode&m_alarmOper;
+  for(int i=0;i<m_warnings.count();i++)
+  {
+      andValue=oper<<i;
+      if(almCode&andValue)
+          list.append(m_warnings.at(i));
+  }
+  return list;
 }
 
 bool IEncConfigItem::hasWarnig(quint16 errorCode)
@@ -39,15 +53,24 @@ bool IEncConfigItem::hasWarnig(quint16 errorCode)
 
 bool IEncConfigItem::hasLostError(quint16 errorCode)
 {
-
+  return ((errorCode&m_lostOper)>0);
+}
+void IEncConfigItem::attributeUiInit()
+{
+  m_attributeUi=NULL;
+}
+bool IEncConfigItem::execute()
+{
+  qDebug()<<"m_encConfigData"<<m_encConfigData;
+  return true;
 }
 
-EncType IEncConfigItem::encType() const
+IEncConfigItem::EncType IEncConfigItem::encType() const
 {
   return m_encType;
 }
 
-void IEncConfigItem::setEncType(const EncType &encType)
+void IEncConfigItem::setEncType(const EncType encType)
 {
   m_encType = encType;
 }
@@ -57,7 +80,7 @@ quint16 IEncConfigItem::encConfigData() const
   return m_encConfigData;
 }
 
-void IEncConfigItem::setEncConfigData(const quint16 &encConfigData)
+void IEncConfigItem::setEncConfigData(const quint16 encConfigData)
 {
   m_encConfigData = encConfigData;
 }
@@ -67,7 +90,7 @@ quint32 IEncConfigItem::lineNumber() const
   return m_lineNumber;
 }
 
-void IEncConfigItem::setLineNumber(const quint32 &lineNumber)
+void IEncConfigItem::setLineNumber(const quint32 lineNumber)
 {
   m_lineNumber = lineNumber;
 }
@@ -77,7 +100,7 @@ quint16 IEncConfigItem::lostOper() const
   return m_lostOper;
 }
 
-void IEncConfigItem::setLostOper(const quint16 &lostOper)
+void IEncConfigItem::setLostOper(const quint16 lostOper)
 {
   m_lostOper = lostOper;
 }
@@ -87,7 +110,7 @@ quint16 IEncConfigItem::alarmOper() const
   return m_alarmOper;
 }
 
-void IEncConfigItem::setAlarmOper(const quint16 &alarmOper)
+void IEncConfigItem::setAlarmOper(const quint16 alarmOper)
 {
   m_alarmOper = alarmOper;
 }
@@ -108,7 +131,7 @@ quint16 IEncConfigItem::crcErrOper() const
   return m_crcErrOper;
 }
 
-void IEncConfigItem::setCrcErrOper(const quint16 &crcErrOper)
+void IEncConfigItem::setCrcErrOper(const quint16 crcErrOper)
 {
   m_crcErrOper = crcErrOper;
 }

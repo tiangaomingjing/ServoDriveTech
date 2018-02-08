@@ -20,7 +20,7 @@ PcDebug::PcDebug(const string &objectName):ICom(*new PcDebugPrivate())
   Q_D(PcDebug);
   d->m_objectName=objectName;
   d->m_comType=ICOM_TYPE_PCDEBUG;
-  printf("pcdebug object name =%s\n",objectName.c_str());
+//  printf("pcdebug object name =%s\n",objectName.c_str());
 }
 PcDebug::PcDebug(PcDebugPrivate &dd):ICom(dd)
 {

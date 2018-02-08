@@ -141,8 +141,8 @@ border-radius:5px;
 /*============自定义stylewidget 可以在C++环境中索引到其值=================*/
 StyleWidget{
 	qproperty-dsBoxBackgroundDefColor:white;
-	qproperty-dsBoxBackgroundReadyColor:green;
-	qproperty-dsBoxBackgroundErrorColor:#FF00FF;
+	qproperty-dsBoxBackgroundReadyColor:yellow;
+	qproperty-dsBoxBackgroundErrorColor:red;
 	qproperty-dsBoxTextEditColor:blue;
 	qproperty-dsBoxTextDefColor:black;
 	

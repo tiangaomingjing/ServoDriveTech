@@ -20,6 +20,8 @@ private slots:
 
   void on_actionHideWidget_triggered();
 
+  void on_pushButton_clicked();
+
 private:
   Ui::AnimationMainWindow *ui;
   QLabel *label;

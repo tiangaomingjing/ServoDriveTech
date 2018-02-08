@@ -253,6 +253,13 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>encoder configuration</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QToolBox" name="toolBox_encConfig">
           <property name="currentIndex">
            <number>0</number>
@@ -266,7 +273,7 @@
              <x>0</x>
              <y>0</y>
              <width>182</width>
-             <height>109</height>
+             <height>91</height>
             </rect>
            </property>
            <attribute name="label">
@@ -314,6 +321,14 @@
            </attribute>
           </widget>
           <widget class="QWidget" name="page_encResolver">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>182</width>
+             <height>109</height>
+            </rect>
+           </property>
            <attribute name="label">
             <string>页</string>
            </attribute>
@@ -381,11 +396,10 @@
          </widget>
         </item>
        </layout>
-       <zorder>listWidget_encAbsolute</zorder>
        <zorder>groupBox_encLineSelect</zorder>
-       <zorder></zorder>
        <zorder>btn_encSaveConfig</zorder>
        <zorder>toolBox_encConfig</zorder>
+       <zorder>label_2</zorder>
       </widget>
      </item>
     </layout>

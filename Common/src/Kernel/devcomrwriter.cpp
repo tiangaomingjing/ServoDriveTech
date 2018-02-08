@@ -8,6 +8,7 @@
 
 #include "gtutils.h"
 #include "qttreemanager.h"
+#include "sdterror.h"
 
 #include <QVector>
 #include <QDebug>
@@ -41,10 +42,10 @@ QList<DeviceConfig *>DevComRWriter::createConfig(void (*processCallback)(void *p
       delete com;
       isOk=false;
       qDebug()<<"TEST_OUT can not open COM";
-      GT::SdtError::instance()->errorStringList()->append(tr("OpenError:"));
-      GT::SdtError::instance()->errorStringList()->append(tr("  1 cable is not connect"));
-      GT::SdtError::instance()->errorStringList()->append(tr("  2 cable connet to wrong com"));
-      GT::SdtError::instance()->errorStringList()->append(tr("  3 device firmware error"));
+      SdtError::instance()->errorStringList()->append(tr("OpenError:"));
+      SdtError::instance()->errorStringList()->append(tr("  1 cable is not connect"));
+      SdtError::instance()->errorStringList()->append(tr("  2 cable connet to wrong com"));
+      SdtError::instance()->errorStringList()->append(tr("  3 device firmware error"));
       return list;
     }
   }
@@ -52,9 +53,9 @@ QList<DeviceConfig *>DevComRWriter::createConfig(void (*processCallback)(void *p
   NetCardInfo cardInfo=com->getNetCardInformation();
   if(cardInfo!=NET_1000M)
   {
-    GT::SdtError::instance()->errorStringList()->append(tr("Net Speed Error"));
-    GT::SdtError::instance()->errorStringList()->append(tr("  1 cable is not supported 1000M"));
-    GT::SdtError::instance()->errorStringList()->append(tr("  2 your computer netcom is not supported 1000M"));
+    SdtError::instance()->errorStringList()->append(tr("Net Speed Error"));
+    SdtError::instance()->errorStringList()->append(tr("  1 cable is not supported 1000M"));
+    SdtError::instance()->errorStringList()->append(tr("  2 your computer netcom is not supported 1000M"));
     com->close();
     delete com;
     isOk=false;
@@ -181,26 +182,26 @@ DeviceConfig* DevComRWriter::buildConfigFromCom(quint8 devId, quint8 rnstation, 
     {
       delete config;
       config=NULL;
-      GT::SdtError::instance()->errorStringList()->append(tr("your software is not support the device\nplease update from\n\nhttp://www.googoltech.com.cn\n"));
+      SdtError::instance()->errorStringList()->append(tr("your software is not support the device\nplease update from\n\nhttp://www.googoltech.com.cn\n"));
     }
   }
   else
   {
-    GT::SdtError::instance()->errorStringList()->append(tr("\nEEPROM Error:"));
+    SdtError::instance()->errorStringList()->append(tr("\nEEPROM Error:"));
     int i=1;
     if(!pok)
-      GT::SdtError::instance()->errorStringList()->append(tr("  %1 read powerboard eeprom error").arg(i++));
+      SdtError::instance()->errorStringList()->append(tr("  %1 read powerboard eeprom error").arg(i++));
     if(!cok)
-      GT::SdtError::instance()->errorStringList()->append(tr("  %1 read controlboard eeprom error").arg(i++));
+      SdtError::instance()->errorStringList()->append(tr("  %1 read controlboard eeprom error").arg(i++));
     if(!vok)
-      GT::SdtError::instance()->errorStringList()->append(tr("  %1 read dsp version error").arg(i++));
+      SdtError::instance()->errorStringList()->append(tr("  %1 read dsp version error").arg(i++));
     if(!fok)
-      GT::SdtError::instance()->errorStringList()->append(tr("  %1 read fpga version error").arg(i++));
+      SdtError::instance()->errorStringList()->append(tr("  %1 read fpga version error").arg(i++));
 
-     GT::SdtError::instance()->errorStringList()->append(tr("\nSolution:"));
-     GT::SdtError::instance()->errorStringList()->append(tr(" 1 manual to select the software toolbar:\n  more->option->autolaod->unchecked clicked apply"));
-     GT::SdtError::instance()->errorStringList()->append(tr("  and then toolbar:new ....select your correct version"));
-     GT::SdtError::instance()->errorStringList()->append(tr(" 2 contract factory to flash again EEPROM"));
+     SdtError::instance()->errorStringList()->append(tr("\nSolution:"));
+     SdtError::instance()->errorStringList()->append(tr(" 1 manual to select the software toolbar:\n  more->option->autolaod->unchecked clicked apply"));
+     SdtError::instance()->errorStringList()->append(tr("  and then toolbar:new ....select your correct version"));
+     SdtError::instance()->errorStringList()->append(tr(" 2 contract factory to flash again EEPROM"));
 
   }
 

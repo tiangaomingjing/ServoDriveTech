@@ -25,16 +25,22 @@
        </widget>
       </item>
       <item>
+       <widget class="QListWidget" name="listWidget"/>
+      </item>
+      <item>
        <widget class="QPushButton" name="pushButton_3">
         <property name="text">
-         <string>PushButton</string>
+         <string>listwidget test</string>
         </property>
        </widget>
       </item>
       <item>
+       <widget class="QComboBox" name="comboBox"/>
+      </item>
+      <item>
        <widget class="QPushButton" name="pushButton">
         <property name="text">
-         <string>PushButton</string>
+         <string>combobox test</string>
         </property>
        </widget>
       </item>

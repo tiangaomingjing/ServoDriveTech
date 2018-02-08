@@ -5,7 +5,8 @@
 #-------------------------------------------------
 include (../UI.pri)
 QWT=$${PWD}/../../ThirdParty/qwt6.1.2
-INCLUDEPATH+=$${QWT}/includes
+INCLUDEPATH+=$${QWT}/includes\
+             $${PWD}/EncConfig
 
 QT       += widgets
 
@@ -26,14 +27,31 @@ CONFIG(debug, debug|release){
 
 SOURCES += uiencoder.cpp \
     graphencoder129.cpp \
-    encconfigmanage.cpp \
-    iencconfigitem.cpp
+    ./EncConfig/encconfigmanage.cpp \
+    ./EncConfig/iencconfigitem.cpp \
+    EncConfig/encconfigduomoitem.cpp \
+    EncConfig/encconfighaidehanitem.cpp \
+    EncConfig/encconfignikangitem.cpp \
+    EncConfig/encconfigsanxieitem.cpp \
+    EncConfig/encconfigsongxiaitem.cpp \
+    EncConfig/encconfigyaskawaitem.cpp \
+    linenumberbinding.cpp \
+    encconfigbinding129.cpp
 
 HEADERS += uiencoder.h\
         uiencoder_global.h \
     graphencoder129.h \
-    encconfigmanage.h \
-    iencconfigitem.h
+    ./EncConfig/encconfigmanage.h \
+    ./EncConfig/iencconfigitem.h \
+    EncConfig/encconfigduomoitem.h \
+    EncConfig/encconfighaidehanitem.h \
+    EncConfig/encconfignikangitem.h \
+    EncConfig/encconfigsanxieitem.h \
+    EncConfig/encconfigsongxiaitem.h \
+    EncConfig/encconfigyaskawaitem.h \
+    EncConfig/EncConfig \
+    linenumberbinding.h \
+    encconfigbinding129.h
 
 unix {
     target.path = /usr/lib
