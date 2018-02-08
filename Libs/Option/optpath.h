@@ -17,6 +17,8 @@ public:
     explicit OptPath(const QString &optName, QWidget *parent = 0);
     ~OptPath();
     void uiInit()Q_DECL_OVERRIDE;
+signals:
+    void pathesChanged(QStringList);
 private:
     Ui::OptPath *ui;
 protected:
@@ -24,6 +26,8 @@ protected:
     bool readOpt() Q_DECL_OVERRIDE;
     bool writeOpt() Q_DECL_OVERRIDE;
     void respondErrorExecute() Q_DECL_OVERRIDE;
+private slots:
+    void onActionToolButtonClicked(int index);
 };
 
 #endif // OPTPATH_H

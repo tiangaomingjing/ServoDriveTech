@@ -7,6 +7,8 @@
 #include <QLineEdit>
 #include <QToolButton>
 #include <QLayout>
+#include <QSignalMapper>
+#include <QFileDialog>
 
 class OptPathPrivate: public IOptPrivate {
     Q_DECLARE_PUBLIC(OptPath)
@@ -47,6 +49,26 @@ OptPath::OptPath(const QString &optName, QWidget *parent) : IOpt(optName,*new Op
       d->m_nameList.removeAll("");
       file.close();
     }
+//    while(ui->verticalLayout->count()) {
+//        ui->verticalLayout->removeItem(ui->verticalLayout->itemAt(0));
+//    }
+    QSignalMapper *pMapper = new QSignalMapper();
+    for (int i = 0; i < d->m_nameList.count(); i++) {
+        QVBoxLayout *vBox = new QVBoxLayout;
+        QHBoxLayout *hBox = new QHBoxLayout;
+        QLabel* label = new QLabel(d->m_nameList.at(i));
+        QToolButton* toolButton = new QToolButton;
+        QLineEdit* lineEdit = new QLineEdit;
+        lineEdit->setReadOnly(true);
+        hBox->addWidget(lineEdit);
+        hBox->addWidget(toolButton);
+        vBox->addWidget(label);
+        vBox->addLayout(hBox);
+        ui->verticalLayout->addLayout(vBox);
+        connect(toolButton, SIGNAL(clicked()), pMapper, SLOT(map()));
+        pMapper->setMapping(toolButton, i);
+    }
+    connect(pMapper, SIGNAL(mapped(int)), this, SLOT(onActionToolButtonClicked(int)));
     uiInit();
 }
 
@@ -58,25 +80,24 @@ OptPath::~OptPath()
 void OptPath::uiInit()
 {
     Q_D(OptPath);
-    qDebug()<< "list count "<<d->m_nameList.count();
-    for (int i = 0; i < d->m_nameList.count(); i++) {
-        QVBoxLayout *vBox = new QVBoxLayout;
-        QHBoxLayout *hBox = new QHBoxLayout;
-        QLabel* label = new QLabel(d->m_nameList.at(i));
-        QToolButton* toolButton = new QToolButton;
-        QLineEdit* lineEdit = new QLineEdit;
+    for (int i = 0; i < d->m_pathList.count(); i++) {
+        QWidget *lineWidget = ui->verticalLayout->itemAt(i)->layout()->itemAt(1)->layout()->itemAt(0)->widget();
+        QLineEdit *lineEdit = static_cast<QLineEdit*>(lineWidget);
         lineEdit->setText(d->m_pathList.at(i));
-        hBox->addWidget(lineEdit);
-        hBox->addWidget(toolButton);
-        vBox->addWidget(label);
-        vBox->addLayout(hBox);
-        ui->verticalLayout->addLayout(vBox);
     }
+    qDebug()<< "path ui Init";
 }
 
 bool OptPath::optActive()
 {
+    Q_D(OptPath);
   qDebug()<<"opt plot execute active ";
+  for (int i = 0; i < d->m_pathList.count(); i++) {
+      QWidget *lineWidget = ui->verticalLayout->itemAt(i)->layout()->itemAt(1)->layout()->itemAt(0)->widget();
+      QLineEdit *lineEdit = static_cast<QLineEdit*>(lineWidget);
+      d->m_pathList.replace(i, lineEdit->text());
+  }
+  emit pathesChanged(d->m_pathList);
   return true;
 }
 bool OptPath::readOpt()
@@ -98,9 +119,30 @@ bool OptPath::readOpt()
 bool OptPath::writeOpt()
 {
   Q_D(OptPath);
+    saveData("path", "servo2file", d->m_pathList.at(0));
+    saveData("path", "file2servo", d->m_pathList.at(1));
+    saveData("path", "flashfilepath", d->m_pathList.at(2));
+    saveData("path", "oldfilepath", d->m_pathList.at(3));
+    saveData("path", "newfilepath", d->m_pathList.at(4));
   return true;
 }
 void OptPath::respondErrorExecute()
 {
 
+}
+
+void OptPath::onActionToolButtonClicked(int index) {
+    Q_D(OptPath);
+    QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"),
+                                                    d->m_pathList.at(index),
+                                                    QFileDialog::ShowDirsOnly
+                                                    | QFileDialog::DontResolveSymlinks);
+    //qDebug()<<"dir "<<dir;
+    if (dir.compare(d->m_pathList.at(index)) != 0 && dir.compare("") != 0) {
+        setModify(true);
+        QWidget *lineWidget = ui->verticalLayout->itemAt(index)->layout()->itemAt(1)->layout()->itemAt(0)->widget();
+        QLineEdit *lineEdit = static_cast<QLineEdit*>(lineWidget);
+        lineEdit->setText(dir);
+        //d->m_pathList.replace(index, dir);
+    }
 }

@@ -182,7 +182,7 @@ OptFace::~OptFace()
 void OptFace::uiInit()
 {
   Q_D(OptFace);
-
+    qDebug()<<"face ui Init";
   if(d->m_lang=="english")
     ui->rbtn_en->setChecked(true);
   else

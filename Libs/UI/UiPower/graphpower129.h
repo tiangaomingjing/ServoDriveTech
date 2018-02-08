@@ -21,6 +21,7 @@ public:
 protected:
   void visitActive(IUiWidget *uiWidget)Q_DECL_OVERRIDE;
   void setUiVersionName()Q_DECL_OVERRIDE;
+  //bool eventFilter(QObject *obj, QEvent *event);
 
 private:
   Ui::GraphPower129 *ui;

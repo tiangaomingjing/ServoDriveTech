@@ -14,7 +14,7 @@ INCLUDEPATH+=$${PWD}/../GTUtils\
             $${PWD}/../Option\
             $${PWD}/../Com/Communication\
             $${PWD}/../../Common/src\
-            $${PWD}/../../Common/src/kernel\
+            $${PWD}/../../Common/src/Kernel\
             $${PWD}/../../Common/src/SdtGlobal
 
 TEMPLATE = lib

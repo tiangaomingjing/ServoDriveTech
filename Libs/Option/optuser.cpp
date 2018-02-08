@@ -115,7 +115,10 @@ OptUser::~OptUser()
 void OptUser::uiInit()
 {
     Q_D(OptUser);
+    qDebug()<<"user ui Init";
     setModify(false);
+    d->m_isAdmin=data("usr","admin",false).toBool();
+    d->m_isChecked = data("usr", "check", true).toBool();
     d->m_page->setCheck(d->m_isChecked);
 
     if (ui->tabWidget->count() == 1) {
@@ -142,7 +145,7 @@ bool OptUser::optActive()
                 if (d->m_page->getPsw().compare(d->m_pw) == 0) {
                     d->m_isChecked = d->m_page->isChecked();
                 } else {
-                    d->m_errMsg = "Wrong Need Check Password!";
+                    d->m_errMsg = tr("Wrong Need Check Password!");
                     //QMessageBox::warning(this, tr("Warning"), tr("Wrong Need Check Password!"), QMessageBox::Ok);
                     return false;
                 }
@@ -153,7 +156,7 @@ bool OptUser::optActive()
                 //ui->box_NeedCheck->setVisible(d->m_checkShown);
             }
         } else {
-            d->m_errMsg = "Wrong Password!";
+            d->m_errMsg = tr("Wrong Password!");
             //QMessageBox::warning(this, tr("Warning"), tr("Wrong Password!"), QMessageBox::Ok);
             return false;
         }
