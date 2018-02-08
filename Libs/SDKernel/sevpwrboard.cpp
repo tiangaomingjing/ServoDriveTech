@@ -10,8 +10,6 @@
 
 SevPwrBoard::SevPwrBoard(SevDevicePrivate *sev, QObject *parent):IPwrBoard(sev,parent)
 {
-//  bool isOk;
-
 //  QString file=GTUtils::databasePath()+POWERBOAD_NAME;
 //  QTreeWidget *pwrTree=QtTreeManager::createTreeWidgetFromXmlFile(file);
 //  //待改进，加一个dsp版本相关，去找控制变量
@@ -24,7 +22,6 @@ SevPwrBoard::SevPwrBoard(SevDevicePrivate *sev, QObject *parent):IPwrBoard(sev,p
     PowerTreeManage *pwrTreeManager = new PowerTreeManage(sev->m_devConfig);
     pwrTreeManager->updatePowerLimitMapList(m_powerLimitMapList);
     m_samplingDataInfo = pwrTreeManager->samplingDataInfo(&isOk);
-    qDebug()<<"sssss";
     delete pwrTreeManager;
 }
 

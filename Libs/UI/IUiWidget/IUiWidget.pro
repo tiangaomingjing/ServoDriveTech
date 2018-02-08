@@ -9,7 +9,7 @@ INCLUDEPATH+=$${PWD}/../../SDKernel\
               $${PWD}/../../GTUtils\
               $${PWD}/../../Option
 
-QT       += widgets quickwidgets qml core
+QT       += widgets quickwidgets qml
 
 QT       -= gui
 
