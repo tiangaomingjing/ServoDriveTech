@@ -1,6 +1,9 @@
 ﻿#include "igraphencoder.h"
 #include "igraphencoder_p.h"
-IGraphEncoderPrivate::IGraphEncoderPrivate()
+IGraphEncoderPrivate::IGraphEncoderPrivate():
+  m_curEncConfigItem(NULL),
+  m_encConfigManage(NULL),
+  m_iDataBinding(NULL)
 {
 
 }

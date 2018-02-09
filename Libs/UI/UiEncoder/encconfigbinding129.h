@@ -13,6 +13,10 @@ public:
   void syncMultiUiDataToTree();
   void syncMultiTreeToUiData();
 
+  //just sync treeitem <-> listWidget
+  void syncUiDataToTreeItem();
+  void syncTreeItemToUiData();
+
 signals:
 
 public slots:

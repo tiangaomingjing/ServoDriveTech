@@ -74,8 +74,9 @@ QToolButton { /* all types of tool button */
 	padding-left:0px;
 	padding-right:0px;
 	color:white;
-    border-radius: 5px;
+    border-radius: 0px;
     background-color: #252A3E;
+	font-weight:normal;
 	/*background-color:#000066;
 	background-color:seagreen;*/
 }
@@ -86,10 +87,14 @@ QToolButton[popupMode="1"] { /* only for MenuButtonPopup */
 
 QToolButton:hover:!pressed {
     background-color: gray;
-	border:1px solid white;
+	border:none;
+	
+	font-weight:bold;
 }
 QToolButton:hover:pressed {
     background-color: rgb(86, 86, 86);
+	font-weight:normal;
+	color:#252A3E;
 }
 /*QToolButton:checked {
     background-color: rgb(40, 40, 40);

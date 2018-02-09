@@ -19,7 +19,8 @@ public:
   virtual QStringList errorStrings(quint16 errorCode);
   virtual bool hasWarnig(quint16 errorCode);
   virtual bool hasLostError(quint16 errorCode);
-  virtual void attributeUiInit();
+  virtual void createAttributeUi();
+  virtual void attributeUiUpdate(){}
   virtual bool execute();
 
   EncType encType() const;

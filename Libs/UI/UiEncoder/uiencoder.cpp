@@ -2,9 +2,11 @@
 #include "ui_uiencoder.h"
 #include "iuiwidget_p.h"
 #include "igraphencoder.h"
+#include "sevdevice.h"
 
 #include <QQuickWidget>
 #include <QQmlContext>
+#include <QDebug>
 
 
 class UiEncoderPrivate:public IUiWidgetPrivate
@@ -53,6 +55,23 @@ void UiEncoder::accept(QWidget *w)
   ui->qmlHboxLayout->addWidget(w);
   d->m_graphEncoder=dynamic_cast<IGraphEncoder *>(w);
   d->m_graphEncoder->visit(this);
+}
+void UiEncoder::setUiActive(bool actived)
+{
+  Q_D(UiEncoder);
+  if(actived)
+  {
+    //读一次FLASH的值
+    //开启编码器刷新定时器及错误检查
+    if(readPageFLASH())
+    {
+      qDebug()<<"TEST_OUT readPageFLASH OK";
+    }
+  }
+  else
+  {
+    //关闭编码器刷新定时器及错误检查
+  }
 }
 
 QStackedWidget *UiEncoder::getUiStackedWidget(void)

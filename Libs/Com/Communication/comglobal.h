@@ -122,9 +122,6 @@ typedef enum{
 /* |mode|cmd|len|<-------data------>|
  * |_ _ |_ _|_ _|_ _|_ _|_ _|_ _|_ _|
  * len是指data的长度
- * 1级指令cmd<41  data[0]开始就是数据
- * 2级指令cmd=41  data[0]是2级ID data[1]开始是数据
- * 3与王彬结构体少了前面的3个data,所以在调他的函数时要插多3个word
  * */
 typedef struct{
   uint16_t mode;

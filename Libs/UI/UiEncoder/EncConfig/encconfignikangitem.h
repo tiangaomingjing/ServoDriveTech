@@ -10,7 +10,8 @@ class EncConfigNiKangItem : public IEncConfigItem
 public:
   explicit EncConfigNiKangItem(QObject *parent = 0);
   ~EncConfigNiKangItem();
-  void attributeUiInit() Q_DECL_OVERRIDE;
+  void createAttributeUi() Q_DECL_OVERRIDE;
+  void attributeUiUpdate() Q_DECL_OVERRIDE;
   bool execute()Q_DECL_OVERRIDE;
 
 signals:

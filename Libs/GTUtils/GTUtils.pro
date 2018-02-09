@@ -27,7 +27,7 @@ CONFIG(debug, debug|release){
     UTILS_OUT_PATH=$${BUILD_PATH}/debug/bin
     TARGET = GTUtilsd
 } else{
-    LIBS +=$${APP_BUILD_PATH}/debug/bin/Communication.lib
+    LIBS +=$${APP_BUILD_PATH}/release/bin/Communication.lib
     UTILS_OUT_PATH=$${BUILD_PATH}/release/bin
     TARGET = GTUtils
 }

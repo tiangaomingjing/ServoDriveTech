@@ -10,10 +10,10 @@ class EncConfigManage : public QObject
 public:
   explicit EncConfigManage(QObject *parent = 0);
   ~EncConfigManage();
-  void addEncConfigItem(IEncConfigItem *encItem);
-  IEncConfigItem *encConfigItem(quint8 index);
+  void addEncItem(IEncConfigItem *encItem);
+  IEncConfigItem *encItem(quint8 index);
   QStringList itemNames();
-  void clearAllEncConfigItem();
+  void clearAllEncItem();
 
 signals:
 

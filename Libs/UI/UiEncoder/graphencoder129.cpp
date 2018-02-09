@@ -12,17 +12,16 @@
 #include "sevdevice.h"
 
 #include "qwt_dial_needle.h"
+#include <QTimer>
 
 class GraphEncoder129Private:public IGraphEncoderPrivate
 {
   Q_DECLARE_PUBLIC(GraphEncoder129)
 public:
-  GraphEncoder129Private():m_curEncConfigItem(NULL),m_iDataBinding(NULL){}
+  GraphEncoder129Private(){}
   ~GraphEncoder129Private(){}
 protected:
-  IEncConfigItem *m_curEncConfigItem;
-  EncConfigManage m_encConfigManage;
-  IDataBinding *m_iDataBinding;
+
 };
 
 GraphEncoder129::GraphEncoder129(QWidget *parent) :
@@ -44,10 +43,13 @@ GraphEncoder129::GraphEncoder129(QWidget *parent) :
   ui->comboBox_encBitNum->addItems(comList);
   ui->label_encLineNum->setText(tr("encoder lineNumber:"));
 
-  //-------------------初始化编码器设置框--------------------
-  ui->toolBox_encConfig->setItemText(0,tr("Enc Absolute"));
-  ui->toolBox_encConfig->setItemText(1,tr("Enc Increase"));
-  ui->toolBox_encConfig->setItemText(2,tr("Enc Resolution"));
+  //-------------------初始化编码器配置设置框--------------------
+  ui->toolBox_encConfig->setItemText(0,tr("Enc None"));
+  ui->toolBox_encConfig->setItemText(1,tr("Enc Absolute"));
+  ui->toolBox_encConfig->setItemText(2,tr("Enc Increase"));
+  ui->toolBox_encConfig->setItemText(3,tr("Enc Resolution"));
+  Q_D(GraphEncoder129);
+  d->m_encConfigManage=new EncConfigManage;
 //  QStringList list;
 //  list<<tr("0 DuoMoChuan")<<tr("1 NiKang")<<tr("2 Haidehan")<<tr("3 SanXie")<<tr("4 XiongXia")<<tr("5 AnChuan");
 //  ui->listWidget_encAbsolute->addItems(list);
@@ -63,6 +65,7 @@ GraphEncoder129::GraphEncoder129(QWidget *parent) :
 GraphEncoder129::~GraphEncoder129()
 {
   Q_D(GraphEncoder129);
+  GT::deletePtrObject(d->m_encConfigManage);
   delete ui;
 }
 void GraphEncoder129::visitActive(IUiWidget *uiWidget)
@@ -84,11 +87,13 @@ void GraphEncoder129::setUiVersionName()
 }
 void GraphEncoder129::syncTreeDataToUiFace()
 {
-
+  Q_D(GraphEncoder129);
+  qDebug()<<"TEST_OUT syncMultiTreeToUiData";
+  d->m_iDataBinding->syncMultiTreeToUiData();
 }
 
 //!
-//! \brief GraphEncoder129::onBtnEncConfigClicked 打开编码器设置对话框
+//! \brief GraphEncoder129::onBtnEncConfigClicked 打开编码器设置对话框 open close 两个状态
 //! \param checked
 //!
 void GraphEncoder129::onBtnEncConfigClicked(bool checked)
@@ -97,29 +102,53 @@ void GraphEncoder129::onBtnEncConfigClicked(bool checked)
   Q_D(GraphEncoder129);
   if(checked)
   {
+    //初始化的顺序不能错
     IEncConfigItem *encItem=new EncConfigDuoMoItem;
-    d->m_encConfigManage.addEncConfigItem(encItem);
-    encItem=new EncConfigHaidehanItem;
-    d->m_encConfigManage.addEncConfigItem(encItem);
+    encItem->createAttributeUi();
+    d->m_encConfigManage->addEncItem(encItem);
+
     encItem=new EncConfigNiKangItem;
-    d->m_encConfigManage.addEncConfigItem(encItem);
+    encItem->createAttributeUi();
+    d->m_encConfigManage->addEncItem(encItem);
+
+    encItem=new EncConfigHaidehanItem;
+    encItem->createAttributeUi();
+    d->m_encConfigManage->addEncItem(encItem);
+
     encItem=new EncConfigSanXieItem;
-    d->m_encConfigManage.addEncConfigItem(encItem);
+    encItem->createAttributeUi();
+    d->m_encConfigManage->addEncItem(encItem);
+
     encItem=new EncConfigSongXiaItem;
-    d->m_encConfigManage.addEncConfigItem(encItem);
+    encItem->createAttributeUi();
+    d->m_encConfigManage->addEncItem(encItem);
+
     encItem=new EncConfigYaskawaItem;
-    d->m_encConfigManage.addEncConfigItem(encItem);
+    encItem->createAttributeUi();
+    d->m_encConfigManage->addEncItem(encItem);
+
     if(ui->listWidget_encAbsolute->count()==0)
-      ui->listWidget_encAbsolute->addItems(d->m_encConfigManage.itemNames());
+      ui->listWidget_encAbsolute->addItems(d->m_encConfigManage->itemNames());
+
+    ui->rbtn_encLine->setChecked(true);
+
+    //获取当前文件中的编码器配置信息
+    d->m_iDataBinding->bind(ui->listWidget_encAbsolute,d->m_treeWidget->topLevelItem(3));//FPGA.prm.ABS_ENC_CFG.all
+    d->m_iDataBinding->syncTreeItemToUiData();
+    d->m_curEncConfigItem=d->m_encConfigManage->encItem(ui->listWidget_encAbsolute->currentRow());
+    d->m_iDataBinding->multiBind(static_cast<QObject*>(d->m_curEncConfigItem),d->m_treeWidget);
+
     syncTreeDataToUiFace();
-    qDebug()<<"open encItemcount"<<d->m_encConfigManage.itemNames().count();
+    updateEncConfigUiByCurrentConfigItem();
+
+    qDebug()<<"open encItemcount"<<d->m_encConfigManage->itemNames().count();
 
   }
   else
   {
     d->m_curEncConfigItem=NULL;
-    d->m_encConfigManage.clearAllEncConfigItem();
-    qDebug()<<"close encItemcount"<<d->m_encConfigManage.itemNames().count();
+    d->m_encConfigManage->clearAllEncItem();
+    qDebug()<<"close encItemcount"<<d->m_encConfigManage->itemNames().count();
   }
 }
 void GraphEncoder129::onRadioBtnClicked()
@@ -144,26 +173,28 @@ void GraphEncoder129::onBtnSearchPhaseClicked()
   setEncErrorUiEnable(en);
   en=!en;
 }
+
 void GraphEncoder129::onBtnEncConfigSaveClicked()
 {
   Q_D(GraphEncoder129);
   quint8 inx=ui->listWidget_encAbsolute->currentRow();
 
-  d->m_curEncConfigItem=d->m_encConfigManage.encConfigItem(inx);
+  d->m_curEncConfigItem=d->m_encConfigManage->encItem(inx);
   if(d->m_curEncConfigItem!=NULL)
   {
     if(ui->rbtn_encBit->isChecked())
     {
       quint32 lineNum=ui->comboBox_encBitNum->currentText().toUInt();
       d->m_curEncConfigItem->setLineNumber(qPow(2,lineNum));
-      qDebug()<<"lineNumer"<<d->m_curEncConfigItem->lineNumber();
+
     }
     else
       d->m_curEncConfigItem->setLineNumber(ui->spinBox_encLine->value());
+    qDebug()<<"lineNumer"<<d->m_curEncConfigItem->lineNumber();
 
-    qDebug()<<"ssssssssssssssssssssssss";
+    d->m_curEncConfigItem->execute();
+
     d->m_iDataBinding->multiBind(static_cast<QObject*>(d->m_curEncConfigItem),d->m_treeWidget);
-    qDebug()<<"ssssssssssssssssssssssss";
     d->m_iDataBinding->syncMultiUiDataToTree();
   }
 //  syncUiDataToTree();
@@ -230,4 +261,24 @@ void GraphEncoder129::setEncErrorUiEnable(bool en)
 {
   ui->listWidget_encErr->setVisible(en);
   ui->btn_encClearErr->setVisible(en);
+}
+void GraphEncoder129::updateEncConfigUiByCurrentConfigItem()
+{
+  Q_D(GraphEncoder129);
+  if(d->m_curEncConfigItem!=NULL)
+  {
+    qDebug()<<"configdata"<<d->m_curEncConfigItem->encConfigData();
+    int enctypeInx=(int)d->m_curEncConfigItem->encType();
+    if(enctypeInx<ui->toolBox_encConfig->count())
+      ui->toolBox_encConfig->setCurrentIndex(enctypeInx);
+    else
+      ui->toolBox_encConfig->setCurrentIndex(0);
+    ui->spinBox_encLine->setValue(d->m_curEncConfigItem->lineNumber());
+    if(d->m_curEncConfigItem->attributeUi()!=NULL)
+    {
+      d->m_curEncConfigItem->attributeUiUpdate();
+      ui->vlayout_encConfigUi->insertWidget(4,d->m_curEncConfigItem->attributeUi());
+      qDebug()<<"ui->vlayout_encConfigUi->addWidget(d->m_curEncConfigItem->attributeUi()); ";
+    }
+  }
 }

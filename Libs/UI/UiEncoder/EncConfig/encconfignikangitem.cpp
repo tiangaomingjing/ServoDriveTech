@@ -17,7 +17,7 @@ EncConfigNiKangItem::~EncConfigNiKangItem()
 {
   GT::deletePtrObject(m_attributeUi);
 }
-void EncConfigNiKangItem::attributeUiInit()
+void EncConfigNiKangItem::createAttributeUi()
 {
   m_attributeUi=new QWidget;
   QHBoxLayout *hlayout=new QHBoxLayout(m_attributeUi);
@@ -30,6 +30,13 @@ void EncConfigNiKangItem::attributeUiInit()
   m_attributeUi->setLayout(hlayout);
 
 }
+void EncConfigNiKangItem::attributeUiUpdate()
+{
+  int index=(m_encConfigData&0x1000)>>12;
+  m_comboBox->setCurrentIndex(index);
+  qDebug()<<"current index "<<index;
+}
+
 bool EncConfigNiKangItem::execute()
 {
   if(m_comboBox!=NULL)

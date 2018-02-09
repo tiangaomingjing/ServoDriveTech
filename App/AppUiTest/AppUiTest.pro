@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     ../../Common/src/UiFactory/uifactory.cpp \
     ../../Common/src/Kernel/globaluicontroler.cpp \
     ../../Common/src/Kernel/deviceconfig.cpp \
-    ../../Common/src/SdtGlobal/sdtglobaldef.cpp
+    ../../Common/src/SdtGlobal/sdtglobaldef.cpp \
+    ../../Common/src/Kernel/sdterror.cpp
 
 HEADERS  += uimainwindow.h \
     ../../Common/src/SdtGlobal/sdtglobaldef.h\
@@ -45,7 +46,8 @@ HEADERS  += uimainwindow.h \
     ../../Common/src/UiFactory/uifactory.h \
     ../../Common/src/UiFactory/registerfunction.h \
     ../../Common/src/Kernel/globaluicontroler.h \
-    ../../Common/src/Kernel/deviceconfig.h
+    ../../Common/src/Kernel/deviceconfig.h \
+    ../../Common/src/Kernel/sdterror.h
 
 FORMS    += uimainwindow.ui
 

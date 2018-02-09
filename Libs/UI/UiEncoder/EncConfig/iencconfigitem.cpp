@@ -55,7 +55,7 @@ bool IEncConfigItem::hasLostError(quint16 errorCode)
 {
   return ((errorCode&m_lostOper)>0);
 }
-void IEncConfigItem::attributeUiInit()
+void IEncConfigItem::createAttributeUi()
 {
   m_attributeUi=NULL;
 }

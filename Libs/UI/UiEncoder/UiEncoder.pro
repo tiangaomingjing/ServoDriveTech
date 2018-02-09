@@ -36,7 +36,8 @@ SOURCES += uiencoder.cpp \
     EncConfig/encconfigsongxiaitem.cpp \
     EncConfig/encconfigyaskawaitem.cpp \
     linenumberbinding.cpp \
-    encconfigbinding129.cpp
+    encconfigbinding129.cpp \
+    labelbinding.cpp
 
 HEADERS += uiencoder.h\
         uiencoder_global.h \
@@ -51,7 +52,8 @@ HEADERS += uiencoder.h\
     EncConfig/encconfigyaskawaitem.h \
     EncConfig/EncConfig \
     linenumberbinding.h \
-    encconfigbinding129.h
+    encconfigbinding129.h \
+    labelbinding.h
 
 unix {
     target.path = /usr/lib

@@ -1,4 +1,11 @@
-QPushButton{
+﻿/*==========================main treeWidget 导航栏=====================*/
+QDockWidget  QTreeView {
+	border:1px solid lightgray;
+	border-bottom-color:transparent;
+	border-top-color:transparent;
+}
+
+﻿QPushButton{
   border-style: none;
   border: 0px;
   color: #F0F0F0;
@@ -52,9 +59,12 @@ QListView::item:selected:!active {
 QWidget#dockWidgetContents_2{
 background-color: rgb(161, 161, 161);
 }
+/*====================工具栏=======================*/
 QToolBar {
 	border:none;
-    background: rgb(113, 113, 113);
+    background-color: #252A3E;
+	/*background: #000066;
+	background: seagreen;*/
     spacing: 3px; /* spacing between items in the tool bar */
 }
 QToolButton { /* all types of tool button */
@@ -64,8 +74,11 @@ QToolButton { /* all types of tool button */
 	padding-left:0px;
 	padding-right:0px;
 	color:white;
-    border-radius: 5px;
-    background-color:rgb(113, 113, 113);
+    border-radius: 0px;
+    background-color: #252A3E;
+	font-weight:normal;
+	/*background-color:#000066;
+	background-color:seagreen;*/
 }
 
 QToolButton[popupMode="1"] { /* only for MenuButtonPopup */
@@ -74,10 +87,14 @@ QToolButton[popupMode="1"] { /* only for MenuButtonPopup */
 
 QToolButton:hover:!pressed {
     background-color: gray;
-	border:1px solid white;
+	border:none;
+	
+	font-weight:bold;
 }
 QToolButton:hover:pressed {
     background-color: rgb(86, 86, 86);
+	font-weight:normal;
+	color:#252A3E;
 }
 /*QToolButton:checked {
     background-color: rgb(40, 40, 40);
@@ -88,16 +105,18 @@ QToolButton:checked {
 	border-color:white;
 	border-width:1px;
 	border-style:solid;*/
-	background-color: blue;
+	background-color: #DBDBDB;
 	border-radius:0px;
+	color:black;
 }
 QToolButton:hover:checked {
 	/*border-radius:0px;
 	border-color:white;
 	border-width:1px;
 	border-style:solid;*/
-	background-color: blue;
+	background-color: #DBDBDB;
 	border-radius:0px;
+	color:black;
 }
 
 /* the subcontrols below are used only in the MenuButtonPopup mode */
@@ -110,12 +129,129 @@ QToolButton::menu-button {
 }
 
 QToolButton::menu-arrow {
-    image: url(downarrow.png);
+    /*image: url(downarrow.png);*/
 }
 
 QToolButton::menu-arrow:open {
     top: 1px; left: 1px; /* shift it a bit */
 }
 QWidget#statusBar{
-background-color: rgb(113, 113, 113);
+background-color: #F0F0F0;
+}
+QWidget#mainStackedWidget{
+background-color: #F0F0F0;
+}
+/*==============================状态栏====================================*/
+QWidget#statusBar{
+	border:none;
+	/*border-left-color:transparent;
+	border-bottom-color:transparent;
+	border-right-color:transparent;*/
+	background-color:#E0DDDD;
+}
+QToolButton#tbtnError,QToolButton#tbtnNet { /* all types of tool button */
+    border: none;
+	padding-top:5px;
+	padding-bottom:5px;
+	padding-left:0px;
+	padding-right:0px;
+	color:red;
+    border-radius: 5px;
+    background-color: transparent;
+}
+QToolButton#tbtnError:hover{
+    background-color: #252A3E;
+	color:white;
+}
+
+
+
+/*============自定义stylewidget 可以在C++环境中索引到其值=================*/
+StyleWidget{
+	qproperty-dsBoxBackgroundDefColor:white;
+	qproperty-dsBoxBackgroundReadyColor:green;
+	qproperty-dsBoxBackgroundErrorColor:#E61EE4;
+	qproperty-dsBoxTextEditColor:blue;
+	qproperty-dsBoxTextDefColor:black;
+	
+	qproperty-msgNormalColor:black;
+	qproperty-msgWarningColor:blue;
+	qproperty-msgErrorColor:red;
+}
+
+
+/*====================电机界面===================*/
+QWidget#widget_machinePrm{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+QWidget#widget_currentPrm{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+QWidget#widget_impedancePrm{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+QWidget#widget_torquePrm{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+QWidget#widget_velocityPrm{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+/*====================设置对话框===================*/
+
+/*--------------------用户-------------------------*/
+QRadioButton::indicator::unchecked#btn_Admin {
+    image:url(../custom/option/style/black/icon/user_admin_unchecked.png)
+}
+
+QRadioButton::indicator:unchecked:hover#btn_Admin {
+    image:url(../custom/option/style/black/icon/user_admin_hover.png)
+}
+
+
+QRadioButton::indicator::checked#btn_Admin {
+    image:url(../custom/option/style/black/icon/user_admin_checked.png)
+}
+
+QRadioButton::indicator:checked:hover#btn_Admin {
+    image:url(../custom/option/style/black/icon/user_admin_checked.png)
+}
+
+QRadioButton::indicator::unchecked#btn_General {
+    image:url(../custom/option/style/black/icon/user_general_unchecked.png)
+}
+
+QRadioButton::indicator:unchecked:hover#btn_General {
+    image:url(../custom/option/style/black/icon/user_general_hover.png)
+}
+
+
+QRadioButton::indicator::checked#btn_General {
+    image:url(../custom/option/style/black/icon/user_general_checked.png)
+}
+
+QRadioButton::indicator:checked:hover#btn_General {
+    image:url(../custom/option/style/black/icon/user_general_checked.png)
+}
+
+QWidget#pswWidget {
+    background-color:lightgray;
+}
+
+QGroupBox#userBox {
+	border:0px
+}
+
+QGroupBox#pswBox {
+	border:0px
 }

@@ -12,11 +12,11 @@ EncConfigManage::~EncConfigManage()
   GT::deepClearList(m_encItemList);
 }
 
-void EncConfigManage::addEncConfigItem(IEncConfigItem *encItem)
+void EncConfigManage::addEncItem(IEncConfigItem *encItem)
 {
   m_encItemList.append(encItem);
 }
-IEncConfigItem *EncConfigManage::encConfigItem(quint8 index)
+IEncConfigItem *EncConfigManage::encItem(quint8 index)
 {
   if(index<m_encItemList.count())
     return m_encItemList.at(index);
@@ -35,7 +35,7 @@ QStringList EncConfigManage::itemNames()
   return list;
 }
 
-void EncConfigManage::clearAllEncConfigItem()
+void EncConfigManage::clearAllEncItem()
 {
   GT::deepClearList(m_encItemList);
 }

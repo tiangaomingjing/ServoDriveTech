@@ -35,6 +35,9 @@ private:
   void initDial(QwtDial *dial);
   void setEncConfigUiEnable(bool en);
   void setEncErrorUiEnable(bool en);
+
+  void updateEncConfigUiByCurrentConfigItem();
+
 private:
   Ui::GraphEncoder129 *ui;
 };
