@@ -1,7 +1,6 @@
 ﻿#include "igraphencoder.h"
 #include "igraphencoder_p.h"
 #include "sdtglobaldef.h"
-#include "generalcmd.h"
 #include "iuiwidget.h"
 #include "sevdevice.h"
 
@@ -57,7 +56,7 @@ qint32 IGraphEncoder::readPos(const QString &key)
   Q_D(IGraphEncoder);
   bool isOk=true;
   qint32 pos=0;
-  pos=GeneralCmd::instance()->read(key,d->m_uiWidget->uiIndexs().axisInx,isOk,d->m_dev->socketCom());
+  pos=d->m_dev->genCmdRead(key,d->m_uiWidget->uiIndexs().axisInx,isOk);
   return pos;
 }
 
@@ -66,7 +65,7 @@ qint32 IGraphEncoder::readPosInput(const QString &key)
   Q_D(IGraphEncoder);
   bool isOk=true;
   qint32 pos=0;
-  pos=GeneralCmd::instance()->read(key,d->m_uiWidget->uiIndexs().axisInx,isOk,d->m_dev->socketCom());
+  pos=d->m_dev->genCmdRead(key,d->m_uiWidget->uiIndexs().axisInx,isOk);
   return pos;
 }
 
@@ -75,7 +74,7 @@ qint32 IGraphEncoder::readPosOffset(const QString &key)
   Q_D(IGraphEncoder);
   bool isOk=true;
   qint32 pos=0;
-  pos=GeneralCmd::instance()->read(key,d->m_uiWidget->uiIndexs().axisInx,isOk,d->m_dev->socketCom());
+  pos=d->m_dev->genCmdRead(key,d->m_uiWidget->uiIndexs().axisInx,isOk);
   return pos;
 }
 
@@ -84,7 +83,7 @@ quint16 IGraphEncoder::readPPN(const QString &key)
   Q_D(IGraphEncoder);
   bool isOk=true;
   quint16 ppn=0;
-  ppn=GeneralCmd::instance()->read(key,d->m_uiWidget->uiIndexs().axisInx,isOk,d->m_dev->socketCom());
+  ppn=d->m_dev->genCmdRead(key,d->m_uiWidget->uiIndexs().axisInx,isOk);
   return ppn;
 }
 
@@ -93,7 +92,7 @@ quint16 IGraphEncoder::readSeqDir(const QString &key)
   Q_D(IGraphEncoder);
   bool isOk=true;
   quint16 dir=0;
-  dir=GeneralCmd::instance()->read(key,d->m_uiWidget->uiIndexs().axisInx,isOk,d->m_dev->socketCom());
+  dir=d->m_dev->genCmdRead(key,d->m_uiWidget->uiIndexs().axisInx,isOk);
   return dir;
 }
 
@@ -102,7 +101,7 @@ quint16 IGraphEncoder::readEncInfo(const QString &key)
   Q_D(IGraphEncoder);
   bool isOk=true;
   quint16 info=0;
-  info=GeneralCmd::instance()->read(key,d->m_uiWidget->uiIndexs().axisInx,isOk,d->m_dev->socketCom());
+  info=d->m_dev->genCmdRead(key,d->m_uiWidget->uiIndexs().axisInx,isOk);
   return info;
 }
 
@@ -111,6 +110,6 @@ quint16 IGraphEncoder::readErrLost(const QString &key)
   Q_D(IGraphEncoder);
   bool isOk=true;
   quint16 err=0;
-  err=GeneralCmd::instance()->read(key,d->m_uiWidget->uiIndexs().axisInx,isOk,d->m_dev->socketCom());
+  err=d->m_dev->genCmdRead(key,d->m_uiWidget->uiIndexs().axisInx,isOk);
   return err;
 }

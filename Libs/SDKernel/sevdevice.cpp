@@ -9,6 +9,7 @@
 #include "sevctrboard.h"
 #include "verattribute.h"
 #include "Option"
+#include "generalcmd.h"
 
 #include <QTreeWidget>
 #include <QStringList>
@@ -26,7 +27,8 @@ SevDevicePrivate::SevDevicePrivate(SevDevice *sev, QObject *parent):QObject(pare
   m_ctrBoard(NULL),
   m_verAttribute(NULL),
   m_devConfig(new DeviceConfig),
-  m_connected(false)
+  m_connected(false),
+  m_genCmd(NULL)
 {
 
 }
@@ -41,27 +43,12 @@ SevDevicePrivate::~SevDevicePrivate()
   GT::deletePtrObject(m_ctrBoard);
   GT::deletePtrObject(m_devConfig);
   GT::deletePtrObject(m_verAttribute);
+  GT::deletePtrObject(m_genCmd);
 }
 QTreeWidget *SevDevicePrivate::configTree()
 {
   m_configTree->clear();
-//  QStringList list;
-//  list<<"name"<<"parameter";
-//  m_configTree->setHeaderLabels(list);
-//  QTreeWidgetItem *item=new QTreeWidgetItem(m_configTree->invisibleRootItem());
-//  item->setText(0,"Device");
-//  QTreeWidgetItem *itemCom=new QTreeWidgetItem(item);
-//  itemCom->setText(0,m_socket->socketName());
-//  itemCom->setText(1,QString::number(m_socket->socketTypeId()));
-//  QTreeWidgetItem *itemType=new QTreeWidgetItem(itemCom);
-//  itemType->setText(0,m_typeName);
-//  itemType->setText(1,QString::number(m_axisNum));
-//  QTreeWidgetItem *itemModel=new QTreeWidgetItem(itemType);
-//  itemModel->setText(0,m_modeName);
-//  itemModel->setText(1,"NULL");
-//  QTreeWidgetItem *itemVer=new QTreeWidgetItem(itemModel);
-//  itemVer->setText(0,m_version);
-//  itemVer->setText(1,"NULL");
+
   return m_configTree;
 }
 
@@ -82,46 +69,6 @@ void SevDevicePrivate::initConfig(const DeviceConfig *dConfig)
 
 QTreeWidgetItem* SevDevicePrivate::findTargetTree()
 {
-  /*QString sysFile=GTUtils::sysPath()+SYSCONFIGTREE_NAME;
-  QTreeWidget *allTree=QtTreeManager::createTreeWidgetFromXmlFile(sysFile);
-  Q_ASSERT(allTree!=NULL);
-  QTreeWidgetItem *item=allTree->topLevelItem(0)->child(m_devConfig->m_comType);
-  QTreeWidgetItem *itemType=NULL;
-  QTreeWidgetItem *itemModel=NULL;
-  QTreeWidgetItem *itemVer=NULL;
-  for(int i=0;i<item->childCount();i++)
-  {
-    itemType=item->child(i);
-//    qDebug()<<itemType->text(SYSCONFIG_COL_NAME)<<i;
-    if(itemType->text(GT::COL_TARGET_CONFIG_NAME)==m_devConfig->m_typeName)
-      break;
-  }
-  Q_ASSERT(itemType!=NULL);
-  for(int i=0;i<itemType->childCount();i++)
-  {
-    itemModel=itemType->child(i);
-//    qDebug()<<itemModel->text(SYSCONFIG_COL_NAME)<<m_modeName;
-    if(itemModel->text(GT::COL_TARGET_CONFIG_NAME)==m_devConfig->m_modeName)
-      break;
-  }
-  Q_ASSERT(itemModel!=NULL);
-  for(int i=0;i<itemModel->childCount();i++)
-  {
-    itemVer=itemModel->child(i);
-    if(itemVer->text(GT::COL_TARGET_CONFIG_NAME)==m_devConfig->m_version)
-      break;
-  }
-  Q_ASSERT(itemVer!=NULL);
-  m_targetTree=itemVer->clone();
-
-//  QTreeWidget *w=new QTreeWidget;
-//  w->addTopLevelItem(m_targetTree);
-//  w->show();
-
-  allTree->clear();
-  delete allTree;
-  return m_targetTree;*/
-
   QString comIndexFile=GTUtils::sysPath()+"SysMap/"+COMINDEX_NAME;
   QTreeWidget *comInxTree=QtTreeManager::createTreeWidgetFromXmlFile(comIndexFile);
   if (comInxTree == NULL)
@@ -178,15 +125,26 @@ bool SevDevicePrivate::init(const DeviceConfig *dConfig)
     return false;
 
   qDebug()<<"new SevDspMap";
+  emit initProgressInfo(3,tr("New SevDspMap"));
   m_dspMap=new SevDspMap(this,0);
   connect(m_dspMap,SIGNAL(initProgressInfo(int,QString)),this,SIGNAL(initProgressInfo(int,QString)));
   m_dspMap->initTreeMap();
 
   qDebug()<<"new SevPwrBoard";
+  emit initProgressInfo(3,tr("New SevPwrBoard"));
   m_pwrBoard=new SevPwrBoard(this,0);
   m_ctrBoard=new SevCtrBoard(this,0);
   m_socket=new LinkSocket(this,0);
   m_verAttribute=new VerAttribute(0);
+
+  //通用指令
+  emit initProgressInfo(3,tr("New GeneralCmd"));
+  m_genCmd=new GeneralCmd(m_socket->comObject());
+  QString gcmdPath=m_filePath+"cmd/GeneralCmd.xml";
+  QTreeWidget *cmdTree=QtTreeManager::createTreeWidgetFromXmlFile(gcmdPath);
+  m_genCmd->fillCmdMaps(cmdTree);
+  delete cmdTree;
+
   return true;
 }
 
@@ -236,6 +194,18 @@ bool SevDevice::isConnecting() const
 {
   Q_D(const SevDevice);
   return d->m_connected;
+}
+
+quint64 SevDevice::genCmdRead(const QString &cmdReadName,qint16 axisIndex,bool &isOk)
+{
+  Q_D(SevDevice);
+  return d->m_genCmd->read(cmdReadName,axisIndex,isOk);
+}
+
+bool SevDevice::genCmdWrite(const QString &cmdWriteName,quint64 value,qint16 axisIndex)
+{
+  Q_D(SevDevice);
+  return d->m_genCmd->write(cmdWriteName,value,axisIndex);
 }
 
 QString SevDevice::typeName() const

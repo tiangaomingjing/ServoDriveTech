@@ -1,7 +1,6 @@
 ﻿#ifndef CMD_H
 #define CMD_H
 
-#include "cmd_global.h"
 #include <QObject>
 namespace ComDriver {
 class ICom;
@@ -9,7 +8,7 @@ class ICom;
 class QTreeWidget;
 class QTreeWidgetItem;
 
-class CMDSHARED_EXPORT GeneralCmd:public QObject
+class GeneralCmd:public QObject
 {
   Q_OBJECT
 public:

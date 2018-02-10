@@ -10,6 +10,7 @@ class IDspMap;
 class LinkSocket;
 class DeviceConfig;
 class VerAttribute;
+class GeneralCmd;
 
 class SevDevicePrivate:public QObject
 {
@@ -37,6 +38,8 @@ public :
 
   QString m_filePath;
   QTreeWidgetItem *m_targetTree;
+
+  GeneralCmd *m_genCmd;
 
 
 signals:

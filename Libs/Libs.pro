@@ -7,7 +7,6 @@ SUBDIRS += \
     Option\
     SDKernel\
     UI \
-    PlotUnit \
-    Cmd
+    PlotUnit
 
 

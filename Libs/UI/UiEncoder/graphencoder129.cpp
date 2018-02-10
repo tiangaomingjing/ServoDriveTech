@@ -135,12 +135,19 @@ void GraphEncoder129::onUpdateTimeOut()
    quint16 encInfo;
    quint16 absType;
    pos=readPos(KEY_NAME_POS);
+   qDebug()<<"pos"<<pos;
    posIn=readPosInput(KEY_NAME_POS_IN);
+   qDebug()<<"posIn"<<posIn;
    posOfst=readPosOffset(KEY_NAME_POS_OFFSET);
+   qDebug()<<"posOfst"<<posOfst;
    ppn=readPPN(KEY_NAME_PPN);
+   qDebug()<<"ppn"<<ppn;
    seqDir=readSeqDir(KEY_NAME_SEQ_DIR);
+   qDebug()<<"seqDir"<<seqDir;
    encInfo=readEncInfo(KEY_NAME_ENC_INFO);
+   qDebug()<<"encInfo"<<encInfo;
    absType=readErrLost(KEY_NAME_LOST);
+   qDebug()<<"absType"<<absType;
 
   qDebug()<<"encoder axisSize:"<<d->m_dev->axisNum()<<"current axis"<<d->m_uiWidget->uiIndexs().axisInx<<"update ...";
 //  var strPos=m_cmd.readCommand("gSevDrv.sev_obj.cur.rsv.pos");

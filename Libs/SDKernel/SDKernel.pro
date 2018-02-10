@@ -33,6 +33,7 @@ CONFIG(debug, debug|release){
     LIBS+=$${SDKERNEL_OUT_PATH}/Communication.lib\
           $${SDKERNEL_OUT_PATH}/GTUtils.lib\
           $${SDKERNEL_OUT_PATH}/Option.lib
+
     TARGET = SDKernel
 }
 DESTDIR =$${SDKERNEL_OUT_PATH}
@@ -50,7 +51,8 @@ SOURCES += \
     PowerTreeManage/powertreemanage.cpp \
     ../../Common/src/Kernel/deviceconfig.cpp \
     sdkernel_global.cpp \
-    verattribute.cpp
+    verattribute.cpp \
+    generalcmd.cpp
 
 HEADERS += \
     sdkernel_global.h \
@@ -66,7 +68,8 @@ HEADERS += \
     sevpwrboard.h \
     PowerTreeManage/powertreemanage.h \
     ../../Common/src/Kernel/deviceconfig.h \
-    verattribute.h
+    verattribute.h \
+    generalcmd.h
 
 unix {
     target.path = /usr/lib
