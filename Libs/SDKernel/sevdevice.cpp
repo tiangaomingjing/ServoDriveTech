@@ -25,7 +25,8 @@ SevDevicePrivate::SevDevicePrivate(SevDevice *sev, QObject *parent):QObject(pare
   m_pwrBoard(NULL),
   m_ctrBoard(NULL),
   m_verAttribute(NULL),
-  m_devConfig(new DeviceConfig)
+  m_devConfig(new DeviceConfig),
+  m_connected(false)
 {
 
 }
@@ -221,13 +222,20 @@ ComDriver::ICom *SevDevice::socketCom() const
 bool SevDevice::enableConnection(void (*processCallBack)(void *argv, short *value), void *uiProcessBar)
 {
   Q_D(SevDevice);
-  return d->m_socket->connect(processCallBack,uiProcessBar);
+  d->m_connected=d->m_socket->connect(processCallBack,uiProcessBar);
+  return d->m_connected;
 }
 
 void SevDevice::disableConnection()
 {
   Q_D(SevDevice);
+  d->m_connected=false;
   d->m_socket->disConnect();
+}
+bool SevDevice::isConnecting() const
+{
+  Q_D(const SevDevice);
+  return d->m_connected;
 }
 
 QString SevDevice::typeName() const

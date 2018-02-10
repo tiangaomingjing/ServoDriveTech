@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
+#include <QDebug>
 
 GeneralCmd* GeneralCmd::m_instance=NULL;
 
@@ -65,14 +66,21 @@ bool GeneralCmd::fillCmdMaps(QTreeWidget *cmdTree)
   return true;
 }
 
-double GeneralCmd::read(const QString &cmdReadName,qint16 axisIndex,bool &isOk,ComDriver::ICom *icom)
+//!
+//! \brief read
+//! \param cmdReadName
+//! \param axisIndex
+//! \param isOk
+//! \param icom
+//! \return 回来的是原始的数值，增益转化在界面的树结构中
+//!
+quint64 GeneralCmd::read(const QString &cmdReadName,qint16 axisIndex,bool &isOk,ComDriver::ICom *icom)
 {
-  double ret=-1;
+  quint64 ret=0;
   int getIndex=0;
   double kgain;
   int id;
   ushort cmd;
-  ushort length;
   QString dataType;
   ComDriver::GeneralPDU funcRead;
 
@@ -86,67 +94,107 @@ double GeneralCmd::read(const QString &cmdReadName,qint16 axisIndex,bool &isOk,C
   getIndex=data->getIndex;
   kgain=data->kgain;
   cmd=data->cmd;
-  length=data->length;
   dataType=data->type;
 
-  funcRead.mode=1;//1:为读    0：写
+  funcRead.mode=ComDriver::GENERAL_PDU_READ;//1:为读    0：写
   funcRead.cmd=cmd;
   funcRead.subId=id;
-  funcRead.length=length;
 
-  if(0!=GTSD_CMD_ProcessorGeneralFunc(axisIndex,&funcRead,m_comType,m_comRnStation))
+  if(dataType.contains("16"))
+    funcRead.length=1;
+  else if(dataType.contains("32"))
+    funcRead.length=2;
+  else if(dataType.contains("64"))
+    funcRead.length=4;
+  else
+    funcRead.length=1;
+
+  ComDriver::errcode_t err=icom->sendGeneralCmd(axisIndex,funcRead);
+  if(err!=0)
+    err=icom->sendGeneralCmd(axisIndex,funcRead);
+  if(err!=0)
   {
-    if(0!=GTSD_CMD_ProcessorGeneralFunc(axisIndex,&funcRead,m_comType,m_comRnStation))
-      return -1;
+    isOk=false;
+    qDebug()<<"GeneralCmd read error:icom->sendGeneralCmd(axisIndex,funcRead)";
   }
 
-  if(dataType.contains("32"))//32位
+  if(isOk)
   {
-    if(dataType.contains("U"))
-    {
-      Uint32 value;
-      Uint32 temp;
-      temp=funcRead.data[getIndex+1];//低位在前
-      temp=temp&0x0000ffff;
-      temp=(temp<<16)&0xffff0000;
-      value=temp+(funcRead.data[getIndex]&0x0000ffff);
-      ret=value+0.0;
-    }
-    else
-    {
-      int32 value;
-      int32 temp;
-      temp=funcRead.data[getIndex+1];
-      temp=temp&0x0000ffff;
-      temp=(temp<<16)&0xffff0000;
-      value=temp+(funcRead.data[getIndex]&0x0000ffff);
-      ret=value+0.0;
-    }
+    for(int i=0;i<funcRead.length;i++)
+      ret+=funcRead.data[i]<<(16*i);
   }
-  else//16位
-  {
-    if(dataType.contains("U"))
-    {
-      Uint16 value;
-      value=funcRead.data[getIndex];
-      ret=value+0.0;
-    }
-    else
-    {
-      int16 value;
-      value=funcRead.data[getIndex];
-      ret=value+0.0;
-    }
-  }
-  ret=ret/kgain;
-  delete []funcRead.data;
   return ret;
-  return 0;
 }
 
-double GeneralCmd::write(const QString &cmdWriteName,double value,qint16 axisIndex,bool &isOk,ComDriver::ICom *icom)
+//!
+//! \brief GeneralCmd::write
+//! \param cmdWriteName
+//! \param value  写的是最终的数据，value=GraphUI上的数据先*tree的增益
+//! \param axisIndex
+//! \param icom
+//! \return
+//!
+bool GeneralCmd::write(const QString &cmdWriteName,quint64 value,qint16 axisIndex,ComDriver::ICom *icom)
 {
-  return 0;
+  quint64 ret=0;
+  int getIndex=0;
+  double kgain;
+  int id;
+  ushort cmd;
+  QString dataType;
+  ComDriver::GeneralPDU funcWrite;
+
+  //获取cmd相关信息
+  const GeneralCmdPrivateData::CmdTreeData *data;
+  if(!m_dataPtr->m_cmdMaps.contains(cmdWriteName))//如果cmdtree中没有这个名字，则返回 0
+    return true;
+  data=&(m_dataPtr->m_cmdMaps.value(cmdWriteName));
+  id=data->id;
+  getIndex=data->getIndex;
+  kgain=data->kgain;
+  cmd=data->cmd;
+  dataType=data->type;
+
+  funcWrite.mode=ComDriver::GENERAL_PDU_WRITE;//1:为读    0：写
+  funcWrite.cmd=cmd;
+  funcWrite.subId=id;
+
+  if(dataType.contains("16"))
+    funcWrite.length=1;
+  else if(dataType.contains("32"))
+    funcWrite.length=2;
+  else if(dataType.contains("64"))
+    funcWrite.length=4;
+  else
+    funcWrite.length=1;
+
+  for(int i=0;i<funcWrite.length;i++)
+  {
+    funcWrite.data[i]=value>>16*i;
+  }
+
+  ComDriver::errcode_t err=icom->sendGeneralCmd(axisIndex,funcWrite);
+  if(err!=0)
+    err=icom->sendGeneralCmd(axisIndex,funcWrite);
+  if(err!=0)
+  {
+    qDebug()<<"GeneralCmd write error:icom->sendGeneralCmd(axisIndex,funcRead)";
+    return false;
+  }
+
+  bool isOk=true;
+  ret=read(cmdWriteName,axisIndex,isOk,icom);
+  if(isOk)
+  {
+    if(ret==value)
+      isOk=true;
+    else
+    {
+      isOk=false;
+      qDebug()<<"GeneralCmd write error:write value!=read value";
+    }
+  }
+  return isOk;
 }
 
 void GeneralCmd::fillItemMaps(QTreeWidgetItem *item)

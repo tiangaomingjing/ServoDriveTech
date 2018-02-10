@@ -3,7 +3,7 @@
 #include "sdtglobaldef.h"
 #include  <QDebug>
 
-EncConfigManage::EncConfigManage(QObject *parent) : QObject(parent)
+EncConfigManage::EncConfigManage(QObject *parent) : QObject(parent),mp_curAttributeWidget(NULL)
 {
 
 }
@@ -37,5 +37,16 @@ QStringList EncConfigManage::itemNames()
 
 void EncConfigManage::clearAllEncItem()
 {
+  mp_curAttributeWidget=NULL;
   GT::deepClearList(m_encItemList);
+}
+
+QWidget *EncConfigManage::curAttributeWidget() const
+{
+  return mp_curAttributeWidget;
+}
+
+void EncConfigManage::setCurAttributeWidget(QWidget *w)
+{
+  mp_curAttributeWidget = w;
 }

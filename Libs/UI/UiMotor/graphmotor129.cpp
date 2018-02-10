@@ -54,6 +54,8 @@ void GraphMotor129::visitActive(IUiWidget *uiWidget)
   int page=uiWidget->uiIndexs().pageInx;
   d->m_treeWidget=d->m_dev->axisTreeSource(axis,page);
 
+  d->m_uiWidget=uiWidget;
+
   this->ui->dspinBox_maxVoltage->setEnabled(false);
 
   QList<QDoubleSpinBox *>bList;

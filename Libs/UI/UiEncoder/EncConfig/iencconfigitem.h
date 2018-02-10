@@ -9,6 +9,7 @@ class IEncConfigItem : public QObject
   Q_OBJECT
 public:
   enum EncType{
+    ENC_TYPE_UNKNOW,
     ENC_TYPE_ABSOLUTE,
     ENC_TYPE_INCREASE,
     ENC_TYPE_NONE

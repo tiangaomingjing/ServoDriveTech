@@ -33,6 +33,7 @@ public:
 
   bool enableConnection(void (*processCallBack)(void *argv, short *value), void *uiProcessBar);
   void disableConnection();
+  bool isConnecting() const;
 
 
   QString typeName() const;

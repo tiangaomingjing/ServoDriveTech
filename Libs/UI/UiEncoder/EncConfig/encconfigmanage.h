@@ -15,11 +15,15 @@ public:
   QStringList itemNames();
   void clearAllEncItem();
 
+  QWidget *curAttributeWidget() const;
+  void setCurAttributeWidget(QWidget *w);
+
 signals:
 
 public slots:
 private:
   QList<IEncConfigItem*> m_encItemList;
+  QWidget *mp_curAttributeWidget;
 };
 
 #endif // ENCCONFIGMANAGE_H

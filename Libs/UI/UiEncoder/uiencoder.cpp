@@ -59,18 +59,25 @@ void UiEncoder::accept(QWidget *w)
 void UiEncoder::setUiActive(bool actived)
 {
   Q_D(UiEncoder);
-  if(actived)
+  if(d->m_device->isConnecting())
   {
-    //读一次FLASH的值
-    //开启编码器刷新定时器及错误检查
-    if(readPageFLASH())
+    if(actived)
     {
+      //读一次FLASH的值
+      //开启编码器刷新定时器及错误检查
+      readPageFLASH();
       qDebug()<<"TEST_OUT readPageFLASH OK";
     }
+//    else
+//    {
+//      //关闭编码器刷新定时器及错误检查
+//    }
+    d->m_graphEncoder->startUpdateTimer(actived);
+    qDebug()<<"TEST_OUT UiEncoder :d->m_graphEncoder->startUpdateTimer(actived)";
   }
   else
   {
-    //关闭编码器刷新定时器及错误检查
+
   }
 }
 

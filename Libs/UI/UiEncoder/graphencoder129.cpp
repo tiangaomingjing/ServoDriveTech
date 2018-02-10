@@ -14,6 +14,14 @@
 #include "qwt_dial_needle.h"
 #include <QTimer>
 
+#define KEY_NAME_POS          "gSevDrv.sev_obj.cur.rsv.pos"
+#define KEY_NAME_POS_IN       "gSevDrv.sev_obj.cur.rsv.pos_in"
+#define KEY_NAME_POS_OFFSET   "gSevDrv.sev_obj.cur.rsv.prm.pos_ofst_3"
+#define KEY_NAME_PPN          "gSevDrv.sev_obj.cur.mot.PPN_1"
+#define KEY_NAME_SEQ_DIR      "gSevDrv.sev_obj.cur.rsv.prm.seq_dir"
+#define KEY_NAME_ENC_INFO     "gSevDrv.sev_obj.cur.pro.enc_info.all"
+#define KEY_NAME_LOST         "gSevDrv.sev_obj.cur.rsv.prm.abs_type.all"
+
 class GraphEncoder129Private:public IGraphEncoderPrivate
 {
   Q_DECLARE_PUBLIC(GraphEncoder129)
@@ -31,6 +39,8 @@ GraphEncoder129::GraphEncoder129(QWidget *parent) :
   ui->setupUi(this);
   initDial(ui->Dial_encElectronic);
   initDial(ui->Dial_encMachine);
+  ui->Dial_encElectronic->setTitle(tr("Electronic Angle"));
+  ui->Dial_encMachine->setTitle(tr("Mechanical Angle"));
 
   setEncErrorUiEnable(false);
 
@@ -56,6 +66,7 @@ GraphEncoder129::GraphEncoder129(QWidget *parent) :
 
   connect(ui->btn_encConfig,SIGNAL(clicked(bool)),this,SLOT(onBtnEncConfigClicked(bool)));
   connect(ui->btn_encSaveConfig,SIGNAL(clicked(bool)),this,SLOT(onBtnEncConfigSaveClicked()));
+  connect(ui->listWidget_encAbsolute,SIGNAL(currentRowChanged(int)),this,SLOT(onEncConfigListWidgetRowChanged(int)));
 
   connect(ui->rbtn_encBit,SIGNAL(toggled(bool)),this,SLOT(onRadioBtnClicked()));
   connect(ui->rbtn_encLine,SIGNAL(toggled(bool)),this,SLOT(onRadioBtnClicked()));
@@ -79,6 +90,8 @@ void GraphEncoder129::visitActive(IUiWidget *uiWidget)
   int page=uiWidget->uiIndexs().pageInx;
   d->m_treeWidget=d->m_dev->axisTreeSource(axis,page);
 
+  d->m_uiWidget=uiWidget;
+
 }
 void GraphEncoder129::setUiVersionName()
 {
@@ -89,7 +102,79 @@ void GraphEncoder129::syncTreeDataToUiFace()
 {
   Q_D(GraphEncoder129);
   qDebug()<<"TEST_OUT syncMultiTreeToUiData";
-  d->m_iDataBinding->syncMultiTreeToUiData();
+  d->m_iDataBinding->syncMultiTreeToUiData();//just sync tree data to encconfigdata
+}
+void GraphEncoder129::onUpdateTimeOut()
+{
+  Q_D(GraphEncoder129);
+
+//  static int count=0;
+//  static int statusCount=0;
+//  ui->Dial_encElectronic->setValue(count);
+//  ui->Dial_encMachine->setValue(count);
+//  switch (statusCount) {
+//  case 0:
+//    count+=10;
+//    if(count>360)
+//      statusCount=1;
+//    break;
+//  case 1:
+//    count-=10;
+//    if(count<0)
+//      statusCount=0;
+//    break;
+//  default:
+//    break;
+//  }
+
+   quint32 pos;
+   quint32 posIn;
+   quint32 posOfst;
+   quint16 ppn;
+   qint16 seqDir;
+   quint16 encInfo;
+   quint16 absType;
+   pos=readPos(KEY_NAME_POS);
+   posIn=readPosInput(KEY_NAME_POS_IN);
+   posOfst=readPosOffset(KEY_NAME_POS_OFFSET);
+   ppn=readPPN(KEY_NAME_PPN);
+   seqDir=readSeqDir(KEY_NAME_SEQ_DIR);
+   encInfo=readEncInfo(KEY_NAME_ENC_INFO);
+   absType=readErrLost(KEY_NAME_LOST);
+
+  qDebug()<<"encoder axisSize:"<<d->m_dev->axisNum()<<"current axis"<<d->m_uiWidget->uiIndexs().axisInx<<"update ...";
+//  var strPos=m_cmd.readCommand("gSevDrv.sev_obj.cur.rsv.pos");
+//  pos.text=parseInt(strPos);
+
+
+//  var strPosIn=m_cmd.readCommand("gSevDrv.sev_obj.cur.rsv.pos_in");
+//  posIn.text=parseInt(strPosIn);
+//  var precision=parseInt(m_cmd.readCommand("gSevDrv.sev_obj.cur.rsv.prm.line_num_3"));
+//  if(strPosIn!=="NULL")
+//      gauge.value=360*parseInt(strPosIn)/precision;
+
+
+//  var strPos_ofst=m_cmd.readCommand("gSevDrv.sev_obj.cur.rsv.prm.pos_ofst_3");
+//  posOffset.text=parseInt(strPos_ofst);
+
+
+//  var strPPN=m_cmd.readCommand("gSevDrv.sev_obj.cur.mot.PPN_1");
+//  if(strPPN!=="NULL"){
+//      var PPN=parseInt(strPPN);
+//      var angleEle=(gauge.value*PPN)%360;
+//      gauge_Electric.value=parseInt(angleEle);
+//  }
+
+//  //读相序
+//  var strPseq=m_cmd.readCommand("gSevDrv.sev_obj.cur.rsv.prm.seq_dir");
+//  var pSeqNum=parseInt(strPseq);
+//  pseq.text=pSeqNum;
+
+//  //读取编码器报警信息
+//  var errorCodeStr=m_cmd.readCommand("gSevDrv.sev_obj.cur.pro.enc_info.all");
+////            console.log("errorCodeStr="+errorCodeStr);
+//  var lostenc=m_cmd.readCommand("gSevDrv.sev_obj.cur.rsv.prm.abs_type.all");
+
 }
 
 //!
@@ -136,6 +221,7 @@ void GraphEncoder129::onBtnEncConfigClicked(bool checked)
     d->m_iDataBinding->bind(ui->listWidget_encAbsolute,d->m_treeWidget->topLevelItem(3));//FPGA.prm.ABS_ENC_CFG.all
     d->m_iDataBinding->syncTreeItemToUiData();
     d->m_curEncConfigItem=d->m_encConfigManage->encItem(ui->listWidget_encAbsolute->currentRow());
+    d->m_encConfigManage->setCurAttributeWidget(d->m_curEncConfigItem->attributeUi());
     d->m_iDataBinding->multiBind(static_cast<QObject*>(d->m_curEncConfigItem),d->m_treeWidget);
 
     syncTreeDataToUiFace();
@@ -173,6 +259,16 @@ void GraphEncoder129::onBtnSearchPhaseClicked()
   setEncErrorUiEnable(en);
   en=!en;
 }
+void GraphEncoder129::onEncConfigListWidgetRowChanged(int curRow)
+{
+  Q_D(GraphEncoder129);
+  if(curRow<d->m_encConfigManage->itemNames().count())
+  {
+    d->m_curEncConfigItem=d->m_encConfigManage->encItem(curRow);
+    updateEncConfigUiByCurrentConfigItem();
+  }
+  qDebug()<<"current row="<<curRow;
+}
 
 void GraphEncoder129::onBtnEncConfigSaveClicked()
 {
@@ -197,8 +293,7 @@ void GraphEncoder129::onBtnEncConfigSaveClicked()
     d->m_iDataBinding->multiBind(static_cast<QObject*>(d->m_curEncConfigItem),d->m_treeWidget);
     d->m_iDataBinding->syncMultiUiDataToTree();
   }
-//  syncUiDataToTree();
-//  uiSaveFunction();
+  d->m_uiWidget->writePageFLASH();
 
 }
 
@@ -267,18 +362,31 @@ void GraphEncoder129::updateEncConfigUiByCurrentConfigItem()
   Q_D(GraphEncoder129);
   if(d->m_curEncConfigItem!=NULL)
   {
+    //更新编码器大类型
     qDebug()<<"configdata"<<d->m_curEncConfigItem->encConfigData();
     int enctypeInx=(int)d->m_curEncConfigItem->encType();
+    qDebug()<<"enctypeInx"<<enctypeInx;
     if(enctypeInx<ui->toolBox_encConfig->count())
       ui->toolBox_encConfig->setCurrentIndex(enctypeInx);
     else
       ui->toolBox_encConfig->setCurrentIndex(0);
+
+    //更新线数
     ui->spinBox_encLine->setValue(d->m_curEncConfigItem->lineNumber());
-    if(d->m_curEncConfigItem->attributeUi()!=NULL)
+
+    //更新编码器对应的特性UI
+    QWidget *w=d->m_encConfigManage->curAttributeWidget();
+    d->m_curEncConfigItem->attributeUiUpdate();
+    if(w!=NULL)
     {
-      d->m_curEncConfigItem->attributeUiUpdate();
-      ui->vlayout_encConfigUi->insertWidget(4,d->m_curEncConfigItem->attributeUi());
-      qDebug()<<"ui->vlayout_encConfigUi->addWidget(d->m_curEncConfigItem->attributeUi()); ";
+      ui->vlayout_attributeWidget->removeWidget(w);
+      w->hide();
     }
+    ui->vlayout_attributeWidget->addWidget(d->m_curEncConfigItem->attributeUi());
+    w=d->m_curEncConfigItem->attributeUi();
+    d->m_encConfigManage->setCurAttributeWidget(w);
+    if(w!=NULL)
+      w->show();
+    qDebug()<<"ui->vlayout_encConfigUi->addWidget(d->m_curEncConfigItem->attributeUi()); ";
   }
 }

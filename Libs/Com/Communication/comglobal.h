@@ -119,15 +119,16 @@ typedef enum{
   EEPROM_CS_POWER,
   EEPROM_CS_CONTROL
 }EEPROMSelect;
-/* |mode|cmd|len|<-------data------>|
- * |_ _ |_ _|_ _|_ _|_ _|_ _|_ _|_ _|
- * len是指data的长度
+/* |mode|cmd|len|<-------data-->|
+ * |_ _ |_ _|_ _|_ _|_ _|_ _|_ _|
+ * len是指data的长度 以int16为单位
+ * 32低位在data低,高在高
  * */
 typedef struct{
   uint16_t mode;
   uint16_t cmd;
   uint16_t length;
-  uint16_t subId;
+  int16_t subId;
   int16_t data[COM_PDU_DATA_LEN];//一次最大传64位
 }GeneralPDU;
 typedef struct{

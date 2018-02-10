@@ -206,8 +206,14 @@ background-color: #E0DDDD;
 border-radius:5px;
 border:2px solid #BBB9B9;
 }
+/*====================编码器界面===================*/
+QLabel#label_encMsg{
+	font-weight:bold;
+	color:red;
+	margin-top:10px;
+}
 
-/*====================设置对话框===================*/
+/*====================option设置对话框===================*/
 
 /*--------------------用户-------------------------*/
 QRadioButton::indicator::unchecked#btn_Admin {

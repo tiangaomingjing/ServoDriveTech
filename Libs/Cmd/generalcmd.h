@@ -15,8 +15,9 @@ class CMDSHARED_EXPORT GeneralCmd:public QObject
 public:
   static GeneralCmd *instance(QObject *parent=0);
   bool fillCmdMaps(QTreeWidget *cmdTree);
-  double read(const QString &cmdReadName,qint16 axisIndex,bool &isOk,ComDriver::ICom *icom);
-  double write(const QString &cmdWriteName,double value,qint16 axisIndex,bool &isOk,ComDriver::ICom *icom);
+
+  quint64 read(const QString &cmdReadName,qint16 axisIndex,bool &isOk,ComDriver::ICom *icom);
+  bool write(const QString &cmdWriteName,quint64 value,qint16 axisIndex,ComDriver::ICom *icom);
 protected:
   GeneralCmd(QObject *parent=0);
   GeneralCmd(GeneralCmd &oc){Q_UNUSED(oc);}

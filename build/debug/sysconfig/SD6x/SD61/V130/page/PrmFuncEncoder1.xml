@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>384</width>
-    <height>498</height>
+    <width>590</width>
+    <height>460</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -172,6 +172,35 @@
       </property>
       <property name="text">
        <string>61440</string>
+      </property>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>gSevDrv.sev_obj.cur.rsv.prm.seq_dir</string>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="text">
+       <string>int16</string>
+      </property>
+      <property name="text">
+       <string>NULL</string>
+      </property>
+      <property name="text">
+       <string>-32767</string>
+      </property>
+      <property name="text">
+       <string>32768</string>
+      </property>
+      <property name="text">
+       <string>相序</string>
+      </property>
+      <property name="text">
+       <string>33070</string>
       </property>
       <property name="text">
        <string>1</string>

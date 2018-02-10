@@ -15,10 +15,22 @@ class IUIWIDGETSHARED_EXPORT IGraphEncoder : public IGraph
 public:
   explicit IGraphEncoder(QWidget *parent = 0);
   virtual ~IGraphEncoder();
+  void startUpdateTimer(bool enabled);
 
 protected:
   virtual void setUiVersionName()Q_DECL_OVERRIDE =0;
   virtual void visitActive(IUiWidget*uiWidget)Q_DECL_OVERRIDE =0;
+
+  virtual qint32 readPos(const QString &key);
+  virtual qint32 readPosInput(const QString &key);
+  virtual qint32 readPosOffset(const QString &key);
+  virtual quint16 readPPN(const QString &key);
+  virtual quint16 readSeqDir(const QString &key);
+  virtual quint16 readEncInfo(const QString &key);
+  virtual quint16 readErrLost(const QString &key);
+
+protected slots:
+  virtual void onUpdateTimeOut()=0;
 
 signals:
 

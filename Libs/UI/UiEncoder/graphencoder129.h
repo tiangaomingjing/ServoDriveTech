@@ -24,12 +24,15 @@ protected:
   void visitActive(IUiWidget *uiWidget)Q_DECL_OVERRIDE;
   void setUiVersionName()Q_DECL_OVERRIDE;
   void syncTreeDataToUiFace()Q_DECL_OVERRIDE;
+  void onUpdateTimeOut() Q_DECL_OVERRIDE;
 
 private slots:
-  void onBtnEncConfigClicked(bool checked);
-  void onBtnEncConfigSaveClicked();
+  void onBtnEncConfigClicked(bool checked);//打开编码器配置界面
+  void onBtnEncConfigSaveClicked();//保存编码器配置
   void onRadioBtnClicked();
   void onBtnSearchPhaseClicked();
+
+  void onEncConfigListWidgetRowChanged(int curRow);
 
 private:
   void initDial(QwtDial *dial);

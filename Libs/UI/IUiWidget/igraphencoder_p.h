@@ -5,6 +5,7 @@
 class IDataBinding ;
 class IEncConfigItem;
 class EncConfigManage;
+class QTimer;
 
 class IUIWIDGETSHARED_EXPORT IGraphEncoderPrivate:public IGraphPrivate
 {
@@ -17,6 +18,7 @@ protected:
   IEncConfigItem *m_curEncConfigItem;
   EncConfigManage *m_encConfigManage;
   IDataBinding *m_iDataBinding;
+  QTimer*m_updateTimer;
 };
 
 #endif // IGRAPHBRAKE_P_H

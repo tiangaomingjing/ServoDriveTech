@@ -34,7 +34,7 @@ void EncConfigNiKangItem::attributeUiUpdate()
 {
   int index=(m_encConfigData&0x1000)>>12;
   m_comboBox->setCurrentIndex(index);
-  qDebug()<<"current index "<<index;
+  qDebug()<<"EncConfigNiKangItem set current index "<<index;
 }
 
 bool EncConfigNiKangItem::execute()

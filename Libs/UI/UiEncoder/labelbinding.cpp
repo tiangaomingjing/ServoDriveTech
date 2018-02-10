@@ -13,13 +13,13 @@ LabelBinding::~LabelBinding()
 
 }
 
-void LabelBinding::syncUiDataToTreeItem()Q_DECL_OVERRIDE
+void LabelBinding::syncUiDataToTreeItem()
 {
   QLabel *label=dynamic_cast<QLabel *>(m_dataObj);
   double value=label->text().toDouble()*m_scale;
   m_treeItem->setText(GT::COL_PAGE_TREE_VALUE,QString::number(value,'f',3));
 }
-void LabelBinding::syncTreeItemToUiData()Q_DECL_OVERRIDE
+void LabelBinding::syncTreeItemToUiData()
 {
   QLabel *label=dynamic_cast<QLabel *>(m_dataObj);
   double value=m_treeItem->text(GT::COL_PAGE_TREE_VALUE).toDouble()/m_scale;
