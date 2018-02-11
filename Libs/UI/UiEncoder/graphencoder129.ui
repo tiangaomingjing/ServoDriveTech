@@ -193,7 +193,14 @@
         </spacer>
        </item>
        <item>
-        <widget class="QListWidget" name="listWidget_encErr"/>
+        <widget class="QListWidget" name="listWidget_encErr">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>250</height>
+          </size>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QPushButton" name="btn_encClearErr">
@@ -271,6 +278,14 @@
            <number>0</number>
           </property>
           <widget class="QWidget" name="page">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>191</width>
+             <height>69</height>
+            </rect>
+           </property>
            <attribute name="label">
             <string>页</string>
            </attribute>
@@ -418,7 +433,6 @@
        <zorder>btn_encSaveConfig</zorder>
        <zorder>toolBox_encConfig</zorder>
        <zorder>label_2</zorder>
-       <zorder>verticalLayoutWidget</zorder>
        <zorder>label_encMsg</zorder>
       </widget>
      </item>

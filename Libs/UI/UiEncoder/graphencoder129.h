@@ -25,6 +25,8 @@ protected:
   void setUiVersionName()Q_DECL_OVERRIDE;
   void syncTreeDataToUiFace()Q_DECL_OVERRIDE;
   void onUpdateTimeOut() Q_DECL_OVERRIDE;
+  quint32 getLineNumber()Q_DECL_OVERRIDE;
+  void createSupportEncoderItem() Q_DECL_OVERRIDE;
 
 private slots:
   void onBtnEncConfigClicked(bool checked);//打开编码器配置界面
@@ -34,12 +36,20 @@ private slots:
 
   void onEncConfigListWidgetRowChanged(int curRow);
 
+  void onEncActive();
+
+  void onBtnClearEcnAlarmClicked();
+
+
 private:
   void initDial(QwtDial *dial);
   void setEncConfigUiEnable(bool en);
   void setEncErrorUiEnable(bool en);
 
   void updateEncConfigUiByCurrentConfigItem();
+
+  void showEncoderError(quint16 lost,quint16 encinfo);
+  void initCurEncConfigItem();
 
 private:
   Ui::GraphEncoder129 *ui;

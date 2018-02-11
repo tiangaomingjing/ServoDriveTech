@@ -3,6 +3,7 @@
 #include "iuiwidget_p.h"
 #include "igraphencoder.h"
 #include "sevdevice.h"
+#include "gtutils.h"
 
 #include <QQuickWidget>
 #include <QQmlContext>
@@ -66,14 +67,16 @@ void UiEncoder::setUiActive(bool actived)
       //读一次FLASH的值
       //开启编码器刷新定时器及错误检查
       readPageFLASH();
+      emit encActive();
       qDebug()<<"TEST_OUT readPageFLASH OK";
     }
 //    else
 //    {
 //      //关闭编码器刷新定时器及错误检查
 //    }
+    GTUtils::delayms(100);
     d->m_graphEncoder->startUpdateTimer(actived);
-    qDebug()<<"TEST_OUT UiEncoder :d->m_graphEncoder->startUpdateTimer(actived)";
+    qDebug()<<"TEST_OUT UiEncoder :d->m_graphEncoder->startUpdateTimer(actived)"<<actived;
   }
   else
   {

@@ -16,8 +16,10 @@ CONFIG(debug, debug|release){
 }
 
 SOURCES += main.cpp\
-        cmdmainwindow.cpp
+        cmdmainwindow.cpp \
+    ../../Libs/SDKernel/generalcmd.cpp
 
-HEADERS  += cmdmainwindow.h
+HEADERS  += cmdmainwindow.h \
+    ../../Libs/SDKernel/generalcmd.h
 
 FORMS    += cmdmainwindow.ui

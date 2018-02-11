@@ -129,7 +129,7 @@ typedef struct{
   uint16_t cmd;
   uint16_t length;
   int16_t subId;
-  int16_t data[COM_PDU_DATA_LEN];//一次最大传64位
+  uint16_t data[COM_PDU_DATA_LEN];//一次最大传64位
 }GeneralPDU;
 typedef struct{
   uint16_t		bytes;																// variable storage bytes

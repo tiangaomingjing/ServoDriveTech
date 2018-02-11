@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>611</width>
-    <height>539</height>
+    <width>639</width>
+    <height>568</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,6 +16,12 @@
   <layout class="QGridLayout" name="gridLayout" rowstretch="0,1,0">
    <item row="0" column="0" colspan="3">
     <widget class="QWidget" name="widget_deviceInfo" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1">
       <item>
        <widget class="QLabel" name="label_image">

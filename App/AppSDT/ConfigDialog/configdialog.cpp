@@ -21,6 +21,7 @@ ConfigDialog::ConfigDialog(QList<DeviceConfig *> *devList, QWidget *parent) :
   m_curDstTreeSta(DST_TREE_STATUS_EMPTY)
 {
   ui->setupUi(this);
+  ui->widget_deviceInfo->setFixedHeight(180);
 
   m_iconProductPath=GTUtils::iconPath()+"product/";
 
@@ -57,7 +58,10 @@ void ConfigDialog::onSrcTreeItemClicked(QTreeWidgetItem *item, int column)
     qDebug()<<"item name"<<item->text(0);
     QTreeWidgetItem *topItem=GTUtils::findTopLevelItem(item);
     m_curSelectSta=(SelectStatus)topItem->text(COL_PRM).toUInt();
-    setCurrentUiSelectStatus(m_curSelectSta);
+    setCurrentUiSelectStatus(m_curSelectSta);//UiSelect状态机
+    m_curSd=item->parent()->text(COL_NAME);
+    setDevicePreview(m_curSd);
+
   }
 }
 void ConfigDialog::onBtnAddClicked()
@@ -66,6 +70,7 @@ void ConfigDialog::onBtnAddClicked()
   qDebug()<<"current item"<<item->text(0);
   if(item->childCount()==0)
   {
+    //目标树状态机
     switch (m_curDstTreeSta) {
     case DST_TREE_STATUS_EMPTY:
     {

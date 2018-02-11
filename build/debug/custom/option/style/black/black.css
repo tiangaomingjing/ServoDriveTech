@@ -42,6 +42,7 @@ QListView::item {
 	border: 1px solid #d9d9d9;
 	border-left-color: transparent;
 	border-top-color: transparent;
+	min-height:30px;
 }
 QListView::item:hover {
 	background: lightgray;
@@ -211,6 +212,34 @@ QLabel#label_encMsg{
 	font-weight:bold;
 	color:red;
 	margin-top:10px;
+}
+QListWidget#listWidget_encErr{
+border:1px solid red;
+border-top-left-radius:10px;
+border-top-right-radius:10px;
+border-bottom-color:transparent;
+background-color:transparent;
+color:red;
+font-weight:bold;
+}
+QPushButton#btn_encClearErr{
+border:1px solid red;
+border-bottom-left-radius:10px;
+border-bottom-right-radius:10px;
+border-top-color:transparent;
+background-color:red;
+min-height:30px;
+color:white;
+font-weight:normal;
+}
+QPushButton#btn_encClearErr:hover:!pressed{
+border:none;
+background-color:#A00000;
+font-weight:bold;
+}
+QPushButton#btn_encClearErr:hover:pressed{
+border:none;
+background-color:#680000;
 }
 
 /*====================option设置对话框===================*/

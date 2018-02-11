@@ -6,6 +6,8 @@
 #include <QTreeWidgetItem>
 #include <QDebug>
 
+#define TEST_OUT 1
+
 class GeneralCmd::GeneralCmdPrivateData
 {
 public:
@@ -113,6 +115,12 @@ quint64 GeneralCmd::read(const QString &cmdReadName, qint16 axisIndex, bool &isO
   {
     for(int i=0;i<funcRead.length;i++)
       ret+=funcRead.data[i]<<(16*i);
+#if TEST_OUT
+    for(int i=0;i<funcRead.length;i++)
+    {
+      qDebug()<<"read raw data["<<i<<"]="<<funcRead.data[i];
+    }
+#endif
   }
   return ret;
 }
@@ -126,7 +134,6 @@ quint64 GeneralCmd::read(const QString &cmdReadName, qint16 axisIndex, bool &isO
 //!
 bool GeneralCmd::write(const QString &cmdWriteName, quint64 value, qint16 axisIndex)
 {
-  quint64 ret=0;
   int getIndex=0;
   double kgain;
   int id;
@@ -149,6 +156,7 @@ bool GeneralCmd::write(const QString &cmdWriteName, quint64 value, qint16 axisIn
   funcWrite.cmd=cmd;
   funcWrite.subId=id;
 
+
   if(dataType.contains("16"))
     funcWrite.length=1;
   else if(dataType.contains("32"))
@@ -158,9 +166,14 @@ bool GeneralCmd::write(const QString &cmdWriteName, quint64 value, qint16 axisIn
   else
     funcWrite.length=1;
 
+  qDebug()<<"funcWrite.mode"<<funcWrite.mode<<"funcWrite.cmd"<<funcWrite.cmd<<"funcWrite.subId"<<funcWrite.subId<<"funcWrite.length"<<funcWrite.length;
+
   for(int i=0;i<funcWrite.length;i++)
   {
     funcWrite.data[i]=value>>16*i;
+#if TEST_OUT
+    qDebug()<<"write data["<<i<<"]="<<funcWrite.data[i];
+#endif
   }
 
   ComDriver::errcode_t err=m_dataPtr->m_icom->sendGeneralCmd(axisIndex,funcWrite);
@@ -171,20 +184,22 @@ bool GeneralCmd::write(const QString &cmdWriteName, quint64 value, qint16 axisIn
     qDebug()<<"GeneralCmd write error:icom->sendGeneralCmd(axisIndex,funcRead)";
     return false;
   }
+  return true;
 
-  bool isOk=true;
-  ret=read(cmdWriteName,axisIndex,isOk);
-  if(isOk)
-  {
-    if(ret==value)
-      isOk=true;
-    else
-    {
-      isOk=false;
-      qDebug()<<"GeneralCmd write error:write value!=read value";
-    }
-  }
-  return isOk;
+//  quint64 ret=0;
+//  bool isOk=true;
+//  ret=read(cmdWriteName,axisIndex,isOk);
+//  if(isOk)
+//  {
+//    if(ret==value)
+//      isOk=true;
+//    else
+//    {
+//      isOk=false;
+//      qDebug()<<"GeneralCmd write error:write value!=read value";
+//    }
+//  }
+//  return isOk;
 }
 
 void GeneralCmd::fillItemMaps(QTreeWidgetItem *item)

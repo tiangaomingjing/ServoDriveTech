@@ -41,6 +41,7 @@
 #include <QtQml>
 #include <QProgressBar>
 #include <QMessageBox>
+#include <QCloseEvent>
 
 using namespace GT;
 
@@ -274,15 +275,27 @@ void SDTMainWindow::clearStackedWidget()
 
 void SDTMainWindow::closeEvent(QCloseEvent *e)
 {
-  OptContainer *optc=OptContainer::instance();
-  optc->saveOpt();
+  bool close=MessageBoxAsk(tr("Do you want to close the application?"));
+  if(close)
+  {
+    disactiveAllUi();
 
-  delete m_plot;
-  GT::deepClearList(m_sdAssemblyList);
-  delete m_gUiControl;
-  delete m_optc;
+    setConnect(false);
 
-  QMainWindow::closeEvent(e);
+    OptContainer *optc=OptContainer::instance();
+    optc->saveOpt();
+
+    //保存当前的配置
+
+    delete m_plot;
+    GT::deepClearList(m_sdAssemblyList);
+    delete m_gUiControl;
+    delete m_optc;
+
+    e->accept();
+  }
+  else
+    e->ignore();
 }
 void SDTMainWindow::processCallBack(void *argv,short *value)
 {
@@ -637,6 +650,7 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
 }
 void SDTMainWindow::onActnDisConnectClicked(bool checked)
 {
+  disactiveAllUi();
   setConnect(false);
   m_connecting=false;
   setUiStatusConnect(m_connecting);

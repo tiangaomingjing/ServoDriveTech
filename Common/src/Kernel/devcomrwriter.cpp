@@ -201,7 +201,8 @@ DeviceConfig* DevComRWriter::buildConfigFromCom(quint8 devId, quint8 rnstation, 
      SdtError::instance()->errorStringList()->append(tr("\nSolution:"));
      SdtError::instance()->errorStringList()->append(tr(" 1 manual to select the software toolbar:\n  more->option->autolaod->unchecked clicked apply"));
      SdtError::instance()->errorStringList()->append(tr("  and then toolbar:new ....select your correct version"));
-     SdtError::instance()->errorStringList()->append(tr(" 2 contract factory to flash again EEPROM"));
+     SdtError::instance()->errorStringList()->append(tr(" 2 the communication firmware does not support,update fpga firmware"));
+     SdtError::instance()->errorStringList()->append(tr(" 3 contract factory to flash again EEPROM"));
 
   }
 
