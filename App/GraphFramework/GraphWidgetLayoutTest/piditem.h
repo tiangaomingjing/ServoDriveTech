@@ -24,6 +24,8 @@ public:
 signals:
 
 public slots:
+private slots:
+  void onGeometryChanged();
 private:
   bool eventFilter(QObject *obj, QEvent *e) Q_DECL_OVERRIDE;
 

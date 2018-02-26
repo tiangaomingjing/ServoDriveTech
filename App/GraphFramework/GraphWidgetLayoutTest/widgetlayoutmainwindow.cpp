@@ -2,6 +2,8 @@
 #include "ui_widgetlayoutmainwindow.h"
 
 #include "piditem.h"
+#include "sumitem.h"
+#include "sumitemwidget.h"
 
 #include <QGraphicsView>
 #include <QGraphicsScene>
@@ -105,21 +107,45 @@ WidgetLayoutMainWindow::WidgetLayoutMainWindow(QWidget *parent) :
 
   QWidget *wtest=new QWidget;
   wtest->setObjectName("wtest");
-  QHBoxLayout *hlayoutTest=new QHBoxLayout(wtest);
-  Label *labelTest=new Label("test");
+  QVBoxLayout *vlayoutTest=new QVBoxLayout(wtest);
+  QLabel *title=new QLabel("PID controller",wtest);
+  title->setStyleSheet("QLabel{color:white;border:1px solid transparent;border-bottom-color:white;font-weight:bold;}");
+  title->setAlignment(Qt::AlignCenter);
+  vlayoutTest->addWidget(title);
+
+  QLabel *pgain=new QLabel(tr("P gain(HZ)"));
+  vlayoutTest->addWidget(pgain);
   QLineEdit *edit=new QLineEdit(wtest);
   edit->setText("100");
   edit->setMinimumWidth(200);
-  hlayoutTest->addWidget(labelTest);
-  hlayoutTest->addWidget(edit);
-  wtest->setLayout(hlayoutTest);
+  vlayoutTest->addWidget(edit);
+
+  QLabel *igain=new QLabel(tr("I gain(ms)"),wtest);
+  vlayoutTest->addWidget(igain);
+  edit=new QLineEdit(wtest);
+  edit->setText("200");
+  edit->setMinimumWidth(200);
+  vlayoutTest->addWidget(edit);
+
+  wtest->setLayout(vlayoutTest);
 
   pid=new PidItem;
   pid->setWidget(wtest);
   scene->addItem(pid->item());
   pid->item()->setPos(50,50);
 
+  sumItem=new SumItem;
+  scene->addItem(sumItem);
+
+
+
   connect(ui->horizontalSlider,SIGNAL(valueChanged(int)),this,SLOT(onSliderValueChanged(int)));
+
+  SumItemWidget *sw=new SumItemWidget;
+  sw->setStyleSheet("SumItemWidget{background-color:transparent;border:1px solid white;qproperty-lineColor: blue;} SumItemWidget:hover{background-color:red;}");
+  sumWidget=scene->addWidget(sw);
+
+  adjustItemPostion();
 }
 
 WidgetLayoutMainWindow::~WidgetLayoutMainWindow()
@@ -127,17 +153,13 @@ WidgetLayoutMainWindow::~WidgetLayoutMainWindow()
   delete ui;
 }
 
-void WidgetLayoutMainWindow::mouseMoveEvent(QMouseEvent *event)
-{
-  qDebug()<<"X:"<<event->pos().x()<<"Y:"<<event->pos().y();
-}
 
 bool WidgetLayoutMainWindow::eventFilter(QObject *obj, QEvent *event)
 {
-  static int count=0;
+//  static int count=0;
   if(obj==scene)
   {
-    qDebug()<<"scene"<<"count="<<count++;
+//    qDebug()<<"scene"<<"count="<<count++;
     if(event->type()==QEvent::GraphicsSceneMouseMove)
     {
       QGraphicsSceneMouseEvent *e=dynamic_cast<QGraphicsSceneMouseEvent *>(event);
@@ -145,6 +167,17 @@ bool WidgetLayoutMainWindow::eventFilter(QObject *obj, QEvent *event)
     }
   }
   return QMainWindow::eventFilter(obj,event);
+}
+
+void WidgetLayoutMainWindow::adjustItemPostion()
+{
+  qreal sx,sy;
+  sx=pid->item()->pos().x()-pid->item()->boundingRect().width()/2;
+  sy=pid->item()->pos().y()+(pid->item()->boundingRect().height()/2-sumItem->boundingRect().height()/2);
+  sumItem->setPos(sx,sy);
+
+  sx=sumItem->pos().x()-pid->item()->boundingRect().width()/2;
+  sumWidget->setPos(sx,sy);
 }
 
 void WidgetLayoutMainWindow::on_actionSetfont_triggered()
@@ -161,6 +194,10 @@ void WidgetLayoutMainWindow::on_actionSetfont_triggered()
             border-radius:10px;\
                         }";
   qApp->setStyleSheet(s);
+
+//  sumWidget->widget()->setStyleSheet("SumItemWidget{background-color:transparent;border:1px solid white;qproperty-lineColor: blue;}");
+
+  adjustItemPostion();
 }
 
 void WidgetLayoutMainWindow::onSliderValueChanged(int value)

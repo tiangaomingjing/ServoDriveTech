@@ -9,6 +9,8 @@ class WidgetLayoutMainWindow;
 class QGraphicsScene;
 class QGraphicsView;
 class PidItem;
+class SumItem;
+class QGraphicsProxyWidget;
 
 class WidgetLayoutMainWindow : public QMainWindow
 {
@@ -23,8 +25,9 @@ private slots:
   void onSliderValueChanged(int value);
 
 private:
-  void mouseMoveEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
   bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
+
+  void adjustItemPostion();
 
 
 private:
@@ -33,6 +36,9 @@ private:
   QGraphicsScene *scene;
   QGraphicsView *view;
   PidItem *pid;
+  SumItem *sumItem;
+
+  QGraphicsProxyWidget *sumWidget;
 };
 
 #endif // WIDGETLAYOUTMAINWINDOW_H

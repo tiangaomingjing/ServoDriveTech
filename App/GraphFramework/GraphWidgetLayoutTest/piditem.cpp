@@ -6,9 +6,10 @@
 #include <QDebug>
 
 PidItem::PidItem(QObject *parent ) : QObject(parent),
-  m_proxyWidget(new QGraphicsProxyWidget)
+  m_proxyWidget(new QGraphicsProxyWidget(0,Qt::Window))
 {
-  m_proxyWidget->installEventFilter(this);
+//  m_proxyWidget->installEventFilter(this);
+  connect(m_proxyWidget,SIGNAL(geometryChanged()),this,SLOT(onGeometryChanged()));
 }
 
 PidItem::~PidItem()
@@ -47,6 +48,11 @@ QGraphicsProxyWidget *PidItem::item()
   return m_proxyWidget;
 }
 
+void PidItem::onGeometryChanged()
+{
+  qDebug()<<"onGeometryChanged"<<m_proxyWidget->boundingRect();
+}
+
 bool PidItem::eventFilter(QObject *obj, QEvent *e)
 {
   if(obj==m_proxyWidget)
@@ -65,6 +71,10 @@ bool PidItem::eventFilter(QObject *obj, QEvent *e)
       qDebug()<<"top:"<<QString("(%1,%2)").arg(x+width/2).arg(y);
       qDebug()<<"bottom:"<<QString("(%1,%2)").arg(x+width/2).arg(y+height);
 //      return true;
+    }
+    if(e->type()==QEvent::GraphicsSceneMove)
+    {
+      qDebug()<<"GraphicsSceneMove";
     }
   }
   return QObject::eventFilter(obj,e);

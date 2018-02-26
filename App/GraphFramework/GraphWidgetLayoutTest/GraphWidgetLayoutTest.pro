@@ -14,9 +14,15 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         widgetlayoutmainwindow.cpp \
-    piditem.cpp
+    piditem.cpp \
+    sumitem.cpp \
+    sumitemwidget.cpp \
+    arrow.cpp
 
 HEADERS  += widgetlayoutmainwindow.h \
-    piditem.h
+    piditem.h \
+    sumitem.h \
+    sumitemwidget.h \
+    arrow.h
 
 FORMS    += widgetlayoutmainwindow.ui
