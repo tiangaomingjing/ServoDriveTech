@@ -173,6 +173,7 @@ bool IUiWidget::writePageFLASH()
 }
 void IUiWidget::setUiActive(bool actived)
 {
+  Q_UNUSED(actived);
 //  qDebug()<<"TEST_OUT ui"<<this->objectName()<<"active"<<actived;
 }
 

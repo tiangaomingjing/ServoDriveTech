@@ -2,7 +2,7 @@ include (../Libs.pri)
 INCLUDEPATH+=$${PWD}/IUiWidget\
             $${PWD}/../SDKernel\
             $${PWD}/../Option\
-            $${PWD}/../GTUtils\
+            $${PWD}/../GTUtils
 
 QT+=quickwidgets qml
 

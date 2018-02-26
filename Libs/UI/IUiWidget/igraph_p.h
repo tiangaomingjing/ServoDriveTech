@@ -7,6 +7,7 @@ class SevDevice;
 class QTreeWidget;
 class BoxItemMapping;
 class IGraph;
+class IUiWidget;
 class IUIWIDGETSHARED_EXPORT IGraphPrivate
 {
   Q_DECLARE_PUBLIC(IGraph)
@@ -19,6 +20,7 @@ protected:
   QTreeWidget *m_treeWidget;
   BoxItemMapping*m_mapping;
   QString m_versionName;
+  IUiWidget *m_uiWidget;
 };
 
 #endif // IGRAPH_P_H

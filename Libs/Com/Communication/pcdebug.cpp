@@ -20,7 +20,7 @@ PcDebug::PcDebug(const string &objectName):ICom(*new PcDebugPrivate())
   Q_D(PcDebug);
   d->m_objectName=objectName;
   d->m_comType=ICOM_TYPE_PCDEBUG;
-  printf("pcdebug object name =%s\n",objectName.c_str());
+//  printf("pcdebug object name =%s\n",objectName.c_str());
 }
 PcDebug::PcDebug(PcDebugPrivate &dd):ICom(dd)
 {
@@ -251,6 +251,17 @@ errcode_t PcDebug::sendGeneralCmd(uint8_t axis, GeneralPDU &pdu)
   errno_t err;
   int16_t buf[16]={0};
   //王彬data[0],data[1],data[2]存放协议的东西
+
+  /**填王彬结构体，然后调用它的指令下发
+   *
+   * cmd 是指其指令号
+   * GENERALFUNCTION 中的data[]数组长度为:length
+   * data[0],data[1]不用填，他下面已经写了
+   * data[3]当xml表中的id不为-1时，data[3]=id
+   * GTSD_CMD_ProcessorGeneralFunc(axisIndex,&func,comtype)中func写下去，再由下面修改，其返回结果在func中
+   * 返回结果从getIndex位开始获得
+   * 读命令返回的最终结果要/kgain,如果是设置写命令要*kgain
+  */
   if(pdu.subId>0)//有二级ID
   {
     buf[3]=pdu.subId;

@@ -35,7 +35,8 @@ SOURCES += main.cpp\
     ../../Common/src/Kernel/sdassembly.cpp \
     ../../Common/src/Kernel/sevuicontroler.cpp \
     ../../Common/src/UiFactory/uifactory.cpp\
-    ../../Common/src/SdtGlobal/sdtglobaldef.cpp
+    ../../Common/src/SdtGlobal/sdtglobaldef.cpp \
+    ../../Common/src/Kernel/sdterror.cpp
 
 
 HEADERS  += appmainwindowtest.h \
@@ -52,6 +53,7 @@ HEADERS  += appmainwindowtest.h \
     ../../Common/src/Kernel/sevuicontroler.h \
     ../../Common/src/UiFactory/registerfunction.h \
     ../../Common/src/UiFactory/uifactory.h \
-    ../../Common/src/SdtGlobal/sdtglobaldef.h
+    ../../Common/src/SdtGlobal/sdtglobaldef.h \
+    ../../Common/src/Kernel/sdterror.h
 
 FORMS    += appmainwindowtest.ui

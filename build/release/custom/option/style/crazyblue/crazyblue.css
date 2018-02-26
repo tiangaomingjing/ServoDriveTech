@@ -1,0 +1,198 @@
+﻿QMainWindow {
+    background: rgb(38, 83, 159);
+}
+QMainWindow::separator {
+    background:transparent;
+	border:none;
+    width: 1px; /* when vertical */
+    height: 1px; /* when horizontal */
+	margin-left:0px;
+	margin-right:0px;
+	margin-top:0px;
+	margin-bottom:0px;
+	padding:0px;
+}
+
+QMainWindow::separator:hover {
+    background: white;
+}
+
+
+
+/*===================tool bar===================*/
+QToolBar#mainToolBar {
+	background: rgb(38, 83, 159);
+	spacing: 3px; 
+	border:none;
+	padding:3px;
+	margin-top:5px;
+	margin-bottom:5px;
+}
+/*====================tool button=====================*/
+QToolButton { /* all types of tool button */
+	color:white;
+}
+
+/*==========================main treeWidget 导航栏=====================*/
+QDockWidget  QTreeView {
+    show-decoration-selected: 1;
+    background-color:rgb(38, 83, 159);
+	border:none;
+}
+
+QDockWidget  QTreeView::item {
+	border:none;
+	color:white;
+	min-height:30px;
+	font:normal;
+}
+QDockWidget  QTreeView:focus {
+	outline:none;
+}
+
+QDockWidget  QTreeView::item:hover ,QDockWidget QTreeView::branch:hover{
+    color:white;
+    background-color:rgb(19, 37, 81);
+}
+
+QDockWidget  QTreeView::item:selected,QDockWidget QTreeView::branch:selected {
+    color:white;
+    background-color:rgb(19, 37, 81);
+    border-left:none;
+    border-right:none;
+    border-top:1px solid;
+    border-top-color:gray;
+    border-bottom:1px solid;
+    border-bottom-color:gray;
+}
+
+QDockWidget  QTreeView::item:selected:active{
+    color:white;
+    background-color:rgb(19, 37, 81);
+    border-left:none;
+    border-right:none;
+    border-top:1px solid;
+    border-top-color:gray;
+    border-bottom:1px solid;
+    border-bottom-color:gray;
+	font:bold;
+}
+QDockWidget#dockWidgetNav {
+    /*border: 1px solid lightgray;*/
+	border:none;
+    background-color:rgb(38, 83, 159);
+	color:white;
+}
+QDockWidget#dockWidgetNav::title {
+    text-align: left; /* align the text to the left */
+    background: rgb(38, 83, 159);
+    padding-left: 5px;
+	color:white;
+	margin-bottom:10px;
+	margin-top:10px;
+}
+
+/*-----------主窗口-----------------*/
+QWidget#mainStackedWidget{
+	background-color:rgb(19, 37, 81);
+	border-radius:15px;
+	border:1px solid gray;
+}
+/*==============================状态栏=========================*/
+QWidget#statusBar{
+background-color: rgb(38, 83, 159);
+}
+/*============自定义stylewidget 可以在C++环境中索引到其值=================*/
+StyleWidget{
+	qproperty-dsBoxBackgroundDefColor:white;
+	qproperty-dsBoxBackgroundReadyColor:green;
+	qproperty-dsBoxBackgroundErrorColor:#FF00FF;
+	qproperty-dsBoxTextEditColor:blue;
+	qproperty-dsBoxTextDefColor:black;
+	
+	qproperty-msgNormalColor:white;
+	qproperty-msgWarningColor:yellow;
+	qproperty-msgErrorColor:red;
+}
+
+/*====================电机界面===================*/
+QWidget#widget_machinePrm{
+background-color: rgb(211, 211, 211);
+border-radius:5px;
+}
+QWidget#widget_currentPrm{
+background-color: rgb(211, 211, 211);
+border-radius:5px;
+}
+QWidget#widget_impedancePrm{
+background-color: rgb(211, 211, 211);
+border-radius:5px;
+}
+QWidget#widget_torquePrm{
+background-color: rgb(211, 211, 211);
+border-radius:5px;
+}
+QWidget#widget_velocityPrm{
+background-color: rgb(211, 211, 211);
+border-radius:5px;
+}
+
+
+/*============自定义stylewidget 可以在C++环境中索引到其值=================*/
+StyleWidget{
+	qproperty-dsBoxBackgroundDefColor:white;
+	qproperty-dsBoxBackgroundReadyColor:yellow;
+	qproperty-dsBoxBackgroundErrorColor:red;
+	qproperty-dsBoxTextEditColor:blue;
+	qproperty-dsBoxTextDefColor:black;
+	
+	qproperty-msgNormalColor:white;
+	qproperty-msgWarningColor:yellow;
+	qproperty-msgErrorColor:red;
+}
+
+QRadioButton::indicator::unchecked#btn_Admin {
+    image:url(../custom/option/style/black/icon/user_admin_unchecked.png)
+}
+
+QRadioButton::indicator:unchecked:hover#btn_Admin {
+    image:url(../custom/option/style/black/icon/user_admin_hover.png)
+}
+
+
+QRadioButton::indicator::checked#btn_Admin {
+    image:url(../custom/option/style/black/icon/user_admin_checked.png)
+}
+
+QRadioButton::indicator:checked:hover#btn_Admin {
+    image:url(../custom/option/style/black/icon/user_admin_checked.png)
+}
+
+QRadioButton::indicator::unchecked#btn_General {
+    image:url(../custom/option/style/black/icon/user_general_unchecked.png)
+}
+
+QRadioButton::indicator:unchecked:hover#btn_General {
+    image:url(../custom/option/style/black/icon/user_general_hover.png)
+}
+
+
+QRadioButton::indicator::checked#btn_General {
+    image:url(../custom/option/style/black/icon/user_general_checked.png)
+}
+
+QRadioButton::indicator:checked:hover#btn_General {
+    image:url(../custom/option/style/black/icon/user_general_checked.png)
+}
+
+QWidget#pswWidget {
+    background-color:lightgray;
+}
+
+QGroupBox#userBox {
+	border:0px
+}
+
+QGroupBox#pswBox {
+	border:0px
+}

@@ -33,6 +33,10 @@ public:
 
   bool enableConnection(void (*processCallBack)(void *argv, short *value), void *uiProcessBar);
   void disableConnection();
+  bool isConnecting() const;
+
+  quint64 genCmdRead(const QString &cmdReadName,qint16 axisIndex,bool &isOk);
+  bool genCmdWrite(const QString &cmdWriteName,quint64 value,qint16 axisIndex);
 
 
   QString typeName() const;

@@ -42,6 +42,7 @@ QListView::item {
 	border: 1px solid #d9d9d9;
 	border-left-color: transparent;
 	border-top-color: transparent;
+	min-height:30px;
 }
 QListView::item:hover {
 	background: lightgray;
@@ -74,8 +75,9 @@ QToolButton { /* all types of tool button */
 	padding-left:0px;
 	padding-right:0px;
 	color:white;
-    border-radius: 5px;
+    border-radius: 0px;
     background-color: #252A3E;
+	font-weight:normal;
 	/*background-color:#000066;
 	background-color:seagreen;*/
 }
@@ -86,10 +88,14 @@ QToolButton[popupMode="1"] { /* only for MenuButtonPopup */
 
 QToolButton:hover:!pressed {
     background-color: gray;
-	border:1px solid white;
+	border:none;
+	
+	font-weight:bold;
 }
 QToolButton:hover:pressed {
     background-color: rgb(86, 86, 86);
+	font-weight:normal;
+	color:#252A3E;
 }
 /*QToolButton:checked {
     background-color: rgb(40, 40, 40);
@@ -201,7 +207,42 @@ background-color: #E0DDDD;
 border-radius:5px;
 border:2px solid #BBB9B9;
 }
+/*====================编码器界面===================*/
+QLabel#label_encMsg{
+	font-weight:bold;
+	color:red;
+	margin-top:10px;
+}
+QListWidget#listWidget_encErr{
+border:1px solid red;
+border-top-left-radius:10px;
+border-top-right-radius:10px;
+border-bottom-color:transparent;
+background-color:transparent;
+color:red;
+font-weight:bold;
+}
+QPushButton#btn_encClearErr{
+border:1px solid red;
+border-bottom-left-radius:10px;
+border-bottom-right-radius:10px;
+border-top-color:transparent;
+background-color:red;
+min-height:30px;
+color:white;
+font-weight:normal;
+}
+QPushButton#btn_encClearErr:hover:!pressed{
+border:none;
+background-color:#A00000;
+font-weight:bold;
+}
+QPushButton#btn_encClearErr:hover:pressed{
+border:none;
+background-color:#680000;
+}
 
+<<<<<<< HEAD
 QLabel#label_motorCur{
 border:1px solid black;
 border-top:none;
@@ -302,6 +343,9 @@ margin-bottom: 1px;
 }
 
 /*====================设置对话框===================*/
+=======
+/*====================option设置对话框===================*/
+>>>>>>> upstream/jiang
 
 /*--------------------用户-------------------------*/
 QRadioButton::indicator::unchecked#btn_Admin {
