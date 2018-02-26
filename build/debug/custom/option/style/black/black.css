@@ -242,7 +242,110 @@ border:none;
 background-color:#680000;
 }
 
+<<<<<<< HEAD
+QLabel#label_motorCur{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+}
+
+QLabel#label_MotorMac{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+}
+
+QLabel#label_motorVel{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+}
+
+QLabel#label_MotorImp{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+}
+
+QLabel#label_motorTor{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+}
+
+/*================================功率界面===============================*/
+
+QWidget#widget_pwrBus{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QWidget#widget_pwrBrake{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QWidget#widget_pwrRelay{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+/*===============================制动界面===============================*/
+
+QWidget#widget_brakeDynamic{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QWidget#widget_brakeEmergency{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QWidget#widget_brakeExternal{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QLabel#label_brakeEmergency{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+margin-bottom: 1px;
+}
+
+QLabel#label_brakeDynamic{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+margin-bottom: 1px;
+}
+
+QLabel#label_brakeExternal{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+margin-bottom: 1px;
+}
+
+/*====================设置对话框===================*/
+=======
 /*====================option设置对话框===================*/
+>>>>>>> upstream/jiang
 
 /*--------------------用户-------------------------*/
 QRadioButton::indicator::unchecked#btn_Admin {
@@ -290,3 +393,4 @@ QGroupBox#userBox {
 QGroupBox#pswBox {
 	border:0px
 }
+

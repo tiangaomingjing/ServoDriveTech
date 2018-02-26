@@ -9,6 +9,7 @@
 #include "optface.h"
 #include "optplot.h"
 #include "optuser.h"
+#include "optpath.h"
 
 #include "gtutils.h"
 
@@ -45,7 +46,6 @@
 int main(int argc, char *argv[])
 {
   QApplication a(argc, argv);
-
   OptContainer *optc=OptContainer::instance();
 
   IOpt *opt=new OptUser("optuser",0);
@@ -56,10 +56,11 @@ int main(int argc, char *argv[])
   optc->addOptItem(opt);
   opt=new OptFace("optface",0);
   optc->addOptItem(opt);
+  opt = new OptPath("optpath", 0);
+  optc->addOptItem(opt);
 
   opt=optc->optItem("optface");
   OptFace *optFace=dynamic_cast<OptFace *>(opt);
-
   QString pixPath=GTUtils::customPath()+"option/style/"+optFace->css()+"/icon/"+START_UP_PIXMAP;
   qDebug()<<"pixPath"<<pixPath;
   ScreenStartup *startup=new ScreenStartup(QPixmap(pixPath));

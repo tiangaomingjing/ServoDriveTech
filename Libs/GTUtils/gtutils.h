@@ -42,6 +42,9 @@ public:
 
   static QTreeWidgetItem* findTopLevelItem(QTreeWidgetItem *item);
 
+  static QTreeWidgetItem* findItem(QString text, QTreeWidget* tree, int col);
+  static QTreeWidgetItem* findItemInItem(QString text, QTreeWidgetItem* tree, int col);
+
 private:
   inline static QString sdtPath();
 };

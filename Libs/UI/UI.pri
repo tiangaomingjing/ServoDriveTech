@@ -18,7 +18,6 @@ CONFIG(debug, debug|release){
           $${UI_OUT_PATH}/SDKernel.lib\
           $${UI_OUT_PATH}/Option.lib\
           $${UI_OUT_PATH}/GTUtils.lib
-
 }
 DESTDIR =$${UI_OUT_PATH}
 

@@ -38,6 +38,9 @@
 typedef enum
 {
 	RTN_SUCCESS = 0,
+    RTN_0ERROR = -618,
+    RTN_1ERROR = -918,
+    RTN_2ERROR = -1018,
 	CMD_SUCCESS = 0,
 	CMD_ERROR_READ_LEN   =          -2,    /* 读取数据长度错误 */
 	CMD_ERROR_READ_CHECKSUM =        -3,    /* 读取数据校验和错误 */

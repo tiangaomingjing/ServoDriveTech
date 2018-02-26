@@ -28,6 +28,9 @@ void EPROM::writeFromXmltoEprom(QTreeWidgetItem *writenItem) {
             m_wrongItem->setTextColor(i, Qt::black);
         }
     }
+//    while (continueWrite) {
+//        writeEEprom(writenItem);
+//    }
     writeEEprom(writenItem);
     if (continueWrite) {
         emit sendWarnMsg(tr("Finish!"));
@@ -51,7 +54,7 @@ void EPROM::writeEEprom(QTreeWidgetItem *item) {
     if (continueWrite) {
         writeSingle(item);
         emit sendScrollItem(item);
-        GLO::delayms(10);
+        GLO::delayms(5);
         emit updateBarCount();
         if (item->text(TREE_TYPE).compare("Case") == 0) {
             bool ok;
@@ -68,6 +71,7 @@ void EPROM::writeEEprom(QTreeWidgetItem *item) {
 
 void EPROM::writeSingle(QTreeWidgetItem *item) {
     if (item->text(TREE_ADDRESS) != "-1" && item->text(TREE_ADDRESS) != "") {
+        emit sendWarnMsg(item->text(TREE_NAME));
         qDebug()<<item->text(0)<<item->text(TREE_ADDRESS);
         bool ok;
         double v;
@@ -103,15 +107,15 @@ void EPROM::writeSingle(QTreeWidgetItem *item) {
         int16 ret1;
         int16 ret2;
         ret1 = writeEprom(axis, ofst, value, num, m_type, 0xf0);
-        GLO::delayms(10);
+        GLO::delayms(5);
         ret2 = readEprom(axis, ofst, result, num, m_type, 0xf0);
-        GLO::delayms(10);
+        GLO::delayms(5);
         count++;
         while (ret1 != 0 || ret2 != 0 || !writeSuccessful(value, result, num)) {
             ret1 = writeEprom(axis, ofst, value, num, m_type, 0xf0);
-            GLO::delayms(10);
+            GLO::delayms(5);
             ret2 = readEprom(axis, ofst, result, num, m_type, 0xf0);
-            GLO::delayms(10);
+            GLO::delayms(5);
             count++;
             if (count > 3) {
                 break;
@@ -119,7 +123,7 @@ void EPROM::writeSingle(QTreeWidgetItem *item) {
             qDebug()<<"count"<<count;
         }
         if (ret1 != 0 || ret2 != 0 || count > 3) {
-            QString warnMsg = tr("Writing failed on ") + item->text(TREE_NAME) + "!";
+            QString warnMsg = tr("Writing failed on ") + item->text(TREE_NAME) + "! ";
             qDebug()<<item->text(TREE_NAME)<<"value "<<value[0]<<value[1]<<value[2]<<value[3];
             qDebug()<<"ret1 = "<<ret1;
             qDebug()<<item->text(TREE_NAME)<<"value "<<result[0]<<result[1]<<result[2]<<result[3];
@@ -128,6 +132,7 @@ void EPROM::writeSingle(QTreeWidgetItem *item) {
             qDebug()<<"ofst = "<<ofst;
             qDebug()<<"num = "<<num;
             continueWrite = false;
+            warnMsg = warnMsg + "ret1 = " + ret1 + " ret2 = " + ret2;
             emit sendWarnMsg(warnMsg);
             m_wrongItem = item;
             for (int i = 0; i < m_wrongItem->columnCount(); i++) {

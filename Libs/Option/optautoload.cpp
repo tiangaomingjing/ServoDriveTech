@@ -40,6 +40,7 @@ OptAutoLoad::~OptAutoLoad()
 void OptAutoLoad::uiInit()
 {
   Q_D(OptAutoLoad);
+    qDebug()<<"autoload uiInit";
   ui->checkBox->setChecked(d->m_auto);
 }
 bool OptAutoLoad::autoLoad() const
