@@ -6,43 +6,55 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>985</width>
-    <height>415</height>
+    <width>1067</width>
+    <height>424</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_8">
+  <layout class="QVBoxLayout" name="verticalLayout_10">
    <item>
-    <spacer name="verticalSpacer">
+    <spacer name="verticalSpacer_2">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>110</height>
+       <height>99</height>
       </size>
      </property>
     </spacer>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="spacing">
+      <number>20</number>
+     </property>
      <item>
-      <widget class="QWidget" name="widget" native="true">
+      <widget class="QWidget" name="widget_pwrBus" native="true">
        <layout class="QVBoxLayout" name="verticalLayout_3">
+        <property name="spacing">
+         <number>30</number>
+        </property>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_2">
+         <layout class="QVBoxLayout" name="verticalLayout">
           <item>
            <widget class="QLabel" name="label_pwrBusOver">
             <property name="text">
-             <string>Bus Over-Voltage Protection Point:</string>
+             <string>Bus Over-Voltage Protection Point(V)</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QDoubleSpinBox" name="dSpinBox_pwrBusOver">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
             <property name="cursor">
              <cursorShape>ArrowCursor</cursorShape>
             </property>
@@ -63,16 +75,22 @@
          </layout>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout">
+         <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
            <widget class="QLabel" name="label_pwrBusUnder">
             <property name="text">
-             <string>Bus Under-Voltage Protection Point:</string>
+             <string>Bus Under-Voltage Protection Point(V)</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QDoubleSpinBox" name="dSpinBox_pwrBusUnder">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
             <property name="buttonSymbols">
              <enum>QAbstractSpinBox::NoButtons</enum>
             </property>
@@ -90,19 +108,28 @@
       </widget>
      </item>
      <item>
-      <widget class="QWidget" name="widget_2" native="true">
-       <layout class="QGridLayout" name="gridLayout">
-        <item row="0" column="0">
+      <widget class="QWidget" name="widget_pwrBrake" native="true">
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <property name="spacing">
+         <number>30</number>
+        </property>
+        <item>
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
            <widget class="QLabel" name="label_pwrBrakeOpen">
             <property name="text">
-             <string>Voltage of Brake Hose Open:</string>
+             <string>Voltage of Brake Hose Open(V)</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QDoubleSpinBox" name="dSpinBox_pwrBrakeOpen">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
             <property name="buttonSymbols">
              <enum>QAbstractSpinBox::NoButtons</enum>
             </property>
@@ -116,17 +143,23 @@
           </item>
          </layout>
         </item>
-        <item row="1" column="0">
+        <item>
          <layout class="QVBoxLayout" name="verticalLayout_5">
           <item>
            <widget class="QLabel" name="label_pwrBrakeClose">
             <property name="text">
-             <string>Voltage of Brake Hose Close:</string>
+             <string>Voltage of Brake Hose Close(V)</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QDoubleSpinBox" name="dSpinBox_pwrBrakeClose">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
             <property name="buttonSymbols">
              <enum>QAbstractSpinBox::NoButtons</enum>
             </property>
@@ -144,19 +177,28 @@
       </widget>
      </item>
      <item>
-      <widget class="QWidget" name="widget_3" native="true">
-       <layout class="QGridLayout" name="gridLayout_2">
-        <item row="0" column="0">
-         <layout class="QVBoxLayout" name="verticalLayout_6">
+      <widget class="QWidget" name="widget_pwrRelay" native="true">
+       <layout class="QVBoxLayout" name="verticalLayout_9">
+        <property name="spacing">
+         <number>30</number>
+        </property>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_7">
           <item>
            <widget class="QLabel" name="label_pwrRelayOn">
             <property name="text">
-             <string>Voltage of Soft Start Relay On:</string>
+             <string>Voltage of Soft Start Relay On(V)</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QDoubleSpinBox" name="dSpinBox_pwrRelayOn">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
             <property name="buttonSymbols">
              <enum>QAbstractSpinBox::NoButtons</enum>
             </property>
@@ -170,17 +212,23 @@
           </item>
          </layout>
         </item>
-        <item row="1" column="0">
-         <layout class="QVBoxLayout" name="verticalLayout_7">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_8">
           <item>
            <widget class="QLabel" name="label_pwrRelayOff">
             <property name="text">
-             <string>Voltage of Soft Start Relay Off:</string>
+             <string>Voltage of Soft Start Relay Off(V)</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QDoubleSpinBox" name="dSpinBox_pwrRelayOff">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
             <property name="buttonSymbols">
              <enum>QAbstractSpinBox::NoButtons</enum>
             </property>
@@ -200,14 +248,14 @@
     </layout>
    </item>
    <item>
-    <spacer name="verticalSpacer_2">
+    <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>110</height>
+       <height>99</height>
       </size>
      </property>
     </spacer>

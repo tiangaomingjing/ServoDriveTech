@@ -76,14 +76,6 @@
       </property>
       <item>
        <widget class="QLabel" name="label_motorCur">
-        <property name="styleSheet">
-         <string notr="true">QWidget{
-border:1px solid black;
-border-top:none;
-border-left:none;
-border-right:none;
-}</string>
-        </property>
         <property name="text">
          <string>Current</string>
         </property>
@@ -176,14 +168,6 @@ border-right:none;
       </property>
       <item row="0" column="0" colspan="2">
        <widget class="QLabel" name="label_MotorMac">
-        <property name="styleSheet">
-         <string notr="true">QWidget{
-border:1px solid black;
-border-top:none;
-border-left:none;
-border-right:none;
-}</string>
-        </property>
         <property name="text">
          <string>Machine</string>
         </property>
@@ -337,14 +321,6 @@ border-right:none;
       </property>
       <item>
        <widget class="QLabel" name="label_motorVel">
-        <property name="styleSheet">
-         <string notr="true">QWidget{
-border:1px solid black;
-border-top:none;
-border-left:none;
-border-right:none;
-}</string>
-        </property>
         <property name="text">
          <string>Velocity</string>
         </property>
@@ -463,14 +439,6 @@ border-right:none;
       </property>
       <item>
        <widget class="QLabel" name="label_MotorImp">
-        <property name="styleSheet">
-         <string notr="true">QWidget{
-border:1px solid black;
-border-top:none;
-border-left:none;
-border-right:none;
-}</string>
-        </property>
         <property name="text">
          <string>Impedance</string>
         </property>
@@ -589,14 +557,6 @@ border-right:none;
       </property>
       <item>
        <widget class="QLabel" name="label_motorTor">
-        <property name="styleSheet">
-         <string notr="true">QWidget{
-border:1px solid black;
-border-top:none;
-border-left:none;
-border-right:none;
-}</string>
-        </property>
         <property name="text">
          <string>Torque</string>
         </property>

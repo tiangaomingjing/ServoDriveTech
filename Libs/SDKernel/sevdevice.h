@@ -59,6 +59,8 @@ signals:
 public slots:
   bool onReadPageFlash(int axis,QTreeWidget *tree);
   bool onWritePageFlash(int axis,QTreeWidget *tree);
+  //bool onReadItemFlash(int axis,QTreeWidgetItem *item);
+  //bool onReadItemRam(int axis,QTreeWidgetItem *item);
 private:
   bool checkPropertyParameters(QTreeWidgetItem *item);
   bool checkPowerBoardParameters(QTreeWidgetItem *item,const QMap<QString ,PowerBoardLimit> *limit);

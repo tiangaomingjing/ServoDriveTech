@@ -117,8 +117,8 @@ void OptUser::uiInit()
     Q_D(OptUser);
     qDebug()<<"user ui Init";
     setModify(false);
-    d->m_isAdmin=data("usr","admin",false).toBool();
-    d->m_isChecked = data("usr", "check", true).toBool();
+//    d->m_isAdmin=data("usr","admin",false).toBool();
+//    d->m_isChecked = data("usr", "check", true).toBool();
     d->m_page->setCheck(d->m_isChecked);
 
     if (ui->tabWidget->count() == 1) {
@@ -135,6 +135,12 @@ void OptUser::uiInit()
 bool OptUser::optActive()
 {
   Q_D(OptUser);
+    d->m_isAdmin = ui->btn_Admin->isChecked();
+    if (ui->tabWidget->count() > 1) {
+        d->m_checkShown = true;
+    } else {
+        d->m_checkShown = false;
+    }
   qDebug()<<"opt user execute active ";
     if (d->m_isAdmin) {
         QString password = ui->lineEdit->text();
@@ -220,18 +226,14 @@ void OptUser::onActionBtnChecked() {
     Q_D(OptUser);
     setModify(true);
     if (ui->btn_Admin->isChecked()) {
-        d->m_isAdmin = true;
         ui->pswWidget->setVisible(true);
     } else {
-        d->m_isAdmin = false;
-        d->m_checkShown = false;
         ui->lineEdit->clear();
         d->m_page->pswClear();
         ui->lineEdit->setReadOnly(false);
         ui->pswWidget->setVisible(false);
         //ui->box_NeedCheck->setVisible(d->m_checkShown);
         if (ui->tabWidget->count() > 1) {
-            d->m_page->setCheck(d->m_isChecked);
             ui->tabWidget->removeTab(1);
         }
     }
