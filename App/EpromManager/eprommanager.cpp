@@ -142,13 +142,13 @@ void EpromManager::showSelectTree() {
 
 /********************** write *************************/
 void EpromManager::onWriteClicked() {
-    QString typeText = ui->typeLabel->text();
+    //QString typeText = ui->typeLabel->text();
     QString code = ui->lineEdit->text();
     if (code == "") {
         QMessageBox::warning(this, tr("Warning"), tr("Please enter a PCBA code!"), QMessageBox::Ok);
         return;
     }
-    int ret = QMessageBox::question(this, tr("Question"), tr("Are you sure to write\n") + typeText + "?", QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+    int ret = QMessageBox::question(this, tr("Question"), tr("Are you sure to write\n") + itemText + "?", QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
     if (ret == QMessageBox::No) {
         return;
     }
@@ -167,13 +167,13 @@ void EpromManager::onWriteClicked() {
 }
 
 void EpromManager::onWriteClicked_2() {
-    QString typeText = ui->typeLabel->text();
+    //QString typeText = ui->typeLabel->text();
     QString code = ui->lineEdit_2->text();
     if (code == "") {
         QMessageBox::warning(this, tr("Warning"), tr("Please enter a PCBA code!"), QMessageBox::Ok);
         return;
     }
-    int ret = QMessageBox::question(this, tr("Question"), tr("Are you sure to write\n") + typeText + "?", QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+    int ret = QMessageBox::question(this, tr("Question"), tr("Are you sure to write\n") + itemText + "?", QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
     if (ret == QMessageBox::No) {
         return;
     }
