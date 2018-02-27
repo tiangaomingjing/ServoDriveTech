@@ -8,9 +8,10 @@ class WidgetLayoutMainWindow;
 }
 class QGraphicsScene;
 class QGraphicsView;
-class PidItem;
+class WidgetItem;
 class SumItem;
 class QGraphicsProxyWidget;
+class ArrowItem;
 
 class WidgetLayoutMainWindow : public QMainWindow
 {
@@ -23,6 +24,7 @@ public:
 private slots:
   void on_actionSetfont_triggered();
   void onSliderValueChanged(int value);
+  void onActionTest();
 
 private:
   bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
@@ -35,10 +37,15 @@ private:
 
   QGraphicsScene *scene;
   QGraphicsView *view;
-  PidItem *pid;
+  WidgetItem *pid;
   SumItem *sumItem;
 
-  QGraphicsProxyWidget *sumWidget;
+  WidgetItem *sumWidget;
+  WidgetItem *currentFeedback;
+  WidgetItem *aheadFeed;
+  ArrowItem *arrow;
+  ArrowItem *arrowFeedback;
+  ArrowItem *arrowAhead;
 };
 
 #endif // WIDGETLAYOUTMAINWINDOW_H

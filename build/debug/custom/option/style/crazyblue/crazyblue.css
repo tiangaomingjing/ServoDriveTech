@@ -241,18 +241,6 @@ border-right:none;
 margin-bottom: 1px;
 }
 
-/*============自定义stylewidget 可以在C++环境中索引到其值=================*/
-StyleWidget{
-	qproperty-dsBoxBackgroundDefColor:white;
-	qproperty-dsBoxBackgroundReadyColor:yellow;
-	qproperty-dsBoxBackgroundErrorColor:red;
-	qproperty-dsBoxTextEditColor:blue;
-	qproperty-dsBoxTextDefColor:black;
-	
-	qproperty-msgNormalColor:white;
-	qproperty-msgWarningColor:yellow;
-	qproperty-msgErrorColor:red;
-}
 
 QRadioButton::indicator::unchecked#btn_Admin {
     image:url(../custom/option/style/black/icon/user_admin_unchecked.png)

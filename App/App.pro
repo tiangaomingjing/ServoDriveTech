@@ -17,4 +17,5 @@ SUBDIRS += \
     GraphFramework \
     AppConfigDialogTest \
     AppDialboxTest \
-    AppCmdTest
+    AppCmdTest\
+    AppAnimationTest

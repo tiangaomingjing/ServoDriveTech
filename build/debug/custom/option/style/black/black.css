@@ -242,7 +242,6 @@ border:none;
 background-color:#680000;
 }
 
-<<<<<<< HEAD
 QLabel#label_motorCur{
 border:1px solid black;
 border-top:none;
@@ -342,10 +341,7 @@ border-right:none;
 margin-bottom: 1px;
 }
 
-/*====================设置对话框===================*/
-=======
 /*====================option设置对话框===================*/
->>>>>>> upstream/jiang
 
 /*--------------------用户-------------------------*/
 QRadioButton::indicator::unchecked#btn_Admin {

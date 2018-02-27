@@ -4,6 +4,8 @@
 #include "piditem.h"
 #include "sumitem.h"
 #include "sumitemwidget.h"
+#include "widgetitem.h"
+#include "arrowitem.h"
 
 #include <QGraphicsView>
 #include <QGraphicsScene>
@@ -16,6 +18,7 @@
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
 #include <QLineEdit>
+#include <QTime>
 
 #include <qmath.h>
 
@@ -37,6 +40,10 @@ WidgetLayoutMainWindow::WidgetLayoutMainWindow(QWidget *parent) :
   ui(new Ui::WidgetLayoutMainWindow)
 {
   ui->setupUi(this);
+  QAction *act=new QAction("setcolor",this);
+  ui->mainToolBar->addAction(act);
+  connect(act,SIGNAL(triggered(bool)),this,SLOT(onActionTest()));
+
   scene=new QGraphicsScene(this);
   scene->setSceneRect(-400, -200, 800, 400);
   view=new QGraphicsView;
@@ -48,6 +55,7 @@ WidgetLayoutMainWindow::WidgetLayoutMainWindow(QWidget *parent) :
   view->scale(qreal(1), qreal(1));
   view->setBackgroundBrush(QBrush(Qt::green));
   ui->verticalLayout->insertWidget(0,view);
+
 
 //  QGraphicsWidget *w=new QGraphicsWidget;
   QGraphicsWidget *w=new QGraphicsWidget(0, Qt::Window | Qt::CustomizeWindowHint | Qt::WindowTitleHint);
@@ -129,8 +137,9 @@ WidgetLayoutMainWindow::WidgetLayoutMainWindow(QWidget *parent) :
 
   wtest->setLayout(vlayoutTest);
 
-  pid=new PidItem;
-  pid->setWidget(wtest);
+  pid=new WidgetItem;
+  pid->setObjectName("PID");
+  pid->setWidget(wtest,true);
   scene->addItem(pid->item());
   pid->item()->setPos(50,50);
 
@@ -143,9 +152,48 @@ WidgetLayoutMainWindow::WidgetLayoutMainWindow(QWidget *parent) :
 
   SumItemWidget *sw=new SumItemWidget;
   sw->setStyleSheet("SumItemWidget{background-color:transparent;border:1px solid white;qproperty-lineColor: blue;} SumItemWidget:hover{background-color:red;}");
-  sumWidget=scene->addWidget(sw);
+  sumWidget=new WidgetItem;
+  sumWidget->setObjectName("SUM");
+  sumWidget->setWidget(sw);
+  scene->addItem(sumWidget->item());
+
+  arrow=new ArrowItem(sumWidget->pointF(WidgetItem::POINT_TYPE_RIGHT),pid->pointF(WidgetItem::POINT_TYPE_LEFT));
+  scene->addItem(arrow);
+
+  QLabel *feedback=new QLabel("current feedback");
+  QString s="QLabel{\
+            background-color: rgb(0, 0, 255);\
+            border:2px solid red;\
+            border-radius:10px;\
+                        }";
+  feedback->setStyleSheet(s);
+  currentFeedback=new WidgetItem;
+  currentFeedback->setObjectName("CurFeedback");
+  currentFeedback->setWidget(feedback,true);
+  scene->addItem(currentFeedback->item());
+
+  arrowFeedback=new ArrowItem(currentFeedback->pointF(WidgetItem::POINT_TYPE_LEFT),sumWidget->pointF(WidgetItem::POINT_TYPE_BOTTOM),ArrowItem::ARROW_TYPE_CORNER,"-");
+  scene->addItem(arrowFeedback);
+
+  QLabel *aheadback=new QLabel("current feedback");
+  aheadback->setStyleSheet(s);
+  aheadFeed=new WidgetItem;
+  aheadFeed->setObjectName("AHeadback");
+  aheadFeed->setWidget(aheadback,true);
+  scene->addItem(aheadFeed->item());
+
+  arrowAhead=new ArrowItem(aheadFeed->pointF(WidgetItem::POINT_TYPE_RIGHT),pid->pointF(WidgetItem::POINT_TYPE_TOP),ArrowItem::ARROW_TYPE_CORNER,"+");
+  scene->addItem(arrowAhead);
 
   adjustItemPostion();
+
+  QLineF line(QPointF(0,0),QPointF(-1,-1));
+  qDebug()<<"line dx"<<line.dx();
+  qDebug()<<"line dy"<<line.dy();
+  qDebug()<<"line angle"<<line.angle();
+  double angle=::acos(line.dx()/line.length());
+  qDebug()<<"angle"<<angle*180/3.14;
+
 }
 
 WidgetLayoutMainWindow::~WidgetLayoutMainWindow()
@@ -171,13 +219,36 @@ bool WidgetLayoutMainWindow::eventFilter(QObject *obj, QEvent *event)
 
 void WidgetLayoutMainWindow::adjustItemPostion()
 {
+  qDebug()<<"adjustItemPostion===============";
+  static qreal x=0,y=0;
+//  pid->item()->setPos(x,y);
+  x+=10;
+  y+=5;
   qreal sx,sy;
   sx=pid->item()->pos().x()-pid->item()->boundingRect().width()/2;
   sy=pid->item()->pos().y()+(pid->item()->boundingRect().height()/2-sumItem->boundingRect().height()/2);
   sumItem->setPos(sx,sy);
 
-  sx=sumItem->pos().x()-pid->item()->boundingRect().width()/2;
-  sumWidget->setPos(sx,sy);
+  sx=pid->item()->pos().x()-pid->item()->boundingRect().width();
+  sy=pid->item()->pos().y()+(pid->item()->boundingRect().height()/2-sumWidget->item()->boundingRect().height()/2);
+  sumWidget->item()->setPos(sx,sy);
+
+
+  sx=pid->item()->pos().x();
+  sy=pid->item()->pos().y()+pid->item()->boundingRect().height()*1.5;
+  currentFeedback->item()->setPos(sx,sy);
+
+
+  sy=pid->item()->pos().y()-pid->item()->boundingRect().height()*0.5;
+  aheadFeed->item()->setPos(sumWidget->item()->pos().x(),sy);
+
+  QTime dieTime = QTime::currentTime().addMSecs(10);
+  while( QTime::currentTime() < dieTime )
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+
+  arrow->updatePosition();
+  arrowFeedback->updatePosition();
+  arrowAhead->updatePosition();
 }
 
 void WidgetLayoutMainWindow::on_actionSetfont_triggered()
@@ -207,5 +278,12 @@ void WidgetLayoutMainWindow::onSliderValueChanged(int value)
   matrix.scale(scale, scale);
 
   view->setMatrix(matrix);
-//  view
+  //  view
+}
+
+void WidgetLayoutMainWindow::onActionTest()
+{
+  arrow->setColor(Qt::red);
+  arrowFeedback->setColor(Qt::red);
+  arrowAhead->setColor(Qt::red);
 }

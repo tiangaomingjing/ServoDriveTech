@@ -66,7 +66,7 @@ void SumItemWidget::paintEvent(QPaintEvent *event)
   painter.drawLine(pa,pc);
   painter.drawLine(pb,pd);
 
-  qDebug()<<"paint event rect"<<event->rect();
+//  qDebug()<<"paint event rect"<<event->rect();
 }
 
 

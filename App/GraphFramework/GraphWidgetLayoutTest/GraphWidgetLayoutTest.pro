@@ -17,12 +17,14 @@ SOURCES += main.cpp\
     piditem.cpp \
     sumitem.cpp \
     sumitemwidget.cpp \
-    arrow.cpp
+    widgetitem.cpp \
+    arrowitem.cpp
 
 HEADERS  += widgetlayoutmainwindow.h \
     piditem.h \
     sumitem.h \
     sumitemwidget.h \
-    arrow.h
+    widgetitem.h \
+    arrowitem.h
 
 FORMS    += widgetlayoutmainwindow.ui
