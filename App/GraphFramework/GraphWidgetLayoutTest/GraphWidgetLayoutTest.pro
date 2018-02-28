@@ -18,13 +18,19 @@ SOURCES += main.cpp\
     sumitem.cpp \
     sumitemwidget.cpp \
     widgetitem.cpp \
-    arrowitem.cpp
+    arrowitem.cpp \
+    interactiveview.cpp \
+    targetitemwidget.cpp \
+    anchoritemhelper.cpp
 
 HEADERS  += widgetlayoutmainwindow.h \
     piditem.h \
     sumitem.h \
     sumitemwidget.h \
     widgetitem.h \
-    arrowitem.h
+    arrowitem.h \
+    interactiveview.h \
+    targetitemwidget.h \
+    anchoritemhelper.h
 
 FORMS    += widgetlayoutmainwindow.ui

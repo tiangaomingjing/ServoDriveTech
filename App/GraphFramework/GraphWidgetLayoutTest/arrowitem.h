@@ -10,7 +10,7 @@ public:
     ARROW_TYPE_STRAIGHT,
     ARROW_TYPE_CORNER
   };
-  explicit ArrowItem(QPointF *startPoint,QPointF *endPoint,ArrowType type = ARROW_TYPE_STRAIGHT ,const QString &text = "",QGraphicsItem *parent=0);
+  explicit ArrowItem(QPointF *startPoint,QPointF *endPoint,ArrowType type = ARROW_TYPE_STRAIGHT ,const QString &text = "",bool hasArrow = true,QGraphicsItem *parent=0);
   ~ArrowItem();
   void updatePosition();
   void setColor(const QColor &color);
@@ -24,19 +24,13 @@ private:
   QPolygonF calculatePolygon();
 
 private:
-  enum ArrowDir{
-    ARROW_DIR_LEFT_UP,
-    ARROW_DIR_LEFT_DOWN,
-    ARROW_DIR_RIGHT_UP,
-    ARROW_DIR_RIGHT_DOWN
-  };
-
   QPointF *m_startPoint;
   QPointF *m_endPoint;
   QPointF *m_cornerPoint;
   QColor m_color;
   ArrowType m_type;
   QString m_text;
+  bool m_hasArrow;
 };
 
 #endif // ARROWITEM_H

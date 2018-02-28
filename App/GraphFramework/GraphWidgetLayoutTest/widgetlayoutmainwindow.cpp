@@ -1,11 +1,13 @@
 ﻿#include "widgetlayoutmainwindow.h"
 #include "ui_widgetlayoutmainwindow.h"
+#include "interactiveview.h"
 
 #include "piditem.h"
 #include "sumitem.h"
 #include "sumitemwidget.h"
 #include "widgetitem.h"
 #include "arrowitem.h"
+#include "targetitemwidget.h"
 
 #include <QGraphicsView>
 #include <QGraphicsScene>
@@ -46,7 +48,7 @@ WidgetLayoutMainWindow::WidgetLayoutMainWindow(QWidget *parent) :
 
   scene=new QGraphicsScene(this);
   scene->setSceneRect(-400, -200, 800, 400);
-  view=new QGraphicsView;
+  view=new InteractiveView;
   view->setScene(scene);
   view->setCacheMode(QGraphicsView::CacheBackground);
   view->setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
@@ -117,17 +119,15 @@ WidgetLayoutMainWindow::WidgetLayoutMainWindow(QWidget *parent) :
   wtest->setObjectName("wtest");
   QVBoxLayout *vlayoutTest=new QVBoxLayout(wtest);
   QLabel *title=new QLabel("PID controller",wtest);
-  title->setStyleSheet("QLabel{color:white;border:1px solid transparent;border-bottom-color:white;font-weight:bold;}");
+  title->setStyleSheet("QLabel{padding-bottom:10px;margin-bottom:10px;color:white;border:1px solid transparent;border-bottom-color:white;font-weight:bold;}");
   title->setAlignment(Qt::AlignCenter);
   vlayoutTest->addWidget(title);
-
   QLabel *pgain=new QLabel(tr("P gain(HZ)"));
   vlayoutTest->addWidget(pgain);
   QLineEdit *edit=new QLineEdit(wtest);
   edit->setText("100");
   edit->setMinimumWidth(200);
   vlayoutTest->addWidget(edit);
-
   QLabel *igain=new QLabel(tr("I gain(ms)"),wtest);
   vlayoutTest->addWidget(igain);
   edit=new QLineEdit(wtest);
@@ -175,6 +175,7 @@ WidgetLayoutMainWindow::WidgetLayoutMainWindow(QWidget *parent) :
   arrowFeedback=new ArrowItem(currentFeedback->pointF(WidgetItem::POINT_TYPE_LEFT),sumWidget->pointF(WidgetItem::POINT_TYPE_BOTTOM),ArrowItem::ARROW_TYPE_CORNER,"-");
   scene->addItem(arrowFeedback);
 
+
   QLabel *aheadback=new QLabel("current feedback");
   aheadback->setStyleSheet(s);
   aheadFeed=new WidgetItem;
@@ -182,8 +183,43 @@ WidgetLayoutMainWindow::WidgetLayoutMainWindow(QWidget *parent) :
   aheadFeed->setWidget(aheadback,true);
   scene->addItem(aheadFeed->item());
 
-  arrowAhead=new ArrowItem(aheadFeed->pointF(WidgetItem::POINT_TYPE_RIGHT),pid->pointF(WidgetItem::POINT_TYPE_TOP),ArrowItem::ARROW_TYPE_CORNER,"+");
+  arrowAhead=new ArrowItem(aheadFeed->pointF(WidgetItem::POINT_TYPE_RIGHT),pid->pointF(WidgetItem::POINT_TYPE_TOP),ArrowItem::ARROW_TYPE_CORNER,"+",false);
   scene->addItem(arrowAhead);
+
+
+  TargetItemWidget *curBegin=new TargetItemWidget;
+  curFeedbackBegin=new WidgetItem;
+  curFeedbackBegin->setWidget(curBegin);
+  scene->addItem(curFeedbackBegin->item());
+
+  arrowCurFeedback=new ArrowItem(curFeedbackBegin->pointF(WidgetItem::POINT_TYPE_LEFT),currentFeedback->pointF(WidgetItem::POINT_TYPE_RIGHT));
+  scene->addItem(arrowCurFeedback);
+
+
+
+  TargetItemWidget *tt1=new TargetItemWidget;
+  t1=new WidgetItem;
+  t1->setWidget(tt1);
+  scene->addItem(t1->item());
+  TargetItemWidget *tt2=new TargetItemWidget;
+  t2=new WidgetItem;
+  t2->setWidget(tt2);
+  scene->addItem(t2->item());
+  TargetItemWidget *tt3=new TargetItemWidget;
+  t3=new WidgetItem;
+  t3->setWidget(tt3);
+  scene->addItem(t3->item());
+
+  a1=new ArrowItem(t1->pointF(WidgetItem::POINT_TYPE_RIGHT),t2->pointF(WidgetItem::POINT_TYPE_LEFT),ArrowItem::ARROW_TYPE_STRAIGHT,"",false);
+  scene->addItem(a1);
+  a2=new ArrowItem(t2->pointF(WidgetItem::POINT_TYPE_RIGHT),sumWidget->pointF(WidgetItem::POINT_TYPE_LEFT));
+  scene->addItem(a2);
+  a3=new ArrowItem(t2->pointF(WidgetItem::POINT_TYPE_TOP),aheadFeed->pointF(WidgetItem::POINT_TYPE_LEFT),ArrowItem::ARROW_TYPE_CORNER);
+  scene->addItem(a3);
+  a4=new ArrowItem(t2->pointF(WidgetItem::POINT_TYPE_TOP),t3->pointF(WidgetItem::POINT_TYPE_LEFT),ArrowItem::ARROW_TYPE_CORNER);
+  scene->addItem(a4);
+
+
 
   adjustItemPostion();
 
@@ -238,9 +274,24 @@ void WidgetLayoutMainWindow::adjustItemPostion()
   sy=pid->item()->pos().y()+pid->item()->boundingRect().height()*1.5;
   currentFeedback->item()->setPos(sx,sy);
 
+  sy=currentFeedback->item()->pos().y()+(currentFeedback->item()->boundingRect().height()/2-curFeedbackBegin->item()->boundingRect().height()/2);
+  sx=currentFeedback->item()->pos().x()+currentFeedback->item()->boundingRect().width()*1.5;
+  curFeedbackBegin->item()->setPos(sx,sy);
+
 
   sy=pid->item()->pos().y()-pid->item()->boundingRect().height()*0.5;
   aheadFeed->item()->setPos(sumWidget->item()->pos().x(),sy);
+
+
+  sx=sumWidget->item()->pos().x()-40;
+  sy=sumWidget->item()->pos().y()+sumWidget->item()->boundingRect().height()/2-t2->item()->boundingRect().height()/2;
+  t2->item()->setPos(sx,sy);
+
+  t1->item()->setPos(sx-40,sy);
+
+  sx=aheadFeed->item()->pos().x();
+  sy=aheadFeed->item()->pos().y()-aheadFeed->item()->boundingRect().height();
+  t3->item()->setPos(sx,sy);
 
   QTime dieTime = QTime::currentTime().addMSecs(10);
   while( QTime::currentTime() < dieTime )
@@ -249,15 +300,22 @@ void WidgetLayoutMainWindow::adjustItemPostion()
   arrow->updatePosition();
   arrowFeedback->updatePosition();
   arrowAhead->updatePosition();
+  arrowCurFeedback->updatePosition();
+
+  a1->updatePosition();
+  a2->updatePosition();
+  a3->updatePosition();
+  a4->updatePosition();
 }
 
 void WidgetLayoutMainWindow::on_actionSetfont_triggered()
 {
-  QFont font = qApp->font();
-  int psize=font.pixelSize()+2;
+  static int psize=12;
+  QFont font ;
   font.setPixelSize(psize);
   qApp->setFont(font);
-  qDebug()<<pid->item()->boundingRect();
+  psize++;
+  qDebug()<<"psize"<<psize;
 
   QString s="QWidget#wtest{\
             background-color: rgb(0, 0, 255);\

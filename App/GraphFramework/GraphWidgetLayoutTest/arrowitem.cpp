@@ -7,20 +7,28 @@
 #include <math.h>
 const qreal Pi = 3.14;
 
-ArrowItem::ArrowItem(QPointF *startPoint, QPointF *endPoint, ArrowType type, const QString &text,QGraphicsItem *parent):
+enum ArrowDir{
+  ARROW_DIR_LEFT_UP,
+  ARROW_DIR_LEFT_DOWN,
+  ARROW_DIR_RIGHT_UP,
+  ARROW_DIR_RIGHT_DOWN
+};
+
+ArrowItem::ArrowItem(QPointF *startPoint, QPointF *endPoint, ArrowType type, const QString &text, bool hasArrow, QGraphicsItem *parent):
   QGraphicsPolygonItem(parent),
   m_startPoint(startPoint),
   m_endPoint(endPoint),
   m_cornerPoint(new QPointF(0,0)),
   m_type(type),
   m_color(Qt::blue),
-  m_text(text)
+  m_text(text),
+  m_hasArrow(hasArrow)
 {
   QPolygonF myPolygon = calculatePolygon();
   setPolygon(myPolygon);
-  setFlag(QGraphicsItem::ItemIsMovable, true);
-  setFlag(QGraphicsItem::ItemIsSelectable, true);
-  setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
+//  setFlag(QGraphicsItem::ItemIsMovable, true);
+//  setFlag(QGraphicsItem::ItemIsSelectable, true);
+//  setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
 }
 
 ArrowItem::~ArrowItem()
@@ -131,16 +139,18 @@ void ArrowItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 //    line.setP2(*m_startPoint);
 //  else
 //    line.setP2(*m_cornerPoint);
-  QLineF line;
-  line.setP1(poly.last());
-  if(m_type==ARROW_TYPE_STRAIGHT)
-    line.setP2(poly.first());
-  else
-    line.setP2(poly.at(1));
+  if(m_hasArrow)
+  {
+    QLineF line;
+    line.setP1(poly.last());
+    if(m_type==ARROW_TYPE_STRAIGHT)
+      line.setP2(poly.first());
+    else
+      line.setP2(poly.at(1));
 
-  double angle = ::acos(line.dx() / line.length());
-  if (line.dy() >= 0)
-      angle = (Pi * 2) - angle;
+    double angle = ::acos(line.dx() / line.length());
+    if (line.dy() >= 0)
+        angle = (Pi * 2) - angle;
 
     QPointF arrowP1 = line.p1() + QPointF(sin(angle + Pi / 3) * arrowSize,
                                     cos(angle + Pi / 3) * arrowSize);
@@ -155,13 +165,14 @@ void ArrowItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     {
       QLineF rVtr=line.unitVector();
       QLineF nVtr=line.normalVector().unitVector();
-//      qDebug()<<"==============================="<<m_text;
-//      qDebug()<<"line"<<line;
-//      qDebug()<<"rVtr"<<rVtr<<"dx"<<rVtr.dx()<<"dy"<<rVtr.dy();
-//      qDebug()<<"nVtr"<<nVtr<<"dx"<<nVtr.dx()<<"dy"<<nVtr.dy();
+  //      qDebug()<<"==============================="<<m_text;
+  //      qDebug()<<"line"<<line;
+  //      qDebug()<<"rVtr"<<rVtr<<"dx"<<rVtr.dx()<<"dy"<<rVtr.dy();
+  //      qDebug()<<"nVtr"<<nVtr<<"dx"<<nVtr.dx()<<"dy"<<nVtr.dy();
       arrowP2+=QPointF(10*nVtr.dx(),10*rVtr.dy());
-//      qDebug()<<"draw point"<<arrowP2;
+  //      qDebug()<<"draw point"<<arrowP2;
       painter->drawText(arrowP2,m_text);
     }
+  }
 }
 

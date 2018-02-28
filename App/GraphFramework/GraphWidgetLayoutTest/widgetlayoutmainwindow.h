@@ -7,7 +7,7 @@ namespace Ui {
 class WidgetLayoutMainWindow;
 }
 class QGraphicsScene;
-class QGraphicsView;
+class InteractiveView;
 class WidgetItem;
 class SumItem;
 class QGraphicsProxyWidget;
@@ -36,7 +36,8 @@ private:
   Ui::WidgetLayoutMainWindow *ui;
 
   QGraphicsScene *scene;
-  QGraphicsView *view;
+//  QGraphicsView *view;
+  InteractiveView *view;
   WidgetItem *pid;
   SumItem *sumItem;
 
@@ -46,6 +47,17 @@ private:
   ArrowItem *arrow;
   ArrowItem *arrowFeedback;
   ArrowItem *arrowAhead;
+
+  WidgetItem *curFeedbackBegin;
+  ArrowItem *arrowCurFeedback;
+
+  WidgetItem *t1;
+  WidgetItem *t2;
+  WidgetItem *t3;
+  ArrowItem *a1;
+  ArrowItem *a2;
+  ArrowItem *a3;
+  ArrowItem *a4;
 };
 
 #endif // WIDGETLAYOUTMAINWINDOW_H
