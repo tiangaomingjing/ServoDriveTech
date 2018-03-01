@@ -58,7 +58,7 @@ void AnchorItemHelper::setAnchorsActive()
       y=p1->y();
       break;
     case AnchorRight:
-      x=p0->x()+originItem->boundingRect().width()+space;
+      x=p0->x()+originItem->boundingRect().width()-targetItem->boundingRect().width()+space;
       y=p1->y();
       break;
     case AnchorTop:
@@ -71,7 +71,7 @@ void AnchorItemHelper::setAnchorsActive()
       break;
     case AnchorBottom:
       x=p1->x();
-      y=p0->y()+originItem->boundingRect().height()+space;
+      y=p0->y()+originItem->boundingRect().height()-targetItem->boundingRect().height()+space;
       break;
     default:
       break;

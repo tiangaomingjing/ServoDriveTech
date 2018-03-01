@@ -55,7 +55,7 @@ QPointF *WidgetItem::pointF(int index) const
 
 void WidgetItem::onGeometryChanged()
 {
-  qDebug()<<"***************"<<objectName()<<"onGeometryChanged"<<m_proxyWidget->boundingRect()<<"************";
+//  qDebug()<<"***************"<<objectName()<<"onGeometryChanged"<<m_proxyWidget->boundingRect()<<"************";
   qreal w=m_proxyWidget->boundingRect().width();
   qreal h=m_proxyWidget->boundingRect().height();
   QPointF pos=m_proxyWidget->scenePos();
@@ -64,12 +64,12 @@ void WidgetItem::onGeometryChanged()
   QPointF right(w,h/2);
   QPointF top(w/2,0);
   QPointF bottom(w/2,h);
-  qDebug()<<"size"<<m_netPoints.size();
+//  qDebug()<<"size"<<m_netPoints.size();
   *m_netPoints[POINT_TYPE_LEFT]=left+pos;
   *m_netPoints[POINT_TYPE_RIGHT]=right+pos;
   *m_netPoints[POINT_TYPE_TOP]=top+pos;
   *m_netPoints[POINT_TYPE_BOTTOM]=bottom+pos;
-  for(int i=0;i<m_netPoints.size();i++)
-    qDebug()<<i<<*(m_netPoints.at(i));
+//  for(int i=0;i<m_netPoints.size();i++)
+//    qDebug()<<i<<*(m_netPoints.at(i));
 }
 

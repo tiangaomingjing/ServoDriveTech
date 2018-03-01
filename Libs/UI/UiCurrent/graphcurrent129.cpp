@@ -10,15 +10,15 @@ public:
 };
 
 GraphCurrent129::GraphCurrent129(QWidget *parent) :
-  IGraphCurrent(*(new GraphCurrent129Private),parent),
-  ui(new Ui::GraphCurrent129)
+  IGraphCurrent(*(new GraphCurrent129Private),parent)
+//  ui(new Ui::GraphCurrent129)
 {
-  ui->setupUi(this);
+//  ui->setupUi(this);
 }
 
 GraphCurrent129::~GraphCurrent129()
 {
-  delete ui;
+//  delete ui;
 }
 void GraphCurrent129::visitActive(IUiWidget *uiWidget)
 {

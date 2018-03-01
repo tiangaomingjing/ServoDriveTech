@@ -1,13 +1,13 @@
 ﻿#ifndef IGRAPHWIDGET_H
 #define IGRAPHWIDGET_H
 
-#include <QGraphicsView>
 #include "iuiwidget_global.h"
+#include "interactiveview.h"
 
 class IGraphWidgetPrivate;
 class IUiWidget;
 
-class IUIWIDGETSHARED_EXPORT IGraphWidget : public QGraphicsView
+class IUIWIDGETSHARED_EXPORT IGraphWidget : public InteractiveView
 {
   Q_OBJECT
   Q_DECLARE_PRIVATE(IGraphWidget)

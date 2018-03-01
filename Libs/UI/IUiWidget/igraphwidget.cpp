@@ -11,7 +11,7 @@ IGraphWidgetPrivate::~IGraphWidgetPrivate()
 
 }
 
-IGraphWidget::IGraphWidget(QWidget *parent) : QGraphicsView(parent),
+IGraphWidget::IGraphWidget(QWidget *parent) : InteractiveView(parent),
   d_ptr(new IGraphWidgetPrivate)
 {
   d_ptr->q_ptr=this;
@@ -19,14 +19,14 @@ IGraphWidget::IGraphWidget(QWidget *parent) : QGraphicsView(parent),
 
   d->m_scene=new QGraphicsScene(this);
   d->m_scene->setItemIndexMethod(QGraphicsScene::NoIndex);
-  d->m_scene->setSceneRect(-200, -200, 400, 400);
+//  d->m_scene->setSceneRect(-200, -200, 400, 400);
   setScene(d->m_scene);
   setCacheMode(CacheBackground);
   setViewportUpdateMode(BoundingRectViewportUpdate);
   setRenderHint(QPainter::Antialiasing);
   setTransformationAnchor(AnchorUnderMouse);
-  scale(qreal(0.8), qreal(0.8));
-  setMinimumSize(400, 400);
+  scale(qreal(1), qreal(1));
+//  setMinimumSize(400, 400);
 
   QGraphicsRectItem *item = new QGraphicsRectItem(QRectF(0, 0, 60, 60));
   d->m_scene->addItem (item);
@@ -49,21 +49,21 @@ IGraphWidget::~IGraphWidget()
 {
   delete d_ptr;
 }
-IGraphWidget::IGraphWidget(IGraphWidgetPrivate &dd,QWidget *parent):QGraphicsView(parent),d_ptr(&dd)
+IGraphWidget::IGraphWidget(IGraphWidgetPrivate &dd,QWidget *parent):InteractiveView(parent),d_ptr(&dd)
 {
   d_ptr->q_ptr=this;
   Q_D(IGraphWidget);
 
   d->m_scene=new QGraphicsScene(this);
   d->m_scene->setItemIndexMethod(QGraphicsScene::NoIndex);
-  d->m_scene->setSceneRect(-200, -200, 400, 400);
+//  d->m_scene->setSceneRect(-200, -200, 400, 400);
   setScene(d->m_scene);
   setCacheMode(CacheBackground);
   setViewportUpdateMode(BoundingRectViewportUpdate);
   setRenderHint(QPainter::Antialiasing);
   setTransformationAnchor(AnchorUnderMouse);
-  scale(qreal(0.8), qreal(0.8));
-  setMinimumSize(400, 400);
+  scale(qreal(1), qreal(1));
+//  setMinimumSize(400, 400);
 
   QGraphicsRectItem *item = new QGraphicsRectItem(QRectF(0, 0, 60, 60));
   d->m_scene->addItem (item);

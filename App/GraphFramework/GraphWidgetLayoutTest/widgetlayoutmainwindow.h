@@ -12,6 +12,7 @@ class WidgetItem;
 class SumItem;
 class QGraphicsProxyWidget;
 class ArrowItem;
+class AnchorItemHelper;
 
 class WidgetLayoutMainWindow : public QMainWindow
 {
@@ -38,18 +39,14 @@ private:
   QGraphicsScene *scene;
 //  QGraphicsView *view;
   InteractiveView *view;
-  WidgetItem *pid;
-  SumItem *sumItem;
+  WidgetItem *u0;
+  WidgetItem *u1;
+  WidgetItem *u2;
+  WidgetItem *u3;
 
-  WidgetItem *sumWidget;
-  WidgetItem *currentFeedback;
-  WidgetItem *aheadFeed;
-  ArrowItem *arrow;
-  ArrowItem *arrowFeedback;
-  ArrowItem *arrowAhead;
 
-  WidgetItem *curFeedbackBegin;
-  ArrowItem *arrowCurFeedback;
+  WidgetItem *t4;
+
 
   WidgetItem *t1;
   WidgetItem *t2;
@@ -58,6 +55,12 @@ private:
   ArrowItem *a2;
   ArrowItem *a3;
   ArrowItem *a4;
+  ArrowItem *a5;
+  ArrowItem *a6;
+  ArrowItem *a7;
+  ArrowItem *a8;
+
+  AnchorItemHelper *anchorHelper;
 };
 
 #endif // WIDGETLAYOUTMAINWINDOW_H

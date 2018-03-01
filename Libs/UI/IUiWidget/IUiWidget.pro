@@ -50,7 +50,8 @@ SOURCES += iuiwidget.cpp \
     boxitemmapping.cpp\
     igraph.cpp \
     igraphbrake.cpp \
-    idatabinding.cpp
+    idatabinding.cpp \
+    interactiveview.cpp
 
 HEADERS += iuiwidget.h\
         iuiwidget_global.h \
@@ -79,7 +80,8 @@ HEADERS += iuiwidget.h\
     igraphbrake_p.h \
     igraphwidget_p.h \
     ../../Option/Option \
-    idatabinding.h
+    idatabinding.h \
+    interactiveview.h
 
 unix {
     target.path = /usr/lib

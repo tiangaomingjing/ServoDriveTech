@@ -8,6 +8,7 @@
 #include "widgetitem.h"
 #include "arrowitem.h"
 #include "targetitemwidget.h"
+#include "anchoritemhelper.h"
 
 #include <QGraphicsView>
 #include <QGraphicsScene>
@@ -137,14 +138,13 @@ WidgetLayoutMainWindow::WidgetLayoutMainWindow(QWidget *parent) :
 
   wtest->setLayout(vlayoutTest);
 
-  pid=new WidgetItem;
-  pid->setObjectName("PID");
-  pid->setWidget(wtest,true);
-  scene->addItem(pid->item());
-  pid->item()->setPos(50,50);
 
-  sumItem=new SumItem;
-  scene->addItem(sumItem);
+
+  u0=new WidgetItem;
+  u0->setObjectName("PID");
+  u0->setWidget(wtest,true);
+  scene->addItem(u0->item());
+  u0->item()->setPos(50,50);
 
 
 
@@ -152,13 +152,12 @@ WidgetLayoutMainWindow::WidgetLayoutMainWindow(QWidget *parent) :
 
   SumItemWidget *sw=new SumItemWidget;
   sw->setStyleSheet("SumItemWidget{background-color:transparent;border:1px solid white;qproperty-lineColor: blue;} SumItemWidget:hover{background-color:red;}");
-  sumWidget=new WidgetItem;
-  sumWidget->setObjectName("SUM");
-  sumWidget->setWidget(sw);
-  scene->addItem(sumWidget->item());
+  u1=new WidgetItem;
+  u1->setObjectName("SUM");
+  u1->setWidget(sw);
+  scene->addItem(u1->item());
 
-  arrow=new ArrowItem(sumWidget->pointF(WidgetItem::POINT_TYPE_RIGHT),pid->pointF(WidgetItem::POINT_TYPE_LEFT));
-  scene->addItem(arrow);
+
 
   QLabel *feedback=new QLabel("current feedback");
   QString s="QLabel{\
@@ -167,33 +166,27 @@ WidgetLayoutMainWindow::WidgetLayoutMainWindow(QWidget *parent) :
             border-radius:10px;\
                         }";
   feedback->setStyleSheet(s);
-  currentFeedback=new WidgetItem;
-  currentFeedback->setObjectName("CurFeedback");
-  currentFeedback->setWidget(feedback,true);
-  scene->addItem(currentFeedback->item());
+  u2=new WidgetItem;
+  u2->setObjectName("CurFeedback");
+  u2->setWidget(feedback,true);
+  scene->addItem(u2->item());
 
-  arrowFeedback=new ArrowItem(currentFeedback->pointF(WidgetItem::POINT_TYPE_LEFT),sumWidget->pointF(WidgetItem::POINT_TYPE_BOTTOM),ArrowItem::ARROW_TYPE_CORNER,"-");
-  scene->addItem(arrowFeedback);
+
 
 
   QLabel *aheadback=new QLabel("current feedback");
   aheadback->setStyleSheet(s);
-  aheadFeed=new WidgetItem;
-  aheadFeed->setObjectName("AHeadback");
-  aheadFeed->setWidget(aheadback,true);
-  scene->addItem(aheadFeed->item());
+  u3=new WidgetItem;
+  u3->setObjectName("AHeadback");
+  u3->setWidget(aheadback,true);
+  scene->addItem(u3->item());
 
-  arrowAhead=new ArrowItem(aheadFeed->pointF(WidgetItem::POINT_TYPE_RIGHT),pid->pointF(WidgetItem::POINT_TYPE_TOP),ArrowItem::ARROW_TYPE_CORNER,"+",false);
-  scene->addItem(arrowAhead);
 
 
   TargetItemWidget *curBegin=new TargetItemWidget;
-  curFeedbackBegin=new WidgetItem;
-  curFeedbackBegin->setWidget(curBegin);
-  scene->addItem(curFeedbackBegin->item());
-
-  arrowCurFeedback=new ArrowItem(curFeedbackBegin->pointF(WidgetItem::POINT_TYPE_LEFT),currentFeedback->pointF(WidgetItem::POINT_TYPE_RIGHT));
-  scene->addItem(arrowCurFeedback);
+  t4=new WidgetItem;
+  t4->setWidget(curBegin);
+  scene->addItem(t4->item());
 
 
 
@@ -212,14 +205,47 @@ WidgetLayoutMainWindow::WidgetLayoutMainWindow(QWidget *parent) :
 
   a1=new ArrowItem(t1->pointF(WidgetItem::POINT_TYPE_RIGHT),t2->pointF(WidgetItem::POINT_TYPE_LEFT),ArrowItem::ARROW_TYPE_STRAIGHT,"",false);
   scene->addItem(a1);
-  a2=new ArrowItem(t2->pointF(WidgetItem::POINT_TYPE_RIGHT),sumWidget->pointF(WidgetItem::POINT_TYPE_LEFT));
+  a2=new ArrowItem(t2->pointF(WidgetItem::POINT_TYPE_RIGHT),u1->pointF(WidgetItem::POINT_TYPE_LEFT));
   scene->addItem(a2);
-  a3=new ArrowItem(t2->pointF(WidgetItem::POINT_TYPE_TOP),aheadFeed->pointF(WidgetItem::POINT_TYPE_LEFT),ArrowItem::ARROW_TYPE_CORNER);
+  a3=new ArrowItem(t2->pointF(WidgetItem::POINT_TYPE_TOP),u3->pointF(WidgetItem::POINT_TYPE_LEFT),ArrowItem::ARROW_TYPE_CORNER);
   scene->addItem(a3);
   a4=new ArrowItem(t2->pointF(WidgetItem::POINT_TYPE_TOP),t3->pointF(WidgetItem::POINT_TYPE_LEFT),ArrowItem::ARROW_TYPE_CORNER);
   scene->addItem(a4);
 
+  a5=new ArrowItem(u1->pointF(WidgetItem::POINT_TYPE_RIGHT),u0->pointF(WidgetItem::POINT_TYPE_LEFT));
+  scene->addItem(a5);
 
+  a6=new ArrowItem(u2->pointF(WidgetItem::POINT_TYPE_LEFT),u1->pointF(WidgetItem::POINT_TYPE_BOTTOM),ArrowItem::ARROW_TYPE_CORNER,"-");
+  scene->addItem(a6);
+
+  a7=new ArrowItem(u3->pointF(WidgetItem::POINT_TYPE_RIGHT),u0->pointF(WidgetItem::POINT_TYPE_TOP),ArrowItem::ARROW_TYPE_CORNER,"+",false);
+  scene->addItem(a7);
+
+  a8=new ArrowItem(t4->pointF(WidgetItem::POINT_TYPE_LEFT),u2->pointF(WidgetItem::POINT_TYPE_RIGHT));
+  scene->addItem(a8);
+
+  anchorHelper=new AnchorItemHelper;
+
+  anchorHelper->addAnchor(u0->item(),u1->item(),AnchorItemHelper::AnchorRight,-1*u0->item()->boundingRect().width()*1.5);
+  anchorHelper->addAnchor(u0->item(),u1->item(),AnchorItemHelper::AnchorVerticalCenter);
+
+  anchorHelper->addAnchor(u0->item(),u2->item(),AnchorItemHelper::AnchorHorizontalCenter);
+  anchorHelper->addAnchor(u0->item(),u2->item(),AnchorItemHelper::AnchorBottom,u2->item()->boundingRect().height()*3);
+
+  anchorHelper->addAnchor(u2->item(),t4->item(),AnchorItemHelper::AnchorRight,u2->item()->boundingRect().width());
+  anchorHelper->addAnchor(u2->item(),t4->item(),AnchorItemHelper::AnchorVerticalCenter);
+
+  anchorHelper->addAnchor(u0->item(),u3->item(),AnchorItemHelper::AnchorLeft,-1*u3->item()->boundingRect().width()-u0->item()->boundingRect().width()/2);
+  anchorHelper->addAnchor(u0->item(),u3->item(),AnchorItemHelper::AnchorTop,-1*u0->item()->boundingRect().height()/2);
+
+  anchorHelper->addAnchor(u3->item(),t3->item(),AnchorItemHelper::AnchorHorizontalCenter);
+  anchorHelper->addAnchor(u3->item(),t3->item(),AnchorItemHelper::AnchorTop,-1*u3->item()->boundingRect().height());
+
+  anchorHelper->addAnchor(u3->item(),t2->item(),AnchorItemHelper::AnchorLeft,-1*u3->item()->boundingRect().width()/3);
+  anchorHelper->addAnchor(u1->item(),t2->item(),AnchorItemHelper::AnchorVerticalCenter);
+
+  anchorHelper->addAnchor(t2->item(),t1->item(),AnchorItemHelper::AnchorHorizontalCenter,-1*u0->item()->boundingRect().width()/3);
+  anchorHelper->addAnchor(t2->item(),t1->item(),AnchorItemHelper::AnchorVerticalCenter);
 
   adjustItemPostion();
 
@@ -256,56 +282,24 @@ bool WidgetLayoutMainWindow::eventFilter(QObject *obj, QEvent *event)
 void WidgetLayoutMainWindow::adjustItemPostion()
 {
   qDebug()<<"adjustItemPostion===============";
-  static qreal x=0,y=0;
-//  pid->item()->setPos(x,y);
-  x+=10;
-  y+=5;
-  qreal sx,sy;
-  sx=pid->item()->pos().x()-pid->item()->boundingRect().width()/2;
-  sy=pid->item()->pos().y()+(pid->item()->boundingRect().height()/2-sumItem->boundingRect().height()/2);
-  sumItem->setPos(sx,sy);
 
-  sx=pid->item()->pos().x()-pid->item()->boundingRect().width();
-  sy=pid->item()->pos().y()+(pid->item()->boundingRect().height()/2-sumWidget->item()->boundingRect().height()/2);
-  sumWidget->item()->setPos(sx,sy);
-
-
-  sx=pid->item()->pos().x();
-  sy=pid->item()->pos().y()+pid->item()->boundingRect().height()*1.5;
-  currentFeedback->item()->setPos(sx,sy);
-
-  sy=currentFeedback->item()->pos().y()+(currentFeedback->item()->boundingRect().height()/2-curFeedbackBegin->item()->boundingRect().height()/2);
-  sx=currentFeedback->item()->pos().x()+currentFeedback->item()->boundingRect().width()*1.5;
-  curFeedbackBegin->item()->setPos(sx,sy);
-
-
-  sy=pid->item()->pos().y()-pid->item()->boundingRect().height()*0.5;
-  aheadFeed->item()->setPos(sumWidget->item()->pos().x(),sy);
-
-
-  sx=sumWidget->item()->pos().x()-40;
-  sy=sumWidget->item()->pos().y()+sumWidget->item()->boundingRect().height()/2-t2->item()->boundingRect().height()/2;
-  t2->item()->setPos(sx,sy);
-
-  t1->item()->setPos(sx-40,sy);
-
-  sx=aheadFeed->item()->pos().x();
-  sy=aheadFeed->item()->pos().y()-aheadFeed->item()->boundingRect().height();
-  t3->item()->setPos(sx,sy);
+  anchorHelper->setAnchorsActive();
 
   QTime dieTime = QTime::currentTime().addMSecs(10);
   while( QTime::currentTime() < dieTime )
     QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 
-  arrow->updatePosition();
-  arrowFeedback->updatePosition();
-  arrowAhead->updatePosition();
-  arrowCurFeedback->updatePosition();
+
 
   a1->updatePosition();
   a2->updatePosition();
   a3->updatePosition();
   a4->updatePosition();
+  a5->updatePosition();
+  a6->updatePosition();
+  a7->updatePosition();
+  a8->updatePosition();
+
 }
 
 void WidgetLayoutMainWindow::on_actionSetfont_triggered()
@@ -341,7 +335,12 @@ void WidgetLayoutMainWindow::onSliderValueChanged(int value)
 
 void WidgetLayoutMainWindow::onActionTest()
 {
-  arrow->setColor(Qt::red);
-  arrowFeedback->setColor(Qt::red);
-  arrowAhead->setColor(Qt::red);
+  a1->setColor(Qt::red);
+  a2->setColor(Qt::red);
+  a3->setColor(Qt::red);
+  a4->setColor(Qt::red);
+  a5->setColor(Qt::red);
+  a6->setColor(Qt::red);
+  a7->setColor(Qt::red);
+  a8->setColor(Qt::red);
 }

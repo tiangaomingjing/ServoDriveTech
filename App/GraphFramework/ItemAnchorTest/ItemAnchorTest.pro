@@ -13,8 +13,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        anchormainwindow.cpp
+        anchormainwindow.cpp \
+    ../GraphWidgetLayoutTest/anchoritemhelper.cpp
 
-HEADERS  += anchormainwindow.h
+HEADERS  += anchormainwindow.h \
+    ../GraphWidgetLayoutTest/anchoritemhelper.h
 
 FORMS    += anchormainwindow.ui
