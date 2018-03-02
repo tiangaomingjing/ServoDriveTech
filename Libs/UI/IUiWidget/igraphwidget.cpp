@@ -2,13 +2,14 @@
 #include "igraphwidget_p.h"
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
+#include <QDebug>
 IGraphWidgetPrivate::IGraphWidgetPrivate()
 {
 
 }
 IGraphWidgetPrivate::~IGraphWidgetPrivate()
 {
-
+  qDebug()<<"IGraphWidgetPrivate destruct-->";
 }
 
 IGraphWidget::IGraphWidget(QWidget *parent) : InteractiveView(parent),
@@ -47,6 +48,7 @@ IGraphWidget::IGraphWidget(QWidget *parent) : InteractiveView(parent),
 
 IGraphWidget::~IGraphWidget()
 {
+  qDebug()<<"IGraphWidget destruct-->";
   delete d_ptr;
 }
 IGraphWidget::IGraphWidget(IGraphWidgetPrivate &dd,QWidget *parent):InteractiveView(parent),d_ptr(&dd)

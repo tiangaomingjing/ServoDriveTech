@@ -1,6 +1,8 @@
 ﻿#include "graphcurrent129.h"
 #include "ui_graphcurrent129.h"
 #include "igraphcurrent_p.h"
+
+#include <QDebug>
 class GraphCurrent129Private:public IGraphCurrentPrivate
 {
   Q_DECLARE_PUBLIC(GraphCurrent129)
@@ -19,10 +21,12 @@ GraphCurrent129::GraphCurrent129(QWidget *parent) :
 GraphCurrent129::~GraphCurrent129()
 {
 //  delete ui;
+  qDebug()<<"GraphCurrent129 destruct-->";
 }
 void GraphCurrent129::visitActive(IUiWidget *uiWidget)
 {
-
+  Q_UNUSED(uiWidget);
+  createItems();
 }
 void GraphCurrent129::setUiVersionName()
 {
