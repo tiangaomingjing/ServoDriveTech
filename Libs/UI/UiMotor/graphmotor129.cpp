@@ -5,6 +5,7 @@
 #include "uimotor.h"
 #include "sevdevice.h"
 #include "boxitemmapping.h"
+#include "Option"
 
 #include <QDebug>
 #include <QTreeWidget>
@@ -36,6 +37,13 @@ GraphMotor129::~GraphMotor129()
 {
   delete ui;
 }
+void GraphMotor129::syncTreeDataToUiFace()
+{
+  //将树的数据全更新到用户界面上
+  Q_D(GraphMotor129);
+  d->m_mapping->syncAllItem2BoxText();
+}
+
 void GraphMotor129::visitActive(IUiWidget *uiWidget)
 {
   Q_D(GraphMotor129);
@@ -45,6 +53,8 @@ void GraphMotor129::visitActive(IUiWidget *uiWidget)
   int axis=uiWidget->uiIndexs().axisInx;
   int page=uiWidget->uiIndexs().pageInx;
   d->m_treeWidget=d->m_dev->axisTreeSource(axis,page);
+
+  d->m_uiWidget=uiWidget;
 
   this->ui->dspinBox_maxVoltage->setEnabled(false);
 
@@ -75,6 +85,8 @@ void GraphMotor129::visitActive(IUiWidget *uiWidget)
     }
   }
 
+  setEditTextStatusDefaultAll();
+
 //  d->m_mapping->insertBox2Item(this->ui->dspinBox_iRat,d->m_treeWidget->topLevelItem(0));
 //  d->m_mapping->insertBox2Item(this->ui->dspinBox_iMax,d->m_treeWidget->topLevelItem(1));
 //  d->m_mapping->insertBox2Item(this->ui->dspinBox_vRat,d->m_treeWidget->topLevelItem(2));
@@ -91,8 +103,9 @@ void GraphMotor129::visitActive(IUiWidget *uiWidget)
 //  d->m_mapping->insertBox2Item(this->ui->dspinBox_JmPercent,d->m_treeWidget->topLevelItem(13));
 //  d->m_mapping->insertBox2Item(this->ui->dspinBox_fcoe,d->m_treeWidget->topLevelItem(14));
 
-  connect(uiWidget,SIGNAL(uiActiveChanged(bool)),this,SLOT(onUiActivedChanged(bool)));
-
+  connect(d->m_dev,SIGNAL(itemRangeValid(QTreeWidgetItem*,int)),this,SLOT(onItemBoxEditTextError(QTreeWidgetItem*,int)));
+  OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
+  connect(face,SIGNAL(faceCssChanged(QString)),this,SLOT(onFaceCssChanged(QString)));
 }
 void GraphMotor129::setUiVersionName()
 {
@@ -108,19 +121,39 @@ bool GraphMotor129::eventFilter(QObject *obj, QEvent *event)
     {
       Q_D(GraphMotor129);
       qDebug()<<"enter clicked"<<"object name"<<obj->objectName();
-      d->m_mapping->syncBoxText2Item(static_cast<QDoubleSpinBox*>(obj));
+      QDoubleSpinBox* box=dynamic_cast<QDoubleSpinBox*>(obj);
+      d->m_mapping->syncBoxText2Item(box);
+      setEditTextStatus(box,OptFace::EDIT_TEXT_STATUS_READY);
       return true;
     }
   }
   return QWidget::eventFilter(obj,event);
 }
-void GraphMotor129::onUiActivedChanged(bool actived)
+
+void GraphMotor129::onItemBoxEditTextError(QTreeWidgetItem *item,int status)
 {
-  qDebug()<<"onUiActivedChanged actived="<<actived;
-  if(actived)
+  Q_D(GraphMotor129);
+  QDoubleSpinBox *box=d->m_mapping->box(item);
+  if(box!=NULL)
+    setEditTextStatus(box,OptFace::EditTextStatus(status));
+}
+void GraphMotor129::onFaceCssChanged(const QString &css)
+{
+  Q_UNUSED(css);
+  setEditTextStatusDefaultAll();
+}
+
+void GraphMotor129::setEditTextStatus(QDoubleSpinBox *box,OptFace::EditTextStatus status)
+{
+  OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
+  face->setEditTextStatus(box,status);
+}
+void GraphMotor129::setEditTextStatusDefaultAll()
+{
+  Q_D(GraphMotor129);
+  foreach (QDoubleSpinBox *box, d->m_mapping->boxLists())
   {
-    //将树的数据全更新到用户界面上
-    Q_D(GraphMotor129);
-    d->m_mapping->syncAllItem2BoxText();
+    setEditTextStatus(box,OptFace::EDIT_TEXT_STATUS_DEFAULT);
+//    setEditTextStatus(box,OptFace::EDIT_TEXT_STATUS_READY);
   }
 }

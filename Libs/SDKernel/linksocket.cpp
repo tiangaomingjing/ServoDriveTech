@@ -4,11 +4,13 @@
 #include "pcdebug.h"
 #include "rnnet.h"
 #include "deviceconfig.h"
+#include "sdtglobaldef.h"
 
 #include <QTreeWidgetItem>
 #include <QDebug>
 
 using namespace ComDriver;
+using namespace GT;
 
 LinkSocket::LinkSocket(SevDevicePrivate *sev, QObject *parent):QObject(parent),q_ptr(sev),m_isConnected(false),
   m_tryWriteCount(3)
@@ -138,8 +140,10 @@ bool LinkSocket::writePageFlash(int axis,QTreeWidgetItem *item)
   {
     uint16_t wv;
     int16_t rv;
-    wv=item->text(COL_PAGE_TREE_VALUE).toUShort();
-
+    double value=0;
+//    wv=item->text(COL_PAGE_TREE_VALUE).toUShort();//这个不能用，因为如果是text是浮点数，转化后为0 如10.00.toUShort =0
+    value=item->text(COL_PAGE_TREE_VALUE).toDouble()+0.5;
+    wv=(uint16_t)value;
     quint8 tryCount=0;
     do{
       err=m_com->writeFLASH16(axisInx,addr,0,(int16_t)wv);
@@ -154,7 +158,9 @@ bool LinkSocket::writePageFlash(int axis,QTreeWidgetItem *item)
   {
     int16_t wv;
     int16_t rv;
-    wv=item->text(COL_PAGE_TREE_VALUE).toShort();
+    double value=0;
+    value=item->text(COL_PAGE_TREE_VALUE).toDouble()+0.5;
+    wv=(int16_t)value;
 
     quint8 tryCount=0;
     do{
@@ -169,7 +175,9 @@ bool LinkSocket::writePageFlash(int axis,QTreeWidgetItem *item)
   {
     uint32_t wv;
     int32_t rv;
-    wv=item->text(COL_PAGE_TREE_VALUE).toUInt();
+    double value=0;
+    value=item->text(COL_PAGE_TREE_VALUE).toDouble()+0.5;
+    wv=(uint32_t)value;
 
     quint8 tryCount=0;
     do{
@@ -184,7 +192,9 @@ bool LinkSocket::writePageFlash(int axis,QTreeWidgetItem *item)
   {
     int32_t wv;
     int32_t rv;
-    wv=item->text(COL_PAGE_TREE_VALUE).toInt();
+    double value=0;
+    value=item->text(COL_PAGE_TREE_VALUE).toDouble()+0.5;
+    wv=(int32_t)value;
 
     quint8 tryCount=0;
     do{
@@ -199,7 +209,9 @@ bool LinkSocket::writePageFlash(int axis,QTreeWidgetItem *item)
   {
     uint64_t wv;
     int64_t rv;
-    wv=item->text(COL_PAGE_TREE_VALUE).toULongLong();
+    double value=0;
+    value=item->text(COL_PAGE_TREE_VALUE).toDouble()+0.5;
+    wv=(uint64_t)value;
 
     quint8 tryCount=0;
     do{
@@ -214,7 +226,9 @@ bool LinkSocket::writePageFlash(int axis,QTreeWidgetItem *item)
   {
     int64_t wv;
     int64_t rv;
-    wv=item->text(COL_PAGE_TREE_VALUE).toLongLong();
+    double value=0;
+    value=item->text(COL_PAGE_TREE_VALUE).toDouble()+0.5;
+    wv=(int64_t)value;
 
     quint8 tryCount=0;
     do{
@@ -229,7 +243,9 @@ bool LinkSocket::writePageFlash(int axis,QTreeWidgetItem *item)
   {
     uint16_t wv;
     int16_t rv;
-    wv=item->text(COL_PAGE_TREE_VALUE).toUShort();
+    double value=0;
+    value=item->text(COL_PAGE_TREE_VALUE).toDouble()+0.5;
+    wv=(uint16_t)value;
 
     quint8 tryCount=0;
     do{
@@ -246,4 +262,9 @@ bool LinkSocket::writePageFlash(int axis,QTreeWidgetItem *item)
 void LinkSocket::setTryWriteCount(quint8 tryWriteCount)
 {
   m_tryWriteCount = tryWriteCount;
+}
+
+ComDriver::ICom *LinkSocket::comObject() const
+{
+  return m_com;
 }

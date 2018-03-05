@@ -40,7 +40,7 @@ bool SevDspMap::initTreeMap()
   for(int i=0;i<q_ptr->m_devConfig->m_axisNum;i++)
   {
     sum+=inc;
-    emit initProgressInfo(sum,tr("new AxisTreeMap %1").arg(i+1));
+    emit initProgressInfo(sum,tr("New AxisTreeMap %1").arg(i+1));
     GTUtils::delayms(10);
     treeMap=new AxisTreeMap(i,target,q_ptr->m_filePath);
     Q_ASSERT(treeMap!=NULL);

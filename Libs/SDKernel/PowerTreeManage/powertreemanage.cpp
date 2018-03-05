@@ -20,6 +20,20 @@ typedef enum{
   DETINFO_ROW_INX_AXISNUM
 }DetailInfoRowInx;
 
+enum PwrColumnInx{
+  PWR_COL_INX_NAME,
+  PWR_COL_INX_VALUE,
+  PWR_COL_INX_UNIT,
+  PWR_COL_INX_SCALE,
+  PWR_COL_INX_DESCRIPTION,
+  PWR_COL_INX_TYPE,
+  PWR_COL_INX_ADDR,
+  PWR_COL_INX_CTLNAME,
+  PWR_COL_INX_CTLMAX,
+  PWR_COL_INX_CTLMIN,
+  PWR_COL_INX_UNIQUENAME
+};
+
 SamplingDataInfo::SamplingDataInfo()
 {
 
@@ -61,28 +75,35 @@ void SamplingDataInfo::setMathExp(const QStringList &mathExp)
 }
 
 
-PowerTreeManage::PowerTreeManage(const quint32 id, QObject *parent) : QObject(parent)
+PowerTreeManage::PowerTreeManage(DeviceConfig *sev, QObject *parent) : QObject(parent)
 //  m_powerTree(powerTree),
 //  m_pwrTarget(NULL)
 {
     m_powerTree = NULL;
     m_pwrTarget = NULL;
-    QString idStr = QString::number(id, 10);
+    m_sev = sev;
+    QString idStr = QString::number(m_sev->m_devId, 10);
     qDebug()<<idStr;
     QString path = GTUtils::databasePath() + "Board/PB/";
     QString filePath = path + "pbindex.ui";
     qDebug()<<filePath;
     QTreeWidget *indexTree = QtTreeManager::createTreeWidgetFromXmlFile(filePath);
-    QTreeWidgetItem* targetItem = GLO::findItem(idStr, indexTree, PWR_COL_INX_VALUE);
+    QTreeWidgetItem* targetItem = GTUtils::findItem(idStr, indexTree, PWR_COL_INX_VALUE);
     if (targetItem == NULL) {
         return;
     }
-    path = path + GLO::getPath(targetItem);
-    m_filterPath = path + GLO::getFilterPath(targetItem);
+    path = path + getPath(targetItem);
+    m_filterPath = path + getFilterPath(targetItem);
     m_powerTree = QtTreeManager::createTreeWidgetFromXmlFile(path);
-    m_pwrTarget = GLO::findItem(idStr, m_powerTree, PWR_COL_INX_VALUE);
+    m_pwrTarget = GTUtils::findItem(idStr, m_powerTree, PWR_COL_INX_VALUE);
     delete indexTree;
 }
+
+PowerTreeManage::~PowerTreeManage() {
+    delete m_powerTree;
+    delete m_pwrTarget;
+}
+
 /**
  * @brief PowerTreeManage::findTargetBoard
  * @param id
@@ -144,7 +165,7 @@ QTreeWidgetItem * PowerTreeManage::detailInfoTreeItem(QTreeWidgetItem *target)
   return detailItem;
 }
 
-bool PowerTreeManage::updatePowerLimitMapList(QString version, QList<QMap<QString, PowerBoardLimit> > &powerLimitMapList)
+bool PowerTreeManage::updatePowerLimitMapList(QList<QMap<QString, PowerBoardLimit> > &powerLimitMapList)
 {
   if(m_pwrTarget==NULL)
     return false;
@@ -152,7 +173,8 @@ bool PowerTreeManage::updatePowerLimitMapList(QString version, QList<QMap<QStrin
   int axisNum;
 //  QTreeWidgetItem *item;
   powerLimitMapList.clear();
-  m_filterPath = m_filterPath + "V" + version + ".ui";
+  m_filterPath = m_filterPath + m_sev->m_version + ".ui";
+  qDebug()<<"filterpath "<<m_filterPath;
   QTreeWidget* filterTree = QtTreeManager::createTreeWidgetFromXmlFile(m_filterPath);
 
   for (int i = 0; i < filterTree->topLevelItemCount(); i++) {
@@ -182,6 +204,7 @@ bool PowerTreeManage::updatePowerLimitMapList(QString version, QList<QMap<QStrin
 //      qDebug()<<mapIt.key()<<" max="<<mapIt.value().max<<" min="<<mapIt.value().min;
 //    }
 //  }
+  delete filterTree;
   return true;
 }
 
@@ -317,4 +340,31 @@ QTreeWidgetItem *PowerTreeManage::findItemByNameRecursion(QTreeWidgetItem *item,
   }
   level--;
   return target;
+}
+
+QString PowerTreeManage::getPath(QTreeWidgetItem *item) {
+    QString result = item->text(PWR_COL_INX_VALUE);
+    QString fileName = item->text(PWR_COL_INX_VALUE) + ".ui";
+    int count = 0;
+    QTreeWidgetItem *currentItem = item;
+    while (count < 3) {
+        currentItem = currentItem->parent();
+        result = currentItem->text(PWR_COL_INX_VALUE) + "/" + result;
+        count++;
+    }
+    result = result + "/" + fileName;
+    return result;
+}
+
+QString PowerTreeManage::getFilterPath(QTreeWidgetItem *item) {
+    QString result = item->text(PWR_COL_INX_VALUE);
+    int count = 0;
+    QTreeWidgetItem *currentItem = item;
+    while (count < 3) {
+        currentItem = currentItem->parent();
+        result = currentItem->text(PWR_COL_INX_VALUE) + "/" + result;
+        count++;
+    }
+    result = result + "/filter/";
+    return result;
 }

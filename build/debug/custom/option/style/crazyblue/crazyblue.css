@@ -1,4 +1,4 @@
-QMainWindow {
+﻿QMainWindow {
     background: rgb(38, 83, 159);
 }
 QMainWindow::separator {
@@ -19,7 +19,7 @@ QMainWindow::separator:hover {
 
 
 
-/*------------tool bar-----------------------------*/
+/*===================tool bar===================*/
 QToolBar#mainToolBar {
 	background: rgb(38, 83, 159);
 	spacing: 3px; 
@@ -28,12 +28,12 @@ QToolBar#mainToolBar {
 	margin-top:5px;
 	margin-bottom:5px;
 }
-/*------------tool button-------------------------*/
+/*====================tool button=====================*/
 QToolButton { /* all types of tool button */
 	color:white;
 }
 
-/*---------------main treeWidget 导航栏----------------------*/
+/*==========================main treeWidget 导航栏=====================*/
 QDockWidget  QTreeView {
     show-decoration-selected: 1;
     background-color:rgb(38, 83, 159);
@@ -98,29 +98,193 @@ QWidget#mainStackedWidget{
 	border-radius:15px;
 	border:1px solid gray;
 }
-/*-----------状态栏------------------*/
+/*==============================状态栏=========================*/
 QWidget#statusBar{
 background-color: rgb(38, 83, 159);
 }
+/*============自定义stylewidget 可以在C++环境中索引到其值=================*/
+StyleWidget{
+	qproperty-dsBoxBackgroundDefColor:white;
+	qproperty-dsBoxBackgroundReadyColor:yellow;
+	qproperty-dsBoxBackgroundErrorColor:red;
+	qproperty-dsBoxTextEditColor:blue;
+	qproperty-dsBoxTextDefColor:black;
+	
+	qproperty-msgNormalColor:white;
+	qproperty-msgWarningColor:yellow;
+	qproperty-msgErrorColor:red;
+}
 
-/*------------电机界面------------------*/
+/*====================电机界面===================*/
 QWidget#widget_machinePrm{
-background-color: rgb(211, 211, 211);
+background-color: #E0DDDD;
 border-radius:5px;
+border:2px solid #BBB9B9;
 }
 QWidget#widget_currentPrm{
-background-color: rgb(211, 211, 211);
+background-color: #E0DDDD;
 border-radius:5px;
+border:2px solid #BBB9B9;
 }
 QWidget#widget_impedancePrm{
-background-color: rgb(211, 211, 211);
+background-color: #E0DDDD;
 border-radius:5px;
+border:2px solid #BBB9B9;
 }
 QWidget#widget_torquePrm{
-background-color: rgb(211, 211, 211);
+background-color: #E0DDDD;
 border-radius:5px;
+border:2px solid #BBB9B9;
 }
 QWidget#widget_velocityPrm{
-background-color: rgb(211, 211, 211);
+background-color: #E0DDDD;
 border-radius:5px;
+border:2px solid #BBB9B9;
 }
+
+QLabel#label_motorCur{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+}
+
+QLabel#label_MotorMac{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+}
+
+QLabel#label_motorVel{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+}
+
+QLabel#label_MotorImp{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+}
+
+QLabel#label_motorTor{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+}
+
+/*================================功率界面===============================*/
+
+QWidget#widget_pwrBus{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QWidget#widget_pwrBrake{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QWidget#widget_pwrRelay{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+/*===============================制动界面===============================*/
+
+QWidget#widget_brakeDynamic{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QWidget#widget_brakeEmergency{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QWidget#widget_brakeExternal{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QLabel#label_brakeEmergency{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+margin-bottom: 1px;
+}
+
+QLabel#label_brakeDynamic{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+margin-bottom: 1px;
+}
+
+QLabel#label_brakeExternal{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+margin-bottom: 1px;
+}
+
+
+QRadioButton::indicator::unchecked#btn_Admin {
+    image:url(../custom/option/style/black/icon/user_admin_unchecked.png)
+}
+
+QRadioButton::indicator:unchecked:hover#btn_Admin {
+    image:url(../custom/option/style/black/icon/user_admin_hover.png)
+}
+
+
+QRadioButton::indicator::checked#btn_Admin {
+    image:url(../custom/option/style/black/icon/user_admin_checked.png)
+}
+
+QRadioButton::indicator:checked:hover#btn_Admin {
+    image:url(../custom/option/style/black/icon/user_admin_checked.png)
+}
+
+QRadioButton::indicator::unchecked#btn_General {
+    image:url(../custom/option/style/black/icon/user_general_unchecked.png)
+}
+
+QRadioButton::indicator:unchecked:hover#btn_General {
+    image:url(../custom/option/style/black/icon/user_general_hover.png)
+}
+
+
+QRadioButton::indicator::checked#btn_General {
+    image:url(../custom/option/style/black/icon/user_general_checked.png)
+}
+
+QRadioButton::indicator:checked:hover#btn_General {
+    image:url(../custom/option/style/black/icon/user_general_checked.png)
+}
+
+QWidget#pswWidget {
+    background-color:lightgray;
+}
+
+QGroupBox#userBox {
+	border:0px
+}
+
+QGroupBox#pswBox {
+	border:0px
+}
+

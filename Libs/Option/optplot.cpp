@@ -34,7 +34,7 @@ OptPlot::~OptPlot()
 }
 void OptPlot::uiInit()
 {
-
+    qDebug()<<"plot ui Init";
 }
 
 bool OptPlot::optActive()

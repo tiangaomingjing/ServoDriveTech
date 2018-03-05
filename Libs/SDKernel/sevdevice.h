@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "sdkernel_global.h"
+#include "sevpwrboard.h"
 
 namespace ComDriver {
 class ICom;
@@ -28,8 +29,15 @@ public:
   bool init(const DeviceConfig *dConfig);
 
   void adjustSocket(ComDriver::ICom *com);
+  ComDriver::ICom *socketCom() const;
+
   bool enableConnection(void (*processCallBack)(void *argv, short *value), void *uiProcessBar);
   void disableConnection();
+  bool isConnecting() const;
+
+  quint64 genCmdRead(const QString &cmdReadName,qint16 axisIndex,bool &isOk);
+  bool genCmdWrite(const QString &cmdWriteName,quint64 value,qint16 axisIndex);
+
 
   QString typeName() const;
   QString modelName() const;
@@ -45,13 +53,22 @@ public:
   QTreeWidget *axisTreeSource(int axis,int page) const;
   QTreeWidget *globalTreeSource(int page) const;
 
+  void setVersionAttributeActive();
+
   Q_INVOKABLE void qmlTest();
 
 signals:
   void initProgressInfo(int value,QString msg);
+  void itemRangeValid(QTreeWidgetItem *item,int status);
 public slots:
-  void onReadPageFlash(int axis,QTreeWidget *tree);
-  void onWritePageFlash(int axis,QTreeWidget *tree);
+  bool onReadPageFlash(int axis,QTreeWidget *tree);
+  bool onWritePageFlash(int axis,QTreeWidget *tree);
+  //bool onReadItemFlash(int axis,QTreeWidgetItem *item);
+  //bool onReadItemRam(int axis,QTreeWidgetItem *item);
+private:
+  bool checkPropertyParameters(QTreeWidgetItem *item);
+  bool checkPowerBoardParameters(QTreeWidgetItem *item,const QMap<QString ,PowerBoardLimit> *limit);
+  bool checkParameters(int axis,QTreeWidget *tree);
 private:
   SevDevicePrivate *d_ptr;
 };

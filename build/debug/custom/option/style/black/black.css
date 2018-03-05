@@ -1,4 +1,11 @@
-QPushButton{
+﻿/*==========================main treeWidget 导航栏=====================*/
+QDockWidget  QTreeView {
+	border:1px solid lightgray;
+	border-bottom-color:transparent;
+	border-top-color:transparent;
+}
+
+﻿QPushButton{
   border-style: none;
   border: 0px;
   color: #F0F0F0;
@@ -35,6 +42,7 @@ QListView::item {
 	border: 1px solid #d9d9d9;
 	border-left-color: transparent;
 	border-top-color: transparent;
+	min-height:30px;
 }
 QListView::item:hover {
 	background: lightgray;
@@ -52,9 +60,10 @@ QListView::item:selected:!active {
 QWidget#dockWidgetContents_2{
 background-color: rgb(161, 161, 161);
 }
+/*====================工具栏=======================*/
 QToolBar {
 	border:none;
-    background-color: rgb(80, 80, 80);
+    background-color: #252A3E;
 	/*background: #000066;
 	background: seagreen;*/
     spacing: 3px; /* spacing between items in the tool bar */
@@ -66,8 +75,9 @@ QToolButton { /* all types of tool button */
 	padding-left:0px;
 	padding-right:0px;
 	color:white;
-    border-radius: 5px;
-    background-color: rgb(80, 80, 80);
+    border-radius: 0px;
+    background-color: #252A3E;
+	font-weight:normal;
 	/*background-color:#000066;
 	background-color:seagreen;*/
 }
@@ -78,10 +88,14 @@ QToolButton[popupMode="1"] { /* only for MenuButtonPopup */
 
 QToolButton:hover:!pressed {
     background-color: gray;
-	border:1px solid white;
+	border:none;
+	
+	font-weight:bold;
 }
 QToolButton:hover:pressed {
     background-color: rgb(86, 86, 86);
+	font-weight:normal;
+	color:#252A3E;
 }
 /*QToolButton:checked {
     background-color: rgb(40, 40, 40);
@@ -116,7 +130,7 @@ QToolButton::menu-button {
 }
 
 QToolButton::menu-arrow {
-    image: url(downarrow.png);
+    /*image: url(downarrow.png);*/
 }
 
 QToolButton::menu-arrow:open {
@@ -127,5 +141,296 @@ background-color: #F0F0F0;
 }
 QWidget#mainStackedWidget{
 background-color: #F0F0F0;
+}
+/*==============================状态栏====================================*/
+QWidget#statusBar{
+	border:none;
+	/*border-left-color:transparent;
+	border-bottom-color:transparent;
+	border-right-color:transparent;*/
+	background-color:#E0DDDD;
+}
+QToolButton#tbtnError,QToolButton#tbtnNet { /* all types of tool button */
+    border: none;
+	padding-top:5px;
+	padding-bottom:5px;
+	padding-left:0px;
+	padding-right:0px;
+	color:red;
+    border-radius: 5px;
+    background-color: transparent;
+}
+QToolButton#tbtnError:hover{
+    background-color: #252A3E;
+	color:white;
+}
+
+
+
+/*============自定义stylewidget 可以在C++环境中索引到其值=================*/
+StyleWidget{
+	qproperty-dsBoxBackgroundDefColor:white;
+	qproperty-dsBoxBackgroundReadyColor:green;
+	qproperty-dsBoxBackgroundErrorColor:#E61EE4;
+	qproperty-dsBoxTextEditColor:blue;
+	qproperty-dsBoxTextDefColor:black;
+	
+	qproperty-msgNormalColor:black;
+	qproperty-msgWarningColor:blue;
+	qproperty-msgErrorColor:red;
+}
+
+
+/*====================电机界面===================*/
+QWidget#widget_machinePrm{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+QWidget#widget_currentPrm{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+QWidget#widget_impedancePrm{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+QWidget#widget_torquePrm{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+QWidget#widget_velocityPrm{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+/*====================编码器界面===================*/
+QLabel#label_encMsg{
+	font-weight:bold;
+	color:red;
+	margin-top:10px;
+}
+QListWidget#listWidget_encErr{
+border:1px solid red;
+border-top-left-radius:10px;
+border-top-right-radius:10px;
+border-bottom-color:transparent;
+background-color:transparent;
+color:red;
+font-weight:bold;
+}
+QPushButton#btn_encClearErr{
+border:1px solid red;
+border-bottom-left-radius:10px;
+border-bottom-right-radius:10px;
+border-top-color:transparent;
+background-color:red;
+min-height:30px;
+color:white;
+font-weight:normal;
+}
+QPushButton#btn_encClearErr:hover:!pressed{
+border:none;
+background-color:#A00000;
+font-weight:bold;
+}
+QPushButton#btn_encClearErr:hover:pressed{
+border:none;
+background-color:#680000;
+}
+
+QLabel#label_motorCur{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+}
+
+QLabel#label_MotorMac{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+}
+
+QLabel#label_motorVel{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+}
+
+QLabel#label_MotorImp{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+}
+
+QLabel#label_motorTor{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+}
+
+/*================================功率界面===============================*/
+
+QWidget#widget_pwrBus{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QWidget#widget_pwrBrake{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QWidget#widget_pwrRelay{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+/*===============================制动界面===============================*/
+
+QWidget#widget_brakeDynamic{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QWidget#widget_brakeEmergency{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QWidget#widget_brakeExternal{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QLabel#label_brakeEmergency{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_brakeDynamic{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_brakeExternal{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+/*====================Current 电流控制器页面===================*/
+IGraphWidget{
+	border:none;
+	qproperty-backGroundColor:#F0F0F0;
+	qproperty-arrowColor:gray;
+}
+
+QWidget#widget_currentPid{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+QLabel#label_currentTitle{
+	padding-bottom:10px;
+	margin-bottom:5px;
+	color:black;
+	border:1px solid transparent;
+	border-bottom-color:black;
+	font-weight:bold;
+}
+QWidget#widget_currentPid QDoubleSpinBox{
+	min-height:30px;
+	min-width:150px;
+}
+
+QLabel#label_currentInputFilter{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:50px;
+	padding:10px;
+}
+QLabel#label_currentFeedback{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:30px;
+	padding:10px;
+}
+SumItemWidget#sumItemWidget_currentSum{
+	background-color:transparent;
+	border:none;
+	qproperty-lineColor: gray;
+} 
+
+/*====================option设置对话框===================*/
+
+/*--------------------用户-------------------------*/
+QRadioButton::indicator::unchecked#btn_Admin {
+    image:url(../custom/option/style/black/icon/user_admin_unchecked.png)
+}
+
+QRadioButton::indicator:unchecked:hover#btn_Admin {
+    image:url(../custom/option/style/black/icon/user_admin_hover.png)
+}
+
+
+QRadioButton::indicator::checked#btn_Admin {
+    image:url(../custom/option/style/black/icon/user_admin_checked.png)
+}
+
+QRadioButton::indicator:checked:hover#btn_Admin {
+    image:url(../custom/option/style/black/icon/user_admin_checked.png)
+}
+
+QRadioButton::indicator::unchecked#btn_General {
+    image:url(../custom/option/style/black/icon/user_general_unchecked.png)
+}
+
+QRadioButton::indicator:unchecked:hover#btn_General {
+    image:url(../custom/option/style/black/icon/user_general_hover.png)
+}
+
+
+QRadioButton::indicator::checked#btn_General {
+    image:url(../custom/option/style/black/icon/user_general_checked.png)
+}
+
+QRadioButton::indicator:checked:hover#btn_General {
+    image:url(../custom/option/style/black/icon/user_general_checked.png)
+}
+
+QWidget#pswWidget {
+    background-color:lightgray;
+}
+
+QGroupBox#userBox {
+	border:0px
+}
+
+QGroupBox#pswBox {
+	border:0px
 }
 

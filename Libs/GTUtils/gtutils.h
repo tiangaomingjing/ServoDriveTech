@@ -2,6 +2,7 @@
 #define UTILS_H
 
 #include "gtutils_global.h"
+#include <QStringList>
 
 //对应目录下相关文件名
 #define SYSCONFIGTREE_NAME            "SysConfigTree.ui"
@@ -39,9 +40,13 @@ public:
 
   static void clearTreeWidgetList(QList<QTreeWidget*> &list);
 
+  static QTreeWidgetItem* findTopLevelItem(QTreeWidgetItem *item);
+
+  static QTreeWidgetItem* findItem(QString text, QTreeWidget* tree, int col);
+  static QTreeWidgetItem* findItemInItem(QString text, QTreeWidgetItem* tree, int col);
+
 private:
   inline static QString sdtPath();
 };
-
 
 #endif // UTILS_H

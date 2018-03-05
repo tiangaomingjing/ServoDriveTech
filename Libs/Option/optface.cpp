@@ -1,7 +1,8 @@
 ﻿#include "optface.h"
 #include "ui_optface.h"
 #include "iopt_p.h"
-#include "qmlstylehelper.h"
+//#include "qmlstylehelper.h"
+#include "stylewidget.h"
 
 #include <QDebug>
 #include <QFile>
@@ -15,6 +16,7 @@
 #include <QPainter>
 #include <QDir>
 #include <QFileInfoList>
+#include <QDoubleSpinBox>
 
 StyleIconWidget::StyleIconWidget(const QString &iconpath,const QString &title,const QString &css,QWidget *parent):QWidget(parent),
   m_css(css),
@@ -84,7 +86,9 @@ public:
   QString m_css;//立即生效的参数，所以不用点应用也保存了
   quint8 m_fontSize;//立即生效的参数，所以不用点应用也保存了
   QString m_lang;
-  QmlStyleHelper *m_qmlHelper;
+//  QmlStyleHelper *m_qmlHelper;
+  StyleWidget m_customStyle;
+  QStringList m_editTextStyleSheetList;
 
 };
 OptFacePrivate::OptFacePrivate()
@@ -103,7 +107,7 @@ OptFace::OptFace(const QString &optName, QWidget *parent) :  IOpt(optName,*new O
   ui->setupUi(this);
   readOpt();
 
-  d->m_qmlHelper=new QmlStyleHelper(d->m_fontSize,d->m_lang,d->m_css,this);
+//  d->m_qmlHelper=new QmlStyleHelper(d->m_fontSize,d->m_lang,d->m_css,this);
 
   ui->comboBox->addItem("12",12);
   ui->comboBox->addItem("14",14);
@@ -164,6 +168,8 @@ OptFace::OptFace(const QString &optName, QWidget *parent) :  IOpt(optName,*new O
 
   uiInit();
 
+//  updateEditTextStyleSheetList();
+
   connect(ui->comboBox,SIGNAL(currentIndexChanged(int)),this,SLOT(onCurrentIndexChanged(int)));
   connect(ui->rbtn_ch,SIGNAL(clicked(bool)),this,SLOT(onRadioButtonClicked(bool)));
   connect(ui->rbtn_en,SIGNAL(clicked(bool)),this,SLOT(onRadioButtonClicked(bool)));
@@ -176,7 +182,7 @@ OptFace::~OptFace()
 void OptFace::uiInit()
 {
   Q_D(OptFace);
-
+    qDebug()<<"face ui Init";
   if(d->m_lang=="english")
     ui->rbtn_en->setChecked(true);
   else
@@ -199,12 +205,12 @@ bool OptFace::optActive()
   if(ui->rbtn_ch->isChecked())
   {
     d->m_lang="chinese";
-    d->m_qmlHelper->setLanguage("chinese");
+//    d->m_qmlHelper->setLanguage("chinese");
   }
   else
   {
     d->m_lang="english";
-    d->m_qmlHelper->setLanguage("english");
+//    d->m_qmlHelper->setLanguage("english");
   }
 
   setFaceFontSize(ui->comboBox->currentData().toInt());
@@ -243,7 +249,7 @@ void OptFace::setFaceStyle(const QString &css)
 
   QString filename=d->m_optPath+"style/"+css+"/"+css+".css";
 
-  qDebug()<<filename;
+  qDebug()<<"TEST_OUT CSS filePath "<<filename;
   QFile file(filename);
   if(file.open(QFile::ReadOnly))
   {
@@ -251,20 +257,25 @@ void OptFace::setFaceStyle(const QString &css)
 
     QString qss = in.readAll();
     qApp->setStyleSheet(qss);
+
+    updateEditTextStyleSheetList();
+
     file.close();
 
-    d->m_qmlHelper->setCss(css);
-    d->m_qmlHelper->setFontSize(d->m_fontSize);
+
+    //    d->m_qmlHelper->setCss(css);
+    //    d->m_qmlHelper->setFontSize(d->m_fontSize);
   }
   else
     qDebug()<<"open file :"<<filename<<"error";
+  emit faceCssChanged(css);
 }
 
 void OptFace::setFaceFontSize(int size)
 {
   Q_D(OptFace);
   d->m_fontSize=size;
-  QFont font=qApp->font();
+  QFont font;
   font.setPixelSize(size);
   qApp->setFont(font);
 }
@@ -287,11 +298,28 @@ QString OptFace::language() const
   return d->m_lang;
 }
 
-QmlStyleHelper *OptFace::qmlStyleHelper() const
+StyleWidget *OptFace::customStyleWidget()
 {
-  Q_D(const OptFace);
-  return d->m_qmlHelper;
+  Q_D(OptFace);
+  return &d->m_customStyle;
 }
+
+void OptFace::setEditTextStatus(QDoubleSpinBox *box,EditTextStatus sta)
+{
+  Q_D(OptFace);
+  int index=(int)sta;
+  if(index<d->m_editTextStyleSheetList.count())
+  {
+    box->setStyleSheet(d->m_editTextStyleSheetList.at(index));
+//    qDebug()<<"box->setStyleSheet"<<d->m_editTextStyleSheetList.at(index);
+  }
+}
+
+//QmlStyleHelper *OptFace::qmlStyleHelper() const
+//{
+//  Q_D(const OptFace);
+//  return d->m_qmlHelper;
+//}
 
 void OptFace::onRadioButtonClicked(bool checked)
 {
@@ -308,5 +336,37 @@ void OptFace::onStyleChanged(QString css)
 {
   setFaceFontSize(ui->comboBox->currentData().toInt());
   setFaceStyle(css);
-  emit faceCssChanged(css);
+}
+void OptFace::updateEditTextStyleSheetList()
+{
+  Q_D(OptFace);
+  d->m_editTextStyleSheetList.clear();
+  int r,g,b,br,bg,bb;
+  //Default
+  FILL_RGB(d->m_customStyle.dsBoxTextDefColor(),r,g,b);
+  FILL_RGB(d->m_customStyle.dsBoxBackgroundDefColor(),br,bg,bb);
+  QString str=QString("QDoubleSpinBox{color:rgb(%1,%2,%3);background-color:rgb(%4,%5,%6);}").arg(r).arg(g).arg(b).arg(br).arg(bg).arg(bb);
+  d->m_editTextStyleSheetList.append(str);
+  qDebug()<<"====================\ndefault style"<<str;
+
+  //Ready
+  FILL_RGB(d->m_customStyle.dsBoxTextDefColor(),r,g,b);
+  FILL_RGB(d->m_customStyle.dsBoxBackgroundReadyColor(),br,bg,bb);
+  str=QString("QDoubleSpinBox{color:rgb(%1,%2,%3);background-color:rgb(%4,%5,%6);}").arg(r).arg(g).arg(b).arg(br).arg(bg).arg(bb);
+  d->m_editTextStyleSheetList.append(str);
+  qDebug()<<"ready style"<<str;
+
+  //Editting
+  FILL_RGB(d->m_customStyle.dsBoxTextEditColor(),r,g,b);
+  FILL_RGB(d->m_customStyle.dsBoxBackgroundDefColor(),br,bg,bb);
+  str=QString("QDoubleSpinBox{color:rgb(%1,%2,%3);background-color:rgb(%4,%5,%6);}").arg(r).arg(g).arg(b).arg(br).arg(bg).arg(bb);
+  d->m_editTextStyleSheetList.append(str);
+  qDebug()<<"editting style"<<str;
+
+  //Error
+  FILL_RGB(d->m_customStyle.dsBoxTextDefColor(),r,g,b);
+  FILL_RGB(d->m_customStyle.dsBoxBackgroundErrorColor(),br,bg,bb);
+  str=QString("QDoubleSpinBox{color:rgb(%1,%2,%3);background-color:rgb(%4,%5,%6);}").arg(r).arg(g).arg(b).arg(br).arg(bg).arg(bb);
+  d->m_editTextStyleSheetList.append(str);
+  qDebug()<<"error style"<<str<<"\n=========================\n";
 }

@@ -33,3 +33,5 @@ unix {
 FORMS += \
     uibrake.ui \
     graphbrake129.ui
+
+RESOURCES +=

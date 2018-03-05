@@ -15,4 +15,7 @@ SUBDIRS += \
     TestDB \
     QmlQuickWidgetMaxTest \
     GraphFramework \
-    AppConfigDialogTest
+    AppConfigDialogTest \
+    AppDialboxTest \
+    AppCmdTest\
+    AppAnimationTest

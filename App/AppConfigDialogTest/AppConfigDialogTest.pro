@@ -4,6 +4,7 @@
 #
 #-------------------------------------------------
 include(../App.pri)
+INCLUDEPATH+=$${PWD}/../AppSDT/ConfigDialog
 
 QT       += core gui
 
@@ -15,12 +16,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         configmainwindow.cpp \
-    configdialog.cpp \
-    ../../Common/src/Kernel/deviceconfig.cpp
+    ../../Common/src/Kernel/deviceconfig.cpp \
+    ../AppSDT/ConfigDialog/configdialog.cpp
 
 HEADERS  += configmainwindow.h \
-    configdialog.h \
-    ../../Common/src/Kernel/deviceconfig.h
+    ../../Common/src/Kernel/deviceconfig.h \
+    ../AppSDT/ConfigDialog/configdialog.h
 
 FORMS    += configmainwindow.ui \
-    configdialog.ui
+    ../AppSDT/ConfigDialog/configdialog.ui

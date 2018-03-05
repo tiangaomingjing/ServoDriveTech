@@ -71,6 +71,10 @@ private:
 
   bool setConnect(bool net);
 
+  bool isAutoLoad();
+
+  bool MessageBoxAsk(const QString &msg);
+
 signals:
   void initProgressInfo(int barValue,QString msg);
 private slots:
@@ -78,11 +82,14 @@ private slots:
   void onActnTbtnMoreClicked();
   void onActnConnectClicked(bool checked);
   void onActnDisConnectClicked(bool checked);
-  void onActnHelpDeviceInfo();
+  void onActnHelpDeviceInfoClicked();
+  void onActnNewConfigClicked();
+  void onActnSaveClicked();
+  void onActnProduceClicked();
 
   //响应option选项slots
   void onOptAutoLoadChanged(bool changed);
-  void onOptFaceCssChanged(QString css);
+  void onOptFaceCssChanged(const QString &css);
 
   void onProgressInfo(int barValue, QString msg);
 

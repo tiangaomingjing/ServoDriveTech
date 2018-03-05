@@ -7,7 +7,8 @@
 include (../../Libs.pri)
 INCLUDEPATH+=$${PWD}/../../SDKernel\
               $${PWD}/../../GTUtils\
-              $${PWD}/../../Option
+              $${PWD}/../../Option\
+              $${PWD}/SDTGraphicsItems
 
 QT       += widgets quickwidgets qml
 
@@ -16,7 +17,8 @@ QT       -= gui
 
 TEMPLATE = lib
 
-DEFINES += IUIWIDGET_LIBRARY
+DEFINES += IUIWIDGET_LIBRARY \
+           SDTGRAPHICSITEMS_LIBRARY
 
 CONFIG(debug, debug|release){
     UI_OUT_PATH = $${APP_BUILD_PATH}/debug/bin
@@ -49,7 +51,15 @@ SOURCES += iuiwidget.cpp \
     imapping.cpp \
     boxitemmapping.cpp\
     igraph.cpp \
-    igraphbrake.cpp
+    igraphbrake.cpp \
+    idatabinding.cpp \
+    interactiveview.cpp \
+    SDTGraphicsItems/anchoritemhelper.cpp \
+    SDTGraphicsItems/arrowitem.cpp \
+    SDTGraphicsItems/sumitemwidget.cpp \
+    SDTGraphicsItems/targetitemwidget.cpp \
+    SDTGraphicsItems/widgetitem.cpp \
+    SDTGraphicsItems/labelitemwidget.cpp
 
 HEADERS += iuiwidget.h\
         iuiwidget_global.h \
@@ -77,7 +87,16 @@ HEADERS += iuiwidget.h\
     igraphbrake.h \
     igraphbrake_p.h \
     igraphwidget_p.h \
-    ../../Option/Option
+    idatabinding.h \
+    interactiveview.h \
+    SDTGraphicsItems/anchoritemhelper.h \
+    SDTGraphicsItems/arrowitem.h \
+    SDTGraphicsItems/sdtgraphicsitems_global.h \
+    SDTGraphicsItems/sumitemwidget.h \
+    SDTGraphicsItems/targetitemwidget.h \
+    SDTGraphicsItems/widgetitem.h \
+    SDTGraphicsItems/SDTGraphicsItems \
+    SDTGraphicsItems/labelitemwidget.h
 
 unix {
     target.path = /usr/lib

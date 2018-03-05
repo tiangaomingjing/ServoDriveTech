@@ -38,8 +38,8 @@ QList<DeviceConfig *>DevTextRWriter::createConfig(void (*processCallback)(void *
       device->m_devId=devItem->text(COL_ID).toUInt();
       device->m_comType=comItem->text(COL_PRM).toUInt();
       device->m_rnStationId=comItem->text(COL_PRM_EX0).toUInt();
-      device->m_axisNum=typeItem->text(COL_PRM).toUInt();
       device->m_typeName=typeItem->text(COL_NAME);
+      device->m_axisNum=modelItem->text(COL_PRM).toUInt();
       device->m_modeName=modelItem->text(COL_NAME);
       device->m_version=versionItem->text(COL_NAME);
 

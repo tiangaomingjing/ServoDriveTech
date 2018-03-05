@@ -15,6 +15,7 @@
 #include <QAction>
 #include <QQmlEngine>
 #include <QLabel>
+#include <QDebug>
 
 IUiWidget::IUiWidget(QWidget *parent):QWidget(parent),d_ptr(new IUiWidgetPrivate())
 {
@@ -23,6 +24,7 @@ IUiWidget::IUiWidget(QWidget *parent):QWidget(parent),d_ptr(new IUiWidgetPrivate
 IUiWidget::~IUiWidget()
 {
   delete d_ptr;
+  qDebug()<<"IUiWidget destruct-->";
 }
 IUiWidget::IUiWidget(IUiWidgetPrivate &dd,QWidget *parent):QWidget(parent),d_ptr(&dd)
 {
@@ -71,13 +73,6 @@ void IUiWidget::setContextAction()
   this->addAction(d->m_actReadFLASH);
 }
 
-//!
-//! \brief IUiWidget::updateUi 每一个子类中更新 ui的方法不一样，主要是从ram 还是从flash里读取数据更新树
-//!
-void IUiWidget::updateUi()
-{
-  qDebug()<<this->objectName()<<"updateUi";
-}
 SevDevice*IUiWidget::device()
 {
   Q_D(IUiWidget);
@@ -156,35 +151,38 @@ UiIndexs IUiWidget::uiIndexs() const
 //!
 //! \brief IUiWidget::readPageFLASH 委托设备去读FLASH
 //!
-void IUiWidget::readPageFLASH()
+bool IUiWidget::readPageFLASH()
 {
   Q_D(IUiWidget);
   qDebug()<<this->objectName()<<"read flash";
 //  emit sglReadPageFlash(d->axisInx,d->m_dataTree);
-  d->m_device->onReadPageFlash(d->m_index.axisInx,d->m_dataTree);
+  bool rOk;
+  rOk=d->m_device->onReadPageFlash(d->m_index.axisInx,d->m_dataTree);
+  return rOk;
 }
 
 //!
 //! \brief IUiWidget::writePageFLASH 委托设备去写FLASH
 //!
-void IUiWidget::writePageFLASH()
+bool IUiWidget::writePageFLASH()
 {
   Q_D(IUiWidget);
-  qDebug()<<this->objectName()<<"read flash";
+  qDebug()<<this->objectName()<<"write page flash";
 //  emit sglWritePageFlash(d->axisInx,d->m_dataTree);
-  d->m_device->onWritePageFlash(d->m_index.axisInx,d->m_dataTree);
+  bool wOk=true;
+  wOk=d->m_device->onWritePageFlash(d->m_index.axisInx,d->m_dataTree);
+  return wOk;
 }
 void IUiWidget::setUiActive(bool actived)
 {
-  if(actived)
-    updateUi();
-  emit uiActiveChanged(actived);
+  Q_UNUSED(actived);
+//  qDebug()<<"TEST_OUT ui"<<this->objectName()<<"active"<<actived;
 }
 
 void IUiWidget::onTreeItemClickedEdit(QTreeWidgetItem *item, int column)
 {
   Q_D(IUiWidget);
-  if(column==UI::COL_PAGE_TREE_VALUE)
+  if(column==GT::COL_PAGE_TREE_VALUE)
   {
     if(item->childCount()==0)
     {

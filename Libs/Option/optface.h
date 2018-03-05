@@ -34,12 +34,21 @@ private:
 
 };
 class QSettings;
-class QmlStyleHelper;
+//class QmlStyleHelper;
+class StyleWidget;
+class QDoubleSpinBox;
 class OPTIONSHARED_EXPORT OptFace : public IOpt
 {
   Q_OBJECT
   Q_DECLARE_PRIVATE(OptFace)
 public:
+  typedef enum{
+    EDIT_TEXT_STATUS_DEFAULT,
+    EDIT_TEXT_STATUS_READY,
+    EDIT_TEXT_STATUS_EDITTING,
+    EDIT_TEXT_STATUS_ERROR
+  }EditTextStatus;
+
   explicit OptFace(const QString &optName, QWidget *parent = 0);
   ~OptFace();
 
@@ -49,7 +58,9 @@ public:
   int fontSize() const;
   QString css() const;
   QString language() const;
-  QmlStyleHelper *qmlStyleHelper() const;
+//  QmlStyleHelper *qmlStyleHelper() const;
+  StyleWidget *customStyleWidget();
+  void setEditTextStatus(QDoubleSpinBox *box,EditTextStatus sta);
 
 protected:
   bool optActive()Q_DECL_OVERRIDE;
@@ -58,12 +69,13 @@ protected:
   void respondErrorExecute()Q_DECL_OVERRIDE;
 
 signals:
-  void faceCssChanged(QString css);
+  void faceCssChanged(const QString &css);
 
 private slots:
   void onRadioButtonClicked(bool checked);
   void onCurrentIndexChanged(int index);
   void onStyleChanged(QString css);
+  void updateEditTextStyleSheetList();
 
 private:
   Ui::OptFace *ui;

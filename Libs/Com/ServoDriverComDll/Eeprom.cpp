@@ -43,13 +43,15 @@ int16 CEeprom::EepromBaseOptWr(Uint16 eeprom_addr, Uint8 byte_data)
 	if (pCom->GetComProtocolType() == COM_PROTOCO_NET)
 	{
 		com_addr = eeprom_addr;
-		base_addr = FPGA_RN_EPR_START_OFST;
+        //base_addr = FPGA_RN_EPR_START_OFST;
+        base_addr = m_eeprom_id == FPGA_NORMAL_EEPROM ? FPGA_RN_EPR_START_OFST : FPGA_RN_EPR_EXT_START_OFST;
 		comAddr = base_addr + (com_addr);
 	}
 	else if (pCom->GetComProtocolType() == COM_PROTOCO_RINGNET)
 	{
 		com_addr = eeprom_addr;
-		base_addr = FPGA_EEPROM_BASEADDR;
+        //base_addr = FPGA_EEPROM_BASEADDR;
+        base_addr = m_eeprom_id == FPGA_NORMAL_EEPROM ? FPGA_EEPROM_BASEADDR : FPGA_EEPROM_EXT_BASEADDR;
 		comAddr = base_addr + (com_addr);
 	}
 	int16 comNum = 1;
@@ -74,19 +76,21 @@ int16 CEeprom::EepromBaseOptRd(Uint16 eeprom_addr, Uint8* byte_data)
 	if (pCom->GetComProtocolType() == COM_PROTOCO_NET)
 	{
 		com_addr = eeprom_addr;
-		base_addr = FPGA_RN_EPR_START_OFST; 
+        //base_addr = FPGA_RN_EPR_START_OFST;
+        base_addr = m_eeprom_id == FPGA_NORMAL_EEPROM ? FPGA_RN_EPR_START_OFST : FPGA_RN_EPR_EXT_START_OFST;
 		comAddr = base_addr + (com_addr);
 	}
 	else if (pCom->GetComProtocolType() == COM_PROTOCO_RINGNET)
 	{
 		com_addr = eeprom_addr;
-		base_addr = FPGA_EEPROM_BASEADDR;
+        //base_addr = FPGA_EEPROM_BASEADDR;
+        base_addr = m_eeprom_id == FPGA_NORMAL_EEPROM ? FPGA_EEPROM_BASEADDR : FPGA_EEPROM_EXT_BASEADDR;
 		comAddr = base_addr + (com_addr);
 	}
 	int16 comNum = 1;
 
 	iRet = pCom->ComRdFpgaHandle((comAddr), (int16*)read_data, comNum, m_des_id, NULL);//
-	*byte_data = read_data[0];
+    *byte_data = read_data[0];
 	return iRet;
 }
 
@@ -140,25 +144,40 @@ int16 CEeprom::EepromWrite8bit(Uint16 byte_addr, Uint8 byte_data)
 
 	for (iFinish = 0; iFinish < 4; iFinish++)
 	{
-		Sleep(5);
+        Sleep(1);
 		//¼ì²âÐ´Êý¾ÝÊÇ·ñÍê³É
 		iRet = EepromBaseOptRd(ADDR_STS, &status);
+        int count = 0;
+
 		if ((1 == (status & 0x0001)))//ÅÐ¶Ï¶ÁÐ´ÊÇ·ñ³ö´í
 		{
 			//Èç¹û¶ÁÐ´ÎÞÓ¦´ð
-			break;
+            count = 0;
+            while ((1 == (status & 0x0001)) && count < 2) {
+                iRet = EepromBaseOptRd(ADDR_STS, &status);
+                count++;
+            }
+            return RTN_0ERROR;
+            //break;
 		}
-		else if (0 == ((status & 0x0002) >> 1))//ÅÐ¶Ï¶ÁÐ´ÊÇ·ñÍê³É
+        else if (0 == ((status & 0x0002) >> 1))//ÅÐ¶Ï¶ÁÐ´ÊÇ·ñÍê³É
+        //else if (1 != ((status & 0x0002) >> 1))
 		{
 			//Èç¹ûÃ»ÓÐÍê³É
-			continue;
+            count = 0;
+            while ((0 == ((status & 0x0002) >> 1)) && count < 2) {
+                iRet = EepromBaseOptRd(ADDR_STS, &status);
+                count++;
+            }
+            return RTN_1ERROR;
+            //continue;
 		}
 
-		if ((0 == (status & 0x0001)) && (1 == ((status & 0x0002) >> 1)))//ÅÐ¶Ï¶ÁÐ´ÊÇ·ñ³ö´í
-		{
-			//Èç¹û¶ÁÐ´ÎÞ´íÎó²¢ÇÒÍê³É
-			return RTN_SUCCESS;
-		}
+        if ((0 == (status & 0x0001)) && (1 == ((status & 0x0002) >> 1)))//ÅÐ¶Ï¶ÁÐ´ÊÇ·ñ³ö´í
+        {
+            //Èç¹û¶ÁÐ´ÎÞ´íÎó²¢ÇÒÍê³É
+            return RTN_SUCCESS;
+        }
 
 	}
 	return RTN_PCI_FPGA_ERR;
@@ -211,24 +230,38 @@ int16 CEeprom::EepromRead8bit(Uint16 byte_addr, Uint8* byte_data)
 
 	for (iFinish = 0; iFinish < 4; iFinish++)
 	{
-		Sleep(5);
+        Sleep(1);
 		//¼ì²âÐ´Êý¾ÝÊÇ·ñÍê³É
+        int count = 0;
 		iRet = EepromBaseOptRd(ADDR_STS, &status);
 		if ((1 == (status & 0x0001)))//ÅÐ¶Ï¶ÁÐ´ÊÇ·ñ³ö´í
 		{
-			//Èç¹û¶ÁÐ´ÎÞÓ¦´ð
-			break;
+            count = 0;
+            while ((1 == (status & 0x0001)) && count < 2) {
+                iRet = EepromBaseOptRd(ADDR_STS, &status);
+                count++;
+            }
+            return RTN_0ERROR;
+            //break;
 		}
-		else if (0 == ((status & 0x0002) >> 1))//ÅÐ¶Ï¶ÁÐ´ÊÇ·ñÍê³É
+        else if (0 == ((status & 0x0002) >> 1))//ÅÐ¶Ï¶ÁÐ´ÊÇ·ñÍê³É
+        //else if (0 != ((status & 0x0002) >> 1))
 		{
 			//Èç¹ûÃ»ÓÐÍê³É
-			continue;
+            count = 0;
+            while ((0 == ((status & 0x0002) >> 1)) && count < 2) {
+                iRet = EepromBaseOptRd(ADDR_STS, &status);
+                count++;
+            }
+            return RTN_1ERROR;
+            //continue;
 		}
 
 		if ((0 == (status & 0x0001)) && (1 == ((status & 0x0002) >> 1)))//ÅÐ¶Ï¶ÁÐ´ÊÇ·ñ³ö´í
 		{
 			//Èç¹û¶ÁÐ´ÎÞ´íÎó²¢ÇÒÍê³É
-			break;;
+            //return RTN_2ERROR;
+            break;;
 		}
 	}
 

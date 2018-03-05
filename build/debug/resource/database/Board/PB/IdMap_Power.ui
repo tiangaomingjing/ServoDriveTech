@@ -36,6 +36,11 @@
        <string>nickname</string>
       </property>
      </column>
+     <column>
+      <property name="text">
+       <string>axisNum</string>
+      </property>
+     </column>
      <item>
       <property name="text">
        <string>21000509</string>
@@ -48,6 +53,9 @@
       </property>
       <property name="text">
        <string>SD43P003</string>
+      </property>
+      <property name="text">
+       <string>4</string>
       </property>
      </item>
      <item>
@@ -63,6 +71,9 @@
       <property name="text">
        <string>SD43P004</string>
       </property>
+      <property name="text">
+       <string>4</string>
+      </property>
      </item>
      <item>
       <property name="text">
@@ -77,6 +88,9 @@
       <property name="text">
        <string>SD63P006</string>
       </property>
+      <property name="text">
+       <string>6</string>
+      </property>
      </item>
      <item>
       <property name="text">
@@ -90,6 +104,9 @@
       </property>
       <property name="text">
        <string>SD63P003</string>
+      </property>
+      <property name="text">
+       <string>6</string>
       </property>
      </item>
     </widget>

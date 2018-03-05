@@ -21,7 +21,9 @@ public:
   void syncBoxText2Item(QDoubleSpinBox *obj);
   void syncItem2BoxText(QTreeWidgetItem *item);
   void syncAllItem2BoxText();
-  void setBoxStatusByQueryItem(QTreeWidgetItem *item,UI::StatusEditText sta);
+  QList<QDoubleSpinBox*>boxLists();
+  QList<QTreeWidgetItem*>itemLists();
+  QDoubleSpinBox* box(QTreeWidgetItem*item);
 
 signals:
 

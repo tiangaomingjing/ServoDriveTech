@@ -31,9 +31,9 @@ void BoxItemMapping::syncBoxText2Item(QDoubleSpinBox *obj)
   if(m_box2ItemHash.contains(obj))
   {
     QTreeWidgetItem *item=m_box2ItemHash.value(obj);
-    double gain=item->text(COL_PAGE_TREE_SCALE).toDouble();
+    double gain=item->text(GT::COL_PAGE_TREE_SCALE).toDouble();
     double value=obj->value()*gain;
-    item->setText(COL_PAGE_TREE_VALUE,QString::number(value,'f',3));
+    item->setText(GT::COL_PAGE_TREE_VALUE,QString::number(value,'f',3));
     qDebug()<<"gain "<<gain<<"value"<<value;
   }
 }
@@ -43,8 +43,8 @@ void BoxItemMapping::syncItem2BoxText(QTreeWidgetItem *item)
   if(m_item2BoxHash.contains(item))
   {
     QDoubleSpinBox *box=m_item2BoxHash.value(item);
-    double value=item->text(COL_PAGE_TREE_VALUE).toDouble();
-    double gain=item->text(COL_PAGE_TREE_SCALE).toDouble();
+    double value=item->text(GT::COL_PAGE_TREE_VALUE).toDouble();
+    double gain=item->text(GT::COL_PAGE_TREE_SCALE).toDouble();
     box->setValue(value/gain);
   }
 }
@@ -57,8 +57,20 @@ void BoxItemMapping::syncAllItem2BoxText()
   }
 
 }
-
-void BoxItemMapping::setBoxStatusByQueryItem(QTreeWidgetItem *item,StatusEditText sta)
+QList<QDoubleSpinBox*>BoxItemMapping::boxLists()
 {
-
+  return m_box2ItemHash.keys();
 }
+
+QList<QTreeWidgetItem *> BoxItemMapping::itemLists()
+{
+  return m_box2ItemHash.values();
+}
+QDoubleSpinBox* BoxItemMapping::box(QTreeWidgetItem*item)
+{
+  if(m_item2BoxHash.contains(item))
+    return m_item2BoxHash.value(item);
+  else
+    return NULL;
+}
+

@@ -7,13 +7,15 @@ CONFIG -= app_bundle
 
 INCLUDEPATH+=../../Libs/Com/Communication\
               ../../Libs/GTUtils/QtTreeManager\
+              ../../Libs/GTUtils/DeviceIdHelper\
               ../../Libs/GTUtils\
               ../../Libs/UI\
               ../../Libs/UI/IUiWidget\
               ../../Libs/SDKernel\
               ../../Libs/Option\
               $${PWD}/UiFactory\
-              $${PWD}/Kernel
+              $${PWD}/Kernel\
+              $${PWD}/SdtGlobal
 
 CONFIG(debug, debug|release){
     COMMONSRC_OUT_PATH=$${PWD}/../../build/debug/bin
@@ -76,12 +78,12 @@ SOURCES += main.cpp \
     Kernel/deviceconfig.cpp \
     UiFactory/uifactory.cpp \
     Kernel/globaluicontroler.cpp \
-    Kernel/deviceidhelper.cpp \
-    test.c
+    test.c \
+    SdtGlobal/sdtglobaldef.cpp \
+    Kernel/sdterror.cpp
 
 
 HEADERS += \
-    sdtglobaldef.h \
     Kernel/idevreadwriter.h \
     Kernel/iuicontroler.h \
     Kernel/sevuicontroler.h \
@@ -94,8 +96,9 @@ HEADERS += \
     UiFactory/uifactory.h \
     UiFactory/registerfunction.h \
     Kernel/globaluicontroler.h \
-    Kernel/deviceidhelper.h \
-    test.h
+    test.h \
+    SdtGlobal/sdtglobaldef.h \
+    Kernel/sdterror.h
 
 DISTFILES += \
     ../../build/debug/custom/option/qmlstyle/MyQmlStyle/qmldir \

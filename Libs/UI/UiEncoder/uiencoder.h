@@ -21,7 +21,10 @@ public:
   bool hasSaveFunc()Q_DECL_OVERRIDE;
 
   void accept(QWidget*w) Q_DECL_OVERRIDE;
+  void setUiActive(bool actived)Q_DECL_OVERRIDE;
 
+signals:
+  void encActive();
 private:
   QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;
   QVBoxLayout *getVBoxLayout(void)Q_DECL_OVERRIDE;

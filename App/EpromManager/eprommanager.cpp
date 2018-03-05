@@ -142,13 +142,13 @@ void EpromManager::showSelectTree() {
 
 /********************** write *************************/
 void EpromManager::onWriteClicked() {
-    QString typeText = ui->typeLabel->text();
+    //QString typeText = ui->typeLabel->text();
     QString code = ui->lineEdit->text();
     if (code == "") {
         QMessageBox::warning(this, tr("Warning"), tr("Please enter a PCBA code!"), QMessageBox::Ok);
         return;
     }
-    int ret = QMessageBox::question(this, tr("Question"), tr("Are you sure to write\n") + typeText + "?", QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+    int ret = QMessageBox::question(this, tr("Question"), tr("Are you sure to write\n") + itemText + "?", QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
     if (ret == QMessageBox::No) {
         return;
     }
@@ -167,13 +167,13 @@ void EpromManager::onWriteClicked() {
 }
 
 void EpromManager::onWriteClicked_2() {
-    QString typeText = ui->typeLabel->text();
+    //QString typeText = ui->typeLabel->text();
     QString code = ui->lineEdit_2->text();
     if (code == "") {
         QMessageBox::warning(this, tr("Warning"), tr("Please enter a PCBA code!"), QMessageBox::Ok);
         return;
     }
-    int ret = QMessageBox::question(this, tr("Question"), tr("Are you sure to write\n") + typeText + "?", QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+    int ret = QMessageBox::question(this, tr("Question"), tr("Are you sure to write\n") + itemText + "?", QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
     if (ret == QMessageBox::No) {
         return;
     }
@@ -456,6 +456,18 @@ void EpromManager::onActionConnectToServer() {
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     QString str;
+    quint32 m_devId;
+    quint8 m_comType;
+    quint8 m_axisNum;
+    QString m_typeName;//SD4x
+    QString m_modeName;//SD42
+    QString m_version;
+
+    quint32 m_pwrId;   //id->SD?? 通过一个id映射表获得名字
+    quint32 m_ctrId;   //id->SD?? 通过一个id映射表获得名字
+    quint32 m_fpgaId;
+
+    quint8 m_rnStationId;
     if (getComType() == GTSD_COM_TYPE_RNNET) {
         str = "RNNET";
     } else {

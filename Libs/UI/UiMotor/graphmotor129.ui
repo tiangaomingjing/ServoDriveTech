@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>576</width>
-    <height>429</height>
+    <width>801</width>
+    <height>529</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -71,16 +71,11 @@
       <property name="rightMargin">
        <number>9</number>
       </property>
+      <property name="bottomMargin">
+       <number>15</number>
+      </property>
       <item>
        <widget class="QLabel" name="label_motorCur">
-        <property name="styleSheet">
-         <string notr="true">QWidget{
-border:1px solid black;
-border-top:none;
-border-left:none;
-border-right:none;
-}</string>
-        </property>
         <property name="text">
          <string>Current</string>
         </property>
@@ -98,6 +93,12 @@ border-right:none;
       </item>
       <item>
        <widget class="QDoubleSpinBox" name="dspinBox_iRat">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
         <property name="wrapping">
          <bool>false</bool>
         </property>
@@ -124,6 +125,12 @@ border-right:none;
       </item>
       <item>
        <widget class="QDoubleSpinBox" name="dspinBox_iMax">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
         <property name="wrapping">
          <bool>false</bool>
         </property>
@@ -153,19 +160,14 @@ border-right:none;
       <property name="rightMargin">
        <number>9</number>
       </property>
+      <property name="bottomMargin">
+       <number>15</number>
+      </property>
       <property name="horizontalSpacing">
        <number>30</number>
       </property>
       <item row="0" column="0" colspan="2">
        <widget class="QLabel" name="label_MotorMac">
-        <property name="styleSheet">
-         <string notr="true">QWidget{
-border:1px solid black;
-border-top:none;
-border-left:none;
-border-right:none;
-}</string>
-        </property>
         <property name="text">
          <string>Machine</string>
         </property>
@@ -187,6 +189,12 @@ border-right:none;
       </item>
       <item row="2" column="0">
        <widget class="QDoubleSpinBox" name="dspinBox_Jm">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
         <property name="wrapping">
          <bool>false</bool>
         </property>
@@ -206,6 +214,15 @@ border-right:none;
       </item>
       <item row="2" column="1">
        <widget class="QDoubleSpinBox" name="dspinBox_fcoe">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="inputMethodHints">
+         <set>Qt::ImhFormattedNumbersOnly</set>
+        </property>
         <property name="wrapping">
          <bool>false</bool>
         </property>
@@ -239,6 +256,12 @@ border-right:none;
       </item>
       <item row="4" column="0">
        <widget class="QDoubleSpinBox" name="dspinBox_JmPercent">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
         <property name="wrapping">
          <bool>false</bool>
         </property>
@@ -258,6 +281,12 @@ border-right:none;
       </item>
       <item row="4" column="1">
        <widget class="QDoubleSpinBox" name="dspinBox_pole">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
         <property name="wrapping">
          <bool>false</bool>
         </property>
@@ -287,16 +316,11 @@ border-right:none;
       <property name="rightMargin">
        <number>9</number>
       </property>
+      <property name="bottomMargin">
+       <number>15</number>
+      </property>
       <item>
        <widget class="QLabel" name="label_motorVel">
-        <property name="styleSheet">
-         <string notr="true">QWidget{
-border:1px solid black;
-border-top:none;
-border-left:none;
-border-right:none;
-}</string>
-        </property>
         <property name="text">
          <string>Velocity</string>
         </property>
@@ -311,6 +335,12 @@ border-right:none;
       </item>
       <item>
        <widget class="QDoubleSpinBox" name="dspinBox_vRat">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
         <property name="wrapping">
          <bool>false</bool>
         </property>
@@ -337,6 +367,12 @@ border-right:none;
       </item>
       <item>
        <widget class="QDoubleSpinBox" name="dspinBox_vOver">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
         <property name="wrapping">
          <bool>false</bool>
         </property>
@@ -363,6 +399,12 @@ border-right:none;
       </item>
       <item>
        <widget class="QDoubleSpinBox" name="dspinBox_vMax">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
         <property name="wrapping">
          <bool>false</bool>
         </property>
@@ -392,16 +434,11 @@ border-right:none;
       <property name="rightMargin">
        <number>9</number>
       </property>
+      <property name="bottomMargin">
+       <number>15</number>
+      </property>
       <item>
        <widget class="QLabel" name="label_MotorImp">
-        <property name="styleSheet">
-         <string notr="true">QWidget{
-border:1px solid black;
-border-top:none;
-border-left:none;
-border-right:none;
-}</string>
-        </property>
         <property name="text">
          <string>Impedance</string>
         </property>
@@ -416,6 +453,12 @@ border-right:none;
       </item>
       <item>
        <widget class="QDoubleSpinBox" name="dspinBox_rm">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
         <property name="wrapping">
          <bool>false</bool>
         </property>
@@ -442,6 +485,12 @@ border-right:none;
       </item>
       <item>
        <widget class="QDoubleSpinBox" name="dspinBox_ldm">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
         <property name="wrapping">
          <bool>false</bool>
         </property>
@@ -468,6 +517,12 @@ border-right:none;
       </item>
       <item>
        <widget class="QDoubleSpinBox" name="dspinBox_lqm">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
         <property name="wrapping">
          <bool>false</bool>
         </property>
@@ -497,16 +552,11 @@ border-right:none;
       <property name="rightMargin">
        <number>9</number>
       </property>
+      <property name="bottomMargin">
+       <number>15</number>
+      </property>
       <item>
        <widget class="QLabel" name="label_motorTor">
-        <property name="styleSheet">
-         <string notr="true">QWidget{
-border:1px solid black;
-border-top:none;
-border-left:none;
-border-right:none;
-}</string>
-        </property>
         <property name="text">
          <string>Torque</string>
         </property>
@@ -521,6 +571,12 @@ border-right:none;
       </item>
       <item>
        <widget class="QDoubleSpinBox" name="dspinBox_torque">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
         <property name="wrapping">
          <bool>false</bool>
         </property>
@@ -547,6 +603,12 @@ border-right:none;
       </item>
       <item>
        <widget class="QDoubleSpinBox" name="dspinBox_phim">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
         <property name="wrapping">
          <bool>false</bool>
         </property>
@@ -573,6 +635,12 @@ border-right:none;
       </item>
       <item>
        <widget class="QDoubleSpinBox" name="dspinBox_maxVoltage">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
         <property name="wrapping">
          <bool>false</bool>
         </property>

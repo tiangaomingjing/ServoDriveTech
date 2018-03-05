@@ -27,7 +27,6 @@ UiMotorPrivate::UiMotorPrivate():
 }
 UiMotorPrivate::~UiMotorPrivate()
 {
-  delete m_graphMotor;
   qDebug()<<"UiMotorPrivate destruct-->";
 }
 
@@ -38,7 +37,9 @@ UiMotor::UiMotor(QWidget *parent):IUiWidget(*(new UiMotorPrivate),parent),ui(new
 }
 UiMotor::~UiMotor()
 {
+  Q_D(UiMotor);
   delete ui;
+  delete d->m_graphMotor;
 }
 
 //!
@@ -51,6 +52,28 @@ void UiMotor::accept(QWidget *w)
   ui->qmlHboxLayout->addWidget(w);
   d->m_graphMotor=dynamic_cast<IGraphMotor *>(w);
   d->m_graphMotor->visit(this);
+}
+void UiMotor::setUiActive(bool actived)
+{
+  if(actived)
+  {
+    Q_D(UiMotor);
+    if(readPageFLASH())
+      d->m_graphMotor->syncTreeDataToUiFace();
+  }
+}
+bool UiMotor::writePageFLASH()
+{
+  Q_D(UiMotor);
+  bool wOk=true;
+  wOk=IUiWidget::writePageFLASH();
+  if(wOk)
+  {
+    d->m_graphMotor->syncTreeDataToUiFace();
+    //还要加入关联参数处理
+    //-to add
+  }
+  return true;
 }
 
 QStackedWidget *UiMotor::getUiStackedWidget(void)
@@ -79,8 +102,4 @@ void UiMotor::addQmlWidget()
 {
   Q_D(UiMotor);
   ui->qmlHboxLayout->addWidget(d->m_qwidget);
-}
-void UiMotor::updateUi()
-{
-  readPageFLASH();
 }

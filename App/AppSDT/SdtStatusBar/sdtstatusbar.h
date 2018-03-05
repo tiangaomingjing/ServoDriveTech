@@ -16,12 +16,18 @@ class SdtStatusBar : public QWidget
   Q_OBJECT
 
 public:
+  enum MsgType{
+    MSG_TYPE_NORMAL,
+    MSG_TYPE_WARNING,
+    MSG_TYPE_ERROR
+  };
+
   explicit SdtStatusBar(QTreeWidget *navTree,QWidget *parent = 0);
   ~SdtStatusBar();
   void resetStatus();
-  void setWarningMsg(const QString &str);
+  void setMsg(const QString &str,MsgType type=MSG_TYPE_NORMAL);
   void setConnectStatus(bool connected);
-  void showErrorStatus(bool show);
+  void setErrorStatus(bool hasError);
   void updateDeviceWhenChanged(QTreeWidget *navTree);//当设备变化后要重新调用，并在生成导航树之后
   QProgressBar *statusProgressBar()const;
 

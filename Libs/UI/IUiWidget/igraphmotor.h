@@ -25,7 +25,7 @@ signals:
 
 public slots:
 protected slots:
-  virtual void onUiActivedChanged(bool actived){Q_UNUSED(actived);}
+
 
 protected:
   IGraphMotor(IGraphMotorPrivate&dd, QWidget *parent=0);
