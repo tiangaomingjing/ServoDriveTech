@@ -248,6 +248,7 @@ void SDTMainWindow::createConnections()
   connect(m_actnAboutHardware,SIGNAL(triggered(bool)),this,SLOT(onActnHelpDeviceInfoClicked()));
   connect(m_actnNewConfig,SIGNAL(triggered(bool)),this,SLOT(onActnNewConfigClicked()));
   connect(m_actnSave,SIGNAL(triggered(bool)),this,SLOT(onActnSaveClicked()));
+  connect(m_actnProduce, SIGNAL(triggered()), this, SLOT(onActnProduceClicked()));
 
   OptAutoLoad *optAuto=dynamic_cast<OptAutoLoad *>(OptContainer::instance()->optItem("optautoload"));
   if(optAuto!=NULL)
@@ -521,6 +522,21 @@ void SDTMainWindow::onActnOptionClicked()
   }
   dialogOpt.exec();
 }
+
+void SDTMainWindow::onActnProduceClicked() {
+    QString path;
+    QString exeName;
+#ifdef QT_NO_DEBUG
+    exeName = "EpromManager.exe";
+#else
+    exeName = "EpromManager_d.exe";
+#endif
+    path = GTUtils::exePath();
+    path = path + "/" + exeName;
+    QProcess *process = new QProcess(this);
+    process->start(path);
+}
+
 void SDTMainWindow::onActnTbtnMoreClicked()
 {
   m_tbtnMore->showMenu();

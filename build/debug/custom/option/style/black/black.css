@@ -322,7 +322,7 @@ border:1px solid black;
 border-top:none;
 border-left:none;
 border-right:none;
-margin-bottom: 1px;
+padding-bottom: 10px;
 }
 
 QLabel#label_brakeDynamic{
@@ -330,7 +330,7 @@ border:1px solid black;
 border-top:none;
 border-left:none;
 border-right:none;
-margin-bottom: 1px;
+padding-bottom: 10px;
 }
 
 QLabel#label_brakeExternal{
@@ -338,7 +338,7 @@ border:1px solid black;
 border-top:none;
 border-left:none;
 border-right:none;
-margin-bottom: 1px;
+padding-bottom: 10px;
 }
 /*====================Current 电流控制器页面===================*/
 IGraphWidget{

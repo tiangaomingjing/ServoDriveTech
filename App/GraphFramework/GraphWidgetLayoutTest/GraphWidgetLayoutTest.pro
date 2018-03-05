@@ -15,6 +15,17 @@ TEMPLATE = app
 SOURCES += main.cpp\
         widgetlayoutmainwindow.cpp \
     piditem.cpp \
+    acwidget.cpp \
+    basewidget.cpp \
+    combinedwidget.cpp \
+    trianwidget.cpp
+
+HEADERS  += widgetlayoutmainwindow.h \
+    piditem.h \
+    acwidget.h \
+    basewidget.h \
+    combinedwidget.h \
+    trianwidget.h
     sumitem.cpp \
     sumitemwidget.cpp \
     widgetitem.cpp \
@@ -22,15 +33,5 @@ SOURCES += main.cpp\
     interactiveview.cpp \
     targetitemwidget.cpp \
     anchoritemhelper.cpp
-
-HEADERS  += widgetlayoutmainwindow.h \
-    piditem.h \
-    sumitem.h \
-    sumitemwidget.h \
-    widgetitem.h \
-    arrowitem.h \
-    interactiveview.h \
-    targetitemwidget.h \
-    anchoritemhelper.h
 
 FORMS    += widgetlayoutmainwindow.ui
