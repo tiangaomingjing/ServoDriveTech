@@ -242,7 +242,6 @@ border:none;
 background-color:#680000;
 }
 
-<<<<<<< HEAD
 QLabel#label_motorCur{
 border:1px solid black;
 border-top:none;
@@ -323,7 +322,7 @@ border:1px solid black;
 border-top:none;
 border-left:none;
 border-right:none;
-margin-bottom: 1px;
+padding-bottom: 10px;
 }
 
 QLabel#label_brakeDynamic{
@@ -331,7 +330,7 @@ border:1px solid black;
 border-top:none;
 border-left:none;
 border-right:none;
-margin-bottom: 1px;
+padding-bottom: 10px;
 }
 
 QLabel#label_brakeExternal{
@@ -339,13 +338,10 @@ border:1px solid black;
 border-top:none;
 border-left:none;
 border-right:none;
-margin-bottom: 1px;
+padding-bottom: 10px;
 }
 
-/*====================设置对话框===================*/
-=======
 /*====================option设置对话框===================*/
->>>>>>> upstream/jiang
 
 /*--------------------用户-------------------------*/
 QRadioButton::indicator::unchecked#btn_Admin {

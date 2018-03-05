@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1067</width>
-    <height>424</height>
+    <width>821</width>
+    <height>463</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -43,7 +43,7 @@
           <item>
            <widget class="QLabel" name="label_pwrBusOver">
             <property name="text">
-             <string>Bus Over-Voltage Protection Point(V)</string>
+             <string>Bus OVP Point(V)</string>
             </property>
            </widget>
           </item>
@@ -79,7 +79,7 @@
           <item>
            <widget class="QLabel" name="label_pwrBusUnder">
             <property name="text">
-             <string>Bus Under-Voltage Protection Point(V)</string>
+             <string>Bus UVP Point(V)</string>
             </property>
            </widget>
           </item>
@@ -187,7 +187,7 @@
           <item>
            <widget class="QLabel" name="label_pwrRelayOn">
             <property name="text">
-             <string>Voltage of Soft Start Relay On(V)</string>
+             <string>Voltage of SSR On(V)</string>
             </property>
            </widget>
           </item>
@@ -217,7 +217,7 @@
           <item>
            <widget class="QLabel" name="label_pwrRelayOff">
             <property name="text">
-             <string>Voltage of Soft Start Relay Off(V)</string>
+             <string>Voltage of SSR Off(V)</string>
             </property>
            </widget>
           </item>
