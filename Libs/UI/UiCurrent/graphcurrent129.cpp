@@ -1,6 +1,9 @@
 ﻿#include "graphcurrent129.h"
 #include "ui_graphcurrent129.h"
 #include "igraphcurrent_p.h"
+#include "Option"
+
+#include <QDebug>
 class GraphCurrent129Private:public IGraphCurrentPrivate
 {
   Q_DECLARE_PUBLIC(GraphCurrent129)
@@ -10,19 +13,24 @@ public:
 };
 
 GraphCurrent129::GraphCurrent129(QWidget *parent) :
-  IGraphCurrent(*(new GraphCurrent129Private),parent),
-  ui(new Ui::GraphCurrent129)
+  IGraphCurrent(*(new GraphCurrent129Private),parent)
+//  ui(new Ui::GraphCurrent129)
 {
-  ui->setupUi(this);
+//  ui->setupUi(this);
 }
 
 GraphCurrent129::~GraphCurrent129()
 {
-  delete ui;
+//  delete ui;
+  qDebug()<<"GraphCurrent129 destruct-->";
 }
 void GraphCurrent129::visitActive(IUiWidget *uiWidget)
 {
+  Q_UNUSED(uiWidget);
+  createItems();
 
+  OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
+  connect(face,SIGNAL(faceCssChanged(QString)),this,SLOT(onFaceCssChanged(QString)));
 }
 void GraphCurrent129::setUiVersionName()
 {

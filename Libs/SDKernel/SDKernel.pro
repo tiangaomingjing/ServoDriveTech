@@ -50,7 +50,6 @@ SOURCES += \
     sevpwrboard.cpp \
     PowerTreeManage/powertreemanage.cpp \
     ../../Common/src/Kernel/deviceconfig.cpp \
-#    sdkernel_global.cpp \
     verattribute.cpp \
     generalcmd.cpp
 

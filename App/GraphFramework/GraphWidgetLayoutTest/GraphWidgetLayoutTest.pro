@@ -26,5 +26,12 @@ HEADERS  += widgetlayoutmainwindow.h \
     basewidget.h \
     combinedwidget.h \
     trianwidget.h
+    sumitem.cpp \
+    sumitemwidget.cpp \
+    widgetitem.cpp \
+    arrowitem.cpp \
+    interactiveview.cpp \
+    targetitemwidget.cpp \
+    anchoritemhelper.cpp
 
 FORMS    += widgetlayoutmainwindow.ui

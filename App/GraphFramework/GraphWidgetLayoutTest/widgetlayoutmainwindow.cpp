@@ -1,7 +1,14 @@
 ﻿#include "widgetlayoutmainwindow.h"
 #include "ui_widgetlayoutmainwindow.h"
+#include "interactiveview.h"
 
 #include "piditem.h"
+#include "sumitem.h"
+#include "sumitemwidget.h"
+#include "widgetitem.h"
+#include "arrowitem.h"
+#include "targetitemwidget.h"
+#include "anchoritemhelper.h"
 
 #include <QGraphicsView>
 #include <QGraphicsScene>
@@ -14,6 +21,7 @@
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
 #include <QLineEdit>
+#include <QTime>
 
 #include <qmath.h>
 
@@ -35,9 +43,13 @@ WidgetLayoutMainWindow::WidgetLayoutMainWindow(QWidget *parent) :
   ui(new Ui::WidgetLayoutMainWindow)
 {
   ui->setupUi(this);
+  QAction *act=new QAction("setcolor",this);
+  ui->mainToolBar->addAction(act);
+  connect(act,SIGNAL(triggered(bool)),this,SLOT(onActionTest()));
+
   scene=new QGraphicsScene(this);
   scene->setSceneRect(-400, -200, 800, 400);
-  view=new QGraphicsView;
+  view=new InteractiveView;
   view->setScene(scene);
   view->setCacheMode(QGraphicsView::CacheBackground);
   view->setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
@@ -46,6 +58,7 @@ WidgetLayoutMainWindow::WidgetLayoutMainWindow(QWidget *parent) :
   view->scale(qreal(1), qreal(1));
   view->setBackgroundBrush(QBrush(Qt::green));
   ui->verticalLayout->insertWidget(0,view);
+
 
 //  QGraphicsWidget *w=new QGraphicsWidget;
   QGraphicsWidget *w=new QGraphicsWidget(0, Qt::Window | Qt::CustomizeWindowHint | Qt::WindowTitleHint);
@@ -105,21 +118,144 @@ WidgetLayoutMainWindow::WidgetLayoutMainWindow(QWidget *parent) :
 
   QWidget *wtest=new QWidget;
   wtest->setObjectName("wtest");
-  QHBoxLayout *hlayoutTest=new QHBoxLayout(wtest);
-  Label *labelTest=new Label("test");
+  QVBoxLayout *vlayoutTest=new QVBoxLayout(wtest);
+  QLabel *title=new QLabel("PID controller",wtest);
+  title->setStyleSheet("QLabel{padding-bottom:10px;margin-bottom:10px;color:white;border:1px solid transparent;border-bottom-color:white;font-weight:bold;}");
+  title->setAlignment(Qt::AlignCenter);
+  vlayoutTest->addWidget(title);
+  QLabel *pgain=new QLabel(tr("P gain(HZ)"));
+  vlayoutTest->addWidget(pgain);
   QLineEdit *edit=new QLineEdit(wtest);
   edit->setText("100");
   edit->setMinimumWidth(200);
-  hlayoutTest->addWidget(labelTest);
-  hlayoutTest->addWidget(edit);
-  wtest->setLayout(hlayoutTest);
+  vlayoutTest->addWidget(edit);
+  QLabel *igain=new QLabel(tr("I gain(ms)"),wtest);
+  vlayoutTest->addWidget(igain);
+  edit=new QLineEdit(wtest);
+  edit->setText("200");
+  edit->setMinimumWidth(200);
+  vlayoutTest->addWidget(edit);
 
-  pid=new PidItem;
-  pid->setWidget(wtest);
-  scene->addItem(pid->item());
-  pid->item()->setPos(50,50);
+  wtest->setLayout(vlayoutTest);
+
+
+
+  u0=new WidgetItem;
+  u0->setObjectName("PID");
+  u0->setWidget(wtest,true);
+  scene->addItem(u0);
+  u0->setPos(50,50);
+
+
 
   connect(ui->horizontalSlider,SIGNAL(valueChanged(int)),this,SLOT(onSliderValueChanged(int)));
+
+  SumItemWidget *sw=new SumItemWidget;
+  sw->setStyleSheet("SumItemWidget{background-color:transparent;border:1px solid white;qproperty-lineColor: blue;} SumItemWidget:hover{background-color:red;}");
+  u1=new WidgetItem;
+  u1->setObjectName("SUM");
+  u1->setWidget(sw);
+  scene->addItem(u1);
+
+
+
+  QLabel *feedback=new QLabel("current feedback");
+  QString s="QLabel{\
+            background-color: rgb(0, 0, 255);\
+            border:2px solid red;\
+            border-radius:10px;\
+                        }";
+  feedback->setStyleSheet(s);
+  u2=new WidgetItem;
+  u2->setObjectName("CurFeedback");
+  u2->setWidget(feedback,true);
+  scene->addItem(u2);
+
+
+
+
+  QLabel *aheadback=new QLabel("current feedback");
+  aheadback->setStyleSheet(s);
+  u3=new WidgetItem;
+  u3->setObjectName("AHeadback");
+  u3->setWidget(aheadback,true);
+  scene->addItem(u3);
+
+
+
+  TargetItemWidget *curBegin=new TargetItemWidget;
+  t4=new WidgetItem;
+  t4->setWidget(curBegin);
+  scene->addItem(t4);
+
+
+
+  TargetItemWidget *tt1=new TargetItemWidget;
+  t1=new WidgetItem;
+  t1->setWidget(tt1);
+  scene->addItem(t1);
+  TargetItemWidget *tt2=new TargetItemWidget;
+  t2=new WidgetItem;
+  t2->setWidget(tt2);
+  scene->addItem(t2);
+  TargetItemWidget *tt3=new TargetItemWidget;
+  t3=new WidgetItem;
+  t3->setWidget(tt3);
+  scene->addItem(t3);
+
+  a1=new ArrowItem(t1->pointF(WidgetItem::POINT_TYPE_RIGHT),t2->pointF(WidgetItem::POINT_TYPE_LEFT),ArrowItem::ARROW_TYPE_STRAIGHT,"",false);
+  scene->addItem(a1);
+  a2=new ArrowItem(t2->pointF(WidgetItem::POINT_TYPE_RIGHT),u1->pointF(WidgetItem::POINT_TYPE_LEFT));
+  scene->addItem(a2);
+  a3=new ArrowItem(t2->pointF(WidgetItem::POINT_TYPE_TOP),u3->pointF(WidgetItem::POINT_TYPE_LEFT),ArrowItem::ARROW_TYPE_CORNER);
+  scene->addItem(a3);
+  a4=new ArrowItem(t2->pointF(WidgetItem::POINT_TYPE_TOP),t3->pointF(WidgetItem::POINT_TYPE_LEFT),ArrowItem::ARROW_TYPE_CORNER);
+  scene->addItem(a4);
+
+  a5=new ArrowItem(u1->pointF(WidgetItem::POINT_TYPE_RIGHT),u0->pointF(WidgetItem::POINT_TYPE_LEFT));
+  scene->addItem(a5);
+
+  a6=new ArrowItem(u2->pointF(WidgetItem::POINT_TYPE_LEFT),u1->pointF(WidgetItem::POINT_TYPE_BOTTOM),ArrowItem::ARROW_TYPE_CORNER,"-");
+  scene->addItem(a6);
+
+  a7=new ArrowItem(u3->pointF(WidgetItem::POINT_TYPE_RIGHT),u0->pointF(WidgetItem::POINT_TYPE_TOP),ArrowItem::ARROW_TYPE_CORNER,"+",false);
+  scene->addItem(a7);
+
+  a8=new ArrowItem(t4->pointF(WidgetItem::POINT_TYPE_LEFT),u2->pointF(WidgetItem::POINT_TYPE_RIGHT));
+  scene->addItem(a8);
+
+  anchorHelper=new AnchorItemHelper;
+
+  anchorHelper->addAnchor(u0,u1,AnchorItemHelper::AnchorRight,-1*u0->boundingRect().width()*1.5);
+  anchorHelper->addAnchor(u0,u1,AnchorItemHelper::AnchorVerticalCenter);
+
+  anchorHelper->addAnchor(u0,u2,AnchorItemHelper::AnchorHorizontalCenter);
+  anchorHelper->addAnchor(u0,u2,AnchorItemHelper::AnchorBottom,u2->boundingRect().height()*3);
+
+  anchorHelper->addAnchor(u2,t4,AnchorItemHelper::AnchorRight,u2->boundingRect().width());
+  anchorHelper->addAnchor(u2,t4,AnchorItemHelper::AnchorVerticalCenter);
+
+  anchorHelper->addAnchor(u0,u3,AnchorItemHelper::AnchorLeft,-1*u3->boundingRect().width()-u0->boundingRect().width()/2);
+  anchorHelper->addAnchor(u0,u3,AnchorItemHelper::AnchorTop,-1*u0->boundingRect().height()/2);
+
+  anchorHelper->addAnchor(u3,t3,AnchorItemHelper::AnchorHorizontalCenter);
+  anchorHelper->addAnchor(u3,t3,AnchorItemHelper::AnchorTop,-1*u3->boundingRect().height());
+
+  anchorHelper->addAnchor(u3,t2,AnchorItemHelper::AnchorLeft,-1*u3->boundingRect().width()/3);
+  anchorHelper->addAnchor(u1,t2,AnchorItemHelper::AnchorVerticalCenter);
+
+  anchorHelper->addAnchor(t2,t1,AnchorItemHelper::AnchorHorizontalCenter,-1*u0->boundingRect().width()/3);
+  anchorHelper->addAnchor(t2,t1,AnchorItemHelper::AnchorVerticalCenter);
+
+  adjustItemPostion();
+
+  QLineF line(QPointF(0,0),QPointF(-1,-1));
+  qDebug()<<"line dx"<<line.dx();
+  qDebug()<<"line dy"<<line.dy();
+  qDebug()<<"line angle"<<line.angle();
+  double angle=::acos(line.dx()/line.length());
+  qDebug()<<"angle"<<angle*180/3.14;
+
 }
 
 WidgetLayoutMainWindow::~WidgetLayoutMainWindow()
@@ -127,17 +263,13 @@ WidgetLayoutMainWindow::~WidgetLayoutMainWindow()
   delete ui;
 }
 
-void WidgetLayoutMainWindow::mouseMoveEvent(QMouseEvent *event)
-{
-  qDebug()<<"X:"<<event->pos().x()<<"Y:"<<event->pos().y();
-}
 
 bool WidgetLayoutMainWindow::eventFilter(QObject *obj, QEvent *event)
 {
-  static int count=0;
+//  static int count=0;
   if(obj==scene)
   {
-    qDebug()<<"scene"<<"count="<<count++;
+//    qDebug()<<"scene"<<"count="<<count++;
     if(event->type()==QEvent::GraphicsSceneMouseMove)
     {
       QGraphicsSceneMouseEvent *e=dynamic_cast<QGraphicsSceneMouseEvent *>(event);
@@ -147,13 +279,37 @@ bool WidgetLayoutMainWindow::eventFilter(QObject *obj, QEvent *event)
   return QMainWindow::eventFilter(obj,event);
 }
 
+void WidgetLayoutMainWindow::adjustItemPostion()
+{
+  qDebug()<<"adjustItemPostion===============";
+
+  anchorHelper->setAnchorsActive();
+
+  QTime dieTime = QTime::currentTime().addMSecs(10);
+  while( QTime::currentTime() < dieTime )
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+
+
+
+  a1->updatePosition();
+  a2->updatePosition();
+  a3->updatePosition();
+  a4->updatePosition();
+  a5->updatePosition();
+  a6->updatePosition();
+  a7->updatePosition();
+  a8->updatePosition();
+
+}
+
 void WidgetLayoutMainWindow::on_actionSetfont_triggered()
 {
-  QFont font = qApp->font();
-  int psize=font.pixelSize()+2;
+  static int psize=12;
+  QFont font ;
   font.setPixelSize(psize);
   qApp->setFont(font);
-  qDebug()<<pid->item()->boundingRect();
+  psize++;
+  qDebug()<<"psize"<<psize;
 
   QString s="QWidget#wtest{\
             background-color: rgb(0, 0, 255);\
@@ -161,6 +317,10 @@ void WidgetLayoutMainWindow::on_actionSetfont_triggered()
             border-radius:10px;\
                         }";
   qApp->setStyleSheet(s);
+
+//  sumWidget->widget()->setStyleSheet("SumItemWidget{background-color:transparent;border:1px solid white;qproperty-lineColor: blue;}");
+
+  adjustItemPostion();
 }
 
 void WidgetLayoutMainWindow::onSliderValueChanged(int value)
@@ -170,5 +330,17 @@ void WidgetLayoutMainWindow::onSliderValueChanged(int value)
   matrix.scale(scale, scale);
 
   view->setMatrix(matrix);
-//  view
+  //  view
+}
+
+void WidgetLayoutMainWindow::onActionTest()
+{
+  a1->setColor(Qt::red);
+  a2->setColor(Qt::red);
+  a3->setColor(Qt::red);
+  a4->setColor(Qt::red);
+  a5->setColor(Qt::red);
+  a6->setColor(Qt::red);
+  a7->setColor(Qt::red);
+  a8->setColor(Qt::red);
 }

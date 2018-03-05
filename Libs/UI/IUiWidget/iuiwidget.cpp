@@ -15,6 +15,7 @@
 #include <QAction>
 #include <QQmlEngine>
 #include <QLabel>
+#include <QDebug>
 
 IUiWidget::IUiWidget(QWidget *parent):QWidget(parent),d_ptr(new IUiWidgetPrivate())
 {
@@ -23,6 +24,7 @@ IUiWidget::IUiWidget(QWidget *parent):QWidget(parent),d_ptr(new IUiWidgetPrivate
 IUiWidget::~IUiWidget()
 {
   delete d_ptr;
+  qDebug()<<"IUiWidget destruct-->";
 }
 IUiWidget::IUiWidget(IUiWidgetPrivate &dd,QWidget *parent):QWidget(parent),d_ptr(&dd)
 {

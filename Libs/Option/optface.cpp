@@ -311,7 +311,7 @@ void OptFace::setEditTextStatus(QDoubleSpinBox *box,EditTextStatus sta)
   if(index<d->m_editTextStyleSheetList.count())
   {
     box->setStyleSheet(d->m_editTextStyleSheetList.at(index));
-    qDebug()<<"box->setStyleSheet"<<d->m_editTextStyleSheetList.at(index);
+//    qDebug()<<"box->setStyleSheet"<<d->m_editTextStyleSheetList.at(index);
   }
 }
 
