@@ -2,9 +2,10 @@
 #define WIDGETITEM_H
 
 #include <QObject>
-class QGraphicsProxyWidget;
+#include <QGraphicsProxyWidget>
 
-class WidgetItem : public QObject
+
+class  WidgetItem : public QGraphicsProxyWidget
 {
   Q_OBJECT
 public:
@@ -14,11 +15,11 @@ public:
     POINT_TYPE_TOP=2,
     POINT_TYPE_BOTTOM=3
   };
-  explicit WidgetItem(QObject *parent = 0);
+  explicit WidgetItem(QGraphicsItem * parent = 0, Qt::WindowFlags wFlags = 0);
   ~WidgetItem();
 
   void setWidget(QWidget *widget,bool hasWrapWidget = false);
-  QGraphicsProxyWidget *item() const;
+//  QGraphicsProxyWidget *item() const;
   QPointF* pointF(int index) const;
 
 signals:
@@ -27,7 +28,7 @@ public slots:
 private slots:
   void onGeometryChanged();
 private:
-  QGraphicsProxyWidget *m_proxyWidget;
+//  QGraphicsProxyWidget *m_proxyWidget;
   QList<QPointF*>m_netPoints;
 };
 

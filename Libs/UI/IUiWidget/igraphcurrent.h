@@ -45,6 +45,7 @@ protected:
 signals:
 
 public slots:
+  void onFaceCssChanged(const QString &css);
 protected:
   IGraphCurrent(IGraphCurrentPrivate&dd, QWidget *parent=0);
 };

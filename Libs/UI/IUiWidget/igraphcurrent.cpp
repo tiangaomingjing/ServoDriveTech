@@ -9,8 +9,8 @@
 #include <QDoubleSpinBox>
 #include <QDebug>
 
-#define PID_POS_X 30
-#define PID_POS_Y -30
+#define PID_POS_X 50
+#define PID_POS_Y -100
 
 IGraphCurrentPrivate::IGraphCurrentPrivate():IGraphWidgetPrivate(),
   m_anchorHelper(NULL),
@@ -70,7 +70,7 @@ void IGraphCurrent::createPIDControllerItem()
   vlayoutTest->addWidget(pgain);
   QDoubleSpinBox *pedit=new QDoubleSpinBox(wpid);
   pedit->setObjectName("dspinBox_currentPedit");
-  pedit->setMaximum(-32768);
+  pedit->setMinimum(-32768);
   pedit->setMaximum(32767);
   pedit->setButtonSymbols(QAbstractSpinBox::NoButtons);
   vlayoutTest->addWidget(pedit);
@@ -79,7 +79,7 @@ void IGraphCurrent::createPIDControllerItem()
   vlayoutTest->addWidget(igain);
   QDoubleSpinBox *iedit=new QDoubleSpinBox(wpid);
   iedit->setObjectName("dspinBox_currentIedit");
-  iedit->setMaximum(0);
+  iedit->setMinimum(0);
   iedit->setMaximum(65535);
   iedit->setButtonSymbols(QAbstractSpinBox::NoButtons);
   vlayoutTest->addWidget(iedit);
@@ -95,8 +95,9 @@ void IGraphCurrent::createPIDControllerItem()
 void IGraphCurrent::crtateInputFilterItem()
 {
   Q_D(IGraphCurrent);
-  QLabel *label=new QLabel(tr("InputFilter"));
+  LabelItemWidget *label=new LabelItemWidget(tr("InputFilter"));
   label->setObjectName("label_currentInputFilter");
+  label->setAlignment(Qt::AlignCenter);
   d->m_UIF=new WidgetItem;
   d->m_UIF->setWidget(label,true);
   d->m_scene->addItem(d->m_UIF);
@@ -131,8 +132,9 @@ void IGraphCurrent::createArrowItems()
 void IGraphCurrent::createCurrentFeedbackItem()
 {
   Q_D(IGraphCurrent);
-  QLabel *label=new QLabel(tr("CurrentFeedback"));
+  LabelItemWidget *label=new LabelItemWidget(tr("CurrentFeedback"));
   label->setObjectName("label_currentFeedback");
+  label->setAlignment(Qt::AlignCenter);
   d->m_UCB=new WidgetItem;
   d->m_UCB->setWidget(label,true);
   d->m_scene->addItem(d->m_UCB);
@@ -152,23 +154,23 @@ void IGraphCurrent::setUpItemPosAnchors()
 {
   Q_D(IGraphCurrent);
   d->m_UPID->setPos(PID_POS_X,PID_POS_Y);
-  d->m_anchorHelper->addAnchor(d->m_UPID,d->m_USUM,AnchorItemHelper::AnchorLeft,-2.5*d->m_USUM->boundingRect().width());
+  d->m_anchorHelper->addAnchor(d->m_UPID,d->m_USUM,AnchorItemHelper::AnchorLeft,-2*d->m_USUM->boundingRect().width());
   d->m_anchorHelper->addAnchor(d->m_UPID,d->m_USUM,AnchorItemHelper::AnchorVerticalCenter);
 
-  d->m_anchorHelper->addAnchor(d->m_USUM,d->m_UIF,AnchorItemHelper::AnchorLeft,-2.5*d->m_UIF->boundingRect().width());
+  d->m_anchorHelper->addAnchor(d->m_USUM,d->m_UIF,AnchorItemHelper::AnchorRight,-2*d->m_USUM->boundingRect().width());
   d->m_anchorHelper->addAnchor(d->m_USUM,d->m_UIF,AnchorItemHelper::AnchorVerticalCenter);
 
   d->m_anchorHelper->addAnchor(d->m_UIF,d->m_Tstart,AnchorItemHelper::AnchorLeft,-2*d->m_UIF->boundingRect().width());
   d->m_anchorHelper->addAnchor(d->m_UIF,d->m_Tstart,AnchorItemHelper::AnchorVerticalCenter);
 
   d->m_anchorHelper->addAnchor(d->m_UPID,d->m_UCB,AnchorItemHelper::AnchorHorizontalCenter);
-  d->m_anchorHelper->addAnchor(d->m_UPID,d->m_UCB,AnchorItemHelper::AnchorBottom,2*d->m_UCB->boundingRect().height());
+  d->m_anchorHelper->addAnchor(d->m_UPID,d->m_UCB,AnchorItemHelper::AnchorBottom,2.5*d->m_UCB->boundingRect().height());
 
+  d->m_anchorHelper->addAnchor(d->m_UCB,d->m_T0,AnchorItemHelper::AnchorRight,1*d->m_UCB->boundingRect().width());
   d->m_anchorHelper->addAnchor(d->m_UCB,d->m_T0,AnchorItemHelper::AnchorVerticalCenter);
-  d->m_anchorHelper->addAnchor(d->m_UCB,d->m_T0,AnchorItemHelper::AnchorRight,2*d->m_UCB->boundingRect().width());
 
+  d->m_anchorHelper->addAnchor(d->m_UPID,d->m_Tend,AnchorItemHelper::AnchorRight,1.5*d->m_UPID->boundingRect().width());
   d->m_anchorHelper->addAnchor(d->m_UPID,d->m_Tend,AnchorItemHelper::AnchorVerticalCenter);
-  d->m_anchorHelper->addAnchor(d->m_UPID,d->m_Tend,AnchorItemHelper::AnchorRight,2*d->m_UPID->boundingRect().width());
 }
 
 void IGraphCurrent::createStartEndItems()
@@ -204,6 +206,7 @@ void IGraphCurrent::createAnchorItemHelper()
   d->m_anchorHelper=new AnchorItemHelper(this);
 }
 
+
 void IGraphCurrent::createItems()
 {
   //create所有的item
@@ -226,6 +229,13 @@ void IGraphCurrent::createItems()
   adjustPosition();
 }
 
+void IGraphCurrent::onFaceCssChanged(const QString &css)
+{
+  Q_UNUSED(css);
+  adjustPosition();
+  setCustumBackgroundColor();
+}
+
 void IGraphCurrent::adjustPosition()
 {
   Q_D(IGraphCurrent);
@@ -235,6 +245,7 @@ void IGraphCurrent::adjustPosition()
   GTUtils::delayms(10);
   foreach (ArrowItem *arrow, d->m_arrowList) {
     arrow->updatePosition();
+    arrow->setColor(arrowColor());
   }
 }
 

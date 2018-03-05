@@ -143,8 +143,8 @@ WidgetLayoutMainWindow::WidgetLayoutMainWindow(QWidget *parent) :
   u0=new WidgetItem;
   u0->setObjectName("PID");
   u0->setWidget(wtest,true);
-  scene->addItem(u0->item());
-  u0->item()->setPos(50,50);
+  scene->addItem(u0);
+  u0->setPos(50,50);
 
 
 
@@ -155,7 +155,7 @@ WidgetLayoutMainWindow::WidgetLayoutMainWindow(QWidget *parent) :
   u1=new WidgetItem;
   u1->setObjectName("SUM");
   u1->setWidget(sw);
-  scene->addItem(u1->item());
+  scene->addItem(u1);
 
 
 
@@ -169,7 +169,7 @@ WidgetLayoutMainWindow::WidgetLayoutMainWindow(QWidget *parent) :
   u2=new WidgetItem;
   u2->setObjectName("CurFeedback");
   u2->setWidget(feedback,true);
-  scene->addItem(u2->item());
+  scene->addItem(u2);
 
 
 
@@ -179,29 +179,29 @@ WidgetLayoutMainWindow::WidgetLayoutMainWindow(QWidget *parent) :
   u3=new WidgetItem;
   u3->setObjectName("AHeadback");
   u3->setWidget(aheadback,true);
-  scene->addItem(u3->item());
+  scene->addItem(u3);
 
 
 
   TargetItemWidget *curBegin=new TargetItemWidget;
   t4=new WidgetItem;
   t4->setWidget(curBegin);
-  scene->addItem(t4->item());
+  scene->addItem(t4);
 
 
 
   TargetItemWidget *tt1=new TargetItemWidget;
   t1=new WidgetItem;
   t1->setWidget(tt1);
-  scene->addItem(t1->item());
+  scene->addItem(t1);
   TargetItemWidget *tt2=new TargetItemWidget;
   t2=new WidgetItem;
   t2->setWidget(tt2);
-  scene->addItem(t2->item());
+  scene->addItem(t2);
   TargetItemWidget *tt3=new TargetItemWidget;
   t3=new WidgetItem;
   t3->setWidget(tt3);
-  scene->addItem(t3->item());
+  scene->addItem(t3);
 
   a1=new ArrowItem(t1->pointF(WidgetItem::POINT_TYPE_RIGHT),t2->pointF(WidgetItem::POINT_TYPE_LEFT),ArrowItem::ARROW_TYPE_STRAIGHT,"",false);
   scene->addItem(a1);
@@ -226,26 +226,26 @@ WidgetLayoutMainWindow::WidgetLayoutMainWindow(QWidget *parent) :
 
   anchorHelper=new AnchorItemHelper;
 
-  anchorHelper->addAnchor(u0->item(),u1->item(),AnchorItemHelper::AnchorRight,-1*u0->item()->boundingRect().width()*1.5);
-  anchorHelper->addAnchor(u0->item(),u1->item(),AnchorItemHelper::AnchorVerticalCenter);
+  anchorHelper->addAnchor(u0,u1,AnchorItemHelper::AnchorRight,-1*u0->boundingRect().width()*1.5);
+  anchorHelper->addAnchor(u0,u1,AnchorItemHelper::AnchorVerticalCenter);
 
-  anchorHelper->addAnchor(u0->item(),u2->item(),AnchorItemHelper::AnchorHorizontalCenter);
-  anchorHelper->addAnchor(u0->item(),u2->item(),AnchorItemHelper::AnchorBottom,u2->item()->boundingRect().height()*3);
+  anchorHelper->addAnchor(u0,u2,AnchorItemHelper::AnchorHorizontalCenter);
+  anchorHelper->addAnchor(u0,u2,AnchorItemHelper::AnchorBottom,u2->boundingRect().height()*3);
 
-  anchorHelper->addAnchor(u2->item(),t4->item(),AnchorItemHelper::AnchorRight,u2->item()->boundingRect().width());
-  anchorHelper->addAnchor(u2->item(),t4->item(),AnchorItemHelper::AnchorVerticalCenter);
+  anchorHelper->addAnchor(u2,t4,AnchorItemHelper::AnchorRight,u2->boundingRect().width());
+  anchorHelper->addAnchor(u2,t4,AnchorItemHelper::AnchorVerticalCenter);
 
-  anchorHelper->addAnchor(u0->item(),u3->item(),AnchorItemHelper::AnchorLeft,-1*u3->item()->boundingRect().width()-u0->item()->boundingRect().width()/2);
-  anchorHelper->addAnchor(u0->item(),u3->item(),AnchorItemHelper::AnchorTop,-1*u0->item()->boundingRect().height()/2);
+  anchorHelper->addAnchor(u0,u3,AnchorItemHelper::AnchorLeft,-1*u3->boundingRect().width()-u0->boundingRect().width()/2);
+  anchorHelper->addAnchor(u0,u3,AnchorItemHelper::AnchorTop,-1*u0->boundingRect().height()/2);
 
-  anchorHelper->addAnchor(u3->item(),t3->item(),AnchorItemHelper::AnchorHorizontalCenter);
-  anchorHelper->addAnchor(u3->item(),t3->item(),AnchorItemHelper::AnchorTop,-1*u3->item()->boundingRect().height());
+  anchorHelper->addAnchor(u3,t3,AnchorItemHelper::AnchorHorizontalCenter);
+  anchorHelper->addAnchor(u3,t3,AnchorItemHelper::AnchorTop,-1*u3->boundingRect().height());
 
-  anchorHelper->addAnchor(u3->item(),t2->item(),AnchorItemHelper::AnchorLeft,-1*u3->item()->boundingRect().width()/3);
-  anchorHelper->addAnchor(u1->item(),t2->item(),AnchorItemHelper::AnchorVerticalCenter);
+  anchorHelper->addAnchor(u3,t2,AnchorItemHelper::AnchorLeft,-1*u3->boundingRect().width()/3);
+  anchorHelper->addAnchor(u1,t2,AnchorItemHelper::AnchorVerticalCenter);
 
-  anchorHelper->addAnchor(t2->item(),t1->item(),AnchorItemHelper::AnchorHorizontalCenter,-1*u0->item()->boundingRect().width()/3);
-  anchorHelper->addAnchor(t2->item(),t1->item(),AnchorItemHelper::AnchorVerticalCenter);
+  anchorHelper->addAnchor(t2,t1,AnchorItemHelper::AnchorHorizontalCenter,-1*u0->boundingRect().width()/3);
+  anchorHelper->addAnchor(t2,t1,AnchorItemHelper::AnchorVerticalCenter);
 
   adjustItemPostion();
 

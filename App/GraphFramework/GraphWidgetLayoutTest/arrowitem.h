@@ -2,9 +2,11 @@
 #define ARROWITEM_H
 
 #include <QGraphicsPolygonItem>
+#include <QObject>
 
 class ArrowItem : public QGraphicsPolygonItem
 {
+
 public:
   enum ArrowType{
     ARROW_TYPE_STRAIGHT,

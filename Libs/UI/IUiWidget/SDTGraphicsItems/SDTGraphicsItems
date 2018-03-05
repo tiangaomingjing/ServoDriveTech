@@ -3,5 +3,6 @@
 #include "arrowitem.h"
 #include "sumitemwidget.h"
 #include "targetitemwidget.h"
+#include "labelitemwidget.h"
 #include <QGraphicsItem>
 #include <QGraphicsProxyWidget>

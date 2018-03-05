@@ -58,7 +58,8 @@ SOURCES += iuiwidget.cpp \
     SDTGraphicsItems/arrowitem.cpp \
     SDTGraphicsItems/sumitemwidget.cpp \
     SDTGraphicsItems/targetitemwidget.cpp \
-    SDTGraphicsItems/widgetitem.cpp
+    SDTGraphicsItems/widgetitem.cpp \
+    SDTGraphicsItems/labelitemwidget.cpp
 
 HEADERS += iuiwidget.h\
         iuiwidget_global.h \
@@ -94,7 +95,8 @@ HEADERS += iuiwidget.h\
     SDTGraphicsItems/sumitemwidget.h \
     SDTGraphicsItems/targetitemwidget.h \
     SDTGraphicsItems/widgetitem.h \
-    SDTGraphicsItems/SDTGraphicsItems
+    SDTGraphicsItems/SDTGraphicsItems \
+    SDTGraphicsItems/labelitemwidget.h
 
 unix {
     target.path = /usr/lib

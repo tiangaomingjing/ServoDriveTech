@@ -1,6 +1,7 @@
 ﻿#include "graphcurrent129.h"
 #include "ui_graphcurrent129.h"
 #include "igraphcurrent_p.h"
+#include "Option"
 
 #include <QDebug>
 class GraphCurrent129Private:public IGraphCurrentPrivate
@@ -27,6 +28,9 @@ void GraphCurrent129::visitActive(IUiWidget *uiWidget)
 {
   Q_UNUSED(uiWidget);
   createItems();
+
+  OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
+  connect(face,SIGNAL(faceCssChanged(QString)),this,SLOT(onFaceCssChanged(QString)));
 }
 void GraphCurrent129::setUiVersionName()
 {

@@ -2,6 +2,7 @@
 #include "igraphwidget_p.h"
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
+#include <QColor>
 #include <QDebug>
 IGraphWidgetPrivate::IGraphWidgetPrivate()
 {
@@ -80,7 +81,7 @@ IGraphWidget::IGraphWidget(IGraphWidgetPrivate &dd,QWidget *parent):InteractiveV
   item->setPos (qrand () % ((int)d->m_scene->sceneRect ().width ()) - 200,
                 qrand () % ((int)d->m_scene->sceneRect ().height ()) - 200);
 
-  QBrush brush(QColor(113,113,113));
+  QBrush brush(backGroundColor());
   setBackgroundBrush(brush);
 }
 
@@ -88,4 +89,36 @@ void IGraphWidget::visit(IUiWidget *uiWidget)
 {
   setUiVersionName();
   visitActive(uiWidget);
+}
+
+QColor IGraphWidget::backGroundColor() const
+{
+  Q_D(const IGraphWidget);
+  return d->m_backGroundColor;
+}
+
+void IGraphWidget::setBackGroundColor(const QColor &color)
+{
+  Q_D(IGraphWidget);
+  d->m_backGroundColor=color;
+  emit backGroundColorChanged(color);
+}
+
+QColor IGraphWidget::arrowColor() const
+{
+  Q_D(const IGraphWidget);
+  return d->m_arrowColor;
+}
+
+void IGraphWidget::setArrowColor(const QColor &color)
+{
+  Q_D(IGraphWidget);
+  d->m_arrowColor=color;
+  emit arrowColorChanged(color);
+}
+
+void IGraphWidget::setCustumBackgroundColor()
+{
+  QBrush brush(backGroundColor());
+  setBackgroundBrush(brush);
 }

@@ -4,17 +4,18 @@
 #include <QHBoxLayout>
 #include <QDebug>
 
-WidgetItem::WidgetItem(QObject *parent) : QObject(parent),
-  m_proxyWidget(new QGraphicsProxyWidget)
+WidgetItem::WidgetItem(QGraphicsItem *parent, Qt::WindowFlags wFlags) : QGraphicsProxyWidget(parent,wFlags)
 {
   for(int i=0;i<4;i++)
     m_netPoints.append(new QPointF(0,0));
-  connect(m_proxyWidget,SIGNAL(geometryChanged()),this,SLOT(onGeometryChanged()));
+  connect(this,SIGNAL(geometryChanged()),this,SLOT(onGeometryChanged()));
+//  connect(m_proxyWidget,SIGNAL(destroyed(QObject*)),this,
 }
 
 WidgetItem::~WidgetItem()
 {
-  delete m_proxyWidget;
+//  if(m_proxyWidget!=NULL)//不能这么操作，因为m_proxyWidget 增加到scene后，它的ownership就由scene控制了，如果再delete,就会再次delete则出错
+//    delete m_proxyWidget;
   foreach (QPointF *p, m_netPoints) {
     delete p;
   }
@@ -34,16 +35,16 @@ void WidgetItem::setWidget(QWidget *widget, bool hasWrapWidget)
     layout->addWidget(widget);
     layout->setMargin(0);
     top->setLayout(layout);
-    m_proxyWidget->setWidget(top);
+    QGraphicsProxyWidget::setWidget(top);
   }
   else
-    m_proxyWidget->setWidget(widget);
+    QGraphicsProxyWidget::setWidget(widget);
 }
 
-QGraphicsProxyWidget *WidgetItem::item() const
-{
-  return m_proxyWidget;
-}
+//QGraphicsProxyWidget *WidgetItem::item() const
+//{
+//  return m_proxyWidget;
+//}
 
 QPointF *WidgetItem::pointF(int index) const
 {
@@ -56,9 +57,9 @@ QPointF *WidgetItem::pointF(int index) const
 void WidgetItem::onGeometryChanged()
 {
 //  qDebug()<<"***************"<<objectName()<<"onGeometryChanged"<<m_proxyWidget->boundingRect()<<"************";
-  qreal w=m_proxyWidget->boundingRect().width();
-  qreal h=m_proxyWidget->boundingRect().height();
-  QPointF pos=m_proxyWidget->scenePos();
+  qreal w=boundingRect().width();
+  qreal h=boundingRect().height();
+  QPointF pos=scenePos();
 //  qDebug()<<"w"<<w<<"h"<<h<<" scenePos"<<pos;
   QPointF left(0,h/2);
   QPointF right(w,h/2);

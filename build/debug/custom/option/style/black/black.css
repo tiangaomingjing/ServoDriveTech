@@ -340,6 +340,50 @@ border-left:none;
 border-right:none;
 margin-bottom: 1px;
 }
+/*====================Current 电流控制器页面===================*/
+IGraphWidget{
+	border:none;
+	qproperty-backGroundColor:#F0F0F0;
+	qproperty-arrowColor:gray;
+}
+
+QWidget#widget_currentPid{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+QLabel#label_currentTitle{
+	padding-bottom:10px;
+	margin-bottom:5px;
+	color:black;
+	border:1px solid transparent;
+	border-bottom-color:black;
+	font-weight:bold;
+}
+QWidget#widget_currentPid QDoubleSpinBox{
+	min-height:30px;
+	min-width:150px;
+}
+
+QLabel#label_currentInputFilter{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:50px;
+	padding:10px;
+}
+QLabel#label_currentFeedback{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:30px;
+	padding:10px;
+}
+SumItemWidget#sumItemWidget_currentSum{
+	background-color:transparent;
+	border:none;
+	qproperty-lineColor: gray;
+} 
 
 /*====================option设置对话框===================*/
 
