@@ -5,12 +5,15 @@
 #include "iuiwidget_global.h"
 #include "igraphwidget.h"
 #include "igraph.h"
+#include "optface.h"
 
 class IGraphCurrentPrivate;
 class IUiWidget;
 class AnchorItemHelper;
 class WidgetItem;
 class ArrowItem;
+class QTreeWidgetItem;
+class QDoubleSpinBox;
 
 class IUIWIDGETSHARED_EXPORT IGraphCurrent : public IGraphWidget
 {
@@ -39,13 +42,25 @@ protected:
   void createStartEndItems();
   void createCurrentFeedbackTarget();
   void createAnchorItemHelper();
+  void createStartTextItem();
+  void createEndTextItem();
 
   virtual void createItems();
 
+  virtual void setEditTextStatusDefaultAll();
+
+  virtual void setupDoublespinBoxEventFilter();
+  virtual bool eventFilter(QObject *obj, QEvent *event);
+
+  void setEditTextStatus(QDoubleSpinBox *box,OptFace::EditTextStatus status);
+
 signals:
 
-public slots:
+protected slots:
   void onFaceCssChanged(const QString &css);
+  void onItemBoxEditTextError(QTreeWidgetItem *item,int status);
+  virtual void onDoubleSpinBoxFocusOut();
+
 protected:
   IGraphCurrent(IGraphCurrentPrivate&dd, QWidget *parent=0);
 };

@@ -32,6 +32,7 @@ protected:
 protected slots:
   void onItemBoxEditTextError(QTreeWidgetItem *item,int status);
   void onFaceCssChanged(const QString &css);
+  void onDoubleSpinBoxFocusOut();
 
 private:
   void setEditTextStatus(QDoubleSpinBox *box,OptFace::EditTextStatus status);

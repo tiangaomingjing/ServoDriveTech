@@ -25,6 +25,8 @@ public:
 
   void setCustumBackgroundColor();
 
+  virtual void syncTreeDataToUiFace();
+
 protected:
   virtual void setUiVersionName()=0;
   virtual void visitActive(IUiWidget*uiWidget)=0;

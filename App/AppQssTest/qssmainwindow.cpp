@@ -201,6 +201,7 @@ void QssMainWindow::on_actionStyleTest1_triggered()
 
   QString qss = in.readAll();
   qApp->setStyleSheet(qss);
+  file.close();
 }
 
 void QssMainWindow::on_actionStyleTest2_triggered()
@@ -213,4 +214,5 @@ void QssMainWindow::on_actionStyleTest2_triggered()
 
   QString qss = in.readAll();
   qApp->setStyleSheet(qss);
+  file.close();
 }

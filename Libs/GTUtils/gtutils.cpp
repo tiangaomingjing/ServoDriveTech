@@ -121,7 +121,7 @@ QTreeWidgetItem* GTUtils::findTopLevelItem(QTreeWidgetItem *item)
 }
 
 
-QTreeWidgetItem* GTUtils::findItem(QString text, QTreeWidget* tree, int col) {
+QTreeWidgetItem* GTUtils::findItem(const QString &text, QTreeWidget* tree, int col) {
     QTreeWidgetItemIterator treeIter(tree);
     QTreeWidgetItem *result = NULL;
     while (*treeIter){
@@ -134,7 +134,7 @@ QTreeWidgetItem* GTUtils::findItem(QString text, QTreeWidget* tree, int col) {
     return result;
 }
 
-QTreeWidgetItem* GTUtils::findItemInItem(QString text, QTreeWidgetItem* tree, int col) {
+QTreeWidgetItem* GTUtils::findItemInItem(const QString &text, QTreeWidgetItem* tree, int col) {
     QTreeWidgetItemIterator treeIter(tree);
     QTreeWidgetItem *result = NULL;
     while (*treeIter){

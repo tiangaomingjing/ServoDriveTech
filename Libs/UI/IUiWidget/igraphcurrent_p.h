@@ -6,6 +6,7 @@
 class AnchorItemHelper;
 class WidgetItem;
 class ArrowItem;
+class QDoubleSpinBox;
 
 class IUIWIDGETSHARED_EXPORT IGraphCurrentPrivate:public IGraphWidgetPrivate
 {
@@ -24,6 +25,9 @@ protected:
   WidgetItem *m_UIF;
   WidgetItem *m_UCB;
 
+  WidgetItem *m_TextStart;
+  WidgetItem *m_TextEnd;
+
   ArrowItem *m_A0;
   ArrowItem *m_A1;
   ArrowItem *m_A2;
@@ -31,7 +35,11 @@ protected:
   ArrowItem *m_A4;
   ArrowItem *m_A5;
 
+
   QList<ArrowItem *>m_arrowList;
+
+  QDoubleSpinBox *m_pEdit;
+  QDoubleSpinBox *m_iEdit;
 };
 
 #endif // IGRAPHBRAKE_P_H

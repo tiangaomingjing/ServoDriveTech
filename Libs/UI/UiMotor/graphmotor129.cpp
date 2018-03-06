@@ -29,6 +29,7 @@ GraphMotor129::GraphMotor129(QWidget *parent) :
   qDebug()<<"all box count="<<allBox.count();
   foreach (QDoubleSpinBox *box, allBox) {
     box->installEventFilter(this);
+    connect(box,SIGNAL(editingFinished()),this,SLOT(onDoubleSpinBoxFocusOut()));
   }
 
 }
@@ -141,6 +142,15 @@ void GraphMotor129::onFaceCssChanged(const QString &css)
 {
   Q_UNUSED(css);
   setEditTextStatusDefaultAll();
+}
+
+void GraphMotor129::onDoubleSpinBoxFocusOut()
+{
+  Q_D(GraphMotor129);
+  QDoubleSpinBox *box=qobject_cast<QDoubleSpinBox *>(sender());
+  QTreeWidgetItem *item=d->m_mapping->item(box);
+  d->m_mapping->syncItem2BoxText(item);
+  qDebug()<<"focus out"<<box;
 }
 
 void GraphMotor129::setEditTextStatus(QDoubleSpinBox *box,OptFace::EditTextStatus status)

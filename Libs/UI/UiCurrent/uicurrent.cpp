@@ -48,6 +48,16 @@ void UiCurrent::accept(QWidget *w)
   d->m_graphCurrent->visit(this);
 }
 
+void UiCurrent::setUiActive(bool actived)
+{
+  if(actived)
+  {
+    Q_D(UiCurrent);
+    if(readPageFLASH())
+      d->m_graphCurrent->syncTreeDataToUiFace();
+  }
+}
+
 QStackedWidget *UiCurrent::getUiStackedWidget(void)
 {
   return ui->stackedWidget;

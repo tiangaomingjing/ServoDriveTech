@@ -19,7 +19,7 @@ SumItemWidget::~SumItemWidget()
 
 QSize SumItemWidget::sizeHint() const
 {
-  int width=fontMetrics().width("m")*8;
+  int width=fontMetrics().width("m")*5;
   return QSize(width,width);
 }
 
@@ -45,7 +45,6 @@ void SumItemWidget::paintEvent(QPaintEvent *event)
   opt.init(this);
   QPainter painter(this);
   style()->drawPrimitive(QStyle::PE_Widget, &opt, &painter, this);
-
 
   painter.setRenderHint(QPainter::Antialiasing,true);
   QPen pen;

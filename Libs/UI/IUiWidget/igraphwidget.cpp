@@ -1,15 +1,37 @@
 ﻿#include "igraphwidget.h"
 #include "igraphwidget_p.h"
+#include "boxitemmapping.h"
+
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
 #include <QColor>
 #include <QDebug>
-IGraphWidgetPrivate::IGraphWidgetPrivate()
-{
 
+IGraphWidgetPrivate::IGraphWidgetPrivate():
+  q_ptr(NULL),
+  m_scene(NULL),
+  m_versionName(""),
+  m_backGroundColor(Qt::black),
+  m_arrowColor(Qt::gray),
+  m_dev(NULL),
+  m_treeWidget(NULL),
+  m_uiWidget(NULL),
+  m_mapping(new BoxItemMapping)
+{
+//  IGraphWidget *q_ptr;
+//  QGraphicsScene* m_scene;
+//  QString m_versionName;
+//  QColor m_backGroundColor;
+//  QColor m_arrowColor;
+
+//  SevDevice *m_dev;
+//  QTreeWidget *m_treeWidget;
+//  BoxItemMapping*m_mapping;
+//  IUiWidget *m_uiWidget;
 }
 IGraphWidgetPrivate::~IGraphWidgetPrivate()
 {
+  delete m_mapping;
   qDebug()<<"IGraphWidgetPrivate destruct-->";
 }
 
@@ -68,18 +90,18 @@ IGraphWidget::IGraphWidget(IGraphWidgetPrivate &dd,QWidget *parent):InteractiveV
   scale(qreal(1), qreal(1));
 //  setMinimumSize(400, 400);
 
-  QGraphicsRectItem *item = new QGraphicsRectItem(QRectF(0, 0, 60, 60));
-  d->m_scene->addItem (item);
+//  QGraphicsRectItem *item = new QGraphicsRectItem(QRectF(0, 0, 60, 60));
+//  d->m_scene->addItem (item);
 
-  QPen pen;               //定义一个画笔
-  pen.setWidth (3);       //设置画笔的宽度
-  pen.setColor (QColor(qrand() % 256, qrand() % 256, qrand() % 256));
-  item->setPen (pen);
-  item->setBrush (QColor(qrand() % 256, qrand() % 256, qrand() % 256));
-  item->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable);
+//  QPen pen;               //定义一个画笔
+//  pen.setWidth (3);       //设置画笔的宽度
+//  pen.setColor (QColor(qrand() % 256, qrand() % 256, qrand() % 256));
+//  item->setPen (pen);
+//  item->setBrush (QColor(qrand() % 256, qrand() % 256, qrand() % 256));
+//  item->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsMovable);
 
-  item->setPos (qrand () % ((int)d->m_scene->sceneRect ().width ()) - 200,
-                qrand () % ((int)d->m_scene->sceneRect ().height ()) - 200);
+//  item->setPos (qrand () % ((int)d->m_scene->sceneRect ().width ()) - 200,
+//                qrand () % ((int)d->m_scene->sceneRect ().height ()) - 200);
 
   QBrush brush(backGroundColor());
   setBackgroundBrush(brush);
@@ -121,4 +143,9 @@ void IGraphWidget::setCustumBackgroundColor()
 {
   QBrush brush(backGroundColor());
   setBackgroundBrush(brush);
+}
+
+void IGraphWidget::syncTreeDataToUiFace()
+{
+
 }

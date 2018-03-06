@@ -170,9 +170,9 @@ QToolButton#tbtnError:hover{
 /*============自定义stylewidget 可以在C++环境中索引到其值=================*/
 StyleWidget{
 	qproperty-dsBoxBackgroundDefColor:white;
-	qproperty-dsBoxBackgroundReadyColor:green;
+	qproperty-dsBoxBackgroundReadyColor:yellow;
 	qproperty-dsBoxBackgroundErrorColor:#E61EE4;
-	qproperty-dsBoxTextEditColor:blue;
+	qproperty-dsBoxTextEditColor:red;
 	qproperty-dsBoxTextDefColor:black;
 	
 	qproperty-msgNormalColor:black;
@@ -378,6 +378,10 @@ QLabel#label_currentFeedback{
 	border-radius:10px;
 	min-height:30px;
 	padding:10px;
+}
+QLabel#label_currentEndText,QLabel#label_currentStartText{
+	background-color: transparent;
+	border:none;
 }
 SumItemWidget#sumItemWidget_currentSum{
 	background-color:transparent;
