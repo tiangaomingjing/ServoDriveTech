@@ -85,6 +85,7 @@ private slots:
   void onActnHelpDeviceInfoClicked();
   void onActnNewConfigClicked();
   void onActnSaveClicked();
+  void onActnProduceClicked();
 
   //响应option选项slots
   void onOptAutoLoadChanged(bool changed);
