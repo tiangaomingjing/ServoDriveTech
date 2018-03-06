@@ -125,20 +125,20 @@ bool SevDevicePrivate::init(const DeviceConfig *dConfig)
     return false;
 
   qDebug()<<"new SevDspMap";
-  emit initProgressInfo(3,tr("New SevDspMap"));
+  emit initProgressInfo(10,tr("New SevDspMap"));
   m_dspMap=new SevDspMap(this,0);
   connect(m_dspMap,SIGNAL(initProgressInfo(int,QString)),this,SIGNAL(initProgressInfo(int,QString)));
   m_dspMap->initTreeMap();
 
   qDebug()<<"new SevPwrBoard";
-  emit initProgressInfo(3,tr("New SevPwrBoard"));
+  emit initProgressInfo(65,tr("New SevPwrBoard"));
   m_pwrBoard=new SevPwrBoard(this,0);
   m_ctrBoard=new SevCtrBoard(this,0);
   m_socket=new LinkSocket(this,0);
   m_verAttribute=new VerAttribute(0);
 
   //通用指令
-  emit initProgressInfo(3,tr("New GeneralCmd"));
+  emit initProgressInfo(65,tr("New GeneralCmd"));
   m_genCmd=new GeneralCmd(m_socket->comObject());
   QString gcmdPath=m_filePath+"cmd/GeneralCmd.xml";
   QTreeWidget *cmdTree=QtTreeManager::createTreeWidgetFromXmlFile(gcmdPath);
