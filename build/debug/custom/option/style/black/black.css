@@ -207,6 +207,46 @@ background-color: #E0DDDD;
 border-radius:5px;
 border:2px solid #BBB9B9;
 }
+
+QLabel#label_motorCur{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_MotorMac{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_motorVel{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_MotorImp{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_motorTor{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
 /*====================编码器界面===================*/
 QLabel#label_encMsg{
 	font-weight:bold;
@@ -242,40 +282,7 @@ border:none;
 background-color:#680000;
 }
 
-QLabel#label_motorCur{
-border:1px solid black;
-border-top:none;
-border-left:none;
-border-right:none;
-}
 
-QLabel#label_MotorMac{
-border:1px solid black;
-border-top:none;
-border-left:none;
-border-right:none;
-}
-
-QLabel#label_motorVel{
-border:1px solid black;
-border-top:none;
-border-left:none;
-border-right:none;
-}
-
-QLabel#label_MotorImp{
-border:1px solid black;
-border-top:none;
-border-left:none;
-border-right:none;
-}
-
-QLabel#label_motorTor{
-border:1px solid black;
-border-top:none;
-border-left:none;
-border-right:none;
-}
 
 /*================================功率界面===============================*/
 
@@ -295,6 +302,30 @@ QWidget#widget_pwrRelay{
 background-color: #E0DDDD;
 border-radius:5px;
 border:2px solid #BBB9B9;
+}
+
+QLabel#label_pwrBVP{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_pwrSSRV{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_pwrBHV{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
 }
 
 /*===============================制动界面===============================*/
@@ -322,7 +353,7 @@ border:1px solid black;
 border-top:none;
 border-left:none;
 border-right:none;
-margin-bottom: 1px;
+padding-bottom: 10px;
 }
 
 QLabel#label_brakeDynamic{
@@ -330,7 +361,7 @@ border:1px solid black;
 border-top:none;
 border-left:none;
 border-right:none;
-margin-bottom: 1px;
+padding-bottom: 10px;
 }
 
 QLabel#label_brakeExternal{
@@ -338,7 +369,7 @@ border:1px solid black;
 border-top:none;
 border-left:none;
 border-right:none;
-margin-bottom: 1px;
+padding-bottom: 10px;
 }
 /*====================Current 电流控制器页面===================*/
 IGraphWidget{

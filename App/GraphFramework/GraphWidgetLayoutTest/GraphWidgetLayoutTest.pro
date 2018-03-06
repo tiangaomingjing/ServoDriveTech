@@ -11,7 +11,6 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = GraphWidgetLayoutTest
 TEMPLATE = app
 
-
 SOURCES += main.cpp\
         widgetlayoutmainwindow.cpp \
     piditem.cpp \
@@ -21,7 +20,11 @@ SOURCES += main.cpp\
     arrowitem.cpp \
     interactiveview.cpp \
     targetitemwidget.cpp \
-    anchoritemhelper.cpp
+    anchoritemhelper.cpp \
+    acwidget.cpp \
+    basewidget.cpp \
+    combinedwidget.cpp \
+    trianwidget.cpp
 
 HEADERS  += widgetlayoutmainwindow.h \
     piditem.h \
@@ -31,6 +34,10 @@ HEADERS  += widgetlayoutmainwindow.h \
     arrowitem.h \
     interactiveview.h \
     targetitemwidget.h \
-    anchoritemhelper.h
+    anchoritemhelper.h \
+    acwidget.h \
+    basewidget.h \
+    combinedwidget.h \
+    trianwidget.h
 
 FORMS    += widgetlayoutmainwindow.ui
