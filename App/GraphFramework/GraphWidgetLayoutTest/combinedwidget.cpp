@@ -15,26 +15,26 @@ CombinedWidget::CombinedWidget(QWidget *parent) : QWidget(parent)
 
     m_base = new BaseWidget(this);
     m_trian = new TrianWidget(this);
-    vBox = new QVBoxLayout;
+    m_vBox = new QVBoxLayout;
     switch (m_mode) {
     case MODE_UP:
-        vBox->addWidget(m_trian);
-        vBox->addWidget(m_base);
+        m_vBox->addWidget(m_trian);
+        m_vBox->addWidget(m_base);
         break;
     case MODE_DOWN:
-        vBox->addWidget(m_base);
-        vBox->addWidget(m_trian);
+        m_vBox->addWidget(m_base);
+        m_vBox->addWidget(m_trian);
         break;
     }
-    vBox->setSpacing(0);
-    vBox->setMargin(0);
-    this->setLayout(vBox);
+    m_vBox->setSpacing(0);
+    m_vBox->setMargin(0);
+    this->setLayout(m_vBox);
 }
 
 CombinedWidget::~CombinedWidget() {
     delete m_base;
     delete m_trian;
-    delete vBox;
+    delete m_vBox;
 }
 
 
@@ -154,8 +154,8 @@ void CombinedWidget::resizeEvent(QResizeEvent *event) {
     if (m_trianPos + m_halfTrianWidth > this->width() - m_radius) {
         m_endPoint = this->width() - m_radius;
     }
-    vBox->setStretchFactor(m_trian, m_trianHeight);
-    vBox->setStretchFactor(m_base, m_baseHeight);
+    m_vBox->setStretchFactor(m_trian, m_trianHeight);
+    m_vBox->setStretchFactor(m_base, m_baseHeight);
 }
 
 QSize CombinedWidget::sizeHint() const {

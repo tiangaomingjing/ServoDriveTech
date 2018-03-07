@@ -57,6 +57,8 @@ private:
     QString m_comText;
     QString m_powerPath;
     QString m_controlPath;
+    QString m_typeName;
+    QString m_modeName;
 
     TcpConnect *tcpClient;
 private slots:
