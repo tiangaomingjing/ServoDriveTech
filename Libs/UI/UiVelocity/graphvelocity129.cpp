@@ -22,7 +22,7 @@ GraphVelocity129::~GraphVelocity129()
 {
   delete ui;
 }
-void GraphVelocity129::visitActive(IUiWidget *uiWidget)
+void GraphVelocity129::setCustomVisitActive(IUiWidget *uiWidget)
 {
 
 }

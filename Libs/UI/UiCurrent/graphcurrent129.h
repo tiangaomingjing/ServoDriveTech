@@ -18,11 +18,10 @@ public:
   explicit GraphCurrent129(QWidget *parent = 0);
   ~GraphCurrent129();
 
-  void syncTreeDataToUiFace() Q_DECL_OVERRIDE;
-
 protected:
-  void visitActive(IUiWidget *uiWidget) Q_DECL_OVERRIDE;
+  void setCustomVisitActive(IUiWidget *uiWidget) Q_DECL_OVERRIDE;
   void setUiVersionName() Q_DECL_OVERRIDE;
+  void setupDataMappings() Q_DECL_OVERRIDE;
 
 private:
   Ui::GraphCurrent129 *ui;

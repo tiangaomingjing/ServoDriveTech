@@ -46,7 +46,7 @@ QStringList IEncConfigItem::errorStrings(quint16 errorCode)
   return list;
 }
 
-bool IEncConfigItem::hasWarnig(quint16 errorCode)
+bool IEncConfigItem::hasWarning(quint16 errorCode)
 {
   return ((errorCode&m_alarmOper)>0);
 }

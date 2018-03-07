@@ -47,11 +47,6 @@ IGraphCurrentPrivate::~IGraphCurrentPrivate()
   qDebug()<<"IGraphCurrentPrivate destruct-->";
 }
 
-
-IGraphCurrent::IGraphCurrent(QWidget *parent) : IGraphWidget(*(new IGraphCurrentPrivate),parent)
-{
-
-}
 IGraphCurrent::~IGraphCurrent()
 {
 
@@ -61,6 +56,12 @@ IGraphCurrent::~IGraphCurrent()
   }
   d->m_arrowList.clear();
   qDebug()<<"IGraphCurrent destruct-->";
+}
+
+void IGraphCurrent::syncTreeDataToUiFace()
+{
+  Q_D(IGraphCurrent);
+  d->m_mapping->syncAllItem2BoxText();
 }
 
 void IGraphCurrent::createPIDControllerItem()
@@ -208,7 +209,7 @@ void IGraphCurrent::createStartEndItems()
   d->m_scene->addItem(d->m_Tend);
 }
 
-void IGraphCurrent::createCurrentFeedbackTarget()
+void IGraphCurrent::createCurrentFeedbackTargetItem()
 {
   Q_D(IGraphCurrent);
   TargetItemWidget *t0=new TargetItemWidget;
@@ -260,7 +261,7 @@ void IGraphCurrent::createItems()
   crtateInputFilterItem();
   createStartEndItems();
   createCurrentFeedbackItem();
-  createCurrentFeedbackTarget();
+  createCurrentFeedbackTargetItem();
   createStartTextItem();
   createEndTextItem();
 
@@ -273,15 +274,8 @@ void IGraphCurrent::createItems()
   setCustumBackgroundColor();
 }
 
-void IGraphCurrent::setEditTextStatusDefaultAll()
-{
-  Q_D(IGraphCurrent);
-  OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
-  face->setEditTextStatus(d->m_pEdit,OptFace::EDIT_TEXT_STATUS_DEFAULT);
-  face->setEditTextStatus(d->m_iEdit,OptFace::EDIT_TEXT_STATUS_DEFAULT);
-}
 
-void IGraphCurrent::setupDoublespinBoxEventFilter()
+void IGraphCurrent::installDoubleSpinBoxEventFilter()
 {
   Q_D(IGraphCurrent);
   d->m_pEdit->installEventFilter(this);
@@ -290,55 +284,12 @@ void IGraphCurrent::setupDoublespinBoxEventFilter()
   connect(d->m_iEdit,SIGNAL(editingFinished()),this,SLOT(onDoubleSpinBoxFocusOut()));
 }
 
-bool IGraphCurrent::eventFilter(QObject *obj, QEvent *event)
-{
-  if (event->type()==QEvent::KeyPress)
-  {
-    QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
-    if (keyEvent->key() == Qt::Key_Return || keyEvent->key() == Qt::Key_Enter)
-    {
-      Q_D(IGraphCurrent);
-      qDebug()<<"enter clicked"<<"object name"<<obj->objectName();
-      QDoubleSpinBox* box=dynamic_cast<QDoubleSpinBox*>(obj);
-      d->m_mapping->syncBoxText2MultiItem(box);
-      setEditTextStatus(box,OptFace::EDIT_TEXT_STATUS_READY);
-      return true;
-    }
-  }
-  return QWidget::eventFilter(obj,event);
-}
 
 void IGraphCurrent::onFaceCssChanged(const QString &css)
 {
   Q_UNUSED(css);
   adjustPosition();
   setCustumBackgroundColor();
-}
-
-void IGraphCurrent::onItemBoxEditTextError(QTreeWidgetItem *item, int status)
-{
-  Q_D(IGraphCurrent);
-  QDoubleSpinBox *box=d->m_mapping->box(item);
-  if(box!=NULL)
-    setEditTextStatus(box,OptFace::EditTextStatus(status));
-}
-
-void IGraphCurrent::onDoubleSpinBoxFocusOut()
-{
-  Q_D(IGraphCurrent);
-  qDebug()<<objectName()<<"onDoubleSpinBoxFocusOut";
-  QDoubleSpinBox* box = qobject_cast<QDoubleSpinBox*>(sender());
-  qDebug()<<"box name"<<box->objectName();
-  QTreeWidgetItem *item=d->m_mapping->item(box);
-  if(item!=NULL)
-    qDebug()<<item->text(0);
-  d->m_mapping->syncItem2BoxText(item);
-}
-
-void IGraphCurrent::setEditTextStatus(QDoubleSpinBox *box, OptFace::EditTextStatus status)
-{
-  OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
-  face->setEditTextStatus(box,status);
 }
 
 void IGraphCurrent::adjustPosition()

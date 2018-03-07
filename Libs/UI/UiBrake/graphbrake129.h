@@ -4,7 +4,6 @@
 #include <QWidget>
 #include "igraphbrake.h"
 #include "uibrake_global.h"
-#include "optface.h"
 
 namespace Ui {
 class GraphBrake129;
@@ -33,22 +32,13 @@ public:
   explicit GraphBrake129(QWidget *parent = 0);
   ~GraphBrake129();
 
-  void syncTreeDataToUiFace()Q_DECL_OVERRIDE;
+  void syncTreeDataToUiFace() Q_DECL_OVERRIDE;
 
 protected:
-  void visitActive(IUiWidget *uiWidget)Q_DECL_OVERRIDE;
-  void setUiVersionName()Q_DECL_OVERRIDE;
+  void setCustomVisitActive(IUiWidget *uiWidget) Q_DECL_OVERRIDE;
+  void setUiVersionName() Q_DECL_OVERRIDE;
+  void setupDataMappings() Q_DECL_OVERRIDE;
 
-protected:
-  bool eventFilter(QObject *obj, QEvent *event);
-
-protected slots:
-  void onItemBoxEditTextError(QTreeWidgetItem *item,int status);
-  void onFaceCssChanged(const QString &css);
-
-private:
-  void setEditTextStatus(QDoubleSpinBox *box,OptFace::EditTextStatus status);
-  void setEditTextStatusDefaultAll();
 private:
   Ui::GraphBrake129 *ui;
 };

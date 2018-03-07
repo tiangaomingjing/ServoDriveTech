@@ -11,7 +11,7 @@ public:
   explicit EncConfigNiKangItem(QObject *parent = 0);
   ~EncConfigNiKangItem();
   void createAttributeUi() Q_DECL_OVERRIDE;
-  void attributeUiUpdate() Q_DECL_OVERRIDE;
+  void updateAttributeUi() Q_DECL_OVERRIDE;
   bool execute()Q_DECL_OVERRIDE;
 
 signals:

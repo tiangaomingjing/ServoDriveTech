@@ -11,10 +11,10 @@ IGraphPowerPrivate::~IGraphPowerPrivate()
 
 }
 
-IGraphPower::IGraphPower(QWidget *parent) : IGraph(*(new IGraphPowerPrivate),parent)
-{
+//IGraphPower::IGraphPower(QWidget *parent) : IGraph(*(new IGraphPowerPrivate),parent)
+//{
 
-}
+//}
 IGraphPower::~IGraphPower()
 {
 

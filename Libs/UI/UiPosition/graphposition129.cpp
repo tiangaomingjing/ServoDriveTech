@@ -20,7 +20,7 @@ GraphPosition129::~GraphPosition129()
 {
   delete ui;
 }
-void GraphPosition129::visitActive(IUiWidget *uiWidget)
+void GraphPosition129::setCustomVisitActive(IUiWidget *uiWidget)
 {
 
 }

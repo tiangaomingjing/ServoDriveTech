@@ -30,7 +30,7 @@ void EncConfigNiKangItem::createAttributeUi()
   m_attributeUi->setLayout(hlayout);
 
 }
-void EncConfigNiKangItem::attributeUiUpdate()
+void EncConfigNiKangItem::updateAttributeUi()
 {
   int index=(m_encConfigData&0x1000)>>12;
   m_comboBox->setCurrentIndex(index);

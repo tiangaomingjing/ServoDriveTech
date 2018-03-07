@@ -18,10 +18,10 @@ public:
   virtual ~IEncConfigItem();
 
   virtual QStringList errorStrings(quint16 errorCode);
-  virtual bool hasWarnig(quint16 errorCode);
+  virtual bool hasWarning(quint16 errorCode);
   virtual bool hasLostError(quint16 errorCode);
   virtual void createAttributeUi();
-  virtual void attributeUiUpdate(){}
+  virtual void updateAttributeUi(){}
   virtual bool execute();
 
   EncType encType() const;
@@ -35,7 +35,7 @@ public:
 
   QWidget *attributeUi() const;
 
-  void setWarningsString(const QStringList &warnings);
+  void setWarningsString(const QStringList &warnings);//定义每一位报警位信息
 
   quint16 lostOper() const;
   void setLostOper(const quint16 lostOper);
@@ -51,10 +51,10 @@ signals:
 
 public slots:
 protected:
-  EncType m_encType;
-  quint16 m_encConfigData;
+  EncType m_encType;//绝对值  还是增量式
+  quint16 m_encConfigData;//(12-15 对应波特率 0-3对应是哪一家
   quint32 m_lineNumber;
-  QStringList m_warnings;
+  QStringList m_warnings;//报警信息
 
   quint16 m_lostOper;
   quint16 m_alarmOper;

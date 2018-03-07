@@ -13,13 +13,14 @@ class IUIWIDGETSHARED_EXPORT IGraphEncoder : public IGraph
   Q_OBJECT
   Q_DECLARE_PRIVATE(IGraphEncoder)
 public:
-  explicit IGraphEncoder(QWidget *parent = 0);
+//  explicit IGraphEncoder(QWidget *parent = 0);
   virtual ~IGraphEncoder();
   void startUpdateTimer(bool enabled);
 
 protected:
   virtual void setUiVersionName()Q_DECL_OVERRIDE =0;
-  virtual void visitActive(IUiWidget*uiWidget)Q_DECL_OVERRIDE =0;
+  virtual void setCustomVisitActive(IUiWidget*uiWidget)Q_DECL_OVERRIDE =0;
+  virtual void setupDataMappings()=0;
 
   virtual qint32 readPos(const QString &key);
   virtual qint32 readPosInput(const QString &key);

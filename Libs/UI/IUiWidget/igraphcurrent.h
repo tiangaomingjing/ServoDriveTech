@@ -20,46 +20,39 @@ class IUIWIDGETSHARED_EXPORT IGraphCurrent : public IGraphWidget
   Q_OBJECT
   Q_DECLARE_PRIVATE(IGraphCurrent)
 public:
-  explicit IGraphCurrent(QWidget *parent = 0);
+
   virtual ~IGraphCurrent();
+  virtual void syncTreeDataToUiFace() Q_DECL_OVERRIDE;
 
 protected:
   virtual void setUiVersionName()Q_DECL_OVERRIDE =0;
-  virtual void visitActive(IUiWidget*uiWidget)Q_DECL_OVERRIDE =0;
+  void createItems() Q_DECL_OVERRIDE;
+  virtual void setupDataMappings() = 0;
+  void installDoubleSpinBoxEventFilter() Q_DECL_OVERRIDE;
+  virtual void setCustomVisitActive(IUiWidget*uiWidget)Q_DECL_OVERRIDE =0;
 
-  virtual void createPIDControllerItem();
-  virtual void crtateInputFilterItem();
+  void createPIDControllerItem();
+  void crtateInputFilterItem();
 
-  virtual void createCurrentFeedbackItem();
-  virtual void createSumItem();
+  void createCurrentFeedbackItem();
+  void createSumItem();
 
-  virtual void createArrowItems();
+  void createArrowItems();
 
-  virtual void setUpItemPosAnchors();
+  void setUpItemPosAnchors();
 
-  virtual void adjustPosition();
+  void adjustPosition();
 
   void createStartEndItems();
-  void createCurrentFeedbackTarget();
+  void createCurrentFeedbackTargetItem();
   void createAnchorItemHelper();
   void createStartTextItem();
   void createEndTextItem();
 
-  virtual void createItems();
-
-  virtual void setEditTextStatusDefaultAll();
-
-  virtual void setupDoublespinBoxEventFilter();
-  virtual bool eventFilter(QObject *obj, QEvent *event);
-
-  void setEditTextStatus(QDoubleSpinBox *box,OptFace::EditTextStatus status);
 
 signals:
-
 protected slots:
-  void onFaceCssChanged(const QString &css);
-  void onItemBoxEditTextError(QTreeWidgetItem *item,int status);
-  virtual void onDoubleSpinBoxFocusOut();
+  void onFaceCssChanged(const QString &css) Q_DECL_OVERRIDE;
 
 protected:
   IGraphCurrent(IGraphCurrentPrivate&dd, QWidget *parent=0);

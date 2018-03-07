@@ -51,6 +51,7 @@ void SumItemWidget::paintEvent(QPaintEvent *event)
   pen.setWidth(2);
   pen.setColor(lineColor());
   painter.setPen(pen);
+  painter.setBrush(QBrush(fillColor()));
   int w=width();
   qreal x1,x2;
   qreal adjust=pen.width()/2;
@@ -66,6 +67,20 @@ void SumItemWidget::paintEvent(QPaintEvent *event)
   painter.drawLine(pb,pd);
 
 //  qDebug()<<"paint event rect"<<event->rect();
+}
+
+QColor SumItemWidget::fillColor() const
+{
+  return m_fillColor;
+}
+
+void SumItemWidget::setFillColor(const QColor &fillColor)
+{
+  if(m_fillColor!=fillColor)
+  {
+    m_fillColor = fillColor;
+    emit fillColorChanged(m_fillColor);
+  }
 }
 
 

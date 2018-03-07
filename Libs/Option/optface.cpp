@@ -307,6 +307,8 @@ StyleWidget *OptFace::customStyleWidget()
 void OptFace::setEditTextStatus(QDoubleSpinBox *box,EditTextStatus sta)
 {
   Q_D(OptFace);
+  if(!box)
+    return;
   int index=(int)sta;
   if(index<d->m_editTextStyleSheetList.count())
   {

@@ -38,21 +38,20 @@ GraphCurrent129::~GraphCurrent129()
   qDebug()<<"GraphCurrent129 destruct-->";
 }
 
-void GraphCurrent129::syncTreeDataToUiFace()
+void GraphCurrent129::setCustomVisitActive(IUiWidget *uiWidget)
 {
-  Q_D(GraphCurrent129);
-  d->m_mapping->syncAllItem2BoxText();
+  Q_UNUSED(uiWidget);
 }
-void GraphCurrent129::visitActive(IUiWidget *uiWidget)
+void GraphCurrent129::setUiVersionName()
 {
   Q_D(GraphCurrent129);
-  d->m_dev=uiWidget->device();
-  int axis=uiWidget->uiIndexs().axisInx;
-  int page=uiWidget->uiIndexs().pageInx;
-  d->m_treeWidget=d->m_dev->axisTreeSource(axis,page);
-  d->m_uiWidget=uiWidget;
+  d->m_versionName="V129";
+}
 
-  createItems();
+void GraphCurrent129::setupDataMappings()
+{
+  Q_D(IGraphCurrent);
+
 
   d->m_mapping->insertBox2MultiItem(d->m_pEdit,d->m_treeWidget->topLevelItem(FND_INX));
   d->m_mapping->insertBox2MultiItem(d->m_pEdit,d->m_treeWidget->topLevelItem(FNQ_INX));
@@ -64,19 +63,6 @@ void GraphCurrent129::visitActive(IUiWidget *uiWidget)
 
   d->m_mapping->insertItem2Box(d->m_treeWidget->topLevelItem(TIQ_INX),d->m_iEdit);
   d->m_mapping->insertItem2Box(d->m_treeWidget->topLevelItem(FNQ_INX),d->m_pEdit);
-
-  setEditTextStatusDefaultAll();
-
-  setupDoublespinBoxEventFilter();
-
-  OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
-  connect(face,SIGNAL(faceCssChanged(QString)),this,SLOT(onFaceCssChanged(QString)));
-  connect(d->m_dev,SIGNAL(itemRangeValid(QTreeWidgetItem*,int)),this,SLOT(onItemBoxEditTextError(QTreeWidgetItem*,int)));
-}
-void GraphCurrent129::setUiVersionName()
-{
-  Q_D(GraphCurrent129);
-  d->m_versionName="V129";
 }
 
 
