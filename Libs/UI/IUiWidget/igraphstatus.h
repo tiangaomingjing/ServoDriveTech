@@ -18,6 +18,7 @@ public:
 protected:
   virtual void setUiVersionName()Q_DECL_OVERRIDE =0;
   virtual void visitActive(IUiWidget*uiWidget)Q_DECL_OVERRIDE =0;
+  virtual void setupDataMappings()=0;
 
 signals:
 

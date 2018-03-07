@@ -3,8 +3,11 @@
 
 #include <QWidget>
 #include "iuiwidget_global.h"
+
 class IUiWidget;
 class IGraphPrivate;
+class QDoubleSpinBox;
+class QTreeWidgetItem;
 
 class IUIWIDGETSHARED_EXPORT IGraph:public QWidget
 {
@@ -19,10 +22,19 @@ public:
 protected:
   virtual void setUiVersionName()=0;
   virtual void visitActive(IUiWidget*uiWidget)=0;
+  virtual void setupDataMappings()=0;
+
+  virtual void setEditTextStatus(QDoubleSpinBox *box,int status);
+  virtual void setEditTextStatusDefaultAll();
+
+  virtual void installDoubleSpinBoxEventFilter();
+  virtual bool eventFilter(QObject *obj, QEvent *event);
 
 signals:
 
-public slots:
+protected slots:
+  virtual void onItemBoxEditTextError(QTreeWidgetItem *item,int status);
+  virtual void onFaceCssChanged(const QString &css);
 protected:
   IGraph(IGraphPrivate&dd,QWidget *parent=0);
   IGraphPrivate *d_ptr;
