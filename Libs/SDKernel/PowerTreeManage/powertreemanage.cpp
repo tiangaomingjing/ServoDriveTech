@@ -82,7 +82,7 @@ PowerTreeManage::PowerTreeManage(DeviceConfig *sev, QObject *parent) : QObject(p
     m_powerTree = NULL;
     m_pwrTarget = NULL;
     m_sev = sev;
-    QString idStr = QString::number(m_sev->m_devId, 10);
+    QString idStr = QString::number(m_sev->m_pwrId, 10);
     qDebug()<<idStr;
     QString path = GTUtils::databasePath() + "Board/PB/";
     QString filePath = path + "pbindex.ui";
@@ -90,11 +90,14 @@ PowerTreeManage::PowerTreeManage(DeviceConfig *sev, QObject *parent) : QObject(p
     QTreeWidget *indexTree = QtTreeManager::createTreeWidgetFromXmlFile(filePath);
     QTreeWidgetItem* targetItem = GTUtils::findItem(idStr, indexTree, PWR_COL_INX_VALUE);
     if (targetItem == NULL) {
+        qDebug()<<"null";
         return;
     }
-    path = path + getPath(targetItem);
+    QString itemPath = path + getPath(targetItem);
+    qDebug()<<"itemPath "<<itemPath;
     m_filterPath = path + getFilterPath(targetItem);
-    m_powerTree = QtTreeManager::createTreeWidgetFromXmlFile(path);
+    qDebug()<<"filterPath"<<m_filterPath;
+    m_powerTree = QtTreeManager::createTreeWidgetFromXmlFile(itemPath);
     m_pwrTarget = GTUtils::findItem(idStr, m_powerTree, PWR_COL_INX_VALUE);
     delete indexTree;
 }
@@ -173,7 +176,7 @@ bool PowerTreeManage::updatePowerLimitMapList(QList<QMap<QString, PowerBoardLimi
   int axisNum;
 //  QTreeWidgetItem *item;
   powerLimitMapList.clear();
-  m_filterPath = m_filterPath + m_sev->m_version + ".ui";
+  m_filterPath = m_filterPath + m_sev->m_version + "/" + m_sev->m_version + ".ui";
   qDebug()<<"filterpath "<<m_filterPath;
   QTreeWidget* filterTree = QtTreeManager::createTreeWidgetFromXmlFile(m_filterPath);
 
@@ -343,13 +346,13 @@ QTreeWidgetItem *PowerTreeManage::findItemByNameRecursion(QTreeWidgetItem *item,
 }
 
 QString PowerTreeManage::getPath(QTreeWidgetItem *item) {
-    QString result = item->text(PWR_COL_INX_VALUE);
-    QString fileName = item->text(PWR_COL_INX_VALUE) + ".ui";
+    QString result = item->text(PWR_COL_INX_NAME);
+    QString fileName = item->text(PWR_COL_INX_NAME) + ".ui";
     int count = 0;
     QTreeWidgetItem *currentItem = item;
     while (count < 3) {
         currentItem = currentItem->parent();
-        result = currentItem->text(PWR_COL_INX_VALUE) + "/" + result;
+        result = currentItem->text(PWR_COL_INX_NAME) + "/" + result;
         count++;
     }
     result = result + "/" + fileName;
@@ -357,12 +360,12 @@ QString PowerTreeManage::getPath(QTreeWidgetItem *item) {
 }
 
 QString PowerTreeManage::getFilterPath(QTreeWidgetItem *item) {
-    QString result = item->text(PWR_COL_INX_VALUE);
+    QString result = item->text(PWR_COL_INX_NAME);
     int count = 0;
     QTreeWidgetItem *currentItem = item;
     while (count < 3) {
         currentItem = currentItem->parent();
-        result = currentItem->text(PWR_COL_INX_VALUE) + "/" + result;
+        result = currentItem->text(PWR_COL_INX_NAME) + "/" + result;
         count++;
     }
     result = result + "/filter/";

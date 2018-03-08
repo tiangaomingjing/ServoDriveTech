@@ -463,15 +463,15 @@ void EpromManager::onActionConnectToServer() {
 
     quint32 pwrId = m_powerID.toInt();   //id->SD?? 通过一个id映射表获得名字
     quint32 ctrId = m_controlID.toInt();   //id->SD?? 通过一个id映射表获得名字
-    quint32 fpgaId = ;
+//    quint32 fpgaId = ;
 
-    quint8 rnStationId;
-    if (getComType() == GTSD_COM_TYPE_RNNET) {
-        comType = "RNNET";
-    } else {
-        comType = "PCDebug";
-    }
-    out<<quint16(0)<<str;
+//    quint8 rnStationId;
+//    if (getComType() == GTSD_COM_TYPE_RNNET) {
+//        comType = "RNNET";
+//    } else {
+//        comType = "PCDebug";
+//    }
+//    out<<quint16(0)<<str;
     out.device()->seek(0);
     out<<quint16(block.size() - sizeof(quint16));
     tcpClient = new TcpConnect(block);
