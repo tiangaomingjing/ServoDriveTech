@@ -34,6 +34,7 @@ protected:
   virtual void createItems()=0;
   virtual void setupDataMappings()=0;
   virtual void installDoubleSpinBoxEventFilter()=0;
+  virtual void setDoubleSpinBoxConnections()=0;
   virtual void setCustomVisitActive(IUiWidget*uiWidget)=0;
 
   virtual void adjustPosition()=0;
@@ -43,8 +44,7 @@ protected:
 
   virtual bool eventFilter(QObject *obj, QEvent *event);
 
-private:
-  void setupConnections();
+  void setCommonConnections();
 
 signals:
   void backGroundColorChanged(const QColor &color);
@@ -52,7 +52,7 @@ signals:
 
 protected slots:
   virtual void onItemBoxEditTextError(QTreeWidgetItem *item,int status);
-  virtual void onFaceCssChanged(const QString &css) =0;
+  virtual void onFaceCssChanged(const QString &css);
   virtual void onDoubleSpinBoxFocusOut();
 
 protected:

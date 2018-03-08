@@ -30,4 +30,10 @@ void GraphVelocity129::setUiVersionName()
 {
   Q_D(GraphVelocity129);
   d->m_versionName="V129";
+  setObjectName("GraphVelocity129");
+}
+
+void GraphVelocity129::setupDataMappings()
+{
+
 }

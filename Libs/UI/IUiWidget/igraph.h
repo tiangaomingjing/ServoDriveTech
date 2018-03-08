@@ -27,10 +27,11 @@ protected:
   virtual void setEditTextStatus(QDoubleSpinBox *box,int status);
   virtual void setEditTextStatusDefaultAll();
 
+  virtual void setDoubleSpinBoxConnections();
   virtual void installDoubleSpinBoxEventFilter();
   virtual bool eventFilter(QObject *obj, QEvent *event);
 
-  virtual void setupConnections();
+  virtual void setCommonConnections();
 
 signals:
 

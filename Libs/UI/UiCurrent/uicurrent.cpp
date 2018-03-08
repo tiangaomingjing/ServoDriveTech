@@ -46,6 +46,7 @@ void UiCurrent::accept(QWidget *w)
   ui->qmlHboxLayout->addWidget(w);
   d->m_graphCurrent=dynamic_cast<IGraphCurrent *>(w);
   d->m_graphCurrent->visit(this);
+  ui->label->setText(d->m_graphCurrent->objectName());
 }
 
 void UiCurrent::setUiActive(bool actived)

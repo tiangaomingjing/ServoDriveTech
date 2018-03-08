@@ -7,6 +7,7 @@
 #include <QFileInfo>
 
 #include "test.h"
+#include <iostream>
 
 
 
@@ -87,6 +88,34 @@ void readStyleINI()
   file.close();
 }
 
+
+class A
+{
+public:
+  ~A(){}
+  void display(){dosomething();}
+protected:
+  virtual void dosomething()=0;
+};
+class B:public A
+{
+public:
+  B(){}
+protected:
+  void dosomething()
+  {
+    std::cout<<"this is B";
+  }
+};
+class C:public B
+{
+protected:
+  void dosomething()
+  {
+    std::cout<<"this is C";
+  }
+};
+
 int main(int argc, char *argv[])
 {
 //  QCoreApplication a(argc, argv);
@@ -116,6 +145,10 @@ int main(int argc, char *argv[])
 
   qDebug()<<"10.00 toUshort"<<QString("10.00").toUShort();
   qDebug()<<"10.00.toDouble()"<<QString("10.00").toDouble();
+
+  B *b=new C;
+  b->display();
+
   return a.exec();
 }
 

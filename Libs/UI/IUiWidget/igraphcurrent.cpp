@@ -192,7 +192,7 @@ void IGraphCurrent::setUpItemPosAnchors()
 
 }
 
-void IGraphCurrent::createStartEndItems()
+void IGraphCurrent::createStartEndTargetItems()
 {
   Q_D(IGraphCurrent);
   TargetItemWidget *t0=new TargetItemWidget;
@@ -259,7 +259,7 @@ void IGraphCurrent::createItems()
   createPIDControllerItem();
   createSumItem();
   crtateInputFilterItem();
-  createStartEndItems();
+  createStartEndTargetItems();
   createCurrentFeedbackItem();
   createCurrentFeedbackTargetItem();
   createStartTextItem();
@@ -279,18 +279,16 @@ void IGraphCurrent::installDoubleSpinBoxEventFilter()
 {
   Q_D(IGraphCurrent);
   d->m_pEdit->installEventFilter(this);
-  connect(d->m_pEdit,SIGNAL(editingFinished()),this,SLOT(onDoubleSpinBoxFocusOut()));
   d->m_iEdit->installEventFilter(this);
+}
+
+void IGraphCurrent::setDoubleSpinBoxConnections()
+{
+  Q_D(IGraphCurrent);
+  connect(d->m_pEdit,SIGNAL(editingFinished()),this,SLOT(onDoubleSpinBoxFocusOut()));
   connect(d->m_iEdit,SIGNAL(editingFinished()),this,SLOT(onDoubleSpinBoxFocusOut()));
 }
 
-
-void IGraphCurrent::onFaceCssChanged(const QString &css)
-{
-  Q_UNUSED(css);
-  adjustPosition();
-  setCustumBackgroundColor();
-}
 
 void IGraphCurrent::adjustPosition()
 {
