@@ -1,17 +1,19 @@
-﻿#ifndef ACWIDGET_H
-#define ACWIDGET_H
+﻿#ifndef SATURATIONITEMWIDGET_H
+#define SATURATIONITEMWIDGET_H
 
 #include <QWidget>
 
+class QSize;
+class QColor;
 
-class ACWidget : public QWidget
+class SaturationItemWidget : public QWidget
 {
     Q_OBJECT
     Q_PROPERTY(QColor lineColor READ lineColor WRITE setLineColor NOTIFY lineColorChanged)
     Q_PROPERTY(QColor fillColor READ fillColor WRITE setFillColor NOTIFY fillColorChanged)
 public:
-    explicit ACWidget(QWidget *parent = 0);
-    ~ACWidget();
+    explicit SaturationItemWidget(QWidget *parent = 0);
+    ~SaturationItemWidget();
     void setRadiusPercent(double percent);
     double getRadiusPercent();
     QColor lineColor() const;
@@ -37,4 +39,4 @@ private:
     QColor m_fillColor;
 };
 
-#endif // ACWIDGET_H
+#endif // SATURATIONITEMWIDGET_H

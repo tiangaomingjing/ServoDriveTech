@@ -9,6 +9,7 @@
 #include "arrowitem.h"
 #include "targetitemwidget.h"
 #include "anchoritemhelper.h"
+#include "saturationitemwidget.h"
 
 #include <QGraphicsView>
 #include <QGraphicsScene>
@@ -255,6 +256,12 @@ WidgetLayoutMainWindow::WidgetLayoutMainWindow(QWidget *parent) :
   qDebug()<<"line angle"<<line.angle();
   double angle=::acos(line.dx()/line.length());
   qDebug()<<"angle"<<angle*180/3.14;
+
+  SaturationItemWidget *ac=new SaturationItemWidget;
+  WidgetItem *acw=new WidgetItem;
+  acw->setWidget(ac,false);
+  scene->addItem(acw);
+  acw->setPos(200,50);
 
 }
 

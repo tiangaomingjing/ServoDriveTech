@@ -42,14 +42,14 @@ protected:
 
   virtual void createArrowItems();
 
-  void createAnchorItemHelper();
-  virtual void setUpItemPosAnchors();
-
   void createStartEndTargetItems();
   void createCurrentFeedbackTargetItem();
 
   void createStartTextItem();
   void createEndTextItem();
+
+  void createAnchorItemHelper();
+  virtual void setUpItemPosAnchors();
 
 
 signals:

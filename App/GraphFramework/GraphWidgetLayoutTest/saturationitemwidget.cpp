@@ -1,35 +1,35 @@
-﻿#include "acwidget.h"
+﻿#include "saturationitemwidget.h"
 #include <QColor>
 #include <QPainter>
 #include <QStyleOption>
 
 #include <QDebug>
 
-ACWidget::ACWidget(QWidget *parent) : QWidget(parent)
+SaturationItemWidget::SaturationItemWidget(QWidget *parent) : QWidget(parent)
 {
     m_radiusPercent = 0.2;
     m_lineColor = Qt::white;
     m_fillColor = Qt::blue;
 }
 
-ACWidget::~ACWidget() {
+SaturationItemWidget::~SaturationItemWidget() {
 
 }
 
-double ACWidget::getRadiusPercent() {
+double SaturationItemWidget::getRadiusPercent() {
     return m_radiusPercent;
 }
 
-void ACWidget::setRadiusPercent(double percent) {
+void SaturationItemWidget::setRadiusPercent(double percent) {
     m_radiusPercent = percent;
 }
 
-QColor ACWidget::lineColor() const
+QColor SaturationItemWidget::lineColor() const
 {
     return m_lineColor;
 }
 
-void ACWidget::setLineColor(const QColor &color)
+void SaturationItemWidget::setLineColor(const QColor &color)
 {
     if(m_lineColor != color)
     {
@@ -38,12 +38,12 @@ void ACWidget::setLineColor(const QColor &color)
     }
 }
 
-QColor ACWidget::fillColor() const
+QColor SaturationItemWidget::fillColor() const
 {
     return m_fillColor;
 }
 
-void ACWidget::setFillColor(const QColor &color)
+void SaturationItemWidget::setFillColor(const QColor &color)
 {
     if(m_fillColor != color)
     {
@@ -52,19 +52,19 @@ void ACWidget::setFillColor(const QColor &color)
     }
 }
 
-QSize ACWidget::sizeHint() const {
+QSize SaturationItemWidget::sizeHint() const {
   int w=fontMetrics().width("m")*8;
     return QSize(w, w);
 }
 
-void ACWidget::resizeEvent(QResizeEvent *event) {
+void SaturationItemWidget::resizeEvent(QResizeEvent *event) {
     Q_UNUSED(event);
     m_width = this->width();
     m_height = this->height();
     m_radius = m_width * m_radiusPercent;
 }
 
-void ACWidget::paintEvent(QPaintEvent *event) {
+void SaturationItemWidget::paintEvent(QPaintEvent *event) {
     Q_UNUSED(event);
   qDebug()<<"w="<<width()<<"h="<<height();
 
@@ -108,7 +108,7 @@ void ACWidget::paintEvent(QPaintEvent *event) {
 
 }
 
-void ACWidget::mousePressEvent(QMouseEvent *event) {
+void SaturationItemWidget::mousePressEvent(QMouseEvent *event) {
     Q_UNUSED(event);
     emit clicked();
   qDebug()<<"clicked";

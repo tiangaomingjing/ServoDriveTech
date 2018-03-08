@@ -1,6 +1,7 @@
 ﻿#include "uiposition.h"
 #include "ui_uiposition.h"
 #include "iuiwidget_p.h"
+#include "igraphposition.h"
 
 #include <QQuickWidget>
 #include <QQmlContext>
@@ -12,7 +13,7 @@ public:
   UiPositionPrivate();
   ~UiPositionPrivate();
 protected:
-  int test;
+  IGraphPosition *m_graphPosition;
 };
 UiPositionPrivate::UiPositionPrivate()
 {
@@ -30,12 +31,18 @@ UiPosition::UiPosition(QWidget *parent):IUiWidget(*(new UiPositionPrivate),paren
 }
 UiPosition::~UiPosition()
 {
+  Q_D(UiPosition);
+  delete d->m_graphPosition;
   delete ui;
 }
 
 void UiPosition::accept(QWidget *w)
 {
+  Q_D(UiPosition);
   ui->qmlHboxLayout->addWidget(w);
+  d->m_graphPosition=dynamic_cast<IGraphPosition *>(w);
+  d->m_graphPosition->visit(this);
+  ui->label->setText(d->m_graphPosition->objectName());
 }
 
 QStackedWidget *UiPosition::getUiStackedWidget(void)

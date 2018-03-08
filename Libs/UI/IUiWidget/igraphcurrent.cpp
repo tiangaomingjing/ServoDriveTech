@@ -13,7 +13,7 @@
 #include <QGraphicsSimpleTextItem>
 #include <QTreeWidgetItem>
 
-#define PID_POS_X 20
+#define PID_POS_X -40
 #define PID_POS_Y -100
 
 IGraphCurrentPrivate::IGraphCurrentPrivate():IGraphWidgetPrivate(),
@@ -75,6 +75,7 @@ void IGraphCurrent::createPIDControllerItem()
   title->setObjectName("label_currentTitle");
   title->setAlignment(Qt::AlignCenter);
   vlayoutTest->addWidget(title);
+
   QLabel *pgain=new QLabel(tr("P gain(HZ)"));
   pgain->setObjectName("label_currentPgain");
   vlayoutTest->addWidget(pgain);
@@ -85,6 +86,7 @@ void IGraphCurrent::createPIDControllerItem()
   pedit->setMaximum(32767);
   pedit->setButtonSymbols(QAbstractSpinBox::NoButtons);
   vlayoutTest->addWidget(pedit);
+
   QLabel *igain=new QLabel(tr("I gain(ms)"),wpid);
   igain->setObjectName("label_currentIgain");
   vlayoutTest->addWidget(igain);

@@ -7,7 +7,8 @@
 #include <QStyleOption>
 
 SumItemWidget::SumItemWidget(QWidget *parent) : QWidget(parent),
-  m_lineColor(Qt::black)
+  m_lineColor(Qt::black),
+  m_fillColor(Qt::white)
 {
 
 }
