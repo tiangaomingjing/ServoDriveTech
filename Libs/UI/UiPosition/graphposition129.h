@@ -17,8 +17,9 @@ public:
   explicit GraphPosition129(QWidget *parent = 0);
   ~GraphPosition129();
 protected:
-  void setCustomVisitActive(IUiWidget *uiWidget)Q_DECL_OVERRIDE;
-  void setUiVersionName()Q_DECL_OVERRIDE;
+  void setCustomVisitActive(IUiWidget *uiWidget) Q_DECL_OVERRIDE;
+  void setupDataMappings() Q_DECL_OVERRIDE;
+  void setUiVersionName() Q_DECL_OVERRIDE;
 
 private:
   Ui::GraphPosition129 *ui;

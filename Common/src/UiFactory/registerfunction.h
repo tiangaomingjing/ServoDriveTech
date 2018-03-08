@@ -23,6 +23,8 @@
 #include "UiStatus/graphstatus129.h"
 #include "UiVelocity/graphvelocity129.h"
 
+#include "UiCurrent/graphcurrent130.h"
+
 namespace RegisterFunction {
 void registerUiClass(){
   UiFactory::registerClass<UiBrake>();
@@ -46,6 +48,8 @@ void registerUiClass(){
   UiFactory::registerClass<GraphPower129>();
   UiFactory::registerClass<GraphStatus129>();
   UiFactory::registerClass<GraphVelocity129>();
+
+  UiFactory::registerClass<GraphCurrent130>();
 }
 
 }

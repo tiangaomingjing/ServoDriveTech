@@ -13,16 +13,23 @@ class IUIWIDGETSHARED_EXPORT IGraphVelocity : public IGraphWidget
   Q_OBJECT
   Q_DECLARE_PRIVATE(IGraphVelocity)
 public:
-  explicit IGraphVelocity(QWidget *parent = 0);
+
   virtual ~IGraphVelocity();
 
+  virtual void syncTreeDataToUiFace() Q_DECL_OVERRIDE;
+
 protected:
-  virtual void setUiVersionName()Q_DECL_OVERRIDE =0;
-  virtual void setCustomVisitActive(IUiWidget*uiWidget)Q_DECL_OVERRIDE =0;
+//  virtual void setUiVersionName()Q_DECL_OVERRIDE =0;
+//  virtual void setCustomVisitActive(IUiWidget*uiWidget)Q_DECL_OVERRIDE =0;
+//  virtual void setupDataMappings() = 0;//这个放在每一个版本中处理，因为其索引可能不一样
+
+  void createItems() Q_DECL_OVERRIDE;
+  void setDoubleSpinBoxConnections() Q_DECL_OVERRIDE;
+  void installDoubleSpinBoxEventFilter() Q_DECL_OVERRIDE;
+  void adjustPosition() Q_DECL_OVERRIDE;
 
 signals:
 
-public slots:
 protected:
   IGraphVelocity(IGraphVelocityPrivate&dd, QWidget *parent=0);
 

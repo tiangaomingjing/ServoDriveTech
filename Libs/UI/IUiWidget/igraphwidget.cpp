@@ -97,7 +97,9 @@ void IGraphWidget::visit(IUiWidget *uiWidget)
 
   installDoubleSpinBoxEventFilter();
 
-  setupConnections();
+  setDoubleSpinBoxConnections();
+
+  setCommonConnections();
 
   setEditTextStatusDefaultAll();
 
@@ -170,7 +172,7 @@ bool IGraphWidget::eventFilter(QObject *obj, QEvent *event)
   return InteractiveView::eventFilter(obj,event);
 }
 
-void IGraphWidget::setupConnections()
+void IGraphWidget::setCommonConnections()
 {
   Q_D(IGraphWidget);
   connect(d->m_dev,SIGNAL(itemRangeValid(QTreeWidgetItem*,int)),this,SLOT(onItemBoxEditTextError(QTreeWidgetItem*,int)));
@@ -184,6 +186,13 @@ void IGraphWidget::onItemBoxEditTextError(QTreeWidgetItem *item, int status)
   QDoubleSpinBox *box=d->m_mapping->box(item);
   if(box!=NULL)
     setEditTextStatus(box,OptFace::EditTextStatus(status));
+}
+
+void IGraphWidget::onFaceCssChanged(const QString &css)
+{
+  Q_UNUSED(css);
+  adjustPosition();
+  setCustumBackgroundColor();
 }
 
 void IGraphWidget::onDoubleSpinBoxFocusOut()

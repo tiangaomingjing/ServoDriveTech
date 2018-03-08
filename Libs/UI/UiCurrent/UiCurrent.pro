@@ -20,11 +20,13 @@ CONFIG(debug, debug|release){
 }
 
 SOURCES += uicurrent.cpp \
-    graphcurrent129.cpp
+    graphcurrent129.cpp \
+    graphcurrent130.cpp
 
 HEADERS += uicurrent.h\
         uicurrent_global.h \
-    graphcurrent129.h
+    graphcurrent129.h \
+    graphcurrent130.h
 
 unix {
     target.path = /usr/lib

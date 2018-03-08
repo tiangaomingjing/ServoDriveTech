@@ -24,8 +24,14 @@ void GraphPosition129::setCustomVisitActive(IUiWidget *uiWidget)
 {
 
 }
+
+void GraphPosition129::setupDataMappings()
+{
+
+}
 void GraphPosition129::setUiVersionName()
 {
   Q_D(GraphPosition129);
   d->m_versionName="V129";
+  setObjectName("GraphPosition129");
 }

@@ -44,11 +44,13 @@ void IGraph::visit(IUiWidget *uiWidget)
 
   setUiVersionName();
 
+  setDoubleSpinBoxConnections();
+
   installDoubleSpinBoxEventFilter();
 
   setupDataMappings();
 
-  setupConnections();
+  setCommonConnections();
 
   setEditTextStatusDefaultAll();
 
@@ -73,13 +75,21 @@ void IGraph::setEditTextStatusDefaultAll()
   }
 }
 
+void IGraph::setDoubleSpinBoxConnections()
+{
+  QList<QDoubleSpinBox *> allBox = findChildren<QDoubleSpinBox *>();
+  qDebug()<<"all box count="<<allBox.count();
+  foreach (QDoubleSpinBox *box, allBox) {
+    connect(box,SIGNAL(editingFinished()),this,SLOT(onDoubleSpinBoxFocusOut()));
+  }
+}
+
 void IGraph::installDoubleSpinBoxEventFilter()
 {
   QList<QDoubleSpinBox *> allBox = findChildren<QDoubleSpinBox *>();
   qDebug()<<"all box count="<<allBox.count();
   foreach (QDoubleSpinBox *box, allBox) {
     box->installEventFilter(this);
-    connect(box,SIGNAL(editingFinished()),this,SLOT(onDoubleSpinBoxFocusOut()));
   }
 }
 
@@ -101,7 +111,7 @@ bool IGraph::eventFilter(QObject *obj, QEvent *event)
   return QWidget::eventFilter(obj,event);
 }
 
-void IGraph::setupConnections()
+void IGraph::setCommonConnections()
 {
   Q_D(IGraph);
   connect(d->m_dev,SIGNAL(itemRangeValid(QTreeWidgetItem*,int)),this,SLOT(onItemBoxEditTextError(QTreeWidgetItem*,int)));
