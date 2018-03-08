@@ -50,7 +50,7 @@ void GraphCurrent129::setUiVersionName()
 
 void GraphCurrent129::setupDataMappings()
 {
-  Q_D(IGraphCurrent);
+  Q_D(GraphCurrent129);
 
 
   d->m_mapping->insertBox2MultiItem(d->m_pEdit,d->m_treeWidget->topLevelItem(FND_INX));
