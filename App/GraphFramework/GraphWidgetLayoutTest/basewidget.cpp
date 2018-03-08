@@ -19,7 +19,6 @@ void BaseWidget::paintEvent(QPaintEvent *event) {
     CombinedWidget *p = static_cast<CombinedWidget*>(p2);
     int width = p->width();
     int height = p->getBaseHeight();
-    this->resize(width, height);
     int radius = p->getRadius();
     int mode = p->getMode();
     int startPoint = p->getStartPoint();

@@ -194,6 +194,8 @@ void EpromManager::onWriteClicked_2() {
 void EpromManager::treeItemClicked(QTreeWidgetItem* item, int column) {
     itemText = item->text(column);
     if (item->childCount() == 0) {
+        m_modeName = itemText;
+        m_typeName = item->parent()->text(column);
         QTreeWidgetItem *controlItem = GLO::findItem(itemText, controlMap, IDMAP_MODE);
         QTreeWidgetItem *powerItem = GLO::findItem(itemText, powerMap, IDMAP_MODE);
         m_powerID = powerItem->text(IDMAP_ID);
@@ -205,9 +207,6 @@ void EpromManager::treeItemClicked(QTreeWidgetItem* item, int column) {
         m_controlPath = GLO::getPath(controlIndexItem);
         m_powerPath = RESOURCE_FILE_PATH + "PB/" + m_powerPath;
         m_controlPath = RESOURCE_FILE_PATH + "CB/" + m_controlPath;
-        //qDebug()<<m_powerPath;
-        //qDebug()<<m_controlPath;
-        //qDebug()<<m_dspNum;
         changeConfigText(m_powerID, powerIndex);
     }
     showText(m_configText, m_comText);
@@ -455,25 +454,24 @@ void EpromManager::scrollTree_2(QTreeWidgetItem *item) {
 void EpromManager::onActionConnectToServer() {
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
-    QString str;
-    quint32 m_devId;
-    quint8 m_comType;
-    quint8 m_axisNum;
-    QString m_typeName;//SD4x
-    QString m_modeName;//SD42
-    QString m_version;
+    quint32 devId;
+    quint8 comType;
+    quint8 axisNum = 2 * m_dspNum;
+//    QString typeName;//SD4x
+//    QString modeName;//SD42
+    QString version;
 
-    quint32 m_pwrId;   //id->SD?? 通过一个id映射表获得名字
-    quint32 m_ctrId;   //id->SD?? 通过一个id映射表获得名字
-    quint32 m_fpgaId;
+    quint32 pwrId = m_powerID.toInt();   //id->SD?? 通过一个id映射表获得名字
+    quint32 ctrId = m_controlID.toInt();   //id->SD?? 通过一个id映射表获得名字
+//    quint32 fpgaId = ;
 
-    quint8 m_rnStationId;
-    if (getComType() == GTSD_COM_TYPE_RNNET) {
-        str = "RNNET";
-    } else {
-        str = "PCDebug";
-    }
-    out<<quint16(0)<<str;
+//    quint8 rnStationId;
+//    if (getComType() == GTSD_COM_TYPE_RNNET) {
+//        comType = "RNNET";
+//    } else {
+//        comType = "PCDebug";
+//    }
+//    out<<quint16(0)<<str;
     out.device()->seek(0);
     out<<quint16(block.size() - sizeof(quint16));
     tcpClient = new TcpConnect(block);
@@ -481,11 +479,9 @@ void EpromManager::onActionConnectToServer() {
 }
 
 void EpromManager::onActionStopConnection() {
-    qDebug()<<"a";
     if (tcpClient != NULL) {
         tcpClient->stopConnection();
     }
-    qDebug()<<"aa";
 }
 
 void EpromManager::closeEvent(QCloseEvent *event)

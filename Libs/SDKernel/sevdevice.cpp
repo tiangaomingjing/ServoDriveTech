@@ -133,8 +133,11 @@ bool SevDevicePrivate::init(const DeviceConfig *dConfig)
   qDebug()<<"new SevPwrBoard";
   emit initProgressInfo(65,tr("New SevPwrBoard"));
   m_pwrBoard=new SevPwrBoard(this,0);
+  qDebug()<<"point 1";
   m_ctrBoard=new SevCtrBoard(this,0);
+  qDebug()<<"point 2";
   m_socket=new LinkSocket(this,0);
+  qDebug()<<"point 3";
   m_verAttribute=new VerAttribute(0);
 
   //通用指令

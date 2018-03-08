@@ -23,6 +23,9 @@ public:
   void setErrorColor(const QColor &errorColor);
 
 signals:
+  void defaultColorChanged();
+  void readyColorChanged();
+  void errorColorChanged();
 
 public slots:
 protected:

@@ -1,6 +1,6 @@
 ﻿#include "gtdoublespinbox.h"
 
-GtDoubleSpinBox::GtDoubleSpinBox(QObject *parent) : QDoubleSpinBox(parent)
+GtDoubleSpinBox::GtDoubleSpinBox(QWidget *parent) : QDoubleSpinBox(parent)
 {
 
 }
