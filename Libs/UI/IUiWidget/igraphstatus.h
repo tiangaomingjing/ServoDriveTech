@@ -12,12 +12,13 @@ class IUIWIDGETSHARED_EXPORT IGraphStatus : public IGraph
   Q_OBJECT
   Q_DECLARE_PRIVATE(IGraphStatus)
 public:
-  explicit IGraphStatus(QWidget *parent = 0);
+//  explicit IGraphStatus(QWidget *parent = 0);
   virtual ~IGraphStatus();
 
 protected:
   virtual void setUiVersionName()Q_DECL_OVERRIDE =0;
-  virtual void visitActive(IUiWidget*uiWidget)Q_DECL_OVERRIDE =0;
+  virtual void setCustomVisitActive(IUiWidget*uiWidget)Q_DECL_OVERRIDE =0;
+  virtual void setupDataMappings()=0;
 
 signals:
 

@@ -38,12 +38,12 @@
                     </column>
                     <column>
                         <property name="text">
-                            <string>downlimit</string>
+                            <string>downLimit</string>
                         </property>
                     </column>
                     <column>
                         <property name="text">
-                            <string>uplimit</string>
+                            <string>upLimit</string>
                         </property>
                     </column>
                     <column>
@@ -58,24 +58,82 @@
                     </column>
                     <column>
                         <property name="text">
-                            <string>scale</string>
+                            <string>Scale</string>
                         </property>
                     </column>
                     <item>
                         <property name="text">
-                            <string>gSevDrv.sev_obj.cur.rsv.prm.coder_typ_3</string>
+                            <string>gSevDrv.sev_obj.cur.ctl.prm.Tid_4</string>
                         </property>
                         <property name="text">
                             <string>0</string>
                         </property>
                         <property name="text">
-                            <string>tEncoderType</string>
+                            <string>int32</string>
                         </property>
                         <property name="text">
                             <string>NULL</string>
                         </property>
                         <property name="text">
+                            <string>1</string>
+                        </property>
+                        <property name="text">
+                            <string>2147483647</string>
+                        </property>
+                        <property name="text">
+                            <string>NULL</string>
+                        </property>
+                        <property name="text">
+                            <string>800</string>
+                        </property>
+                        <property name="text">
+                            <string>1</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>gSevDrv.sev_obj.cur.ctl.prm.Tiq_4</string>
+                        </property>
+                        <property name="text">
                             <string>0</string>
+                        </property>
+                        <property name="text">
+                            <string>int32</string>
+                        </property>
+                        <property name="text">
+                            <string>NULL</string>
+                        </property>
+                        <property name="text">
+                            <string>1</string>
+                        </property>
+                        <property name="text">
+                            <string>2147483647</string>
+                        </property>
+                        <property name="text">
+                            <string>NULL</string>
+                        </property>
+                        <property name="text">
+                            <string>802</string>
+                        </property>
+                        <property name="text">
+                            <string>1</string>
+                        </property>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>gSevDrv.sev_obj.cur.ctl.prm.fnd_4</string>
+                        </property>
+                        <property name="text">
+                            <string>0</string>
+                        </property>
+                        <property name="text">
+                            <string>int16</string>
+                        </property>
+                        <property name="text">
+                            <string>NULL</string>
+                        </property>
+                        <property name="text">
+                            <string>1</string>
                         </property>
                         <property name="text">
                             <string>32767</string>
@@ -84,7 +142,7 @@
                             <string>NULL</string>
                         </property>
                         <property name="text">
-                            <string>33068</string>
+                            <string>804</string>
                         </property>
                         <property name="text">
                             <string>1</string>
@@ -92,57 +150,28 @@
                     </item>
                     <item>
                         <property name="text">
-                            <string>gSevDrv.sev_obj.cur.rsv.prm.pos_ofst_3</string>
+                            <string>gSevDrv.sev_obj.cur.ctl.prm.fnq_4</string>
                         </property>
                         <property name="text">
                             <string>0</string>
                         </property>
                         <property name="text">
-                            <string>int32</string>
+                            <string>int16</string>
                         </property>
                         <property name="text">
                             <string>NULL</string>
-                        </property>
-                        <property name="text">
-                            <string>-2147483647</string>
-                        </property>
-                        <property name="text">
-                            <string>2147483647</string>
-                        </property>
-                        <property name="text">
-                            <string>NULL</string>
-                        </property>
-                        <property name="text">
-                            <string>33078</string>
                         </property>
                         <property name="text">
                             <string>1</string>
                         </property>
-                    </item>
-                    <item>
                         <property name="text">
-                            <string>gSevDrv.sev_obj.cur.rsv.prm.line_num_3</string>
-                        </property>
-                        <property name="text">
-                            <string>0</string>
-                        </property>
-                        <property name="text">
-                            <string>int32</string>
+                            <string>32767</string>
                         </property>
                         <property name="text">
                             <string>NULL</string>
                         </property>
                         <property name="text">
-                            <string>0</string>
-                        </property>
-                        <property name="text">
-                            <string>2147483647</string>
-                        </property>
-                        <property name="text">
-                            <string>NULL</string>
-                        </property>
-                        <property name="text">
-                            <string>33080</string>
+                            <string>805</string>
                         </property>
                         <property name="text">
                             <string>1</string>

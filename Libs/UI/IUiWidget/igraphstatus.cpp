@@ -10,10 +10,11 @@ IGraphStatusPrivate::~IGraphStatusPrivate()
 
 }
 
-IGraphStatus::IGraphStatus(QWidget *parent) : IGraph(*(new IGraphStatusPrivate),parent)
-{
+//IGraphStatus::IGraphStatus(QWidget *parent) : IGraph(*(new IGraphStatusPrivate),parent)
+//{
 
-}
+//}
+
 IGraphStatus::~IGraphStatus()
 {
 

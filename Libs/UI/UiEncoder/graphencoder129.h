@@ -20,10 +20,14 @@ public:
   explicit GraphEncoder129(QWidget *parent = 0);
   ~GraphEncoder129();
 
-protected:
-  void visitActive(IUiWidget *uiWidget)Q_DECL_OVERRIDE;
-  void setUiVersionName()Q_DECL_OVERRIDE;
   void syncTreeDataToUiFace()Q_DECL_OVERRIDE;
+
+protected:
+  void setCustomVisitActive(IUiWidget *uiWidget)Q_DECL_OVERRIDE;
+  void setUiVersionName()Q_DECL_OVERRIDE;
+  void setupDataMappings() Q_DECL_OVERRIDE;
+
+
   void onUpdateTimeOut() Q_DECL_OVERRIDE;
   quint32 getLineNumber()Q_DECL_OVERRIDE;
   void createSupportEncoderItem() Q_DECL_OVERRIDE;

@@ -118,7 +118,7 @@ quint64 GeneralCmd::read(const QString &cmdReadName, qint16 axisIndex, bool &isO
 #if TEST_OUT
     for(int i=0;i<funcRead.length;i++)
     {
-      qDebug()<<"read raw data["<<i<<"]="<<funcRead.data[i];
+//      qDebug()<<"read raw data["<<i<<"]="<<funcRead.data[i];
     }
 #endif
   }

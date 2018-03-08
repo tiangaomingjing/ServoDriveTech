@@ -18,7 +18,7 @@ public:
 
 protected:
   virtual void setUiVersionName()Q_DECL_OVERRIDE =0;
-  virtual void visitActive(IUiWidget*uiWidget)Q_DECL_OVERRIDE =0;
+  virtual void setCustomVisitActive(IUiWidget*uiWidget)Q_DECL_OVERRIDE =0;
 
 signals:
 

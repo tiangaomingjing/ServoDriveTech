@@ -19,7 +19,7 @@ SumItemWidget::~SumItemWidget()
 
 QSize SumItemWidget::sizeHint() const
 {
-  int width=fontMetrics().width("m")*8;
+  int width=fontMetrics().width("m")*5;
   return QSize(width,width);
 }
 
@@ -46,12 +46,12 @@ void SumItemWidget::paintEvent(QPaintEvent *event)
   QPainter painter(this);
   style()->drawPrimitive(QStyle::PE_Widget, &opt, &painter, this);
 
-
   painter.setRenderHint(QPainter::Antialiasing,true);
   QPen pen;
   pen.setWidth(2);
   pen.setColor(lineColor());
   painter.setPen(pen);
+  painter.setBrush(QBrush(fillColor()));
   int w=width();
   qreal x1,x2;
   qreal adjust=pen.width()/2;
@@ -67,6 +67,20 @@ void SumItemWidget::paintEvent(QPaintEvent *event)
   painter.drawLine(pb,pd);
 
 //  qDebug()<<"paint event rect"<<event->rect();
+}
+
+QColor SumItemWidget::fillColor() const
+{
+  return m_fillColor;
+}
+
+void SumItemWidget::setFillColor(const QColor &fillColor)
+{
+  if(m_fillColor!=fillColor)
+  {
+    m_fillColor = fillColor;
+    emit fillColorChanged(m_fillColor);
+  }
 }
 
 

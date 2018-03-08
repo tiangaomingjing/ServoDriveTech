@@ -20,22 +20,15 @@ public:
   explicit GraphMotor129(QWidget *parent = 0);
   ~GraphMotor129();
 
-  void syncTreeDataToUiFace()Q_DECL_OVERRIDE;
+  void syncTreeDataToUiFace() Q_DECL_OVERRIDE;
 
 protected:
-  void visitActive(IUiWidget *uiWidget)Q_DECL_OVERRIDE;
-  void setUiVersionName()Q_DECL_OVERRIDE;
-
-protected:
-  bool eventFilter(QObject *obj, QEvent *event);
+  void setCustomVisitActive(IUiWidget *uiWidget) Q_DECL_OVERRIDE;
+  void setUiVersionName() Q_DECL_OVERRIDE;
+  void setupDataMappings() Q_DECL_OVERRIDE;
 
 protected slots:
-  void onItemBoxEditTextError(QTreeWidgetItem *item,int status);
-  void onFaceCssChanged(const QString &css);
-
-private:
-  void setEditTextStatus(QDoubleSpinBox *box,OptFace::EditTextStatus status);
-  void setEditTextStatusDefaultAll();
+  void onDoubleSpinBoxFocusOut();
 
 private:
   Ui::GraphMotor129 *ui;

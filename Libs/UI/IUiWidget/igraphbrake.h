@@ -13,11 +13,11 @@ class IUIWIDGETSHARED_EXPORT IGraphBrake : public IGraph
   Q_OBJECT
   Q_DECLARE_PRIVATE(IGraphBrake)
 public:
-  explicit IGraphBrake(QWidget *parent = 0);
   virtual ~IGraphBrake();
 protected:
   virtual void setUiVersionName()Q_DECL_OVERRIDE =0;
-  virtual void visitActive(IUiWidget*uiWidget)Q_DECL_OVERRIDE =0;
+  virtual void setCustomVisitActive(IUiWidget*uiWidget)Q_DECL_OVERRIDE =0;
+  virtual void setupDataMappings()=0;
 
 signals:
 

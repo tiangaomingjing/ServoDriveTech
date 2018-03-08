@@ -19,26 +19,22 @@ void EncConfigBinding129::syncMultiUiDataToTree()
   QTreeWidgetItem *item;
 
   //0 coder_typ_3
-//  qDebug()<<"coder_typ_1";
   item=m_tree->topLevelItem(0);
   gain=item->text(GT::COL_PAGE_TREE_SCALE).toDouble();
   value=(int)encItem->encType()*gain;
   item->setText(GT::COL_PAGE_TREE_VALUE,QString::number(value,'f',3));
-//  qDebug()<<"coder_typ_3";
 
   //2 line_num_3
   item=m_tree->topLevelItem(2);
   gain=item->text(GT::COL_PAGE_TREE_SCALE).toDouble();
   value=encItem->lineNumber()*gain;
   item->setText(GT::COL_PAGE_TREE_VALUE,QString::number(value,'f',3));
-//  qDebug()<<"coder_typ_3";
 
   //3 ABS_ENC_CFG.all
   item=m_tree->topLevelItem(3);
   gain=item->text(GT::COL_PAGE_TREE_SCALE).toDouble();
   value=encItem->encConfigData()*gain;
   item->setText(GT::COL_PAGE_TREE_VALUE,QString::number(value,'f',3));
-//  qDebug()<<"coder_typ_3";
   qDebug()<<"syncMultiUiDataToTree";
 
 }

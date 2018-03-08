@@ -18,8 +18,9 @@ public:
   ~GraphStatus129();
 
 protected:
-  void visitActive(IUiWidget *uiWidget)Q_DECL_OVERRIDE;
-  void setUiVersionName()Q_DECL_OVERRIDE;
+  void setCustomVisitActive(IUiWidget *uiWidget) Q_DECL_OVERRIDE;
+  void setUiVersionName() Q_DECL_OVERRIDE;
+  void setupDataMappings() Q_DECL_OVERRIDE;
 
 private:
   Ui::GraphStatus129 *ui;

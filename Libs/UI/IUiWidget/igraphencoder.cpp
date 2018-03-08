@@ -22,13 +22,13 @@ IGraphEncoderPrivate::~IGraphEncoderPrivate()
 
 }
 
-IGraphEncoder::IGraphEncoder(QWidget *parent) :IGraph(*(new IGraphEncoderPrivate),parent)
-{
-  Q_D(IGraphEncoder);
-  d->m_updateTimer=new QTimer;
-  d->m_updateTimer->setInterval(TIMER_INTERVAL);
-  connect(d->m_updateTimer,SIGNAL(timeout()),this,SLOT(onUpdateTimeOut()));
-}
+//IGraphEncoder::IGraphEncoder(QWidget *parent) :IGraph(*(new IGraphEncoderPrivate),parent)
+//{
+//  Q_D(IGraphEncoder);
+//  d->m_updateTimer=new QTimer;
+//  d->m_updateTimer->setInterval(TIMER_INTERVAL);
+//  connect(d->m_updateTimer,SIGNAL(timeout()),this,SLOT(onUpdateTimeOut()));
+//}
 IGraphEncoder::~IGraphEncoder()
 {
   Q_D(IGraphEncoder);

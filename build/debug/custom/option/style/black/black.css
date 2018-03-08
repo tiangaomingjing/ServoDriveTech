@@ -1,4 +1,11 @@
-﻿/*==========================main treeWidget 导航栏=====================*/
+﻿/*==========================全局属性===================================*/
+QDoubleSpinBox{
+	min-height:30px;
+	min-width:150px;
+	border-radius:5px;
+	padding-left:5px;
+}
+/*==========================main treeWidget 导航栏=====================*/
 QDockWidget  QTreeView {
 	border:1px solid lightgray;
 	border-bottom-color:transparent;
@@ -60,6 +67,7 @@ QListView::item:selected:!active {
 QWidget#dockWidgetContents_2{
 background-color: rgb(161, 161, 161);
 }
+
 /*====================工具栏=======================*/
 QToolBar {
 	border:none;
@@ -170,9 +178,9 @@ QToolButton#tbtnError:hover{
 /*============自定义stylewidget 可以在C++环境中索引到其值=================*/
 StyleWidget{
 	qproperty-dsBoxBackgroundDefColor:white;
-	qproperty-dsBoxBackgroundReadyColor:green;
+	qproperty-dsBoxBackgroundReadyColor:yellow;
 	qproperty-dsBoxBackgroundErrorColor:#E61EE4;
-	qproperty-dsBoxTextEditColor:blue;
+	qproperty-dsBoxTextEditColor:red;
 	qproperty-dsBoxTextDefColor:black;
 	
 	qproperty-msgNormalColor:black;
@@ -254,19 +262,14 @@ QLabel#label_encMsg{
 	margin-top:10px;
 }
 QListWidget#listWidget_encErr{
-border:1px solid red;
-border-top-left-radius:10px;
-border-top-right-radius:10px;
-border-bottom-color:transparent;
+border:none;
 background-color:transparent;
 color:red;
 font-weight:bold;
 }
 QPushButton#btn_encClearErr{
 border:1px solid red;
-border-bottom-left-radius:10px;
-border-bottom-right-radius:10px;
-border-top-color:transparent;
+border-radius:5px;
 background-color:red;
 min-height:30px;
 color:white;
@@ -394,6 +397,8 @@ QLabel#label_currentTitle{
 QWidget#widget_currentPid QDoubleSpinBox{
 	min-height:30px;
 	min-width:150px;
+	border-radius:5px;
+	padding-left:5px;
 }
 
 QLabel#label_currentInputFilter{
@@ -410,10 +415,15 @@ QLabel#label_currentFeedback{
 	min-height:30px;
 	padding:10px;
 }
+QLabel#label_currentEndText,QLabel#label_currentStartText{
+	background-color: transparent;
+	border:none;
+}
 SumItemWidget#sumItemWidget_currentSum{
 	background-color:transparent;
 	border:none;
 	qproperty-lineColor: gray;
+	qproperty-fillColor: #E0DDDD;
 } 
 
 /*====================option设置对话框===================*/

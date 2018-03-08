@@ -12,12 +12,13 @@ class IUIWIDGETSHARED_EXPORT IGraphPower : public IGraph
   Q_OBJECT
   Q_DECLARE_PRIVATE(IGraphPower)
 public:
-  explicit IGraphPower(QWidget *parent = 0);
+//  explicit IGraphPower(QWidget *parent = 0);
   virtual ~IGraphPower();
 
 protected:
   virtual void setUiVersionName()Q_DECL_OVERRIDE =0;
-  virtual void visitActive(IUiWidget*uiWidget)Q_DECL_OVERRIDE =0;
+  virtual void setCustomVisitActive(IUiWidget*uiWidget)Q_DECL_OVERRIDE =0;
+  virtual void setupDataMappings()=0;
 
 signals:
 

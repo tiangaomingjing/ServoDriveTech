@@ -1,6 +1,8 @@
 ﻿#include "igraphcurrent.h"
 #include "igraphcurrent_p.h"
 #include "SDTGraphicsItems"
+#include "Option"
+#include "boxitemmapping.h"
 
 #include "gtutils.h"
 
@@ -8,8 +10,10 @@
 #include <QLabel>
 #include <QDoubleSpinBox>
 #include <QDebug>
+#include <QGraphicsSimpleTextItem>
+#include <QTreeWidgetItem>
 
-#define PID_POS_X 50
+#define PID_POS_X 20
 #define PID_POS_Y -100
 
 IGraphCurrentPrivate::IGraphCurrentPrivate():IGraphWidgetPrivate(),
@@ -22,13 +26,18 @@ IGraphCurrentPrivate::IGraphCurrentPrivate():IGraphWidgetPrivate(),
   m_USUM(NULL),
   m_UIF(NULL),
   m_UCB(NULL),
+  m_TextStart(NULL),
+  m_TextEnd(NULL),
 
   m_A0(NULL),
   m_A1(NULL),
   m_A2(NULL),
   m_A3(NULL),
   m_A4(NULL),
-  m_A5(NULL)
+  m_A5(NULL),
+
+  m_pEdit(NULL),
+  m_iEdit(NULL)
 {
 
 }
@@ -38,11 +47,6 @@ IGraphCurrentPrivate::~IGraphCurrentPrivate()
   qDebug()<<"IGraphCurrentPrivate destruct-->";
 }
 
-
-IGraphCurrent::IGraphCurrent(QWidget *parent) : IGraphWidget(*(new IGraphCurrentPrivate),parent)
-{
-
-}
 IGraphCurrent::~IGraphCurrent()
 {
 
@@ -52,6 +56,12 @@ IGraphCurrent::~IGraphCurrent()
   }
   d->m_arrowList.clear();
   qDebug()<<"IGraphCurrent destruct-->";
+}
+
+void IGraphCurrent::syncTreeDataToUiFace()
+{
+  Q_D(IGraphCurrent);
+  d->m_mapping->syncAllItem2BoxText();
 }
 
 void IGraphCurrent::createPIDControllerItem()
@@ -69,6 +79,7 @@ void IGraphCurrent::createPIDControllerItem()
   pgain->setObjectName("label_currentPgain");
   vlayoutTest->addWidget(pgain);
   QDoubleSpinBox *pedit=new QDoubleSpinBox(wpid);
+  d->m_pEdit=pedit;
   pedit->setObjectName("dspinBox_currentPedit");
   pedit->setMinimum(-32768);
   pedit->setMaximum(32767);
@@ -78,6 +89,7 @@ void IGraphCurrent::createPIDControllerItem()
   igain->setObjectName("label_currentIgain");
   vlayoutTest->addWidget(igain);
   QDoubleSpinBox *iedit=new QDoubleSpinBox(wpid);
+  d->m_iEdit=iedit;
   iedit->setObjectName("dspinBox_currentIedit");
   iedit->setMinimum(0);
   iedit->setMaximum(65535);
@@ -111,7 +123,7 @@ void IGraphCurrent::createArrowItems()
   d->m_A2=new ArrowItem(d->m_USUM->pointF(WidgetItem::POINT_TYPE_RIGHT),d->m_UPID->pointF(WidgetItem::POINT_TYPE_LEFT));
   d->m_A3=new ArrowItem(d->m_UPID->pointF(WidgetItem::POINT_TYPE_RIGHT),d->m_Tend->pointF(WidgetItem::POINT_TYPE_LEFT));
   d->m_A4=new ArrowItem(d->m_T0->pointF(WidgetItem::POINT_TYPE_LEFT),d->m_UCB->pointF(WidgetItem::POINT_TYPE_RIGHT));
-  d->m_A5=new ArrowItem(d->m_UCB->pointF(WidgetItem::POINT_TYPE_LEFT),d->m_USUM->pointF(WidgetItem::POINT_TYPE_BOTTOM),ArrowItem::ARROW_TYPE_CORNER);
+  d->m_A5=new ArrowItem(d->m_UCB->pointF(WidgetItem::POINT_TYPE_LEFT),d->m_USUM->pointF(WidgetItem::POINT_TYPE_BOTTOM),ArrowItem::ARROW_TYPE_CORNER,"-");
 
   d->m_scene->addItem(d->m_A0);
   d->m_scene->addItem(d->m_A1);
@@ -160,17 +172,24 @@ void IGraphCurrent::setUpItemPosAnchors()
   d->m_anchorHelper->addAnchor(d->m_USUM,d->m_UIF,AnchorItemHelper::AnchorRight,-2*d->m_USUM->boundingRect().width());
   d->m_anchorHelper->addAnchor(d->m_USUM,d->m_UIF,AnchorItemHelper::AnchorVerticalCenter);
 
-  d->m_anchorHelper->addAnchor(d->m_UIF,d->m_Tstart,AnchorItemHelper::AnchorLeft,-2*d->m_UIF->boundingRect().width());
+  d->m_anchorHelper->addAnchor(d->m_UIF,d->m_Tstart,AnchorItemHelper::AnchorLeft,-1.5*d->m_UIF->boundingRect().width());
   d->m_anchorHelper->addAnchor(d->m_UIF,d->m_Tstart,AnchorItemHelper::AnchorVerticalCenter);
 
   d->m_anchorHelper->addAnchor(d->m_UPID,d->m_UCB,AnchorItemHelper::AnchorHorizontalCenter);
-  d->m_anchorHelper->addAnchor(d->m_UPID,d->m_UCB,AnchorItemHelper::AnchorBottom,2.5*d->m_UCB->boundingRect().height());
+  d->m_anchorHelper->addAnchor(d->m_UPID,d->m_UCB,AnchorItemHelper::AnchorBottom,2.2*d->m_UCB->boundingRect().height());
 
   d->m_anchorHelper->addAnchor(d->m_UCB,d->m_T0,AnchorItemHelper::AnchorRight,1*d->m_UCB->boundingRect().width());
   d->m_anchorHelper->addAnchor(d->m_UCB,d->m_T0,AnchorItemHelper::AnchorVerticalCenter);
 
   d->m_anchorHelper->addAnchor(d->m_UPID,d->m_Tend,AnchorItemHelper::AnchorRight,1.5*d->m_UPID->boundingRect().width());
   d->m_anchorHelper->addAnchor(d->m_UPID,d->m_Tend,AnchorItemHelper::AnchorVerticalCenter);
+
+  d->m_anchorHelper->addAnchor(d->m_Tstart,d->m_TextStart,AnchorItemHelper::AnchorLeft,1.2*d->m_Tstart->boundingRect().width());
+  d->m_anchorHelper->addAnchor(d->m_Tstart,d->m_TextStart,AnchorItemHelper::AnchorBottom,-15);
+
+  d->m_anchorHelper->addAnchor(d->m_Tend,d->m_TextEnd,AnchorItemHelper::AnchorRight,-1.2*d->m_Tend->boundingRect().width());
+  d->m_anchorHelper->addAnchor(d->m_Tend,d->m_TextEnd,AnchorItemHelper::AnchorBottom,-15);
+
 }
 
 void IGraphCurrent::createStartEndItems()
@@ -190,7 +209,7 @@ void IGraphCurrent::createStartEndItems()
   d->m_scene->addItem(d->m_Tend);
 }
 
-void IGraphCurrent::createCurrentFeedbackTarget()
+void IGraphCurrent::createCurrentFeedbackTargetItem()
 {
   Q_D(IGraphCurrent);
   TargetItemWidget *t0=new TargetItemWidget;
@@ -206,6 +225,29 @@ void IGraphCurrent::createAnchorItemHelper()
   d->m_anchorHelper=new AnchorItemHelper(this);
 }
 
+void IGraphCurrent::createStartTextItem()
+{
+  Q_D(IGraphCurrent);
+
+  LabelItemWidget *label=new LabelItemWidget(tr("cur/torque cmd"));
+  label->setObjectName("label_currentStartText");
+  d->m_TextStart=new WidgetItem;
+  d->m_TextStart->setWidget(label);
+  d->m_scene->addItem(d->m_TextStart);
+}
+
+void IGraphCurrent::createEndTextItem()
+{
+  Q_D(IGraphCurrent);
+
+  LabelItemWidget *label=new LabelItemWidget(tr("cur/torque controller output"));
+  label->setObjectName("label_currentEndText");
+  label->setAlignment(Qt::AlignRight);
+  d->m_TextEnd=new WidgetItem;
+  d->m_TextEnd->setWidget(label);
+  d->m_scene->addItem(d->m_TextEnd);
+}
+
 
 void IGraphCurrent::createItems()
 {
@@ -219,7 +261,9 @@ void IGraphCurrent::createItems()
   crtateInputFilterItem();
   createStartEndItems();
   createCurrentFeedbackItem();
-  createCurrentFeedbackTarget();
+  createCurrentFeedbackTargetItem();
+  createStartTextItem();
+  createEndTextItem();
 
   createArrowItems();
 
@@ -227,7 +271,19 @@ void IGraphCurrent::createItems()
   setUpItemPosAnchors();
 
   adjustPosition();
+  setCustumBackgroundColor();
 }
+
+
+void IGraphCurrent::installDoubleSpinBoxEventFilter()
+{
+  Q_D(IGraphCurrent);
+  d->m_pEdit->installEventFilter(this);
+  connect(d->m_pEdit,SIGNAL(editingFinished()),this,SLOT(onDoubleSpinBoxFocusOut()));
+  d->m_iEdit->installEventFilter(this);
+  connect(d->m_iEdit,SIGNAL(editingFinished()),this,SLOT(onDoubleSpinBoxFocusOut()));
+}
+
 
 void IGraphCurrent::onFaceCssChanged(const QString &css)
 {

@@ -50,6 +50,7 @@ GraphEncoder129::GraphEncoder129(QWidget *parent) :
   setEncErrorUiEnable(false);
 
   setEncConfigUiEnable(false);
+
   ui->btn_encConfig->setCheckable(true);
   ui->spinBox_encLine->setVisible(true);
   ui->comboBox_encBitNum->setVisible(false);
@@ -63,6 +64,9 @@ GraphEncoder129::GraphEncoder129(QWidget *parent) :
   ui->toolBox_encConfig->setItemText(1,tr("Enc Absolute"));
   ui->toolBox_encConfig->setItemText(2,tr("Enc Increase"));
   ui->toolBox_encConfig->setItemText(3,tr("Enc Resolution"));
+
+  ui->label_encMsg->setText(tr("active after reset"));
+  ui->label_encMsg->setVisible(false);
 
 //  QStringList list;
 //  list<<tr("0 DuoMoChuan")<<tr("1 NiKang")<<tr("2 Haidehan")<<tr("3 SanXie")<<tr("4 XiongXia")<<tr("5 AnChuan");
@@ -84,18 +88,11 @@ GraphEncoder129::~GraphEncoder129()
   GT::deletePtrObject(d->m_encConfigManage);
   delete ui;
 }
-void GraphEncoder129::visitActive(IUiWidget *uiWidget)
+void GraphEncoder129::setCustomVisitActive(IUiWidget *uiWidget)
 {
   Q_D(GraphEncoder129);
   d->m_iDataBinding=new EncConfigBinding129(this);
   qDebug()<<"d->m_iDataBinding=new EncConfigBinding129(this)";
-
-  d->m_dev=uiWidget->device();
-  int axis=uiWidget->uiIndexs().axisInx;
-  int page=uiWidget->uiIndexs().pageInx;
-  d->m_treeWidget=d->m_dev->axisTreeSource(axis,page);
-
-  d->m_uiWidget=uiWidget;
 
   createSupportEncoderItem();
   qDebug()<<"createSupportEncoderItem()";
@@ -108,6 +105,11 @@ void GraphEncoder129::setUiVersionName()
 {
   Q_D(GraphEncoder129);
   d->m_versionName="V129";
+}
+
+void GraphEncoder129::setupDataMappings()
+{
+
 }
 void GraphEncoder129::syncTreeDataToUiFace()
 {
@@ -126,6 +128,7 @@ void GraphEncoder129::createSupportEncoderItem()
   Q_D(GraphEncoder129);
   d->m_encConfigManage=new EncConfigManage;
 
+  //注意在这里addEncItem的顺序位置不能改变
   IEncConfigItem *encItem=new EncConfigDuoMoItem;
   encItem->createAttributeUi();
   //根据版本不同，还可以增加其它的设置
@@ -207,29 +210,7 @@ void GraphEncoder129::onUpdateTimeOut()
   electronicValue%=360;
   ui->Dial_encElectronic->setValue(electronicValue);
 
-
-//  var strPos_ofst=m_cmd.readCommand("gSevDrv.sev_obj.cur.rsv.prm.pos_ofst_3");
-//  posOffset.text=parseInt(strPos_ofst);
-
-
-//  var strPPN=m_cmd.readCommand("gSevDrv.sev_obj.cur.mot.PPN_1");
-//  if(strPPN!=="NULL"){
-//      var PPN=parseInt(strPPN);
-//      var angleEle=(gauge.value*PPN)%360;
-//      gauge_Electric.value=parseInt(angleEle);
-//  }
-
-//  //读相序
-//  var strPseq=m_cmd.readCommand("gSevDrv.sev_obj.cur.rsv.prm.seq_dir");
-//  var pSeqNum=parseInt(strPseq);
-//  pseq.text=pSeqNum;
-
-//  //读取编码器报警信息
-//  var errorCodeStr=m_cmd.readCommand("gSevDrv.sev_obj.cur.pro.enc_info.all");
-////            console.log("errorCodeStr="+errorCodeStr);
-//  var lostenc=m_cmd.readCommand("gSevDrv.sev_obj.cur.rsv.prm.abs_type.all");
-//  absType=0x0024;
-  encInfo=0x10f0;
+//  encInfo=0x10f0;
   showEncoderError(absType,encInfo);
 
 }
@@ -243,13 +224,16 @@ void GraphEncoder129::onBtnEncConfigClicked(bool checked)
   setEncConfigUiEnable(checked);
   Q_D(GraphEncoder129);
 
+  d->m_uiWidget->readPageFLASH();
   //读一次树数据,获取当前文件中的编码器配置信息
   initCurEncConfigItem();
   d->m_encConfigManage->setCurAttributeWidget(d->m_curEncConfigItem->attributeUi());
   d->m_iDataBinding->multiBind(static_cast<QObject*>(d->m_curEncConfigItem),d->m_treeWidget);
+  d->m_iDataBinding->syncMultiTreeToUiData();//just sync tree data to encconfigdata
 
-  syncTreeDataToUiFace();
   updateEncConfigUiByCurrentConfigItem();
+
+  ui->label_encMsg->setVisible(false);
 
   qDebug()<<"open encItemcount"<<d->m_encConfigManage->itemNames().count();
 
@@ -318,10 +302,12 @@ void GraphEncoder129::onBtnEncConfigSaveClicked()
 
     d->m_curEncConfigItem->execute();
 
-//    d->m_iDataBinding->multiBind(static_cast<QObject*>(d->m_curEncConfigItem),d->m_treeWidget);//打开时已经绑定了
+    d->m_iDataBinding->multiBind(static_cast<QObject*>(d->m_curEncConfigItem),d->m_treeWidget);
     d->m_iDataBinding->syncMultiUiDataToTree();
   }
   d->m_uiWidget->writePageFLASH();
+
+  ui->label_encMsg->setVisible(true);
 
 }
 
@@ -351,9 +337,7 @@ void GraphEncoder129::initDial(QwtDial *dial)
 
   dial->setNeedle( needle );
 
-  //const QColor base( QColor( "DimGray" ) );
   const QColor base( QColor( Qt::darkGray ).dark( 110 ) );
-//  const QColor base( QColor( Qt::blue ).dark( 100 ) );
 
   QPalette palette;
   palette.setColor( QPalette::Base, base );
@@ -404,7 +388,7 @@ void GraphEncoder129::updateEncConfigUiByCurrentConfigItem()
 
     //更新编码器对应的特性UI
     QWidget *w=d->m_encConfigManage->curAttributeWidget();
-    d->m_curEncConfigItem->attributeUiUpdate();
+    d->m_curEncConfigItem->updateAttributeUi();
     if(w!=NULL)
     {
       ui->vlayout_attributeWidget->removeWidget(w);
@@ -431,7 +415,7 @@ void GraphEncoder129::showEncoderError(quint16 lost,quint16 encinfo)
     }
     else
     {
-      if(d->m_curEncConfigItem->hasWarnig(encinfo))
+      if(d->m_curEncConfigItem->hasWarning(encinfo))
       {
         errList=d->m_curEncConfigItem->errorStrings(encinfo);
 //        qDebug()<<errList;
@@ -453,6 +437,9 @@ void GraphEncoder129::showEncoderError(quint16 lost,quint16 encinfo)
 void GraphEncoder129::initCurEncConfigItem()
 {
   Q_D(GraphEncoder129);
+  //绑编码器类型QList <->QTreeWidgetItem
+  //根据QTreeWidgetItem 更新QList
+  //初始化当前encConfigItem
   d->m_iDataBinding->bind(ui->listWidget_encAbsolute,d->m_treeWidget->topLevelItem(FPGA_ABS_CFG_INDEX));//FPGA.prm.ABS_ENC_CFG.all
   d->m_iDataBinding->syncTreeItemToUiData();
   d->m_curEncConfigItem=d->m_encConfigManage->encItem(ui->listWidget_encAbsolute->currentRow());
