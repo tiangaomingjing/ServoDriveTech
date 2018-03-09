@@ -13,7 +13,7 @@
 #include <QGraphicsSimpleTextItem>
 #include <QTreeWidgetItem>
 
-#define PID_POS_X -40
+#define PID_POS_X -50
 #define PID_POS_Y -100
 
 IGraphCurrentPrivate::IGraphCurrentPrivate():IGraphWidgetPrivate(),
@@ -168,10 +168,10 @@ void IGraphCurrent::setUpItemPosAnchors()
 {
   Q_D(IGraphCurrent);
   d->m_UPID->setPos(PID_POS_X,PID_POS_Y);
-  d->m_anchorHelper->addAnchor(d->m_UPID,d->m_USUM,AnchorItemHelper::AnchorLeft,-2*d->m_USUM->boundingRect().width());
+  d->m_anchorHelper->addAnchor(d->m_UPID,d->m_USUM,AnchorItemHelper::AnchorLeft,-3*d->m_USUM->boundingRect().width());
   d->m_anchorHelper->addAnchor(d->m_UPID,d->m_USUM,AnchorItemHelper::AnchorVerticalCenter);
 
-  d->m_anchorHelper->addAnchor(d->m_USUM,d->m_UIF,AnchorItemHelper::AnchorRight,-2*d->m_USUM->boundingRect().width());
+  d->m_anchorHelper->addAnchor(d->m_USUM,d->m_UIF,AnchorItemHelper::AnchorRight,-3*d->m_USUM->boundingRect().width());
   d->m_anchorHelper->addAnchor(d->m_USUM,d->m_UIF,AnchorItemHelper::AnchorVerticalCenter);
 
   d->m_anchorHelper->addAnchor(d->m_UIF,d->m_Tstart,AnchorItemHelper::AnchorLeft,-1.5*d->m_UIF->boundingRect().width());
@@ -295,6 +295,9 @@ void IGraphCurrent::setDoubleSpinBoxConnections()
 void IGraphCurrent::adjustPosition()
 {
   Q_D(IGraphCurrent);
+
+  GTUtils::delayms(10);
+
   if(d->m_anchorHelper!=NULL)
     d->m_anchorHelper->setAnchorsActive();
 

@@ -45,7 +45,7 @@ IGraphWidgetPrivate::~IGraphWidgetPrivate()
 IGraphWidget::~IGraphWidget()
 {
   qDebug()<<"IGraphWidget destruct-->";
-  delete d_ptr;
+//  delete d_ptr;
 }
 IGraphWidget::IGraphWidget(IGraphWidgetPrivate &dd,QWidget *parent):InteractiveView(parent),d_ptr(&dd)
 {

@@ -53,7 +53,7 @@ void SaturationItemWidget::setFillColor(const QColor &color)
 }
 
 QSize SaturationItemWidget::sizeHint() const {
-  int w=fontMetrics().width("m")*8;
+  int w=fontMetrics().width("m")*6;
     return QSize(w, w);
 }
 
@@ -66,7 +66,7 @@ void SaturationItemWidget::resizeEvent(QResizeEvent *event) {
 
 void SaturationItemWidget::paintEvent(QPaintEvent *event) {
     Q_UNUSED(event);
-  qDebug()<<"w="<<width()<<"h="<<height();
+//  qDebug()<<"w="<<width()<<"h="<<height();
 
     QStyleOption opt;
     opt.init(this);
@@ -75,6 +75,7 @@ void SaturationItemWidget::paintEvent(QPaintEvent *event) {
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &painter, this);
 
     m_radius=width()*m_radiusPercent;
+    setMinimumHeight(width());
 
     QPen myPen;
     myPen.setColor(m_lineColor);

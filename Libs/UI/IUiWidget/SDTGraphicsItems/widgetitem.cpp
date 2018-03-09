@@ -9,7 +9,6 @@ WidgetItem::WidgetItem(QGraphicsItem *parent, Qt::WindowFlags wFlags) : QGraphic
   for(int i=0;i<4;i++)
     m_netPoints.append(new QPointF(0,0));
   connect(this,SIGNAL(geometryChanged()),this,SLOT(onGeometryChanged()));
-//  connect(m_proxyWidget,SIGNAL(destroyed(QObject*)),this,
 }
 
 WidgetItem::~WidgetItem()
@@ -20,7 +19,7 @@ WidgetItem::~WidgetItem()
     delete p;
   }
   m_netPoints.clear();
-  qDebug()<<"WidgetItem destruct-->";
+//  qDebug()<<"WidgetItem destruct-->";
 }
 
 void WidgetItem::setWidget(QWidget *widget, bool hasWrapWidget)
@@ -53,6 +52,7 @@ QPointF *WidgetItem::pointF(int index) const
   else
     return NULL;
 }
+
 
 void WidgetItem::onGeometryChanged()
 {

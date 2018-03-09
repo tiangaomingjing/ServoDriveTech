@@ -14,7 +14,7 @@ LabelItemWidget::LabelItemWidget(const QString &text, QWidget *parent, Qt::Windo
 
 LabelItemWidget::~LabelItemWidget()
 {
-  qDebug()<<"LabelItemWidget destruct-->";
+//  qDebug()<<"LabelItemWidget destruct-->";
 }
 
 void LabelItemWidget::mousePressEvent(QMouseEvent *event)

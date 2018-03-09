@@ -22,7 +22,7 @@ SevPwrBoard::SevPwrBoard(SevDevicePrivate *sev, QObject *parent):IPwrBoard(sev,p
     PowerTreeManage *pwrTreeManager = new PowerTreeManage(sev->m_devConfig);
     pwrTreeManager->updatePowerLimitMapList(m_powerLimitMapList);
     m_samplingDataInfo = pwrTreeManager->samplingDataInfo(&isOk);
-    //delete pwrTreeManager;
+    delete pwrTreeManager;
 }
 
 SevPwrBoard::~SevPwrBoard()

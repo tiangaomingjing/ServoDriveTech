@@ -83,6 +83,7 @@ void IGraphPosition::installDoubleSpinBoxEventFilter()
 
 void IGraphPosition::adjustPosition()
 {
+  GTUtils::delayms(10);
   Q_D(IGraphPosition);
   if(d->m_anchorHelper!=NULL)
     d->m_anchorHelper->setAnchorsActive();
@@ -148,10 +149,20 @@ void IGraphPosition::createPidItem()
 void IGraphPosition::createSaturationItem()
 {
   Q_D(IGraphPosition);
-  SaturationItemWidget *saturation=new SaturationItemWidget;
+  QWidget *w=new QWidget;
+  w->setObjectName("widget_posSaturation");
+  QVBoxLayout *vlayout=new QVBoxLayout(w);
+  vlayout->setMargin(2);
+  SaturationItemWidget *saturation=new SaturationItemWidget(w);
   saturation->setObjectName("saturationItemWidget_posSaturation");
+  vlayout->addWidget(saturation);
+//  QLabel *label=new QLabel(w);
+//  label->setText(tr("saturation"));
+//  label->setObjectName("label_posSaturationTitle");
+//  vlayout->addWidget(label);
+
   d->m_USATN=new WidgetItem;
-  d->m_USATN->setWidget(saturation);
+  d->m_USATN->setWidget(w,true);
   d->m_scene->addItem(d->m_USATN);
 }
 

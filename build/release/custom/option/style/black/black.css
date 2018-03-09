@@ -1,4 +1,11 @@
-﻿/*==========================main treeWidget 导航栏=====================*/
+﻿/*==========================全局属性===================================*/
+QDoubleSpinBox{
+	min-height:30px;
+	min-width:150px;
+	border-radius:5px;
+	padding-left:5px;
+}
+/*==========================main treeWidget 导航栏=====================*/
 QDockWidget  QTreeView {
 	border:1px solid lightgray;
 	border-bottom-color:transparent;
@@ -42,6 +49,7 @@ QListView::item {
 	border: 1px solid #d9d9d9;
 	border-left-color: transparent;
 	border-top-color: transparent;
+	min-height:30px;
 }
 QListView::item:hover {
 	background: lightgray;
@@ -59,6 +67,7 @@ QListView::item:selected:!active {
 QWidget#dockWidgetContents_2{
 background-color: rgb(161, 161, 161);
 }
+
 /*====================工具栏=======================*/
 QToolBar {
 	border:none;
@@ -169,9 +178,9 @@ QToolButton#tbtnError:hover{
 /*============自定义stylewidget 可以在C++环境中索引到其值=================*/
 StyleWidget{
 	qproperty-dsBoxBackgroundDefColor:white;
-	qproperty-dsBoxBackgroundReadyColor:green;
+	qproperty-dsBoxBackgroundReadyColor:yellow;
 	qproperty-dsBoxBackgroundErrorColor:#E61EE4;
-	qproperty-dsBoxTextEditColor:blue;
+	qproperty-dsBoxTextEditColor:red;
 	qproperty-dsBoxTextDefColor:black;
 	
 	qproperty-msgNormalColor:black;
@@ -207,7 +216,272 @@ border-radius:5px;
 border:2px solid #BBB9B9;
 }
 
-/*====================设置对话框===================*/
+QLabel#label_motorCur{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_MotorMac{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_motorVel{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_MotorImp{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_motorTor{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+/*====================编码器界面===================*/
+QLabel#label_encMsg{
+	font-weight:bold;
+	color:red;
+	margin-top:10px;
+}
+QListWidget#listWidget_encErr{
+border:none;
+background-color:transparent;
+color:red;
+font-weight:bold;
+}
+QPushButton#btn_encClearErr{
+border:1px solid red;
+border-radius:5px;
+background-color:red;
+min-height:30px;
+color:white;
+font-weight:normal;
+}
+QPushButton#btn_encClearErr:hover:!pressed{
+border:none;
+background-color:#A00000;
+font-weight:bold;
+}
+QPushButton#btn_encClearErr:hover:pressed{
+border:none;
+background-color:#680000;
+}
+
+
+
+/*================================功率界面===============================*/
+
+QWidget#widget_pwrBus{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QWidget#widget_pwrBrake{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QWidget#widget_pwrRelay{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QLabel#label_pwrBVP{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_pwrSSRV{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_pwrBHV{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+/*===============================制动界面===============================*/
+
+QWidget#widget_brakeDynamic{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QWidget#widget_brakeEmergency{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QWidget#widget_brakeExternal{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QLabel#label_brakeEmergency{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_brakeDynamic{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_brakeExternal{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+/*====================Current 电流控制器页面===================*/
+IGraphWidget{
+	border:none;
+	qproperty-backGroundColor:#F0F0F0;
+	qproperty-arrowColor:gray;
+}
+SumItemWidget{
+	background-color:transparent;
+	border:none;
+	qproperty-lineColor: gray;
+	qproperty-fillColor: #E0DDDD;
+} 
+
+QWidget#widget_currentPid{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+QLabel#label_currentTitle{
+	padding-bottom:10px;
+	margin-bottom:5px;
+	color:black;
+	border:1px solid transparent;
+	border-bottom-color:black;
+	font-weight:bold;
+}
+
+QLabel#label_currentInputFilter{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:50px;
+	padding:10px;
+}
+QLabel#label_currentFeedback{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:30px;
+	padding:10px;
+}
+QLabel#label_currentEndText,QLabel#label_currentStartText{
+	background-color: transparent;
+	border:none;
+}
+
+
+/*====================Position 位置控制器页面===================*/
+
+QWidget#widget_posPid{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+QWidget#widget_posFFvel{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+QWidget#widget_posFFacc{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+QLabel#label_posTitle{
+	padding-bottom:10px;
+	margin-bottom:5px;
+	color:black;
+	border:1px solid transparent;
+	border-bottom-color:black;
+	font-weight:bold;
+}
+
+QLabel#label_posInputFilter{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:50px;
+	padding:5px;
+}
+QLabel#label_posPosFeedback{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:30px;
+	padding:10px;
+}
+QLabel#label_posStartText,QLabel#label_posEndText{
+	background-color: transparent;
+	border:none;
+}
+
+QLabel#label_posVelCtler{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:50px;
+	padding:5px;
+}
+QLabel#label_posCurCtler{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:50px;
+	padding:5px;
+}
+
+/*====================option设置对话框===================*/
 
 /*--------------------用户-------------------------*/
 QRadioButton::indicator::unchecked#btn_Admin {
@@ -255,3 +529,4 @@ QGroupBox#userBox {
 QGroupBox#pswBox {
 	border:0px
 }
+

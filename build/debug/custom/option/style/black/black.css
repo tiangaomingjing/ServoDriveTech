@@ -374,6 +374,7 @@ border-left:none;
 border-right:none;
 padding-bottom: 10px;
 }
+
 /*====================Current 电流控制器页面===================*/
 IGraphWidget{
 	border:none;
@@ -386,6 +387,11 @@ SumItemWidget{
 	qproperty-lineColor: gray;
 	qproperty-fillColor: #E0DDDD;
 } 
+SaturationItemWidget{
+    qproperty-lineColor: gray;
+	qproperty-fillColor: #E0DDDD;
+}
+
 
 QWidget#widget_currentPid{
 	background-color: #E0DDDD;
@@ -438,6 +444,16 @@ QWidget#widget_posFFacc{
 	border:2px solid #BBB9B9;
 	border-radius:10px;
 }
+QWidget#widget_posSaturation{
+	background-color:transparent;
+	border:none;
+} 
+QWidget#widget_posSaturation:hover{
+	background-color:#E0DDDD;
+	border:2px solid red;
+	border-radius:5px;
+}
+
 QLabel#label_posTitle{
 	padding-bottom:10px;
 	margin-bottom:5px;

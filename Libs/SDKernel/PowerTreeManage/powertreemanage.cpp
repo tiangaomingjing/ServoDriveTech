@@ -104,7 +104,6 @@ PowerTreeManage::PowerTreeManage(DeviceConfig *sev, QObject *parent) : QObject(p
 
 PowerTreeManage::~PowerTreeManage() {
     delete m_powerTree;
-    delete m_pwrTarget;
 }
 
 /**

@@ -105,8 +105,8 @@ background-color: rgb(38, 83, 159);
 /*============自定义stylewidget 可以在C++环境中索引到其值=================*/
 StyleWidget{
 	qproperty-dsBoxBackgroundDefColor:white;
-	qproperty-dsBoxBackgroundReadyColor:green;
-	qproperty-dsBoxBackgroundErrorColor:#FF00FF;
+	qproperty-dsBoxBackgroundReadyColor:yellow;
+	qproperty-dsBoxBackgroundErrorColor:red;
 	qproperty-dsBoxTextEditColor:blue;
 	qproperty-dsBoxTextDefColor:black;
 	
@@ -117,39 +117,159 @@ StyleWidget{
 
 /*====================电机界面===================*/
 QWidget#widget_machinePrm{
-background-color: rgb(211, 211, 211);
+background-color: #E0DDDD;
 border-radius:5px;
+border:2px solid #BBB9B9;
 }
 QWidget#widget_currentPrm{
-background-color: rgb(211, 211, 211);
+background-color: #E0DDDD;
 border-radius:5px;
+border:2px solid #BBB9B9;
 }
 QWidget#widget_impedancePrm{
-background-color: rgb(211, 211, 211);
+background-color: #E0DDDD;
 border-radius:5px;
+border:2px solid #BBB9B9;
 }
 QWidget#widget_torquePrm{
-background-color: rgb(211, 211, 211);
+background-color: #E0DDDD;
 border-radius:5px;
+border:2px solid #BBB9B9;
 }
 QWidget#widget_velocityPrm{
-background-color: rgb(211, 211, 211);
+background-color: #E0DDDD;
 border-radius:5px;
+border:2px solid #BBB9B9;
 }
 
-
-/*============自定义stylewidget 可以在C++环境中索引到其值=================*/
-StyleWidget{
-	qproperty-dsBoxBackgroundDefColor:white;
-	qproperty-dsBoxBackgroundReadyColor:yellow;
-	qproperty-dsBoxBackgroundErrorColor:red;
-	qproperty-dsBoxTextEditColor:blue;
-	qproperty-dsBoxTextDefColor:black;
-	
-	qproperty-msgNormalColor:white;
-	qproperty-msgWarningColor:yellow;
-	qproperty-msgErrorColor:red;
+QLabel#label_motorCur{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
 }
+
+QLabel#label_MotorMac{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_motorVel{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_MotorImp{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_motorTor{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+/*================================功率界面===============================*/
+
+QWidget#widget_pwrBus{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QWidget#widget_pwrBrake{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QWidget#widget_pwrRelay{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QLabel#label_pwrBVP{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_pwrSSRV{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_pwrBHV{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+/*===============================制动界面===============================*/
+
+QWidget#widget_brakeDynamic{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QWidget#widget_brakeEmergency{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QWidget#widget_brakeExternal{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QLabel#label_brakeEmergency{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_brakeDynamic{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_brakeExternal{
+border:1px solid black;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
 
 QRadioButton::indicator::unchecked#btn_Admin {
     image:url(../custom/option/style/black/icon/user_admin_unchecked.png)
@@ -196,3 +316,4 @@ QGroupBox#userBox {
 QGroupBox#pswBox {
 	border:0px
 }
+
