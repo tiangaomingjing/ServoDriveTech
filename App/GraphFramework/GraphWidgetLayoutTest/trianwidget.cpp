@@ -16,9 +16,7 @@ void TrianWidget::paintEvent(QPaintEvent *event) {
     Q_UNUSED(event);
 
     CombinedWidget *p = static_cast<CombinedWidget*>(p2);
-    int width = p->width();
     int height = p->getTrianHeight();
-    this->resize(width, height);
     int mode = p->getMode();
     QColor lineColor = p->lineColor();
     QColor fillColor = p->fillColor();
