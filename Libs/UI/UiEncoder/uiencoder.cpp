@@ -88,18 +88,4 @@ void UiEncoder::setDefaultUi()
 {
   setCurrentUiIndex(0);
 }
-void UiEncoder::setQmlContext()
-{
 
-}
-
-void UiEncoder::setQmlSignalSlot()
-{
-
-}
-
-void UiEncoder::addQmlWidget()
-{
-  Q_D(UiEncoder);
-  ui->qmlHboxLayout->addWidget(d->m_qwidget);
-}

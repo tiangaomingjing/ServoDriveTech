@@ -80,18 +80,4 @@ void UiBrake::setDefaultUi()
 {
   setCurrentUiIndex(0);
 }
-void UiBrake::setQmlContext()
-{
 
-}
-
-void UiBrake::setQmlSignalSlot()
-{
-
-}
-
-void UiBrake::addQmlWidget()
-{
-  Q_D(UiBrake);
-  ui->qmlHboxLayout->addWidget(d->m_qwidget);
-}

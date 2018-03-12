@@ -5,11 +5,13 @@
 
 #include <QDebug>
 
-SaturationItemWidget::SaturationItemWidget(QWidget *parent) : QWidget(parent)
+SaturationItemWidget::SaturationItemWidget(QWidget *parent) : QWidget(parent),
+  m_isClicked(false),
+  m_radiusPercent(0.2),
+  m_lineColor(Qt::white),
+  m_fillColor(Qt::blue)
 {
-    m_radiusPercent = 0.2;
-    m_lineColor = Qt::white;
-    m_fillColor = Qt::blue;
+
 }
 
 SaturationItemWidget::~SaturationItemWidget() {
@@ -111,6 +113,8 @@ void SaturationItemWidget::paintEvent(QPaintEvent *event) {
 
 void SaturationItemWidget::mousePressEvent(QMouseEvent *event) {
     Q_UNUSED(event);
-    emit clicked();
-  qDebug()<<"clicked";
+  qDebug()<<"SaturationItemWidget clicked";
+  emit clicked(m_isClicked);
+  m_isClicked=!m_isClicked;
+
 }

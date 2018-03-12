@@ -26,7 +26,7 @@ protected:
 signals:
     void lineColorChanged(const QColor &color);
     void fillColorChanged(const QColor &color);
-    void clicked();
+    void clicked(bool checked);
 public slots:
 private:
     int m_width;
@@ -35,6 +35,7 @@ private:
     int m_radius;
     QColor m_lineColor;
     QColor m_fillColor;
+    bool m_isClicked;
 };
 
 #endif // SATURATIONITEMWIDGET_H

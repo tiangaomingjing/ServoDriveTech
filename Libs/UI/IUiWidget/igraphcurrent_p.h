@@ -37,6 +37,7 @@ protected:
 
 
   QList<ArrowItem *>m_arrowList;
+  QList<WidgetItem *>m_widgetItemList;
 
   QDoubleSpinBox *m_pEdit;
   QDoubleSpinBox *m_iEdit;

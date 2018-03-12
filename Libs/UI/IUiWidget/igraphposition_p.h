@@ -55,10 +55,34 @@ protected:
 
 
   QList<ArrowItem *>m_arrowList;
+  QList<WidgetItem *>m_widgetItemList;
 
   QDoubleSpinBox *m_pEdit;
   QDoubleSpinBox *m_accEdit;
   QDoubleSpinBox *m_velEdit;
+
+  //饱和输出器
+  WidgetItem *m_UFRAME;
+  WidgetItem *m_UMAXVEL;
+  WidgetItem *m_UMAXVEL_P;
+  WidgetItem *m_UMAXVEL_N;
+
+  QDoubleSpinBox *m_maxvelEdit;
+  QDoubleSpinBox *m_maxvelEdit_P;
+  QDoubleSpinBox *m_maxvelEdit_N;
+
+  WidgetItem *m_T1;
+  WidgetItem *m_T2;
+  WidgetItem *m_T3;
+
+  ArrowItem *m_A16;
+  ArrowItem *m_A17;
+  ArrowItem *m_A18;
+  ArrowItem *m_A19;
+  ArrowItem *m_A20;
+
+  WidgetItem *m_TextMaxVelPositive;
+  WidgetItem *m_TextMaxVelNegative;
 
 };
 

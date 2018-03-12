@@ -24,16 +24,7 @@ IGraphWidgetPrivate::IGraphWidgetPrivate():
   m_uiWidget(NULL),
   m_mapping(new BoxItemMapping)
 {
-//  IGraphWidget *q_ptr;
-//  QGraphicsScene* m_scene;
-//  QString m_versionName;
-//  QColor m_backGroundColor;
-//  QColor m_arrowColor;
 
-//  SevDevice *m_dev;
-//  QTreeWidget *m_treeWidget;
-//  BoxItemMapping*m_mapping;
-//  IUiWidget *m_uiWidget;
 }
 IGraphWidgetPrivate::~IGraphWidgetPrivate()
 {
@@ -44,15 +35,17 @@ IGraphWidgetPrivate::~IGraphWidgetPrivate()
 
 IGraphWidget::~IGraphWidget()
 {
+  Q_D(IGraphWidget);
+  delete d->m_scene;
   qDebug()<<"IGraphWidget destruct-->";
-//  delete d_ptr;
+  delete d_ptr;
 }
 IGraphWidget::IGraphWidget(IGraphWidgetPrivate &dd,QWidget *parent):InteractiveView(parent),d_ptr(&dd)
 {
   d_ptr->q_ptr=this;
   Q_D(IGraphWidget);
 
-  d->m_scene=new QGraphicsScene(this);
+  d->m_scene=new QGraphicsScene;
   d->m_scene->setItemIndexMethod(QGraphicsScene::NoIndex);
 //  d->m_scene->setSceneRect(-200, -200, 400, 400);
   setScene(d->m_scene);
@@ -83,6 +76,7 @@ IGraphWidget::IGraphWidget(IGraphWidgetPrivate &dd,QWidget *parent):InteractiveV
 void IGraphWidget::visit(IUiWidget *uiWidget)
 {
   Q_D(IGraphWidget);
+
   d->m_dev=uiWidget->device();
   int axis=uiWidget->uiIndexs().axisInx;
   int page=uiWidget->uiIndexs().pageInx;

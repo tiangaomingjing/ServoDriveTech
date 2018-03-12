@@ -20,7 +20,6 @@ public:
 
   bool readPageFLASH()Q_DECL_OVERRIDE{return true;}
   bool writePageFLASH()Q_DECL_OVERRIDE{return true;}
-  void createQmlWidget()Q_DECL_OVERRIDE{}
 
   void accept(QWidget*w) Q_DECL_OVERRIDE;
 

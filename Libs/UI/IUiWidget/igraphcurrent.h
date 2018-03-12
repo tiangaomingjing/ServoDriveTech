@@ -35,7 +35,7 @@ protected:
 
 
   virtual void createPIDControllerItem();
-  virtual void crtateInputFilterItem();
+  virtual void createInputFilterItem();
 
   virtual void createCurrentFeedbackItem();
   virtual void createSumItem();

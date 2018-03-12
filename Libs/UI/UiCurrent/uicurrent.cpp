@@ -3,9 +3,9 @@
 #include "iuiwidget_p.h"
 #include "igraphcurrent.h"
 
-#include <QQuickWidget>
-#include <QQmlContext>
 #include <QDebug>
+#include <QGraphicsScene>
+#include <QGraphicsView>
 
 class UiCurrentPrivate:public IUiWidgetPrivate
 {
@@ -14,10 +14,11 @@ public:
   UiCurrentPrivate();
   ~UiCurrentPrivate();
 protected:
-  IGraphCurrent *m_graphCurrent;
+  IGraphCurrent *m_graphCurrentView;
+//  QGraphicsScene *m_scene;
 };
 UiCurrentPrivate::UiCurrentPrivate():IUiWidgetPrivate(),
-  m_graphCurrent(NULL)
+  m_graphCurrentView(NULL)
 {
 
 }
@@ -34,19 +35,31 @@ UiCurrent::~UiCurrent()
 {
   qDebug()<<"begin release UiCurrent ------------------>";
   Q_D(UiCurrent);
-  delete d->m_graphCurrent;
+
+
+  delete d->m_graphCurrentView;
+  qDebug()<<"delete m_graphCurrentView";
+
+//  delete d->m_scene;
+//  qDebug()<<"delete m_scene";
+
   delete ui;
+
 
   qDebug()<<"UiCurrent destruct-->";
 }
 
-void UiCurrent::accept(QWidget *w)
+void UiCurrent::accept(QWidget *w)//take ownership of w
 {
   Q_D(UiCurrent);
   ui->qmlHboxLayout->addWidget(w);
-  d->m_graphCurrent=dynamic_cast<IGraphCurrent *>(w);
-  d->m_graphCurrent->visit(this);
-  ui->label->setText(d->m_graphCurrent->objectName());
+
+//  d->m_scene=new QGraphicsScene;
+  d->m_graphCurrentView=dynamic_cast<IGraphCurrent *>(w);
+//  d->m_graphCurrentView->setScene(d->m_scene);
+
+  d->m_graphCurrentView->visit(this);
+  ui->label->setText(d->m_graphCurrentView->objectName());
 }
 
 void UiCurrent::setUiActive(bool actived)
@@ -55,7 +68,7 @@ void UiCurrent::setUiActive(bool actived)
   {
     Q_D(UiCurrent);
     if(readPageFLASH())
-      d->m_graphCurrent->syncTreeDataToUiFace();
+      d->m_graphCurrentView->syncTreeDataToUiFace();
   }
 }
 
@@ -71,18 +84,4 @@ void UiCurrent::setDefaultUi()
 {
   setCurrentUiIndex(0);
 }
-void UiCurrent::setQmlContext()
-{
 
-}
-
-void UiCurrent::setQmlSignalSlot()
-{
-
-}
-
-void UiCurrent::addQmlWidget()
-{
-  Q_D(UiCurrent);
-  ui->qmlHboxLayout->addWidget(d->m_qwidget);
-}

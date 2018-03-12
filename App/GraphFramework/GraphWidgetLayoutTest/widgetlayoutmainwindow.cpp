@@ -10,6 +10,7 @@
 #include "targetitemwidget.h"
 #include "anchoritemhelper.h"
 #include "saturationitemwidget.h"
+#include "frameitemwidget.h"
 
 #include <QGraphicsView>
 #include <QGraphicsScene>
@@ -48,7 +49,7 @@ WidgetLayoutMainWindow::WidgetLayoutMainWindow(QWidget *parent) :
   ui->mainToolBar->addAction(act);
   connect(act,SIGNAL(triggered(bool)),this,SLOT(onActionTest()));
 
-  scene=new QGraphicsScene(this);
+  scene=new QGraphicsScene;
   scene->setSceneRect(-400, -200, 800, 400);
   view=new InteractiveView;
   view->setScene(scene);
@@ -248,7 +249,7 @@ WidgetLayoutMainWindow::WidgetLayoutMainWindow(QWidget *parent) :
   anchorHelper->addAnchor(t2,t1,AnchorItemHelper::AnchorHorizontalCenter,-1*u0->boundingRect().width()/3);
   anchorHelper->addAnchor(t2,t1,AnchorItemHelper::AnchorVerticalCenter);
 
-  adjustItemPostion();
+
 
   QLineF line(QPointF(0,0),QPointF(-1,-1));
   qDebug()<<"line dx"<<line.dx();
@@ -258,15 +259,35 @@ WidgetLayoutMainWindow::WidgetLayoutMainWindow(QWidget *parent) :
   qDebug()<<"angle"<<angle*180/3.14;
 
   SaturationItemWidget *ac=new SaturationItemWidget;
+  connect(ac,SIGNAL(clicked()),this,SLOT(onSaturationWidgetClicked()));
   WidgetItem *acw=new WidgetItem;
-  acw->setWidget(ac,false);
+  acw->setWidget(ac,true);
   scene->addItem(acw);
   acw->setPos(200,50);
+
+  FrameItemWidget *framew=new FrameItemWidget;
+  framew->setMode(0);
+  framew->setPosPercent(0.6);
+  framew->setVertexPercent(0.6);
+  framew->resize(400,300);
+  framew->setFillColor(Qt::blue);
+  framew->setLineColor(Qt::red);
+  frame=new WidgetItem;
+  frame->setWidget(framew,true);
+  scene->addItem(frame);
+  frame->setVisible(false);
+
+  anchorHelper->addAnchor(acw,frame,AnchorItemHelper::AnchorHorizontalCenter);
+  anchorHelper->addAnchor(acw,frame,AnchorItemHelper::AnchorBottom,frame->boundingRect().height());
+
+  adjustItemPostion();
 
 }
 
 WidgetLayoutMainWindow::~WidgetLayoutMainWindow()
 {
+  delete scene;
+  delete view;
   delete ui;
 }
 
@@ -350,4 +371,11 @@ void WidgetLayoutMainWindow::onActionTest()
   a6->setColor(Qt::red);
   a7->setColor(Qt::red);
   a8->setColor(Qt::red);
+}
+
+void WidgetLayoutMainWindow::onSaturationWidgetClicked()
+{
+  static bool view=true;
+  frame->setVisible(view);
+  view=!view;
 }

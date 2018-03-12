@@ -1,9 +1,10 @@
 ﻿#include "uivelocity.h"
 #include "ui_uivelocity.h"
 #include "iuiwidget_p.h"
+#include "igraphvelocity.h"
 
-#include <QQuickWidget>
-#include <QQmlContext>
+#include <QGraphicsScene>
+#include <QGraphicsView>
 
 class UiVelocityPrivate:public IUiWidgetPrivate
 {
@@ -12,7 +13,8 @@ public:
   UiVelocityPrivate();
   ~UiVelocityPrivate();
 protected:
-  int test;
+  IGraphVelocity *m_graphVelocityView;
+//  QGraphicsScene *m_scene;
 };
 UiVelocityPrivate::UiVelocityPrivate()
 {
@@ -31,12 +33,22 @@ UiVelocity::UiVelocity(QWidget *parent):IUiWidget(*(new UiVelocityPrivate),paren
 }
 UiVelocity::~UiVelocity()
 {
+  Q_D(UiVelocity);
+
+//  delete d->m_scene;
+  delete d->m_graphVelocityView;
+
   delete ui;
 }
 
 void UiVelocity::accept(QWidget *w)
 {
+  Q_D(UiVelocity);
   ui->qmlHboxLayout->addWidget(w);
+
+//  d->m_scene=new QGraphicsScene;
+  d->m_graphVelocityView=dynamic_cast<IGraphVelocity *>(w);
+//  d->m_graphVelocityView->setScene(d->m_scene);
 }
 
 QStackedWidget *UiVelocity::getUiStackedWidget(void)
@@ -52,18 +64,4 @@ void UiVelocity::setDefaultUi()
 {
   setCurrentUiIndex(0);
 }
-void UiVelocity::setQmlContext()
-{
 
-}
-
-void UiVelocity::setQmlSignalSlot()
-{
-
-}
-
-void UiVelocity::addQmlWidget()
-{
-  Q_D(UiVelocity);
-  ui->qmlHboxLayout->addWidget(d->m_qwidget);
-}

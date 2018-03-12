@@ -3,8 +3,8 @@
 #include "iuiwidget_p.h"
 #include "igraphposition.h"
 
-#include <QQuickWidget>
-#include <QQmlContext>
+#include <QGraphicsScene>
+#include <QGraphicsView>
 
 class UiPositionPrivate:public IUiWidgetPrivate
 {
@@ -14,6 +14,7 @@ public:
   ~UiPositionPrivate();
 protected:
   IGraphPosition *m_graphPosition;
+//  QGraphicsScene *m_scene;
 };
 UiPositionPrivate::UiPositionPrivate()
 {
@@ -32,7 +33,10 @@ UiPosition::UiPosition(QWidget *parent):IUiWidget(*(new UiPositionPrivate),paren
 UiPosition::~UiPosition()
 {
   Q_D(UiPosition);
+
+//  delete d->m_scene;
   delete d->m_graphPosition;
+
   delete ui;
 }
 
@@ -40,7 +44,10 @@ void UiPosition::accept(QWidget *w)
 {
   Q_D(UiPosition);
   ui->qmlHboxLayout->addWidget(w);
+//  d->m_scene=new QGraphicsScene;
   d->m_graphPosition=dynamic_cast<IGraphPosition *>(w);
+//  d->m_graphPosition->setScene(d->m_scene);
+
   d->m_graphPosition->visit(this);
   ui->label->setText(d->m_graphPosition->objectName());
 }
@@ -57,18 +64,4 @@ void UiPosition::setDefaultUi()
 {
   setCurrentUiIndex(0);
 }
-void UiPosition::setQmlContext()
-{
 
-}
-
-void UiPosition::setQmlSignalSlot()
-{
-
-}
-
-void UiPosition::addQmlWidget()
-{
-  Q_D(UiPosition);
-  ui->qmlHboxLayout->addWidget(d->m_qwidget);
-}

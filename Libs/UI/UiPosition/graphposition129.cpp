@@ -31,7 +31,8 @@ GraphPosition129::GraphPosition129(QWidget *parent) :
 GraphPosition129::~GraphPosition129()
 {
 //  delete ui;
-  delete d_ptr;
+  qDebug()<<"GraphPosition129 destruct-->";
+
 }
 void GraphPosition129::setCustomVisitActive(IUiWidget *uiWidget)
 {

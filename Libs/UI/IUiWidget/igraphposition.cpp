@@ -28,7 +28,21 @@ IGraphPositionPrivate::~IGraphPositionPrivate()
 
 IGraphPosition::~IGraphPosition()
 {
+  Q_D(IGraphPosition);
 
+  foreach (WidgetItem *item, d->m_widgetItemList) {
+    d->m_scene->removeItem(item);
+    delete item;
+    item=NULL;
+  }
+  d->m_widgetItemList.clear();
+
+  foreach (ArrowItem *arrow, d->m_arrowList) {
+    delete arrow;
+    arrow=NULL;
+  }
+  d->m_arrowList.clear();
+  qDebug()<<"IGraphPosition destruct-->";
 }
 
 void IGraphPosition::syncTreeDataToUiFace()
@@ -58,6 +72,8 @@ void IGraphPosition::createItems()
 
   createArrowItems();
   createAnchorItemHelper();
+  createSaturationConfigItems();
+
   setUpItemPosAnchors();
 
   adjustPosition();
@@ -104,6 +120,8 @@ void IGraphPosition::createInputFilterItem()
   d->m_UIF=new WidgetItem;
   d->m_UIF->setWidget(label,true);
   d->m_scene->addItem(d->m_UIF);
+
+  d->m_widgetItemList.append(d->m_UIF);
 }
 
 void IGraphPosition::createSumItem0()
@@ -114,6 +132,8 @@ void IGraphPosition::createSumItem0()
   d->m_USUM0=new WidgetItem;
   d->m_USUM0->setWidget(sw);
   d->m_scene->addItem(d->m_USUM0);
+
+  d->m_widgetItemList.append(d->m_USUM0);
 }
 
 void IGraphPosition::createPidItem()
@@ -144,6 +164,8 @@ void IGraphPosition::createPidItem()
   d->m_UPID=new WidgetItem;
   d->m_UPID->setWidget(wpid,true);
   d->m_scene->addItem(d->m_UPID);//take ownership
+
+  d->m_widgetItemList.append(d->m_UPID);
 }
 
 void IGraphPosition::createSaturationItem()
@@ -154,6 +176,7 @@ void IGraphPosition::createSaturationItem()
   QVBoxLayout *vlayout=new QVBoxLayout(w);
   vlayout->setMargin(2);
   SaturationItemWidget *saturation=new SaturationItemWidget(w);
+  connect(saturation,SIGNAL(clicked(bool)),this,SLOT(onSaturationClicked(bool)));
   saturation->setObjectName("saturationItemWidget_posSaturation");
   vlayout->addWidget(saturation);
 //  QLabel *label=new QLabel(w);
@@ -164,6 +187,8 @@ void IGraphPosition::createSaturationItem()
   d->m_USATN=new WidgetItem;
   d->m_USATN->setWidget(w,true);
   d->m_scene->addItem(d->m_USATN);
+
+  d->m_widgetItemList.append(d->m_USATN);
 }
 
 void IGraphPosition::createSumItem1()
@@ -174,6 +199,8 @@ void IGraphPosition::createSumItem1()
   d->m_USUM1=new WidgetItem;
   d->m_USUM1->setWidget(sw);
   d->m_scene->addItem(d->m_USUM1);
+
+  d->m_widgetItemList.append(d->m_USUM1);
 }
 
 void IGraphPosition::createVelocityControllerItem()
@@ -185,6 +212,8 @@ void IGraphPosition::createVelocityControllerItem()
   d->m_UVCTL=new WidgetItem;
   d->m_UVCTL->setWidget(label,true);
   d->m_scene->addItem(d->m_UVCTL);
+
+  d->m_widgetItemList.append(d->m_UVCTL);
 }
 
 void IGraphPosition::createSumItem2()
@@ -195,6 +224,8 @@ void IGraphPosition::createSumItem2()
   d->m_USUM2=new WidgetItem;
   d->m_USUM2->setWidget(sw);
   d->m_scene->addItem(d->m_USUM2);
+
+  d->m_widgetItemList.append(d->m_USUM2);
 }
 
 void IGraphPosition::createCurrentControllerItem()
@@ -206,6 +237,8 @@ void IGraphPosition::createCurrentControllerItem()
   d->m_UCCTL=new WidgetItem;
   d->m_UCCTL->setWidget(label,true);
   d->m_scene->addItem(d->m_UCCTL);
+
+  d->m_widgetItemList.append(d->m_UCCTL);
 }
 
 void IGraphPosition::createPositionFeedbackItem()
@@ -217,6 +250,8 @@ void IGraphPosition::createPositionFeedbackItem()
   d->m_UPB=new WidgetItem;
   d->m_UPB->setWidget(label,true);
   d->m_scene->addItem(d->m_UPB);
+
+  d->m_widgetItemList.append(d->m_UPB);
 }
 
 void IGraphPosition::createFFVelocityItem()
@@ -241,6 +276,8 @@ void IGraphPosition::createFFVelocityItem()
   d->m_UFVB=new WidgetItem;
   d->m_UFVB->setWidget(w,true);
   d->m_scene->addItem(d->m_UFVB);//take ownership
+
+  d->m_widgetItemList.append(d->m_UFVB);
 }
 
 void IGraphPosition::createFFAccelerationItem()
@@ -265,6 +302,8 @@ void IGraphPosition::createFFAccelerationItem()
   d->m_UFAB=new WidgetItem;
   d->m_UFAB->setWidget(w,true);
   d->m_scene->addItem(d->m_UFAB);//take ownership
+
+  d->m_widgetItemList.append(d->m_UFAB);
 }
 
 void IGraphPosition::createTargetItems()
@@ -282,6 +321,9 @@ void IGraphPosition::createTargetItems()
 
   d->m_scene->addItem(d->m_TM0);
   d->m_scene->addItem(d->m_T0);
+
+  d->m_widgetItemList.append(d->m_TM0);
+  d->m_widgetItemList.append(d->m_T0);
 }
 
 void IGraphPosition::createArrowItems()
@@ -340,6 +382,134 @@ void IGraphPosition::createArrowItems()
 
 }
 
+void IGraphPosition::createSaturationConfigItems()
+{
+  Q_D(IGraphPosition);
+  FrameItemWidget *frame=new FrameItemWidget;
+  frame->setMinimumSize(700,250);
+  frame->setObjectName("frameItemWidget_posFrameVel");
+  d->m_UFRAME=new WidgetItem;
+  d->m_UFRAME->setWidget(frame);
+  d->m_scene->addItem(d->m_UFRAME);
+  d->m_widgetItemList.append(d->m_UFRAME);
+
+  //max vel %
+  QWidget *w=new QWidget;
+  w->setObjectName("widget_posMaxVel");
+  QVBoxLayout *hlayout=new QVBoxLayout(w);
+  QLabel *label=new QLabel(tr("max v(%)"),w);
+  label->setObjectName("label_posMaxVelPercent");
+  hlayout->addWidget(label);
+  QDoubleSpinBox *box=new QDoubleSpinBox(w);
+  d->m_velEdit=box;
+  box->setMinimum(0);
+  box->setMaximum(100);
+  box->setMaximumWidth(150);
+  box->setButtonSymbols(QAbstractSpinBox::NoButtons);
+  hlayout->addWidget(box);
+  w->setLayout(hlayout);
+  d->m_UMAXVEL=new WidgetItem;
+  d->m_UMAXVEL->setWidget(w,true);
+  d->m_scene->addItem(d->m_UMAXVEL);
+  d->m_widgetItemList.append(d->m_UMAXVEL);
+
+  //max vel_p %
+  w=new QWidget;
+  w->setObjectName("widget_posMaxVelPositive");
+  hlayout=new QVBoxLayout(w);
+  label=new QLabel(tr("positive v(%)"),w);
+  label->setObjectName("label_posMaxVelPercentPositive");
+  hlayout->addWidget(label);
+  box=new QDoubleSpinBox(w);
+  d->m_maxvelEdit_P=box;
+  box->setMinimum(0);
+  box->setMaximum(100);
+  box->setMaximumWidth(150);
+  box->setButtonSymbols(QAbstractSpinBox::NoButtons);
+  hlayout->addWidget(box);
+  w->setLayout(hlayout);
+  d->m_UMAXVEL_P=new WidgetItem;
+  d->m_UMAXVEL_P->setWidget(w,true);
+  d->m_scene->addItem(d->m_UMAXVEL_P);
+  d->m_widgetItemList.append(d->m_UMAXVEL_P);
+
+  //max vel_n %
+  w=new QWidget;
+  w->setObjectName("widget_posMaxVelNegative");
+  hlayout=new QVBoxLayout(w);
+  label=new QLabel(tr("negative v(%)"),w);
+  label->setObjectName("label_posMaxVelPercentNegative");
+  hlayout->addWidget(label);
+  box=new QDoubleSpinBox(w);
+  d->m_maxvelEdit_N=box;
+  box->setMinimum(0);
+  box->setMaximum(100);
+  box->setMaximumWidth(150);
+  box->setButtonSymbols(QAbstractSpinBox::NoButtons);
+  hlayout->addWidget(box);
+  w->setLayout(hlayout);
+  d->m_UMAXVEL_N=new WidgetItem;
+  d->m_UMAXVEL_N->setWidget(w,true);
+  d->m_scene->addItem(d->m_UMAXVEL_N);
+  d->m_widgetItemList.append(d->m_UMAXVEL_N);
+
+  TargetItemWidget *t=new TargetItemWidget;
+  t->setObjectName("targetItem_posT1");
+  d->m_T1=new WidgetItem;
+  d->m_T1->setWidget(t);
+  d->m_scene->addItem(d->m_T1);
+  d->m_widgetItemList.append(d->m_T1);
+
+  t=new TargetItemWidget;
+  t->setObjectName("targetItem_posT2");
+  d->m_T2=new WidgetItem;
+  d->m_T2->setWidget(t);
+  d->m_scene->addItem(d->m_T2);
+  d->m_widgetItemList.append(d->m_T2);
+
+  t=new TargetItemWidget;
+  t->setObjectName("targetItem_posT3");
+  d->m_T3=new WidgetItem;
+  d->m_T3->setWidget(t);
+  d->m_scene->addItem(d->m_T3);
+  d->m_widgetItemList.append(d->m_T3);
+
+  //arrows
+  d->m_A16=new ArrowItem(d->m_UMAXVEL->pointF(WidgetItem::POINT_TYPE_RIGHT),d->m_T1->pointF(WidgetItem::POINT_TYPE_LEFT),ArrowItem::ARROW_TYPE_STRAIGHT,"",false);
+  d->m_A17=new ArrowItem(d->m_T1->pointF(WidgetItem::POINT_TYPE_RIGHT),d->m_UMAXVEL_P->pointF(WidgetItem::POINT_TYPE_LEFT));
+  d->m_A18=new ArrowItem(d->m_T1->pointF(WidgetItem::POINT_TYPE_RIGHT),d->m_UMAXVEL_N->pointF(WidgetItem::POINT_TYPE_LEFT));
+  d->m_A19=new ArrowItem(d->m_UMAXVEL_P->pointF(WidgetItem::POINT_TYPE_RIGHT),d->m_T2->pointF(WidgetItem::POINT_TYPE_LEFT));
+  d->m_A20=new ArrowItem(d->m_UMAXVEL_N->pointF(WidgetItem::POINT_TYPE_RIGHT),d->m_T3->pointF(WidgetItem::POINT_TYPE_LEFT));
+
+  d->m_scene->addItem(d->m_A16);
+  d->m_scene->addItem(d->m_A17);
+  d->m_scene->addItem(d->m_A18);
+  d->m_scene->addItem(d->m_A19);
+  d->m_scene->addItem(d->m_A20);
+
+  d->m_arrowList.append(d->m_A16);
+  d->m_arrowList.append(d->m_A17);
+  d->m_arrowList.append(d->m_A18);
+  d->m_arrowList.append(d->m_A19);
+  d->m_arrowList.append(d->m_A20);
+
+  //text
+  label=new QLabel(tr("positive MaxV"));
+  label->setObjectName("label_posTextPositiveMaxV");
+  d->m_TextMaxVelPositive=new WidgetItem;
+  d->m_TextMaxVelPositive->setWidget(label);
+  d->m_scene->addItem(d->m_TextMaxVelPositive);
+  d->m_widgetItemList.append(d->m_TextMaxVelPositive);
+
+  label=new QLabel(tr("negative MaxV"));
+  label->setObjectName("label_posTextNegativeMaxV");
+  d->m_TextMaxVelNegative=new WidgetItem;
+  d->m_TextMaxVelNegative->setWidget(label);
+  d->m_scene->addItem(d->m_TextMaxVelNegative);
+  d->m_widgetItemList.append(d->m_TextMaxVelNegative);
+
+}
+
 void IGraphPosition::createStartEndTargetItems()
 {
   Q_D(IGraphPosition);
@@ -355,6 +525,9 @@ void IGraphPosition::createStartEndTargetItems()
 
   d->m_scene->addItem(d->m_Tstart);
   d->m_scene->addItem(d->m_Tend);
+
+  d->m_widgetItemList.append(d->m_Tstart);
+  d->m_widgetItemList.append(d->m_Tend);
 }
 
 void IGraphPosition::createStartTextItem()
@@ -366,6 +539,7 @@ void IGraphPosition::createStartTextItem()
   d->m_TextStart=new WidgetItem;
   d->m_TextStart->setWidget(label);
   d->m_scene->addItem(d->m_TextStart);
+  d->m_widgetItemList.append(d->m_TextStart);
 }
 
 void IGraphPosition::createEndTextItem()
@@ -378,6 +552,8 @@ void IGraphPosition::createEndTextItem()
   d->m_TextEnd=new WidgetItem;
   d->m_TextEnd->setWidget(label);
   d->m_scene->addItem(d->m_TextEnd);
+
+  d->m_widgetItemList.append(d->m_TextEnd);
 }
 
 void IGraphPosition::createAnchorItemHelper()
@@ -437,6 +613,65 @@ void IGraphPosition::setUpItemPosAnchors()
 
   d->m_anchorHelper->addAnchor(d->m_Tend,d->m_TextEnd,AnchorItemHelper::AnchorRight,-1.2*d->m_Tend->boundingRect().width());
   d->m_anchorHelper->addAnchor(d->m_Tend,d->m_TextEnd,AnchorItemHelper::AnchorBottom,-15);
+
+
+  //saturation config widget
+  double oft=dynamic_cast<FrameItemWidget*>(d->m_UFRAME->widget())->getHPercent()*d->m_UFRAME->boundingRect().height();
+  d->m_anchorHelper->addAnchor(d->m_USATN,d->m_UFRAME,AnchorItemHelper::AnchorHorizontalCenter);
+  d->m_anchorHelper->addAnchor(d->m_USATN,d->m_UFRAME,AnchorItemHelper::AnchorBottom,d->m_UFRAME->boundingRect().height()+10);
+
+  d->m_anchorHelper->addAnchor(d->m_UFRAME,d->m_UMAXVEL,AnchorItemHelper::AnchorLeft,20);
+  d->m_anchorHelper->addAnchor(d->m_UFRAME,d->m_UMAXVEL,AnchorItemHelper::AnchorVerticalCenter,oft);
+
+  d->m_anchorHelper->addAnchor(d->m_UMAXVEL,d->m_T1,AnchorItemHelper::AnchorRight,30);
+  d->m_anchorHelper->addAnchor(d->m_UMAXVEL,d->m_T1,AnchorItemHelper::AnchorVerticalCenter);
+
+  d->m_anchorHelper->addAnchor(d->m_T1,d->m_UMAXVEL_P,AnchorItemHelper::AnchorRight,d->m_UMAXVEL_P->boundingRect().width()+30);
+  d->m_anchorHelper->addAnchor(d->m_T1,d->m_UMAXVEL_P,AnchorItemHelper::AnchorVerticalCenter,-1*d->m_UMAXVEL->boundingRect().height()/2-10);
+
+  d->m_anchorHelper->addAnchor(d->m_T1,d->m_UMAXVEL_N,AnchorItemHelper::AnchorRight,d->m_UMAXVEL_N->boundingRect().width()+30);
+  d->m_anchorHelper->addAnchor(d->m_T1,d->m_UMAXVEL_N,AnchorItemHelper::AnchorVerticalCenter,1*d->m_UMAXVEL->boundingRect().height()/2+10);
+
+  d->m_anchorHelper->addAnchor(d->m_UMAXVEL_P,d->m_T2,AnchorItemHelper::AnchorRight,30);
+  d->m_anchorHelper->addAnchor(d->m_UMAXVEL_P,d->m_T2,AnchorItemHelper::AnchorVerticalCenter);
+
+  d->m_anchorHelper->addAnchor(d->m_UMAXVEL_N,d->m_T3,AnchorItemHelper::AnchorRight,30);
+  d->m_anchorHelper->addAnchor(d->m_UMAXVEL_N,d->m_T3,AnchorItemHelper::AnchorVerticalCenter);
+
+  d->m_anchorHelper->addAnchor(d->m_T2,d->m_TextMaxVelPositive,AnchorItemHelper::AnchorRight,d->m_TextMaxVelPositive->boundingRect().width()+2);
+  d->m_anchorHelper->addAnchor(d->m_T2,d->m_TextMaxVelPositive,AnchorItemHelper::AnchorVerticalCenter);
+
+  d->m_anchorHelper->addAnchor(d->m_T3,d->m_TextMaxVelNegative,AnchorItemHelper::AnchorRight,d->m_TextMaxVelNegative->boundingRect().width()+2);
+  d->m_anchorHelper->addAnchor(d->m_T3,d->m_TextMaxVelNegative,AnchorItemHelper::AnchorVerticalCenter);
+}
+
+void IGraphPosition::onSaturationClicked(bool checked)
+{
+  setSaturationConfigVisible(checked);
+}
+
+void IGraphPosition::setSaturationConfigVisible(bool enable)
+{
+  Q_D(IGraphPosition);
+  d->m_UFRAME->setVisible(enable);
+
+  d->m_UMAXVEL->setVisible(enable);
+  d->m_UMAXVEL_P->setVisible(enable);
+  d->m_UMAXVEL_N->setVisible(enable);
+
+
+  d->m_T1->setVisible(enable);
+  d->m_T2->setVisible(enable);
+  d->m_T3->setVisible(enable);
+
+  d->m_A16->setVisible(enable);
+  d->m_A17->setVisible(enable);
+  d->m_A18->setVisible(enable);
+  d->m_A19->setVisible(enable);
+  d->m_A20->setVisible(enable);
+
+  d->m_TextMaxVelPositive->setVisible(enable);
+  d->m_TextMaxVelNegative->setVisible(enable);
 }
 
 

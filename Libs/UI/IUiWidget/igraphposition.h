@@ -45,8 +45,14 @@ protected:
   void createEndTextItem();
 
   virtual void createArrowItems();
+  virtual void createSaturationConfigItems();
   void createAnchorItemHelper();
   virtual void setUpItemPosAnchors();
+
+protected slots:
+  void onSaturationClicked(bool checked);
+private :
+  void setSaturationConfigVisible(bool enable);
 
 signals:
 

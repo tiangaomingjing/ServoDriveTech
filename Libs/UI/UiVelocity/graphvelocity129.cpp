@@ -1,6 +1,7 @@
 ﻿#include "graphvelocity129.h"
 #include "ui_graphvelocity129.h"
 #include "igraphvelocity_p.h"
+#include <QDebug>
 
 class GraphVelocity129Private:public IGraphVelocityPrivate
 {
@@ -21,6 +22,7 @@ GraphVelocity129::GraphVelocity129(QWidget *parent) :
 GraphVelocity129::~GraphVelocity129()
 {
   delete ui;
+  qDebug()<<"GraphVelocity129 destruct-->";
 }
 void GraphVelocity129::setCustomVisitActive(IUiWidget *uiWidget)
 {

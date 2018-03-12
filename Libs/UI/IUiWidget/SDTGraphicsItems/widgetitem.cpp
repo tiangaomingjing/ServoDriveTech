@@ -15,11 +15,12 @@ WidgetItem::~WidgetItem()
 {
 //  if(m_proxyWidget!=NULL)//不能这么操作，因为m_proxyWidget 增加到scene后，它的ownership就由scene控制了，如果再delete,就会再次delete则出错
 //    delete m_proxyWidget;
+  qDebug()<<objectName()<<"WidgetItem destruct-->";
   foreach (QPointF *p, m_netPoints) {
     delete p;
   }
   m_netPoints.clear();
-//  qDebug()<<"WidgetItem destruct-->";
+
 }
 
 void WidgetItem::setWidget(QWidget *widget, bool hasWrapWidget)
@@ -52,7 +53,6 @@ QPointF *WidgetItem::pointF(int index) const
   else
     return NULL;
 }
-
 
 void WidgetItem::onGeometryChanged()
 {

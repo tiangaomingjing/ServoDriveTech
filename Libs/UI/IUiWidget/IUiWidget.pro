@@ -60,7 +60,8 @@ SOURCES += iuiwidget.cpp \
     SDTGraphicsItems/targetitemwidget.cpp \
     SDTGraphicsItems/widgetitem.cpp \
     SDTGraphicsItems/labelitemwidget.cpp \
-    SDTGraphicsItems/saturationitemwidget.cpp
+    SDTGraphicsItems/saturationitemwidget.cpp \
+    SDTGraphicsItems/frameitemwidget.cpp
 
 HEADERS += iuiwidget.h\
         iuiwidget_global.h \
@@ -98,7 +99,8 @@ HEADERS += iuiwidget.h\
     SDTGraphicsItems/widgetitem.h \
     SDTGraphicsItems/SDTGraphicsItems \
     SDTGraphicsItems/labelitemwidget.h \
-    SDTGraphicsItems/saturationitemwidget.h
+    SDTGraphicsItems/saturationitemwidget.h \
+    SDTGraphicsItems/frameitemwidget.h
 
 unix {
     target.path = /usr/lib

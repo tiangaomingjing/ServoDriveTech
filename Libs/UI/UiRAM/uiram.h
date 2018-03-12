@@ -20,7 +20,7 @@ public:
 
   bool readPageFLASH()Q_DECL_OVERRIDE{return true;}
   bool writePageFLASH()Q_DECL_OVERRIDE{return true;}
-  void createQmlWidget()Q_DECL_OVERRIDE{}
+
 private:
   QStackedWidget *getUiStackedWidget(void) Q_DECL_OVERRIDE;
   QVBoxLayout *getVBoxLayout(void)Q_DECL_OVERRIDE;
