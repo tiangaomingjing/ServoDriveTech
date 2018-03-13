@@ -426,6 +426,63 @@ QLabel#label_currentEndText,QLabel#label_currentStartText{
 	border:none;
 }
 
+/*====================Velocity 速度控制器页面==================*/
+
+QWidget#widget_velPid{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+
+QWidget#widget_velSaturation{
+	background-color:transparent;
+	border:none;
+} 
+QWidget#widget_velSaturation:hover{
+	background-color:#E0DDDD;
+	border:2px solid red;
+	border-radius:5px;
+}
+
+QLabel#label_velPidTitle{
+	padding-bottom:10px;
+	margin-bottom:5px;
+	color:black;
+	border:1px solid transparent;
+	border-bottom-color:black;
+	font-weight:bold;
+}
+
+QLabel#label_velInputFilter{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:50px;
+	padding:5px;
+}
+QLabel#label_velVelocityFeedback{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:30px;
+	padding:10px;
+}
+QLabel#label_velStartText,QLabel#label_velEndText{
+	background-color: transparent;
+	border:none;
+}
+
+/*饱和控制项*/
+
+QWidget#widget_velMaxTq,QWidget#widget_velMaxTqPositive,QWidget#widget_velMaxTqNegative{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+QLabel#label_velTextPositiveMaxTq,QLabel#label_velTextNegativeMaxTq{
+	background-color: transparent;
+	border:none;
+}
 
 /*====================Position 位置控制器页面===================*/
 
@@ -454,7 +511,7 @@ QWidget#widget_posSaturation:hover{
 	border-radius:5px;
 }
 
-QLabel#label_posTitle{
+QLabel#label_posPidTitle{
 	padding-bottom:10px;
 	margin-bottom:5px;
 	color:black;
@@ -496,6 +553,22 @@ QLabel#label_posCurCtler{
 	min-height:50px;
 	padding:5px;
 }
+/*饱和控制项*/
+FrameItemWidget{
+	background-color:transparent;
+	qproperty-lineColor: #BBB9B9;
+	qproperty-fillColor: #E0DDDD;
+}
+QWidget#widget_posMaxVel,QWidget#widget_posMaxVelPositive,QWidget#widget_posMaxVelNegative{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+QLabel#label_posTextPositiveMaxV,QLabel#label_posTextNegativeMaxV{
+	background-color: transparent;
+	border:none;
+}
+
 
 /*====================option设置对话框===================*/
 

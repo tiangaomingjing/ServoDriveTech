@@ -34,7 +34,7 @@ protected:
   virtual void adjustPosition() Q_DECL_OVERRIDE;
 
 
-  virtual void createPIDControllerItem();
+  virtual void createPidControllerItem();
   virtual void createInputFilterItem();
 
   virtual void createCurrentFeedbackItem();

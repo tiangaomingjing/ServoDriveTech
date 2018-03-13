@@ -114,7 +114,6 @@ void SaturationItemWidget::paintEvent(QPaintEvent *event) {
 void SaturationItemWidget::mousePressEvent(QMouseEvent *event) {
     Q_UNUSED(event);
   qDebug()<<"SaturationItemWidget clicked";
-  emit clicked(m_isClicked);
   m_isClicked=!m_isClicked;
-
+  emit clicked(m_isClicked);
 }

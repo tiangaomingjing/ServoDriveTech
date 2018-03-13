@@ -47,9 +47,18 @@ void GraphPosition129::setupDataMappings()
   d->m_mapping->insertBox2Item(d->m_accEdit,d->m_treeWidget->topLevelItem(KGA_6_INX));
   d->m_mapping->insertBox2Item(d->m_velEdit,d->m_treeWidget->topLevelItem(KGV_6_INX));
 
+  d->m_mapping->insertBox2Item(d->m_maxvelEdit,d->m_treeWidget->topLevelItem(ABS_RAT_6_INX));
+  d->m_mapping->insertBox2Item(d->m_maxvelEdit_P,d->m_treeWidget->topLevelItem(POS_RAT_6_INX));
+  d->m_mapping->insertBox2Item(d->m_maxvelEdit_N,d->m_treeWidget->topLevelItem(NEG_RAT_6_INX));
+
   d->m_mapping->insertItem2Box(d->m_treeWidget->topLevelItem(FN_FST_6_INX),d->m_pEdit);
   d->m_mapping->insertItem2Box(d->m_treeWidget->topLevelItem(KGA_6_INX),d->m_accEdit);
   d->m_mapping->insertItem2Box(d->m_treeWidget->topLevelItem(KGV_6_INX),d->m_velEdit);
+
+  d->m_mapping->insertItem2Box(d->m_treeWidget->topLevelItem(ABS_RAT_6_INX),d->m_maxvelEdit);
+  d->m_mapping->insertItem2Box(d->m_treeWidget->topLevelItem(POS_RAT_6_INX),d->m_maxvelEdit_P);
+  d->m_mapping->insertItem2Box(d->m_treeWidget->topLevelItem(NEG_RAT_6_INX),d->m_maxvelEdit_N);
+
 }
 void GraphPosition129::setUiVersionName()
 {

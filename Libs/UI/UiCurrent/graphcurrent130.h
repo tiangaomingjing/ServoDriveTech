@@ -20,7 +20,7 @@ protected:
   void setUiVersionName() Q_DECL_OVERRIDE;
   void setupDataMappings() Q_DECL_OVERRIDE;
 
-  void createPIDControllerItem() Q_DECL_OVERRIDE;
+  void createPidControllerItem() Q_DECL_OVERRIDE;
 };
 
 #endif // GRAPHCURRENT129_H

@@ -75,7 +75,7 @@ void IGraphCurrent::syncTreeDataToUiFace()
   d->m_mapping->syncAllItem2BoxText();
 }
 
-void IGraphCurrent::createPIDControllerItem()
+void IGraphCurrent::createPidControllerItem()
 {
   Q_D(IGraphCurrent);
 
@@ -295,7 +295,7 @@ void IGraphCurrent::createItems()
   //create定位器
   //安排定位
   //更新位置
-  createPIDControllerItem();
+  createPidControllerItem();
   createSumItem();
   createInputFilterItem();
   createStartEndTargetItems();

@@ -46,9 +46,19 @@ void UiVelocity::accept(QWidget *w)
   Q_D(UiVelocity);
   ui->qmlHboxLayout->addWidget(w);
 
-//  d->m_scene=new QGraphicsScene;
   d->m_graphVelocityView=dynamic_cast<IGraphVelocity *>(w);
-//  d->m_graphVelocityView->setScene(d->m_scene);
+  d->m_graphVelocityView->visit(this);
+  ui->label->setText(d->m_graphVelocityView->objectName());
+}
+
+void UiVelocity::setUiActive(bool actived)
+{
+  if(actived)
+  {
+    Q_D(UiVelocity);
+    if(readPageFLASH())
+      d->m_graphVelocityView->syncTreeDataToUiFace();
+  }
 }
 
 QStackedWidget *UiVelocity::getUiStackedWidget(void)

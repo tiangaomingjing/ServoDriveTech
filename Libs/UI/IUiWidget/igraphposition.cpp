@@ -13,7 +13,7 @@
 #include <QTreeWidgetItem>
 
 #define PID_POS_X -220
-#define PID_POS_Y 0
+#define PID_POS_Y -50
 
 IGraphPositionPrivate::IGraphPositionPrivate()
 {
@@ -78,7 +78,6 @@ void IGraphPosition::createItems()
 
   adjustPosition();
   setCustumBackgroundColor();
-  setBackGroundColor(QColor(Qt::white));
 }
 
 void IGraphPosition::setDoubleSpinBoxConnections()
@@ -87,6 +86,10 @@ void IGraphPosition::setDoubleSpinBoxConnections()
   connect(d->m_pEdit,SIGNAL(editingFinished()),this,SLOT(onDoubleSpinBoxFocusOut()));
   connect(d->m_accEdit,SIGNAL(editingFinished()),this,SLOT(onDoubleSpinBoxFocusOut()));
   connect(d->m_velEdit,SIGNAL(editingFinished()),this,SLOT(onDoubleSpinBoxFocusOut()));
+
+  connect(d->m_maxvelEdit,SIGNAL(editingFinished()),this,SLOT(onDoubleSpinBoxFocusOut()));
+  connect(d->m_maxvelEdit_P,SIGNAL(editingFinished()),this,SLOT(onDoubleSpinBoxFocusOut()));
+  connect(d->m_maxvelEdit_N,SIGNAL(editingFinished()),this,SLOT(onDoubleSpinBoxFocusOut()));
 }
 
 void IGraphPosition::installDoubleSpinBoxEventFilter()
@@ -95,6 +98,10 @@ void IGraphPosition::installDoubleSpinBoxEventFilter()
   d->m_pEdit->installEventFilter(this);
   d->m_accEdit->installEventFilter(this);
   d->m_velEdit->installEventFilter(this);
+
+  d->m_maxvelEdit->installEventFilter(this);
+  d->m_maxvelEdit_P->installEventFilter(this);
+  d->m_maxvelEdit_N->installEventFilter(this);
 }
 
 void IGraphPosition::adjustPosition()
@@ -144,7 +151,7 @@ void IGraphPosition::createPidItem()
   wpid->setObjectName("widget_posPid");
   QVBoxLayout *vlayoutTest=new QVBoxLayout(wpid);
   QLabel *title=new QLabel(tr("PID controller"),wpid);
-  title->setObjectName("label_posTitle");
+  title->setObjectName("label_posPidTitle");
   title->setAlignment(Qt::AlignCenter);
   vlayoutTest->addWidget(title);
 
@@ -266,6 +273,8 @@ void IGraphPosition::createFFVelocityItem()
   label->setObjectName("label_posFFvel");
   vlayoutTest->addWidget(label);
   QDoubleSpinBox *edit=new QDoubleSpinBox(w);
+  edit->setMinimum(0);
+  edit->setMaximum(32767);
   d->m_velEdit=edit;
   edit->setObjectName("dspinBox_posFFvel");
   edit->setButtonSymbols(QAbstractSpinBox::NoButtons);
@@ -292,6 +301,8 @@ void IGraphPosition::createFFAccelerationItem()
   label->setObjectName("label_posFFacc");
   vlayoutTest->addWidget(label);
   QDoubleSpinBox *edit=new QDoubleSpinBox(w);
+  edit->setMinimum(0);
+  edit->setMaximum(32767);
   d->m_accEdit=edit;
   edit->setObjectName("dspinBox_posFFacc");
   edit->setButtonSymbols(QAbstractSpinBox::NoButtons);
@@ -386,7 +397,8 @@ void IGraphPosition::createSaturationConfigItems()
 {
   Q_D(IGraphPosition);
   FrameItemWidget *frame=new FrameItemWidget;
-  frame->setMinimumSize(700,250);
+  frame->setWPercent(0.1);
+  frame->setMinimumSize(600,250);
   frame->setObjectName("frameItemWidget_posFrameVel");
   d->m_UFRAME=new WidgetItem;
   d->m_UFRAME->setWidget(frame);
@@ -401,9 +413,9 @@ void IGraphPosition::createSaturationConfigItems()
   label->setObjectName("label_posMaxVelPercent");
   hlayout->addWidget(label);
   QDoubleSpinBox *box=new QDoubleSpinBox(w);
-  d->m_velEdit=box;
+  d->m_maxvelEdit=box;
   box->setMinimum(0);
-  box->setMaximum(100);
+  box->setMaximum(32767);
   box->setMaximumWidth(150);
   box->setButtonSymbols(QAbstractSpinBox::NoButtons);
   hlayout->addWidget(box);
@@ -423,7 +435,7 @@ void IGraphPosition::createSaturationConfigItems()
   box=new QDoubleSpinBox(w);
   d->m_maxvelEdit_P=box;
   box->setMinimum(0);
-  box->setMaximum(100);
+  box->setMaximum(32767);
   box->setMaximumWidth(150);
   box->setButtonSymbols(QAbstractSpinBox::NoButtons);
   hlayout->addWidget(box);
@@ -443,7 +455,7 @@ void IGraphPosition::createSaturationConfigItems()
   box=new QDoubleSpinBox(w);
   d->m_maxvelEdit_N=box;
   box->setMinimum(0);
-  box->setMaximum(100);
+  box->setMaximum(32767);
   box->setMaximumWidth(150);
   box->setButtonSymbols(QAbstractSpinBox::NoButtons);
   hlayout->addWidget(box);
@@ -508,6 +520,7 @@ void IGraphPosition::createSaturationConfigItems()
   d->m_scene->addItem(d->m_TextMaxVelNegative);
   d->m_widgetItemList.append(d->m_TextMaxVelNegative);
 
+  setSaturationConfigVisible(false);
 }
 
 void IGraphPosition::createStartEndTargetItems()
@@ -616,9 +629,10 @@ void IGraphPosition::setUpItemPosAnchors()
 
 
   //saturation config widget
-  double oft=dynamic_cast<FrameItemWidget*>(d->m_UFRAME->widget())->getHPercent()*d->m_UFRAME->boundingRect().height();
+  double hp=dynamic_cast<FrameItemWidget*>(d->m_UFRAME->widget())->getHPercent();
+  double oft=((1-hp)/2-hp)*d->m_UFRAME->boundingRect().height();
   d->m_anchorHelper->addAnchor(d->m_USATN,d->m_UFRAME,AnchorItemHelper::AnchorHorizontalCenter);
-  d->m_anchorHelper->addAnchor(d->m_USATN,d->m_UFRAME,AnchorItemHelper::AnchorBottom,d->m_UFRAME->boundingRect().height()+10);
+  d->m_anchorHelper->addAnchor(d->m_USATN,d->m_UFRAME,AnchorItemHelper::AnchorBottom,d->m_UFRAME->boundingRect().height());
 
   d->m_anchorHelper->addAnchor(d->m_UFRAME,d->m_UMAXVEL,AnchorItemHelper::AnchorLeft,20);
   d->m_anchorHelper->addAnchor(d->m_UFRAME,d->m_UMAXVEL,AnchorItemHelper::AnchorVerticalCenter,oft);
@@ -638,10 +652,10 @@ void IGraphPosition::setUpItemPosAnchors()
   d->m_anchorHelper->addAnchor(d->m_UMAXVEL_N,d->m_T3,AnchorItemHelper::AnchorRight,30);
   d->m_anchorHelper->addAnchor(d->m_UMAXVEL_N,d->m_T3,AnchorItemHelper::AnchorVerticalCenter);
 
-  d->m_anchorHelper->addAnchor(d->m_T2,d->m_TextMaxVelPositive,AnchorItemHelper::AnchorRight,d->m_TextMaxVelPositive->boundingRect().width()+2);
+  d->m_anchorHelper->addAnchor(d->m_T2,d->m_TextMaxVelPositive,AnchorItemHelper::AnchorRight,d->m_TextMaxVelPositive->boundingRect().width()+5);
   d->m_anchorHelper->addAnchor(d->m_T2,d->m_TextMaxVelPositive,AnchorItemHelper::AnchorVerticalCenter);
 
-  d->m_anchorHelper->addAnchor(d->m_T3,d->m_TextMaxVelNegative,AnchorItemHelper::AnchorRight,d->m_TextMaxVelNegative->boundingRect().width()+2);
+  d->m_anchorHelper->addAnchor(d->m_T3,d->m_TextMaxVelNegative,AnchorItemHelper::AnchorRight,d->m_TextMaxVelNegative->boundingRect().width()+5);
   d->m_anchorHelper->addAnchor(d->m_T3,d->m_TextMaxVelNegative,AnchorItemHelper::AnchorVerticalCenter);
 }
 

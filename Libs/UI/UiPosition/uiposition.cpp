@@ -13,7 +13,7 @@ public:
   UiPositionPrivate();
   ~UiPositionPrivate();
 protected:
-  IGraphPosition *m_graphPosition;
+  IGraphPosition *m_graphPositionView;
 //  QGraphicsScene *m_scene;
 };
 UiPositionPrivate::UiPositionPrivate()
@@ -35,7 +35,7 @@ UiPosition::~UiPosition()
   Q_D(UiPosition);
 
 //  delete d->m_scene;
-  delete d->m_graphPosition;
+  delete d->m_graphPositionView;
 
   delete ui;
 }
@@ -45,11 +45,21 @@ void UiPosition::accept(QWidget *w)
   Q_D(UiPosition);
   ui->qmlHboxLayout->addWidget(w);
 //  d->m_scene=new QGraphicsScene;
-  d->m_graphPosition=dynamic_cast<IGraphPosition *>(w);
+  d->m_graphPositionView=dynamic_cast<IGraphPosition *>(w);
 //  d->m_graphPosition->setScene(d->m_scene);
 
-  d->m_graphPosition->visit(this);
-  ui->label->setText(d->m_graphPosition->objectName());
+  d->m_graphPositionView->visit(this);
+  ui->label->setText(d->m_graphPositionView->objectName());
+}
+
+void UiPosition::setUiActive(bool actived)
+{
+  if(actived)
+  {
+    Q_D(UiPosition);
+    if(readPageFLASH())
+      d->m_graphPositionView->syncTreeDataToUiFace();
+  }
 }
 
 QStackedWidget *UiPosition::getUiStackedWidget(void)

@@ -8,7 +8,7 @@ FrameItemWidget::FrameItemWidget(QWidget *parent) : QWidget(parent)
     m_hPercent = 0.25;
     m_posPercent = 0.5;
     m_vertexPercent = 0.5;
-    m_radiusPercent = 0.04;
+    m_radiusPercent = 0.02;
     m_lineColor = Qt::black;
     m_fillColor = Qt::white;
     m_mode = 0;
