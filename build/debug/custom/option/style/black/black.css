@@ -105,6 +105,9 @@ QToolButton:hover:pressed {
 	font-weight:normal;
 	color:#252A3E;
 }
+QToolButton:!enabled {
+	color:gray;
+}
 /*QToolButton:checked {
     background-color: rgb(40, 40, 40);
 	border-radius:0px;
@@ -453,7 +456,7 @@ QLabel#label_velPidTitle{
 	font-weight:bold;
 }
 
-QLabel#label_velInputFilter{
+QLabel#label_velInputFilter,QLabel#label_velOutputFilter{
 	background-color: #E0DDDD;
 	border:2px solid #BBB9B9;
 	border-radius:10px;

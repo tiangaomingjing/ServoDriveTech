@@ -18,6 +18,7 @@ SdtStatusBar::SdtStatusBar(QTreeWidget *navTree, QWidget *parent) :
   ui->setupUi(this);
   m_errDialog=new StatusErrDialog(navTree,this);
   connect(m_errDialog,SIGNAL(statusPageChanged(int)),this,SIGNAL(statusPageChanged(int)));
+//  connect(this,SIGNAL(statusErr(quint32,qint16,bool)),m_errDialog,SLOT(onStatusError(quint32,qint16,bool)));
 
 //  QPalette pa;
 //  pa.setColor(QPalette::WindowText,Qt::red);
@@ -111,10 +112,17 @@ void SdtStatusBar::setErrorStatus(bool hasError)
     OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
     QString path=GTUtils::customPath()+"option/style/"+face->css()+"/icon/"+ICON_STATUS_ERROR;
     ui->tbtnError->setIcon(QIcon(path));
+//    qDebug()<<"setErrorStatus"<<path;
   }
   ui->tbtnError->setVisible(hasError);
 }
 
+
+//!
+//! \brief SdtStatusBar::updateDeviceWhenChanged
+//! 当设备变化后要重新调用，并在生成导航树之后
+//! \param navTree
+//!
 void SdtStatusBar::updateDeviceWhenChanged(QTreeWidget *navTree)
 {
   m_errDialog->updateDevice(navTree);
@@ -122,6 +130,12 @@ void SdtStatusBar::updateDeviceWhenChanged(QTreeWidget *navTree)
 QProgressBar *SdtStatusBar::statusProgressBar()const
 {
   return ui->progressBar;
+}
+
+void SdtStatusBar::setAlarmErrorStatus(quint32 devInx, qint16 axis, bool hasErr)
+{
+  m_errDialog->setStatusError(devInx,axis,hasErr);
+//  qDebug()<<"SdtStatusBar::onStatusErr";
 }
 
 //bool SdtStatusBar::eventFilter(QObject *watched, QEvent *event)
@@ -143,6 +157,12 @@ void SdtStatusBar::onActnToolClicked()
   qDebug()<<"bbbbbbbbb";
   m_errDialog->show();
 }
+
+//void SdtStatusBar::onStatusErr(quint32 devInx, qint16 axis, bool hasErr)
+//{
+//  m_errDialog->setStatusError(devInx,axis,hasErr);
+//  qDebug()<<"SdtStatusBar::onStatusErr";
+//}
 //void SdtStatusBar::onActnToolTrig(QAction *act)
 //{
 //  qDebug()<<"aaaaaaaaaa"<<act->data();

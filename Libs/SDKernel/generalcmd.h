@@ -17,6 +17,7 @@ public:
   bool fillCmdMaps(QTreeWidget *cmdTree);
 
   quint64 read(const QString &cmdReadName,qint16 axisIndex,bool &isOk);
+  qint16 readErrorCode();
   bool write(const QString &cmdWriteName,quint64 value,qint16 axisIndex);
 
 private:

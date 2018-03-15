@@ -39,9 +39,6 @@ public :
   QString m_filePath;
   QTreeWidgetItem *m_targetTree;
 
-  GeneralCmd *m_genCmd;
-
-
 signals:
   void initProgressInfo(int value,QString msg);
 

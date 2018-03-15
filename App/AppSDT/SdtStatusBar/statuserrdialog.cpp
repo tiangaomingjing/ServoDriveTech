@@ -55,13 +55,26 @@ void StatusErrDialog::updateDevice(QTreeWidget *navTree)
   ui->treeWidget->expandAll();
 }
 
+void StatusErrDialog::setStatusError(quint32 devInx, qint16 axis, bool hasErr)
+{
+  QTreeWidgetItem *item=ui->treeWidget->topLevelItem(devInx);
+  qDebug()<<"item onStatusError"<<hasErr;
+  if(item!=NULL)
+  {
+    QTreeWidgetItem *itemChild=item->child(axis);
+    setItemStatus(itemChild,!hasErr);
+  }
+}
+
 void StatusErrDialog::onStatusError(quint32 devInx,qint16 axis,bool hasErr)
 {
   QTreeWidgetItem *item=ui->treeWidget->topLevelItem(devInx);
+  qDebug()<<"item onStatusError"<<hasErr;
   if(item!=NULL)
   {
     QTreeWidgetItem *itemChild=item->child(axis);
     setItemStatus(itemChild,hasErr);
+    qDebug()<<"onStatusError"<<hasErr;
   }
 }
 void StatusErrDialog::onTreeWidgetItemClicked(QTreeWidgetItem *item, int column)

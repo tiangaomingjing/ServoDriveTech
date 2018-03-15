@@ -55,11 +55,16 @@ public:
 
   void setVersionAttributeActive();
 
+  bool checkNetStatus();
+
   Q_INVOKABLE void qmlTest();
 
 signals:
   void initProgressInfo(int value,QString msg);
   void itemRangeValid(QTreeWidgetItem *item,int status);
+  void alarmError(quint16 devId,quint16 axisInx,bool hasError);//当checkStatus时，对外发送状态信息
+  void netError(quint16 axisInx);
+
 public slots:
   bool onReadPageFlash(int axis,QTreeWidget *tree);
   bool onWritePageFlash(int axis,QTreeWidget *tree);

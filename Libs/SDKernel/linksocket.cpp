@@ -5,6 +5,8 @@
 #include "rnnet.h"
 #include "deviceconfig.h"
 #include "sdtglobaldef.h"
+#include "generalcmd.h"
+#include "qttreemanager.h"
 
 #include <QTreeWidgetItem>
 #include <QDebug>
@@ -36,11 +38,17 @@ LinkSocket::LinkSocket(SevDevicePrivate *sev, QObject *parent):QObject(parent),q
   default:
     break;
   }
+
+  m_genCmd=new GeneralCmd(m_com);
+  QString gcmdPath=sev->m_filePath+"cmd/GeneralCmd.xml";
+  QTreeWidget *cmdTree=QtTreeManager::createTreeWidgetFromXmlFile(gcmdPath);
+  m_genCmd->fillCmdMaps(cmdTree);
+  delete cmdTree;
 }
 
 LinkSocket::~LinkSocket()
 {
-
+  GT::deletePtrObject(m_genCmd);
 }
 
 
@@ -257,6 +265,21 @@ bool LinkSocket::writePageFlash(int axis,QTreeWidgetItem *item)
       return false;
   }
   return true;
+}
+
+quint64 LinkSocket::genCmdRead(const QString &cmdReadName, qint16 axisIndex, bool &isOk)
+{
+  return m_genCmd->read(cmdReadName,axisIndex,isOk);
+}
+
+bool LinkSocket::genCmdWrite(const QString &cmdWriteName, quint64 value, qint16 axisIndex)
+{
+  return m_genCmd->write(cmdWriteName,value,axisIndex);
+}
+
+qint16 LinkSocket::genReadErrorCode()
+{
+  return m_genCmd->readErrorCode();
 }
 
 void LinkSocket::setTryWriteCount(quint8 tryWriteCount)
