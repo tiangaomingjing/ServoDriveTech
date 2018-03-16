@@ -24,7 +24,9 @@ SOURCES += main.cpp\
     acwidget.cpp \
     basewidget.cpp \
     combinedwidget.cpp \
-    trianwidget.cpp
+    trianwidget.cpp \
+    saturationitemwidget.cpp \
+    frameitemwidget.cpp
 
 HEADERS  += widgetlayoutmainwindow.h \
     piditem.h \
@@ -38,6 +40,8 @@ HEADERS  += widgetlayoutmainwindow.h \
     acwidget.h \
     basewidget.h \
     combinedwidget.h \
-    trianwidget.h
+    trianwidget.h \
+    saturationitemwidget.h \
+    frameitemwidget.h
 
 FORMS    += widgetlayoutmainwindow.ui

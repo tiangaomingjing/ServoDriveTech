@@ -13,7 +13,7 @@
 #include <QGraphicsSimpleTextItem>
 #include <QTreeWidgetItem>
 
-#define PID_POS_X 20
+#define PID_POS_X -50
 #define PID_POS_Y -100
 
 IGraphCurrentPrivate::IGraphCurrentPrivate():IGraphWidgetPrivate(),
@@ -51,10 +51,21 @@ IGraphCurrent::~IGraphCurrent()
 {
 
   Q_D(IGraphCurrent);
+
+  foreach (WidgetItem *item, d->m_widgetItemList) {
+    d->m_scene->removeItem(item);
+    delete item;
+    item=NULL;
+  }
+  d->m_widgetItemList.clear();
+
   foreach (ArrowItem *arrow, d->m_arrowList) {
     delete arrow;
+    arrow=NULL;
   }
   d->m_arrowList.clear();
+
+
   qDebug()<<"IGraphCurrent destruct-->";
 }
 
@@ -64,7 +75,7 @@ void IGraphCurrent::syncTreeDataToUiFace()
   d->m_mapping->syncAllItem2BoxText();
 }
 
-void IGraphCurrent::createPIDControllerItem()
+void IGraphCurrent::createPidControllerItem()
 {
   Q_D(IGraphCurrent);
 
@@ -75,6 +86,7 @@ void IGraphCurrent::createPIDControllerItem()
   title->setObjectName("label_currentTitle");
   title->setAlignment(Qt::AlignCenter);
   vlayoutTest->addWidget(title);
+
   QLabel *pgain=new QLabel(tr("P gain(HZ)"));
   pgain->setObjectName("label_currentPgain");
   vlayoutTest->addWidget(pgain);
@@ -85,6 +97,7 @@ void IGraphCurrent::createPIDControllerItem()
   pedit->setMaximum(32767);
   pedit->setButtonSymbols(QAbstractSpinBox::NoButtons);
   vlayoutTest->addWidget(pedit);
+
   QLabel *igain=new QLabel(tr("I gain(ms)"),wpid);
   igain->setObjectName("label_currentIgain");
   vlayoutTest->addWidget(igain);
@@ -100,11 +113,14 @@ void IGraphCurrent::createPIDControllerItem()
 
   d->m_UPID=new WidgetItem;
   d->m_UPID->setWidget(wpid,true);
+  d->m_UPID->setObjectName("pid");
   d->m_scene->addItem(d->m_UPID);//take ownership
+
+  d->m_widgetItemList.append(d->m_UPID);
 
 }
 
-void IGraphCurrent::crtateInputFilterItem()
+void IGraphCurrent::createInputFilterItem()
 {
   Q_D(IGraphCurrent);
   LabelItemWidget *label=new LabelItemWidget(tr("InputFilter"));
@@ -112,7 +128,10 @@ void IGraphCurrent::crtateInputFilterItem()
   label->setAlignment(Qt::AlignCenter);
   d->m_UIF=new WidgetItem;
   d->m_UIF->setWidget(label,true);
+  d->m_UIF->setObjectName("uif");
   d->m_scene->addItem(d->m_UIF);
+
+  d->m_widgetItemList.append(d->m_UIF);
 }
 
 void IGraphCurrent::createArrowItems()
@@ -149,7 +168,10 @@ void IGraphCurrent::createCurrentFeedbackItem()
   label->setAlignment(Qt::AlignCenter);
   d->m_UCB=new WidgetItem;
   d->m_UCB->setWidget(label,true);
+  d->m_UCB->setObjectName("ucb");
   d->m_scene->addItem(d->m_UCB);
+
+  d->m_widgetItemList.append(d->m_UCB);
 }
 
 void IGraphCurrent::createSumItem()
@@ -159,17 +181,20 @@ void IGraphCurrent::createSumItem()
   sw->setObjectName("sumItemWidget_currentSum");
   d->m_USUM=new WidgetItem;
   d->m_USUM->setWidget(sw);
+  d->m_USUM->setObjectName("USUM");
   d->m_scene->addItem(d->m_USUM);
+
+  d->m_widgetItemList.append(d->m_USUM);
 }
 
 void IGraphCurrent::setUpItemPosAnchors()
 {
   Q_D(IGraphCurrent);
   d->m_UPID->setPos(PID_POS_X,PID_POS_Y);
-  d->m_anchorHelper->addAnchor(d->m_UPID,d->m_USUM,AnchorItemHelper::AnchorLeft,-2*d->m_USUM->boundingRect().width());
+  d->m_anchorHelper->addAnchor(d->m_UPID,d->m_USUM,AnchorItemHelper::AnchorLeft,-3*d->m_USUM->boundingRect().width());
   d->m_anchorHelper->addAnchor(d->m_UPID,d->m_USUM,AnchorItemHelper::AnchorVerticalCenter);
 
-  d->m_anchorHelper->addAnchor(d->m_USUM,d->m_UIF,AnchorItemHelper::AnchorRight,-2*d->m_USUM->boundingRect().width());
+  d->m_anchorHelper->addAnchor(d->m_USUM,d->m_UIF,AnchorItemHelper::AnchorRight,-3*d->m_USUM->boundingRect().width());
   d->m_anchorHelper->addAnchor(d->m_USUM,d->m_UIF,AnchorItemHelper::AnchorVerticalCenter);
 
   d->m_anchorHelper->addAnchor(d->m_UIF,d->m_Tstart,AnchorItemHelper::AnchorLeft,-1.5*d->m_UIF->boundingRect().width());
@@ -199,14 +224,19 @@ void IGraphCurrent::createStartEndTargetItems()
   t0->setObjectName("targetItem_currentTstart");
   d->m_Tstart=new WidgetItem;
   d->m_Tstart->setWidget(t0);
+  d->m_Tstart->setObjectName("Tstart");
 
   t0=new TargetItemWidget;
   t0->setObjectName("targetItem_currentTend");
   d->m_Tend=new WidgetItem;
   d->m_Tend->setWidget(t0);
+  d->m_Tend->setObjectName("Tend");
 
   d->m_scene->addItem(d->m_Tstart);
   d->m_scene->addItem(d->m_Tend);
+
+  d->m_widgetItemList.append(d->m_Tstart);
+  d->m_widgetItemList.append(d->m_Tend);
 }
 
 void IGraphCurrent::createCurrentFeedbackTargetItem()
@@ -216,7 +246,10 @@ void IGraphCurrent::createCurrentFeedbackTargetItem()
   t0->setObjectName("targetItem_currentT0");
   d->m_T0=new WidgetItem;
   d->m_T0->setWidget(t0);
+  d->m_T0->setObjectName("T0");
   d->m_scene->addItem(d->m_T0);
+
+  d->m_widgetItemList.append(d->m_T0);
 }
 
 void IGraphCurrent::createAnchorItemHelper()
@@ -233,7 +266,10 @@ void IGraphCurrent::createStartTextItem()
   label->setObjectName("label_currentStartText");
   d->m_TextStart=new WidgetItem;
   d->m_TextStart->setWidget(label);
+  d->m_TextStart->setObjectName("StartText");
   d->m_scene->addItem(d->m_TextStart);
+
+  d->m_widgetItemList.append(d->m_TextStart);
 }
 
 void IGraphCurrent::createEndTextItem()
@@ -245,7 +281,10 @@ void IGraphCurrent::createEndTextItem()
   label->setAlignment(Qt::AlignRight);
   d->m_TextEnd=new WidgetItem;
   d->m_TextEnd->setWidget(label);
+  d->m_TextEnd->setObjectName("EndText");
   d->m_scene->addItem(d->m_TextEnd);
+
+  d->m_widgetItemList.append(d->m_TextEnd);
 }
 
 
@@ -256,9 +295,9 @@ void IGraphCurrent::createItems()
   //create定位器
   //安排定位
   //更新位置
-  createPIDControllerItem();
+  createPidControllerItem();
   createSumItem();
-  crtateInputFilterItem();
+  createInputFilterItem();
   createStartEndTargetItems();
   createCurrentFeedbackItem();
   createCurrentFeedbackTargetItem();
@@ -293,6 +332,9 @@ void IGraphCurrent::setDoubleSpinBoxConnections()
 void IGraphCurrent::adjustPosition()
 {
   Q_D(IGraphCurrent);
+
+  GTUtils::delayms(10);
+
   if(d->m_anchorHelper!=NULL)
     d->m_anchorHelper->setAnchorsActive();
 

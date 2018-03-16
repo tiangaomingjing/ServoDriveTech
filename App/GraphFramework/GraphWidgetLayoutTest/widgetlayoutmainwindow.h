@@ -27,6 +27,8 @@ private slots:
   void onSliderValueChanged(int value);
   void onActionTest();
 
+  void onSaturationWidgetClicked();
+
 private:
   bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
 
@@ -61,6 +63,8 @@ private:
   ArrowItem *a8;
 
   AnchorItemHelper *anchorHelper;
+
+  WidgetItem *frame;
 };
 
 #endif // WIDGETLAYOUTMAINWINDOW_H

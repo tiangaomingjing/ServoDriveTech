@@ -12,6 +12,8 @@ namespace ComDriver
 
 class SevDevicePrivate;
 class QTreeWidgetItem;
+class GeneralCmd;
+
 class LinkSocket : public QObject
 {
   Q_OBJECT
@@ -29,6 +31,11 @@ public:
   bool readPageFlash(int axis,QTreeWidgetItem *item);
   bool writePageFlash(int axis,QTreeWidgetItem *item);
 
+  //通用RAM读写操作
+  quint64 genCmdRead(const QString &cmdReadName,qint16 axisIndex,bool &isOk);
+  bool genCmdWrite(const QString &cmdWriteName,quint64 value,qint16 axisIndex);
+  qint16 genReadErrorCode();
+
   ComDriver::ICom *comObject() const;
 
 
@@ -44,6 +51,7 @@ private:
   bool m_isConnected;
   ComDriver::ICom *m_com;
   quint8 m_tryWriteCount;
+  GeneralCmd *m_genCmd;
 };
 
 #endif // LINKSOCKET_H

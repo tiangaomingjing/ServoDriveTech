@@ -1,10 +1,8 @@
-#ifndef ACWIDGET_H
+﻿#ifndef ACWIDGET_H
 #define ACWIDGET_H
 
 #include <QWidget>
 
-class QSize;
-class QColor;
 
 class ACWidget : public QWidget
 {

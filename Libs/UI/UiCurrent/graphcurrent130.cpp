@@ -64,7 +64,7 @@ void GraphCurrent130::setupDataMappings()
   d->m_mapping->insertItem2Box(d->m_treeWidget->topLevelItem(FNQ_INX),d->m_pEdit);
 }
 
-void GraphCurrent130::createPIDControllerItem()
+void GraphCurrent130::createPidControllerItem()
 {
   Q_D(GraphCurrent130);
 

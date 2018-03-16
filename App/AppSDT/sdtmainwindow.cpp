@@ -32,6 +32,8 @@
 #include "memeryvermatching.h"
 #include "dbvermatching.h"
 
+#include "statusmonitor.h"
+
 #include "icom.h"
 #include "sdterror.h"
 #include "messageserver.h"
@@ -50,10 +52,11 @@ SDTMainWindow::SDTMainWindow(QWidget *parent) :
   QMainWindow(parent),
   ui(new Ui::SDTMainWindow),
   m_currentUiStatus(UI_STA_FUNCNF),
-  m_connecting(false)
+  m_connecting(false),
+  m_statusMonitor(new StatusMonitor(this))
 {
   ui->setupUi(this);
-  qmlRegisterType<SevDevice>("QtCppClass", 1, 0, "SevDevice");
+//  qmlRegisterType<SevDevice>("QtCppClass", 1, 0, "SevDevice");
 //  qmlRegisterType<QmlStyleHelper>("QtCppClass", 1, 0, "QmlStyleHelper");
   clearStackedWidget();
   staticUiInit();
@@ -77,7 +80,12 @@ bool SDTMainWindow::init()
   navigationTreeInit();
   globalUiPageInit();
   stackedWidgetInit();
+
   m_statusBar->resetStatus();
+  updateStatusMonitorDevice(m_sdAssemblyList);
+
+  connect(m_statusMonitor,SIGNAL(alarmError(quint16,quint16,bool)),this,SLOT(onDeviceAlarmError(quint16,quint16,bool)));
+  connect(m_statusMonitor,SIGNAL(netError(quint16)),this,SLOT(onDeviceNetError(quint16)));
 
   return true;
 }
@@ -696,6 +704,7 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
         m_connecting=true;
         m_statusBar->statusProgressBar()->setValue(100);
         activeCurrentUi();
+        m_statusMonitor->startMonitor(1000);
       }
       else
       {
@@ -728,6 +737,7 @@ void SDTMainWindow::onActnDisConnectClicked(bool checked)
   setConnect(false);
   m_connecting=false;
   setUiStatusConnect(m_connecting);
+  m_statusMonitor->stopMonitor();
   qDebug()<<"checked"<<checked;
 }
 void SDTMainWindow::onActnHelpDeviceInfoClicked()
@@ -746,7 +756,7 @@ void SDTMainWindow::onActnNewConfigClicked()
   dia.exec();
   m_statusBar->statusProgressBar()->setVisible(true);
   m_statusBar->statusProgressBar()->setValue(0);
-  createSdAssemblyByDevConfig(list);
+  updateSDTMainUiByConfigList(list);
   m_statusBar->statusProgressBar()->setVisible(false);
   m_statusBar->statusProgressBar()->setValue(100);
   m_statusBar->setMsg("");
@@ -818,10 +828,18 @@ void SDTMainWindow::onNavTreeWidgetItemClicked(QTreeWidgetItem *item, int column
     }
   }
 }
-
+//!
+//! \brief SDTMainWindow::onStatusBarPageChanged
+//! 响应状态栏弹出导航单击时切换页面
+//! \param pIndex
+//!
 void SDTMainWindow::onStatusBarPageChanged(int pIndex)
 {
+  //1 set all ui active false
+  //2 set current ui active true
+
   IUiWidget *uiWidget=NULL;
+
   ui->mainStackedWidget->setCurrentIndex(pIndex);
   QWidget *w=ui->mainStackedWidget->widget(pIndex);
   uiWidget=dynamic_cast<IUiWidget *>(w);
@@ -853,6 +871,39 @@ void SDTMainWindow::onPlotFloatingChanged(bool floating)
     m_plot->show();
   }
 
+
+}
+//!
+//! \brief SDTMainWindow::onDeviceAlarmError
+//! 驱动器报警时 1更新报警信息到statusBar状态树 2只要有一个报警，就显示报警信息
+//! \param devId
+//! \param axisInx
+//! \param hasError
+//!
+void SDTMainWindow::onDeviceAlarmError(quint16 devId, quint16 axisInx, bool hasError)
+{
+  m_statusBar->setAlarmErrorStatus(devId,axisInx,hasError);
+  m_statusBar->setErrorStatus(hasError);
+}
+//!
+//! \brief SDTMainWindow::onDeviceNetError
+//! 1 编码器刷新页面停止
+//! 2 状态刷新页面停止
+//! 3 停止画图
+//! 4 关闭通信
+//! 5 通信断线标志显示
+//! 6 设置状态显示Label信息
+//!
+void SDTMainWindow::onDeviceNetError(quint16 devId)
+{
+
+
+  // 3
+  // To be add...
+
+  // 1 2
+  //4 5
+  onActnDisConnectClicked(true);
 
 }
 SdAssembly *SDTMainWindow::createSdAssembly(DeviceConfig *cfg)
@@ -898,7 +949,7 @@ bool SDTMainWindow::setConnect(bool net)
       {
         if(!configList.isEmpty())
         {
-          createSdAssemblyByDevConfig(configList);
+          updateSDTMainUiByConfigList(configList);
           GT::deepClearList(configList);
         }
         delete idevRWriter;
@@ -948,7 +999,7 @@ bool SDTMainWindow::MessageBoxAsk(const QString &msg)
     return false;
 }
 
-void SDTMainWindow::createSdAssemblyByDevConfig(const QList<DeviceConfig *> &configList)
+void SDTMainWindow::createSdAssemblyListByDevConfig(const QList<DeviceConfig *> &configList)
 {
   if(configList.isEmpty())
     return;
@@ -1000,6 +1051,11 @@ void SDTMainWindow::createSdAssemblyByDevConfig(const QList<DeviceConfig *> &con
   m_sdAssemblyList=sdAssemblyListTemp;
   qDebug()<<"after sdAssembly list count"<<m_sdAssemblyList.count();
 
+}
+
+void SDTMainWindow::updateSDTMainUiByConfigList(const QList<DeviceConfig *> &configList)
+{
+  createSdAssemblyListByDevConfig(configList);
   removeAllStackedWidget();
   clearNavigationTree();
 
@@ -1008,5 +1064,15 @@ void SDTMainWindow::createSdAssemblyByDevConfig(const QList<DeviceConfig *> &con
   stackedWidgetInit();
 //  ui->progressBar->setValue(100);
 
-  qDebug()<<"stackedWidget count="<<ui->mainStackedWidget->count();
+//  qDebug()<<"stackedWidget count="<<ui->mainStackedWidget->count();
+  updateStatusMonitorDevice(m_sdAssemblyList);
+}
+
+void SDTMainWindow::updateStatusMonitorDevice(const QList<SdAssembly *> &sdAssemblyList)
+{
+  QList<SevDevice *>list;
+  foreach (SdAssembly *sda, sdAssemblyList) {
+    list.append(sda->sevDevice());
+  }
+  m_statusMonitor->setMonitorDeviceList(list);
 }

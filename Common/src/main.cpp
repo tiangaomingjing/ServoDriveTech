@@ -93,9 +93,10 @@ class A
 {
 public:
   ~A(){}
-  void display(){dosomething();}
+  virtual void display(){dosomething();}
 protected:
-  virtual void dosomething()=0;
+  virtual void dosomething(){}
+//  void dosomething(){}//这个没有通过多态的方式调用
 };
 class B:public A
 {

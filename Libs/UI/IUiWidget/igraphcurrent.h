@@ -34,22 +34,22 @@ protected:
   virtual void adjustPosition() Q_DECL_OVERRIDE;
 
 
-  virtual void createPIDControllerItem();
-  virtual void crtateInputFilterItem();
+  virtual void createPidControllerItem();
+  virtual void createInputFilterItem();
 
   virtual void createCurrentFeedbackItem();
   virtual void createSumItem();
 
   virtual void createArrowItems();
 
-  void createAnchorItemHelper();
-  virtual void setUpItemPosAnchors();
-
   void createStartEndTargetItems();
   void createCurrentFeedbackTargetItem();
 
   void createStartTextItem();
   void createEndTextItem();
+
+  void createAnchorItemHelper();
+  virtual void setUpItemPosAnchors();
 
 
 signals:

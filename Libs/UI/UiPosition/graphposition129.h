@@ -5,9 +5,9 @@
 #include "uiposition_global.h"
 #include "igraphposition.h"
 
-namespace Ui {
-class GraphPosition129;
-}
+//namespace Ui {
+//class GraphPosition129;
+//}
 class GraphPosition129Private;
 class UIPOSITIONSHARED_EXPORT GraphPosition129 : public IGraphPosition
 {
@@ -21,8 +21,8 @@ protected:
   void setupDataMappings() Q_DECL_OVERRIDE;
   void setUiVersionName() Q_DECL_OVERRIDE;
 
-private:
-  Ui::GraphPosition129 *ui;
+//private:
+//  Ui::GraphPosition129 *ui;
 };
 
 #endif // GRAPHPOSITION129_H

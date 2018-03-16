@@ -88,18 +88,4 @@ void UiMotor::setDefaultUi()
 {
   setCurrentUiIndex(0);
 }
-void UiMotor::setQmlContext()
-{
 
-}
-
-void UiMotor::setQmlSignalSlot()
-{
-
-}
-
-void UiMotor::addQmlWidget()
-{
-  Q_D(UiMotor);
-  ui->qmlHboxLayout->addWidget(d->m_qwidget);
-}

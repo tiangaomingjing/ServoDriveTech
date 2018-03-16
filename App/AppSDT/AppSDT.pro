@@ -10,7 +10,11 @@ INCLUDEPATH+= $${PWD}/DialogOption\
               $${PWD}/SdtStatusBar\
               $${PWD}/ConfigDialog\
               $${PWD}/VerMatching\
+<<<<<<< HEAD
               $${PWD}/MessageServer\
+=======
+              $${PWD}/StatusMonitor
+>>>>>>> upstream/jiang
 
 QT       += core gui qml sql network
 
@@ -46,8 +50,12 @@ SOURCES += main.cpp\
     VerMatching/dbvermatching.cpp \
     ../../Common/src/SdtGlobal/sdtglobaldef.cpp \
     ../../Common/src/Kernel/sdterror.cpp \
+<<<<<<< HEAD
     MessageServer/clientsocket.cpp \
     MessageServer/messageserver.cpp
+=======
+    StatusMonitor/statusmonitor.cpp
+>>>>>>> upstream/jiang
 
 HEADERS  += sdtmainwindow.h \
     appiconname.h \
@@ -74,8 +82,12 @@ HEADERS  += sdtmainwindow.h \
     VerMatching/dbvermatching.h \
     ../../Common/src/SdtGlobal/sdtglobaldef.h \
     ../../Common/src/Kernel/sdterror.h \
+<<<<<<< HEAD
     MessageServer/clientsocket.h \
     MessageServer/messageserver.h
+=======
+    StatusMonitor/statusmonitor.h
+>>>>>>> upstream/jiang
 
 FORMS    += sdtmainwindow.ui \
     DialogOption/dialogoption.ui \

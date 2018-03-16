@@ -105,7 +105,7 @@ void ArrowItem::updatePosition()
   myPolygon=calculatePolygon();
   setPolygon(myPolygon);
   update();
-  qDebug()<<"myPolygon"<<myPolygon;
+//  qDebug()<<"myPolygon"<<myPolygon;
 }
 
 void ArrowItem::setColor(const QColor &color)

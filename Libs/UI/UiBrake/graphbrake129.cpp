@@ -50,6 +50,7 @@ GraphBrake129::GraphBrake129(QWidget *parent) :
 GraphBrake129::~GraphBrake129()
 {
   delete ui;
+  qDebug()<<"GraphBrake129 destruct-->";
 }
 
 void GraphBrake129::syncTreeDataToUiFace()

@@ -27,6 +27,7 @@ public:
 
   QMap<QString ,CmdTreeData>m_cmdMaps;
   ComDriver::ICom *m_icom;
+  ComDriver::errcode_t m_errorCode;
 };
 
 
@@ -64,7 +65,7 @@ bool GeneralCmd::fillCmdMaps(QTreeWidget *cmdTree)
 //! \brief read
 //! \param cmdReadName
 //! \param axisIndex
-//! \param isOk
+//! \param isOk 通信是否正确返回
 //! \return 回来的是原始的数值，增益转化在界面的树结构中
 //!
 quint64 GeneralCmd::read(const QString &cmdReadName, qint16 axisIndex, bool &isOk)
@@ -102,6 +103,7 @@ quint64 GeneralCmd::read(const QString &cmdReadName, qint16 axisIndex, bool &isO
   else
     funcRead.length=1;
 
+
   ComDriver::errcode_t err=m_dataPtr->m_icom->sendGeneralCmd(axisIndex,funcRead);
   if(err!=0)
     err=m_dataPtr->m_icom->sendGeneralCmd(axisIndex,funcRead);
@@ -118,11 +120,18 @@ quint64 GeneralCmd::read(const QString &cmdReadName, qint16 axisIndex, bool &isO
 #if TEST_OUT
     for(int i=0;i<funcRead.length;i++)
     {
-//      qDebug()<<"read raw data["<<i<<"]="<<funcRead.data[i];
+      qDebug()<<"read raw data["<<i<<"]="<<funcRead.data[i];
     }
 #endif
   }
+
+  m_dataPtr->m_errorCode=err;
   return ret;
+}
+
+qint16 GeneralCmd::readErrorCode()
+{
+  return m_dataPtr->m_errorCode;
 }
 
 //!

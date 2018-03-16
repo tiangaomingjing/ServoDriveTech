@@ -27,9 +27,6 @@ private:
   void setDefaultUi()Q_DECL_OVERRIDE;
   bool readPageFLASH()Q_DECL_OVERRIDE{return true;}
   bool writePageFLASH()Q_DECL_OVERRIDE{return true;}
-  void setQmlContext()Q_DECL_OVERRIDE;
-  void setQmlSignalSlot()Q_DECL_OVERRIDE;
-  void addQmlWidget()Q_DECL_OVERRIDE;
 
 private:
   Ui::UiStatus *ui;

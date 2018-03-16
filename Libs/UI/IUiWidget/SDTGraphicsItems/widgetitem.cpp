@@ -9,18 +9,18 @@ WidgetItem::WidgetItem(QGraphicsItem *parent, Qt::WindowFlags wFlags) : QGraphic
   for(int i=0;i<4;i++)
     m_netPoints.append(new QPointF(0,0));
   connect(this,SIGNAL(geometryChanged()),this,SLOT(onGeometryChanged()));
-//  connect(m_proxyWidget,SIGNAL(destroyed(QObject*)),this,
 }
 
 WidgetItem::~WidgetItem()
 {
 //  if(m_proxyWidget!=NULL)//不能这么操作，因为m_proxyWidget 增加到scene后，它的ownership就由scene控制了，如果再delete,就会再次delete则出错
 //    delete m_proxyWidget;
+//  qDebug()<<objectName()<<"WidgetItem destruct-->";
   foreach (QPointF *p, m_netPoints) {
     delete p;
   }
   m_netPoints.clear();
-  qDebug()<<"WidgetItem destruct-->";
+
 }
 
 void WidgetItem::setWidget(QWidget *widget, bool hasWrapWidget)

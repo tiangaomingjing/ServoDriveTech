@@ -17,10 +17,10 @@
 #include <QLabel>
 #include <QDebug>
 
-IUiWidget::IUiWidget(QWidget *parent):QWidget(parent),d_ptr(new IUiWidgetPrivate())
-{
-  d_ptr->q_ptr=this;
-}
+//IUiWidget::IUiWidget(QWidget *parent):QWidget(parent),d_ptr(new IUiWidgetPrivate())
+//{
+//  d_ptr->q_ptr=this;
+//}
 IUiWidget::~IUiWidget()
 {
   delete d_ptr;
@@ -79,42 +79,6 @@ SevDevice*IUiWidget::device()
   return d->m_device;
 }
 
-void IUiWidget::createQmlWidget()
-{
-  Q_D(IUiWidget);
-
-  /*d->m_qmlpath=GTUtils::sysPath()+\
-      d->m_device->typeName()+"/"+\
-      d->m_device->modelName()+"/"+\
-      d->m_device->versionName()+"/ui/"+\
-      objectName()+".qml";
-  d->m_qwidget=new QQuickWidget(this);
-//  d->m_qwidget->setMinimumSize(600,560);
-  qDebug()<<"load qml from:"<<d->m_qmlpath;
-
-  //style context
-  QString qmlStyleModulePath=GTUtils::customPath()+"option/qmlstyle/";
-  d->m_qwidget->engine()->addImportPath(qmlStyleModulePath);
-  OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
-  QmlStyleHelper *helper=face->qmlStyleHelper();
-  d->m_qwidget->rootContext()->setContextProperty("qmlStyleHelper",helper);
-
-  d->m_qwidget->rootContext()->setContextProperty("cDevice",d->m_device);
-
-  setQmlContext();
-  d->m_qwidget->setResizeMode(QQuickWidget::SizeRootObjectToView );
-  d->m_qwidget->setSource(QUrl::fromLocalFile(d->m_qmlpath));
-  setQmlSignalSlot();
-  addQmlWidget();*/
-
-  d->m_qwidget=new QWidget(this);
-  QVBoxLayout *layout=new QVBoxLayout(d->m_qwidget);
-  QLabel *label=new QLabel(this);
-  label->setText(this->objectName());
-  layout->addWidget(label);
-  d->m_qwidget->setLayout(layout);
-  addQmlWidget();
-}
 void IUiWidget::accept(QWidget *w)
 {
   Q_UNUSED(w);

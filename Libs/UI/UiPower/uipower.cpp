@@ -82,18 +82,3 @@ void UiPower::setDefaultUi()
 {
   setCurrentUiIndex(0);
 }
-void UiPower::setQmlContext()
-{
-
-}
-
-void UiPower::setQmlSignalSlot()
-{
-
-}
-
-void UiPower::addQmlWidget()
-{
-  Q_D(UiPower);
-  ui->qmlHboxLayout->addWidget(d->m_qwidget);
-}

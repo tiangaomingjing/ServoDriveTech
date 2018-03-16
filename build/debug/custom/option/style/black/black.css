@@ -105,6 +105,9 @@ QToolButton:hover:pressed {
 	font-weight:normal;
 	color:#252A3E;
 }
+QToolButton:!enabled {
+	color:gray;
+}
 /*QToolButton:checked {
     background-color: rgb(40, 40, 40);
 	border-radius:0px;
@@ -374,12 +377,24 @@ border-left:none;
 border-right:none;
 padding-bottom: 10px;
 }
+
 /*====================Current 电流控制器页面===================*/
 IGraphWidget{
 	border:none;
 	qproperty-backGroundColor:#F0F0F0;
 	qproperty-arrowColor:gray;
 }
+SumItemWidget{
+	background-color:transparent;
+	border:none;
+	qproperty-lineColor: gray;
+	qproperty-fillColor: #E0DDDD;
+} 
+SaturationItemWidget{
+    qproperty-lineColor: gray;
+	qproperty-fillColor: #E0DDDD;
+}
+
 
 QWidget#widget_currentPid{
 	background-color: #E0DDDD;
@@ -393,12 +408,6 @@ QLabel#label_currentTitle{
 	border:1px solid transparent;
 	border-bottom-color:black;
 	font-weight:bold;
-}
-QWidget#widget_currentPid QDoubleSpinBox{
-	min-height:30px;
-	min-width:150px;
-	border-radius:5px;
-	padding-left:5px;
 }
 
 QLabel#label_currentInputFilter{
@@ -419,12 +428,150 @@ QLabel#label_currentEndText,QLabel#label_currentStartText{
 	background-color: transparent;
 	border:none;
 }
-SumItemWidget#sumItemWidget_currentSum{
+
+/*====================Velocity 速度控制器页面==================*/
+
+QWidget#widget_velPid{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+
+QWidget#widget_velSaturation{
 	background-color:transparent;
 	border:none;
-	qproperty-lineColor: gray;
-	qproperty-fillColor: #E0DDDD;
 } 
+QWidget#widget_velSaturation:hover{
+	background-color:#E0DDDD;
+	border:2px solid red;
+	border-radius:5px;
+}
+
+QLabel#label_velPidTitle{
+	padding-bottom:10px;
+	margin-bottom:5px;
+	color:black;
+	border:1px solid transparent;
+	border-bottom-color:black;
+	font-weight:bold;
+}
+
+QLabel#label_velInputFilter,QLabel#label_velOutputFilter{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:50px;
+	padding:5px;
+}
+QLabel#label_velVelocityFeedback{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:30px;
+	padding:10px;
+}
+QLabel#label_velStartText,QLabel#label_velEndText{
+	background-color: transparent;
+	border:none;
+}
+
+/*饱和控制项*/
+
+QWidget#widget_velMaxTq,QWidget#widget_velMaxTqPositive,QWidget#widget_velMaxTqNegative{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+QLabel#label_velTextPositiveMaxTq,QLabel#label_velTextNegativeMaxTq{
+	background-color: transparent;
+	border:none;
+}
+
+/*====================Position 位置控制器页面===================*/
+
+QWidget#widget_posPid{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+QWidget#widget_posFFvel{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+QWidget#widget_posFFacc{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+QWidget#widget_posSaturation{
+	background-color:transparent;
+	border:none;
+} 
+QWidget#widget_posSaturation:hover{
+	background-color:#E0DDDD;
+	border:2px solid red;
+	border-radius:5px;
+}
+
+QLabel#label_posPidTitle{
+	padding-bottom:10px;
+	margin-bottom:5px;
+	color:black;
+	border:1px solid transparent;
+	border-bottom-color:black;
+	font-weight:bold;
+}
+
+QLabel#label_posInputFilter{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:50px;
+	padding:5px;
+}
+QLabel#label_posPosFeedback{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:30px;
+	padding:10px;
+}
+QLabel#label_posStartText,QLabel#label_posEndText{
+	background-color: transparent;
+	border:none;
+}
+
+QLabel#label_posVelCtler{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:50px;
+	padding:5px;
+}
+QLabel#label_posCurCtler{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:50px;
+	padding:5px;
+}
+/*饱和控制项*/
+FrameItemWidget{
+	background-color:transparent;
+	qproperty-lineColor: #BBB9B9;
+	qproperty-fillColor: #E0DDDD;
+}
+QWidget#widget_posMaxVel,QWidget#widget_posMaxVelPositive,QWidget#widget_posMaxVelNegative{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+QLabel#label_posTextPositiveMaxV,QLabel#label_posTextNegativeMaxV{
+	background-color: transparent;
+	border:none;
+}
+
 
 /*====================option设置对话框===================*/
 

@@ -4,5 +4,7 @@
 #include "sumitemwidget.h"
 #include "targetitemwidget.h"
 #include "labelitemwidget.h"
+#include "saturationitemwidget.h"
+#include "frameitemwidget.h"
 #include <QGraphicsItem>
 #include <QGraphicsProxyWidget>

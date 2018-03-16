@@ -5,9 +5,9 @@
 #include "uivelocity_global.h"
 #include "igraphvelocity.h"
 
-namespace Ui {
-class GraphVelocity129;
-}
+//namespace Ui {
+//class GraphVelocity129;
+//}
 class GraphVelocity129Private;
 
 class UIVELOCITYSHARED_EXPORT GraphVelocity129 : public IGraphVelocity
@@ -24,7 +24,7 @@ protected:
   void setupDataMappings() Q_DECL_OVERRIDE;
 
 private:
-  Ui::GraphVelocity129 *ui;
+//  Ui::GraphVelocity129 *ui;
 };
 
 #endif // GRAPHVELOCITY129_H

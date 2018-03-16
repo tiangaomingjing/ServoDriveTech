@@ -49,18 +49,4 @@ void UiStatus::setDefaultUi()
 {
   setCurrentUiIndex(0);
 }
-void UiStatus::setQmlContext()
-{
 
-}
-
-void UiStatus::setQmlSignalSlot()
-{
-
-}
-
-void UiStatus::addQmlWidget()
-{
-  Q_D(UiStatus);
-  ui->qmlHboxLayout->addWidget(d->m_qwidget);
-}

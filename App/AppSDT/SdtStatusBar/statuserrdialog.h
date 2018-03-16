@@ -17,6 +17,7 @@ public:
   ~StatusErrDialog();
 
   void updateDevice(QTreeWidget *navTree);
+  void setStatusError(quint32 devInx,qint16 axis,bool hasErr);
 
 signals:
   void statusPageChanged(int pIndex);

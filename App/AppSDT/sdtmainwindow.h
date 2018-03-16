@@ -19,8 +19,12 @@ class GlobalUiControler;
 class IUiWidget;
 class PlotUnit;
 class DeviceConfig;
+<<<<<<< HEAD
 class QProcess;
 class MessageServer;
+=======
+class StatusMonitor;
+>>>>>>> upstream/jiang
 
 class SDTMainWindow : public QMainWindow
 {
@@ -64,7 +68,9 @@ private:
 
   void setNavCurrentSelectedInfo();
 
-  void createSdAssemblyByDevConfig(const QList<DeviceConfig *> &configList);
+  void createSdAssemblyListByDevConfig(const QList<DeviceConfig *> &configList);
+  void updateSDTMainUiByConfigList(const QList<DeviceConfig *> &configList);
+  void updateStatusMonitorDevice(const QList<SdAssembly*> &sdAssemblyList);
 
   SdAssembly *createSdAssembly(DeviceConfig *cfg);
 
@@ -105,6 +111,10 @@ private slots:
 
   void onPlotFloatingChanged(bool floating);
   void startListen();
+
+  //响应状态监视器
+  void onDeviceAlarmError(quint16 devId,quint16 axisInx,bool hasError);
+  void onDeviceNetError(quint16 devId);
 
 
 private:
@@ -149,6 +159,7 @@ private:
 
   PlotUnit *m_plot;
   bool m_connecting;
+  StatusMonitor *m_statusMonitor;
 
 };
 

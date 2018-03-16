@@ -1,0 +1,5 @@
+ConfigSelectTree.ui 这个文件用于获得客户选择后，产生设备的配置信息
+
+ComIndex.ui 这个文件根据配置信息中的通信类型0 1得到对应的路径名PcDebug RnNet
+RnNet
+PcDebug

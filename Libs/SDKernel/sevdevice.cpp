@@ -17,6 +17,9 @@
 #include <QTreeWidgetItemIterator>
 #include <QMessageBox>
 
+#define CMD_PRO_ALM_FLAG "gSevDrv.sev_obj.cur.pro.alm_flag"
+
+#define TEST_CHECKSTATUS 0
 
 SevDevicePrivate::SevDevicePrivate(SevDevice *sev, QObject *parent):QObject(parent),
   q_ptr(sev),
@@ -27,8 +30,7 @@ SevDevicePrivate::SevDevicePrivate(SevDevice *sev, QObject *parent):QObject(pare
   m_ctrBoard(NULL),
   m_verAttribute(NULL),
   m_devConfig(new DeviceConfig),
-  m_connected(false),
-  m_genCmd(NULL)
+  m_connected(false)
 {
 
 }
@@ -43,7 +45,6 @@ SevDevicePrivate::~SevDevicePrivate()
   GT::deletePtrObject(m_ctrBoard);
   GT::deletePtrObject(m_devConfig);
   GT::deletePtrObject(m_verAttribute);
-  GT::deletePtrObject(m_genCmd);
 }
 QTreeWidget *SevDevicePrivate::configTree()
 {
@@ -112,41 +113,26 @@ QTreeWidgetItem* SevDevicePrivate::findTargetTree()
 
 bool SevDevicePrivate::init(const DeviceConfig *dConfig)
 {
-  qDebug()<<"init Config";
   emit initProgressInfo(3,tr("init Config"));
   initConfig(dConfig);
 
   m_filePath=GTUtils::sysPath()+m_devConfig->m_typeName+"/"+m_devConfig->m_modeName+"/"+m_devConfig->m_version+"/";
 
-  qDebug()<<"findTargetTree";
   emit initProgressInfo(5,tr("findTargetTree"));
   QTreeWidgetItem *target=findTargetTree();
   if(target==NULL)
     return false;
 
-  qDebug()<<"new SevDspMap";
   emit initProgressInfo(10,tr("New SevDspMap"));
   m_dspMap=new SevDspMap(this,0);
   connect(m_dspMap,SIGNAL(initProgressInfo(int,QString)),this,SIGNAL(initProgressInfo(int,QString)));
   m_dspMap->initTreeMap();
 
-  qDebug()<<"new SevPwrBoard";
   emit initProgressInfo(65,tr("New SevPwrBoard"));
   m_pwrBoard=new SevPwrBoard(this,0);
-  qDebug()<<"point 1";
   m_ctrBoard=new SevCtrBoard(this,0);
-  qDebug()<<"point 2";
   m_socket=new LinkSocket(this,0);
-  qDebug()<<"point 3";
   m_verAttribute=new VerAttribute(0);
-
-  //通用指令
-  emit initProgressInfo(65,tr("New GeneralCmd"));
-  m_genCmd=new GeneralCmd(m_socket->comObject());
-  QString gcmdPath=m_filePath+"cmd/GeneralCmd.xml";
-  QTreeWidget *cmdTree=QtTreeManager::createTreeWidgetFromXmlFile(gcmdPath);
-  m_genCmd->fillCmdMaps(cmdTree);
-  delete cmdTree;
 
   return true;
 }
@@ -202,13 +188,13 @@ bool SevDevice::isConnecting() const
 quint64 SevDevice::genCmdRead(const QString &cmdReadName,qint16 axisIndex,bool &isOk)
 {
   Q_D(SevDevice);
-  return d->m_genCmd->read(cmdReadName,axisIndex,isOk);
+  return d->m_socket->genCmdRead(cmdReadName,axisIndex,isOk);
 }
 
 bool SevDevice::genCmdWrite(const QString &cmdWriteName,quint64 value,qint16 axisIndex)
 {
   Q_D(SevDevice);
-  return d->m_genCmd->write(cmdWriteName,value,axisIndex);
+  return d->m_socket->genCmdWrite(cmdWriteName,value,axisIndex);
 }
 
 QString SevDevice::typeName() const
@@ -276,6 +262,43 @@ void SevDevice::setVersionAttributeActive()
 {
   Q_D(SevDevice);
   d->m_verAttribute->setActive(this);
+}
+/*!
+ * \brief SevDevice::checkStatus
+ * \return true:连线正常 false断线异常
+ */
+bool SevDevice::checkNetStatus()
+{
+  Q_D(SevDevice);
+  bool offline=true;
+
+#if TEST_CHECKSTATUS
+  QVector<quint8> errtest;
+  for(int i=0;i<d->m_devConfig->m_axisNum;i++)
+  {
+    errtest.append(i%2);
+  }
+#endif
+
+  for(int i=0;i<d->m_devConfig->m_axisNum;i++)
+  {
+    #if TEST_CHECKSTATUS
+      quint64 ret=errtest.at(i);
+    #elif TEST_CHECKSTATUS==0
+      quint64 ret=genCmdRead(CMD_PRO_ALM_FLAG,i,offline);
+    #endif
+
+    if(!offline)
+    {
+      emit netError(i);
+      qDebug()<<"Emit netError"<<i<<"When the net is broken";
+      break;
+    }
+    emit alarmError(d->m_devConfig->m_devId,i,(bool)ret);
+  }
+
+
+  return offline;
 }
 
 void SevDevice::qmlTest()
