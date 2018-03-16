@@ -50,7 +50,7 @@ void UiPower::setUiActive(bool actived)
   if(actived)
   {
     Q_D(UiPower);
-    if(readPageFLASH())
+    if(readGenRAM())
       d->m_graphPower->syncTreeDataToUiFace();
   }
 }
@@ -63,8 +63,6 @@ bool UiPower::writePageFLASH()
   if(wOk)
   {
     d->m_graphPower->syncTreeDataToUiFace();
-    //还要加入关联参数处理
-    //-to add
   }
   return true;
 }

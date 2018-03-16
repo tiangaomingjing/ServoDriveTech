@@ -56,7 +56,7 @@ void UiVelocity::setUiActive(bool actived)
   if(actived)
   {
     Q_D(UiVelocity);
-    if(readPageFLASH())
+    if(readGenRAM())
       d->m_graphVelocityView->syncTreeDataToUiFace();
   }
 }

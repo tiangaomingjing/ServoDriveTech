@@ -260,7 +260,7 @@
        </property>
        <item>
         <property name="text">
-         <string>SD61</string>
+         <string>SD61_PLUS</string>
         </property>
         <property name="text">
          <string>6</string>
@@ -313,7 +313,7 @@
        </item>
        <item>
         <property name="text">
-         <string>SD61-MINI</string>
+         <string>SD61_MINI</string>
         </property>
         <property name="text">
          <string>6</string>

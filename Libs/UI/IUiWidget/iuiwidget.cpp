@@ -137,6 +137,22 @@ bool IUiWidget::writePageFLASH()
   wOk=d->m_device->onWritePageFlash(d->m_index.axisInx,d->m_dataTree);
   return wOk;
 }
+
+bool IUiWidget::readGenRAM()
+{
+  Q_D(IUiWidget);
+  bool wOk=true;
+  wOk=d->m_device->readGenRAM(d->m_index.axisInx,d->m_dataTree);
+  return wOk;
+}
+
+bool IUiWidget::writeGenRAM()
+{
+  Q_D(IUiWidget);
+  bool wOk=true;
+  wOk=d->m_device->writeGenRAM(d->m_index.axisInx,d->m_dataTree);
+  return wOk;
+}
 void IUiWidget::setUiActive(bool actived)
 {
   Q_UNUSED(actived);

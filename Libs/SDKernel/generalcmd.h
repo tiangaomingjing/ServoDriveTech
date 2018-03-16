@@ -19,6 +19,7 @@ public:
   quint64 read(const QString &cmdReadName,qint16 axisIndex,bool &isOk);
   qint16 readErrorCode();
   bool write(const QString &cmdWriteName,quint64 value,qint16 axisIndex);
+  bool containsCmd(const QString &cmdName);
 
 private:
   void fillItemMaps(QTreeWidgetItem *item);

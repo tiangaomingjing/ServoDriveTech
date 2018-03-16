@@ -67,7 +67,7 @@ void UiCurrent::setUiActive(bool actived)
   if(actived)
   {
     Q_D(UiCurrent);
-    if(readPageFLASH())
+    if(readGenRAM())
       d->m_graphCurrentView->syncTreeDataToUiFace();
   }
 }

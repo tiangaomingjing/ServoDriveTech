@@ -2,7 +2,11 @@
 #define DEVCOMRWRITER_H
 
 #include "idevreadwriter.h"
+namespace ComDriver {
+class ICom;
+}
 class QTreeWidgetItem;
+
 class DevComRWriter:public IDevReadWriter
 {
   Q_OBJECT
@@ -12,6 +16,8 @@ public:
   bool saveConfig(const DeviceConfig *config)override;
 
 private:
+  ComDriver::ICom *findTragetCom(void (*processCallback)(void *pbar,short *value),void *processbar);
+  bool checkNetCardIs1000M(ComDriver::ICom *com);
   DeviceConfig* buildConfigFromCom(quint8 devId, quint8 rnstation, ComDriver::ICom *com);
   static void printfInfo(void *argv, short *v);
   QTreeWidgetItem* findItemByText(QTreeWidgetItem*srcItem,const QString &text);

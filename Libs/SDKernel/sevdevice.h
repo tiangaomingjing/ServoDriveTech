@@ -38,6 +38,9 @@ public:
   quint64 genCmdRead(const QString &cmdReadName,qint16 axisIndex,bool &isOk);
   bool genCmdWrite(const QString &cmdWriteName,quint64 value,qint16 axisIndex);
 
+  bool readGenRAM(quint16 axisInx,QTreeWidget *pageTree);
+  bool writeGenRAM(quint16 axisInx,QTreeWidget *pageTree);
+
 
   QString typeName() const;
   QString modelName() const;
@@ -66,10 +69,9 @@ signals:
   void netError(quint16 axisInx);
 
 public slots:
-  bool onReadPageFlash(int axis,QTreeWidget *tree);
-  bool onWritePageFlash(int axis,QTreeWidget *tree);
-  //bool onReadItemFlash(int axis,QTreeWidgetItem *item);
-  //bool onReadItemRam(int axis,QTreeWidgetItem *item);
+  bool onReadPageFlash(int axis,QTreeWidget *pageTree);
+  bool onWritePageFlash(int axis,QTreeWidget *pageTree);
+
 private:
   bool checkPropertyParameters(QTreeWidgetItem *item);
   bool checkPowerBoardParameters(QTreeWidgetItem *item,const QMap<QString ,PowerBoardLimit> *limit);

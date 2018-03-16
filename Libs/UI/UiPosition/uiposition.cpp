@@ -57,7 +57,7 @@ void UiPosition::setUiActive(bool actived)
   if(actived)
   {
     Q_D(UiPosition);
-    if(readPageFLASH())
+    if(readGenRAM())
       d->m_graphPositionView->syncTreeDataToUiFace();
   }
 }

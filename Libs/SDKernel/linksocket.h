@@ -35,6 +35,7 @@ public:
   quint64 genCmdRead(const QString &cmdReadName,qint16 axisIndex,bool &isOk);
   bool genCmdWrite(const QString &cmdWriteName,quint64 value,qint16 axisIndex);
   qint16 genReadErrorCode();
+  bool containsCmd(const QString &cmdName);
 
   ComDriver::ICom *comObject() const;
 

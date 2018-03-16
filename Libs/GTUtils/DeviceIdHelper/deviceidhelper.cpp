@@ -95,6 +95,7 @@ quint32 DeviceIdHelper::readPwrId(bool &isOk)
   }
   if(findId==false)
   {
+    //NEED TO REWRITE
     m_typeName="";
     m_modeName="";
     m_axisNum=0;
