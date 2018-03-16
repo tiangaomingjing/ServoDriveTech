@@ -16,6 +16,8 @@ INCLUDEPATH += $${PWD}/ControlServo\
                $${PWD}/TreeManage\
                $${PWD}/Eprom\
                $${PWD}/TcpConnect\
+               $${PWD}/../../Libs/Com/ServoDriverComDll\
+               $${PWD}/../../Libs/Com/ServoDriverComDll/NetCom/include\
 
 CONFIG(debug, debug|release){
     TARGET = EpromManager_d
@@ -49,13 +51,11 @@ HEADERS  += eprommanager.h \
     Flash/flashclass.h \
     JsonReader/jsonreader.h \
     TreeManage/treemanager.h \
-    ControlServo/Basetype_def.h \
-    ControlServo/ServoDriverComDef.h \
-    ControlServo/ServoDriverComDll.h \
     globaldefine.h \
     Eprom/eprom.h \
     Eprom/eprom_control.h \
     Eprom/eprom_power.h \
-    TcpConnect/tcpconnect.h
+    TcpConnect/tcpconnect.h \
+    ../../Libs/Com/ServoDriverComDll/ServoDriverComDll.h
 
 FORMS    += eprommanager.ui

@@ -149,7 +149,7 @@ QWidget#widget{
      <item>
       <widget class="QStackedWidget" name="stack">
        <property name="currentIndex">
-        <number>2</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="Select">
         <layout class="QGridLayout" name="gridLayout_10">
@@ -183,25 +183,11 @@ QWidget#widget{
              </property>
              <layout class="QGridLayout" name="gridLayout_9">
               <item row="0" column="0">
-               <layout class="QVBoxLayout" name="verticalLayout_3">
-                <item>
-                 <widget class="QRadioButton" name="PCDebugButton">
-                  <property name="text">
-                   <string>PCDebug</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QRadioButton" name="RNNetButton">
-                  <property name="text">
-                   <string>RNNet</string>
-                  </property>
-                  <property name="checked">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
+               <widget class="QLabel" name="comLabel">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
               </item>
              </layout>
             </widget>

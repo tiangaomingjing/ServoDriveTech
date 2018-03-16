@@ -141,7 +141,7 @@ bool FlashClass::downloadHex(QObject *proBar) {
     {
         m_step = i;
         int axisNum = i + 1;
-        emit sendWarnMsg(tr("Flashing Axis ") + QString("%1").arg(axisNum) + "!");
+        emit sendWarnMsg(tr("Flashing DSP ") + QString("%1").arg(axisNum) + "!");
         result = GTSD_CMD_ProcessorFlashHandler(i * 2, m_hexPath.toStdWString(),updateProgessBarWhenRestoreClicked,(void*)proBar, m_netId, m_netRnStation);
         isHexDownload = true;
         if (result != 0)//hex没有烧写成功

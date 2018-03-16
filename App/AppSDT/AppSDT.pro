@@ -9,9 +9,10 @@ INCLUDEPATH+= $${PWD}/DialogOption\
               $${PWD}/ScreenStartup\
               $${PWD}/SdtStatusBar\
               $${PWD}/ConfigDialog\
-              $${PWD}/VerMatching
+              $${PWD}/VerMatching\
+              $${PWD}/MessageServer\
 
-QT       += core gui qml sql
+QT       += core gui qml sql network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -44,7 +45,9 @@ SOURCES += main.cpp\
     VerMatching/memeryvermatching.cpp \
     VerMatching/dbvermatching.cpp \
     ../../Common/src/SdtGlobal/sdtglobaldef.cpp \
-    ../../Common/src/Kernel/sdterror.cpp
+    ../../Common/src/Kernel/sdterror.cpp \
+    MessageServer/clientsocket.cpp \
+    MessageServer/messageserver.cpp
 
 HEADERS  += sdtmainwindow.h \
     appiconname.h \
@@ -70,7 +73,9 @@ HEADERS  += sdtmainwindow.h \
     VerMatching/memeryvermatching.h \
     VerMatching/dbvermatching.h \
     ../../Common/src/SdtGlobal/sdtglobaldef.h \
-    ../../Common/src/Kernel/sdterror.h
+    ../../Common/src/Kernel/sdterror.h \
+    MessageServer/clientsocket.h \
+    MessageServer/messageserver.h
 
 FORMS    += sdtmainwindow.ui \
     DialogOption/dialogoption.ui \

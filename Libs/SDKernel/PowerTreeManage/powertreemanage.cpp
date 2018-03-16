@@ -77,10 +77,10 @@ void SamplingDataInfo::setMathExp(const QStringList &mathExp)
 
 PowerTreeManage::PowerTreeManage(DeviceConfig *sev, QObject *parent) : QObject(parent)
 //  m_powerTree(powerTree),
-//  m_pwrTarget(NULL)
+//  mp_pwrTarget(NULL)
 {
     m_powerTree = NULL;
-    m_pwrTarget = NULL;
+    mp_pwrTarget = NULL;
     m_sev = sev;
     QString idStr = QString::number(m_sev->m_pwrId, 10);
     qDebug()<<idStr;
@@ -98,13 +98,12 @@ PowerTreeManage::PowerTreeManage(DeviceConfig *sev, QObject *parent) : QObject(p
     m_filterPath = path + getFilterPath(targetItem);
     qDebug()<<"filterPath"<<m_filterPath;
     m_powerTree = QtTreeManager::createTreeWidgetFromXmlFile(itemPath);
-    m_pwrTarget = GTUtils::findItem(idStr, m_powerTree, PWR_COL_INX_VALUE);
+    mp_pwrTarget = GTUtils::findItem(idStr, m_powerTree, PWR_COL_INX_VALUE);
     delete indexTree;
 }
 
 PowerTreeManage::~PowerTreeManage() {
     delete m_powerTree;
-    delete m_pwrTarget;
 }
 
 /**
@@ -170,7 +169,7 @@ QTreeWidgetItem * PowerTreeManage::detailInfoTreeItem(QTreeWidgetItem *target)
 
 bool PowerTreeManage::updatePowerLimitMapList(QList<QMap<QString, PowerBoardLimit> > &powerLimitMapList)
 {
-  if(m_pwrTarget==NULL)
+  if(mp_pwrTarget==NULL)
     return false;
 
   int axisNum;
@@ -184,9 +183,9 @@ bool PowerTreeManage::updatePowerLimitMapList(QList<QMap<QString, PowerBoardLimi
       m_filterList.append(filterTree->topLevelItem(i)->text(0));
   }
   //basic information
-  QTreeWidgetItem *basicItem = basicInfoTreeItem(m_pwrTarget);
+  QTreeWidgetItem *basicItem = basicInfoTreeItem(mp_pwrTarget);
   //detailed information
-  QTreeWidgetItem *detailItem = detailInfoTreeItem(m_pwrTarget);
+  QTreeWidgetItem *detailItem = detailInfoTreeItem(mp_pwrTarget);
   axisNum=detailItem->child(DETINFO_ROW_INX_AXISNUM)->childCount();
 
   for(int i=0;i < axisNum; i++)
@@ -215,13 +214,13 @@ SamplingDataInfo PowerTreeManage::samplingDataInfo(bool *isOK)
 {
   SamplingDataInfo samplingInfo;
   *isOK=true;
-  if(m_pwrTarget==NULL)
+  if(mp_pwrTarget==NULL)
   {
       *isOK=false;
       return samplingInfo;
   }
 qDebug()<<*isOK;
-  QTreeWidgetItem *detailItem = detailInfoTreeItem(m_pwrTarget);
+  QTreeWidgetItem *detailItem = detailInfoTreeItem(mp_pwrTarget);
   int axisNum;
   axisNum=detailItem->child(DETINFO_ROW_INX_AXISNUM)->childCount();
     qDebug()<<"b";
