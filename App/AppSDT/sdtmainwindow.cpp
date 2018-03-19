@@ -352,7 +352,9 @@ void SDTMainWindow::navigationTreeInit()
     sd=m_sdAssemblyList.at(i);
     axisNum=sd->sevDevice()->axisNum();
     deviceItem=new QTreeWidgetItem(ui->treeWidget);
-    deviceItem->setText(COL_TARGET_CONFIG_NAME,sd->sevDevice()->modelName());
+    QString prefix;
+//    prefix=QString("[%1] ").arg(i+1);
+    deviceItem->setText(COL_TARGET_CONFIG_NAME,prefix+sd->sevDevice()->modelName());
     deviceItem->setText(COL_TARGET_CONFIG_PRM,QString::number(axisNum));
     qDebug()<<"deviceItem->setText";
 
@@ -519,6 +521,7 @@ void SDTMainWindow::setNavCurrentSelectedInfo()
     info.prepend(item->text(0)+" ");
     item=itemParent;
   }
+  info.prepend(item->text(2)+" ");
   info.prepend(item->text(0)+" ");
   ui->dockWidgetNav->setWindowTitle(info);
 }
@@ -798,15 +801,6 @@ void SDTMainWindow::onProgressInfo(int barValue,QString msg)
 void SDTMainWindow::onNavTreeWidgetItemClicked(QTreeWidgetItem *item, int column)
 {
   Q_UNUSED(column);
-  QFont font;
-  font.setBold(false);
-  QTreeWidgetItemIterator it(ui->treeWidget);
-  while (*it) {
-    (*it)->setFont(column,font);
-    it++;
-  }
-  font.setBold(true);
-  item->setFont(column,font);
 
   if(item->childCount()==0)
   {

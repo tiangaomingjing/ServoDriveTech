@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>400</height>
+    <height>397</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -88,6 +88,14 @@
          </property>
          <item>
           <property name="text">
+           <string>SD43P002</string>
+          </property>
+          <property name="text">
+           <string>21000508</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
            <string>SD43P003</string>
           </property>
           <property name="text">
@@ -100,14 +108,6 @@
           </property>
           <property name="text">
            <string>41000509</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>SD43P005</string>
-          </property>
-          <property name="text">
-           <string>51000509</string>
           </property>
          </item>
         </item>

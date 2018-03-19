@@ -29,9 +29,12 @@ public:
   quint32 readCtrId(bool &isOk);
   quint32 readFpgaId(bool &isOk);
   QString readVersion(bool &isOk);
+
   QString modeNameFromIdMap();
   QString typeNameFromIdMap();
   quint8 axisNumFromIdMap();
+
+  bool databaseHasPwrId() const;
 
 signals:
 
@@ -44,6 +47,7 @@ private:
   QString m_typeName;
   QString m_modeName;
   quint8 m_axisNum;
+  bool m_hasPwrId;
 };
 
 #endif // DEVICEIDHELPER_H

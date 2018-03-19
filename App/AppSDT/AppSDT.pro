@@ -49,7 +49,8 @@ SOURCES += main.cpp\
     ../../Common/src/Kernel/sdterror.cpp \
     MessageServer/clientsocket.cpp \
     MessageServer/messageserver.cpp \
-    StatusMonitor/statusmonitor.cpp
+    StatusMonitor/statusmonitor.cpp \
+    DeviceInfoDialog/deviceinfodialog.cpp
 
 HEADERS  += sdtmainwindow.h \
     appiconname.h \
@@ -78,13 +79,15 @@ HEADERS  += sdtmainwindow.h \
     ../../Common/src/Kernel/sdterror.h \
     MessageServer/clientsocket.h \
     MessageServer/messageserver.h \
-    StatusMonitor/statusmonitor.h
+    StatusMonitor/statusmonitor.h \
+    DeviceInfoDialog/deviceinfodialog.h
 
 FORMS    += sdtmainwindow.ui \
     DialogOption/dialogoption.ui \
     SdtStatusBar/sdtstatusbar.ui \
     SdtStatusBar/statuserrdialog.ui \
-    ConfigDialog/configdialog.ui
+    ConfigDialog/configdialog.ui \
+    DeviceInfoDialog/deviceinfodialog.ui
 
 TRANSLATIONS    += ch_main.ts en_main.ts
 
