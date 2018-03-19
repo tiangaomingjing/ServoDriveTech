@@ -16,7 +16,7 @@ public:
   bool saveConfig(const DeviceConfig *config)override;
 
 private:
-  ComDriver::ICom *findTragetCom(void (*processCallback)(void *pbar,short *value),void *processbar);
+  ComDriver::ICom *openTragetCom(void (*processCallback)(void *pbar,short *value),void *processbar);
   bool checkNetCardIs1000M(ComDriver::ICom *com);
   DeviceConfig* buildConfigFromCom(quint8 devId, quint8 rnstation, ComDriver::ICom *com);
   static void printfInfo(void *argv, short *v);

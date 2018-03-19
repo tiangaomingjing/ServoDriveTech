@@ -24,38 +24,21 @@ DevComRWriter::DevComRWriter(QObject *parent):IDevReadWriter(parent)
 
 QList<DeviceConfig *>DevComRWriter::createConfig(void (*processCallback)(void *pbar,short *value),void *processbar,bool &isOk)
 {
+  isOk=true;
+
   //1 一种种通信方式试探，找到当前连接的通信方式
   QList<DeviceConfig *> list;
-  ICom *com=findTragetCom(processCallback,processbar);
-//  if(com==NULL)
-//  {
-//    isOk=false;
-//    return list;
-//  }
-//  ICom *com=new RnNet("RnNet");
-//  qDebug()<<"new com"<<QString::fromStdString(com->iComObjectName());
-//  errcode_t err=com->open(processCallback,processbar);
-//  isOk=true;
-//  if(err!=0)
-//  {
-//    com->close();
-//    delete com;
-//    com=new PcDebug("PcDebug");
-//    qDebug()<<"new com"<<QString::fromStdString(com->iComObjectName());
-//    err=com->open(processCallback,processbar);
-//    if(err!=0)
-//    {
-//      com->close();
-//      delete com;
-//      isOk=false;
-//      qDebug()<<"TEST_OUT can not open COM";
-//      SdtError::instance()->errorStringList()->append(tr("OpenError:"));
-//      SdtError::instance()->errorStringList()->append(tr("  1 cable is not connect"));
-//      SdtError::instance()->errorStringList()->append(tr("  2 cable connet to wrong com"));
-//      SdtError::instance()->errorStringList()->append(tr("  3 device firmware error"));
-//      return list;
-//    }
-//  }
+  ICom *com=openTragetCom(processCallback,processbar);
+  if(com==NULL)
+  {
+    isOk=false;
+    SdtError::instance()->errorStringList()->append(tr("OpenError:"));
+    SdtError::instance()->errorStringList()->append(tr("  1 cable is not connect"));
+    SdtError::instance()->errorStringList()->append(tr("  2 cable connet to wrong com"));
+    SdtError::instance()->errorStringList()->append(tr("  3 device firmware error"));
+    return list;
+  }
+
   // 2 检查网卡是不是1000M
   bool is1000M=checkNetCardIs1000M(com);
   if(!is1000M)
@@ -64,7 +47,6 @@ QList<DeviceConfig *>DevComRWriter::createConfig(void (*processCallback)(void *p
     delete com;
     com=NULL;
     isOk=false;
-    qDebug()<<"TEST_OUT is not 1000M";
     return list;
   }
 
@@ -88,6 +70,11 @@ QList<DeviceConfig *>DevComRWriter::createConfig(void (*processCallback)(void *p
     }
     QVector<uint8_t> v;
     v=QVector<uint8_t>::fromStdVector(vtr);
+    if(v.isEmpty())
+    {
+      isOk=false;
+      SdtError::instance()->errorStringList()->append(tr("  1 RnNet broadcast return null station error"));
+    }
     int i=0;
     foreach (uint8_t station, v)
     {
@@ -120,6 +107,8 @@ QList<DeviceConfig *>DevComRWriter::createConfig(void (*processCallback)(void *p
     if(config!=NULL)
       list.append(config);
   }
+
+
   com->close();
   delete com;
   return list;
@@ -131,7 +120,7 @@ bool DevComRWriter::saveConfig(const DeviceConfig *config)
   return true;
 }
 
-ICom *DevComRWriter::findTragetCom(void (*processCallback)(void *pbar,short *value),void *processbar)
+ICom *DevComRWriter::openTragetCom(void (*processCallback)(void *pbar,short *value),void *processbar)
 {
   ICom *com=new RnNet("RnNet");
   errcode_t err=com->open(processCallback,processbar);
@@ -147,11 +136,6 @@ ICom *DevComRWriter::findTragetCom(void (*processCallback)(void *pbar,short *val
       com->close();
       delete com;
       com=NULL;
-      qDebug()<<"TEST_OUT can not open COM";
-      SdtError::instance()->errorStringList()->append(tr("OpenError:"));
-      SdtError::instance()->errorStringList()->append(tr("  1 cable is not connect"));
-      SdtError::instance()->errorStringList()->append(tr("  2 cable connet to wrong com"));
-      SdtError::instance()->errorStringList()->append(tr("  3 device firmware error"));
     }
   }
   return com;
