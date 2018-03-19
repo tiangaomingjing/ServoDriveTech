@@ -59,7 +59,7 @@ QList<DeviceConfig *>DevTextRWriter::createConfig(void (*processCallback)(void *
     device->m_comType=1;
     device->m_axisNum=6;
     device->m_typeName="SD6x";
-    device->m_modeName="SD61";
+    device->m_modeName="SD61_PLUS";
     device->m_version="V129";
     //根据modeName typeName找到powerId
     device->m_pwrId=2100054;

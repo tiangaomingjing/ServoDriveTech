@@ -50,7 +50,7 @@ void UiBrake::setUiActive(bool actived)
   if(actived)
   {
     Q_D(UiBrake);
-    if(readPageFLASH())
+    if(readGenRAM())
       d->m_graphBrake->syncTreeDataToUiFace();
   }
 }

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>599</width>
-    <height>272</height>
+    <width>860</width>
+    <height>319</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,9 +36,14 @@
        <string>nickname</string>
       </property>
      </column>
+     <column>
+      <property name="text">
+       <string>axisnum</string>
+      </property>
+     </column>
      <item>
       <property name="text">
-       <string>21000509</string>
+       <string>21000508</string>
       </property>
       <property name="text">
        <string>SD4x</string>
@@ -48,6 +53,9 @@
       </property>
       <property name="text">
        <string>SD43P003</string>
+      </property>
+      <property name="text">
+       <string>4</string>
       </property>
      </item>
      <item>
@@ -63,6 +71,9 @@
       <property name="text">
        <string>SD43P004</string>
       </property>
+      <property name="text">
+       <string>4</string>
+      </property>
      </item>
      <item>
       <property name="text">
@@ -72,10 +83,13 @@
        <string>SD6x</string>
       </property>
       <property name="text">
-       <string>SD61</string>
+       <string>SD61_PLUS</string>
       </property>
       <property name="text">
        <string>SD63P006</string>
+      </property>
+      <property name="text">
+       <string>6</string>
       </property>
      </item>
      <item>
@@ -90,6 +104,9 @@
       </property>
       <property name="text">
        <string>SD63P003</string>
+      </property>
+      <property name="text">
+       <string>6</string>
       </property>
      </item>
     </widget>

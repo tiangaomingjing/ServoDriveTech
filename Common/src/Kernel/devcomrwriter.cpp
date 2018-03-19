@@ -24,45 +24,31 @@ DevComRWriter::DevComRWriter(QObject *parent):IDevReadWriter(parent)
 
 QList<DeviceConfig *>DevComRWriter::createConfig(void (*processCallback)(void *pbar,short *value),void *processbar,bool &isOk)
 {
-  QList<DeviceConfig *> list;
-  ICom *com=new RnNet("RnNet");
-  qDebug()<<"new com"<<QString::fromStdString(com->iComObjectName());
-  errcode_t err=com->open(processCallback,processbar);
   isOk=true;
-  if(err!=0)
+
+  //1 一种种通信方式试探，找到当前连接的通信方式
+  QList<DeviceConfig *> list;
+  ICom *com=openTragetCom(processCallback,processbar);
+  if(com==NULL)
   {
-    com->close();
-    delete com;
-    com=new PcDebug("PcDebug");
-    qDebug()<<"new com"<<QString::fromStdString(com->iComObjectName());
-    err=com->open(processCallback,processbar);
-    if(err!=0)
-    {
-      com->close();
-      delete com;
-      isOk=false;
-      qDebug()<<"TEST_OUT can not open COM";
-      SdtError::instance()->errorStringList()->append(tr("OpenError:"));
-      SdtError::instance()->errorStringList()->append(tr("  1 cable is not connect"));
-      SdtError::instance()->errorStringList()->append(tr("  2 cable connet to wrong com"));
-      SdtError::instance()->errorStringList()->append(tr("  3 device firmware error"));
-      return list;
-    }
-  }
-  //检查网卡是不是1000M
-  NetCardInfo cardInfo=com->getNetCardInformation();
-  if(cardInfo!=NET_1000M)
-  {
-    SdtError::instance()->errorStringList()->append(tr("Net Speed Error"));
-    SdtError::instance()->errorStringList()->append(tr("  1 cable is not supported 1000M"));
-    SdtError::instance()->errorStringList()->append(tr("  2 your computer netcom is not supported 1000M"));
-    com->close();
-    delete com;
     isOk=false;
-    qDebug()<<"TEST_OUT is not 1000M";
+    SdtError::instance()->errorStringList()->append(tr("OpenError:"));
+    SdtError::instance()->errorStringList()->append(tr("  1 cable is not connect"));
+    SdtError::instance()->errorStringList()->append(tr("  2 cable connet to wrong com"));
+    SdtError::instance()->errorStringList()->append(tr("  3 device firmware error"));
     return list;
   }
 
+  // 2 检查网卡是不是1000M
+  bool is1000M=checkNetCardIs1000M(com);
+  if(!is1000M)
+  {
+    com->close();
+    delete com;
+    com=NULL;
+    isOk=false;
+    return list;
+  }
 
   QString name;
   std::string str=com->iComObjectName();
@@ -84,6 +70,11 @@ QList<DeviceConfig *>DevComRWriter::createConfig(void (*processCallback)(void *p
     }
     QVector<uint8_t> v;
     v=QVector<uint8_t>::fromStdVector(vtr);
+    if(v.isEmpty())
+    {
+      isOk=false;
+      SdtError::instance()->errorStringList()->append(tr("  1 RnNet broadcast return null station error"));
+    }
     int i=0;
     foreach (uint8_t station, v)
     {
@@ -116,6 +107,8 @@ QList<DeviceConfig *>DevComRWriter::createConfig(void (*processCallback)(void *p
     if(config!=NULL)
       list.append(config);
   }
+
+
   com->close();
   delete com;
   return list;
@@ -125,6 +118,41 @@ bool DevComRWriter::saveConfig(const DeviceConfig *config)
 {
   Q_UNUSED(config);
   return true;
+}
+
+ICom *DevComRWriter::openTragetCom(void (*processCallback)(void *pbar,short *value),void *processbar)
+{
+  ICom *com=new RnNet("RnNet");
+  errcode_t err=com->open(processCallback,processbar);
+  if(err!=0)
+  {
+    com->close();
+    delete com;
+    com=new PcDebug("PcDebug");
+    qDebug()<<"new com"<<QString::fromStdString(com->iComObjectName());
+    err=com->open(processCallback,processbar);
+    if(err!=0)
+    {
+      com->close();
+      delete com;
+      com=NULL;
+    }
+  }
+  return com;
+}
+
+bool DevComRWriter::checkNetCardIs1000M(ICom *com)
+{
+  bool ok=true;
+  NetCardInfo cardInfo=com->getNetCardInformation();
+  if(cardInfo!=NET_1000M)
+  {
+    SdtError::instance()->errorStringList()->append(tr("Net Speed Error"));
+    SdtError::instance()->errorStringList()->append(tr("  1 cable is not supported 1000M"));
+    SdtError::instance()->errorStringList()->append(tr("  2 your computer netcom is not supported 1000M"));
+    ok=false;
+  }
+  return ok;
 }
 
 DeviceConfig* DevComRWriter::buildConfigFromCom(quint8 devId, quint8 rnstation, ComDriver::ICom *com)
@@ -138,7 +166,7 @@ DeviceConfig* DevComRWriter::buildConfigFromCom(quint8 devId, quint8 rnstation, 
   quint32 pid,cid,fid;
   QString version;
 
-  if(com->iComType()==ComDriver::ICOM_TYPE_PCDEBUG)
+  if(com->iComType()==ComDriver::ICOM_TYPE_PCDEBUG)//PcDebug就不支持读写I2c
   {
     pok=false;
   }

@@ -282,6 +282,11 @@ qint16 LinkSocket::genReadErrorCode()
   return m_genCmd->readErrorCode();
 }
 
+bool LinkSocket::containsCmd(const QString &cmdName)
+{
+  return m_genCmd->containsCmd(cmdName);
+}
+
 void LinkSocket::setTryWriteCount(quint8 tryWriteCount)
 {
   m_tryWriteCount = tryWriteCount;

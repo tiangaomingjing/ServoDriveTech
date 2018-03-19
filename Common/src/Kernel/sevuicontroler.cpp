@@ -36,7 +36,7 @@ void SevUiControler::createUis()
   QString uiGraphName;
   double sum=65;
   double dec=35.0/(m_sev->axisNum()*axisItem->childCount());
-  //与轴相关的模块
+
   setTransLanguage();
 
   for(int i=0;i<m_sev->axisNum();i++)//哪一个轴
@@ -71,6 +71,8 @@ void SevUiControler::createUis()
     }
     qDebug()<<"------------------build device ui :"<<i;
   }
+
+
   //单个设备中通用模块
   for(int i=0;i<globalItem->childCount();i++)
   {

@@ -197,6 +197,104 @@ bool SevDevice::genCmdWrite(const QString &cmdWriteName,quint64 value,qint16 axi
   return d->m_socket->genCmdWrite(cmdWriteName,value,axisIndex);
 }
 
+bool SevDevice::readGenRAM(quint16 axisInx, QTreeWidget *pageTree)
+{
+  //1 调通用指令读取原数
+
+  Q_D(SevDevice);
+  if(d->m_socket->isConnected()==false)
+    return false;
+
+  QTreeWidgetItemIterator it(pageTree);
+  QTreeWidgetItem *item;
+  bool rOk=true;
+  quint64 rv=0;
+  QString type;
+  while (*it)
+  {
+    item=(*it);
+    type=item->text(COL_PAGE_TREE_TYPE);
+    if(d->m_socket->containsCmd(item->text(COL_PAGE_TREE_NAME)))
+    {
+      rv=d->m_socket->genCmdRead(item->text(COL_PAGE_TREE_NAME),axisInx,rOk);
+      if(!rOk)
+      {
+        rOk=false;
+        break;
+      }
+
+      if(type=="Uint16")
+      {
+        quint16 value=rv;
+        item->setText(COL_PAGE_TREE_VALUE,QString::number(value));
+      }
+      else if(type=="int16")
+      {
+        qint16 value=rv;
+        item->setText(COL_PAGE_TREE_VALUE,QString::number(value));
+      }
+      else if(type=="Uint32")
+      {
+        quint32 value=rv;
+        item->setText(COL_PAGE_TREE_VALUE,QString::number(value));
+      }
+      else if(type=="int32")
+      {
+        qint32 value=rv;
+        item->setText(COL_PAGE_TREE_VALUE,QString::number(value));
+      }
+      else if(type=="Uint64")
+      {
+        quint64 value=rv;
+        item->setText(COL_PAGE_TREE_VALUE,QString::number(value));
+      }
+      else if(type=="int64")
+      {
+        qint64 value=rv;
+        item->setText(COL_PAGE_TREE_VALUE,QString::number(value));
+      }
+      else
+      {
+        quint16 value=rv;
+        item->setText(COL_PAGE_TREE_VALUE,QString::number(value));
+      }
+    }
+    it++;
+  }
+  return rOk;
+}
+
+bool SevDevice::writeGenRAM(quint16 axisInx, QTreeWidget *pageTree)
+{
+  //1 调通用指令写原数
+
+  Q_D(SevDevice);
+  if(d->m_socket->isConnected()==false)
+    return false;
+
+  QTreeWidgetItemIterator it(pageTree);
+  QTreeWidgetItem *item;
+  bool rOk=true;
+  quint64 rv=0;
+  double value;
+  while (*it)
+  {
+    item=(*it);
+    if(d->m_socket->containsCmd(item->text(COL_PAGE_TREE_NAME)))
+    {
+      value=item->text(COL_PAGE_TREE_VALUE).toDouble()+0.5;
+      rv=d->m_socket->genCmdWrite(item->text(COL_PAGE_TREE_NAME),(quint64)value,axisInx);
+      if(!rOk)
+      {
+        rOk=false;
+        break;
+      }
+    }
+    it++;
+  }
+  return rOk;
+}
+
 QString SevDevice::typeName() const
 {
   Q_D(const SevDevice);
@@ -306,13 +404,13 @@ void SevDevice::qmlTest()
   qDebug()<<"this is qml signals to device";
 }
 
-bool SevDevice::onReadPageFlash(int axis,QTreeWidget *tree)
+bool SevDevice::onReadPageFlash(int axis, QTreeWidget *pageTree)
 {
   Q_D(SevDevice);
   if(d->m_socket->isConnected()==false)
     return false;
 
-  QTreeWidgetItemIterator it(tree);
+  QTreeWidgetItemIterator it(pageTree);
   QTreeWidgetItem *item;
   bool rOk=true;
   while (*it)
@@ -328,19 +426,19 @@ bool SevDevice::onReadPageFlash(int axis,QTreeWidget *tree)
   }
   return rOk;
 }
-bool SevDevice::onWritePageFlash(int axis,QTreeWidget *tree)
+bool SevDevice::onWritePageFlash(int axis, QTreeWidget *pageTree)
 {
   Q_D(SevDevice);
   if(d->m_socket->isConnected()==false)
     return false;
 
   bool checkOk=true;
-  checkOk=checkParameters(axis,tree);
+  checkOk=checkParameters(axis,pageTree);
   if(!checkOk)
     return false;
 
 
-  QTreeWidgetItemIterator it(tree);
+  QTreeWidgetItemIterator it(pageTree);
   QTreeWidgetItem *item;
   bool writeOk=true;
   while (*it)

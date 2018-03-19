@@ -19,12 +19,9 @@ class GlobalUiControler;
 class IUiWidget;
 class PlotUnit;
 class DeviceConfig;
-<<<<<<< HEAD
 class QProcess;
 class MessageServer;
-=======
 class StatusMonitor;
->>>>>>> upstream/jiang
 
 class SDTMainWindow : public QMainWindow
 {

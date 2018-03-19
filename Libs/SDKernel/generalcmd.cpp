@@ -208,7 +208,12 @@ bool GeneralCmd::write(const QString &cmdWriteName, quint64 value, qint16 axisIn
 //      qDebug()<<"GeneralCmd write error:write value!=read value";
 //    }
 //  }
-//  return isOk;
+  //  return isOk;
+}
+
+bool GeneralCmd::containsCmd(const QString &cmdName)
+{
+  return m_dataPtr->m_cmdMaps.contains(cmdName);
 }
 
 void GeneralCmd::fillItemMaps(QTreeWidgetItem *item)

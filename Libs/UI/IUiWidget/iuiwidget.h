@@ -32,8 +32,10 @@ public:
   virtual void addTreeWidget(QTreeWidget* tree);
   void setUiIndexs(const UiIndexs &indexs);
   UiIndexs uiIndexs() const;
-  virtual bool readPageFLASH();
+  virtual bool readPageFLASH();//根据地址读
   virtual bool writePageFLASH();//响应界面save 功能
+  virtual bool readGenRAM();//通用指令读
+  virtual bool writeGenRAM();//通用指令写
   virtual void setUiActive(bool actived);
   virtual void accept(QWidget*w);
 
