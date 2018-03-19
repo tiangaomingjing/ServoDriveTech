@@ -33,7 +33,7 @@ void EPROM::writeFromXmltoEprom(QTreeWidgetItem *writenItem) {
 //    }
     writeEEprom(writenItem);
     if (continueWrite) {
-        emit sendWarnMsg(tr("Finish!"));
+        emit sendWarnMsg(tr("Finish! Please read the data and do the comparison!"));
     }
 }
 

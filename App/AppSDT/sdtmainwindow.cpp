@@ -36,6 +36,7 @@
 
 #include "icom.h"
 #include "sdterror.h"
+#include "messageserver.h"
 
 #include <QToolButton>
 #include <QDebug>
@@ -74,6 +75,7 @@ SDTMainWindow::~SDTMainWindow()
 }
 bool SDTMainWindow::init()
 {
+  startListen();
   deviceInit();
   navigationTreeInit();
   globalUiPageInit();
@@ -191,6 +193,7 @@ void SDTMainWindow::createActions()
   m_actnReset=new QAction(tr("rstdsp"),m_tbtnMore);
 
   m_actnOption=new QAction(tr("option"),m_tbtnMore);
+  m_produceClicked = false;
   m_actnProduce=new QAction(tr("produce"),m_tbtnMore);
 
 //  m_tbtnMore->addAction(m_actnOnMode);
@@ -532,17 +535,72 @@ void SDTMainWindow::onActnOptionClicked()
 }
 
 void SDTMainWindow::onActnProduceClicked() {
-    QString path;
-    QString exeName;
-#ifdef QT_NO_DEBUG
-    exeName = "EpromManager.exe";
-#else
-    exeName = "EpromManager_d.exe";
-#endif
-    path = GTUtils::exePath();
-    path = path + "/" + exeName;
-    QProcess *process = new QProcess(this);
-    process->start(path);
+    if (!m_produceClicked) {      
+        //m_produceClicked = true;
+
+        qDebug()<<"bool"<<m_produceClicked;
+        QString path;
+        QString exeName;
+        #ifdef QT_NO_DEBUG
+            exeName = "EpromManager.exe";
+        #else
+            exeName = "EpromManager_d.exe";
+        #endif
+        qDebug()<<"exe name"<<exeName;
+        path = GTUtils::exePath();
+        path = path + "/" + exeName;
+        m_process = new QProcess(this);
+        m_process->start(path);
+        qDebug()<<"path"<<path;
+
+//        tcpClient = new TcpConnect(block);
+//        connect(tcpClient, SIGNAL(closeSignal()), this, SLOT(onProduceClosed()));
+//        qDebug()<<"ss";
+//        tcpClient->connectToServer();
+//        qDebug()<<"aa";
+    }
+}
+
+void SDTMainWindow::startListen() {
+    m_server = new MessageServer(this);
+    if(!m_server->listen(QHostAddress::Any, 6178)) {
+        qDebug()<<"Listen Failed!";
+        return;
+    }
+    connect(m_server, SIGNAL(getStartMsg()), this, SLOT(onStartMsgReceived()));
+    connect(m_server, SIGNAL(getCloseMsg()), this, SLOT(onCloseMsgReceived()));
+}
+
+void SDTMainWindow::onStartMsgReceived() {
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_5_5);
+    QString mode = m_sdAssemblyList.at(0)->sevDevice()->modelName();
+    QString type = m_sdAssemblyList.at(0)->sevDevice()->typeName();
+    int comNumber = m_sdAssemblyList.at(0)->sevDevice()->deviceConfig()->m_comType;
+    int axisNum = m_sdAssemblyList.at(0)->sevDevice()->axisNum();
+    QString dspNum = QString::number(axisNum / 2);
+    QString comType;
+    if (comNumber == 0) {
+        comType = tr("PcDebug");
+    } else {
+        comType = tr("RnNet");
+    }
+    qDebug()<<"mode"<<mode;
+    qDebug()<<"comType"<<comType;
+    out<<quint16(0)<<mode<<type<<comType<<dspNum;
+    out.device()->seek(0);
+    out << quint16(block.size() - sizeof(quint16));
+    qDebug()<<"type"<<type;
+    m_server->replyMsg(block);
+}
+
+void SDTMainWindow::onCloseMsgReceived() {
+    qDebug()<<"process released!";
+    m_produceClicked = false;
+    //GTUtils::delayms(20);
+    m_process->close();
+    delete m_process;
 }
 
 void SDTMainWindow::onActnTbtnMoreClicked()

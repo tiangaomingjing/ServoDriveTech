@@ -59,8 +59,8 @@ private:
     QString m_controlPath;
     QString m_typeName;
     QString m_modeName;
+    TcpConnect *m_tcpClient;
 
-    TcpConnect *tcpClient;
 private slots:
     void onWriteClicked();
     void treeItemClicked(QTreeWidgetItem* item, int column);
@@ -81,10 +81,9 @@ private slots:
     void selectXml();
     void scrollTree(QTreeWidgetItem* item);
     void scrollTree_2(QTreeWidgetItem* item);
-    void onComButtonClicked();
+//    void onComButtonClicked();
     
-    void onActionConnectToServer();
-    void onActionStopConnection();
+    void receiveConfig(const QStringList &list);
 };
 
 #endif // EPROMMANAGER_H

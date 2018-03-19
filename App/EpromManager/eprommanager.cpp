@@ -16,16 +16,27 @@ EpromManager::EpromManager(QWidget *parent) :
     ui(new Ui::EpromManager)
 {
     ui->setupUi(this);
+    ui->progressBar->hide();
+    m_tcpClient = new TcpConnect();
+    connect(m_tcpClient, SIGNAL(receiveConfig(QStringList)), this, SLOT(receiveConfig(QStringList)));
+    m_tcpClient->connectToServer();
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_5_5);
+    QString str = "Start";
+    out<<quint16(0)<<str;
+    out.device()->seek(0);
+    out << quint16(block.size() - sizeof(quint16));
+    m_tcpClient->sendRequest(block);
+    qDebug()<<"str"<<str;
+
     m_filePath = ".";
-    tcpClient = NULL;
     setWindowFlags(windowFlags() | Qt::WindowMaximizeButtonHint | Qt::WindowMinimizeButtonHint | Qt::WindowStaysOnTopHint);
     ui->list->item(0)->setIcon(QIcon(ICON_FILE_PATH + "Select.png"));
     ui->list->item(1)->setIcon(QIcon(ICON_FILE_PATH + "menu_restoresetting.png"));
     ui->list->item(2)->setIcon(QIcon(ICON_FILE_PATH + "Power.png"));
     ui->list->item(3)->setIcon(QIcon(ICON_FILE_PATH + "Control.png"));
     connect(ui->list, SIGNAL(currentRowChanged(int)), ui->stack, SLOT(setCurrentIndex(int)));
-    ui->RNNetButton->setChecked(true);
-    initializeTree();
     setComConnectStatus(false);
 
     ui->hexLine->setReadOnly(true);
@@ -47,9 +58,6 @@ EpromManager::EpromManager(QWidget *parent) :
     connect(ui->lineEdit_2, SIGNAL(textChanged(QString)), this, SLOT(onLineTextChange_2(QString)));
 
     connect(ui->selectTree, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(treeItemClicked(QTreeWidgetItem*,int)));
-    connect(ui->RNNetButton, SIGNAL(clicked()), this, SLOT(onComButtonClicked()));
-    connect(ui->PCDebugButton, SIGNAL(clicked()), this, SLOT(onComButtonClicked()));
-
 
     connect(ui->writeButton, SIGNAL(clicked()), this, SLOT(onWriteClicked()));
     connect(ui->writeButton_2, SIGNAL(clicked()), this, SLOT(onWriteClicked_2()));
@@ -66,9 +74,6 @@ EpromManager::EpromManager(QWidget *parent) :
     connect(ui->hexButton, SIGNAL(clicked()), this, SLOT(selectHex()));
     connect(ui->xmlButton, SIGNAL(clicked()), this, SLOT(selectXml()));
     connect(ui->flashButton, SIGNAL(clicked()), this, SLOT(onActionFlashClicked()));
-
-    connect(ui->connectButton, SIGNAL(clicked()), this, SLOT(onActionConnectToServer()));
-    connect(ui->disconnectButton, SIGNAL(clicked()), this, SLOT(onActionStopConnection()));
 }
 
 EpromManager::~EpromManager()
@@ -77,7 +82,6 @@ EpromManager::~EpromManager()
 }
 
 void EpromManager::initializeTree() {
-    ui->progressBar->hide();    
     showSelectTree();
     ui->selectTree->topLevelItem(0)->child(0)->setSelected(true);
     powerIndex = TreeManager::createTreeWidgetFromXmlFile(RESOURCE_FILE_PATH + "PB/pbindex.ui");
@@ -85,16 +89,13 @@ void EpromManager::initializeTree() {
     powerMap = TreeManager::createTreeWidgetFromXmlFile(RESOURCE_FILE_PATH + "IdMap_Power.ui");
     controlMap = TreeManager::createTreeWidgetFromXmlFile(RESOURCE_FILE_PATH + "IdMap_Control.ui");
     treeItemClicked(ui->selectTree->topLevelItem(0)->child(0), 0);
-    onComButtonClicked();
-    //qDebug()<<m_configText;
-    //qDebug()<<m_comText;
 }
 
 com_type EpromManager::getComType() {
-    if (ui->RNNetButton->isChecked()) {
-        return GTSD_COM_TYPE_RNNET;
-    } else {
+    if (m_comText.compare("PcDebug") == 0) {
         return GTSD_COM_TYPE_NET;
+    } else {
+        return GTSD_COM_TYPE_RNNET;
     }
 }
 
@@ -129,13 +130,14 @@ void EpromManager::onOkClicked() {
 }
 
 void EpromManager::showSelectTree() {
-    QTreeWidget *tree = TreeManager::createTreeWidgetFromXmlFile(RESOURCE_FILE_PATH + "SelectTree.ui");
-    for (int i = 0; i < tree->topLevelItemCount(); i++) {
-        ui->selectTree->addTopLevelItem(tree->topLevelItem(i)->clone());
-    }
+    QTreeWidgetItem *typeItem = new QTreeWidgetItem;
+    typeItem->setText(0, m_typeName);
+    QTreeWidgetItem *modeItem = new QTreeWidgetItem;
+    modeItem->setText(0, m_modeName);
+    typeItem->addChild(modeItem);
+    ui->selectTree->addTopLevelItem(typeItem);
     ui->selectTree->expandAll();
     ui->selectTree->resizeColumnToContents(0);
-    delete tree;
 }
 
 /**************************************************************/
@@ -193,6 +195,7 @@ void EpromManager::onWriteClicked_2() {
 
 void EpromManager::treeItemClicked(QTreeWidgetItem* item, int column) {
     itemText = item->text(column);
+    qDebug()<<"item text"<<itemText;
     if (item->childCount() == 0) {
         m_modeName = itemText;
         m_typeName = item->parent()->text(column);
@@ -200,7 +203,7 @@ void EpromManager::treeItemClicked(QTreeWidgetItem* item, int column) {
         QTreeWidgetItem *powerItem = GLO::findItem(itemText, powerMap, IDMAP_MODE);
         m_powerID = powerItem->text(IDMAP_ID);
         m_controlID = controlItem->text(IDMAP_ID);
-        m_dspNum = item->text(column + 1).toInt();
+        //m_dspNum = item->text(column + 1).toInt();
         QTreeWidgetItem *powerIndexItem = GLO::findItem(m_powerID, powerIndex, TREE_VALUE);
         QTreeWidgetItem *controlIndexItem = GLO::findItem(m_controlID, controlIndex, TREE_VALUE);
         m_powerPath = GLO::getPath(powerIndexItem);
@@ -222,15 +225,6 @@ void EpromManager::changeConfigText(QString text, QTreeWidget *tree) {
         m_configText = currentItem->text(TREE_NAME) + "->\n" + m_configText;
         count++;
     }
-}
-
-void EpromManager::onComButtonClicked() {
-    if (ui->RNNetButton->isChecked()) {
-        m_comText = "RNNet";
-    } else {
-        m_comText = "PCDebug";
-    }
-    showText(m_configText, m_comText);
 }
 
 void EpromManager::showText(QString configText, QString comText) {
@@ -449,44 +443,21 @@ void EpromManager::scrollTree_2(QTreeWidgetItem *item) {
     ui->treeWidget_2->scrollToItem(item);
 }
 
-/************************Tcp Client ****************************************/
-
-void EpromManager::onActionConnectToServer() {
-    QByteArray block;
-    QDataStream out(&block, QIODevice::WriteOnly);
-    quint32 devId;
-    quint8 comType;
-    quint8 axisNum = 2 * m_dspNum;
-//    QString typeName;//SD4x
-//    QString modeName;//SD42
-    QString version;
-
-    quint32 pwrId = m_powerID.toInt();   //id->SD?? 通过一个id映射表获得名字
-    quint32 ctrId = m_controlID.toInt();   //id->SD?? 通过一个id映射表获得名字
-//    quint32 fpgaId = ;
-
-//    quint8 rnStationId;
-//    if (getComType() == GTSD_COM_TYPE_RNNET) {
-//        comType = "RNNET";
-//    } else {
-//        comType = "PCDebug";
-//    }
-//    out<<quint16(0)<<str;
-    out.device()->seek(0);
-    out<<quint16(block.size() - sizeof(quint16));
-    tcpClient = new TcpConnect(block);
-    tcpClient->connectToServer();
-}
-
-void EpromManager::onActionStopConnection() {
-    if (tcpClient != NULL) {
-        tcpClient->stopConnection();
-    }
-}
-
 void EpromManager::closeEvent(QCloseEvent *event)
 {
-    if(m_isOpenCom)
+    //m_tcpClient = new TcpConnect();
+    m_tcpClient->connectToServer();
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_5_5);
+    QString str = "Close";
+    out<<quint16(0)<<str;
+    out.device()->seek(0);
+    out << quint16(block.size() - sizeof(quint16));
+    m_tcpClient->sendRequest(block);
+    GLO::delayms(20);
+
+    if (m_isOpenCom)
     {
         onActionDisConnectClicked();
     }
@@ -495,4 +466,18 @@ void EpromManager::closeEvent(QCloseEvent *event)
     delete powerIndex;
     delete controlIndex;
     event->accept();
+}
+
+void EpromManager::receiveConfig(const QStringList &list) {
+    m_modeName = list.at(0);
+    m_typeName = list.at(1);
+    m_comText = list.at(2);
+    QString dspNum = list.at(3);
+    m_dspNum = dspNum.toInt();
+    qDebug()<<"mode"<<m_modeName;
+    qDebug()<<"type"<<m_typeName;
+    ui->comLabel->setText(m_comText);
+    initializeTree();
+    m_tcpClient->stopConnection();
+    //delete m_tcpClient;
 }

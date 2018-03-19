@@ -9,21 +9,23 @@ class TcpConnect : public QObject
 {
     Q_OBJECT
 public:
-    explicit TcpConnect(QByteArray block);
+    explicit TcpConnect();
     void connectToServer();
     void stopConnection();
 
-signals:
 
+signals:
+    void receiveConfig(const QStringList &list);
 public slots:
+    void sendRequest(QByteArray block);
 private:
     void closeConnection();
 private:
     QTcpSocket tcpSocket;
     quint16 nextBlockSize;
-    QByteArray m_block;
+    //QByteArray m_block;
 private slots:
-    void sendRequest();
+    //void sendRequest();
     void connectionClosedByServer();
     void updateInformation();
     void error();

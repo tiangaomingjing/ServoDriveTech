@@ -58,7 +58,7 @@ private:
   QString getFilterPath(QTreeWidgetItem *item);
 private:
   QTreeWidget *m_powerTree;
-  QTreeWidgetItem *m_pwrTarget;
+  QTreeWidgetItem *mp_pwrTarget;
   QString m_filterPath;
   QStringList m_filterList;
   DeviceConfig *m_sev;

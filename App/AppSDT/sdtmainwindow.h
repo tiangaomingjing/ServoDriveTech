@@ -2,6 +2,7 @@
 #define SDTMAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTcpSocket>
 
 namespace Ui {
 class SDTMainWindow;
@@ -18,6 +19,8 @@ class GlobalUiControler;
 class IUiWidget;
 class PlotUnit;
 class DeviceConfig;
+class QProcess;
+class MessageServer;
 class StatusMonitor;
 
 class SDTMainWindow : public QMainWindow
@@ -80,6 +83,7 @@ private:
 
 signals:
   void initProgressInfo(int barValue,QString msg);
+  void sendDevConfigToServer(QByteArray block);
 private slots:
   void onActnOptionClicked();
   void onActnTbtnMoreClicked();
@@ -89,6 +93,8 @@ private slots:
   void onActnNewConfigClicked();
   void onActnSaveClicked();
   void onActnProduceClicked();
+  void onStartMsgReceived();
+  void onCloseMsgReceived();
 
   //响应option选项slots
   void onOptAutoLoadChanged(bool changed);
@@ -101,6 +107,7 @@ private slots:
   void onStatusBarPageChanged(int pIndex);
 
   void onPlotFloatingChanged(bool floating);
+  void startListen();
 
   //响应状态监视器
   void onDeviceAlarmError(quint16 devId,quint16 axisInx,bool hasError);
@@ -140,6 +147,12 @@ private:
   GlobalUiControler *m_gUiControl;
   OptContainer *m_optc;
   SdAssembly *m_currentSdAssembly;
+  bool m_produceClicked;
+  QProcess *m_process;
+  MessageServer *m_server;
+  
+  //-------socket-------
+
 
   PlotUnit *m_plot;
   bool m_connecting;
