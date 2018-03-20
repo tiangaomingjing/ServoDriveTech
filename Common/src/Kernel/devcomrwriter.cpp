@@ -216,14 +216,20 @@ DeviceConfig* DevComRWriter::buildConfigFromCom(quint8 devId, quint8 rnstation, 
   }
   else
   {
-    SdtError::instance()->errorStringList()->append(tr("\nEEPROM Error:"));
+    SdtError::instance()->errorStringList()->append(tr("\nError:"));
+    QString solution=tr("\nSolution:\n");
     int i=1;
     if(!pok)
     {
       if(idHelper.databaseHasPwrId()==false)
-        SdtError::instance()->errorStringList()->append(tr("  %1 your SDT software is too old ,Must update software").arg(i++));
+      {
+        SdtError::instance()->errorStringList()->append(tr("  %1 your SDT software is too old ,cannot find PowerBoard ID").arg(i++));
+        solution.append(tr("Must update the SDT software\n").arg(i));
+      }
       else
+      {
         SdtError::instance()->errorStringList()->append(tr("  %1 read powerboard eeprom error").arg(i++));
+      }
     }
     if(!cok)
       SdtError::instance()->errorStringList()->append(tr("  %1 read controlboard eeprom error").arg(i++));
@@ -232,11 +238,19 @@ DeviceConfig* DevComRWriter::buildConfigFromCom(quint8 devId, quint8 rnstation, 
     if(!fok)
       SdtError::instance()->errorStringList()->append(tr("  %1 read fpga version error").arg(i++));
 
-     SdtError::instance()->errorStringList()->append(tr("\nSolution:"));
-     SdtError::instance()->errorStringList()->append(tr(" 1 manual to select the software toolbar:\n  more->option->autolaod->unchecked clicked apply"));
-     SdtError::instance()->errorStringList()->append(tr("  and then toolbar:new ....select your correct version"));
-     SdtError::instance()->errorStringList()->append(tr(" 2 the communication firmware does not support,update fpga firmware"));
-     SdtError::instance()->errorStringList()->append(tr(" 3 contract factory to flash again EEPROM"));
+    if(idHelper.databaseHasPwrId())
+    {
+      QString str1=tr(" manual to select the software toolbar:\nmore->option->autolaod->unchecked clicked apply\n");
+      QString str2=tr("and then toolbar:new ....select your correct version");
+      solution.append(str1);
+      solution.append(str2);
+    }
+    SdtError::instance()->errorStringList()->append(solution);
+//     SdtError::instance()->errorStringList()->append(tr("\nSolution:"));
+//     SdtError::instance()->errorStringList()->append(tr(" 1 manual to select the software toolbar:\n  more->option->autolaod->unchecked clicked apply"));
+//     SdtError::instance()->errorStringList()->append(tr("  and then toolbar:new ....select your correct version"));
+//     SdtError::instance()->errorStringList()->append(tr(" 2 the communication firmware does not support,update fpga firmware"));
+//     SdtError::instance()->errorStringList()->append(tr(" 3 contract factory to flash again EEPROM"));
 
   }
 

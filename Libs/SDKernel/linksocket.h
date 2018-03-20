@@ -39,6 +39,8 @@ public:
 
   ComDriver::ICom *comObject() const;
 
+  bool adjust(void (*processCallBack)(void *argv, short *value), void *uiProcessBar);
+
 
 protected:
 

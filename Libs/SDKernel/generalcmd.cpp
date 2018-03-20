@@ -216,6 +216,11 @@ bool GeneralCmd::containsCmd(const QString &cmdName)
   return m_dataPtr->m_cmdMaps.contains(cmdName);
 }
 
+void GeneralCmd::setICom(ComDriver::ICom *icom)
+{
+  m_dataPtr->m_icom=icom;
+}
+
 void GeneralCmd::fillItemMaps(QTreeWidgetItem *item)
 {
   QTreeWidgetItem *childItem;

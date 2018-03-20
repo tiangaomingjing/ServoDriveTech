@@ -21,6 +21,8 @@ public:
   bool write(const QString &cmdWriteName,quint64 value,qint16 axisIndex);
   bool containsCmd(const QString &cmdName);
 
+  void setICom(ComDriver::ICom *icom);
+
 private:
   void fillItemMaps(QTreeWidgetItem *item);
 private:

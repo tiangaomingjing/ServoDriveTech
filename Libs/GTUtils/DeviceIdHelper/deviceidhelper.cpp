@@ -152,6 +152,15 @@ quint32 DeviceIdHelper::readFpgaId(bool &isOk)
   return m_fpgaId;
 }
 
+bool DeviceIdHelper::readFpgaDate(quint16 &year, quint16 &day)
+{
+  //需要从硬件读取
+  uint8_t fpgaInx = 0;
+  errcode_t err=0;
+  err=m_com->readFPGAYearDay(fpgaInx,year,day);
+  return err==0;
+}
+
 QString DeviceIdHelper::readVersion(bool &isOk)
 {
   //需要从硬件读取

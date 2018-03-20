@@ -38,6 +38,8 @@
 #include "sdterror.h"
 #include "messageserver.h"
 
+#include "deviceinfodialog.h"
+
 #include <QToolButton>
 #include <QDebug>
 #include <QTranslator>
@@ -745,12 +747,16 @@ void SDTMainWindow::onActnDisConnectClicked(bool checked)
 }
 void SDTMainWindow::onActnHelpDeviceInfoClicked()
 {
-  static bool test=true;
-  if(test)
-    this->showFullScreen();
-  else
-    showMaximized();
-  test=!test;
+  DeviceInfoDialog devInfo;
+  QList<SevDevice*>devList;
+  foreach (SdAssembly *sd, m_sdAssemblyList) {
+    devList.append(sd->sevDevice());
+  }
+  devInfo.setModal(true);
+  devInfo.show();
+  GTUtils::delayms(10);
+  devInfo.readInfo(devList);
+  devInfo.exec();
 }
 void SDTMainWindow::onActnNewConfigClicked()
 {

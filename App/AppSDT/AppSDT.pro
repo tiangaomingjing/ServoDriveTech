@@ -11,7 +11,8 @@ INCLUDEPATH+= $${PWD}/DialogOption\
               $${PWD}/ConfigDialog\
               $${PWD}/VerMatching\
               $${PWD}/MessageServer\
-              $${PWD}/StatusMonitor
+              $${PWD}/StatusMonitor\
+              $${PWD}/DeviceInfoDialog
 
 QT       += core gui qml sql network
 

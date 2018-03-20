@@ -28,6 +28,7 @@ public:
   quint32 readPwrId(bool &isOk);
   quint32 readCtrId(bool &isOk);
   quint32 readFpgaId(bool &isOk);
+  bool readFpgaDate(quint16 &year, quint16 &day);
   QString readVersion(bool &isOk);
 
   QString modeNameFromIdMap();

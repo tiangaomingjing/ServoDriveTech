@@ -21,9 +21,71 @@
      </property>
      <column>
       <property name="text">
-       <string notr="true">1</string>
+       <string>1</string>
       </property>
      </column>
+     <column>
+      <property name="text">
+       <string>新建列</string>
+      </property>
+     </column>
+     <item>
+      <property name="text">
+       <string>Config Information 1</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>SDT Info</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>Model</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Version</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>AxisNum</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ComType</string>
+        </property>
+       </item>
+      </item>
+      <item>
+       <property name="text">
+        <string>Current Device Info</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>SoftVersion</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>FirmwareVersion</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>FirmwareDate</string>
+        </property>
+       </item>
+      </item>
+     </item>
+    </widget>
+   </item>
+   <item>
+    <widget class="QProgressBar" name="progressBar">
+     <property name="value">
+      <number>24</number>
+     </property>
     </widget>
    </item>
    <item>
