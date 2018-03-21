@@ -34,13 +34,7 @@ IGraph::IGraph(IGraphPrivate &dd,QWidget *parent):d_ptr(&dd),QWidget(parent)
 
 void IGraph::visit(IUiWidget *uiWidget)
 {
-  Q_D(IGraph);
-
-  d->m_dev=uiWidget->device();
-  int axis=uiWidget->uiIndexs().axisInx;
-  int page=uiWidget->uiIndexs().pageInx;
-  d->m_treeWidget=d->m_dev->axisTreeSource(axis,page);
-  d->m_uiWidget=uiWidget;
+  initPrivateData(uiWidget);
 
   setUiVersionName();
 
@@ -59,6 +53,17 @@ void IGraph::visit(IUiWidget *uiWidget)
 void IGraph::syncTreeDataToUiFace()
 {
 
+}
+
+void IGraph::initPrivateData(IUiWidget *uiWidget)
+{
+  Q_D(IGraph);
+
+  d->m_dev=uiWidget->device();
+  int axis=uiWidget->uiIndexs().axisInx;
+  int page=uiWidget->uiIndexs().pageInx;
+  d->m_treeWidget=d->m_dev->axisTreeSource(axis,page);
+  d->m_uiWidget=uiWidget;
 }
 void IGraph::setEditTextStatus(QDoubleSpinBox *box, int status)
 {

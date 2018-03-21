@@ -14,7 +14,7 @@
    <string>AlarmLedMainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="1,1">
     <item>
      <widget class="QPushButton" name="pushButton">
       <property name="text">

@@ -1,9 +1,4 @@
-﻿#include "igraphstatus.h"
-#include "igraphstatus_p.h"
-
-#include <QGridLayout>
-#include <QTreeWidget>
-#include <QTreeWidgetItem>
+﻿#include "ledalarm.h"
 
 #include <QMenu>
 #include <QLabel>
@@ -12,8 +7,6 @@
 #include <QVBoxLayout>
 #include <QPainter>
 #include <QStyleOption>
-
-#define ALM_CODE_ALL_INX 3
 
 LedAlarm::LedAlarm(const QString &name, QWidget *parent, quint16 id, LedTextPosition pos) : QWidget(parent),
   m_id(id),
@@ -156,89 +149,3 @@ void LedAlarm::Led::setPassColor(const QColor &passColor)
   emit passColorChanged(m_passColor);
 }
 
-
-
-IGraphStatusPrivate::IGraphStatusPrivate()
-{
-
-}
-
-IGraphStatusPrivate::~IGraphStatusPrivate()
-{
-
-}
-
-//IGraphStatus::IGraphStatus(QWidget *parent) : IGraph(*(new IGraphStatusPrivate),parent)
-//{
-
-//}
-
-IGraphStatus::~IGraphStatus()
-{
-
-}
-
-void IGraphStatus::visit(IUiWidget *uiWidget)
-{
-  initPrivateData(uiWidget);
-  setUiVersionName();
-  setCustomVisitActive(uiWidget);
-  setupDataMappings();
-  setCommonConnections();
-}
-
-void IGraphStatus::setCustomVisitActive(IUiWidget *uiWidget)
-{
-  Q_D(IGraphStatus);
-
-  Q_UNUSED(uiWidget);
-  QWidget *widget=alarmBackgroundWidget();
-  if(!widget)
-    return;
-
-  QGridLayout *gridLayout=new QGridLayout(widget);
-  widget->setLayout(gridLayout);
-  QTreeWidgetItem *almCodeAllItem=d->m_treeWidget->topLevelItem(ALM_CODE_ALL_INX);
-  int count=almCodeAllItem->childCount();
-
-  int col=3;
-  int row=count/3;
-  int remain=count%3;
-  int rsv=0;
-  if(remain>0)
-    col++;
-  rsv=col-remain;
-
-  int addCount=0;
-  int i=0;
-  int j=0;
-  for(i=0;i<col;col++)
-  {
-    for(j=0;j<row;j++)
-    {
-      QLabel *label=new QLabel(this);
-      label->setText(tr("row=%1 col=%2").arg(row).arg(j));
-      gridLayout->addWidget(label,j,i);
-      addCount++;
-      if(addCount>=count)
-        break;
-    }
-  }
-  for(int k=0;k<rsv;k++)
-  {
-    QLabel *label=new QLabel(this);
-    label->setText(tr("row=%1 col=%2").arg(row).arg(j));
-    gridLayout->addWidget(label,j+k,i);
-  }
-
-}
-
-void IGraphStatus::onFaceCssChanged(const QString &css)
-{
-  setDeviceStatusIconByCss(css);
-}
-
-IGraphStatus::IGraphStatus(IGraphStatusPrivate &dd, QWidget *parent):IGraph(dd,parent)
-{
-
-}

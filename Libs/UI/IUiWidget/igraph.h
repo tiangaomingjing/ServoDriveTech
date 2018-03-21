@@ -20,10 +20,12 @@ public:
   virtual void syncTreeDataToUiFace();
 
 protected:
+
   virtual void setUiVersionName()=0;
   virtual void setCustomVisitActive(IUiWidget*uiWidget)=0;
   virtual void setupDataMappings()=0;
 
+  virtual void initPrivateData(IUiWidget *uiWidget);
   virtual void setEditTextStatus(QDoubleSpinBox *box,int status);
   virtual void setEditTextStatusDefaultAll();
 

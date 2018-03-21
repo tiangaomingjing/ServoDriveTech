@@ -16,7 +16,7 @@ public:
     LED_TEXT_BOTTOM
   };
 
-  explicit LedAlarm(const QString &name,QWidget *parent = 0, qint16 id=0,LedTextPosition pos = LED_TEXT_LEFT);
+  explicit LedAlarm(const QString &name,QWidget *parent = 0, quint16 id=0,LedTextPosition pos = LED_TEXT_LEFT);
   ~LedAlarm();
   void setLedName(const QString &name);
   void addMenuAction(QAction *action);
@@ -24,7 +24,6 @@ public:
   bool menuActive() const;
   void setMenuActive(bool active);
   void setError(bool error);
-  qint16 id() const;
 
 signals:
 
@@ -33,7 +32,7 @@ private:
   class Led;
   Led *m_led;
   QLabel *m_label;
-  qint16 m_id;
+  quint16 m_id;
   bool m_menuActive;
 };
 

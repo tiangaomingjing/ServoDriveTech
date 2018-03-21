@@ -1,6 +1,8 @@
 ﻿#include "graphstatus129.h"
 #include "ui_graphstatus129.h"
 #include "igraphstatus_p.h"
+
+#include <QGridLayout>
 class GraphStatus129Private:public IGraphStatusPrivate
 {
   Q_DECLARE_PUBLIC(GraphStatus129)
@@ -14,16 +16,13 @@ GraphStatus129::GraphStatus129(QWidget *parent) :
   ui(new Ui::GraphStatus129)
 {
   ui->setupUi(this);
+  QGridLayout *gridLayout=new QGridLayout(ui->widget_statusAlarm);
+  ui->widget_statusAlarm->setLayout(gridLayout);
 }
 
 GraphStatus129::~GraphStatus129()
 {
   delete ui;
-}
-
-void GraphStatus129::setCustomVisitActive(IUiWidget *uiWidget)
-{
-
 }
 void GraphStatus129::setUiVersionName()
 {
@@ -34,4 +33,14 @@ void GraphStatus129::setUiVersionName()
 void GraphStatus129::setupDataMappings()
 {
 
+}
+
+void GraphStatus129::setDeviceStatusIconByCss(const QString &css)
+{
+
+}
+
+QWidget *GraphStatus129::alarmBackgroundWidget()
+{
+  return ui->widget_statusAlarm;
 }
