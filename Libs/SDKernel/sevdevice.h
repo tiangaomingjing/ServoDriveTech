@@ -28,7 +28,7 @@ public:
   ~SevDevice();
   bool init(const DeviceConfig *dConfig);
 
-  void adjustSocket(ComDriver::ICom *com);
+  bool adjustSocket(void (*processCallBack)(void *argv, short *value), void *uiProcessBar);
   ComDriver::ICom *socketCom() const;
 
   bool enableConnection(void (*processCallBack)(void *argv, short *value), void *uiProcessBar);
@@ -59,6 +59,8 @@ public:
   void setVersionAttributeActive();
 
   bool checkNetStatus();
+
+  QString filePath() const;
 
   Q_INVOKABLE void qmlTest();
 

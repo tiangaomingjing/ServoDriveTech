@@ -7,6 +7,7 @@
 include (../../Libs.pri)
 INCLUDEPATH+=$${PWD}/../../SDKernel\
               $${PWD}/../../GTUtils\
+              $${PWD}/../../GTUtils/QtTreeManager\
               $${PWD}/../../Option\
               $${PWD}/SDTGraphicsItems
 
@@ -61,7 +62,8 @@ SOURCES += iuiwidget.cpp \
     SDTGraphicsItems/widgetitem.cpp \
     SDTGraphicsItems/labelitemwidget.cpp \
     SDTGraphicsItems/saturationitemwidget.cpp \
-    SDTGraphicsItems/frameitemwidget.cpp
+    SDTGraphicsItems/frameitemwidget.cpp \
+    ../../../Common/src/ledalarm.cpp
 
 HEADERS += iuiwidget.h\
         iuiwidget_global.h \
@@ -100,7 +102,8 @@ HEADERS += iuiwidget.h\
     SDTGraphicsItems/SDTGraphicsItems \
     SDTGraphicsItems/labelitemwidget.h \
     SDTGraphicsItems/saturationitemwidget.h \
-    SDTGraphicsItems/frameitemwidget.h
+    SDTGraphicsItems/frameitemwidget.h \
+    ../../../Common/src/ledalarm.h
 
 unix {
     target.path = /usr/lib

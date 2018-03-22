@@ -203,22 +203,34 @@ DeviceConfig* DevComRWriter::buildConfigFromCom(quint8 devId, quint8 rnstation, 
     qDebug()<<"config->m_modeName"<<config->m_modeName;
     qDebug()<<"config->m_typeName"<<config->m_typeName;
 
-    //加软件是否支持当前配置判断?
+    //加软件是否支持当前配置判断? 主要是查V129 V130 ...有没有在软件中
+    //如果没有的话，自动选择一个比较新的版本（为了让客户用老的软件也可以调新的固件)
     bool support=true;
     support=checkSupport(config);
     if(!support)
     {
-      delete config;
-      config=NULL;
-      SdtError::instance()->errorStringList()->append(tr("your software is not support the device\nplease update from\n\nhttp://www.googoltech.com.cn\n"));
+//      delete config;
+//      config=NULL;
+//      SdtError::instance()->errorStringList()->append(tr("your software is too old ,not support the current device\nplease update from\n\nhttp://www.googoltech.com.cn\n"));
     }
   }
   else
   {
-    SdtError::instance()->errorStringList()->append(tr("\nEEPROM Error:"));
+    SdtError::instance()->errorStringList()->append(tr("\nError:"));
+    QString solution=tr("\nSolution:\n");
     int i=1;
     if(!pok)
-      SdtError::instance()->errorStringList()->append(tr("  %1 read powerboard eeprom error").arg(i++));
+    {
+      if(idHelper.databaseHasPwrId()==false)
+      {
+        SdtError::instance()->errorStringList()->append(tr("  %1 your SDT software is too old ,cannot find PowerBoard ID").arg(i++));
+        solution.append(tr("Must update the SDT software\n").arg(i));
+      }
+      else
+      {
+        SdtError::instance()->errorStringList()->append(tr("  %1 read powerboard eeprom error").arg(i++));
+      }
+    }
     if(!cok)
       SdtError::instance()->errorStringList()->append(tr("  %1 read controlboard eeprom error").arg(i++));
     if(!vok)
@@ -226,11 +238,19 @@ DeviceConfig* DevComRWriter::buildConfigFromCom(quint8 devId, quint8 rnstation, 
     if(!fok)
       SdtError::instance()->errorStringList()->append(tr("  %1 read fpga version error").arg(i++));
 
-     SdtError::instance()->errorStringList()->append(tr("\nSolution:"));
-     SdtError::instance()->errorStringList()->append(tr(" 1 manual to select the software toolbar:\n  more->option->autolaod->unchecked clicked apply"));
-     SdtError::instance()->errorStringList()->append(tr("  and then toolbar:new ....select your correct version"));
-     SdtError::instance()->errorStringList()->append(tr(" 2 the communication firmware does not support,update fpga firmware"));
-     SdtError::instance()->errorStringList()->append(tr(" 3 contract factory to flash again EEPROM"));
+    if(idHelper.databaseHasPwrId())
+    {
+      QString str1=tr(" manual to select the software toolbar:\nmore->option->autolaod->unchecked clicked apply\n");
+      QString str2=tr("and then toolbar:new ....select your correct version");
+      solution.append(str1);
+      solution.append(str2);
+    }
+    SdtError::instance()->errorStringList()->append(solution);
+//     SdtError::instance()->errorStringList()->append(tr("\nSolution:"));
+//     SdtError::instance()->errorStringList()->append(tr(" 1 manual to select the software toolbar:\n  more->option->autolaod->unchecked clicked apply"));
+//     SdtError::instance()->errorStringList()->append(tr("  and then toolbar:new ....select your correct version"));
+//     SdtError::instance()->errorStringList()->append(tr(" 2 the communication firmware does not support,update fpga firmware"));
+//     SdtError::instance()->errorStringList()->append(tr(" 3 contract factory to flash again EEPROM"));
 
   }
 
@@ -289,17 +309,19 @@ bool DevComRWriter::checkSupport(DeviceConfig *config)
     {
 
       QTreeWidgetItem *verItem=findItemByText(modelItem,config->m_version);
-      qDebug()<<"version"<<config->m_version;
-      qDebug()<<"TEST_OUT"<<"QTreeWidgetItem *verItem=findItemByText(modelItem,config->m_version)";
       if(verItem==NULL)
+      {
+        qDebug()<<"cannot find current device :"<<config->m_version<<" auto set the lastest version"<<modelItem->child(modelItem->childCount()-1)->text(0);
+        config->m_version=modelItem->child(modelItem->childCount()-1)->text(0);
         isFind=false;
+      }
     }
     else
       isFind=false;
   }
   else
     isFind=false;
-  qDebug()<<"TEST_OUT"<<"delete selectTree";
+
   delete selectTree;
 
   return isFind;

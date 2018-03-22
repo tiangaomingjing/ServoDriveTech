@@ -12,7 +12,11 @@ INCLUDEPATH+= $${PWD}/DialogOption\
               $${PWD}/VerMatching\
               $${PWD}/MessageServer\
               $${PWD}/StatusMonitor\
+<<<<<<< HEAD
               $${PWD}/CombinedWindow\
+=======
+              $${PWD}/DeviceInfoDialog
+>>>>>>> upstream/jiang
 
 QT       += core gui qml sql network
 
@@ -51,7 +55,11 @@ SOURCES += main.cpp\
     MessageServer/clientsocket.cpp \
     MessageServer/messageserver.cpp \
     StatusMonitor/statusmonitor.cpp \
+<<<<<<< HEAD
     CombinedWindow/combinedwindow.cpp
+=======
+    DeviceInfoDialog/deviceinfodialog.cpp
+>>>>>>> upstream/jiang
 
 HEADERS  += sdtmainwindow.h \
     appiconname.h \
@@ -81,14 +89,22 @@ HEADERS  += sdtmainwindow.h \
     MessageServer/clientsocket.h \
     MessageServer/messageserver.h \
     StatusMonitor/statusmonitor.h \
+<<<<<<< HEAD
     CombinedWindow/combinedwindow.h
+=======
+    DeviceInfoDialog/deviceinfodialog.h
+>>>>>>> upstream/jiang
 
 FORMS    += sdtmainwindow.ui \
     DialogOption/dialogoption.ui \
     SdtStatusBar/sdtstatusbar.ui \
     SdtStatusBar/statuserrdialog.ui \
     ConfigDialog/configdialog.ui \
+<<<<<<< HEAD
     CombinedWindow/combinedwindow.ui
+=======
+    DeviceInfoDialog/deviceinfodialog.ui
+>>>>>>> upstream/jiang
 
 TRANSLATIONS    += ch_main.ts en_main.ts
 

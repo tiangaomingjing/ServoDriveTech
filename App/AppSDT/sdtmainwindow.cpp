@@ -38,6 +38,8 @@
 #include "sdterror.h"
 #include "messageserver.h"
 
+#include "deviceinfodialog.h"
+
 #include <QToolButton>
 #include <QDebug>
 #include <QTranslator>
@@ -348,7 +350,9 @@ void SDTMainWindow::navigationTreeInit()
     sd=m_sdAssemblyList.at(i);
     axisNum=sd->sevDevice()->axisNum();
     deviceItem=new QTreeWidgetItem(ui->treeWidget);
-    deviceItem->setText(COL_TARGET_CONFIG_NAME,sd->sevDevice()->modelName());
+    QString prefix;
+//    prefix=QString("[%1] ").arg(i+1);
+    deviceItem->setText(COL_TARGET_CONFIG_NAME,prefix+sd->sevDevice()->modelName());
     deviceItem->setText(COL_TARGET_CONFIG_PRM,QString::number(axisNum));
     qDebug()<<"deviceItem->setText";
 
@@ -515,6 +519,7 @@ void SDTMainWindow::setNavCurrentSelectedInfo()
     info.prepend(item->text(0)+" ");
     item=itemParent;
   }
+  info.prepend(item->text(2)+" ");
   info.prepend(item->text(0)+" ");
   ui->dockWidgetNav->setWindowTitle(info);
 }
@@ -740,12 +745,16 @@ void SDTMainWindow::onActnDisConnectClicked(bool checked)
 }
 void SDTMainWindow::onActnHelpDeviceInfoClicked()
 {
-  static bool test=true;
-  if(test)
-    this->showFullScreen();
-  else
-    showMaximized();
-  test=!test;
+  DeviceInfoDialog devInfo;
+  QList<SevDevice*>devList;
+  foreach (SdAssembly *sd, m_sdAssemblyList) {
+    devList.append(sd->sevDevice());
+  }
+  devInfo.setModal(true);
+  devInfo.show();
+  GTUtils::delayms(10);
+  devInfo.readInfo(devList);
+  devInfo.exec();
 }
 void SDTMainWindow::onActnNewConfigClicked()
 {
@@ -796,15 +805,6 @@ void SDTMainWindow::onProgressInfo(int barValue,QString msg)
 void SDTMainWindow::onNavTreeWidgetItemClicked(QTreeWidgetItem *item, int column)
 {
   Q_UNUSED(column);
-  QFont font;
-  font.setBold(false);
-  QTreeWidgetItemIterator it(ui->treeWidget);
-  while (*it) {
-    (*it)->setFont(column,font);
-    it++;
-  }
-  font.setBold(true);
-  item->setFont(column,font);
 
   if(item->childCount()==0)
   {

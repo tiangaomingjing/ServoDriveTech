@@ -8,8 +8,7 @@
 #include <QTreeWidgetItem>
 #include <QTreeWidgetItemIterator>
 #include <QDebug>
-#define IDMAP_FILENAME "IdMap.ui"
-#define IDMAP_FILENAME_COPY "IdMap_copy.ui"
+#define IDMAP_FILENAME "IdMap_Power.ui"
 #define PWR_BASE_ADDR 64
 #define CTR_BASE_ADDR 128
 using namespace ComDriver;
@@ -20,7 +19,8 @@ DeviceIdHelper::DeviceIdHelper(QObject *parent):QObject(parent),
   m_fpgaId(0),
   m_axisNum(4),
   m_typeName("SD4x"),
-  m_modeName("SD42")
+  m_modeName("SD42"),
+  m_hasPwrId(true)
 {
 
 }
@@ -31,7 +31,8 @@ DeviceIdHelper::DeviceIdHelper(ComDriver::ICom *com, QObject *parent) : QObject(
   m_fpgaId(0),
   m_axisNum(4),
   m_typeName("SD4x"),
-  m_modeName("SD42")
+  m_modeName("SD42"),
+  m_hasPwrId(true)
 {
 
 }
@@ -71,7 +72,7 @@ quint32 DeviceIdHelper::readPwrId(bool &isOk)
   m_pwrId = id;
 
 
-  QString idMapPath=GTUtils::databasePath()+IDMAP_FILENAME;
+  QString idMapPath=GTUtils::databasePath()+"Board/PB/"+IDMAP_FILENAME;
   QTreeWidget *idMapTree=QtTreeManager::createTreeWidgetFromXmlFile(idMapPath);
   bool findId=false;
   {
@@ -96,9 +97,12 @@ quint32 DeviceIdHelper::readPwrId(bool &isOk)
   if(findId==false)
   {
     //NEED TO REWRITE
-    m_typeName="";
-    m_modeName="";
+    //在IdMap_Power.ui文件中找不到这个ID，说明固件是新的，而调试软件是老版的，提示用户用手动方式进入，或是升级调试软件
+    m_typeName="NULL";
+    m_modeName="NULL";
     m_axisNum=0;
+    m_hasPwrId=false;
+    isOk=false;
   }
   delete idMapTree;
 
@@ -148,6 +152,15 @@ quint32 DeviceIdHelper::readFpgaId(bool &isOk)
   return m_fpgaId;
 }
 
+bool DeviceIdHelper::readFpgaDate(quint16 &year, quint16 &day)
+{
+  //需要从硬件读取
+  uint8_t fpgaInx = 0;
+  errcode_t err=0;
+  err=m_com->readFPGAYearDay(fpgaInx,year,day);
+  return err==0;
+}
+
 QString DeviceIdHelper::readVersion(bool &isOk)
 {
   //需要从硬件读取
@@ -182,6 +195,11 @@ quint8 DeviceIdHelper::axisNumFromIdMap()
 //  return 4;
 //  return 6;
   return m_axisNum;
+}
+
+bool DeviceIdHelper::databaseHasPwrId() const
+{
+  return m_hasPwrId;
 }
 
 

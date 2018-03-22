@@ -20,12 +20,12 @@ LinkSocket::LinkSocket(SevDevicePrivate *sev, QObject *parent):QObject(parent),q
   switch(sev->m_devConfig->m_comType)
   {
   case ICOM_TYPE_PCDEBUG:
-    m_com=new PcDebug(tr("PcDebug").toStdString());
+    m_com=new PcDebug();
     qDebug()<<"com is pcdebug";
     break;
   case ICOM_TYPE_RNNET:
   {
-    RnNet *rnNet=new RnNet(tr("RnNet").toStdString());
+    RnNet *rnNet=new RnNet();
     rnNet->setRnStation(sev->m_devConfig->m_rnStationId);
     m_com=rnNet;
     qDebug()<<"com is rn net";
@@ -295,4 +295,44 @@ void LinkSocket::setTryWriteCount(quint8 tryWriteCount)
 ComDriver::ICom *LinkSocket::comObject() const
 {
   return m_com;
+}
+
+bool LinkSocket::adjust(void (*processCallBack)(void *, short *), void *uiProcessBar)
+{
+  errcode_t err=0;
+  err=m_com->open(processCallBack,uiProcessBar);
+  m_com->close();
+  qDebug()<<"adjust 1";
+  if(err==0)
+    return true;
+
+  //先保存原来的com
+  ComDriver::ICom *prevCom=m_com;
+  ComDriver::ICom *newCom=NULL;
+
+  if(m_com->iComType()==ComDriver::ICOM_TYPE_RNNET)
+  {
+    newCom=new PcDebug();
+  }
+  else if(m_com->iComType()==ComDriver::ICOM_TYPE_PCDEBUG)
+  {
+    newCom=new RnNet();
+  }
+  err=newCom->open(processCallBack,uiProcessBar);
+  newCom->close();
+  if(err==0)
+  {
+    //找到了对应的通信方式
+    m_com=newCom;
+    delete prevCom;
+  }
+  else
+  {
+    delete newCom;
+  }
+
+  m_genCmd->setICom(m_com);
+  qDebug()<<"adjust end"<<QString::fromStdString(m_com->iComObjectName());
+
+  return err==0;
 }

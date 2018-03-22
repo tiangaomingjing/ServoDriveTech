@@ -9,7 +9,6 @@
 #include "sevctrboard.h"
 #include "verattribute.h"
 #include "Option"
-#include "generalcmd.h"
 
 #include <QTreeWidget>
 #include <QStringList>
@@ -156,10 +155,19 @@ bool SevDevice::init(const DeviceConfig *dConfig)
   return d->init(dConfig);
 }
 
-void SevDevice::adjustSocket(ComDriver::ICom *com)
+bool SevDevice::adjustSocket(void (*processCallBack)(void *argv, short *value), void *uiProcessBar)
 {
   Q_D(SevDevice);
-//  d->m_socket->connect();
+  qDebug()<<"adjustSocket isConnecting="<<isConnecting();
+  if(isConnecting())
+  {
+    return true;
+  }
+  else
+  {
+    qDebug()<<"socket start adjust.....";
+    return d->m_socket->adjust(processCallBack,uiProcessBar);
+  }
 }
 ComDriver::ICom *SevDevice::socketCom() const
 {
@@ -214,6 +222,7 @@ bool SevDevice::readGenRAM(quint16 axisInx, QTreeWidget *pageTree)
   {
     item=(*it);
     type=item->text(COL_PAGE_TREE_TYPE);
+    //通用指令表中有这个才读取
     if(d->m_socket->containsCmd(item->text(COL_PAGE_TREE_NAME)))
     {
       rv=d->m_socket->genCmdRead(item->text(COL_PAGE_TREE_NAME),axisInx,rOk);
@@ -384,6 +393,7 @@ bool SevDevice::checkNetStatus()
       quint64 ret=errtest.at(i);
     #elif TEST_CHECKSTATUS==0
       quint64 ret=genCmdRead(CMD_PRO_ALM_FLAG,i,offline);
+//      qDebug()<<"read status "<<i<<"value="<<ret<<offline;
     #endif
 
     if(!offline)
@@ -397,6 +407,12 @@ bool SevDevice::checkNetStatus()
 
 
   return offline;
+}
+
+QString SevDevice::filePath() const
+{
+  Q_D(const SevDevice);
+  return d->m_filePath;
 }
 
 void SevDevice::qmlTest()

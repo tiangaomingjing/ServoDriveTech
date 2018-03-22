@@ -147,11 +147,11 @@ private:
   GlobalUiControler *m_gUiControl;
   OptContainer *m_optc;
   SdAssembly *m_currentSdAssembly;
+  
+  //-------socket-------
   bool m_produceClicked;
   QProcess *m_process;
   MessageServer *m_server;
-  
-  //-------socket-------
 
 
   PlotUnit *m_plot;
