@@ -14,11 +14,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         alarmledmainwindow.cpp \
-    ledalarm.cpp \
-    qflowlayout.cpp
+    qflowlayout.cpp \
+    ../../Common/src/ledalarm.cpp
 
 HEADERS  += alarmledmainwindow.h \
-    ledalarm.h \
-    qflowlayout.h
+    qflowlayout.h \
+    ../../Common/src/ledalarm.h
 
 FORMS    += alarmledmainwindow.ui

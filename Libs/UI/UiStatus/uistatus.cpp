@@ -1,6 +1,7 @@
 ﻿#include "uistatus.h"
 #include "ui_uistatus.h"
 #include "iuiwidget_p.h"
+#include "igraphstatus.h"
 
 #include <QQuickWidget>
 #include <QQmlContext>
@@ -12,7 +13,7 @@ public:
   UiStatusPrivate();
   ~UiStatusPrivate();
 protected:
-  int test;
+  IGraphStatus *m_graphStatus;
 };
 UiStatusPrivate::UiStatusPrivate()
 {
@@ -34,7 +35,11 @@ UiStatus::~UiStatus()
 }
 void UiStatus::accept(QWidget *w)
 {
+  Q_D(UiStatus);
   ui->qmlHboxLayout->addWidget(w);
+
+  d->m_graphStatus=dynamic_cast<IGraphStatus *>(w);
+  d->m_graphStatus->visit(this);
 }
 
 QStackedWidget *UiStatus::getUiStackedWidget(void)

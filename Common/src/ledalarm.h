@@ -59,6 +59,8 @@ public:
 
 protected:
   void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+
+  int fontWidth() const;
 signals:
   void passColorChanged(const QColor &color);
   void errorColorChanged(const QColor &color);

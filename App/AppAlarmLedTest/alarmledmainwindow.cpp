@@ -37,7 +37,61 @@ AlarmLedMainWindow::AlarmLedMainWindow(QWidget *parent) :
   QGridLayout *gridLayout=new QGridLayout;
   gridLayout->setContentsMargins(50,0,0,0);
 
+  QTreeWidgetItem *alarmItem=tree->topLevelItem(0);
 
+  int count=alarmItem->childCount();
+
+  int col=4;
+  int row=count/col;
+  int remain=count%col;
+  int rsv=0;
+  if(remain>0)
+  {
+    row++;
+    rsv=col-remain;
+  }
+  qDebug()<<tr("col=%1 row=%2 rsv=%3").arg(col).arg(row).arg(rsv);
+
+  int rowInx=0;
+  int colInx=0;
+  QTreeWidgetItem *item=NULL;
+  QAction *action=NULL;
+  for(int i=0;i<alarmItem->childCount();i++)
+  {
+    item=alarmItem->child(i);
+    led=new LedAlarm(tr("%1").arg(item->text(1)),this,i);
+    action=new QAction(tr("config mask"),led);
+    led->addMenuAction(action);
+    action=new QAction(tr("save mask"),led);
+    led->addMenuAction(action);
+    action=new QAction(tr("restore"),led);
+    led->addMenuAction(action);
+
+    qDebug()<<"addwidget"<<"row"<<rowInx<<"col"<<colInx<<"count"<<i;
+    gridLayout->addWidget(led,rowInx,colInx);
+    rowInx++;
+    if(rowInx>=row)
+    {
+      rowInx=0;
+      colInx++;
+    }
+  }
+
+  for(int k=0;k<rsv;k++)
+  {
+    led=new LedAlarm(tr("hello %1").arg(rowInx),this,-1);
+    act=new QAction("Action3",led);
+    led->addMenuAction(act);
+    act=new QAction("Action4",led);
+    led->addMenuAction(act);
+
+    gridLayout->addWidget(led,rowInx,colInx);
+    rowInx++;
+  }
+
+    ui->verticalLayout->addLayout(gridLayout);
+
+/***********************
   int count=31;
 
   int col=4;
@@ -90,6 +144,9 @@ AlarmLedMainWindow::AlarmLedMainWindow(QWidget *parent) :
   }
   ui->verticalLayout->addLayout(gridLayout);
 
+********************************/
+
+
 //  QFlowLayout *flayout=new QFlowLayout;
 //  ui->verticalLayout->addLayout(flayout);
 
@@ -103,8 +160,9 @@ AlarmLedMainWindow::AlarmLedMainWindow(QWidget *parent) :
 //    act=new QAction("Action4",menu);
 //    led->addMenuAction(act);
 //  }
-  ui->pushButton->hide();
-  ui->pushButton_2->hide();
+
+    LedAlarm *alarm=new LedAlarm("test flag",0,-1,LedAlarm::LED_TEXT_BOTTOM);
+    alarm->show();
 }
 
 AlarmLedMainWindow::~AlarmLedMainWindow()

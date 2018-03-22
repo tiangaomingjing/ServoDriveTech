@@ -409,6 +409,12 @@ bool SevDevice::checkNetStatus()
   return offline;
 }
 
+QString SevDevice::filePath() const
+{
+  Q_D(const SevDevice);
+  return d->m_filePath;
+}
+
 void SevDevice::qmlTest()
 {
   qDebug()<<"this is qml signals to device";

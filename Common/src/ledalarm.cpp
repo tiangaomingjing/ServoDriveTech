@@ -7,6 +7,7 @@
 #include <QVBoxLayout>
 #include <QPainter>
 #include <QStyleOption>
+#include <QSpacerItem>
 
 LedAlarm::LedAlarm(const QString &name, QWidget *parent, qint16 id, LedTextPosition pos) : QWidget(parent),
   m_id(id),
@@ -19,6 +20,7 @@ LedAlarm::LedAlarm(const QString &name, QWidget *parent, qint16 id, LedTextPosit
     QVBoxLayout *vLayout=new QVBoxLayout(this);
     vLayout->addWidget(m_led);
     vLayout->addWidget(m_label);
+    m_label->setAlignment(Qt::AlignHCenter);
     vLayout->setStretch(0,0);
     vLayout->setStretch(1,1);
     setLayout(vLayout);
@@ -79,7 +81,9 @@ LedAlarm::Led::Led(LedAlarm *parent):QPushButton(parent),
   m_hasError(false)
 {
   setMenu(m_menu);
-  setSizePolicy(QSizePolicy(QSizePolicy::Preferred,QSizePolicy::Expanding));
+  setMinimumSize(fontWidth(),fontWidth());
+  setSizePolicy(QSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding));
+
 }
 
 LedAlarm::Led::~Led()
@@ -89,7 +93,7 @@ LedAlarm::Led::~Led()
 
 QSize LedAlarm::Led::sizeHint() const
 {
-  int width=fontMetrics().width("m")*5;
+  int width=fontWidth();
   return QSize(width,width);
 }
 
@@ -120,13 +124,18 @@ void LedAlarm::Led::paintEvent(QPaintEvent *event)
   qreal x=width()/2;
   qreal y=height()/2;
   QPointF center(x,y);
-  qreal r=x-adjust;
+  qreal r=fontWidth()/2-adjust;
 
   painter.drawEllipse(center,r,r);
 
   pen.setColor(frameColor);
   painter.setPen(pen);
   painter.drawEllipse(center,r,r);
+}
+
+int LedAlarm::Led::fontWidth() const
+{
+  return fontMetrics().width("m")*4;
 }
 
 QColor LedAlarm::Led::errorColor() const

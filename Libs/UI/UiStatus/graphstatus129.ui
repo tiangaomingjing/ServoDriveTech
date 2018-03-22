@@ -16,7 +16,7 @@
   <property name="styleSheet">
    <string notr="true">QWidget#widget_statusAlarm,QWidget#widget_statusInfo{
 background-color: #E0DDDD;
-border-radius:5px;
+border-radius:10px;
 border:2px solid #BBB9B9;
 }</string>
   </property>
@@ -26,7 +26,7 @@ border:2px solid #BBB9B9;
    </property>
    <item>
     <widget class="QWidget" name="widget_statusInfo" native="true">
-     <layout class="QVBoxLayout" name="verticalLayout">
+     <layout class="QVBoxLayout" name="verticalLayout_statusInfo">
       <item>
        <widget class="QLabel" name="label_statusIcon">
         <property name="text">

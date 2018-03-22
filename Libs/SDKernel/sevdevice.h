@@ -60,6 +60,8 @@ public:
 
   bool checkNetStatus();
 
+  QString filePath() const;
+
   Q_INVOKABLE void qmlTest();
 
 signals:

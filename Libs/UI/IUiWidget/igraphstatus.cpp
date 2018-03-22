@@ -1,164 +1,25 @@
 ﻿#include "igraphstatus.h"
 #include "igraphstatus_p.h"
+#include "ledalarm.h"
+#include "qttreemanager.h"
+#include "sevdevice.h"
+#include "iuiwidget.h"
 
 #include <QGridLayout>
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
-
-#include <QMenu>
+#include <QDebug>
 #include <QLabel>
-#include <QLayout>
-#include <QHBoxLayout>
+#include <QAction>
 #include <QVBoxLayout>
-#include <QPainter>
-#include <QStyleOption>
 
+#define UI_LAYOUT_LED_ALARM_COL 4
+#define ALM_DETAIL_FILE_NAME "PrmFuncDeviceStatusAlarmInfo.xml"
 #define ALM_CODE_ALL_INX 3
 
-LedAlarm::LedAlarm(const QString &name, QWidget *parent, quint16 id, LedTextPosition pos) : QWidget(parent),
-  m_id(id),
-  m_label(new QLabel(name,this)),
-  m_menuActive(false),
-  m_led(new LedAlarm::Led(this))
-{
-  QLayout *layout=NULL;
-  if(pos==LED_TEXT_BOTTOM)
-  {
-    layout=new QVBoxLayout(this);
-  }
-  else
-  {
-    layout=new QHBoxLayout(this);
-  }
-  layout->addWidget(m_led);
-  layout->addWidget(m_label);
-  setLayout(layout);
-}
 
-LedAlarm::~LedAlarm()
-{
-}
-
-void LedAlarm::setLedName(const QString &name)
-{
-  m_label->setText(name);
-}
-
-void LedAlarm::addMenuAction(QAction *action)
-{
-  m_led->menu()->addAction(action);
-}
-
-bool LedAlarm::menuActive() const
-{
-  return m_menuActive;
-}
-
-void LedAlarm::setMenuActive(bool active)
-{
-  m_menuActive = active;
-  m_led->menu()->setEnabled(active);
-}
-
-void LedAlarm::setError(bool error)
-{
-  m_led->setError(error);
-}
-
-
-LedAlarm::Led::Led(LedAlarm *parent):QPushButton(parent),
-  m_menu(new QMenu(this)),
-  m_parent(parent),
-  m_passColor(Qt::green),
-  m_errorColor(Qt::red),
-  m_hasError(false)
-{
-  setMenu(m_menu);
-  setStyleSheet("background-color:yellow");
-  setSizePolicy(QSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding));
-}
-
-LedAlarm::Led::~Led()
-{
-
-}
-
-QSize LedAlarm::Led::sizeHint() const
-{
-  int width=fontMetrics().width("m")*2;
-  return QSize(width,width);
-}
-
-void LedAlarm::Led::paintEvent(QPaintEvent *event)
-{
-  Q_UNUSED(event);
-
-  QStyleOption opt;
-  opt.init(this);
-  QPainter painter(this);
-  style()->drawPrimitive(QStyle::PE_Widget, &opt, &painter, this);
-  painter.setRenderHint(QPainter::Antialiasing,true);
-  QPen pen;
-  pen.setWidth(2);
-  QColor color;
-  if(m_hasError)
-    color=m_errorColor;
-  else
-    color=m_passColor;
-  pen.setColor(color);
-//  painter.setPen(pen);
-  painter.setBrush(QBrush(color));
-
-  QColor frameColor=color.lighter();
-
-  int w=width();
-  qreal adjust=pen.width()/2;
-  painter.drawEllipse(0+adjust,0+adjust,w-adjust*2,w-adjust*2);
-
-  pen.setColor(frameColor);
-  painter.setPen(pen);
-  painter.drawEllipse(0+adjust,0+adjust,w-adjust*2,w-adjust*2);
-}
-
-QColor LedAlarm::Led::errorColor() const
-{
-  return m_errorColor;
-}
-
-void LedAlarm::Led::setErrorColor(const QColor &errorColor)
-{
-  m_errorColor = errorColor;
-  emit errorColorChanged(m_errorColor);
-}
-
-bool LedAlarm::Led::hasError() const
-{
-  return m_hasError;
-}
-
-void LedAlarm::Led::setError(bool error)
-{
-  if(m_hasError!=error)
-  {
-    m_hasError=error;
-    update();
-  }
-}
-
-QColor LedAlarm::Led::passColor() const
-{
-  return m_passColor;
-}
-
-void LedAlarm::Led::setPassColor(const QColor &passColor)
-{
-  m_passColor = passColor;
-  emit passColorChanged(m_passColor);
-}
-
-
-
-IGraphStatusPrivate::IGraphStatusPrivate()
+IGraphStatusPrivate::IGraphStatusPrivate():
+  m_ledFlag(NULL)
 {
 
 }
@@ -197,40 +58,71 @@ void IGraphStatus::setCustomVisitActive(IUiWidget *uiWidget)
     return;
 
   QGridLayout *gridLayout=new QGridLayout(widget);
-  widget->setLayout(gridLayout);
-  QTreeWidgetItem *almCodeAllItem=d->m_treeWidget->topLevelItem(ALM_CODE_ALL_INX);
-  int count=almCodeAllItem->childCount();
+  gridLayout->setMargin(35);
 
-  int col=3;
-  int row=count/3;
-  int remain=count%3;
+  QTreeWidget *tree=QtTreeManager::createTreeWidgetFromXmlFile(d->m_dev->filePath()+ALM_DETAIL_FILE_NAME);
+  QTreeWidgetItem *alarmItem=tree->topLevelItem(0);
+
+  int count=alarmItem->childCount();
+
+  int col=4;
+  int row=count/col;
+  int remain=count%col;
   int rsv=0;
   if(remain>0)
-    col++;
-  rsv=col-remain;
-
-  int addCount=0;
-  int i=0;
-  int j=0;
-  for(i=0;i<col;col++)
   {
-    for(j=0;j<row;j++)
+    row++;
+    rsv=col-remain;
+  }
+  qDebug()<<tr("col=%1 row=%2 rsv=%3").arg(col).arg(row).arg(rsv);
+
+  int rowInx=0;
+  int colInx=0;
+  QTreeWidgetItem *item=NULL;
+  QAction *action=NULL;
+  LedAlarm *led=NULL;
+  for(int i=0;i<alarmItem->childCount();i++)
+  {
+    item=alarmItem->child(i);
+    led=new LedAlarm(tr("%1").arg(item->text(1)),this,i);
+    led->setToolTip(tr("Cause:\n%1\nSolution:\n%2").arg(item->text(2)).arg(item->text(3)));
+    action=new QAction(tr("config mask"),led);
+    led->addMenuAction(action);
+    action=new QAction(tr("save mask"),led);
+    led->addMenuAction(action);
+    action=new QAction(tr("restore"),led);
+    led->addMenuAction(action);
+    d->m_ledAlarmList.append(led);
+
+    qDebug()<<"addwidget"<<"row"<<rowInx<<"col"<<colInx<<"count"<<i;
+    gridLayout->addWidget(led,rowInx,colInx);
+    rowInx++;
+    if(rowInx>=row)
     {
-      QLabel *label=new QLabel(this);
-      label->setText(tr("row=%1 col=%2").arg(row).arg(j));
-      gridLayout->addWidget(label,j,i);
-      addCount++;
-      if(addCount>=count)
-        break;
+      rowInx=0;
+      colInx++;
     }
   }
+
   for(int k=0;k<rsv;k++)
   {
-    QLabel *label=new QLabel(this);
-    label->setText(tr("row=%1 col=%2").arg(row).arg(j));
-    gridLayout->addWidget(label,j+k,i);
-  }
+    led=new LedAlarm(tr("hello %1").arg(rowInx),this,-1);
 
+    gridLayout->addWidget(led,rowInx,colInx);
+    rowInx++;
+  }
+  widget->setLayout(gridLayout);
+  delete tree;
+
+  addLedErrorTitle();
+
+}
+
+void IGraphStatus::addLedErrorTitle()
+{
+  Q_D(IGraphStatus);
+  d->m_ledFlag=new LedAlarm(tr("CurrentAxis:%1").arg(d->m_uiWidget->uiIndexs().axisInx),this,-1,LedAlarm::LED_TEXT_BOTTOM);
+  addLedErrorToUi();
 }
 
 void IGraphStatus::onFaceCssChanged(const QString &css)

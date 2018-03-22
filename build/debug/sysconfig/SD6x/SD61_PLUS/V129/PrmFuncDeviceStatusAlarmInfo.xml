@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>895</width>
-    <height>588</height>
+    <height>602</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -266,7 +266,7 @@
         <string>gSevDrv.sev_obj.cur.pro.alm_code.bit.OPRE</string>
        </property>
        <property name="text">
-        <string>过压力</string>
+        <string>保留</string>
        </property>
        <property name="text">
         <string/>

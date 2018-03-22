@@ -80,7 +80,8 @@ SOURCES += main.cpp \
     Kernel/globaluicontroler.cpp \
     test.c \
     SdtGlobal/sdtglobaldef.cpp \
-    Kernel/sdterror.cpp
+    Kernel/sdterror.cpp \
+    ledalarm.cpp
 
 
 HEADERS += \
@@ -98,7 +99,8 @@ HEADERS += \
     Kernel/globaluicontroler.h \
     test.h \
     SdtGlobal/sdtglobaldef.h \
-    Kernel/sdterror.h
+    Kernel/sdterror.h \
+    ledalarm.h
 
 DISTFILES += \
     ../../build/debug/custom/option/qmlstyle/MyQmlStyle/qmldir \
