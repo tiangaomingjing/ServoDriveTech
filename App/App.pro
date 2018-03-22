@@ -19,4 +19,5 @@ SUBDIRS += \
     AppDialboxTest \
     AppCmdTest\
     AppAnimationTest \
+    ComparisonDialog\
     AppAlarmLedTest

@@ -223,7 +223,6 @@ qDebug()<<*isOK;
   QTreeWidgetItem *detailItem = detailInfoTreeItem(mp_pwrTarget);
   int axisNum;
   axisNum=detailItem->child(DETINFO_ROW_INX_AXISNUM)->childCount();
-    qDebug()<<"b";
   QVector<quint8> types;
   QVector<double> values;
   for(int i=0;i<axisNum;i++)
@@ -260,15 +259,11 @@ qDebug()<<*isOK;
       QMessageBox::information(0,tr("error"),tr("cannot find Sampling type item"));
       *isOK=false;
     }
-    qDebug()<<"c";
     types.append(type);
     values.append(value);
-    qDebug()<<"d";
   }
-qDebug()<<"e";
   samplingInfo.setTypes(types);
   samplingInfo.setValues(values);
-  qDebug()<<"f";
   return samplingInfo;
 }
 

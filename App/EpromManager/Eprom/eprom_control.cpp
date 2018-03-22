@@ -1,4 +1,5 @@
 #include "eprom_control.h"
+#include "gtutils.h"
 
 EPROM_CONTROL::EPROM_CONTROL(QString filePath, int16 com_type) : EPROM(filePath, com_type)
 {
@@ -20,14 +21,14 @@ int16 EPROM_CONTROL::readEprom(int16 axis, Uint16 ofst, Uint8 *value, Uint16 num
 }
 
 QTreeWidget* EPROM_CONTROL::createReadTree(Uint32 id) {
-    QTreeWidget* controlIndex = TreeManager::createTreeWidgetFromXmlFile(RESOURCE_FILE_PATH + "CB/cbindex.ui");
+    QTreeWidget* controlIndex = TreeManager::createTreeWidgetFromXmlFile(GTUtils::databasePath() + "Board/CB/cbindex.ui");
     QString idStr = QString::number(id, 10);
     QTreeWidgetItem *controlIndexItem = GLO::findItem(idStr, controlIndex, TREE_VALUE);
     if (controlIndexItem == NULL) {
         return NULL;
     }
     QString controlPath = GLO::getPath(controlIndexItem);
-    controlPath = RESOURCE_FILE_PATH + "CB/" + controlPath;
+    controlPath = GTUtils::databasePath() + "Board/CB/" + controlPath;
     QTreeWidget* readTree = TreeManager::createTreeWidgetFromXmlFile(controlPath);
     return readTree;
 }
