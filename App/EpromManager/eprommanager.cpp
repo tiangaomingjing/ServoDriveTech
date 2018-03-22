@@ -8,6 +8,7 @@
 #include <QDataStream>
 #include "flashclass.h"
 #include "tcpconnect.h"
+#include "gtutils.h"
 
 
 
@@ -31,11 +32,11 @@ EpromManager::EpromManager(QWidget *parent) :
     qDebug()<<"str"<<str;
 
     m_filePath = ".";
-    setWindowFlags(windowFlags() | Qt::WindowMaximizeButtonHint | Qt::WindowMinimizeButtonHint | Qt::WindowStaysOnTopHint);
-    ui->list->item(0)->setIcon(QIcon(ICON_FILE_PATH + "Select.png"));
-    ui->list->item(1)->setIcon(QIcon(ICON_FILE_PATH + "menu_restoresetting.png"));
-    ui->list->item(2)->setIcon(QIcon(ICON_FILE_PATH + "Power.png"));
-    ui->list->item(3)->setIcon(QIcon(ICON_FILE_PATH + "Control.png"));
+    setWindowFlags(windowFlags() | Qt::WindowMaximizeButtonHint | Qt::WindowMinimizeButtonHint);
+    ui->list->item(0)->setIcon(QIcon(GTUtils::iconPath() + "Select.png"));
+    ui->list->item(1)->setIcon(QIcon(GTUtils::iconPath() + "menu_restoresetting.png"));
+    ui->list->item(2)->setIcon(QIcon(GTUtils::iconPath() + "Power.png"));
+    ui->list->item(3)->setIcon(QIcon(GTUtils::iconPath() + "Control.png"));
     connect(ui->list, SIGNAL(currentRowChanged(int)), ui->stack, SLOT(setCurrentIndex(int)));
     setComConnectStatus(false);
 
@@ -84,10 +85,10 @@ EpromManager::~EpromManager()
 void EpromManager::initializeTree() {
     showSelectTree();
     ui->selectTree->topLevelItem(0)->child(0)->setSelected(true);
-    powerIndex = TreeManager::createTreeWidgetFromXmlFile(RESOURCE_FILE_PATH + "PB/pbindex.ui");
-    controlIndex = TreeManager::createTreeWidgetFromXmlFile(RESOURCE_FILE_PATH + "CB/cbindex.ui");
-    powerMap = TreeManager::createTreeWidgetFromXmlFile(RESOURCE_FILE_PATH + "IdMap_Power.ui");
-    controlMap = TreeManager::createTreeWidgetFromXmlFile(RESOURCE_FILE_PATH + "IdMap_Control.ui");
+    powerIndex = TreeManager::createTreeWidgetFromXmlFile(GTUtils::databasePath() + "Board/PB/pbindex.ui");
+    controlIndex = TreeManager::createTreeWidgetFromXmlFile(GTUtils::databasePath() + "Board/CB/cbindex.ui");
+    powerMap = TreeManager::createTreeWidgetFromXmlFile(GTUtils::databasePath() + "Board/PB/IdMap_Power.ui");
+    controlMap = TreeManager::createTreeWidgetFromXmlFile(GTUtils::databasePath() + "Board/CB/IdMap_Control.ui");
     treeItemClicked(ui->selectTree->topLevelItem(0)->child(0), 0);
 }
 
@@ -166,6 +167,10 @@ void EpromManager::onWriteClicked() {
     ui->progressBar->hide();
     ui->lineEdit->setReadOnly(false);
     ui->readButton->setEnabled(true);
+
+    ui->tabWidget->setCurrentIndex(1);
+    onReadClicked();
+    onCompareClicked();
 }
 
 void EpromManager::onWriteClicked_2() {
@@ -191,6 +196,10 @@ void EpromManager::onWriteClicked_2() {
     ui->progressBar->hide();
     ui->lineEdit_2->setReadOnly(false);
     ui->readButton_2->setEnabled(true);
+
+    ui->tabWidget_2->setCurrentIndex(1);
+    onReadClicked_2();
+    onCompareClicked_2();
 }
 
 void EpromManager::treeItemClicked(QTreeWidgetItem* item, int column) {
@@ -208,8 +217,8 @@ void EpromManager::treeItemClicked(QTreeWidgetItem* item, int column) {
         QTreeWidgetItem *controlIndexItem = GLO::findItem(m_controlID, controlIndex, TREE_VALUE);
         m_powerPath = GLO::getPath(powerIndexItem);
         m_controlPath = GLO::getPath(controlIndexItem);
-        m_powerPath = RESOURCE_FILE_PATH + "PB/" + m_powerPath;
-        m_controlPath = RESOURCE_FILE_PATH + "CB/" + m_controlPath;
+        m_powerPath = GTUtils::databasePath() + "Board/PB/" + m_powerPath;
+        m_controlPath = GTUtils::databasePath() + "Board/CB/" + m_controlPath;
         changeConfigText(m_powerID, powerIndex);
     }
     showText(m_configText, m_comText);
@@ -298,12 +307,12 @@ void EpromManager::onActionConnectClicked() {
         error = static_cast<COM_ERROR>(GTSD_CMD_Open(updateProgessBar, (void*)ui->progressBar, getComType()));
         if (error != COM_OK) {
             GTSD_CMD_Close(getComType());
-            ui->connectIcon->setIcon(QIcon(ICON_FILE_PATH + ICON_STATUS_DISCONNECT));
+            ui->connectIcon->setIcon(QIcon(GTUtils::iconPath() + ICON_STATUS_DISCONNECT));
             m_isOpenCom = false;
             QMessageBox::warning(this, tr("Warning"), tr("Connection Failed!"), QMessageBox::Ok);
         } else {
             ui->connectButton->setEnabled(false);
-            ui->connectIcon->setIcon(QIcon(ICON_FILE_PATH + ICON_STATUS_CONNECT));
+            ui->connectIcon->setIcon(QIcon(GTUtils::iconPath() + ICON_STATUS_CONNECT));
             m_isOpenCom = true;
             com_type comType = getComType();
             powerBoard = new EPROM_POWER(m_powerPath, comType);
@@ -324,7 +333,7 @@ void EpromManager::onActionConnectClicked() {
 void EpromManager::onActionDisConnectClicked() {
     if (m_isOpenCom) {
         GTSD_CMD_Close(getComType());
-        ui->connectIcon->setIcon(QIcon(ICON_FILE_PATH + ICON_STATUS_DISCONNECT));
+        ui->connectIcon->setIcon(QIcon(GTUtils::iconPath() + ICON_STATUS_DISCONNECT));
         m_isOpenCom = false;
         ui->connectButton->setEnabled(true);
         ui->writeButton->setEnabled(false);
@@ -356,12 +365,12 @@ void EpromManager::setComConnectStatus(bool isConnected)
 {
     if(isConnected)
     {
-        ui->connectIcon->setIcon(QIcon(ICON_FILE_PATH+ICON_STATUS_CONNECT));
+        ui->connectIcon->setIcon(QIcon(GTUtils::iconPath() + ICON_STATUS_CONNECT));
         m_isOpenCom = true;
     }
     else
     {
-        ui->connectIcon->setIcon(QIcon(ICON_FILE_PATH+ICON_STATUS_DISCONNECT));
+        ui->connectIcon->setIcon(QIcon(GTUtils::iconPath() + ICON_STATUS_DISCONNECT));
         m_isOpenCom = false;
     }
 }
@@ -477,6 +486,7 @@ void EpromManager::receiveConfig(const QStringList &list) {
     qDebug()<<"mode"<<m_modeName;
     qDebug()<<"type"<<m_typeName;
     ui->comLabel->setText(m_comText);
+    this->setWindowTitle(this->windowTitle() + "-" + m_modeName);
     initializeTree();
     m_tcpClient->stopConnection();
     //delete m_tcpClient;

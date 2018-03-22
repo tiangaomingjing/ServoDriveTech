@@ -80,6 +80,7 @@ private:
   bool isAutoLoad();
 
   bool MessageBoxAsk(const QString &msg);
+  void startListen();
 
 signals:
   void initProgressInfo(int barValue,QString msg);
@@ -107,7 +108,6 @@ private slots:
   void onStatusBarPageChanged(int pIndex);
 
   void onPlotFloatingChanged(bool floating);
-  void startListen();
 
   //响应状态监视器
   void onDeviceAlarmError(quint16 devId,quint16 axisInx,bool hasError);

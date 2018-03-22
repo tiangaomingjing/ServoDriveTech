@@ -58,6 +58,7 @@ SDTMainWindow::SDTMainWindow(QWidget *parent) :
   m_statusMonitor(new StatusMonitor(this))
 {
   ui->setupUi(this);
+  setWindowFlags(Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint);
 //  qmlRegisterType<SevDevice>("QtCppClass", 1, 0, "SevDevice");
 //  qmlRegisterType<QmlStyleHelper>("QtCppClass", 1, 0, "QmlStyleHelper");
   clearStackedWidget();
@@ -77,7 +78,6 @@ SDTMainWindow::~SDTMainWindow()
 }
 bool SDTMainWindow::init()
 {
-  startListen();
   deviceInit();
   navigationTreeInit();
   globalUiPageInit();
@@ -289,27 +289,23 @@ void SDTMainWindow::clearStackedWidget()
 
 void SDTMainWindow::closeEvent(QCloseEvent *e)
 {
-  bool close=MessageBoxAsk(tr("Do you want to close the application?"));
-  if(close)
-  {
+//  bool close=MessageBoxAsk(tr("Do you want to close the application?"));
+//  if(close)
+//  {
     disactiveAllUi();
-
     setConnect(false);
-
     OptContainer *optc=OptContainer::instance();
     optc->saveOpt();
 
     //保存当前的配置
-
     delete m_plot;
     GT::deepClearList(m_sdAssemblyList);
     delete m_gUiControl;
     delete m_optc;
-
     e->accept();
-  }
-  else
-    e->ignore();
+//  }
+//  else
+//    e->ignore();
 }
 void SDTMainWindow::processCallBack(void *argv,short *value)
 {
@@ -540,6 +536,7 @@ void SDTMainWindow::onActnOptionClicked()
 }
 
 void SDTMainWindow::onActnProduceClicked() {
+    startListen();
     if (!m_produceClicked) {      
         //m_produceClicked = true;
 
@@ -567,7 +564,7 @@ void SDTMainWindow::onActnProduceClicked() {
 }
 
 void SDTMainWindow::startListen() {
-    m_server = new MessageServer(this);
+    m_server = new MessageServer;
     if(!m_server->listen(QHostAddress::Any, 6178)) {
         qDebug()<<"Listen Failed!";
         return;
@@ -606,6 +603,7 @@ void SDTMainWindow::onCloseMsgReceived() {
     //GTUtils::delayms(20);
     m_process->close();
     delete m_process;
+    delete m_server;
 }
 
 void SDTMainWindow::onActnTbtnMoreClicked()
