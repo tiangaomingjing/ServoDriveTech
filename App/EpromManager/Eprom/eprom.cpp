@@ -53,7 +53,7 @@ Uint32 EPROM::readID() {
 void EPROM::writeEEprom(QTreeWidgetItem *item) {
     if (continueWrite) {
         writeSingle(item);
-        emit sendScrollItem(item);
+        //emit sendScrollItem(item);
         GLO::delayms(5);
         emit updateBarCount();
         if (item->text(TREE_TYPE).compare("Case") == 0) {
@@ -247,7 +247,7 @@ void EPROM::compare(QTreeWidget *tree) {
 void EPROM::compareNode(QTreeWidgetItem *oldNode, QTreeWidgetItem *newNode, QTreeWidget *tree) {
     emit updateBarCount();
     qApp->processEvents();
-    tree->scrollToItem(oldNode, QAbstractItemView::PositionAtCenter);
+    //tree->scrollToItem(oldNode, QAbstractItemView::PositionAtCenter);
     for (int i = 0; i < newNode->childCount(); i++) {
         bool change = false;
         QString newNodeName = newNode->child(i)->text(TREE_NAME);
@@ -264,6 +264,7 @@ void EPROM::compareNode(QTreeWidgetItem *oldNode, QTreeWidgetItem *newNode, QTre
                 if (change) {
                     for (int t = 0; t < oldNode->child(j)->columnCount(); t++) {
                         oldNode->child(j)->setBackgroundColor(t, Qt::red);
+                        tree->scrollToItem(oldNode, QAbstractItemView::PositionAtCenter);
                     }
                 }
                 compareNode(oldNode->child(j), newNode->child(i), tree);

@@ -1,4 +1,5 @@
 #include "eprom_power.h"
+#include "gtutils.h"
 
 EPROM_POWER::EPROM_POWER(QString filePath, int16 com_type) : EPROM(filePath, com_type)
 {
@@ -20,14 +21,14 @@ int16 EPROM_POWER::readEprom(int16 axis, Uint16 ofst, Uint8 *value, Uint16 num, 
 }
 
 QTreeWidget* EPROM_POWER::createReadTree(Uint32 id) {
-    QTreeWidget* powerIndex = TreeManager::createTreeWidgetFromXmlFile(RESOURCE_FILE_PATH + "PB/pbindex.ui");
+    QTreeWidget* powerIndex = TreeManager::createTreeWidgetFromXmlFile(GTUtils::databasePath() + "Board/PB/pbindex.ui");
     QString idStr = QString::number(id, 10);
     QTreeWidgetItem *powerIndexItem = GLO::findItem(idStr, powerIndex, TREE_VALUE);
     if (powerIndexItem == NULL) {
         return NULL;
     }
     QString powerPath = GLO::getPath(powerIndexItem);
-    powerPath = RESOURCE_FILE_PATH + "PB/" + powerPath;
+    powerPath = GTUtils::databasePath() + "Board/PB/" + powerPath;
     QTreeWidget* readTree = TreeManager::createTreeWidgetFromXmlFile(powerPath);
     return readTree;
 }

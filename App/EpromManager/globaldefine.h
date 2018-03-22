@@ -15,8 +15,6 @@ class QTreeWidgetItem;
 #define XMLFILE_ROW_INDEX 0
 #define XMLFILE_CHILD_VERSION_ROW_INDEX 0
 #define XMLFILE_NODE_NAME "XmlFileInformation"
-#define ICON_FILE_PATH QString("../resource/icon/")
-#define RESOURCE_FILE_PATH QString("../resource/File/")
 #define ICON_STATUS_DISCONNECT QString("disconnect.png")
 #define ICON_STATUS_CONNECT QString("connect.png")
 
