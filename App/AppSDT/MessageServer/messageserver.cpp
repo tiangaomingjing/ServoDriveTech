@@ -12,7 +12,7 @@ MessageServer::~MessageServer() {
 
 void MessageServer::incomingConnection(int socketID) {
     qDebug()<<"incoming connection";
-    m_socket = new ClientSocket(this);
+    m_socket = new ClientSocket;
     connect(m_socket, SIGNAL(receiveStartMsg()), this, SIGNAL(getStartMsg()));
     connect(m_socket, SIGNAL(receiveCloseMsg()), this, SIGNAL(getCloseMsg()));
     m_socket->setSocketDescriptor(socketID);

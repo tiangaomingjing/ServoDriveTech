@@ -1,4 +1,5 @@
 ﻿#include "sdtmainwindow.h"
+#include "combinedwindow.h"
 #include <QApplication>
 #include <QTranslator>
 #include <QDebug>
@@ -82,12 +83,18 @@ int main(int argc, char *argv[])
   RegisterFunction::registerUiClass();
 
   SDTMainWindow w;
+  CombinedWindow w2;
   QObject::connect(&w,SIGNAL(initProgressInfo(int,QString)),startup,SLOT(onProgressMessage(int ,QString)));
   w.init();
   optFace->setFaceStyle(optFace->css());
-  w.showMaximized();
+  w2.insertWindow(&w);
+  //w.showMaximized();
+  w2.show();
 
-  startup->finish(&w);
+
+
+  //startup->finish(&w);
+  startup->finish(&w2);
   delete startup;
 
   return a.exec();

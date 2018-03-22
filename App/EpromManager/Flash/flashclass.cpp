@@ -4,6 +4,7 @@
 #include "treemanager.h"
 #include "controlservo.h"
 #include "globaldefine.h"
+#include "gtutils.h"
 #include <QProgressBar>
 
 int FlashClass::m_progessValue = 0;
@@ -54,12 +55,12 @@ void FlashClass::flash(int netId, QString hexPath, QString xmlPath, int dspNum, 
     }
     emit sendWarnMsg(tr("Uboot starting......"));
     JsonReader net;
-    QString filePath = RESOURCE_FILE_PATH + "NetConfig.json";
+    QString filePath = GTUtils::databasePath() + "Board/NetConfig.json";
     net.initialDataFromJsonFile(filePath);
     qint16 netRnStation = net.rnStation();
     m_netRnStation = netRnStation;
-    QString outPath = RESOURCE_FILE_PATH + "ServoUboot.out";
-    QString ldrPath = RESOURCE_FILE_PATH + "ServoUboot.ldr";
+    QString outPath = GTUtils::databasePath() + "Board/ServoUboot.out";
+    QString ldrPath = GTUtils::databasePath() + "Board/ServoUboot.ldr";
     emit sendWarnMsg(tr("Servo ubooting......"));
     if(0 == GTSD_CMD_Hex2Ldr(outPath.toStdWString(), ldrPath.toStdWString(), netId, netRnStation))//转化文件成功
     {
