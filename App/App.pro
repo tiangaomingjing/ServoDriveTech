@@ -19,8 +19,5 @@ SUBDIRS += \
     AppDialboxTest \
     AppCmdTest\
     AppAnimationTest \
-<<<<<<< HEAD
-    ComparisonDialog
-=======
+    ComparisonDialog\
     AppAlarmLedTest
->>>>>>> upstream/jiang
