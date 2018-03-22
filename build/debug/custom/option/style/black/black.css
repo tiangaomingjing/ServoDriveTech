@@ -572,6 +572,28 @@ QLabel#label_posTextPositiveMaxV,QLabel#label_posTextNegativeMaxV{
 	border:none;
 }
 
+/*=====================Status状态界面===========================*/
+QWidget#widget_statusAlarm,QWidget#widget_statusInfo{
+background-color: #E0DDDD;
+border-radius:10px;
+border:2px solid #BBB9B9;
+}
+QPushButton#btn_statusClearAlarm{
+	min-height:50px;
+	min-width:100px;
+	border:2px solid #BBB9B9;
+	background-color:transparent;
+	border-radius:10px;
+}
+QPushButton#btn_statusClearAlarm:hover{
+	background-color:gray;
+	font-weight:bold;
+}
+QPushButton#btn_statusClearAlarm:hover:pressed{
+	background-color:#404040;
+	font-weight:normal;
+}
+
 
 /*====================option设置对话框===================*/
 

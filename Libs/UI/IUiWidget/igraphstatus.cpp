@@ -4,6 +4,7 @@
 #include "qttreemanager.h"
 #include "sevdevice.h"
 #include "iuiwidget.h"
+#include "Option"
 
 #include <QGridLayout>
 #include <QTreeWidget>
@@ -115,6 +116,9 @@ void IGraphStatus::setCustomVisitActive(IUiWidget *uiWidget)
   delete tree;
 
   addLedErrorTitle();
+  OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
+  QString css=face->css();
+  setDeviceStatusIconByCss(css);
 
 }
 

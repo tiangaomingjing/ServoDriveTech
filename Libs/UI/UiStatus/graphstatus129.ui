@@ -14,11 +14,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QWidget#widget_statusAlarm,QWidget#widget_statusInfo{
-background-color: #E0DDDD;
-border-radius:10px;
-border:2px solid #BBB9B9;
-}</string>
+   <string notr="true"/>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,5">
    <property name="spacing">
