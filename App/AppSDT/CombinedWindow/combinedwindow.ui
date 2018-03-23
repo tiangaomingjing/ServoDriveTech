@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>699</width>
+    <height>498</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -126,7 +126,8 @@
             <string>...</string>
            </property>
            <property name="icon">
-            <iconset theme="SP_TitleBarMinButton"/>
+            <iconset theme="SP_TitleBarMinButton">
+             <normaloff>.</normaloff>.</iconset>
            </property>
            <property name="autoRaise">
             <bool>true</bool>

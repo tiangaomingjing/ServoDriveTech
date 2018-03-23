@@ -131,14 +131,26 @@ void EpromManager::onOkClicked() {
 }
 
 void EpromManager::showSelectTree() {
-    QTreeWidgetItem *typeItem = new QTreeWidgetItem;
-    typeItem->setText(0, m_typeName);
-    QTreeWidgetItem *modeItem = new QTreeWidgetItem;
-    modeItem->setText(0, m_modeName);
-    typeItem->addChild(modeItem);
-    ui->selectTree->addTopLevelItem(typeItem);
-    ui->selectTree->expandAll();
-    ui->selectTree->resizeColumnToContents(0);
+    if (m_typeName.compare("") != 0 && m_modeName.compare("") != 0) {
+        QTreeWidgetItem *typeItem = new QTreeWidgetItem;
+        typeItem->setText(0, m_typeName);
+        QTreeWidgetItem *modeItem = new QTreeWidgetItem;
+        modeItem->setText(0, m_modeName);
+        typeItem->addChild(modeItem);
+        ui->selectTree->addTopLevelItem(typeItem);
+        ui->selectTree->expandAll();
+        ui->selectTree->resizeColumnToContents(0);
+        m_tcpSuccess = true;
+    } else {
+        QTreeWidget *tree = TreeManager::createTreeWidgetFromXmlFile(GTUtils::databasePath() + "Board/SelectTree.ui");
+        for (int i = 0; i < tree->topLevelItemCount(); i++) {
+            ui->selectTree->addTopLevelItem(tree->topLevelItem(i)->clone());
+        }
+        ui->selectTree->expandAll();
+        ui->selectTree->resizeColumnToContents(0);
+        delete tree;
+        m_tcpSuccess = false;
+    }
 }
 
 /**************************************************************/
@@ -212,7 +224,9 @@ void EpromManager::treeItemClicked(QTreeWidgetItem* item, int column) {
         QTreeWidgetItem *powerItem = GLO::findItem(itemText, powerMap, IDMAP_MODE);
         m_powerID = powerItem->text(IDMAP_ID);
         m_controlID = controlItem->text(IDMAP_ID);
-        //m_dspNum = item->text(column + 1).toInt();
+        if (!m_tcpSuccess) {
+            m_dspNum = item->text(column + 1).toInt();
+        }
         QTreeWidgetItem *powerIndexItem = GLO::findItem(m_powerID, powerIndex, TREE_VALUE);
         QTreeWidgetItem *controlIndexItem = GLO::findItem(m_controlID, controlIndex, TREE_VALUE);
         m_powerPath = GLO::getPath(powerIndexItem);
