@@ -1,5 +1,7 @@
 ﻿#ifndef IGRAPHWIDGET_P_H
 #define IGRAPHWIDGET_P_H
+#include "boxitemmapping.h"
+#include "igraphwidget.h"
 #include "iuiwidget_global.h"
 #include <QColor>
 class IGraphWidget;
@@ -12,8 +14,20 @@ class IUIWIDGETSHARED_EXPORT IGraphWidgetPrivate
 {
   Q_DECLARE_PUBLIC(IGraphWidget)
 public:
-  IGraphWidgetPrivate();
-  virtual ~IGraphWidgetPrivate();
+  IGraphWidgetPrivate():
+    q_ptr(NULL),
+    m_scene(NULL),
+    m_versionName(""),
+    m_backGroundColor(Qt::black),
+    m_arrowColor(Qt::gray),
+    m_dev(NULL),
+    m_treeWidget(NULL),
+    m_uiWidget(NULL),
+    m_mapping(new BoxItemMapping)
+  {
+
+  }
+  virtual ~IGraphWidgetPrivate(){}
 protected:
   IGraphWidget *q_ptr;
   QGraphicsScene* m_scene;

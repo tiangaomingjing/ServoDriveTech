@@ -67,6 +67,16 @@ bool UiPower::writePageFLASH()
   return true;
 }
 
+bool UiPower::hasConfigFunc()
+{
+  return false;
+}
+
+bool UiPower::hasSaveFunc()
+{
+  return true;
+}
+
 QStackedWidget *UiPower::getUiStackedWidget(void)
 {
   return ui->stackedWidget;

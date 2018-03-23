@@ -2,6 +2,7 @@
 #define IGRAPHBRAKE_P_H
 #include "igraphencoder.h"
 #include "igraph_p.h"
+#include "iuiwidget_global.h"
 class IDataBinding ;
 class IEncConfigItem;
 class EncConfigManage;
@@ -11,8 +12,15 @@ class IUIWIDGETSHARED_EXPORT IGraphEncoderPrivate:public IGraphPrivate
 {
   Q_DECLARE_PUBLIC(IGraphEncoder)
 public:
-  IGraphEncoderPrivate();
-  virtual ~IGraphEncoderPrivate();
+  IGraphEncoderPrivate():
+    m_curEncConfigItem(NULL),
+    m_encConfigManage(NULL),
+    m_iDataBinding(NULL),
+    m_updateTimer(NULL)
+  {
+
+  }
+  virtual ~IGraphEncoderPrivate(){}
 protected:
 
   IEncConfigItem *m_curEncConfigItem;

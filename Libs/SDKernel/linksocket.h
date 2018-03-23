@@ -31,6 +31,7 @@ public:
   bool readPageFlash(int axis,QTreeWidgetItem *item);
   bool writePageFlash(int axis,QTreeWidgetItem *item);
 
+
   //通用RAM读写操作
   quint64 genCmdRead(const QString &cmdReadName,qint16 axisIndex,bool &isOk);
   bool genCmdWrite(const QString &cmdWriteName,quint64 value,qint16 axisIndex);
@@ -41,6 +42,7 @@ public:
 
   bool adjust(void (*processCallBack)(void *argv, short *value), void *uiProcessBar);
 
+  bool clearAlarm(quint16 axisInx);
 
 protected:
 

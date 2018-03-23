@@ -35,12 +35,15 @@ public:
   void disableConnection();
   bool isConnecting() const;
 
+  bool containsCmd(const QString &cmdKey);
+
   quint64 genCmdRead(const QString &cmdReadName,qint16 axisIndex,bool &isOk);
   bool genCmdWrite(const QString &cmdWriteName,quint64 value,qint16 axisIndex);
 
   bool readGenRAM(quint16 axisInx,QTreeWidget *pageTree);
   bool writeGenRAM(quint16 axisInx,QTreeWidget *pageTree);
 
+  bool clearAlarm(quint16 axisInx);
 
   QString typeName() const;
   QString modelName() const;

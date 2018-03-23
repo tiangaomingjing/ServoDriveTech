@@ -76,6 +76,16 @@ bool UiMotor::writePageFLASH()
   return true;
 }
 
+bool UiMotor::hasConfigFunc()
+{
+  return false;
+}
+
+bool UiMotor::hasSaveFunc()
+{
+  return true;
+}
+
 QStackedWidget *UiMotor::getUiStackedWidget(void)
 {
   return ui->stackedWidget;

@@ -15,17 +15,6 @@
 #define PID_POS_X -220
 #define PID_POS_Y -50
 
-IGraphPositionPrivate::IGraphPositionPrivate()
-{
-
-}
-
-IGraphPositionPrivate::~IGraphPositionPrivate()
-{
-
-}
-
-
 IGraphPosition::~IGraphPosition()
 {
   Q_D(IGraphPosition);

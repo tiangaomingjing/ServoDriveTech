@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include "igraph.h"
-
+#include "iuiwidget_global.h"
 
 class IGraphMotorPrivate;
 class IUiWidget;

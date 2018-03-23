@@ -29,6 +29,16 @@ UiFLASH::~UiFLASH()
   delete ui;
 }
 
+bool UiFLASH::hasConfigFunc()
+{
+  return false;
+}
+
+bool UiFLASH::hasSaveFunc()
+{
+  return false;
+}
+
 QStackedWidget *UiFLASH::getUiStackedWidget(void)
 {
   return ui->stackedWidget;

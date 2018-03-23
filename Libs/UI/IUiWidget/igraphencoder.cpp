@@ -8,19 +8,6 @@
 
 #define TIMER_INTERVAL 500
 
-IGraphEncoderPrivate::IGraphEncoderPrivate():
-  m_curEncConfigItem(NULL),
-  m_encConfigManage(NULL),
-  m_iDataBinding(NULL),
-  m_updateTimer(NULL)
-{
-
-}
-
-IGraphEncoderPrivate::~IGraphEncoderPrivate()
-{
-
-}
 
 //IGraphEncoder::IGraphEncoder(QWidget *parent) :IGraph(*(new IGraphEncoderPrivate),parent)
 //{

@@ -30,6 +30,16 @@ UiRAM::~UiRAM()
   delete ui;
 }
 
+bool UiRAM::hasConfigFunc()
+{
+  return false;
+}
+
+bool UiRAM::hasSaveFunc()
+{
+  return false;
+}
+
 QStackedWidget *UiRAM::getUiStackedWidget(void)
 {
   return ui->stackedWidget;

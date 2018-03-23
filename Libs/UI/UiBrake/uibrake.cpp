@@ -68,6 +68,16 @@ bool UiBrake::writePageFLASH()
   return true;
 }
 
+bool UiBrake::hasConfigFunc()
+{
+  return false;
+}
+
+bool UiBrake::hasSaveFunc()
+{
+  return true;
+}
+
 QStackedWidget *UiBrake::getUiStackedWidget(void)
 {
   return ui->stackedWidget;

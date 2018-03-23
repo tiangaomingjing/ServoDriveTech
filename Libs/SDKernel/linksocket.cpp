@@ -336,3 +336,8 @@ bool LinkSocket::adjust(void (*processCallBack)(void *, short *), void *uiProces
 
   return err==0;
 }
+
+bool LinkSocket::clearAlarm(quint16 axisInx)
+{
+  return 0==m_com->clearAlarm(axisInx);
+}

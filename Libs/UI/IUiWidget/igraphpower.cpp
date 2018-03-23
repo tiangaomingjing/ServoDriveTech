@@ -1,16 +1,6 @@
 ﻿#include "igraphpower.h"
 #include "igraphpower_p.h"
 
-IGraphPowerPrivate::IGraphPowerPrivate()
-{
-
-}
-
-IGraphPowerPrivate::~IGraphPowerPrivate()
-{
-
-}
-
 //IGraphPower::IGraphPower(QWidget *parent) : IGraph(*(new IGraphPowerPrivate),parent)
 //{
 

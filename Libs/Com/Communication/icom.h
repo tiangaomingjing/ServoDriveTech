@@ -10,7 +10,7 @@ class COMSHARED_EXPORT ICom
 {
   Q_DECLARE_PRIVATE(ICom)
 public:
-  ICom(const string &objectName);
+
   virtual ~ICom();
 
   string iComObjectName(void) const;
@@ -25,6 +25,8 @@ public:
 
   virtual errcode_t setServoTaskMode(uint8_t axis,ServoTaskMode_t mode)=0;
   virtual ServoTaskMode_t currentServoTaskMode(uint8_t axis,errcode_t &errCode)=0;
+
+  virtual errcode_t clearAlarm(uint8_t axis)=0;
 
   virtual errcode_t setIdRef(uint8_t axis ,double idRef)=0;
   virtual errcode_t getIdRef(uint8_t axis ,double &value)=0;

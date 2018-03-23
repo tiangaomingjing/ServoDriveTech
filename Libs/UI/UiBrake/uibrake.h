@@ -21,6 +21,8 @@ public:
   void accept(QWidget*w) Q_DECL_OVERRIDE;
   void setUiActive(bool actived)Q_DECL_OVERRIDE;
   bool writePageFLASH()Q_DECL_OVERRIDE;
+  bool hasConfigFunc()Q_DECL_OVERRIDE;
+  bool hasSaveFunc()Q_DECL_OVERRIDE;
 
 private:
   QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;

@@ -13,26 +13,6 @@
 #include <QDoubleSpinBox>
 #include <QKeyEvent>
 
-IGraphWidgetPrivate::IGraphWidgetPrivate():
-  q_ptr(NULL),
-  m_scene(NULL),
-  m_versionName(""),
-  m_backGroundColor(Qt::black),
-  m_arrowColor(Qt::gray),
-  m_dev(NULL),
-  m_treeWidget(NULL),
-  m_uiWidget(NULL),
-  m_mapping(new BoxItemMapping)
-{
-
-}
-IGraphWidgetPrivate::~IGraphWidgetPrivate()
-{
-  delete m_mapping;
-  qDebug()<<"IGraphWidgetPrivate destruct-->";
-}
-
-
 IGraphWidget::~IGraphWidget()
 {
   Q_D(IGraphWidget);

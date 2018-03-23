@@ -16,16 +16,6 @@
 #define PID_POS_X -60
 #define PID_POS_Y -85
 
-IGraphVelocityPrivate::IGraphVelocityPrivate()
-{
-
-}
-
-IGraphVelocityPrivate::~IGraphVelocityPrivate()
-{
-
-}
-
 IGraphVelocity::~IGraphVelocity()
 {
   Q_D(IGraphVelocity);

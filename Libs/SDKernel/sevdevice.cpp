@@ -193,6 +193,12 @@ bool SevDevice::isConnecting() const
   return d->m_connected;
 }
 
+bool SevDevice::containsCmd(const QString &cmdKey)
+{
+  Q_D(SevDevice);
+  return d->m_socket->containsCmd(cmdKey);
+}
+
 quint64 SevDevice::genCmdRead(const QString &cmdReadName,qint16 axisIndex,bool &isOk)
 {
   Q_D(SevDevice);
@@ -302,6 +308,15 @@ bool SevDevice::writeGenRAM(quint16 axisInx, QTreeWidget *pageTree)
     it++;
   }
   return rOk;
+}
+
+bool SevDevice::clearAlarm(quint16 axisInx)
+{
+  Q_D(SevDevice);
+  if(isConnecting())
+    return d->m_socket->clearAlarm(axisInx);
+  else
+    return true;
 }
 
 QString SevDevice::typeName() const
