@@ -135,7 +135,7 @@ void LedAlarm::Led::paintEvent(QPaintEvent *event)
 
 int LedAlarm::Led::fontWidth() const
 {
-  return fontMetrics().width("m")*4;
+  return fontMetrics().width("m")*3;
 }
 
 QColor LedAlarm::Led::errorColor() const

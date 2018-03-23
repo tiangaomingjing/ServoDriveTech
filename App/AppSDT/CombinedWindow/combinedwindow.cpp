@@ -1,4 +1,4 @@
-#include "combinedwindow.h"
+﻿#include "combinedwindow.h"
 #include "gtutils.h"
 #include "Option"
 #include "appiconname.h"
@@ -39,7 +39,7 @@ CombinedWindow::~CombinedWindow()
 
 void CombinedWindow::insertWindow(QMainWindow *w) {
     m_bottomWindow = w;
-    ui->verticalLayout->addWidget(m_bottomWindow);
+    ui->verticalLayout_2->addWidget(m_bottomWindow);
 }
 
 void CombinedWindow::onActionMaxClicked() {
@@ -65,6 +65,12 @@ void CombinedWindow::closeEvent(QCloseEvent *event) {
     } else {
         event->ignore();
     }
+}
+
+void CombinedWindow::showMaximized()
+{
+  m_isMax=true;
+  QMainWindow::showMaximized();
 }
 
 //void CombinedWindow::paintEvent(QPaintEvent *event)

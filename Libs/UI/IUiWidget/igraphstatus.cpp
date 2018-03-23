@@ -4,6 +4,7 @@
 #include "qttreemanager.h"
 #include "sevdevice.h"
 #include "iuiwidget.h"
+#include "Option"
 
 #include <QGridLayout>
 #include <QTreeWidget>
@@ -13,7 +14,7 @@
 #include <QAction>
 #include <QVBoxLayout>
 
-#define UI_LAYOUT_LED_ALARM_COL 4
+#define UI_LAYOUT_LED_ALARM_COL 3
 #define ALM_DETAIL_FILE_NAME "PrmFuncDeviceStatusAlarmInfo.xml"
 #define ALM_CODE_ALL_INX 3
 
@@ -65,7 +66,7 @@ void IGraphStatus::setCustomVisitActive(IUiWidget *uiWidget)
 
   int count=alarmItem->childCount();
 
-  int col=4;
+  int col=UI_LAYOUT_LED_ALARM_COL;
   int row=count/col;
   int remain=count%col;
   int rsv=0;
@@ -115,6 +116,9 @@ void IGraphStatus::setCustomVisitActive(IUiWidget *uiWidget)
   delete tree;
 
   addLedErrorTitle();
+  OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
+  QString css=face->css();
+  setDeviceStatusIconByCss(css);
 
 }
 

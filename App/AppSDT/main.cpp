@@ -87,12 +87,10 @@ int main(int argc, char *argv[])
   QObject::connect(&w,SIGNAL(initProgressInfo(int,QString)),startup,SLOT(onProgressMessage(int ,QString)));
   w.init();
   optFace->setFaceStyle(optFace->css());
-  //w.show();
-  //w.showMaximized();
-  w2.insertWindow(&w);
-  w2.show();
 
-  //startup->finish(&w);
+  w2.insertWindow(&w);
+  //w2.show();
+  w2.showMaximized();
   startup->finish(&w2);
   delete startup;
 
