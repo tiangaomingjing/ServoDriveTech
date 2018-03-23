@@ -7,7 +7,7 @@ QDoubleSpinBox{
 }
 
 QMainWindow#CombinedWindow {
-	background-color:transparent;
+	background-color:#F0F0F0;
 }
 /*==========================main treeWidget 导航栏=====================*/
 QDockWidget  QTreeView {
@@ -650,22 +650,11 @@ QGroupBox#pswBox {
 
 /*=========================================边框=============================*/
 
-QToolButton#btn_Min{
-background-color: #252A3E;
-
-}
-
-QToolButton#btn_icon{
+QToolButton#btn_Min,QToolButton#btn_icon,QToolButton#btn_Max,QToolButton#btn_Close{
 	background-color: #252A3E;
+	min-width:30px;
 }
 
-QToolButton#btn_Max{
-	background-color: #252A3E;
-}
-
-QToolButton#btn_Close{
-	background-color: #252A3E;
-}
 
 QToolButton#btn_Min:hover{
 	background-color: rgb(170, 170, 255)

@@ -1,4 +1,4 @@
-#ifndef COMBINEDWINDOW_H
+﻿#ifndef COMBINEDWINDOW_H
 #define COMBINEDWINDOW_H
 
 #include <QMainWindow>
@@ -18,6 +18,7 @@ public:
     ~CombinedWindow();
 
     void insertWindow(QMainWindow *w);
+    void showMaximized();
 protected:
     bool eventFilter(QObject *obj, QEvent *event);
     void mouseMoveEvent(QMouseEvent *e);
@@ -25,6 +26,7 @@ protected:
     void mouseReleaseEvent(QMouseEvent *);
     void closeEvent(QCloseEvent *event);
     //void paintEvent(QPaintEvent *event);
+
 
 private:
     Ui::CombinedWindow *ui;

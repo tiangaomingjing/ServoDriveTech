@@ -88,12 +88,11 @@ int main(int argc, char *argv[])
   w.init();
   optFace->setFaceStyle(optFace->css());
   w2.insertWindow(&w);
-  //w.showMaximized();
-  w2.show();
+//  w.showMaximized();
+  w2.showMaximized();
 
 
-
-  //startup->finish(&w);
+//  startup->finish(&w);
   startup->finish(&w2);
   delete startup;
 

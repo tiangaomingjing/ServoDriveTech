@@ -14,7 +14,7 @@
 #include <QAction>
 #include <QVBoxLayout>
 
-#define UI_LAYOUT_LED_ALARM_COL 4
+#define UI_LAYOUT_LED_ALARM_COL 3
 #define ALM_DETAIL_FILE_NAME "PrmFuncDeviceStatusAlarmInfo.xml"
 #define ALM_CODE_ALL_INX 3
 
@@ -66,7 +66,7 @@ void IGraphStatus::setCustomVisitActive(IUiWidget *uiWidget)
 
   int count=alarmItem->childCount();
 
-  int col=4;
+  int col=UI_LAYOUT_LED_ALARM_COL;
   int row=count/col;
   int remain=count%col;
   int rsv=0;

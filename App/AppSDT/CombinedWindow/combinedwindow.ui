@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>693</width>
+    <height>377</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,20">
+   <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0">
     <property name="spacing">
      <number>0</number>
     </property>
@@ -40,13 +40,13 @@
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <property name="leftMargin">
-        <number>10</number>
+        <number>0</number>
        </property>
        <property name="topMargin">
         <number>0</number>
        </property>
        <property name="rightMargin">
-        <number>10</number>
+        <number>0</number>
        </property>
        <property name="bottomMargin">
         <number>0</number>
@@ -126,7 +126,8 @@
             <string>...</string>
            </property>
            <property name="icon">
-            <iconset theme="SP_TitleBarMinButton"/>
+            <iconset theme="SP_TitleBarMinButton">
+             <normaloff>.</normaloff>.</iconset>
            </property>
            <property name="autoRaise">
             <bool>true</bool>
@@ -172,13 +173,6 @@
        </item>
       </layout>
      </widget>
-    </item>
-    <item>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <property name="spacing">
-       <number>0</number>
-      </property>
-     </layout>
     </item>
    </layout>
   </widget>
