@@ -30,6 +30,8 @@ ComparisonDialog::ComparisonDialog(QWidget *parent) :
     m_newLoaded = false;
     m_oldLoaded = false;
     m_editedItem = NULL;
+    m_isEditingWhole = false;
+    m_isEditingPart = false;
     ui->progressBar_comp->hide();
     ui->splitter_compPart->hide();
     ui->btn_compComp->setEnabled(false);
@@ -56,6 +58,27 @@ ComparisonDialog::ComparisonDialog(QWidget *parent) :
 ComparisonDialog::~ComparisonDialog()
 {
     delete ui;
+}
+
+void ComparisonDialog::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Return) {
+        if (m_isEditingWhole) {
+            if (m_editedItem != NULL) {
+                ui->treeWidget_compNew->closePersistentEditor(m_editedItem, m_editedCol);
+                m_isEditingWhole = false;
+                m_editedItem->setSelected(false);
+            }
+        }
+
+        if (m_isEditingPart) {
+            if (m_editedItem != NULL) {
+                ui->treeWidget_compNewPart->closePersistentEditor(m_editedItem, m_editedCol);
+                m_isEditingPart = false;
+                m_editedItem->setSelected(false);
+            }
+        }
+    }
 }
 
 void ComparisonDialog::initPath()
@@ -239,6 +262,7 @@ void ComparisonDialog::onActionItemDoubleClicked(QTreeWidgetItem *item, int col)
         }
         m_editedItem = item;
         m_editedCol = col;
+        m_isEditingWhole = true;
     }
 }
 
@@ -246,6 +270,7 @@ void ComparisonDialog::onActionEditFinished()
 {
     if (m_editedItem != NULL) {
         ui->treeWidget_compNew->closePersistentEditor(m_editedItem, m_editedCol);
+        m_isEditingWhole = false;
     }
 }
 
@@ -257,6 +282,7 @@ void ComparisonDialog::onActionItemDoubleClicked_2(QTreeWidgetItem *item, int co
         }
         m_editedItem = item;
         m_editedCol = col;
+        m_isEditingPart = true;
     }
 }
 
@@ -264,6 +290,7 @@ void ComparisonDialog::onActionEditFinished_2()
 {
     if (m_editedItem != NULL) {
         ui->treeWidget_compNewPart->closePersistentEditor(m_editedItem, m_editedCol);
+        m_isEditingPart = false;
     }
 }
 

@@ -18,6 +18,8 @@ class ComparisonDialog : public QDialog
 public:
     explicit ComparisonDialog(QWidget *parent = 0);
     ~ComparisonDialog();
+protected:
+    void keyPressEvent(QKeyEvent *event);
 private:
     void initPath();
     bool loadTree(const QString &path, QTreeWidget *treeWidget);
@@ -43,6 +45,8 @@ private:
     QList<QTreeWidgetItem*> m_newItemList;
     QTreeWidgetItem *m_editedItem;
     int m_editedCol;
+    bool m_isEditingWhole;
+    bool m_isEditingPart;
 private slots:
     void onActionOldBtnClicked();
     void onActionNewBtnClicked();
