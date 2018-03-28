@@ -3,7 +3,8 @@
 
 #include <QMainWindow>
 class QVBoxLayout;
-class MainWindow;
+class QDesktopWidget;
+class QSizeGrip;
 
 namespace Ui {
 class CombinedWindow;
@@ -33,12 +34,15 @@ private:
     QPoint m_mousePoint;
     bool m_mousePressed;
     bool m_isMax;
-    QRect m_location;
+    QSize m_size;
     QPixmap m_closePix;
     QPixmap m_maxPix;
     QPixmap m_minPix;
     QPixmap m_normalPix;
     QMainWindow *m_bottomWindow;
+    QDesktopWidget *m_desktop;
+    QSizeGrip *m_sizeGrip;
+
 private:
     void setWidgetIcon();
 private slots:

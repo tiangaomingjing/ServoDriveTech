@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>735</width>
-    <height>495</height>
+    <width>677</width>
+    <height>473</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="vLayout_brakePaint" stretch="3,4">
+  <layout class="QVBoxLayout" name="vLayout_brakePaint" stretch="3,5">
    <property name="spacing">
     <number>30</number>
    </property>
@@ -198,7 +198,7 @@
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>67</height>
+            <height>0</height>
            </size>
           </property>
          </spacer>
@@ -334,7 +334,7 @@
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>10</height>
+            <height>0</height>
            </size>
           </property>
          </spacer>

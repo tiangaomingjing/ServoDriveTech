@@ -26,7 +26,7 @@ DBManager::DBManager(QString dbPath, QString userName, QString psw)
     typeList = line.split("-");
 }
 
-bool DBManager::checkRole(QString role, QString psw) {
+bool DBManager::checkRole(QString role, const QString psw) {
     QSqlTableModel model;
     model.setTable("UserInformation");
     QString filter = QString("UserRole = '%1'").arg(role);

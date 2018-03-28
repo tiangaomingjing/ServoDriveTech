@@ -29,8 +29,10 @@ CONFIG(debug, debug|release){
 DESTDIR =$${OUT_ROOT}/Bin
 
 SOURCES += main.cpp\
-        comparisondialog.cpp
+        comparisondialog.cpp \
+    updatedtreewidget.cpp
 
-HEADERS  += comparisondialog.h
+HEADERS  += comparisondialog.h \
+    updatedtreewidget.h
 
 FORMS    += comparisondialog.ui

@@ -9,6 +9,7 @@ class IPlotUnit : public QWidget
 public:
   explicit IPlotUnit(QWidget *parent = 0);
 
+  ~IPlotUnit();
 signals:
 
 public slots:
