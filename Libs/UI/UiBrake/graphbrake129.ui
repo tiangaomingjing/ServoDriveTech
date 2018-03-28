@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="vLayout_brakePaint" stretch="3,4">
+  <layout class="QVBoxLayout" name="vLayout_brakePaint" stretch="3,5">
    <property name="spacing">
     <number>30</number>
    </property>
@@ -198,7 +198,7 @@
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>67</height>
+            <height>0</height>
            </size>
           </property>
          </spacer>
@@ -334,7 +334,7 @@
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>10</height>
+            <height>0</height>
            </size>
           </property>
          </spacer>

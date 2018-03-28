@@ -6,16 +6,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>816</width>
-    <height>483</height>
+    <width>939</width>
+    <height>489</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>ComparisonDialog</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_3" stretch="10,1,1">
+  <layout class="QVBoxLayout" name="verticalLayout_5">
    <item>
-    <widget class="QSplitter" name="splitter">
+    <widget class="QSplitter" name="splitter_compWhole">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -29,7 +29,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QTreeWidget" name="treeWidget_compOld">
+        <widget class="UpdatedTreeWidget" name="treeWidget_compOld">
          <column>
           <property name="text">
            <string/>
@@ -49,7 +49,54 @@
         </widget>
        </item>
        <item>
-        <widget class="QTreeWidget" name="treeWidget_compNew">
+        <widget class="UpdatedTreeWidget" name="treeWidget_compNew">
+         <column>
+          <property name="text">
+           <string/>
+          </property>
+         </column>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QSplitter" name="splitter_compPart">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="QWidget" name="widget_compOldPart" native="true">
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QLabel" name="label_compOldPart">
+         <property name="text">
+          <string>Old Version:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="UpdatedTreeWidget" name="treeWidget_compOldPart">
+         <column>
+          <property name="text">
+           <string notr="true"/>
+          </property>
+         </column>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="widget_compNewPart" native="true">
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <widget class="QLabel" name="label_compNewPart">
+         <property name="text">
+          <string>New Version:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="UpdatedTreeWidget" name="treeWidget_compNewPart">
          <column>
           <property name="text">
            <string/>
@@ -89,6 +136,22 @@
        <property name="text">
         <string>Sync</string>
        </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="checkBox_compDiff">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Only Diff</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item>
@@ -124,6 +187,13 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>UpdatedTreeWidget</class>
+   <extends>QTreeWidget</extends>
+   <header>updatedtreewidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
