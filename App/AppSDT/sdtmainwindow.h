@@ -22,6 +22,7 @@ class DeviceConfig;
 class QProcess;
 class MessageServer;
 class StatusMonitor;
+class SevDevice;
 
 class SDTMainWindow : public QMainWindow
 {
@@ -67,9 +68,10 @@ private:
 
   void createSdAssemblyListByDevConfig(const QList<DeviceConfig *> &configList);
   void updateSDTMainUiByConfigList(const QList<DeviceConfig *> &configList);
-  void updateStatusMonitorDevice(const QList<SdAssembly*> &sdAssemblyList);
+  void updateStatusMonitorDevice(const QList<SevDevice *> &list);
 
   SdAssembly *createSdAssembly(DeviceConfig *cfg);
+  QList<SevDevice *> sevList();
 
   //ui显示状态相关
   void setUiStatusConnect(bool isNet);
@@ -93,7 +95,9 @@ private slots:
   void onActnHelpDeviceInfoClicked();
   void onActnNewConfigClicked();
   void onActnSaveClicked();
+  void onActnConfigClicked();
   void onActnProduceClicked();
+  void onActnCompareClicked();
   void onStartMsgReceived();
   void onCloseMsgReceived();
 
@@ -157,6 +161,7 @@ private:
   PlotUnit *m_plot;
   bool m_connecting;
   StatusMonitor *m_statusMonitor;
+
 
 };
 

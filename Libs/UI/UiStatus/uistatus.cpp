@@ -61,6 +61,11 @@ bool UiStatus::hasSaveFunc()
   return false;
 }
 
+void UiStatus::setContextAction()
+{
+  createActionSwitchView();
+}
+
 QStackedWidget *UiStatus::getUiStackedWidget(void)
 {
   return ui->stackedWidget;

@@ -40,6 +40,11 @@ bool UiRAM::hasSaveFunc()
   return false;
 }
 
+void UiRAM::setContextAction()
+{
+
+}
+
 QStackedWidget *UiRAM::getUiStackedWidget(void)
 {
   return ui->stackedWidget;

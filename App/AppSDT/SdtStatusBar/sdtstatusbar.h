@@ -28,7 +28,7 @@ public:
   void setMsg(const QString &str,MsgType type=MSG_TYPE_NORMAL);
   void setConnectStatus(bool connected);
   void setErrorStatus(bool hasError);
-  void updateDeviceWhenChanged(QTreeWidget *navTree);
+  void updateDeviceNavTreeWhenChanged(QTreeWidget *navTree);
   QProgressBar *statusProgressBar()const;
   void setAlarmErrorStatus(quint32 devInx,qint16 axis,bool hasErr);
 

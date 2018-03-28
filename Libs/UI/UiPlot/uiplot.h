@@ -21,6 +21,8 @@ public:
   bool readPageFLASH()Q_DECL_OVERRIDE{return true;}
   bool writePageFLASH()Q_DECL_OVERRIDE{return true;}
   QHBoxLayout *hBoxLayout();
+  bool hasConfigFunc() {return false;}
+  bool hasSaveFunc() {return false;}
 
 private:
     QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;

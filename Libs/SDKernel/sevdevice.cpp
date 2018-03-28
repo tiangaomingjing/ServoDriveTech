@@ -211,7 +211,79 @@ bool SevDevice::genCmdWrite(const QString &cmdWriteName,quint64 value,qint16 axi
   return d->m_socket->genCmdWrite(cmdWriteName,value,axisIndex);
 }
 
-bool SevDevice::readGenRAM(quint16 axisInx, QTreeWidget *pageTree)
+bool SevDevice::readGenItemRAM(quint16 axisInx, QTreeWidgetItem *item)
+{
+  Q_D(SevDevice);
+  QString type;
+  bool rOk=true;
+  quint64 rv=0;
+
+  type=item->text(COL_PAGE_TREE_TYPE);
+  //通用指令表中有这个才读取
+  if(d->m_socket->containsCmd(item->text(COL_PAGE_TREE_NAME)))
+  {
+    rv=d->m_socket->genCmdRead(item->text(COL_PAGE_TREE_NAME),axisInx,rOk);
+    if(!rOk)
+      return rOk;
+
+    if(type=="Uint16")
+    {
+      quint16 value=rv;
+      item->setText(COL_PAGE_TREE_VALUE,QString::number(value));
+    }
+    else if(type=="int16")
+    {
+      qint16 value=rv;
+      item->setText(COL_PAGE_TREE_VALUE,QString::number(value));
+    }
+    else if(type=="Uint32")
+    {
+      quint32 value=rv;
+      item->setText(COL_PAGE_TREE_VALUE,QString::number(value));
+    }
+    else if(type=="int32")
+    {
+      qint32 value=rv;
+      item->setText(COL_PAGE_TREE_VALUE,QString::number(value));
+    }
+    else if(type=="Uint64")
+    {
+      quint64 value=rv;
+      item->setText(COL_PAGE_TREE_VALUE,QString::number(value));
+    }
+    else if(type=="int64")
+    {
+      qint64 value=rv;
+      item->setText(COL_PAGE_TREE_VALUE,QString::number(value));
+    }
+    else
+    {
+      quint16 value=rv;
+      item->setText(COL_PAGE_TREE_VALUE,QString::number(value));
+    }
+  }
+
+  return rOk;
+}
+
+bool SevDevice::writeGenItemRAM(quint16 axisInx, QTreeWidgetItem *item)
+{
+  //1 调通用指令写原数
+
+  Q_D(SevDevice);
+
+  double value;
+  bool rOk=true;
+
+  if(d->m_socket->containsCmd(item->text(COL_PAGE_TREE_NAME)))
+  {
+    value=item->text(COL_PAGE_TREE_VALUE).toDouble()+0.5;
+    rOk=d->m_socket->genCmdWrite(item->text(COL_PAGE_TREE_NAME),(quint64)value,axisInx);
+  }
+  return rOk;
+}
+
+bool SevDevice::readGenPageRAM(quint16 axisInx, QTreeWidget *pageTree)
 {
   //1 调通用指令读取原数
 
@@ -222,64 +294,18 @@ bool SevDevice::readGenRAM(quint16 axisInx, QTreeWidget *pageTree)
   QTreeWidgetItemIterator it(pageTree);
   QTreeWidgetItem *item;
   bool rOk=true;
-  quint64 rv=0;
-  QString type;
   while (*it)
   {
     item=(*it);
-    type=item->text(COL_PAGE_TREE_TYPE);
-    //通用指令表中有这个才读取
-    if(d->m_socket->containsCmd(item->text(COL_PAGE_TREE_NAME)))
-    {
-      rv=d->m_socket->genCmdRead(item->text(COL_PAGE_TREE_NAME),axisInx,rOk);
-      if(!rOk)
-      {
-        rOk=false;
-        break;
-      }
-
-      if(type=="Uint16")
-      {
-        quint16 value=rv;
-        item->setText(COL_PAGE_TREE_VALUE,QString::number(value));
-      }
-      else if(type=="int16")
-      {
-        qint16 value=rv;
-        item->setText(COL_PAGE_TREE_VALUE,QString::number(value));
-      }
-      else if(type=="Uint32")
-      {
-        quint32 value=rv;
-        item->setText(COL_PAGE_TREE_VALUE,QString::number(value));
-      }
-      else if(type=="int32")
-      {
-        qint32 value=rv;
-        item->setText(COL_PAGE_TREE_VALUE,QString::number(value));
-      }
-      else if(type=="Uint64")
-      {
-        quint64 value=rv;
-        item->setText(COL_PAGE_TREE_VALUE,QString::number(value));
-      }
-      else if(type=="int64")
-      {
-        qint64 value=rv;
-        item->setText(COL_PAGE_TREE_VALUE,QString::number(value));
-      }
-      else
-      {
-        quint16 value=rv;
-        item->setText(COL_PAGE_TREE_VALUE,QString::number(value));
-      }
-    }
+    rOk=readGenItemRAM(axisInx,item);
+    if(!rOk)
+      break;
     it++;
   }
   return rOk;
 }
 
-bool SevDevice::writeGenRAM(quint16 axisInx, QTreeWidget *pageTree)
+bool SevDevice::writeGenPageRAM(quint16 axisInx, QTreeWidget *pageTree)
 {
   //1 调通用指令写原数
 
@@ -287,27 +313,44 @@ bool SevDevice::writeGenRAM(quint16 axisInx, QTreeWidget *pageTree)
   if(d->m_socket->isConnected()==false)
     return false;
 
+  bool checkOk=true;
+  checkOk=checkParameters(axisInx,pageTree);
+  if(!checkOk)
+    return false;
+
+
   QTreeWidgetItemIterator it(pageTree);
   QTreeWidgetItem *item;
   bool rOk=true;
-  quint64 rv=0;
-  double value;
   while (*it)
   {
     item=(*it);
-    if(d->m_socket->containsCmd(item->text(COL_PAGE_TREE_NAME)))
+    rOk=writeGenItemRAM(axisInx,item);
+    if(rOk)
     {
-      value=item->text(COL_PAGE_TREE_VALUE).toDouble()+0.5;
-      rv=d->m_socket->genCmdWrite(item->text(COL_PAGE_TREE_NAME),(quint64)value,axisInx);
-      if(!rOk)
-      {
-        rOk=false;
-        break;
-      }
+      rOk=readGenItemRAM(axisInx,item);
+      emit itemRangeValid(item,(int)OptFace::EDIT_TEXT_STATUS_DEFAULT);
+    }
+    else
+    {
+      QMessageBox::warning(0,tr("Write Error"),tr("Write Config Parameter Error:%1 ").arg(item->text(GT::COL_PAGE_TREE_NAME)));
+      break;
     }
     it++;
   }
   return rOk;
+}
+
+bool SevDevice::writeItemFlash(quint16 axisInx, QTreeWidgetItem *item)
+{
+  Q_D(SevDevice);
+  return d->m_socket->writeItemFlash(axisInx,item);
+}
+
+bool SevDevice::readItemFlash(quint16 axisInx, QTreeWidgetItem *item)
+{
+  Q_D(SevDevice);
+  return d->m_socket->readItemFlash(axisInx,item);
 }
 
 bool SevDevice::clearAlarm(quint16 axisInx)
@@ -447,7 +490,7 @@ bool SevDevice::onReadPageFlash(int axis, QTreeWidget *pageTree)
   while (*it)
   {
     item=(*it);
-    rOk=d->m_socket->readPageFlash(axis,item);
+    rOk=d->m_socket->readItemFlash(axis,item);
     if(!rOk)
     {
       rOk=false;
@@ -477,11 +520,11 @@ bool SevDevice::onWritePageFlash(int axis, QTreeWidget *pageTree)
     item=(*it);
     qDebug()<<"write item"<<item->text(GT::COL_PAGE_TREE_NAME)<<"value"<<item->text(GT::COL_PAGE_TREE_VALUE);
 
-    writeOk=d->m_socket->writePageFlash(axis,item);
+    writeOk=d->m_socket->writeItemFlash(axis,item);
     qDebug()<<"writeOk"<<writeOk;
     if(writeOk)
     {
-      d->m_socket->readPageFlash(axis,item);
+      d->m_socket->readItemFlash(axis,item);
       emit itemRangeValid(item,(int)OptFace::EDIT_TEXT_STATUS_DEFAULT);
     }
     else
@@ -515,7 +558,7 @@ bool SevDevice::checkPropertyParameters(QTreeWidgetItem *item)
     min=min/scale;
     max=max/scale;
     qDebug()<<"value"<<value<<"min"<<min<<"max"<<max;
-    QString msg=QString(tr("CheckPrm Error:%1 %2 is out of range %3 -- %4\n")\
+    QString msg=QString(tr("CheckPrm Error\n:%1 %2 is out of range %3 -- %4\nparamater save fail!")\
                              .arg(item->text(GT::COL_PAGE_TREE_NAME))\
                              .arg(value)\
                              .arg(min)\
@@ -539,7 +582,7 @@ bool SevDevice::checkPowerBoardParameters(QTreeWidgetItem *item, const QMap<QStr
     {
       checked=false;
       emit itemRangeValid(item,(int)OptFace::EDIT_TEXT_STATUS_ERROR);
-      QMessageBox::warning(0,tr("Prm Error"),tr("PowerBoard CheckPrm Error:%1 is out of range").arg(name));
+      QMessageBox::warning(0,tr("Prm Error"),tr("PowerBoard CheckPrm Error\n:%1 is out of range\nparamater save fail!").arg(name));
     }
   }
   return checked;

@@ -48,6 +48,8 @@
 #include <QMessageBox>
 #include <QCloseEvent>
 
+#define UI_TREE_SHOW_COLUMN 0
+
 using namespace GT;
 
 SDTMainWindow::SDTMainWindow(QWidget *parent) :
@@ -84,7 +86,7 @@ bool SDTMainWindow::init()
   stackedWidgetInit();
 
   m_statusBar->resetStatus();
-  updateStatusMonitorDevice(m_sdAssemblyList);
+  updateStatusMonitorDevice(sevList());
 
   connect(m_statusMonitor,SIGNAL(alarmError(quint16,quint16,bool)),this,SLOT(onDeviceAlarmError(quint16,quint16,bool)));
   connect(m_statusMonitor,SIGNAL(netError(quint16)),this,SLOT(onDeviceNetError(quint16)));
@@ -104,6 +106,7 @@ void SDTMainWindow::staticUiInit()
   mp_progressBar=m_statusBar->statusProgressBar();
   ui->statusBar->addPermanentWidget(m_statusBar,0);
   ui->statusBar->setToolTipDuration(2000);
+  m_statusBar->resetStatus();
 
   ui->treeWidget->setMinimumWidth(150);
 
@@ -261,7 +264,9 @@ void SDTMainWindow::createConnections()
   connect(m_actnAboutHardware,SIGNAL(triggered(bool)),this,SLOT(onActnHelpDeviceInfoClicked()));
   connect(m_actnNewConfig,SIGNAL(triggered(bool)),this,SLOT(onActnNewConfigClicked()));
   connect(m_actnSave,SIGNAL(triggered(bool)),this,SLOT(onActnSaveClicked()));
+  connect(m_actnConfig,SIGNAL(triggered(bool)),this,SLOT(onActnConfigClicked()));
   connect(m_actnProduce, SIGNAL(triggered()), this, SLOT(onActnProduceClicked()));
+  connect(m_actnCompare,SIGNAL(triggered(bool)),this,SLOT(onActnCompareClicked()));
 
   OptAutoLoad *optAuto=dynamic_cast<OptAutoLoad *>(OptContainer::instance()->optItem("optautoload"));
   if(optAuto!=NULL)
@@ -408,7 +413,8 @@ void SDTMainWindow::navigationTreeInit()
         ui->treeWidget->topLevelItem(0)->child(0)->child(0)->setSelected(true);
     }
   }
-//  ui->treeWidget->setHeaderHidden(false);
+
+#if UI_TREE_SHOW_COLUMN==1
   ui->treeWidget->setHeaderHidden(true);
   ui->treeWidget->setColumnHidden(1,true);
   ui->treeWidget->setColumnHidden(2,true);
@@ -416,8 +422,13 @@ void SDTMainWindow::navigationTreeInit()
   ui->treeWidget->setColumnHidden(4,true);
   ui->treeWidget->setColumnHidden(5,true);
   ui->treeWidget->setColumnHidden(6,true);
+#endif
+#if UI_TREE_SHOW_COLUMN==0
+  ui->treeWidget->setHeaderHidden(false);
+  ui->treeWidget->setColumnCount(7);
+#endif
 
-  m_statusBar->updateDeviceWhenChanged(ui->treeWidget);
+  m_statusBar->updateDeviceNavTreeWhenChanged(ui->treeWidget);
 }
 
 void SDTMainWindow::clearNavigationTree()
@@ -427,12 +438,16 @@ void SDTMainWindow::clearNavigationTree()
 
 void SDTMainWindow::globalUiPageInit()
 {
-  m_gUiControl=new GlobalUiControler(m_optc);
+  QList<SevDevice *>sevList;
+  for(int i=0;i<m_sdAssemblyList.count();i++)
+    sevList.append(m_sdAssemblyList.at(i)->sevDevice());
+
+  m_gUiControl=new GlobalUiControler(sevList);
   m_gUiControl->createUis();
 
   m_plot=new PlotUnit;
   connect(m_plot,SIGNAL(floatingChanged(bool)),this,SLOT(onPlotFloatingChanged(bool)));
-  UiPlot *uiplot=dynamic_cast<UiPlot *>(m_gUiControl->getUiWidgetByClassName("UiPlot"));
+  UiPlot *uiplot=dynamic_cast<UiPlot *>(m_gUiControl->uiWidget("UiPlot"));
   uiplot->hBoxLayout()->addWidget(m_plot);
 }
 void SDTMainWindow::stackedWidgetInit()
@@ -561,6 +576,15 @@ void SDTMainWindow::onActnProduceClicked() {
 //        tcpClient->connectToServer();
 //        qDebug()<<"aa";
     }
+}
+
+void SDTMainWindow::onActnCompareClicked()
+{
+  for(int i=0;i<ui->mainStackedWidget->count();i++)
+  {
+    IUiWidget *uiw=dynamic_cast<IUiWidget *>(ui->mainStackedWidget->widget(i));
+    qDebug()<<"class name"<<uiw->objectName();
+  }
 }
 
 void SDTMainWindow::startListen() {
@@ -732,6 +756,7 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
     m_statusBar->statusProgressBar()->setVisible(false);
   }
   qDebug()<<"checked"<<checked;
+  m_statusBar->resetStatus();
 
 }
 void SDTMainWindow::onActnDisConnectClicked(bool checked)
@@ -775,6 +800,15 @@ void SDTMainWindow::onActnSaveClicked()
   IUiWidget *ui=dynamic_cast<IUiWidget *>(cw);//向下转型时使用dynamic_cast
   qDebug()<<ui->objectName();
   ui->writePageFLASH();
+}
+
+void SDTMainWindow::onActnConfigClicked()
+{
+  qDebug()<<"act add write flash test clicked";
+  QWidget *cw=ui->mainStackedWidget->currentWidget();
+  IUiWidget *ui=dynamic_cast<IUiWidget *>(cw);//向下转型时使用dynamic_cast
+  qDebug()<<ui->objectName();
+  ui->writeGenPageRAM();
 }
 
 void SDTMainWindow::onOptAutoLoadChanged(bool changed)
@@ -822,6 +856,7 @@ void SDTMainWindow::onNavTreeWidgetItemClicked(QTreeWidgetItem *item, int column
       if(item->text(COL_TARGET_CONFIG_ISPLOT)=="1")
         plotShow=true;
       showPlotUiOnly(plotShow);
+
       setNavCurrentSelectedInfo();
     }
   }
@@ -852,11 +887,15 @@ void SDTMainWindow::onStatusBarPageChanged(int pIndex)
   ui->treeWidget->expandItem(selectAxisItem);
   ui->treeWidget->expandItem(selectItem);
   selectItem->setSelected(true);
+
+  disactiveAllUi();
+  activeCurrentUi();
+  changeConfigSaveBtnStatus();
 }
 
 void SDTMainWindow::onPlotFloatingChanged(bool floating)
 {
-  UiPlot *uiplot=dynamic_cast<UiPlot *>(m_gUiControl->getUiWidgetByClassName("UiPlot"));
+  UiPlot *uiplot=dynamic_cast<UiPlot *>(m_gUiControl->uiWidget("UiPlot"));
   if(floating)
   {
     uiplot->hBoxLayout()->removeWidget(m_plot);
@@ -902,6 +941,7 @@ void SDTMainWindow::onDeviceNetError(quint16 devId)
   // 1 2
   //4 5
   onActnDisConnectClicked(true);
+  m_statusBar->setMsg(tr("Device:%1 NetError!").arg(m_sdAssemblyList.at(devId)->sevDevice()->deviceConfig()->m_modeName),SdtStatusBar::MSG_TYPE_ERROR);
 
 }
 SdAssembly *SDTMainWindow::createSdAssembly(DeviceConfig *cfg)
@@ -1051,6 +1091,16 @@ void SDTMainWindow::createSdAssemblyListByDevConfig(const QList<DeviceConfig *> 
 
 }
 
+QList<SevDevice *> SDTMainWindow::sevList()
+{
+  QList<SevDevice *> list;
+  foreach (SdAssembly *sda, m_sdAssemblyList) {
+    list.append(sda->sevDevice());
+  }
+
+  return list;
+}
+
 void SDTMainWindow::updateSDTMainUiByConfigList(const QList<DeviceConfig *> &configList)
 {
   createSdAssemblyListByDevConfig(configList);
@@ -1063,14 +1113,12 @@ void SDTMainWindow::updateSDTMainUiByConfigList(const QList<DeviceConfig *> &con
 //  ui->progressBar->setValue(100);
 
 //  qDebug()<<"stackedWidget count="<<ui->mainStackedWidget->count();
-  updateStatusMonitorDevice(m_sdAssemblyList);
+
+  updateStatusMonitorDevice(sevList());
+  m_gUiControl->setSevDeviceList(sevList());
 }
 
-void SDTMainWindow::updateStatusMonitorDevice(const QList<SdAssembly *> &sdAssemblyList)
+void SDTMainWindow::updateStatusMonitorDevice(const QList<SevDevice *> &list)
 {
-  QList<SevDevice *>list;
-  foreach (SdAssembly *sda, sdAssemblyList) {
-    list.append(sda->sevDevice());
-  }
   m_statusMonitor->setMonitorDeviceList(list);
 }

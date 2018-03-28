@@ -81,7 +81,7 @@ bool LinkSocket::isConnected() const
   return m_isConnected;
 }
 
-bool LinkSocket::readPageFlash(int axis,QTreeWidgetItem *item)
+bool LinkSocket::readItemFlash(int axis,QTreeWidgetItem *item)
 {
   if(!m_isConnected)
     return true;
@@ -134,7 +134,7 @@ bool LinkSocket::readPageFlash(int axis,QTreeWidgetItem *item)
   }
   return true;
 }
-bool LinkSocket::writePageFlash(int axis,QTreeWidgetItem *item)
+bool LinkSocket::writeItemFlash(int axis,QTreeWidgetItem *item)
 {
   if(!m_isConnected)
     return true;

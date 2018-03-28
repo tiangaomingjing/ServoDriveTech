@@ -50,7 +50,7 @@ void UiPower::setUiActive(bool actived)
   if(actived)
   {
     Q_D(UiPower);
-    if(readGenRAM())
+    if(readGenPageRAM())
       d->m_graphPower->syncTreeDataToUiFace();
   }
 }
@@ -76,6 +76,25 @@ bool UiPower::hasSaveFunc()
 {
   return true;
 }
+
+void UiPower::setContextAction()
+{
+  createActionSwitchView();
+}
+
+//void UiPower::onActionReadRAM()
+//{
+//  Q_D(UiPower);
+//  if(readGenPageRAM())
+//    d->m_graphPower->syncTreeDataToUiFace();
+//}
+
+//void UiPower::onActionReadFLASH()
+//{
+//  Q_D(UiPower);
+//  if(readPageFLASH())
+//    d->m_graphPower->syncTreeDataToUiFace();
+//}
 
 QStackedWidget *UiPower::getUiStackedWidget(void)
 {

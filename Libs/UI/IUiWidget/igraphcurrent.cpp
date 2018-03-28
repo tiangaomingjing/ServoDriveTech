@@ -75,7 +75,7 @@ void IGraphCurrent::createPidControllerItem()
   d->m_iEdit=iedit;
   iedit->setObjectName("dspinBox_currentIedit");
   iedit->setMinimum(0);
-  iedit->setMaximum(65535);
+  iedit->setMaximum(2147483647);
   iedit->setButtonSymbols(QAbstractSpinBox::NoButtons);
   vlayoutTest->addWidget(iedit);
 

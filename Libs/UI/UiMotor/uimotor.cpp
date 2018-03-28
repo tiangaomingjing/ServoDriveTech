@@ -86,6 +86,11 @@ bool UiMotor::hasSaveFunc()
   return true;
 }
 
+void UiMotor::setContextAction()
+{
+  createActionSwitchView();
+}
+
 QStackedWidget *UiMotor::getUiStackedWidget(void)
 {
   return ui->stackedWidget;

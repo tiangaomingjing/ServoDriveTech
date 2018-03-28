@@ -34,6 +34,21 @@ LedAlarm::LedAlarm(const QString &name, QWidget *parent, qint16 id, LedTextPosit
     hLayout->setStretch(1,1);
     setLayout(hLayout);
   }
+  m_actnConfigMask=new QAction(tr("config mask"),this);
+  m_actnConfigMask->setCheckable(true);
+  connect(m_actnConfigMask,SIGNAL(triggered(bool)),this,SIGNAL(actnConfigMaskTrigger()));
+
+  m_actnSaveMask=new QAction(tr("save mask"),this);
+  m_actnSaveMask->setCheckable(true);
+  m_actnSaveMask->setToolTip(tr("active after reset"));
+  connect(m_actnSaveMask,SIGNAL(triggered(bool)),this,SIGNAL(actnSaveMaskTrigger()));
+
+//  m_actnRestoreMask=new QAction(tr("restore mask"),this);
+//  connect(m_actnRestoreMask,SIGNAL(triggered(bool)),this,SIGNAL(actnRestoreMaskTrigger()));
+
+  m_led->menu()->addAction(m_actnConfigMask);
+  m_led->menu()->addAction(m_actnSaveMask);
+//  m_led->menu()->addAction(m_actnRestoreMask);
 
 }
 
@@ -71,6 +86,41 @@ qint16 LedAlarm::id() const
 {
   return m_id;
 }
+
+bool LedAlarm::actionConfigMaskIsChecked()
+{
+  return m_actnConfigMask->isChecked();
+}
+
+bool LedAlarm::actionSaveMaskIsChecked()
+{
+  return m_actnSaveMask->isChecked();
+}
+
+void LedAlarm::setActionConfigMaskChecked(bool checked)
+{
+  m_actnConfigMask->setChecked(checked);
+}
+
+void LedAlarm::setActionSaveMaskChecked(bool checked)
+{
+  m_actnSaveMask->setChecked(checked);
+}
+
+void LedAlarm::setActionConfigMaskText(const QString &text)
+{
+  m_actnConfigMask->setText(text);
+}
+
+void LedAlarm::setActionSaveMaskText(const QString &text)
+{
+  m_actnSaveMask->setText(text);
+}
+
+//void LedAlarm::setActionRestoreMaskText(const QString &text)
+//{
+//  m_actnRestoreMask->setText(text);
+//}
 
 
 LedAlarm::Led::Led(LedAlarm *parent):QPushButton(parent),

@@ -39,6 +39,11 @@ bool UiFLASH::hasSaveFunc()
   return false;
 }
 
+void UiFLASH::setContextAction()
+{
+
+}
+
 QStackedWidget *UiFLASH::getUiStackedWidget(void)
 {
   return ui->stackedWidget;

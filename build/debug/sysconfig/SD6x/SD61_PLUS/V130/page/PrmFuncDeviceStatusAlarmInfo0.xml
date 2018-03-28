@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>816</width>
-    <height>554</height>
+    <width>821</width>
+    <height>508</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -91,19 +91,19 @@
        <string/>
       </property>
       <property name="text">
-       <string>NULL</string>
+       <string/>
       </property>
       <property name="text">
-       <string>500</string>
+       <string/>
       </property>
       <property name="text">
-       <string>1</string>
+       <string/>
       </property>
       <property name="text">
-       <string>NULL</string>
+       <string/>
       </property>
       <property name="text">
-       <string>NULL</string>
+       <string/>
       </property>
       <item>
        <property name="text">
@@ -995,6 +995,35 @@
         <string>检查通信线缆连接是否正常</string>
        </property>
       </item>
+     </item>
+     <item>
+      <property name="text">
+       <string>gSevDrv.sev_obj.cur.pro.prm.alm_mask_flag.all</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>Uint32</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>500</string>
+      </property>
+      <property name="text">
+       <string>1</string>
+      </property>
      </item>
     </widget>
    </item>

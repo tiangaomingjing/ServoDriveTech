@@ -23,6 +23,9 @@ public:
 
   void accept(QWidget*w) Q_DECL_OVERRIDE;
 
+  bool hasConfigFunc() {return false;}
+  bool hasSaveFunc() {return false;}
+
 private:
   QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;
   QVBoxLayout *getVBoxLayout(void)Q_DECL_OVERRIDE;

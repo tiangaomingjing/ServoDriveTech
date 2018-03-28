@@ -56,9 +56,23 @@ void UiVelocity::setUiActive(bool actived)
   if(actived)
   {
     Q_D(UiVelocity);
-    if(readGenRAM())
+    if(readGenPageRAM())
       d->m_graphVelocityView->syncTreeDataToUiFace();
   }
+}
+
+void UiVelocity::onActionReadFLASH()
+{
+  Q_D(UiVelocity);
+  if(readPageFLASH())
+    d->m_graphVelocityView->syncTreeDataToUiFace();
+}
+
+void UiVelocity::onActionReadRAM()
+{
+  Q_D(UiVelocity);
+  if(readGenPageRAM())
+    d->m_graphVelocityView->syncTreeDataToUiFace();
 }
 
 QStackedWidget *UiVelocity::getUiStackedWidget(void)

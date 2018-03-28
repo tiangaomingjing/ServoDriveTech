@@ -6,7 +6,7 @@
 #include <QTreeWidgetItem>
 #include <QDebug>
 
-#define TEST_OUT 1
+#define TEST_OUT 0
 
 class GeneralCmd::GeneralCmdPrivateData
 {
@@ -139,7 +139,7 @@ qint16 GeneralCmd::readErrorCode()
 //! \param cmdWriteName
 //! \param value  写的是最终的数据，value=GraphUI上的数据先*tree的增益
 //! \param axisIndex
-//! \return
+//! \return true:成功写 false:失败
 //!
 bool GeneralCmd::write(const QString &cmdWriteName, quint64 value, qint16 axisIndex)
 {

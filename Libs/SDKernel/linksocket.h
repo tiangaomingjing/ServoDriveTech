@@ -28,8 +28,8 @@ public:
   bool isConnected() const;
   void setTryWriteCount(quint8 tryWriteCount);
 
-  bool readPageFlash(int axis,QTreeWidgetItem *item);
-  bool writePageFlash(int axis,QTreeWidgetItem *item);
+  bool readItemFlash(int axis,QTreeWidgetItem *item);
+  bool writeItemFlash(int axis,QTreeWidgetItem *item);
 
 
   //通用RAM读写操作

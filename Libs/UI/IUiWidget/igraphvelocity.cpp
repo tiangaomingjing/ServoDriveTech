@@ -145,7 +145,7 @@ void IGraphVelocity::createPidItem()
   QDoubleSpinBox *pedit=new QDoubleSpinBox(wpid);
   d->m_pEdit=pedit;
   pedit->setObjectName("dspinBox_velPedit");
-  pedit->setMinimum(-32768);
+  pedit->setMinimum(0);
   pedit->setMaximum(32767);
   pedit->setButtonSymbols(QAbstractSpinBox::NoButtons);
   vlayoutTest->addWidget(pedit);

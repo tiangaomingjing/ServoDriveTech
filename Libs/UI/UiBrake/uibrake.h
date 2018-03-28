@@ -24,6 +24,10 @@ public:
   bool hasConfigFunc()Q_DECL_OVERRIDE;
   bool hasSaveFunc()Q_DECL_OVERRIDE;
 
+protected slots:
+  void onActionReadFLASH() Q_DECL_OVERRIDE;
+  void onActionReadRAM() Q_DECL_OVERRIDE;
+
 private:
   QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;
   QVBoxLayout *getVBoxLayout(void)Q_DECL_OVERRIDE;

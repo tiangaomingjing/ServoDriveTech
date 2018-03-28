@@ -5,7 +5,8 @@
 
 #include <QDebug>
 
-GlobalUiControler::GlobalUiControler(QObject *parent):IUiControler(parent)
+GlobalUiControler::GlobalUiControler(QList<SevDevice *> &sevList, QObject *parent):IUiControler(parent),
+  m_sevList(sevList)
 {
 
 }
@@ -25,7 +26,7 @@ void GlobalUiControler::createUis()
   m_uiLists.append(uiPlot);
 }
 
-IUiWidget *GlobalUiControler::getUiWidgetByClassName(const QString &name)
+IUiWidget *GlobalUiControler::uiWidget(const QString &name)
 {
   IUiWidget *ui=NULL;
   foreach (IUiWidget *w, m_uiLists)
@@ -37,4 +38,9 @@ IUiWidget *GlobalUiControler::getUiWidgetByClassName(const QString &name)
     }
   }
   return ui;
+}
+
+void GlobalUiControler::setSevDeviceList(const QList<SevDevice *> &sevList)
+{
+  m_sevList=sevList;
 }

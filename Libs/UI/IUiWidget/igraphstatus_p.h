@@ -7,6 +7,7 @@
 
 class LedAlarm;
 class QTimer;
+class QTreeWidgetItem;
 class IUIWIDGETSHARED_EXPORT IGraphStatusPrivate:public IGraphPrivate
 {
   Q_DECLARE_PUBLIC(IGraphStatus)
@@ -25,6 +26,7 @@ protected:
   QStringList m_sevStatusText;
   QStringList m_sevModeText;
   QStringList m_sevUsrModeText;
+  QTreeWidgetItem *m_alarmInfoItem;
 };
 
 #endif // IGRAPHBRAKE_P_H

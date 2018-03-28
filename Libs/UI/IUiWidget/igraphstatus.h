@@ -1,4 +1,5 @@
-﻿#ifndef IGRAPHSTATUS_H
+﻿
+#ifndef IGRAPHSTATUS_H
 #define IGRAPHSTATUS_H
 
 #include <QWidget>
@@ -32,7 +33,7 @@ protected:
   virtual bool hasError()=0;
   virtual void updateUiLabelText()=0;
 
-  void addLedErrorTitle();
+
 
 signals:
 
@@ -43,6 +44,14 @@ protected slots:
   virtual void onTimeOut();
 private slots:
   void onOptUserChanged(bool admin);
+  void onActnSaveMaskClicked();
+  void onActnConfigMaskClicked();
+  void onActnRestoreMaskClicked();
+  void onActnRestoreMaskAllClicked();
+  void onActnSaveMaskAllClicked();
+private:
+  void addAlarmLedsToWidget(IUiWidget *uiWidget);
+  void addLedErrorTitle();
 protected:
   IGraphStatus(IGraphStatusPrivate&dd, QWidget *parent=0);
 
