@@ -10,19 +10,6 @@
 #include <QKeyEvent>
 #include <QDebug>
 
-IGraphPrivate::IGraphPrivate():
-  m_dev(NULL),
-  m_treeWidget(NULL),
-  m_mapping(new BoxItemMapping)
-{
-
-}
-
-IGraphPrivate::~IGraphPrivate()
-{
-  delete m_mapping;
-}
-
 IGraph::~IGraph()
 {
   delete d_ptr;

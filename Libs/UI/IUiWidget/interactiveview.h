@@ -1,8 +1,8 @@
 ﻿#ifndef INTERACTIVEVIEW_H
 #define INTERACTIVEVIEW_H
 
-#include "iuiwidget_global.h"
 #include <QGraphicsView>
+#include "iuiwidget_global.h"
 
 class QWheelEvent;
 class QKeyEvent;

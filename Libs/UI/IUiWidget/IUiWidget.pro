@@ -9,7 +9,8 @@ INCLUDEPATH+=$${PWD}/../../SDKernel\
               $${PWD}/../../GTUtils\
               $${PWD}/../../GTUtils/QtTreeManager\
               $${PWD}/../../Option\
-              $${PWD}/SDTGraphicsItems
+              $${PWD}/SDTGraphicsItems\
+              $${PWD}/DataBinding
 
 QT       += widgets quickwidgets qml
 
@@ -49,11 +50,8 @@ SOURCES += iuiwidget.cpp \
     igraphstatus.cpp \
     igraphvelocity.cpp \
     igraphwidget.cpp \
-    imapping.cpp \
-    boxitemmapping.cpp\
     igraph.cpp \
     igraphbrake.cpp \
-    idatabinding.cpp \
     interactiveview.cpp \
     SDTGraphicsItems/anchoritemhelper.cpp \
     SDTGraphicsItems/arrowitem.cpp \
@@ -63,7 +61,10 @@ SOURCES += iuiwidget.cpp \
     SDTGraphicsItems/labelitemwidget.cpp \
     SDTGraphicsItems/saturationitemwidget.cpp \
     SDTGraphicsItems/frameitemwidget.cpp \
-    ../../../Common/src/ledalarm.cpp
+    ../../../Common/src/ledalarm.cpp \
+    DataBinding/idatabinding.cpp \
+    DataBinding/labelbinding.cpp \
+    DataBinding/boxitemmapping.cpp
 
 HEADERS += iuiwidget.h\
         iuiwidget_global.h \
@@ -84,14 +85,11 @@ HEADERS += iuiwidget.h\
     igraphstatus_p.h \
     igraphvelocity_p.h \
     igraphwidget.h \
-    imapping.h \
-    boxitemmapping.h\
     igraph.h \
     igraph_p.h \
     igraphbrake.h \
     igraphbrake_p.h \
     igraphwidget_p.h \
-    idatabinding.h \
     interactiveview.h \
     SDTGraphicsItems/anchoritemhelper.h \
     SDTGraphicsItems/arrowitem.h \
@@ -103,7 +101,10 @@ HEADERS += iuiwidget.h\
     SDTGraphicsItems/labelitemwidget.h \
     SDTGraphicsItems/saturationitemwidget.h \
     SDTGraphicsItems/frameitemwidget.h \
-    ../../../Common/src/ledalarm.h
+    ../../../Common/src/ledalarm.h \
+    DataBinding/idatabinding.h \
+    DataBinding/labelbinding.h \
+    DataBinding/boxitemmapping.h
 
 unix {
     target.path = /usr/lib

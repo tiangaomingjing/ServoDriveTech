@@ -1,19 +1,31 @@
 ﻿#ifndef IGRAPH_P_H
 #define IGRAPH_P_H
 
-#include "iuiwidget_global.h"
+#include "igraph.h"
+#include "boxitemmapping.h"
 
 class SevDevice;
 class QTreeWidget;
 class BoxItemMapping;
 class IGraph;
 class IUiWidget;
-class IUIWIDGETSHARED_EXPORT IGraphPrivate
+class IGraphPrivate
 {
   Q_DECLARE_PUBLIC(IGraph)
 public:
-  IGraphPrivate();
-  virtual ~IGraphPrivate();
+  IGraphPrivate() :
+    m_dev(NULL),
+    m_treeWidget(NULL),
+    m_mapping(new BoxItemMapping)
+  {
+
+  }
+
+  virtual ~IGraphPrivate()
+  {
+    delete m_mapping;
+  }
+
 protected:
   IGraph *q_ptr;
   SevDevice *m_dev;

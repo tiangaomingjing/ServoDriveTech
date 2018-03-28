@@ -1,4 +1,5 @@
-﻿#ifndef IGRAPHSTATUS_H
+﻿
+#ifndef IGRAPHSTATUS_H
 #define IGRAPHSTATUS_H
 
 #include <QWidget>
@@ -17,17 +18,22 @@ public:
 //  explicit IGraphStatus(QWidget *parent = 0);
   virtual ~IGraphStatus();
   void visit(IUiWidget *uiWidget) Q_DECL_OVERRIDE;
+  void setTimerActive(bool active);
 
 protected:
   virtual void setUiVersionName()Q_DECL_OVERRIDE =0;
   virtual void setCustomVisitActive(IUiWidget*uiWidget);
   virtual void setupDataMappings()=0;
+  virtual void syncTreeDataToUiFace();
 
   virtual void setDeviceStatusIconByCss(const QString &css)=0;
   virtual QWidget *alarmBackgroundWidget()=0;
   virtual void addLedErrorToUi()=0;
+  virtual quint32 alarmCode()=0;
+  virtual bool hasError()=0;
+  virtual void updateUiLabelText()=0;
 
-  void addLedErrorTitle();
+
 
 signals:
 
@@ -35,6 +41,17 @@ public slots:
 
 protected slots:
   virtual void onFaceCssChanged(const QString &css);
+  virtual void onTimeOut();
+private slots:
+  void onOptUserChanged(bool admin);
+  void onActnSaveMaskClicked();
+  void onActnConfigMaskClicked();
+  void onActnRestoreMaskClicked();
+  void onActnRestoreMaskAllClicked();
+  void onActnSaveMaskAllClicked();
+private:
+  void addAlarmLedsToWidget(IUiWidget *uiWidget);
+  void addLedErrorTitle();
 protected:
   IGraphStatus(IGraphStatusPrivate&dd, QWidget *parent=0);
 

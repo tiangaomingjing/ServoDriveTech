@@ -19,6 +19,8 @@ public:
   errcode_t setServoEnable(uint8_t axis, bool on)override;
   errcode_t checkServoIsEnable(uint8_t axis,bool &enable) override;
 
+  errcode_t clearAlarm(uint8_t axis) override;
+
   errcode_t setServoTaskMode(uint8_t axis,ServoTaskMode_t mode);
   ServoTaskMode_t currentServoTaskMode(uint8_t axis,errcode_t &errcode);
 

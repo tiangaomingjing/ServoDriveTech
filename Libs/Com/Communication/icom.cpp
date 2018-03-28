@@ -13,14 +13,6 @@ IComPrivate::~IComPrivate()
 
 }
 
-ICom::ICom(const string &objectName):d_ptr(new IComPrivate())
-{
-  Q_D(ICom);
-  d->q_ptr=this;
-  d->m_objectName=objectName;
-  d->m_comType=ICOM_TYPE_PCDEBUG;
-
-}
 ICom::~ICom()
 {
   delete d_ptr;

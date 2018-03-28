@@ -96,12 +96,13 @@ QList<DeviceConfig *>DevComRWriter::createConfig(void (*processCallback)(void *p
       else
       {
         isOk=false;
+        SdtError::instance()->errorStringList()->append(tr("  RnNet station : %1 error!").arg(i));
         break;
       }
       i++;
     }
   }
-  else
+  else//PcDebug 模式
   {
     config=buildConfigFromCom(0,-1,com);
     if(config!=NULL)
@@ -246,12 +247,7 @@ DeviceConfig* DevComRWriter::buildConfigFromCom(quint8 devId, quint8 rnstation, 
       solution.append(str2);
     }
     SdtError::instance()->errorStringList()->append(solution);
-//     SdtError::instance()->errorStringList()->append(tr("\nSolution:"));
-//     SdtError::instance()->errorStringList()->append(tr(" 1 manual to select the software toolbar:\n  more->option->autolaod->unchecked clicked apply"));
-//     SdtError::instance()->errorStringList()->append(tr("  and then toolbar:new ....select your correct version"));
-//     SdtError::instance()->errorStringList()->append(tr(" 2 the communication firmware does not support,update fpga firmware"));
-//     SdtError::instance()->errorStringList()->append(tr(" 3 contract factory to flash again EEPROM"));
-
+    qDebug()<<"pok"<<pok<<"cok"<<cok<<"vok"<<vok<<"fok"<<fok;
   }
 
   return config;

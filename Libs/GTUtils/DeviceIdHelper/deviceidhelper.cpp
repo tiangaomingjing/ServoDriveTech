@@ -11,6 +11,9 @@
 #define IDMAP_FILENAME "IdMap_Power.ui"
 #define PWR_BASE_ADDR 64
 #define CTR_BASE_ADDR 128
+
+#define TEST_READ_VERSION 0
+
 using namespace ComDriver;
 DeviceIdHelper::DeviceIdHelper(QObject *parent):QObject(parent),
   m_com(NULL),
@@ -85,6 +88,7 @@ quint32 DeviceIdHelper::readPwrId(bool &isOk)
       if(id==m_pwrId)
       {
         findId=true;
+        m_hasPwrId=true;
         m_typeName=item->text(COL_IDMAP_TYPE);
         m_modeName=item->text(COL_IDMAP_MODE);
         m_axisNum=item->text(COL_IDMAP_AXISNUM).toUInt();
@@ -97,7 +101,11 @@ quint32 DeviceIdHelper::readPwrId(bool &isOk)
   if(findId==false)
   {
     //NEED TO REWRITE
-    //在IdMap_Power.ui文件中找不到这个ID，说明固件是新的，而调试软件是老版的，提示用户用手动方式进入，或是升级调试软件
+    //在IdMap_Power.ui文件中找不到这个ID，说明固件是新的，而调试软件是老版的，或是升级调试软件
+
+    //从EPROM重构自己
+    //重构成功，isOk=true else isOk=false
+
     m_typeName="NULL";
     m_modeName="NULL";
     m_axisNum=0;
@@ -133,6 +141,12 @@ quint32 DeviceIdHelper::readCtrId(bool &isOk)
       id = id + (value[i] << (i * 8));
   }
   m_ctrId = id;
+
+  //如在ctrId在id_CtlMap中找不到，说明调试软件是老的，模块是新的
+  //从EPROM重构自己
+
+  //重构成功，isOk=true else isOk=false
+
   return m_ctrId;
 }
 quint32 DeviceIdHelper::readFpgaId(bool &isOk)
@@ -163,6 +177,10 @@ bool DeviceIdHelper::readFpgaDate(quint16 &year, quint16 &day)
 
 QString DeviceIdHelper::readVersion(bool &isOk)
 {
+#if TEST_READ_VERSION
+    isOk=false;
+    return "V0";
+#endif
   //需要从硬件读取
     uint8_t dspInx = 0;
     uint16_t version;

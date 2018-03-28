@@ -1,8 +1,8 @@
 ﻿#ifndef IGRAPHWIDGET_H
 #define IGRAPHWIDGET_H
 
-#include "iuiwidget_global.h"
 #include "interactiveview.h"
+#include "iuiwidget_global.h"
 
 class IGraphWidgetPrivate;
 class IUiWidget;

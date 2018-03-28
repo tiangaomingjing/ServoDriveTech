@@ -134,21 +134,16 @@ int main(int argc, char *argv[])
 //  getFileDirNameTest();
 //  readStyleINI();
 
-  QList<QString *>strList;
-  QString *stest;
-  for(int i=0;i<10;i++)
-  {
-    stest=new QString(QString::number(i));
-    strList.append(stest);
-  }
-  int s=sum(2,3);
-  qDebug()<<"sum"<<s;
-
   qDebug()<<"10.00 toUshort"<<QString("10.00").toUShort();
   qDebug()<<"10.00.toDouble()"<<QString("10.00").toDouble();
 
   B *b=new C;
   b->display();
+
+  qDebug()<<"sizeof uint"<<sizeof(uint);
+  qDebug()<<"sizeof int"<<sizeof(int);
+  qDebug()<<"sizeof ushort"<<sizeof(ushort);
+  qDebug()<<"sizeof uint"<<sizeof(ulong);
 
   return a.exec();
 }

@@ -57,9 +57,23 @@ void UiPosition::setUiActive(bool actived)
   if(actived)
   {
     Q_D(UiPosition);
-    if(readGenRAM())
+    if(readGenPageRAM())
       d->m_graphPositionView->syncTreeDataToUiFace();
   }
+}
+
+void UiPosition::onActionReadFLASH()
+{
+  Q_D(UiPosition);
+  if(readPageFLASH())
+    d->m_graphPositionView->syncTreeDataToUiFace();
+}
+
+void UiPosition::onActionReadRAM()
+{
+  Q_D(UiPosition);
+  if(readGenPageRAM())
+    d->m_graphPositionView->syncTreeDataToUiFace();
 }
 
 QStackedWidget *UiPosition::getUiStackedWidget(void)

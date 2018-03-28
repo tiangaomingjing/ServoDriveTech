@@ -73,6 +73,14 @@ errcode_t PcDebug::checkServoIsEnable(uint8_t axis, bool &enable)
   return ret;
 }
 
+errcode_t PcDebug::clearAlarm(uint8_t axis)
+{
+  Q_D(PcDebug);
+
+  int16_t ret=GTSD_CMD_ClrAlarm(axis,d->m_comType);
+  return ret;
+}
+
 errcode_t PcDebug::setServoTaskMode(uint8_t axis,ServoTaskMode_t mode)
 {
   Q_D(PcDebug);

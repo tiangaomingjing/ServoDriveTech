@@ -310,7 +310,10 @@ void UiMainWindow::globalUiPageInit()
 {
   Q_D(UiMainWindow);
 
-  d->m_gUiControl=new GlobalUiControler(d->m_gOptc);
+  QList<SevDevice *>sevList;
+  for(int i=0;i<d->m_sdAssemblyList.count();i++)
+    sevList.append(d->m_sdAssemblyList.at(i)->sevDevice());
+  d->m_gUiControl=new GlobalUiControler(sevList);
   d->m_gUiControl->createUis();
 }
 

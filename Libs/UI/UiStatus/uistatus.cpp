@@ -2,6 +2,7 @@
 #include "ui_uistatus.h"
 #include "iuiwidget_p.h"
 #include "igraphstatus.h"
+#include "sevdevice.h"
 
 #include <QQuickWidget>
 #include <QQmlContext>
@@ -40,6 +41,29 @@ void UiStatus::accept(QWidget *w)
 
   d->m_graphStatus=dynamic_cast<IGraphStatus *>(w);
   d->m_graphStatus->visit(this);
+}
+void UiStatus::setUiActive(bool actived)
+{
+  Q_D(UiStatus);
+  if(d->m_device->isConnecting())
+   d->m_graphStatus->setTimerActive(actived);
+  else
+    d->m_graphStatus->setTimerActive(false);
+}
+
+bool UiStatus::hasConfigFunc()
+{
+  return false;
+}
+
+bool UiStatus::hasSaveFunc()
+{
+  return false;
+}
+
+void UiStatus::setContextAction()
+{
+  createActionSwitchView();
 }
 
 QStackedWidget *UiStatus::getUiStackedWidget(void)

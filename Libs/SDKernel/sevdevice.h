@@ -35,12 +35,20 @@ public:
   void disableConnection();
   bool isConnecting() const;
 
+  bool containsCmd(const QString &cmdKey);
+
   quint64 genCmdRead(const QString &cmdReadName,qint16 axisIndex,bool &isOk);
   bool genCmdWrite(const QString &cmdWriteName,quint64 value,qint16 axisIndex);
 
-  bool readGenRAM(quint16 axisInx,QTreeWidget *pageTree);
-  bool writeGenRAM(quint16 axisInx,QTreeWidget *pageTree);
+  bool readGenItemRAM(quint16 axisInx,QTreeWidgetItem *item);
+  bool writeGenItemRAM(quint16 axisInx,QTreeWidgetItem *item);
+  bool readGenPageRAM(quint16 axisInx,QTreeWidget *pageTree);
+  bool writeGenPageRAM(quint16 axisInx,QTreeWidget *pageTree);
 
+  bool writeItemFlash(quint16 axisInx,QTreeWidgetItem *item);
+  bool readItemFlash(quint16 axisInx,QTreeWidgetItem *item);
+
+  bool clearAlarm(quint16 axisInx);
 
   QString typeName() const;
   QString modelName() const;

@@ -1,5 +1,7 @@
 include (../Libs.pri)
 INCLUDEPATH+=$${PWD}/IUiWidget\
+            $${PWD}/IUiWidget/DataBinding\
+            $${PWD}/IUiWidget/SDTGraphicsItems\
             $${PWD}/../SDKernel\
             $${PWD}/../Option\
             $${PWD}/../GTUtils

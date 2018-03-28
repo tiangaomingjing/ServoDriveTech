@@ -34,15 +34,15 @@ public:
   UiIndexs uiIndexs() const;
   virtual bool readPageFLASH();//根据地址读
   virtual bool writePageFLASH();//响应界面save 功能
-  virtual bool readGenRAM();//通用指令读
-  virtual bool writeGenRAM();//通用指令写
+  virtual bool readGenPageRAM();//通用指令读
+  virtual bool writeGenPageRAM();//通用指令写
   virtual void setUiActive(bool actived);
   virtual void accept(QWidget*w);
 
   virtual bool hasConfigFunc();
   virtual bool hasSaveFunc();
 
-  SevDevice*device();
+  SevDevice* device();
 
 protected:
   virtual QStackedWidget *getUiStackedWidget(void)=0;
@@ -50,6 +50,8 @@ protected:
   virtual void setDefaultUi()=0;
   virtual void setCurrentUiIndex(quint8 index);//设置当前两页中显示的页
   virtual void setContextAction();
+
+  void createActionSwitchView();
 
 signals:
   void sglMainErrorInfo(int axis,QString msg);
@@ -62,8 +64,8 @@ signals:
 protected slots:
   virtual void onTreeItemClickedEdit(QTreeWidgetItem *item,int column);
   void onSwitchView(bool isList);
-  void onActionReadRAM();
-  void onActionReadFLASH();
+  virtual void onActionReadRAM();
+  virtual void onActionReadFLASH();
 protected:
   IUiWidget(IUiWidgetPrivate&dd, QWidget *parent=0);
   IUiWidgetPrivate *d_ptr;

@@ -15,17 +15,6 @@
 #define PID_POS_X -220
 #define PID_POS_Y -50
 
-IGraphPositionPrivate::IGraphPositionPrivate()
-{
-
-}
-
-IGraphPositionPrivate::~IGraphPositionPrivate()
-{
-
-}
-
-
 IGraphPosition::~IGraphPosition()
 {
   Q_D(IGraphPosition);
@@ -161,7 +150,7 @@ void IGraphPosition::createPidItem()
   QDoubleSpinBox *pedit=new QDoubleSpinBox(wpid);
   d->m_pEdit=pedit;
   pedit->setObjectName("dspinBox_posPedit");
-  pedit->setMinimum(-32768);
+  pedit->setMinimum(0);
   pedit->setMaximum(32767);
   pedit->setButtonSymbols(QAbstractSpinBox::NoButtons);
   vlayoutTest->addWidget(pedit);

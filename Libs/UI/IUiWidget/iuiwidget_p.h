@@ -10,7 +10,7 @@ class QTreeWidget;
 class SevDevice;
 class QQuickWidget;
 class QAction;
-class IUiWidgetPrivate
+class IUIWIDGETSHARED_EXPORT IUiWidgetPrivate
 {
   Q_DECLARE_PUBLIC(IUiWidget)
 public:

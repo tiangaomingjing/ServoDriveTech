@@ -85,7 +85,6 @@ void SevUiControler::createUis()
     index.pageInx=i;
     ui->setUiIndexs(index);
     ui->addTreeWidget(m_sev->globalTreeSource(i));
-    connect(ui,SIGNAL(sglReadPageFlash(int,QTreeWidget*)),m_sev,SLOT(onReadPageFlash(int,QTreeWidget*)));
 
     m_uiLists.append(ui);
 //    qDebug()<<"class name "<<ui->objectName();

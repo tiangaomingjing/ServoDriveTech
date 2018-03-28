@@ -26,7 +26,19 @@ public:
   void setError(bool error);
   qint16 id() const;
 
+  bool actionConfigMaskIsChecked();
+  bool actionSaveMaskIsChecked();
+  void setActionConfigMaskChecked(bool checked);
+  void setActionSaveMaskChecked(bool checked);
+
+  void setActionConfigMaskText(const QString &text);
+  void setActionSaveMaskText(const QString &text);
+//  void setActionRestoreMaskText(const QString &text);
+
 signals:
+  void actnConfigMaskTrigger();
+  void actnSaveMaskTrigger();
+//  void actnRestoreMaskTrigger();
 
 public slots:
 private:
@@ -35,6 +47,10 @@ private:
   QLabel *m_label;
   qint16 m_id;
   bool m_menuActive;
+
+  QAction *m_actnConfigMask;
+  QAction *m_actnSaveMask;
+//  QAction *m_actnRestoreMask;
 };
 
 class LedAlarm::Led:public QPushButton

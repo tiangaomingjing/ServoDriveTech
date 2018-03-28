@@ -23,6 +23,12 @@ protected:
   void setDeviceStatusIconByCss(const QString &css) Q_DECL_OVERRIDE;
   QWidget *alarmBackgroundWidget() Q_DECL_OVERRIDE;
   void addLedErrorToUi() Q_DECL_OVERRIDE;
+  quint32 alarmCode() Q_DECL_OVERRIDE;
+  bool hasError() Q_DECL_OVERRIDE;
+  void updateUiLabelText() Q_DECL_OVERRIDE;
+
+private slots:
+  void onBtnClearAlarmClicked();
 
 private:
   Ui::GraphStatus129 *ui;

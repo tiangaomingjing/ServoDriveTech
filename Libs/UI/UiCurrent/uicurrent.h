@@ -21,6 +21,10 @@ public:
   void accept(QWidget*w) Q_DECL_OVERRIDE;
   void setUiActive(bool actived)Q_DECL_OVERRIDE;
 
+protected slots:
+  void onActionReadRAM() Q_DECL_OVERRIDE;
+  void onActionReadFLASH() Q_DECL_OVERRIDE;
+
 private:
   QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;
   QVBoxLayout *getVBoxLayout(void)Q_DECL_OVERRIDE;

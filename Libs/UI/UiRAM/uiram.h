@@ -20,6 +20,11 @@ public:
 
   bool readPageFLASH()Q_DECL_OVERRIDE{return true;}
   bool writePageFLASH()Q_DECL_OVERRIDE{return true;}
+  bool hasConfigFunc()Q_DECL_OVERRIDE;
+  bool hasSaveFunc()Q_DECL_OVERRIDE;
+
+protected:
+  void setContextAction() Q_DECL_OVERRIDE;
 
 private:
   QStackedWidget *getUiStackedWidget(void) Q_DECL_OVERRIDE;

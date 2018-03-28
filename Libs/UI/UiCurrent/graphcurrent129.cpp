@@ -35,12 +35,8 @@ GraphCurrent129::GraphCurrent129(QWidget *parent) :
 GraphCurrent129::~GraphCurrent129()
 {
 //  delete ui;
-//  qDebug()<<"remove item -------UIF";
-//  Q_D(GraphCurrent129);
-//  d->m_scene->removeItem(d->m_UIF);
-//  delete d->m_UIF;
 
-  qDebug()<<"GraphCurrent129 destruct-->";
+//  qDebug()<<"GraphCurrent129 destruct-->";
 }
 
 void GraphCurrent129::setCustomVisitActive(IUiWidget *uiWidget)

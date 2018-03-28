@@ -50,7 +50,7 @@ void UiBrake::setUiActive(bool actived)
   if(actived)
   {
     Q_D(UiBrake);
-    if(readGenRAM())
+    if(readGenPageRAM())
       d->m_graphBrake->syncTreeDataToUiFace();
   }
 }
@@ -62,10 +62,32 @@ bool UiBrake::writePageFLASH()
   if(wOk)
   {
     d->m_graphBrake->syncTreeDataToUiFace();
-    //还要加入关联参数处理
-    //-to add
   }
   return true;
+}
+
+bool UiBrake::hasConfigFunc()
+{
+  return false;
+}
+
+bool UiBrake::hasSaveFunc()
+{
+  return true;
+}
+
+void UiBrake::onActionReadFLASH()
+{
+  Q_D(UiBrake);
+  if(readGenPageRAM())
+    d->m_graphBrake->syncTreeDataToUiFace();
+}
+
+void UiBrake::onActionReadRAM()
+{
+  Q_D(UiBrake);
+  if(readPageFLASH())
+    d->m_graphBrake->syncTreeDataToUiFace();
 }
 
 QStackedWidget *UiBrake::getUiStackedWidget(void)

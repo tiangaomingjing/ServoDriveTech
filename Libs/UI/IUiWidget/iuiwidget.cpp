@@ -24,7 +24,7 @@
 IUiWidget::~IUiWidget()
 {
   delete d_ptr;
-  qDebug()<<"IUiWidget destruct-->";
+//  qDebug()<<"IUiWidget destruct-->";
 }
 IUiWidget::IUiWidget(IUiWidgetPrivate &dd,QWidget *parent):QWidget(parent),d_ptr(&dd)
 {
@@ -49,7 +49,7 @@ void IUiWidget::setCurrentUiIndex(quint8 index)
     inx=d->m_uiStackedWidget->count()-1;
   d->m_uiStackedWidget->setCurrentIndex(inx);
 }
-void IUiWidget::setContextAction()
+void IUiWidget::createActionSwitchView()
 {
   Q_D(IUiWidget);
   d->m_actSwitchView=new QAction(this);
@@ -58,6 +58,13 @@ void IUiWidget::setContextAction()
   d->m_actSwitchView->setChecked(false);
   connect(d->m_actSwitchView,SIGNAL(triggered(bool)),this,SLOT(onSwitchView(bool)));
   this->addAction(d->m_actSwitchView);
+}
+
+void IUiWidget::setContextAction()
+{
+  Q_D(IUiWidget);
+  createActionSwitchView();
+
   QAction *actSeparator=new QAction(this);
   actSeparator->setSeparator(true);
   this->addAction(actSeparator);
@@ -138,19 +145,20 @@ bool IUiWidget::writePageFLASH()
   return wOk;
 }
 
-bool IUiWidget::readGenRAM()
+bool IUiWidget::readGenPageRAM()
 {
   Q_D(IUiWidget);
   bool wOk=true;
-  wOk=d->m_device->readGenRAM(d->m_index.axisInx,d->m_dataTree);
+  wOk=d->m_device->readGenPageRAM(d->m_index.axisInx,d->m_dataTree);
   return wOk;
 }
 
-bool IUiWidget::writeGenRAM()
+bool IUiWidget::writeGenPageRAM()
 {
   Q_D(IUiWidget);
   bool wOk=true;
-  wOk=d->m_device->writeGenRAM(d->m_index.axisInx,d->m_dataTree);
+  if(hasConfigFunc())
+    wOk=d->m_device->writeGenPageRAM(d->m_index.axisInx,d->m_dataTree);
   return wOk;
 }
 void IUiWidget::setUiActive(bool actived)

@@ -4,15 +4,6 @@
 
 #include <QDebug>
 
-IGraphMotorPrivate::IGraphMotorPrivate()
-{
-
-}
-IGraphMotorPrivate::~IGraphMotorPrivate()
-{
-
-}
-
 //IGraphMotor::IGraphMotor(QWidget *parent) : IGraph(*(new IGraphMotorPrivate),parent)
 //{
 

@@ -24,7 +24,7 @@ SdtStatusBar::SdtStatusBar(QTreeWidget *navTree, QWidget *parent) :
 //  ui->labelMsg->setPalette(pa);
 //  ui->tbtnError->setPopupMode(QToolButton::MenuButtonPopup);
   ui->tbtnError->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-  ui->tbtnError->setText(tr("Error"));
+  ui->tbtnError->setText(tr("Alarm"));
   ui->tbtnError->setIconSize(QSize(32,32));
   ui->tbtnError->setAutoRaise(true);
   connect(ui->tbtnError,SIGNAL(clicked(bool)),this,SLOT(onActnToolClicked()));
@@ -118,11 +118,11 @@ void SdtStatusBar::setErrorStatus(bool hasError)
 
 
 //!
-//! \brief SdtStatusBar::updateDeviceWhenChanged
+//! \brief SdtStatusBar::updateDeviceNavTreeWhenChanged
 //! 当设备变化后要重新调用，并在生成导航树之后
 //! \param navTree
 //!
-void SdtStatusBar::updateDeviceWhenChanged(QTreeWidget *navTree)
+void SdtStatusBar::updateDeviceNavTreeWhenChanged(QTreeWidget *navTree)
 {
   m_errDialog->updateDevice(navTree);
 }

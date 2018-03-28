@@ -81,7 +81,7 @@ bool LinkSocket::isConnected() const
   return m_isConnected;
 }
 
-bool LinkSocket::readPageFlash(int axis,QTreeWidgetItem *item)
+bool LinkSocket::readItemFlash(int axis,QTreeWidgetItem *item)
 {
   if(!m_isConnected)
     return true;
@@ -134,7 +134,7 @@ bool LinkSocket::readPageFlash(int axis,QTreeWidgetItem *item)
   }
   return true;
 }
-bool LinkSocket::writePageFlash(int axis,QTreeWidgetItem *item)
+bool LinkSocket::writeItemFlash(int axis,QTreeWidgetItem *item)
 {
   if(!m_isConnected)
     return true;
@@ -335,4 +335,9 @@ bool LinkSocket::adjust(void (*processCallBack)(void *, short *), void *uiProces
   qDebug()<<"adjust end"<<QString::fromStdString(m_com->iComObjectName());
 
   return err==0;
+}
+
+bool LinkSocket::clearAlarm(quint16 axisInx)
+{
+  return 0==m_com->clearAlarm(axisInx);
 }

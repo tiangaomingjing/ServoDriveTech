@@ -73,12 +73,12 @@ void InteractiveView::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Right:
         translate(QPointF(2, 0));  // 右移
         break;
-    case Qt::Key_Plus:  // 放大
-        zoomIn();
-        break;
-    case Qt::Key_Minus:  // 缩小
-        zoomOut();
-        break;
+//    case Qt::Key_Plus:  // 放大
+//        zoomIn();
+//        break;
+//    case Qt::Key_Minus:  // 缩小
+//        zoomOut();
+//        break;
 //    case Qt::Key_Space:  // 逆时针旋转
 //        rotate(-5);
 //        break;
