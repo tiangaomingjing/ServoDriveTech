@@ -23,10 +23,12 @@ DESTDIR =$${PLOT_OUT_PATH}
 
 DEFINES += PLOTUNIT_LIBRARY
 
-SOURCES += plotunit.cpp
+SOURCES += plotunit.cpp \
+    iplotunit.cpp
 
 HEADERS += plotunit.h\
-        plotunit_global.h
+        plotunit_global.h \
+    iplotunit.h
 
 unix {
     target.path = /usr/lib
