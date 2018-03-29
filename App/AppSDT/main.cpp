@@ -96,7 +96,7 @@ int main(int argc, char *argv[])
   int x = (qApp->desktop()->screen(0)->width() - w2.width()) / 2;
   int y = (qApp->desktop()->screen(0)->height() - w2.height()) / 2;
   w2.move(x, y);
-  //w2.showMaximized();
+//  w2.showMaximized();
   startup->finish(&w2);
   delete startup;
 

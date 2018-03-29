@@ -18,6 +18,7 @@ public:
   explicit UiPlot(QWidget *parent = 0);
   ~UiPlot();
 
+  void accept(QWidget*w) Q_DECL_OVERRIDE;
   bool readPageFLASH()Q_DECL_OVERRIDE{return true;}
   bool writePageFLASH()Q_DECL_OVERRIDE{return true;}
   QHBoxLayout *hBoxLayout();

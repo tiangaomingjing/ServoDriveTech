@@ -1,6 +1,7 @@
 ﻿#include "uiplot.h"
 #include "ui_uiplot.h"
 #include "iuiwidget_p.h"
+#include "iplotunit.h"
 
 class UiPlotPrivate:public IUiWidgetPrivate
 {
@@ -9,7 +10,7 @@ public:
   UiPlotPrivate();
   ~UiPlotPrivate();
 protected:
-
+  IPlotUnit *m_iplotUint;
 };
 UiPlotPrivate::UiPlotPrivate()
 {
@@ -29,6 +30,14 @@ UiPlot::UiPlot(QWidget *parent):IUiWidget(*(new UiPlotPrivate),parent),ui(new Ui
 UiPlot::~UiPlot()
 {
   delete ui;
+}
+
+void UiPlot::accept(QWidget *w)
+{
+  Q_D(UiPlot);
+  d->m_iplotUint=dynamic_cast<IPlotUnit *>(w);
+  ui->qmlHboxLayout->addWidget(d->m_iplotUint);
+  d->m_iplotUint->visit(this);
 }
 
 QStackedWidget *UiPlot::getUiStackedWidget(void)

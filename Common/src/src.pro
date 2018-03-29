@@ -13,6 +13,8 @@ INCLUDEPATH+=../../Libs/Com/Communication\
               ../../Libs/UI/IUiWidget\
               ../../Libs/SDKernel\
               ../../Libs/Option\
+              ../../Libs/PlotUnit/PlotUnitGraph\
+              ../../Libs/PlotUnit/IPlotUnit\
               $${PWD}/UiFactory\
               $${PWD}/Kernel\
               $${PWD}/SdtGlobal
@@ -37,7 +39,9 @@ CONFIG(debug, debug|release){
           -lUiStatusd\
           -lUiVelocityd\
           -lSDKerneld\
-          -lOptiond
+          -lOptiond\
+          -lPlotUnitGraphd\
+          -lIPlotUnitd
     TARGET = CommonSrcAppd
 } else{
     COMMONSRC_OUT_PATH=$${PWD}/../../build/release/bin
@@ -61,7 +65,9 @@ CONFIG(debug, debug|release){
           -lUiStatus\
           -lUiVelocity\
           -lSDKernel\
-          -lOption
+          -lOption\
+          -lPlotUnitGraph\
+          -lIPlotUnit
     TARGET = CommonSrcApp
 }
 DESTDIR =$${COMMONSRC_OUT_PATH}

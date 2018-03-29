@@ -14,10 +14,13 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         plotmainwindow.cpp \
-    pmainwindow.cpp
+    pmainwindow.cpp \
+    floatwidget.cpp
 
 HEADERS  += plotmainwindow.h \
-    pmainwindow.h
+    pmainwindow.h \
+    floatwidget.h
 
 FORMS    += plotmainwindow.ui \
-    pmainwindow.ui
+    pmainwindow.ui \
+    floatwidget.ui
