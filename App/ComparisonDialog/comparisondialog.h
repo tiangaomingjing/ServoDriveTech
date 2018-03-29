@@ -18,13 +18,19 @@ class ComparisonDialog : public QDialog
 public:
     explicit ComparisonDialog(QWidget *parent = 0);
     ~ComparisonDialog();
+protected:
+    void keyPressEvent(QKeyEvent *event);
 private:
     void initPath();
-    bool loadTree(QString &path, QTreeWidget *treeWidget);
+    bool loadTree(const QString &path, QTreeWidget *treeWidget);
     void compareNode(QTreeWidgetItem *oldNode, QTreeWidgetItem *newNode);
     void eliminateEmptyItem(QTreeWidget* tree);
     void clearEmptyItem(QTreeWidgetItem *item);
     void restoreItemList(QList<QTreeWidgetItem*> list);
+    void fillSpaceNode(QTreeWidgetItem *fillItem, QTreeWidgetItem *spaceItem, const QStringList &list);
+//    void hideItems(QTreeWidgetItem *item, const QList<QTreeWidgetItem *> &list);
+//    bool containChangedItems(QTreeWidgetItem *item, const QList<QTreeWidgetItem *> &list);
+//    void showItems(QTreeWidgetItem *item);
 private:
     Ui::ComparisonDialog *ui;
     QString m_oldFilePath;
@@ -39,6 +45,8 @@ private:
     QList<QTreeWidgetItem*> m_newItemList;
     QTreeWidgetItem *m_editedItem;
     int m_editedCol;
+    bool m_isEditingWhole;
+    bool m_isEditingPart;
 private slots:
     void onActionOldBtnClicked();
     void onActionNewBtnClicked();
@@ -47,7 +55,13 @@ private slots:
     void onActionSaveClicked();
     void onActionItemDoubleClicked(QTreeWidgetItem* item, int col);
     void onActionEditFinished();
+    void onActionItemDoubleClicked_2(QTreeWidgetItem* item, int col);
+    void onActionEditFinished_2();
     void onActionSyncBoxChanged();
+    void onActionDiffBoxChanged();
+    void onTreeItemChanged(QTreeWidgetItem*item, int col);
+    void clickOldBtn(const QString &path);
+    void clickNewBtn(const QString &path);
 };
 
 #endif // COMPARISONDIALOG_H
