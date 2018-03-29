@@ -25,6 +25,9 @@ public:
   bool hasConfigFunc() {return false;}
   bool hasSaveFunc() {return false;}
 
+private slots:
+  void onWinFloatChanged(bool isIn);
+
 private:
     QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;
     QVBoxLayout *getVBoxLayout(void)Q_DECL_OVERRIDE;

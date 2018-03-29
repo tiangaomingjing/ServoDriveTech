@@ -111,8 +111,6 @@ private slots:
 
   void onStatusBarPageChanged(int pIndex);
 
-  void onPlotFloatingChanged(bool floating);
-
   //响应状态监视器
   void onDeviceAlarmError(quint16 devId,quint16 axisInx,bool hasError);
   void onDeviceNetError(quint16 devId);

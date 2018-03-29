@@ -23,6 +23,9 @@ public:
 signals:
   void winFloatingChange(bool isFloatIn);
 
+protected:
+  void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
+
 public slots:
 
 protected:

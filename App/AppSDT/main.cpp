@@ -92,11 +92,11 @@ int main(int argc, char *argv[])
   w2.insertWindow(&w);
 
   //qDebug()<<"index"<<currentIndex;
-  w2.show();
-  int x = (qApp->desktop()->screen(0)->width() - w2.width()) / 2;
-  int y = (qApp->desktop()->screen(0)->height() - w2.height()) / 2;
-  w2.move(x, y);
-//  w2.showMaximized();
+//  w2.show();
+//  int x = (qApp->desktop()->screen(0)->width() - w2.width()) / 2;
+//  int y = (qApp->desktop()->screen(0)->height() - w2.height()) / 2;
+//  w2.move(x, y);
+  w2.showMaximized();
   startup->finish(&w2);
   delete startup;
 

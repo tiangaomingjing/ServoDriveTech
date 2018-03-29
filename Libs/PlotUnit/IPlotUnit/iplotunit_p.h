@@ -8,7 +8,7 @@ class IPlotUnitPrivate
 {
   Q_DECLARE_PUBLIC(IPlotUnit)
 public:
-  IPlotUnitPrivate():m_winIsFloat(false)
+  IPlotUnitPrivate():m_winIsIn(true)
   {
 
   }
@@ -19,7 +19,7 @@ public:
 protected:
   IPlotUnit *q_ptr;
 
-  bool m_winIsFloat;
+  bool m_winIsIn;
   UiPlot *m_uiPlot;
 
 };

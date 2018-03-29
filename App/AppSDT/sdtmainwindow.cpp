@@ -300,7 +300,6 @@ void SDTMainWindow::closeEvent(QCloseEvent *e)
     optc->saveOpt();
 
     //保存当前的配置
-    delete m_plot;
     GT::deepClearList(m_sdAssemblyList);
     delete m_gUiControl;
     delete m_optc;
@@ -441,11 +440,6 @@ void SDTMainWindow::globalUiPageInit()
 
   m_gUiControl=new GlobalUiControler(sevList);
   m_gUiControl->createUis();
-
-//  m_plot=new PlotUnit;
-//  connect(m_plot,SIGNAL(floatingChanged(bool)),this,SLOT(onPlotFloatingChanged(bool)));
-//  UiPlot *uiplot=dynamic_cast<UiPlot *>(m_gUiControl->uiWidget("UiPlot"));
-//  uiplot->hBoxLayout()->addWidget(m_plot);
 }
 void SDTMainWindow::stackedWidgetInit()
 {
@@ -849,10 +843,6 @@ void SDTMainWindow::onNavTreeWidgetItemClicked(QTreeWidgetItem *item, int column
       disactiveAllUi();
       activeCurrentUi();
       changeConfigSaveBtnStatus();
-      bool plotShow=false;
-      if(item->text(COL_TARGET_CONFIG_ISPLOT)=="1")
-        plotShow=true;
-      showPlotUiOnly(plotShow);
 
       setNavCurrentSelectedInfo();
     }
@@ -890,23 +880,6 @@ void SDTMainWindow::onStatusBarPageChanged(int pIndex)
   changeConfigSaveBtnStatus();
 }
 
-void SDTMainWindow::onPlotFloatingChanged(bool floating)
-{
-//  UiPlot *uiplot=dynamic_cast<UiPlot *>(m_gUiControl->uiWidget("UiPlot"));
-//  if(floating)
-//  {
-//    uiplot->hBoxLayout()->removeWidget(m_plot);
-//    m_plot->setParent(0);
-//    m_plot->showMaximized();
-//  }
-//  else
-//  {
-//    uiplot->hBoxLayout()->addWidget(m_plot);
-//    m_plot->show();
-//  }
-
-
-}
 //!
 //! \brief SDTMainWindow::onDeviceAlarmError
 //! 驱动器报警时 1更新报警信息到statusBar状态树 2只要有一个报警，就显示报警信息
