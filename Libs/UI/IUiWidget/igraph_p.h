@@ -28,6 +28,7 @@ public:
 
 protected:
   IGraph *q_ptr;
+
   SevDevice *m_dev;
   QTreeWidget *m_treeWidget;
   BoxItemMapping*m_mapping;

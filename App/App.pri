@@ -7,9 +7,11 @@ INCLUDEPATH+=$${LIBS_PATH}/Com/Communication\
             $${LIBS_PATH}/GTUtils/DeviceIdHelper\
             $${LIBS_PATH}/SDKernel\
             $${LIBS_PATH}/UI\
+            $${LIBS_PATH}/UI/UiPlot\
             $${LIBS_PATH}/UI/IUiWidget\
             $${LIBS_PATH}/Option\
-            $${LIBS_PATH}/PlotUnit\
+            $${LIBS_PATH}/PlotUnit/PlotUnitGraph\
+            $${LIBS_PATH}/PlotUnit/IPlotUnit\
             $${COMMON_PATH}/src\
             $${COMMON_PATH}/src/Kernel\
             $${COMMON_PATH}/src/UiFactory\
@@ -36,7 +38,8 @@ CONFIG(debug, debug|release){
           -lUiVelocityd\
           -lSDKerneld\
           -lOptiond\
-          -lPlotUnitd
+          -lPlotUnitGraphd\
+          -lIPlotUnitd
 } else{
     APPTEST_OUT_PATH=$${PWD}/../build/release/bin
     LIBPATH=$${APPTEST_OUT_PATH}
@@ -59,6 +62,7 @@ CONFIG(debug, debug|release){
           -lUiVelocity\
           -lSDKernel\
           -lOption\
-          -lPlotUnit
+          -lPlotUnitGraph\
+          -lIPlotUnit
 }
 DESTDIR =$${APPTEST_OUT_PATH}

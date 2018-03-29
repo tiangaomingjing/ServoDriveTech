@@ -4,6 +4,7 @@
 #
 #-------------------------------------------------
 include (../UI.pri)
+INCLUDEPATH +=$${PWD}/../../PlotUnit/IPlotUnit
 
 QT       += widgets
 
@@ -14,8 +15,10 @@ TEMPLATE = lib
 DEFINES += UIPLOT_LIBRARY
 
 CONFIG(debug, debug|release){
+    LIBS +=$${APP_BUILD_PATH}/debug/bin/IPlotUnitd.lib
     TARGET = UiPlotd
 } else{
+    LIBS +=$${APP_BUILD_PATH}/release/bin/IPlotUnit.lib
     TARGET = UiPlot
 }
 
@@ -31,3 +34,5 @@ unix {
 
 FORMS += \
     uiplot.ui
+
+#message("build path"+$${APP_BUILD_PATH})

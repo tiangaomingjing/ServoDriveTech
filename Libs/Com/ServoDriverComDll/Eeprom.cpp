@@ -144,33 +144,19 @@ int16 CEeprom::EepromWrite8bit(Uint16 byte_addr, Uint8 byte_data)
 
 	for (iFinish = 0; iFinish < 4; iFinish++)
 	{
-        Sleep(1);
+		Sleep(5);
 		//¼ì²âÐ´Êý¾ÝÊÇ·ñÍê³É
 		iRet = EepromBaseOptRd(ADDR_STS, &status);
-        int count = 0;
 
 		if ((1 == (status & 0x0001)))//ÅÐ¶Ï¶ÁÐ´ÊÇ·ñ³ö´í
 		{
 			//Èç¹û¶ÁÐ´ÎÞÓ¦´ð
-            count = 0;
-            while ((1 == (status & 0x0001)) && count < 2) {
-                iRet = EepromBaseOptRd(ADDR_STS, &status);
-                count++;
-            }
-            return RTN_0ERROR;
-            //break;
+			break;
 		}
-        else if (0 == ((status & 0x0002) >> 1))//ÅÐ¶Ï¶ÁÐ´ÊÇ·ñÍê³É
-        //else if (1 != ((status & 0x0002) >> 1))
+		else if (0 == ((status & 0x0002) >> 1))//ÅÐ¶Ï¶ÁÐ´ÊÇ·ñÍê³É
 		{
 			//Èç¹ûÃ»ÓÐÍê³É
-            count = 0;
-            while ((0 == ((status & 0x0002) >> 1)) && count < 2) {
-                iRet = EepromBaseOptRd(ADDR_STS, &status);
-                count++;
-            }
-            return RTN_1ERROR;
-            //continue;
+			continue;
 		}
 
         if ((0 == (status & 0x0001)) && (1 == ((status & 0x0002) >> 1)))//ÅÐ¶Ï¶ÁÐ´ÊÇ·ñ³ö´í
@@ -230,31 +216,18 @@ int16 CEeprom::EepromRead8bit(Uint16 byte_addr, Uint8* byte_data)
 
 	for (iFinish = 0; iFinish < 4; iFinish++)
 	{
-        Sleep(1);
+		Sleep(5);
 		//¼ì²âÐ´Êý¾ÝÊÇ·ñÍê³É
-        int count = 0;
 		iRet = EepromBaseOptRd(ADDR_STS, &status);
 		if ((1 == (status & 0x0001)))//ÅÐ¶Ï¶ÁÐ´ÊÇ·ñ³ö´í
 		{
-            count = 0;
-            while ((1 == (status & 0x0001)) && count < 2) {
-                iRet = EepromBaseOptRd(ADDR_STS, &status);
-                count++;
-            }
-            return RTN_0ERROR;
-            //break;
+			//Èç¹û¶ÁÐ´ÎÞÓ¦´ð
+			break;
 		}
         else if (0 == ((status & 0x0002) >> 1))//ÅÐ¶Ï¶ÁÐ´ÊÇ·ñÍê³É
-        //else if (0 != ((status & 0x0002) >> 1))
 		{
 			//Èç¹ûÃ»ÓÐÍê³É
-            count = 0;
-            while ((0 == ((status & 0x0002) >> 1)) && count < 2) {
-                iRet = EepromBaseOptRd(ADDR_STS, &status);
-                count++;
-            }
-            return RTN_1ERROR;
-            //continue;
+			continue;
 		}
 
 		if ((0 == (status & 0x0001)) && (1 == ((status & 0x0002) >> 1)))//ÅÐ¶Ï¶ÁÐ´ÊÇ·ñ³ö´í

@@ -1,0 +1,12 @@
+#ifndef IPLOTUNIT_GLOBAL_H
+#define IPLOTUNIT_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(IPLOTUNIT_LIBRARY)
+#  define IPLOTUNITSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define IPLOTUNITSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // IPLOTUNIT_GLOBAL_H

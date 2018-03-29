@@ -23,9 +23,6 @@
 
 #include "sdtglobaldef.h"
 
-#include "plotunit.h"
-#include "UiPlot/uiplot.h"
-
 #include "configdialog.h"
 
 #include "ivermatching.h"
@@ -445,10 +442,10 @@ void SDTMainWindow::globalUiPageInit()
   m_gUiControl=new GlobalUiControler(sevList);
   m_gUiControl->createUis();
 
-  m_plot=new PlotUnit;
-  connect(m_plot,SIGNAL(floatingChanged(bool)),this,SLOT(onPlotFloatingChanged(bool)));
-  UiPlot *uiplot=dynamic_cast<UiPlot *>(m_gUiControl->uiWidget("UiPlot"));
-  uiplot->hBoxLayout()->addWidget(m_plot);
+//  m_plot=new PlotUnit;
+//  connect(m_plot,SIGNAL(floatingChanged(bool)),this,SLOT(onPlotFloatingChanged(bool)));
+//  UiPlot *uiplot=dynamic_cast<UiPlot *>(m_gUiControl->uiWidget("UiPlot"));
+//  uiplot->hBoxLayout()->addWidget(m_plot);
 }
 void SDTMainWindow::stackedWidgetInit()
 {
@@ -521,8 +518,8 @@ void SDTMainWindow::changeConfigSaveBtnStatus()
 void SDTMainWindow::showPlotUiOnly(bool show)
 {
   qDebug()<<"showPlotUiOnly "<<show;
-  if(show)
-    m_plot->show();
+//  if(show)
+//    m_plot->show();
 }
 void SDTMainWindow::setNavCurrentSelectedInfo()
 {
@@ -895,18 +892,18 @@ void SDTMainWindow::onStatusBarPageChanged(int pIndex)
 
 void SDTMainWindow::onPlotFloatingChanged(bool floating)
 {
-  UiPlot *uiplot=dynamic_cast<UiPlot *>(m_gUiControl->uiWidget("UiPlot"));
-  if(floating)
-  {
-    uiplot->hBoxLayout()->removeWidget(m_plot);
-    m_plot->setParent(0);
-    m_plot->showMaximized();
-  }
-  else
-  {
-    uiplot->hBoxLayout()->addWidget(m_plot);
-    m_plot->show();
-  }
+//  UiPlot *uiplot=dynamic_cast<UiPlot *>(m_gUiControl->uiWidget("UiPlot"));
+//  if(floating)
+//  {
+//    uiplot->hBoxLayout()->removeWidget(m_plot);
+//    m_plot->setParent(0);
+//    m_plot->showMaximized();
+//  }
+//  else
+//  {
+//    uiplot->hBoxLayout()->addWidget(m_plot);
+//    m_plot->show();
+//  }
 
 
 }
