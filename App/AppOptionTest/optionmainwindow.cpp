@@ -130,6 +130,19 @@ OptionMainWindow::OptionMainWindow(QWidget *parent) :
   ui->tbtn_menu->setPopupMode(QToolButton::InstantPopup);
 
   ui->pushButton_2->addAction(act);
+
+  ui->toolButton_2->setMinimumSize(50,50);
+  ui->toolButton_2->setCheckable(true);
+  ui->toolButton_2->setIconSize(QSize(50,50));
+  ui->toolButton_2->setAutoRaise(true);
+  QIcon icon;
+  QString path="D:/Smart/ServoMaster/git-project/ServoDriveTech/ServoDriveTech/build/debug/custom/option/style/black/icon/";
+  icon.addPixmap(QPixmap(path+"plot_start.png"),QIcon::Selected,QIcon::On);
+  icon.addPixmap(QPixmap(path+"plot_stop.png"),QIcon::Selected,QIcon::Off);
+  ui->toolButton_2->setIcon(icon);
+  ui->toolButton_2->setStyleSheet("QToolButton{border:none}");
+
+
 }
 
 OptionMainWindow::~OptionMainWindow()
@@ -151,6 +164,7 @@ void OptionMainWindow::on_actionOption_triggered()
 void OptionMainWindow::onToolBtnClicked()
 {
   qDebug()<<"onToolBtnClicked";
+//  setStyleSheetFromFile();
 }
 
 void OptionMainWindow::onToolBtnActionClicked()
@@ -183,31 +197,47 @@ void OptionMainWindow::TEST_getAllFileInOneFolder()
   }
 }
 
+void OptionMainWindow::setStyleSheetFromFile()
+{
+  QString filename="D:/Smart/ServoMaster/git-project/ServoDriveTech/ServoDriveTech/build/debug/custom/option/style/black/black.css";
+
+  qDebug()<<"TEST_OUT CSS filePath "<<filename;
+  QFile file(filename);
+  if(file.open(QFile::ReadOnly))
+  {
+    QTextStream in(&file);
+    QString qss = in.readAll();
+    qDebug()<<qss;
+    qApp->setStyleSheet(qss);
+    file.close();
+  }
+}
+
 void OptionMainWindow::on_pushButton_clicked()
 {
     TEST_getAllFileInOneFolder();
 
-    for(int i=0;i<1000;i++)
-    {
-      if(form2!=NULL)
-      {
-        delete form2;
-        form2=NULL;
-      }
-      form1=new FormLangTest1;
-      form1->show();
+//    for(int i=0;i<1000;i++)
+//    {
+//      if(form2!=NULL)
+//      {
+//        delete form2;
+//        form2=NULL;
+//      }
+//      form1=new FormLangTest1;
+//      form1->show();
 
-      GTUtils::delayms(10);
+//      GTUtils::delayms(10);
 
-      if(form1!=NULL)
-      {
-        delete form1;
-        form1=NULL;
-      }
-      form2=new FormLangTest2;
-      form2->show();
-      GTUtils::delayms(10);
-    }
+//      if(form1!=NULL)
+//      {
+//        delete form1;
+//        form1=NULL;
+//      }
+//      form2=new FormLangTest2;
+//      form2->show();
+//      GTUtils::delayms(10);
+//    }
 }
 
 void OptionMainWindow::on_actionTransTest1_triggered()

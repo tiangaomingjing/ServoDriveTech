@@ -17,7 +17,9 @@ PlotUnitGraph129::PlotUnitGraph129(QWidget *parent) :
   ui(new Ui::PlotUnitGraph129)
 {
   ui->setupUi(this);
-  connect(ui->pushButton,SIGNAL(clicked(bool)),this,SLOT(onPushButtonTestClicked(bool)));
+  ui->splitter_3->setStretchFactor(0,1);
+  ui->splitter_3->setStretchFactor(1,0);
+//  connect(ui->pushButton,SIGNAL(clicked(bool)),this,SLOT(onPushButtonTestClicked(bool)));
 }
 
 PlotUnitGraph129::~PlotUnitGraph129()
@@ -25,9 +27,9 @@ PlotUnitGraph129::~PlotUnitGraph129()
   delete ui;
 }
 
-void PlotUnitGraph129::onPushButtonTestClicked(bool checked)
-{
-  Q_D(PlotUnitGraph129);
-  d->m_winIsIn=!d->m_winIsIn;
-  emit winFloatingChange(d->m_winIsIn);
-}
+//void PlotUnitGraph129::onPushButtonTestClicked(bool checked)
+//{
+//  Q_D(PlotUnitGraph129);
+//  d->m_winIsIn=!d->m_winIsIn;
+//  emit winFloatingChange(d->m_winIsIn);
+//}

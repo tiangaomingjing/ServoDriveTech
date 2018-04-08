@@ -50,6 +50,7 @@ public:
 
   bool clearAlarm(quint16 axisInx);
 
+  QString aliasName() const;
   QString typeName() const;
   QString modelName() const;
   QString versionName()const;

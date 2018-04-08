@@ -86,6 +86,7 @@ int main(int argc, char *argv[])
   SDTMainWindow w;
   CombinedWindow w2;
   QObject::connect(&w,SIGNAL(initProgressInfo(int,QString)),startup,SLOT(onProgressMessage(int ,QString)));
+  QObject::connect(&w,SIGNAL(currentTitleChanged(QString)),&w2,SLOT(onTitleChanged(QString)));
   w.init();
   optFace->setFaceStyle(optFace->css());
 

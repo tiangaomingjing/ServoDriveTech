@@ -16,7 +16,7 @@ QCPItemHandleTag::QCPItemHandleTag(QCustomPlot *parentPlot,HandleTagType type):Q
   }
   else//垂直标签
   {
-    setPadding(QMargins(1,1,20,1));
+    setPadding(QMargins(1,0,20,0));
   }
 
   mSelectedFont.setPointSize(14);
@@ -25,7 +25,7 @@ QCPItemHandleTag::QCPItemHandleTag(QCustomPlot *parentPlot,HandleTagType type):Q
 
 QCPItemHandleTag::~QCPItemHandleTag()
 {
-
+//qDebug()<<"QCPItemHandleTag destruct-->";
 }
 
 void QCPItemHandleTag::draw(QCPPainter *painter)
@@ -94,6 +94,7 @@ void QCPItemHandleTag::draw(QCPPainter *painter)
 
 void QCPItemHandleTag::mousePressEvent(QMouseEvent *event, const QVariant &details)
 {
+  Q_UNUSED(details);
   if(m_type==HANDLE_TAG_TYPE_HORIZONTAL)//水平标签
   {
     position->setTypeX(QCPItemPosition::ptPlotCoords);
@@ -111,6 +112,7 @@ void QCPItemHandleTag::mousePressEvent(QMouseEvent *event, const QVariant &detai
 
 void QCPItemHandleTag::mouseMoveEvent(QMouseEvent *event, const QPointF &startPos)
 {
+  Q_UNUSED(startPos);
   double data;
   if(m_type==HANDLE_TAG_TYPE_HORIZONTAL)
   {
@@ -127,7 +129,7 @@ void QCPItemHandleTag::mouseMoveEvent(QMouseEvent *event, const QPointF &startPo
 
   parentPlot()->setCursor(QCursor(Qt::PointingHandCursor));
   parentPlot()->replot();
-  qDebug()<<"event pos"<<event->pos()<<"data="<<data;
+//  qDebug()<<"event pos"<<event->pos()<<"data="<<data;
   event->accept();
 //  QCPItemText::mouseMoveEvent(event,startPos);
 
@@ -135,11 +137,12 @@ void QCPItemHandleTag::mouseMoveEvent(QMouseEvent *event, const QPointF &startPo
 
 void QCPItemHandleTag::mouseReleaseEvent(QMouseEvent *event, const QPointF &startPos)
 {
+  Q_UNUSED(startPos);
 //  qDebug()<<"Release startPos"<<startPos;
   parentPlot()->setCursor(QCursor(Qt::ArrowCursor));
   parentPlot()->setInteraction(QCP::iRangeDrag,true);
   event->accept();
-//  QCPItemText::mouseReleaseEvent(event,startPos);
+  //  QCPItemText::mouseReleaseEvent(event,startPos);
 }
 
 void QCPItemHandleTag::setColorStyle()

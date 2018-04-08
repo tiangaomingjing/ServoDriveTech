@@ -20,7 +20,7 @@ public:
   ~PlotUnitGraph129();
 
 private slots:
-  void onPushButtonTestClicked(bool checked);
+//  void onPushButtonTestClicked(bool checked);
 
 private:
   Ui::PlotUnitGraph129 *ui;

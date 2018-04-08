@@ -345,6 +345,7 @@ void SDTMainWindow::navigationTreeInit()
   QTreeWidgetItem *globalItem=NULL;
   SdAssembly * sd;
   int pageIndex=0;
+  bool hasNickName=m_sdAssemblyList.count()>1;
   for(int  i=0;i<m_sdAssemblyList.count();i++)
   {
     int axisNum;
@@ -352,7 +353,7 @@ void SDTMainWindow::navigationTreeInit()
     axisNum=sd->sevDevice()->axisNum();
     deviceItem=new QTreeWidgetItem(ui->treeWidget);
     QString prefix;
-//    prefix=QString("[%1] ").arg(i+1);
+    prefix=hasNickName?tr("[%1] ").arg(sd->sevDevice()->aliasName()):"";
     deviceItem->setText(COL_TARGET_CONFIG_NAME,prefix+sd->sevDevice()->modelName());
     deviceItem->setText(COL_TARGET_CONFIG_PRM,QString::number(axisNum));
     qDebug()<<"deviceItem->setText";
@@ -527,7 +528,8 @@ void SDTMainWindow::setNavCurrentSelectedInfo()
   }
   info.prepend(item->text(2)+" ");
   info.prepend(item->text(0)+" ");
-  ui->dockWidgetNav->setWindowTitle(info);
+  emit currentTitleChanged(info);
+//  ui->dockWidgetNav->setWindowTitle(info);
 }
 
 void SDTMainWindow::onActnOptionClicked()

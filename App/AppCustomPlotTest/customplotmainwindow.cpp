@@ -9,41 +9,25 @@ CustomPlotMainWindow::CustomPlotMainWindow(QWidget *parent) :
   ui(new Ui::CustomPlotMainWindow)
 {
   ui->setupUi(this);
-  setupSimpleDemo(ui->customplot);
-  ui->customplot->setMouseTracking(true);
 
-  GtPlot *plot=new GtPlot(ui->widget_2);
+  plot=new GtPlot(ui->widget_2);
   QHBoxLayout *hlayout=new QHBoxLayout(ui->widget_2);
   hlayout->addWidget(plot);
   ui->widget_2->setLayout(hlayout);
   setupSimpleDemo(plot);
-  connect(ui->customplot,SIGNAL(mouseMove(QMouseEvent*)),this,SLOT(onPlotMouseMoveEvent(QMouseEvent*)));
-  connect(ui->customplot,SIGNAL(mousePress(QMouseEvent*)),this,SLOT(onPlotMousePressEvent(QMouseEvent*)));
-  connect(ui->customplot,SIGNAL(mouseRelease(QMouseEvent*)),this,SLOT(onPlotMouseReleaseEvent(QMouseEvent*)));
 
   connect(plot,SIGNAL(currentPosChanged(QPointF)),this,SLOT(onPlotPosChanged(QPointF)));
-  connect(plot->htag,SIGNAL(currentDataChanged(qreal)),this,SLOT(onHtagPosChanged(qreal)));
-  connect(plot->vtag,SIGNAL(currentDataChanged(qreal)),this,SLOT(onVtagPosChanged(qreal)));
+  connect(plot,SIGNAL(horizMeaDataChanged(qreal,qreal,qreal)),this,SLOT(onHtagPosChanged(qreal,qreal,qreal)));
+  connect(plot,SIGNAL(vertiMeaDataChanged(qreal,qreal,qreal)),this,SLOT(onVtagPosChanged(qreal,qreal,qreal)));
 }
 
 CustomPlotMainWindow::~CustomPlotMainWindow()
 {
+  qDebug()<<"CustomPlotMainWindow destruct-->";
+//  delete plot;
   delete ui;
 }
 
-void CustomPlotMainWindow::keyPressEvent(QKeyEvent *event)
-{
-  qDebug()<<"key"<<event->key();
-  static bool zoom=false;
-  if(event->key()==Qt::Key_Shift)
-  {
-    if(!zoom)
-      ui->customplot->setSelectionRectMode(QCP::srmZoom);
-    else
-      ui->customplot->setSelectionRectMode(QCP::srmNone);
-    zoom=!zoom;
-  }
-}
 
 void CustomPlotMainWindow::setupSimpleDemo(QCustomPlot *customPlot)
 {
@@ -86,61 +70,50 @@ void CustomPlotMainWindow::setupSimpleDemo(QCustomPlot *customPlot)
   QCPItemStraightLine *line=new QCPItemStraightLine(customPlot);
   line->setSelectable(true);
   customPlot->setInteraction(QCP::iSelectItems,true);
+  customPlot->setInteraction(QCP::iMultiSelect,true);
+
+  QCPItemText *text=new QCPItemText(customPlot);
+  text->setText("hello");
+  text->position->setType(QCPItemPosition::ptPlotCoords);
+  text->position->setCoords(50,100);
 }
 
 void CustomPlotMainWindow::on_actionFix_triggered()
 {
-    ui->customplot->rescaleAxes();
-    ui->customplot->replot();
+    plot->rescaleAxes();
+    plot->replot();
 }
 
-void CustomPlotMainWindow::onPlotMouseMoveEvent(QMouseEvent *event)
-{
-//  if((event->buttons()&Qt::LeftButton)&&QApplication::keyboardModifiers()==Qt::ControlModifier)
-//  {
-//    ui->customplot->setSelectionRectMode(QCP::srmZoom);
-//    qDebug()<<"srmZoom";
-//  }
-//  qDebug()<<event->pos();
-}
-
-void CustomPlotMainWindow::onPlotMousePressEvent(QMouseEvent *event)
-{
-  qDebug()<<"press";
-  if((event->button()==Qt::LeftButton)&&(QApplication::keyboardModifiers()==Qt::ControlModifier))
-  {
-    ui->customplot->setSelectionRectMode(QCP::srmZoom);
-
-    qDebug()<<"srmZoom"<<ui->customplot->selectionRectMode();
-  }
-  else
-  {
-
-    ui->customplot->setSelectionRectMode(QCP::srmNone);
-  }
-}
-
-void CustomPlotMainWindow::onPlotMouseReleaseEvent(QMouseEvent *event)
-{
-  qDebug()<<"release";
-
-//  ui->customplot->replot();
-
-//  ui->customplot->setSelectionRectMode(QCP::srmNone);
-
-}
 
 void CustomPlotMainWindow::onPlotPosChanged(const QPointF &point)
 {
   ui->label_xy->setText(QString("X:%1,Y:%2").arg(point.x()).arg(point.y()));
 }
 
-void CustomPlotMainWindow::onVtagPosChanged(qreal data)
+void CustomPlotMainWindow::onVtagPosChanged(qreal v1, qreal v2, qreal dv)
 {
-  ui->label_vertical->setText(QString("vtag data:%1").arg(data));
+  ui->label_vertical->setText(QString("t1:%1,t2:%2 dy:%3").arg(v1).arg(v2).arg(dv));
 }
 
-void CustomPlotMainWindow::onHtagPosChanged(qreal data)
+void CustomPlotMainWindow::onHtagPosChanged(qreal v1, qreal v2, qreal dv)
 {
-  ui->label_horizontal->setText(QString("htag data:%1").arg(data));
+  ui->label_horizontal->setText(QString("t1:%1,t2:%2 dx:%3").arg(v1).arg(v2).arg(dv));
+}
+
+
+void CustomPlotMainWindow::on_actionHMea_triggered(bool checked)
+{
+    if(checked)
+      plot->createHorizMea();
+    else
+      plot->clearHorizMea();
+}
+
+
+void CustomPlotMainWindow::on_actionVMea_triggered(bool checked)
+{
+    if(checked)
+      plot->createVertiMea();
+    else
+      plot->clearVertiMea();
 }

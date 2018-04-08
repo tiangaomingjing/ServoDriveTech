@@ -14,10 +14,41 @@
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
     <widget class="QStackedWidget" name="stackedWidget">
      <widget class="QWidget" name="page_ui">
-      <layout class="QHBoxLayout" name="qmlHboxLayout"/>
+      <layout class="QHBoxLayout" name="qmlHboxLayout">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+      </layout>
      </widget>
      <widget class="QWidget" name="page_tree">
       <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -26,13 +57,6 @@
        </item>
       </layout>
      </widget>
-    </widget>
-   </item>
-   <item>
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>UiPlot</string>
-     </property>
     </widget>
    </item>
   </layout>

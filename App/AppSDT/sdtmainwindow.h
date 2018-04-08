@@ -87,6 +87,7 @@ private:
 signals:
   void initProgressInfo(int barValue,QString msg);
   void sendDevConfigToServer(QByteArray block);
+  void currentTitleChanged(const QString &title);
 private slots:
   void onActnOptionClicked();
   void onActnTbtnMoreClicked();

@@ -655,24 +655,24 @@ QToolButton#btn_Min,QToolButton#btn_icon,QToolButton#btn_Max,QToolButton#btn_Clo
 	min-width:30px;
 }
 
-
 QToolButton#btn_Min:hover{
-	background-color: rgb(170, 170, 255)
+	background-color: gray;
 }
 
 QToolButton#btn_Max:hover{
-	background-color: rgb(170, 170, 255)
+	background-color: gray;
 }
 
 QToolButton#btn_Close:hover{
 	background-color: rgb(207, 73, 53);
 }
 
-QLabel#label_title{
+QLabel#label_title,QLabel#label_combinedInfo{
 	color: rgb(255, 255, 255);
 }
 
 QWidget#widget_frameWidget {	
 	background-color: rgb(37, 42, 62);
 }
+
 	

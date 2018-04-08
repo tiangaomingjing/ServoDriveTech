@@ -35,3 +35,6 @@ FORMS    += optionmainwindow.ui \
     formlangtest2.ui
 
 TRANSLATIONS    += ch_main_test.ts en_main_test.ts
+
+RESOURCES += \
+    icon.qrc

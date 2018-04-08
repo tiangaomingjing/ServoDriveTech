@@ -133,6 +133,10 @@ bool SevDevicePrivate::init(const DeviceConfig *dConfig)
   m_socket=new LinkSocket(this,0);
   m_verAttribute=new VerAttribute(0);
 
+  QByteArray byte;
+  byte.append(65+m_devConfig->m_devId);
+  m_aliasName=QString::fromLatin1(byte);
+
   return true;
 }
 
@@ -360,6 +364,12 @@ bool SevDevice::clearAlarm(quint16 axisInx)
     return d->m_socket->clearAlarm(axisInx);
   else
     return true;
+}
+
+QString SevDevice::aliasName() const
+{
+  Q_D(const SevDevice);
+  return d->m_aliasName;
 }
 
 QString SevDevice::typeName() const

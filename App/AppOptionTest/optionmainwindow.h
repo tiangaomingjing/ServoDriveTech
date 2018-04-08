@@ -32,6 +32,7 @@ private slots:
 private:
   void closeEvent(QCloseEvent *e);
   void TEST_getAllFileInOneFolder();
+  void setStyleSheetFromFile();
 
 private:
   Ui::OptionMainWindow *ui;
