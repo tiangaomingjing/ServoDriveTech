@@ -21,6 +21,10 @@ public:
 
 private slots:
 //  void onPushButtonTestClicked(bool checked);
+  void onBtnFloatInClicked(bool checked);
+
+private:
+  void createConnections();
 
 private:
   Ui::PlotUnitGraph129 *ui;
