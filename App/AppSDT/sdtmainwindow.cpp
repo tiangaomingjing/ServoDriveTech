@@ -300,7 +300,6 @@ void SDTMainWindow::closeEvent(QCloseEvent *e)
     optc->saveOpt();
 
     //保存当前的配置
-    delete m_plot;
     GT::deepClearList(m_sdAssemblyList);
     delete m_gUiControl;
     delete m_optc;
@@ -548,9 +547,9 @@ void SDTMainWindow::onActnOptionClicked()
 }
 
 void SDTMainWindow::onActnProduceClicked() {
-    startListen();
-    if (!m_produceClicked) {      
-        //m_produceClicked = true;
+    if (!m_produceClicked) {
+        startListen();
+        m_produceClicked = true;
 
         qDebug()<<"bool"<<m_produceClicked;
         QString path;

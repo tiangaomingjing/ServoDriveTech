@@ -34,7 +34,7 @@ private:
     void changeComText();
     void showText(QString configText, QString comText);
     void showTree(QString text, QTreeWidget *tree, QTreeWidget *uiTree);
-    void onTextChange(QString text, QTreeWidget *tree);
+    void onTextChange(QString text, QTreeWidget *tree, const QString &id);
     void onOkClicked();
     void closeEvent(QCloseEvent *event);
 private:

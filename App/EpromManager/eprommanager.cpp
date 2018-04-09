@@ -31,6 +31,10 @@ EpromManager::EpromManager(QWidget *parent) :
     m_tcpClient->sendRequest(block);
     qDebug()<<"str"<<str;
 
+    m_tcpClient->waitforMs(1000);
+    m_tcpClient->stopConnection();
+    initializeTree();
+
     m_filePath = ".";
     setWindowFlags(windowFlags() | Qt::WindowMaximizeButtonHint | Qt::WindowMinimizeButtonHint);
     ui->list->item(0)->setIcon(QIcon(GTUtils::iconPath() + "Select.png"));
@@ -259,7 +263,7 @@ void EpromManager::showText(QString configText, QString comText) {
 void EpromManager::showTree(QString text, QTreeWidget *tree, QTreeWidget *uiTree) {
     QTreeWidgetItem *item = GLO::findItem(text, tree, TREE_VALUE);
     uiTree->clear();
-    uiTree->addTopLevelItem(item->clone());
+    uiTree->addTopLevelItem(tree->topLevelItem(1)->clone());
     uiTree->expandAll();
     uiTree->resizeColumnToContents(0);
     delete item;
@@ -441,20 +445,21 @@ void EpromManager::onActionFlashClicked() {
 /*****************************************************************************/
 
 void EpromManager::onLineTextChange(QString text) {
-    onTextChange(text, ui->treeWidget);
+    onTextChange(text, ui->treeWidget, m_powerID);
 }
 
 void EpromManager::onLineTextChange_2(QString text) {
-    onTextChange(text, ui->treeWidget_2);
+    onTextChange(text, ui->treeWidget_2, m_controlID);
 }
 
-void EpromManager::onTextChange(QString text, QTreeWidget *tree) {
+void EpromManager::onTextChange(QString text, QTreeWidget *tree, const QString &id) {
     QTreeWidgetItem *item = GLO::findItem("PCBA code", tree, TREE_NAME);
+    QTreeWidgetItem *item_2 = GLO::findItem(id, tree, TREE_NAME);
     if (item != NULL) {
         item->setText(TREE_VALUE, text);
-        tree->topLevelItem(0)->setText(TREE_VALUE, text);
+        item_2->setText(TREE_VALUE, text);
         item->setTextColor(TREE_VALUE, Qt::red);
-        tree->topLevelItem(0)->setTextColor(TREE_VALUE, Qt::red);
+        item_2->setTextColor(TREE_VALUE, Qt::red);
     }
 }
 
@@ -501,7 +506,6 @@ void EpromManager::receiveConfig(const QStringList &list) {
     qDebug()<<"type"<<m_typeName;
     ui->comLabel->setText(m_comText);
     this->setWindowTitle(this->windowTitle() + "-" + m_modeName);
-    initializeTree();
     m_tcpClient->stopConnection();
     //delete m_tcpClient;
 }

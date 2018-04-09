@@ -1,5 +1,7 @@
 ﻿#include "eprom.h"
 #include <QApplication>
+#include <QByteArray>
+#include <QString>
 
 EPROM::EPROM(QString filePath, int16 com_type)
 {
@@ -40,7 +42,7 @@ void EPROM::writeFromXmltoEprom(QTreeWidgetItem *writenItem) {
 Uint32 EPROM::readID() {
     Uint8 result[4];
     int16 axis = 0;
-    Uint16 ofst = 1 + baseAdd;
+    Uint16 ofst = 7 + baseAdd;
     Uint16 num = 4;
     readEprom(axis, ofst, result, num, m_type, 0xf0);
     Uint32 tempValue = 0;
@@ -75,15 +77,27 @@ void EPROM::writeSingle(QTreeWidgetItem *item) {
         qDebug()<<item->text(0)<<item->text(TREE_ADDRESS);
         bool ok;
         double v;
-        v = item->text(TREE_VALUE).toDouble() * item->text(TREE_SCALE).toDouble();
         Uint8 value[4];
+        if (item->text(TREE_ADDRESS).compare("0x0001") == 0) {
+            QByteArray temp = item->text(TREE_VALUE).toLatin1();
+            value[0] = QString::number(temp.at(0)).toDouble();
+            if (temp.size() == 2) {
+                value[1] = QString::number(temp.at(1)).toDouble();
+            } else {
+                value[1] = 0;
+            }
+            value[2] = 0;
+            value[3] = 0;
+        } else {
+            v = item->text(TREE_VALUE).toDouble() * item->text(TREE_SCALE).toDouble();
+            value[0] = v;
+            value[1] = int(v)>>8;
+            value[2] = int(v)>>16;
+            value[3] = int(v)>>24;
+        }
         Uint8 result[4];
         int16 axis = 0;
-        int count = 0;
-        value[0] = v;
-        value[1] = int(v)>>8;
-        value[2] = int(v)>>16;
-        value[3] = int(v)>>24;
+        int count = 0;        
         Uint16 ofst = item->text(TREE_ADDRESS).toUShort(&ok, 16) + baseAdd;
         qDebug()<<"ofst"<<ofst;
         if (ofst < 0 || ofst > 1023) {
@@ -160,13 +174,12 @@ void EPROM::readFromEprom(QTreeWidget *tree) {
     if (m_readTree == NULL) {
         return;
     }
-    QString idStr = QString::number(id, 10);
     tree->addTopLevelItem(m_readTree->topLevelItem(1)->clone());
-    QTreeWidgetItem *readTreeItem = GLO::findItem(idStr, m_readTree, TREE_VALUE);
+    QTreeWidgetItem *readTreeItem = m_readTree->topLevelItem(1);
     if (readTreeItem == NULL) {
         return;
     }
-    QTreeWidgetItem *uiTreeItem = GLO::findItem(idStr, tree, TREE_VALUE);
+    QTreeWidgetItem *uiTreeItem = tree->topLevelItem(0);
     emit changeBarCount(20);
     readEEpromItem(readTreeItem, uiTreeItem);
     tree->expandAll();
@@ -215,17 +228,28 @@ void EPROM::readSingle(QTreeWidgetItem* readTreeItem, QTreeWidgetItem* uiTreeIte
         for (int j = 0; j < num; j++) {
             tempValue = tempValue + (result[j] << (j * 8));
         }
-        if (readTreeItem->text(TREE_TYPE) == "int8") {
-            int8 tempValueTwo = tempValue;
-            uiTreeItem->setText(TREE_VALUE, QString::number(tempValueTwo / scale, 'g', 8));
-        } else if (readTreeItem->text(TREE_TYPE) == "int16") {
-            int16 tempValueTwo = tempValue;
-            uiTreeItem->setText(TREE_VALUE, QString::number(tempValueTwo / scale, 'g', 8));
-        } else if (readTreeItem->text(TREE_TYPE) == "int32") {
-            int32 tempValueTwo = tempValue;
-            uiTreeItem->setText(TREE_VALUE, QString::number(tempValueTwo / scale, 'g', 8));
+        if (readTreeItem->text(TREE_ADDRESS).compare("0x0001") == 0) {
+            QByteArray tempByte;
+            tempByte.append(result[0]);
+            if (result[1] != 0) {
+                tempByte.append(result[1]);
+            }
+            QString str = QString::fromLatin1(tempByte);
+            qDebug()<<"str"<<str;
+            uiTreeItem->setText(TREE_VALUE, str);
         } else {
-            uiTreeItem->setText(TREE_VALUE, QString::number(tempValue / scale, 'g', 8));
+            if (readTreeItem->text(TREE_TYPE) == "int8") {
+                int8 tempValueTwo = tempValue;
+                uiTreeItem->setText(TREE_VALUE, QString::number(tempValueTwo / scale, 'g', 8));
+            } else if (readTreeItem->text(TREE_TYPE) == "int16") {
+                int16 tempValueTwo = tempValue;
+                uiTreeItem->setText(TREE_VALUE, QString::number(tempValueTwo / scale, 'g', 8));
+            } else if (readTreeItem->text(TREE_TYPE) == "int32") {
+                int32 tempValueTwo = tempValue;
+                uiTreeItem->setText(TREE_VALUE, QString::number(tempValueTwo / scale, 'g', 8));
+            } else {
+                uiTreeItem->setText(TREE_VALUE, QString::number(tempValue / scale, 'g', 8));
+            }
         }
         emit updateBarCount();
         qApp->processEvents();

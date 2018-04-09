@@ -14,7 +14,6 @@ INCLUDEPATH+= $${PWD}/DialogOption\
               $${PWD}/StatusMonitor\
               $${PWD}/CombinedWindow\
               $${PWD}/DeviceInfoDialog\
-              $${PWD}/SelfBuilder
 
 QT       += core gui qml sql network
 
@@ -55,7 +54,6 @@ SOURCES += main.cpp\
     StatusMonitor/statusmonitor.cpp \
     CombinedWindow/combinedwindow.cpp\
     DeviceInfoDialog/deviceinfodialog.cpp \
-    SelfBuilder/selfbuilder.cpp
 
 HEADERS  += sdtmainwindow.h \
     appiconname.h \
@@ -87,7 +85,6 @@ HEADERS  += sdtmainwindow.h \
     StatusMonitor/statusmonitor.h \
     CombinedWindow/combinedwindow.h\
     DeviceInfoDialog/deviceinfodialog.h \
-    SelfBuilder/selfbuilder.h
 
 FORMS    += sdtmainwindow.ui \
     DialogOption/dialogoption.ui \

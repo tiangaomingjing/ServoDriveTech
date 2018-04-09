@@ -21,4 +21,5 @@ SUBDIRS += \
     AppAnimationTest \
     ComparisonDialog\
     AppAlarmLedTest \
-    AppDragDropTest
+    AppDragDropTest \
+    AppSelfBuilderTest

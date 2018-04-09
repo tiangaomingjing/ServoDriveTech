@@ -5,6 +5,8 @@ INCLUDEPATH+=$${LIBS_PATH}/Com/Communication\
             $${LIBS_PATH}/GTUtils\
             $${LIBS_PATH}/GTUtils/QtTreeManager\
             $${LIBS_PATH}/GTUtils/DeviceIdHelper\
+            $${LIBS_PATH}/GTUtils/SelfBuilder\
+            $${LIBS_PATH}/GTUtils/BuilderParameters\
             $${LIBS_PATH}/SDKernel\
             $${LIBS_PATH}/UI\
             $${LIBS_PATH}/UI/UiPlot\
