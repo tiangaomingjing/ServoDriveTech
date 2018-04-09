@@ -16,7 +16,7 @@ INCLUDEPATH += $${PWD}/ControlServo\
                $${PWD}/TreeManage\
                $${PWD}/Eprom\
                $${PWD}/TcpConnect\
-               $${PWD}/../../Libs/Com/ServoDriverComDll\
+               $${PWD}/../../Libs/Com/ServoDriverComDll/DllCom\
                $${PWD}/../../Libs/Com/ServoDriverComDll/NetCom/include\
                $${PWD}/../../Libs/GTUtils\
 
@@ -57,7 +57,6 @@ HEADERS  += eprommanager.h \
     Eprom/eprom.h \
     Eprom/eprom_control.h \
     Eprom/eprom_power.h \
-    TcpConnect/tcpconnect.h \
-    ../../Libs/Com/ServoDriverComDll/ServoDriverComDll.h
+    TcpConnect/tcpconnect.h
 
 FORMS    += eprommanager.ui
