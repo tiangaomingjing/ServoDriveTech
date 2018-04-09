@@ -49,6 +49,8 @@ private slots:
     void onActionMaxClicked();
     void onActionMinClicked();
     void onOptFaceCssChanged(const QString &css);
+
+    void onTitleChanged(const QString &title);
 };
 
 #endif // COMBINEDWINDOW_H

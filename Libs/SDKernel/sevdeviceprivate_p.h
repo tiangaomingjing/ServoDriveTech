@@ -39,6 +39,8 @@ public :
   QString m_filePath;
   QTreeWidgetItem *m_targetTree;
 
+  QString m_aliasName;
+
 signals:
   void initProgressInfo(int value,QString msg);
 

@@ -145,6 +145,19 @@ int main(int argc, char *argv[])
   qDebug()<<"sizeof ushort"<<sizeof(ushort);
   qDebug()<<"sizeof uint"<<sizeof(ulong);
 
+  //data to string
+  QByteArray byte;
+  byte.append(65);
+  byte.append(66);
+  qDebug()<<"str "<<QString::fromLatin1(byte);
+
+  //string to data
+  QString s2d="AB";
+  for(int i=0;i<s2d.toLatin1().size();i++)
+  {
+    qDebug()<<"s2d:"<<QString::number(s2d.toLatin1().at(i));
+  }
+
   return a.exec();
 }
 

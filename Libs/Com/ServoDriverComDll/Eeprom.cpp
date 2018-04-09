@@ -90,7 +90,7 @@ int16 CEeprom::EepromBaseOptRd(Uint16 eeprom_addr, Uint8* byte_data)
 	int16 comNum = 1;
 
 	iRet = pCom->ComRdFpgaHandle((comAddr), (int16*)read_data, comNum, m_des_id, NULL);//
-    *byte_data = read_data[0];
+	*byte_data = read_data[0];
 	return iRet;
 }
 
@@ -147,7 +147,6 @@ int16 CEeprom::EepromWrite8bit(Uint16 byte_addr, Uint8 byte_data)
 		Sleep(5);
 		//¼ì²âÐ´Êý¾ÝÊÇ·ñÍê³É
 		iRet = EepromBaseOptRd(ADDR_STS, &status);
-
 		if ((1 == (status & 0x0001)))//ÅÐ¶Ï¶ÁÐ´ÊÇ·ñ³ö´í
 		{
 			//Èç¹û¶ÁÐ´ÎÞÓ¦´ð
@@ -159,11 +158,11 @@ int16 CEeprom::EepromWrite8bit(Uint16 byte_addr, Uint8 byte_data)
 			continue;
 		}
 
-        if ((0 == (status & 0x0001)) && (1 == ((status & 0x0002) >> 1)))//ÅÐ¶Ï¶ÁÐ´ÊÇ·ñ³ö´í
-        {
-            //Èç¹û¶ÁÐ´ÎÞ´íÎó²¢ÇÒÍê³É
-            return RTN_SUCCESS;
-        }
+		if ((0 == (status & 0x0001)) && (1 == ((status & 0x0002) >> 1)))//ÅÐ¶Ï¶ÁÐ´ÊÇ·ñ³ö´í
+		{
+			//Èç¹û¶ÁÐ´ÎÞ´íÎó²¢ÇÒÍê³É
+			return RTN_SUCCESS;
+		}
 
 	}
 	return RTN_PCI_FPGA_ERR;
@@ -224,7 +223,7 @@ int16 CEeprom::EepromRead8bit(Uint16 byte_addr, Uint8* byte_data)
 			//Èç¹û¶ÁÐ´ÎÞÓ¦´ð
 			break;
 		}
-        else if (0 == ((status & 0x0002) >> 1))//ÅÐ¶Ï¶ÁÐ´ÊÇ·ñÍê³É
+		else if (0 == ((status & 0x0002) >> 1))//ÅÐ¶Ï¶ÁÐ´ÊÇ·ñÍê³É
 		{
 			//Èç¹ûÃ»ÓÐÍê³É
 			continue;
@@ -233,8 +232,7 @@ int16 CEeprom::EepromRead8bit(Uint16 byte_addr, Uint8* byte_data)
 		if ((0 == (status & 0x0001)) && (1 == ((status & 0x0002) >> 1)))//ÅÐ¶Ï¶ÁÐ´ÊÇ·ñ³ö´í
 		{
 			//Èç¹û¶ÁÐ´ÎÞ´íÎó²¢ÇÒÍê³É
-            //return RTN_2ERROR;
-            break;;
+			break;;
 		}
 	}
 

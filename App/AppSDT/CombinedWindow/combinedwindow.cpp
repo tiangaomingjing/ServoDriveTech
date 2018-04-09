@@ -36,6 +36,11 @@ CombinedWindow::CombinedWindow(QWidget *parent) :
     OptFace *optface=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
     if(optface!=NULL)
       connect(optface,SIGNAL(faceCssChanged(QString)),this,SLOT(onOptFaceCssChanged(QString)));
+
+    ui->horizontalLayout_3->setSpacing(30);
+    ui->label_combinedInfo->setText("");
+    ui->label_title->setText(tr("SDT"));
+    ui->label_combinedInfo->setAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
 }
 
 CombinedWindow::~CombinedWindow()
@@ -145,6 +150,11 @@ void CombinedWindow::onOptFaceCssChanged(const QString &css)
 {
   setWidgetIcon();
   qDebug()<<"setWidgetIcon"<<css;
+}
+
+void CombinedWindow::onTitleChanged(const QString &title)
+{
+  ui->label_combinedInfo->setText(title);
 }
 
 void CombinedWindow::setWidgetIcon() {

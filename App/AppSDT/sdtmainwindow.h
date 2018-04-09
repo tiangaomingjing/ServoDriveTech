@@ -87,6 +87,7 @@ private:
 signals:
   void initProgressInfo(int barValue,QString msg);
   void sendDevConfigToServer(QByteArray block);
+  void currentTitleChanged(const QString &title);
 private slots:
   void onActnOptionClicked();
   void onActnTbtnMoreClicked();
@@ -110,8 +111,6 @@ private slots:
   void onNavTreeWidgetItemClicked(QTreeWidgetItem * item, int column);
 
   void onStatusBarPageChanged(int pIndex);
-
-  void onPlotFloatingChanged(bool floating);
 
   //响应状态监视器
   void onDeviceAlarmError(quint16 devId,quint16 axisInx,bool hasError);

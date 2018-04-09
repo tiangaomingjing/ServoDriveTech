@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>693</width>
-    <height>377</height>
+    <width>632</width>
+    <height>292</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,7 +38,7 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,1,0">
        <property name="leftMargin">
         <number>0</number>
        </property>
@@ -85,7 +85,7 @@
           <widget class="QLabel" name="label_title">
            <property name="minimumSize">
             <size>
-             <width>200</width>
+             <width>0</width>
              <height>0</height>
             </size>
            </property>
@@ -97,17 +97,20 @@
         </layout>
        </item>
        <item>
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
+        <widget class="QLabel" name="label_combinedInfo">
+         <property name="minimumSize">
           <size>
-           <width>406</width>
-           <height>20</height>
+           <width>30</width>
+           <height>0</height>
           </size>
          </property>
-        </spacer>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">

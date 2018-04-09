@@ -19,6 +19,9 @@ public:
   explicit PlotUnitGraph129(QWidget *parent = 0);
   ~PlotUnitGraph129();
 
+private slots:
+//  void onPushButtonTestClicked(bool checked);
+
 private:
   Ui::PlotUnitGraph129 *ui;
 };

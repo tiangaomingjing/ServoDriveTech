@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += widgets
+QT       += widgets printsupport
 
 QT       -= gui
 
@@ -19,13 +19,16 @@ CONFIG(debug, debug|release){
 }
 DESTDIR =$${IPLOT_OUT_PATH}
 
-DEFINES += IPLOTUNIT_LIBRARY
+DEFINES += IPLOTUNIT_LIBRARY \
+           QCUSTOMPLOT_COMPILE_LIBRARY
 
-SOURCES += iplotunit.cpp
+SOURCES += iplotunit.cpp \
+    qcustomplot.cpp
 
 HEADERS += iplotunit.h\
         iplotunit_global.h \
-    iplotunit_p.h
+    iplotunit_p.h \
+    qcustomplot.h
 
 unix {
     target.path = /usr/lib

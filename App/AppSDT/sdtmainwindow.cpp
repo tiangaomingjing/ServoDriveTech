@@ -345,6 +345,7 @@ void SDTMainWindow::navigationTreeInit()
   QTreeWidgetItem *globalItem=NULL;
   SdAssembly * sd;
   int pageIndex=0;
+  bool hasNickName=m_sdAssemblyList.count()>1;
   for(int  i=0;i<m_sdAssemblyList.count();i++)
   {
     int axisNum;
@@ -352,7 +353,7 @@ void SDTMainWindow::navigationTreeInit()
     axisNum=sd->sevDevice()->axisNum();
     deviceItem=new QTreeWidgetItem(ui->treeWidget);
     QString prefix;
-//    prefix=QString("[%1] ").arg(i+1);
+    prefix=hasNickName?tr("[%1] ").arg(sd->sevDevice()->aliasName()):"";
     deviceItem->setText(COL_TARGET_CONFIG_NAME,prefix+sd->sevDevice()->modelName());
     deviceItem->setText(COL_TARGET_CONFIG_PRM,QString::number(axisNum));
     qDebug()<<"deviceItem->setText";
@@ -440,11 +441,6 @@ void SDTMainWindow::globalUiPageInit()
 
   m_gUiControl=new GlobalUiControler(sevList);
   m_gUiControl->createUis();
-
-//  m_plot=new PlotUnit;
-//  connect(m_plot,SIGNAL(floatingChanged(bool)),this,SLOT(onPlotFloatingChanged(bool)));
-//  UiPlot *uiplot=dynamic_cast<UiPlot *>(m_gUiControl->uiWidget("UiPlot"));
-//  uiplot->hBoxLayout()->addWidget(m_plot);
 }
 void SDTMainWindow::stackedWidgetInit()
 {
@@ -532,7 +528,8 @@ void SDTMainWindow::setNavCurrentSelectedInfo()
   }
   info.prepend(item->text(2)+" ");
   info.prepend(item->text(0)+" ");
-  ui->dockWidgetNav->setWindowTitle(info);
+  emit currentTitleChanged(info);
+//  ui->dockWidgetNav->setWindowTitle(info);
 }
 
 void SDTMainWindow::onActnOptionClicked()
@@ -848,10 +845,6 @@ void SDTMainWindow::onNavTreeWidgetItemClicked(QTreeWidgetItem *item, int column
       disactiveAllUi();
       activeCurrentUi();
       changeConfigSaveBtnStatus();
-      bool plotShow=false;
-      if(item->text(COL_TARGET_CONFIG_ISPLOT)=="1")
-        plotShow=true;
-      showPlotUiOnly(plotShow);
 
       setNavCurrentSelectedInfo();
     }
@@ -889,23 +882,6 @@ void SDTMainWindow::onStatusBarPageChanged(int pIndex)
   changeConfigSaveBtnStatus();
 }
 
-void SDTMainWindow::onPlotFloatingChanged(bool floating)
-{
-//  UiPlot *uiplot=dynamic_cast<UiPlot *>(m_gUiControl->uiWidget("UiPlot"));
-//  if(floating)
-//  {
-//    uiplot->hBoxLayout()->removeWidget(m_plot);
-//    m_plot->setParent(0);
-//    m_plot->showMaximized();
-//  }
-//  else
-//  {
-//    uiplot->hBoxLayout()->addWidget(m_plot);
-//    m_plot->show();
-//  }
-
-
-}
 //!
 //! \brief SDTMainWindow::onDeviceAlarmError
 //! 驱动器报警时 1更新报警信息到statusBar状态树 2只要有一个报警，就显示报警信息
