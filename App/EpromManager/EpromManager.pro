@@ -58,6 +58,5 @@ HEADERS  += eprommanager.h \
     Eprom/eprom_control.h \
     Eprom/eprom_power.h \
     TcpConnect/tcpconnect.h \
-    ../../Libs/Com/ServoDriverComDll/ServoDriverComDll.h
 
 FORMS    += eprommanager.ui

@@ -68,6 +68,7 @@ void SelfBuilder::buildControl()
     QString ctrMapPath = boardPath + "IdMap_Control.ui";
     if (!axisNumExisted(QString::number(m_axisNum), ctrMapPath)) {
         qDebug()<<"no such product";
+        QMessageBox::warning(0, QObject::tr("Warning"), QObject::tr("No such product. Please update the software."));
         return;
     }
     if (!idExisted(m_controlID, ctrMapPath)) {
