@@ -1,5 +1,5 @@
-﻿生成启动时间为 2018/2/7 10:45:36。
-     1>项目“D:\Smart\ServoMaster\git-project\servo-4\ServoMain\NetCmd\ServoDriverComDll\ServoDriverComDll.vcxproj”在节点 2 上(Rebuild 个目标)。
+﻿生成启动时间为 2018/4/11 15:01:46。
+     1>项目“D:\Smart\ServoMaster\git-project\ServoDriveTech\ServoDriveTech\Libs\Com\ServoDriverComDll\ServoDriverComDll.vcxproj”在节点 2 上(Rebuild 个目标)。
      1>ClCompile:
          D:\program\VS2013\VC\bin\CL.exe /c /I.\DllCom /I.\NetCom\include /I.\NetCom\wpcap\Include\pcap /I.\NetCom\wpcap\Include /I.\AbsCom\include /I.\Cmd\include /I.\PlotWave\include /I.\ /I.\..\ /I.\ParseIntelHex\include /I.\FirmwareDL\include /I.\UartBoot\include /I.\RingNetCom\include /I.\socketCom\include /I.\eeprom\include /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D SERVODRIVERCOMDLL_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Release\ServoDriverComDll.pch" /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
          stdafx.cpp
@@ -62,7 +62,7 @@
          D:\program\VS2013\VC\bin\CL.exe /c /I.\DllCom /I.\NetCom\include /I.\NetCom\wpcap\Include\pcap /I.\NetCom\wpcap\Include /I.\AbsCom\include /I.\Cmd\include /I.\PlotWave\include /I.\ /I.\..\ /I.\ParseIntelHex\include /I.\FirmwareDL\include /I.\UartBoot\include /I.\RingNetCom\include /I.\socketCom\include /I.\eeprom\include /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D SERVODRIVERCOMDLL_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt dllmain.cpp
          dllmain.cpp
        Link:
-         D:\program\VS2013\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Smart\ServoMaster\git-project\servo-4\ServoMain\NetCmd\ServoDriverComDll\Release\ServoDriverComDll.dll" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Smart\ServoMaster\git-project\servo-4\ServoMain\NetCmd\ServoDriverComDll\Release\ServoDriverComDll.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Smart\ServoMaster\git-project\servo-4\ServoMain\NetCmd\ServoDriverComDll\Release\ServoDriverComDll.lib" /MACHINE:X86 /SAFESEH /DLL Release\AbsCom.obj
+         D:\program\VS2013\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Smart\ServoMaster\git-project\ServoDriveTech\ServoDriveTech\Libs\Com\ServoDriverComDll\Release\ServoDriverComDll.dll" /INCREMENTAL:NO /NOLOGO /LIBPATH:./NetCom/wpcap/Include /LIBPATH:./NetCom/wpcap/lib wpcap.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Smart\ServoMaster\git-project\ServoDriveTech\ServoDriveTech\Libs\Com\ServoDriverComDll\Release\ServoDriverComDll.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Smart\ServoMaster\git-project\ServoDriveTech\ServoDriveTech\Libs\Com\ServoDriverComDll\Release\ServoDriverComDll.lib" /MACHINE:X86 /SAFESEH /DLL Release\AbsCom.obj
          Release\ST_GTSD_Cmd.obj
          Release\ComBase.obj
          Release\CpldCom.obj
@@ -117,20 +117,13 @@
          Release\serialport.obj
          Release\XmlCode.obj
          Release\XmlCodeUpdate.obj
-            正在创建库 D:\Smart\ServoMaster\git-project\servo-4\ServoMain\NetCmd\ServoDriverComDll\Release\ServoDriverComDll.lib 和对象 D:\Smart\ServoMaster\git-project\servo-4\ServoMain\NetCmd\ServoDriverComDll\Release\ServoDriverComDll.exp
-     1>Net.obj : error LNK2001: 无法解析的外部符号 _pcap_close
-     1>Net.obj : error LNK2001: 无法解析的外部符号 _pcap_findalldevs
-     1>Net.obj : error LNK2001: 无法解析的外部符号 _pcap_freealldevs
-     1>Net.obj : error LNK2001: 无法解析的外部符号 _pcap_open_live
-     1>Net.obj : error LNK2001: 无法解析的外部符号 _pcap_compile
-     1>Net.obj : error LNK2001: 无法解析的外部符号 _pcap_setfilter
-     1>Net.obj : error LNK2001: 无法解析的外部符号 _pcap_sendpacket
-     1>Net.obj : error LNK2001: 无法解析的外部符号 _pcap_next_ex
-     1>RingNetCom.obj : error LNK2001: 无法解析的外部符号 _pcap_loop
-     1>Rninterface.obj : error LNK2001: 无法解析的外部符号 _pcap_breakloop
-     1>D:\Smart\ServoMaster\git-project\servo-4\ServoMain\NetCmd\ServoDriverComDll\Release\ServoDriverComDll.dll : fatal error LNK1120: 10 个无法解析的外部命令
-     1>已完成生成项目“D:\Smart\ServoMaster\git-project\servo-4\ServoMain\NetCmd\ServoDriverComDll\ServoDriverComDll.vcxproj”(Rebuild 个目标)的操作 - 失败。
+            正在创建库 D:\Smart\ServoMaster\git-project\ServoDriveTech\ServoDriveTech\Libs\Com\ServoDriverComDll\Release\ServoDriverComDll.lib 和对象 D:\Smart\ServoMaster\git-project\ServoDriveTech\ServoDriveTech\Libs\Com\ServoDriverComDll\Release\ServoDriverComDll.exp
+         正在生成代码
+     1>d:\smart\servomaster\git-project\servodrivetech\servodrivetech\libs\com\servodrivercomdll\servodrivercom.cpp(2705): warning C4715: “CServoDriverCom::SetStationId”: 不是所有的控件路径都返回值
+         已完成代码的生成
+         ServoDriverComDll.vcxproj -> D:\Smart\ServoMaster\git-project\ServoDriveTech\ServoDriveTech\Libs\Com\ServoDriverComDll\Release\ServoDriverComDll.dll
+     1>已完成生成项目“D:\Smart\ServoMaster\git-project\ServoDriveTech\ServoDriveTech\Libs\Com\ServoDriverComDll\ServoDriverComDll.vcxproj”(Rebuild 个目标)的操作。
 
-生成失败。
+生成成功。
 
-已用时间 00:00:07.98
+已用时间 00:00:11.91

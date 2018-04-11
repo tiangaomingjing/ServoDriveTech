@@ -27,7 +27,7 @@
     <number>20</number>
    </property>
    <property name="spacing">
-    <number>20</number>
+    <number>30</number>
    </property>
    <item row="0" column="2">
     <layout class="QHBoxLayout" name="hlayout_btn">

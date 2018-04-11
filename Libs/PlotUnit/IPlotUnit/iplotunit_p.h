@@ -3,6 +3,7 @@
 
 #include "iplotunit.h"
 class UiPlot;
+class SevDevice;
 
 class IPlotUnitPrivate
 {
@@ -21,6 +22,7 @@ protected:
 
   bool m_winIsIn;
   UiPlot *m_uiPlot;
+  QList<SevDevice *> m_sevList;
 
 };
 

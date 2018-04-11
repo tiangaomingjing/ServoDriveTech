@@ -16,6 +16,7 @@ public:
   IUiWidget *uiWidget(const QString &name);
   void setSevDeviceList(const QList<SevDevice *> &sevList);
 signals:
+  void sevDeviceListChanged(const QList<SevDevice *> &sevList);
 public slots:
 private:
   QList<SevDevice *>m_sevList;

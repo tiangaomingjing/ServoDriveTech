@@ -2708,6 +2708,7 @@ short CServoDriverCom::GetStationIdList(vector<int16>& stationIdList)
 {
 	int16 stationId = 0;
 
+	stationIdList.clear();
 	for (int16 i = 0; i < m_pDriver->m_device_num; i++)
 	{
 		switch (m_pDriver->m_pRnDeviceOnline[i]->m_CNS.m_station_msg.bit.station_msg)

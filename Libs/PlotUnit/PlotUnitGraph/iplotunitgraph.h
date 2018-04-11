@@ -19,6 +19,7 @@ signals:
 
 public slots:
 
+
 protected:
   IPlotUnitGraph(IPlotUnitGraphPrivate&dd,QWidget *parent=0);
 };

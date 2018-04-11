@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>397</height>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -54,7 +54,7 @@
         <string>xmlBaseAddress</string>
        </property>
        <property name="text">
-        <string>64</string>
+        <string>128</string>
        </property>
       </item>
      </item>
@@ -88,7 +88,7 @@
          </property>
          <item>
           <property name="text">
-           <string>21000509</string>
+           <string>21000508</string>
           </property>
           <property name="text">
            <string>21000508</string>

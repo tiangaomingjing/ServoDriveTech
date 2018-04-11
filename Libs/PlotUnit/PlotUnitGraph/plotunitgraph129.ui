@@ -33,7 +33,7 @@
      </property>
      <widget class="QWidget" name="widget_plotGraph_left" native="true">
       <property name="styleSheet">
-       <string notr="true">background-color:lightblue;</string>
+       <string notr="true"/>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <property name="leftMargin">
@@ -55,11 +55,17 @@
          </property>
          <widget class="QWidget" name="widget_plot_up" native="true">
           <property name="styleSheet">
-           <string notr="true">background-color:gray;</string>
+           <string notr="true"/>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,1,0">
+           <property name="spacing">
+            <number>0</number>
+           </property>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <property name="spacing">
+              <number>0</number>
+             </property>
              <item>
               <widget class="QToolButton" name="tbtn_plot_startSampling">
                <property name="minimumSize">
@@ -172,6 +178,9 @@
                  <height>30</height>
                 </size>
                </property>
+               <property name="styleSheet">
+                <string notr="true"/>
+               </property>
                <property name="text">
                 <string>save</string>
                </property>
@@ -206,7 +215,7 @@
             </layout>
            </item>
            <item>
-            <widget class="QWidget" name="widget_5" native="true">
+            <widget class="GtPlot" name="plot" native="true">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -220,6 +229,9 @@
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <property name="spacing">
+              <number>6</number>
+             </property>
              <item>
               <widget class="QLabel" name="label_6">
                <property name="text">
@@ -228,14 +240,26 @@
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_3">
+              <widget class="QLabel" name="label_plot_x">
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>0</height>
+                </size>
+               </property>
                <property name="text">
                 <string>X</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_2">
+              <widget class="QLabel" name="label_plot_y">
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>0</height>
+                </size>
+               </property>
                <property name="text">
                 <string>Y</string>
                </property>
@@ -262,14 +286,26 @@
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_4">
+              <widget class="QLabel" name="label_plot_dx">
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>0</height>
+                </size>
+               </property>
                <property name="text">
                 <string>dx</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_5">
+              <widget class="QLabel" name="label_plot_dy">
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>0</height>
+                </size>
+               </property>
                <property name="text">
                 <string>dy</string>
                </property>
@@ -371,308 +407,14 @@
               </attribute>
               <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1,0">
                <item>
-                <layout class="QVBoxLayout" name="verticalLayout_8">
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_13">
-                   <item>
-                    <widget class="QCheckBox" name="checkBox_7">
-                     <property name="text">
-                      <string>A1</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QComboBox" name="comboBox_4">
-                     <item>
-                      <property name="text">
-                       <string>0 空闲</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>1 ADC校正</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>2 位置模式</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>3 机械模型辩识</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>9 周期同步速度跟踪</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>新建项目</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>新建项目</string>
-                      </property>
-                     </item>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_8">
-                   <item>
-                    <widget class="QCheckBox" name="checkBox_2">
-                     <property name="text">
-                      <string>A2</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QComboBox" name="comboBox_7">
-                     <item>
-                      <property name="text">
-                       <string>0 空闲</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>1 ADC校正</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>2 位置模式</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>3 机械模型辩识</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>9 周期同步速度跟踪</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>新建项目</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>新建项目</string>
-                      </property>
-                     </item>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_10">
-                   <item>
-                    <widget class="QCheckBox" name="checkBox_4">
-                     <property name="text">
-                      <string>A3</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QComboBox" name="comboBox_9">
-                     <item>
-                      <property name="text">
-                       <string>0 空闲</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>1 ADC校正</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>2 位置模式</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>3 机械模型辩识</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>9 周期同步速度跟踪</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>新建项目</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>新建项目</string>
-                      </property>
-                     </item>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_11">
-                   <item>
-                    <widget class="QCheckBox" name="checkBox_5">
-                     <property name="text">
-                      <string>A4</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QComboBox" name="comboBox_10">
-                     <item>
-                      <property name="text">
-                       <string>0 空闲</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>1 ADC校正</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>2 位置模式</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>3 机械模型辩识</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>9 周期同步速度跟踪</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>新建项目</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>新建项目</string>
-                      </property>
-                     </item>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_12">
-                   <item>
-                    <widget class="QCheckBox" name="checkBox_6">
-                     <property name="text">
-                      <string>A5</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QComboBox" name="comboBox_11">
-                     <item>
-                      <property name="text">
-                       <string>0 空闲</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>1 ADC校正</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>2 位置模式</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>3 机械模型辩识</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>9 周期同步速度跟踪</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>新建项目</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>新建项目</string>
-                      </property>
-                     </item>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_9">
-                   <item>
-                    <widget class="QCheckBox" name="checkBox_3">
-                     <property name="text">
-                      <string>A6</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QComboBox" name="comboBox_8">
-                     <item>
-                      <property name="text">
-                       <string>0 空闲</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>1 ADC校正</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>2 位置模式</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>3 机械模型辩识</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>9 周期同步速度跟踪</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>新建项目</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>新建项目</string>
-                      </property>
-                     </item>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                </layout>
+                <widget class="ModeCtlPanel" name="modeCtlPanel" native="true">
+                 <property name="minimumSize">
+                  <size>
+                   <width>100</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                </widget>
                </item>
                <item>
                 <widget class="QStackedWidget" name="stackedWidget">
@@ -1080,6 +822,20 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>GtPlot</class>
+   <extends>QWidget</extends>
+   <header>gtplot.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ModeCtlPanel</class>
+   <extends>QWidget</extends>
+   <header>modectlpanel.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

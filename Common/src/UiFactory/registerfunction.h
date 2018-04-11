@@ -50,6 +50,7 @@ void registerUiClass(){
   UiFactory::registerClass<GraphVelocity129>();
 
   UiFactory::registerClass<GraphCurrent130>();
+//  UiFactory::registerClass<PlotUnitGraph129>();
 }
 
 }

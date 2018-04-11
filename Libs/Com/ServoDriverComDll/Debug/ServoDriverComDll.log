@@ -1,5 +1,5 @@
-﻿生成启动时间为 2018/3/29 11:19:03。
-     1>项目“D:\Smart\ServoMaster\git-project\servo-4\ServoMain\NetCmd\ServoDriverComDll\ServoDriverComDll.vcxproj”在节点 2 上(Rebuild 个目标)。
+﻿生成启动时间为 2018/4/11 14:22:58。
+     1>项目“D:\Smart\ServoMaster\git-project\ServoDriveTech\ServoDriveTech\Libs\Com\ServoDriverComDll\ServoDriverComDll.vcxproj”在节点 2 上(Rebuild 个目标)。
      1>ClCompile:
          D:\program\VS2013\VC\bin\CL.exe /c /I.\DllCom /I.\NetCom\include /I.\NetCom\wpcap\Include\pcap /I.\NetCom\wpcap\Include /I.\AbsCom\include /I.\Cmd\include /I.\PlotWave\include /I.\ /I.\..\ /I.\ParseIntelHex\include /I.\FirmwareDL\include /I.\UartBoot\include /I.\RingNetCom\include /I.\socketCom\include /I.\eeprom\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D SERVODRIVERCOMDLL_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Debug\ServoDriverComDll.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
          stdafx.cpp
@@ -25,7 +25,7 @@
          RingNetDriver.cpp
          Rninterface.cpp
          正在生成代码...
-     1>d:\smart\servomaster\git-project\servo-4\servomain\netcmd\servodrivercomdll\servodrivercom.cpp(2659): warning C4715: “CServoDriverCom::SetStationId”: 不是所有的控件路径都返回值
+     1>d:\smart\servomaster\git-project\servodrivetech\servodrivetech\libs\com\servodrivercomdll\servodrivercom.cpp(2705): warning C4715: “CServoDriverCom::SetStationId”: 不是所有的控件路径都返回值
          正在编译...
          RingNetPacket.cpp
          RingNetCom.cpp
@@ -66,7 +66,7 @@
          D:\program\VS2013\VC\bin\CL.exe /c /I.\DllCom /I.\NetCom\include /I.\NetCom\wpcap\Include\pcap /I.\NetCom\wpcap\Include /I.\AbsCom\include /I.\Cmd\include /I.\PlotWave\include /I.\ /I.\..\ /I.\ParseIntelHex\include /I.\FirmwareDL\include /I.\UartBoot\include /I.\RingNetCom\include /I.\socketCom\include /I.\eeprom\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D SERVODRIVERCOMDLL_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt dllmain.cpp
          dllmain.cpp
        Link:
-         D:\program\VS2013\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Smart\ServoMaster\git-project\servo-4\ServoMain\NetCmd\NetTest_V1\Debug\ServoDriverComDll.dll" /INCREMENTAL /NOLOGO /LIBPATH:.\NetCom\wpcap\lib .\NetCom\wpcap\lib\wpcap.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /manifestinput:D:\program\VS2013\VC\Include\Manifest\dpiaware.manifest /DEBUG /PDB:"D:\Smart\ServoMaster\git-project\servo-4\ServoMain\NetCmd\NetTest_V1\Debug\ServoDriverComDll.pdb" /SUBSYSTEM:WINDOWS /STACK:"100000000" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Smart\ServoMaster\git-project\servo-4\ServoMain\NetCmd\NetTest_V1\Debug\ServoDriverComDll.lib" /MACHINE:X86 /DLL Debug\AbsCom.obj
+         D:\program\VS2013\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Smart\ServoMaster\git-project\ServoDriveTech\ServoDriveTech\Libs\Com\NetTest_V1\Debug\ServoDriverComDll.dll" /INCREMENTAL /NOLOGO /LIBPATH:.\NetCom\wpcap\lib .\NetCom\wpcap\lib\wpcap.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /manifestinput:D:\program\VS2013\VC\Include\Manifest\dpiaware.manifest /DEBUG /PDB:"D:\Smart\ServoMaster\git-project\ServoDriveTech\ServoDriveTech\Libs\Com\NetTest_V1\Debug\ServoDriverComDll.pdb" /SUBSYSTEM:WINDOWS /STACK:"100000000" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Smart\ServoMaster\git-project\ServoDriveTech\ServoDriveTech\Libs\Com\NetTest_V1\Debug\ServoDriverComDll.lib" /MACHINE:X86 /DLL Debug\AbsCom.obj
          Debug\ST_GTSD_Cmd.obj
          Debug\ComBase.obj
          Debug\CpldCom.obj
@@ -121,10 +121,10 @@
          Debug\serialport.obj
          Debug\XmlCode.obj
          Debug\XmlCodeUpdate.obj
-            正在创建库 D:\Smart\ServoMaster\git-project\servo-4\ServoMain\NetCmd\NetTest_V1\Debug\ServoDriverComDll.lib 和对象 D:\Smart\ServoMaster\git-project\servo-4\ServoMain\NetCmd\NetTest_V1\Debug\ServoDriverComDll.exp
-         ServoDriverComDll.vcxproj -> D:\Smart\ServoMaster\git-project\servo-4\ServoMain\NetCmd\NetTest_V1\Debug\ServoDriverComDll.dll
-     1>已完成生成项目“D:\Smart\ServoMaster\git-project\servo-4\ServoMain\NetCmd\ServoDriverComDll\ServoDriverComDll.vcxproj”(Rebuild 个目标)的操作。
+            正在创建库 D:\Smart\ServoMaster\git-project\ServoDriveTech\ServoDriveTech\Libs\Com\NetTest_V1\Debug\ServoDriverComDll.lib 和对象 D:\Smart\ServoMaster\git-project\ServoDriveTech\ServoDriveTech\Libs\Com\NetTest_V1\Debug\ServoDriverComDll.exp
+         ServoDriverComDll.vcxproj -> D:\Smart\ServoMaster\git-project\ServoDriveTech\ServoDriveTech\Libs\Com\NetTest_V1\Debug\ServoDriverComDll.dll
+     1>已完成生成项目“D:\Smart\ServoMaster\git-project\ServoDriveTech\ServoDriveTech\Libs\Com\ServoDriverComDll\ServoDriverComDll.vcxproj”(Rebuild 个目标)的操作。
 
 生成成功。
 
-已用时间 00:00:30.54
+已用时间 00:00:30.22

@@ -411,8 +411,8 @@ SERVODRIVERCOMDLL_API int16 GTSD_CMD_GetStationAxisNum(int16* axisNum, int16 com
       {
         return rtn;
       }
+			g_RnServoCom->GetStationAxisNum(axisNum);
     }
-		g_RnServoCom->GetStationAxisNum(axisNum);
 		return RTN_SUCCESS;
 	}
 	return RTN_PARAM_ERR;

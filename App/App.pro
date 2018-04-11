@@ -22,4 +22,5 @@ SUBDIRS += \
     ComparisonDialog\
     AppAlarmLedTest \
     AppDragDropTest \
-    AppCustomPlotTest
+    AppCustomPlotTest \
+    AppPlotTest

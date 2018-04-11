@@ -9,6 +9,12 @@ IPlotUnit::~IPlotUnit()
   qDebug()<<"IPlotUnit destruct-->";
 }
 
+void IPlotUnit::setSevDeviceList(const QList<SevDevice *> &sevlist)
+{
+  Q_D(IPlotUnit);
+  d->m_sevList=sevlist;
+}
+
 void IPlotUnit::closeEvent(QCloseEvent *event)
 {
   Q_D(IPlotUnit);
@@ -16,6 +22,11 @@ void IPlotUnit::closeEvent(QCloseEvent *event)
   emit winFloatingChange(d->m_winIsIn);
   qDebug()<<"IPlotUnit closeEvent ---------------------------------------";
   event->ignore();
+}
+
+void IPlotUnit::onSevDeviceListChanged(const QList<SevDevice *> &sevlist)
+{
+  setSevDeviceList(sevlist);
 }
 
 IPlotUnit::IPlotUnit(IPlotUnitPrivate &dd, QWidget *parent):d_ptr(&dd),QWidget(parent)

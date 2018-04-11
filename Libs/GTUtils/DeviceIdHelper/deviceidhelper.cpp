@@ -9,8 +9,10 @@
 #include <QTreeWidgetItemIterator>
 #include <QDebug>
 #define IDMAP_FILENAME "IdMap_Power.ui"
-#define PWR_BASE_ADDR 64
+#define PWR_BASE_ADDR 128
+#define PWR_ID_OFFSET 7
 #define CTR_BASE_ADDR 128
+#define CTR_ID_OFFSET 7
 
 #define TEST_READ_VERSION 0
 
@@ -54,7 +56,7 @@ quint32 DeviceIdHelper::readPwrId(bool &isOk)
 //  quint32 id=21000509;//test for SD42
 //  m_com->readEEPROM();//从硬件读取ID
   //m_pwrId=21000541;//test for SD61
-  uint16_t ofst = 1 + PWR_BASE_ADDR;
+  uint16_t ofst = PWR_ID_OFFSET + PWR_BASE_ADDR;
   uint16_t num = 4;
   uint8_t value[4];
   uint8_t cs = 0;
@@ -73,7 +75,6 @@ quint32 DeviceIdHelper::readPwrId(bool &isOk)
       id = id + (value[i] << (i * 8));
   }
   m_pwrId = id;
-
 
   QString idMapPath=GTUtils::databasePath()+"Board/PB/"+IDMAP_FILENAME;
   QTreeWidget *idMapTree=QtTreeManager::createTreeWidgetFromXmlFile(idMapPath);
@@ -121,7 +122,7 @@ quint32 DeviceIdHelper::readPwrId(bool &isOk)
 quint32 DeviceIdHelper::readCtrId(bool &isOk)
 {
   //需要从硬件读取
-  uint16_t ofst = 1 + CTR_BASE_ADDR;
+  uint16_t ofst = CTR_ID_OFFSET + CTR_BASE_ADDR;
   uint16_t num = 4;
   uint8_t value[4];
   uint8_t cs = 1;

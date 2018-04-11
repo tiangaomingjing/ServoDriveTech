@@ -173,6 +173,7 @@ DeviceConfig* DevComRWriter::buildConfigFromCom(quint8 devId, quint8 rnstation, 
   }
   else
   {
+    qDebug()<<"ssssssssssss";
     pid= idHelper.readPwrId(pok);
     cid= idHelper.readCtrId(cok);
     version=idHelper.readVersion(vok);
@@ -225,7 +226,7 @@ DeviceConfig* DevComRWriter::buildConfigFromCom(quint8 devId, quint8 rnstation, 
       if(idHelper.databaseHasPwrId()==false)
       {
         SdtError::instance()->errorStringList()->append(tr("  %1 your SDT software is too old ,cannot find PowerBoard ID").arg(i++));
-        solution.append(tr("Must update the SDT software\n").arg(i));
+        solution.append(tr("Must update the SDT software\n"));
       }
       else
       {

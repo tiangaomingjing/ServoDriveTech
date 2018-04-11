@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>823</width>
-    <height>476</height>
+    <width>937</width>
+    <height>460</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,7 +30,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <property name="spacing">
-      <number>30</number>
+      <number>50</number>
      </property>
      <item>
       <widget class="QWidget" name="widget_pwrBus" native="true">
