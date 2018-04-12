@@ -17,8 +17,13 @@ class PLOTUNITGRAPHSHARED_EXPORT PlotUnitGraph129 : public IPlotUnitGraph
   Q_DECLARE_PRIVATE(PlotUnitGraph129)
 
 public:
-  explicit PlotUnitGraph129(QWidget *parent = 0);
+  explicit PlotUnitGraph129(const QList<SevDevice *> &sevList,QWidget *parent = 0);
   ~PlotUnitGraph129();
+
+  void respondUiActive(bool actived) Q_DECL_OVERRIDE;
+
+public slots:
+  void onSevDeviceListChanged(const QList<SevDevice *> &sevlist) Q_DECL_OVERRIDE;
 
 private slots:
 //  void onPushButtonTestClicked(bool checked);
@@ -28,9 +33,15 @@ private slots:
   void onBtnMeaHClicked(bool checked);
   void onBtnMeaVClicked(bool checked);
   void onBtnFitClicked();
+  void onBtnConfigClicked();
   void onPlotPosHoverChanged(const QPointF &point);
   void onPlotMeaVposChanged(qreal v1, qreal v2, qreal dv);
   void onPlotMeaHposChanged(qreal v1, qreal v2, qreal dv);
+
+  void onTimeOut();
+
+  void onModeCtlPanelCheckChanged(quint16 axis,int mode);
+  void onModeCtlPanelModeChanged(quint16 axis,int mode);
 
 private:
   void createConnections();
@@ -39,6 +50,7 @@ private:
   void ctlPanelInit();
 
   void setupSimpleDemo(QCustomPlot *customPlot);//test
+  void setTimerStatus();
 
 private:
   Ui::PlotUnitGraph129 *ui;

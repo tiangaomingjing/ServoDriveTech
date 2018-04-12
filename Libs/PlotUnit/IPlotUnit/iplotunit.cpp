@@ -24,11 +24,6 @@ void IPlotUnit::closeEvent(QCloseEvent *event)
   event->ignore();
 }
 
-void IPlotUnit::onSevDeviceListChanged(const QList<SevDevice *> &sevlist)
-{
-  setSevDeviceList(sevlist);
-}
-
 IPlotUnit::IPlotUnit(IPlotUnitPrivate &dd, QWidget *parent):d_ptr(&dd),QWidget(parent)
 {
   d_ptr->q_ptr=this;

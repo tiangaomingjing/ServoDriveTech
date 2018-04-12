@@ -63,6 +63,12 @@ QHBoxLayout *UiPlot::hBoxLayout()
   return ui->qmlHboxLayout;
 }
 
+void UiPlot::setUiActive(bool actived)
+{
+  Q_D(UiPlot);
+  d->m_iplotUint->respondUiActive(actived);
+}
+
 void UiPlot::onWinFloatChanged(bool isIn)
 {
   Q_D(UiPlot);

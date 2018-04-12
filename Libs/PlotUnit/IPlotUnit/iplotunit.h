@@ -20,6 +20,7 @@ class IPLOTUNITSHARED_EXPORT IPlotUnit: public QWidget
 public:
   virtual ~IPlotUnit();
   virtual void visit(IUiWidget*uiWidget) = 0;
+  virtual void respondUiActive(bool actived) = 0;
   void setSevDeviceList(const QList<SevDevice*> &sevlist);
 
 signals:
@@ -29,7 +30,7 @@ protected:
   void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 
 public slots:
-  void onSevDeviceListChanged(const QList<SevDevice*> &sevlist);
+  virtual void onSevDeviceListChanged(const QList<SevDevice*> &sevlist) = 0;
 protected:
   IPlotUnit(IPlotUnitPrivate&dd,QWidget *parent=0);
   IPlotUnitPrivate *d_ptr;

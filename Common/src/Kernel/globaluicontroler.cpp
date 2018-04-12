@@ -25,8 +25,7 @@ void GlobalUiControler::createUis()
 
   IUiWidget *uiPlot=new UiPlot;
   uiPlot->init(NULL);
-  IPlotUnit *iplot=new PlotUnitGraph129;
-  iplot->setSevDeviceList(m_sevList);
+  IPlotUnit *iplot=new PlotUnitGraph129(m_sevList);
   uiPlot->accept(iplot);//take ownership of iplot
   connect(this,SIGNAL(sevDeviceListChanged(QList<SevDevice*>)),iplot,SLOT(onSevDeviceListChanged(QList<SevDevice*>)));
 

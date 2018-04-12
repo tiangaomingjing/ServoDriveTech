@@ -9,7 +9,9 @@ class IPlotUnitPrivate
 {
   Q_DECLARE_PUBLIC(IPlotUnit)
 public:
-  IPlotUnitPrivate():m_winIsIn(true)
+  IPlotUnitPrivate():m_winIsIn(true),
+    m_isActiving(false),
+    m_curSevInx(0)
   {
 
   }
@@ -21,8 +23,10 @@ protected:
   IPlotUnit *q_ptr;
 
   bool m_winIsIn;
+  bool m_isActiving;
   UiPlot *m_uiPlot;
   QList<SevDevice *> m_sevList;
+  quint8 m_curSevInx;
 
 };
 
