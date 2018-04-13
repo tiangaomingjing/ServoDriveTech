@@ -94,9 +94,9 @@ PowerTreeManage::PowerTreeManage(DeviceConfig *sev, QObject *parent) : QObject(p
         qDebug()<<"null";
         return;
     }
-    QString itemPath = path + getPath(targetItem);
+    QString itemPath = path + getPath(targetItem) + "/" + idStr + "/" + idStr + ".ui";
     qDebug()<<"itemPath "<<itemPath;
-    m_filterPath = path + getFilterPath(targetItem);
+    m_filterPath = path + getFilterPath(targetItem) + "/" + idStr + "/filter/";
     qDebug()<<"filterPath"<<m_filterPath;
     m_powerTree = QtTreeManager::createTreeWidgetFromXmlFile(itemPath);
     mp_pwrTarget = GTUtils::findItem(idStr, m_powerTree, PWR_COL_INX_VALUE);
@@ -341,8 +341,9 @@ QTreeWidgetItem *PowerTreeManage::findItemByNameRecursion(QTreeWidgetItem *item,
 }
 
 QString PowerTreeManage::getPath(QTreeWidgetItem *item) {
-    QString result = item->text(PWR_COL_INX_NAME);
-    QString fileName = item->text(PWR_COL_INX_NAME) + ".ui";
+//    QString result = item->text(PWR_COL_INX_NAME);
+//    QString fileName = item->text(PWR_COL_INX_NAME) + ".ui";
+    QString result = "";
     int count = 0;
     QTreeWidgetItem *currentItem = item;
     while (count < 3) {
@@ -350,12 +351,13 @@ QString PowerTreeManage::getPath(QTreeWidgetItem *item) {
         result = currentItem->text(PWR_COL_INX_NAME) + "/" + result;
         count++;
     }
-    result = result + "/" + fileName;
+    //result = result + "/" + fileName;
     return result;
 }
 
 QString PowerTreeManage::getFilterPath(QTreeWidgetItem *item) {
-    QString result = item->text(PWR_COL_INX_NAME);
+    //QString result = item->text(PWR_COL_INX_NAME);
+    QString result = "";
     int count = 0;
     QTreeWidgetItem *currentItem = item;
     while (count < 3) {
@@ -363,6 +365,6 @@ QString PowerTreeManage::getFilterPath(QTreeWidgetItem *item) {
         result = currentItem->text(PWR_COL_INX_NAME) + "/" + result;
         count++;
     }
-    result = result + "/filter/";
+    //result = result + "/filter/";
     return result;
 }

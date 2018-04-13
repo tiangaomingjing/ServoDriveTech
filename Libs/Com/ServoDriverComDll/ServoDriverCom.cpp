@@ -2637,7 +2637,7 @@ short CServoDriverCom::GTSD_CMD_XmlWriteFile(int16 axis, char* pFileNameList[], 
 	void(*tpfUpdataProgressPt)(void*, short*), void* ptrv, short& progress)
 {
 
-	if (axis >= COM_AXIS_MAX)
+    if (axis >= COM_AXIS_MAX)
 	{
 		return RTN_PARAM_OVERFLOW;
 	}
@@ -2652,8 +2652,7 @@ short CServoDriverCom::GTSD_CMD_XmlWriteFile(int16 axis, char* pFileNameList[], 
 	}
 	CComBase* pComBase = m_pDriver;
 	firmware.m_pCom = &pComBase;
-	firmware.m_des_id = 0;// station_id >> 8;
-
+	firmware.m_des_id = station_id >> 8;
 
 	rtn = firmware.WriteFile(pFileNameList, pFileTypeList, file_num, tpfUpdataProgressPt, ptrv, progress);
 	return rtn;
@@ -2678,7 +2677,7 @@ short CServoDriverCom::GTSD_CMD_XmlReadFile(int16 axis, char* pFileNameList[], i
 	}
 	CComBase* pComBase = m_pDriver;
 	firmware.m_pCom = &pComBase;
-	firmware.m_des_id = 0;// station_id >> 8;
+	firmware.m_des_id = station_id >> 8;
 
 
 	rtn = firmware.ReadFile(pFileNameList, pFileTypeList, file_num, tpfUpdataProgressPt, ptrv, progress);

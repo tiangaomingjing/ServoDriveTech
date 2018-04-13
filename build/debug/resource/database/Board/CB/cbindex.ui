@@ -81,7 +81,7 @@
         </property>
         <item>
          <property name="text">
-          <string>Series1</string>
+          <string>series1</string>
          </property>
          <property name="text">
           <string>Marvie42</string>
@@ -105,7 +105,7 @@
         </property>
         <item>
          <property name="text">
-          <string>Series1</string>
+          <string>series1</string>
          </property>
          <property name="text">
           <string>Marvie61</string>

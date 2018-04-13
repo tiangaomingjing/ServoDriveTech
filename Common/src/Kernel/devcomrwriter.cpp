@@ -9,6 +9,7 @@
 #include "gtutils.h"
 #include "qttreemanager.h"
 #include "sdterror.h"
+#include "selfbuilder.h"
 
 #include <QVector>
 #include <QDebug>
@@ -79,7 +80,7 @@ QList<DeviceConfig *>DevComRWriter::createConfig(void (*processCallback)(void *p
     foreach (uint8_t station, v)
     {
       rnNet->setRnStation(station);
-      config=buildConfigFromCom(i,station,rnNet);
+      config=buildConfigFromCom(processCallback,processbar,i,station,rnNet);
       if(config!=NULL)
       {
         list.append(config);
@@ -104,7 +105,7 @@ QList<DeviceConfig *>DevComRWriter::createConfig(void (*processCallback)(void *p
   }
   else//PcDebug 模式
   {
-    config=buildConfigFromCom(0,-1,com);
+    config=buildConfigFromCom(processCallback,processbar,0,-1,com);
     if(config!=NULL)
       list.append(config);
   }
@@ -156,7 +157,7 @@ bool DevComRWriter::checkNetCardIs1000M(ICom *com)
   return ok;
 }
 
-DeviceConfig* DevComRWriter::buildConfigFromCom(quint8 devId, quint8 rnstation, ComDriver::ICom *com)
+DeviceConfig* DevComRWriter::buildConfigFromCom(void (*processCallback)(void *pbar,short *value),void *processbar,quint8 devId, quint8 rnstation, ComDriver::ICom *com)
 {
   DeviceIdHelper idHelper(com);
   DeviceConfig *config=NULL;
@@ -184,6 +185,9 @@ DeviceConfig* DevComRWriter::buildConfigFromCom(quint8 devId, quint8 rnstation, 
   if(pok&&cok&&vok&&fok)
   {
     config=new DeviceConfig(0);
+    BuilderParameters *para = new BuilderParameters(pid, cid, version);
+    SelfBuilder *builder = new SelfBuilder(com);
+    builder->buildFromEprom(processCallback, processbar, para);
     config->m_pwrId= pid;
     config->m_ctrId= cid;
     config->m_version=version;

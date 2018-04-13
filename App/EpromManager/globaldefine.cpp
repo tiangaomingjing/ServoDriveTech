@@ -41,8 +41,9 @@ namespace GLO {
     }
 
     QString getPath(QTreeWidgetItem *item) {
-        QString result = item->text(TREE_NAME);
-        QString fileName = item->text(TREE_NAME) + ".ui";
+        //QString result = item->text(TREE_NAME);
+        //QString fileName = item->text(TREE_NAME) + ".ui";
+        QString result = "";
         int count = 0;
         QTreeWidgetItem *currentItem = item;
         while (count < 3) {
@@ -50,7 +51,7 @@ namespace GLO {
             result = currentItem->text(TREE_NAME) + "/" + result;
             count++;
         }
-        result = result + "/" + fileName;
+        //result = result + "/" + fileName;
         return result;
     }
 }

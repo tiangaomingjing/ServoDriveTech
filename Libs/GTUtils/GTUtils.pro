@@ -13,7 +13,9 @@ isEqual(UtilsTest,0){
   BUILD_PATH=$${APP_BUILD_PATH}
 }
 INCLUDEPATH+=$${PWD}/QtTreeManager\
-             $${PWD}/../Com/Communication
+             $${PWD}/../Com/Communication\
+             $${PWD}/SelfBuilder\
+             $${PWD}/BuilderParameters\
 
 QT +=designer
 QT       -= gui
@@ -37,13 +39,17 @@ DESTDIR =$${UTILS_OUT_PATH}
 SOURCES += \
     QtTreeManager/qttreemanager.cpp \
     gtutils.cpp \
-    DeviceIdHelper/deviceidhelper.cpp
+    DeviceIdHelper/deviceidhelper.cpp \
+    SelfBuilder/selfbuilder.cpp \
+    BuilderParameters/builderparameters.cpp
 
 HEADERS +=\
     QtTreeManager/qttreemanager.h \
     gtutils_global.h \
     gtutils.h \
-    DeviceIdHelper/deviceidhelper.h
+    DeviceIdHelper/deviceidhelper.h \
+    SelfBuilder/selfbuilder.h \
+    BuilderParameters/builderparameters.h
 
 unix {
     target.path = /usr/lib

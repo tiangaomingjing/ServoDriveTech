@@ -62,7 +62,8 @@ ComparisonDialog::~ComparisonDialog()
 
 void ComparisonDialog::keyPressEvent(QKeyEvent *event)
 {
-    if (event->key() == Qt::Key_Return) {
+    qDebug()<<event->key();
+    if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter) {
         if (m_isEditingWhole) {
             if (m_editedItem != NULL) {
                 ui->treeWidget_compNew->closePersistentEditor(m_editedItem, m_editedCol);

@@ -12,6 +12,7 @@ public:
     explicit TcpConnect();
     void connectToServer();
     void stopConnection();
+    void waitforMs(int ms);
 
 
 signals:

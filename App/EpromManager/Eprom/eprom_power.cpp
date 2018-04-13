@@ -28,7 +28,7 @@ QTreeWidget* EPROM_POWER::createReadTree(Uint32 id) {
         return NULL;
     }
     QString powerPath = GLO::getPath(powerIndexItem);
-    powerPath = GTUtils::databasePath() + "Board/PB/" + powerPath;
+    powerPath = GTUtils::databasePath() + "Board/PB/" + powerPath + "/" + idStr + "/" + idStr + ".ui";
     QTreeWidget* readTree = TreeManager::createTreeWidgetFromXmlFile(powerPath);
     return readTree;
 }

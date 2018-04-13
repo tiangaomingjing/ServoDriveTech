@@ -55,12 +55,12 @@ void FlashClass::flash(int netId, QString hexPath, QString xmlPath, int dspNum, 
     }
     emit sendWarnMsg(tr("Uboot starting......"));
     JsonReader net;
-    QString filePath = GTUtils::databasePath() + "Board/NetConfig.json";
+    QString filePath = GTUtils::ubootPath() + "NetConfig.json";
     net.initialDataFromJsonFile(filePath);
     qint16 netRnStation = net.rnStation();
     m_netRnStation = netRnStation;
-    QString outPath = GTUtils::databasePath() + "Board/ServoUboot.out";
-    QString ldrPath = GTUtils::databasePath() + "Board/ServoUboot.ldr";
+    QString outPath = GTUtils::ubootPath() + "ServoUboot.out";
+    QString ldrPath = GTUtils::ubootPath() + "ServoUboot.ldr";
     emit sendWarnMsg(tr("Servo ubooting......"));
     if(0 == GTSD_CMD_Hex2Ldr(outPath.toStdWString(), ldrPath.toStdWString(), netId, netRnStation))//转化文件成功
     {

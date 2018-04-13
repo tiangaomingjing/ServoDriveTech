@@ -544,9 +544,9 @@ void SDTMainWindow::onActnOptionClicked()
 }
 
 void SDTMainWindow::onActnProduceClicked() {
-    startListen();
-    if (!m_produceClicked) {      
-        //m_produceClicked = true;
+    if (!m_produceClicked) {
+        startListen();
+        m_produceClicked = true;
 
         qDebug()<<"bool"<<m_produceClicked;
         QString path;

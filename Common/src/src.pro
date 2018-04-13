@@ -8,6 +8,8 @@ CONFIG -= app_bundle
 INCLUDEPATH+=../../Libs/Com/Communication\
               ../../Libs/GTUtils/QtTreeManager\
               ../../Libs/GTUtils/DeviceIdHelper\
+              ../../Libs/GTUtils/SelfBuilder\
+              ../../Libs/GTUtils/BuilderParameters\
               ../../Libs/GTUtils\
               ../../Libs/UI\
               ../../Libs/UI/IUiWidget\

@@ -58,6 +58,11 @@ void TcpConnect::stopConnection() {
     tcpSocket.close();
 }
 
+void TcpConnect::waitforMs(int ms)
+{
+    tcpSocket.waitForReadyRead(ms);
+}
+
 void TcpConnect::error() {
     tcpSocket.close();
 }

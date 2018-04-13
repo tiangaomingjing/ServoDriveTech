@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include <iostream>
 #include "XmlCode.h"
 #include "BaseReturn_def.h"
 #include "fstream"
@@ -121,6 +122,12 @@ CXmlCode::CXmlCode()
 	gCode_cnt = 0;
 	gSpaceNum = 0;
 	gCode_num = 0;
+    gCode = 0;
+    m_pEncodeBufferList = 0;
+	m_pEncodeByteNumList = 0;
+	m_pEncodeTypeList = 0;
+	m_EncodeNum = 0;
+	write_buffer_cnt = 0;
 	//////////////////////////////////////////////////////////////////////////
 	ReleaseEncodeBuffer();
 }
@@ -161,7 +168,7 @@ void CXmlCode::ReleaseEncodeBuffer()
 				m_pEncodeBufferList[i] = NULL;
 			}
 		}
-		delete m_pEncodeBufferList;
+		//delete m_pEncodeBufferList;
 		m_pEncodeBufferList = NULL;
 	}
 	if (m_pEncodeTypeList)
@@ -1201,7 +1208,8 @@ short CXmlCode::WriteFile(char* pFileNameList[], int pFileTypeList[], int file_n
 		des.seekg(0, ios::end);
 		int des_length = (int)des.tellg();
 		des.seekg(0, ios::beg);
-
+		cout << "src length " << src_length << endl;
+		cout << "des length " << des_length << endl;
 		if (src_length != des_length)
 		{
 			rtn = RTN_PACKET_ERR;

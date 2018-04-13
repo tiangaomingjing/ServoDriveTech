@@ -31,6 +31,10 @@ EpromManager::EpromManager(QWidget *parent) :
     m_tcpClient->sendRequest(block);
     qDebug()<<"str"<<str;
 
+    m_tcpClient->waitforMs(1000);
+    m_tcpClient->stopConnection();
+    initializeTree();
+
     m_filePath = ".";
     setWindowFlags(windowFlags() | Qt::WindowMaximizeButtonHint | Qt::WindowMinimizeButtonHint);
     ui->list->item(0)->setIcon(QIcon(GTUtils::iconPath() + "Select.png"));
@@ -182,7 +186,9 @@ void EpromManager::onWriteClicked() {
 
     ui->tabWidget->setCurrentIndex(1);
     onReadClicked();
-    onCompareClicked();
+    if (ui->readTreeWidget->topLevelItemCount() != 0) {
+        onCompareClicked();
+    }
 }
 
 void EpromManager::onWriteClicked_2() {
@@ -211,7 +217,9 @@ void EpromManager::onWriteClicked_2() {
 
     ui->tabWidget_2->setCurrentIndex(1);
     onReadClicked_2();
-    onCompareClicked_2();
+    if (ui->readTreeWidget_2->topLevelItemCount() != 0) {
+        onCompareClicked_2();
+    }
 }
 
 void EpromManager::treeItemClicked(QTreeWidgetItem* item, int column) {
@@ -229,8 +237,8 @@ void EpromManager::treeItemClicked(QTreeWidgetItem* item, int column) {
         }
         QTreeWidgetItem *powerIndexItem = GLO::findItem(m_powerID, powerIndex, TREE_VALUE);
         QTreeWidgetItem *controlIndexItem = GLO::findItem(m_controlID, controlIndex, TREE_VALUE);
-        m_powerPath = GLO::getPath(powerIndexItem);
-        m_controlPath = GLO::getPath(controlIndexItem);
+        m_powerPath = GLO::getPath(powerIndexItem) + "/" + m_powerID + "/" + m_powerID + ".ui";
+        m_controlPath = GLO::getPath(controlIndexItem) + "/" + m_controlID + "/" + m_controlID + ".ui";
         m_powerPath = GTUtils::databasePath() + "Board/PB/" + m_powerPath;
         m_controlPath = GTUtils::databasePath() + "Board/CB/" + m_controlPath;
         changeConfigText(m_powerID, powerIndex);
@@ -259,7 +267,7 @@ void EpromManager::showText(QString configText, QString comText) {
 void EpromManager::showTree(QString text, QTreeWidget *tree, QTreeWidget *uiTree) {
     QTreeWidgetItem *item = GLO::findItem(text, tree, TREE_VALUE);
     uiTree->clear();
-    uiTree->addTopLevelItem(item->clone());
+    uiTree->addTopLevelItem(tree->topLevelItem(1)->clone());
     uiTree->expandAll();
     uiTree->resizeColumnToContents(0);
     delete item;
@@ -441,20 +449,21 @@ void EpromManager::onActionFlashClicked() {
 /*****************************************************************************/
 
 void EpromManager::onLineTextChange(QString text) {
-    onTextChange(text, ui->treeWidget);
+    onTextChange(text, ui->treeWidget, m_powerID);
 }
 
 void EpromManager::onLineTextChange_2(QString text) {
-    onTextChange(text, ui->treeWidget_2);
+    onTextChange(text, ui->treeWidget_2, m_controlID);
 }
 
-void EpromManager::onTextChange(QString text, QTreeWidget *tree) {
+void EpromManager::onTextChange(QString text, QTreeWidget *tree, const QString &id) {
     QTreeWidgetItem *item = GLO::findItem("PCBA code", tree, TREE_NAME);
+    QTreeWidgetItem *item_2 = GLO::findItem(id, tree, TREE_NAME);
     if (item != NULL) {
         item->setText(TREE_VALUE, text);
-        tree->topLevelItem(0)->setText(TREE_VALUE, text);
+        item_2->setText(TREE_VALUE, text);
         item->setTextColor(TREE_VALUE, Qt::red);
-        tree->topLevelItem(0)->setTextColor(TREE_VALUE, Qt::red);
+        item_2->setTextColor(TREE_VALUE, Qt::red);
     }
 }
 
@@ -501,7 +510,6 @@ void EpromManager::receiveConfig(const QStringList &list) {
     qDebug()<<"type"<<m_typeName;
     ui->comLabel->setText(m_comText);
     this->setWindowTitle(this->windowTitle() + "-" + m_modeName);
-    initializeTree();
     m_tcpClient->stopConnection();
     //delete m_tcpClient;
 }

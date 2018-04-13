@@ -5,7 +5,6 @@
 #include "ServoDriverComDll.h"
 #include <iostream>
 #include <windows.h>
-#define qDebug() std::cout
 using namespace std;
 void updateProgress(void *arg, int16 *value);
 #define TEST_UBOOT 0
@@ -14,9 +13,10 @@ void updateProgress(void *arg, int16 *value);
 #define TEST_NEW_COMUNICATION_CRC 0
 #define TEST_WRITEREAD_EPROM 0
 #define TEST_READ_VERSION 0
+#define TEST_XML 1
 #define FPGA_RPD_FILE (L"C:/Users/googol/Desktop/GTSD42_VA_V0_0922.rpd")
 
-#define TEST_GENERALCMD 1
+#define TEST_GENERALCMD 0
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -26,7 +26,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	ret = GTSD_CMD_Open(updateProgress, (void *)&aa, comType);
 	GTSD_CMD_FroceCheckMode(1);//加校验
 	//GTSD_CMD_FroceCheckMode(2);//不加校验
-	cout << "ret=" << ret;
+	cout << "ret=" << ret << endl;
 	//GTSD_CMD_Close(comType);
 #if TEST_FPGA
 	Uint16 axis = 0;
@@ -238,6 +238,40 @@ int _tmain(int argc, _TCHAR* argv[])
 	std::cout << result;
 #endif
 
+#if TEST_XML
+	char* pFileNameList[3];
+	int pFileTypeList[3];
+	pFileNameList[0] = "C:/Users/googol/Desktop/xml/Prm_AllAxis.xml";
+	//pFileNameList[1] = "C:/Users/googol/Desktop/xml/Prm_AllAxis.xml";
+	//pFileNameList[2] = "C:/Users/googol/Desktop/xml/Prm_AllAxis.xml";
+	pFileNameList[1] = "C:/Users/googol/Desktop/xml/PrmRAMAxis0.xml";
+	pFileNameList[2] = "C:/Users/googol/Desktop/xml/PrmRAMAxis1.xml";
+	pFileTypeList[0] = 0;
+	pFileTypeList[1] = 0;
+	pFileTypeList[2] = 0;
+	int num = 3;
+	int16 axis = 0;
+	int16 com_type = GTSD_COM_TYPE_RNNET;
+	int16 stationId = 0xf0;
+	short count = 0;
+	short ret0 = GTSD_CMD_XmlWriteFile(axis, pFileNameList, pFileTypeList, num, updateProgress, (void *)&aa, count, com_type, stationId);
+	cout << "ret0 = " << ret0 << endl;
+
+	pFileNameList[0] = "E:/Working/New/build/debug/sysconfig/SD6x/SD61_MINI/V130/FlashPrm_AllAxis.xml";
+	pFileNameList[1] = "E:/Working/New/build/debug/sysconfig/SD6x/SD61_MINI/V130/page/PrmRAMAxis0.xml";
+	pFileNameList[2] = "E:/Working/New/build/debug/sysconfig/SD6x/SD61_MINI/V130/page/PrmRAMAxis1.xml";
+	pFileTypeList[0] = 0;
+	pFileTypeList[1] = 0;
+	pFileTypeList[2] = 0;
+	num = 3;
+	axis = 0;
+	com_type = GTSD_COM_TYPE_RNNET;
+	stationId = 0xf0;
+	count = 0;
+	short ret1 = GTSD_CMD_XmlReadFile(axis, pFileNameList, pFileTypeList, num, updateProgress, (void *)&aa, count, com_type, stationId);
+	cout << "ret1 = " << ret1 << endl;
+
+#endif
 	while (true)
 	{
 
