@@ -3,6 +3,7 @@
 #include "selfbuilder.h"
 #include "builderparameters.h"
 #include "gtutils.h"
+#include "rnnet.h"
 #include <QDebug>
 
 SelfBuilderMainWindow::SelfBuilderMainWindow(QWidget *parent) :
@@ -14,9 +15,12 @@ SelfBuilderMainWindow::SelfBuilderMainWindow(QWidget *parent) :
 //    qDebug()<<path;
 //    BuilderParameters *para = new BuilderParameters(33333, 55555, "V131");
     BuilderParameters para(33333, 55555, "V130");
-    ComDriver::ICom *tempCom;
+    ComDriver::ICom *tempCom = new ComDriver::RnNet();
+    int ret = tempCom->open(0, 0);
+    qDebug()<<"ret = "<<ret;
     SelfBuilder *builder = new SelfBuilder(tempCom);
-    builder->buildFromEprom(&para);
+    SELFBUILDER_RTN rtn =  builder->buildFromEprom(&para);
+    qDebug()<<"rtn = "<<rtn;
 }
 
 SelfBuilderMainWindow::~SelfBuilderMainWindow()

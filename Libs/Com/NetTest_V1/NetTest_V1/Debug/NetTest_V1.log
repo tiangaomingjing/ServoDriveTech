@@ -1,16 +1,16 @@
-﻿生成启动时间为 2018/3/29 11:21:13。
-     1>项目“D:\Smart\ServoMaster\git-project\servo-4\ServoMain\NetCmd\NetTest_V1\NetTest_V1\NetTest_V1.vcxproj”在节点 2 上(Rebuild 个目标)。
+﻿生成启动时间为 2018/4/12 9:55:18。
+     1>项目“E:\Working\New\Libs\Com\NetTest_V1\NetTest_V1\NetTest_V1.vcxproj”在节点 2 上(Rebuild 个目标)。
      1>ClCompile:
-         D:\program\VS2013\VC\bin\CL.exe /c /I../../ServoDriverComDll/DllCom /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Debug\NetTest_V1.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
+         D:\VS2013\VC\bin\CL.exe /c /I../../ServoDriverComDll/DllCom /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Debug\NetTest_V1.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
          stdafx.cpp
-         D:\program\VS2013\VC\bin\CL.exe /c /I../../ServoDriverComDll/DllCom /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\NetTest_V1.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt NetTest_V1.cpp
+         D:\VS2013\VC\bin\CL.exe /c /I../../ServoDriverComDll/DllCom /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\NetTest_V1.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt NetTest_V1.cpp
          NetTest_V1.cpp
        Link:
-         D:\program\VS2013\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Smart\ServoMaster\git-project\servo-4\ServoMain\NetCmd\NetTest_V1\Debug\NetTest_V1.exe" /INCREMENTAL /NOLOGO /LIBPATH:../Debug/ ServoDriverComDll.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Smart\ServoMaster\git-project\servo-4\ServoMain\NetCmd\NetTest_V1\Debug\NetTest_V1.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Smart\ServoMaster\git-project\servo-4\ServoMain\NetCmd\NetTest_V1\Debug\NetTest_V1.lib" /MACHINE:X86 Debug\NetTest_V1.obj
+         D:\VS2013\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\Working\New\Libs\Com\NetTest_V1\Debug\NetTest_V1.exe" /INCREMENTAL /NOLOGO /LIBPATH:../Debug/ ServoDriverComDlld.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\Working\New\Libs\Com\NetTest_V1\Debug\NetTest_V1.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\Working\New\Libs\Com\NetTest_V1\Debug\NetTest_V1.lib" /MACHINE:X86 Debug\NetTest_V1.obj
          Debug\stdafx.obj
-         NetTest_V1.vcxproj -> D:\Smart\ServoMaster\git-project\servo-4\ServoMain\NetCmd\NetTest_V1\Debug\NetTest_V1.exe
-     1>已完成生成项目“D:\Smart\ServoMaster\git-project\servo-4\ServoMain\NetCmd\NetTest_V1\NetTest_V1\NetTest_V1.vcxproj”(Rebuild 个目标)的操作。
+         NetTest_V1.vcxproj -> E:\Working\New\Libs\Com\NetTest_V1\Debug\NetTest_V1.exe
+     1>已完成生成项目“E:\Working\New\Libs\Com\NetTest_V1\NetTest_V1\NetTest_V1.vcxproj”(Rebuild 个目标)的操作。
 
 生成成功。
 
-已用时间 00:00:04.75
+已用时间 00:00:01.73

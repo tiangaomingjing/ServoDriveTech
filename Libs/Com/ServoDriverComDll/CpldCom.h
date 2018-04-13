@@ -8,7 +8,7 @@ class CCpldCom :
 
 public:
 	CCpldCom();
-	~CCpldCom();
+    ~CCpldCom();
 
 
 public:

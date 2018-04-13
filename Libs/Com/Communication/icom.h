@@ -1,6 +1,7 @@
 ﻿#ifndef ICOM_H
 #define ICOM_H
 #include <comglobal.h>
+
 using namespace std;
 
 COM_NAMESPACE_BEGIN
@@ -16,8 +17,8 @@ public:
   string iComObjectName(void) const;
   IComType iComType(void) const;
 
-  virtual errcode_t open(ProcessCallBackHandler,void *parameter)=0;
-  virtual errcode_t close()=0;
+  errcode_t open(ProcessCallBackHandler,void *parameter);
+  errcode_t close();
 
   //----------伺服相关操作------------------------
   virtual errcode_t setServoEnable(uint8_t axis,bool on)=0;
@@ -72,14 +73,14 @@ public:
   virtual errcode_t writeEEPROM(uint16_t ofst, const uint8_t* value, uint16_t num,uint8_t cs)=0;
 
   //------------获得网卡信息------------------
-  virtual NetCardInfo getNetCardInformation(void)=0;
+  NetCardInfo getNetCardInformation(void);
 
   //------------画图相关---------------------
   virtual errcode_t startPlot(const PlotControlPrm &ctrPrm)=0;
   virtual errcode_t stopPlot(const PlotControlPrm &ctrPrm)=0;
   virtual errcode_t getPlotData(const PlotControlPrm &ctrPrm,CurveList &curveList)=0;
 
-  virtual errcode_t enableCRC(bool enable)=0;
+  errcode_t enableCRC(bool enable);
 
   //--------读写RAM操作------------------
   virtual errcode_t writeRAM16(uint8_t axis,uint16_t ofst,uint8_t page,int16_t value)=0;
@@ -104,6 +105,10 @@ public:
   virtual errcode_t writeFPGAReg32(uint8_t fpgaInx,uint16_t address,int32_t value,uint16_t base)=0;
   virtual errcode_t readFPGAReg64(uint8_t fpgaInx,uint16_t address,int64_t &value,uint16_t base)=0;
   virtual errcode_t writeFPGAReg64(uint8_t fpgaInx,uint16_t address,int64_t value,uint16_t base)=0;
+
+  //-------------xml读写操作-------------------
+  virtual errcode_t writeXML(uint8_t axis, char* pFileNameList[], int pFileTypeList[], int file_num, ProcessCallBackHandler, void* ptrv, short& progress) = 0;
+  virtual errcode_t readXML(uint8_t axis, char* pFileNameList[], int pFileTypeList[], int file_num, ProcessCallBackHandler, void* ptrv, short& progress) = 0;
 
 protected:
   ICom(IComPrivate &dd);

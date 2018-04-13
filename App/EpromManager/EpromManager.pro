@@ -30,7 +30,7 @@ CONFIG(debug, debug|release){
     TARGET = EpromManager
     LIB_PATH = $${PWD}/../../build/release/Bin
     OUT_ROOT = $${PWD}/../../build/release
-    LIBS += $${LIB_PATH}/ServoDriverComDll.lib
+    LIBS += $${LIB_PATH}/ServoDriverComDll.lib\
             $${LIB_PATH}/GTUtils.lib
 }
 

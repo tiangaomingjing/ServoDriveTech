@@ -3150,7 +3150,6 @@ SERVODRIVERCOMDLL_API short GTSD_CMD_XmlWriteFile(int16 axis, char* pFileNameLis
 
 	if (com_type == GTSD_COM_TYPE_RNNET && g_RnServoCom == NULL)
 		return Unlock(RTN_OBJECT_UNCREATED);
-
 	if (com_type == GTSD_COM_TYPE_RNNET)
 	{
 		if (0xF0 != stationId)

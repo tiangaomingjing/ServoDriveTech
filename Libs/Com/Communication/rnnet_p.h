@@ -3,7 +3,7 @@
 #include "pcdebug_p.h"
 COM_NAMESPACE_BEGIN
 
-class RnNetPrivate:public PcDebugPrivate
+class RnNetPrivate:public IComPrivate
 {
   Q_DECLARE_PUBLIC(RnNet)
 public:

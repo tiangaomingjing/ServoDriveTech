@@ -3,6 +3,9 @@
 #include <QByteArray>
 #include <QString>
 
+#define PWR_ID_OFFSET 7
+#define CTR_ID_OFFSET 7
+
 EPROM::EPROM(QString filePath, int16 com_type)
 {
     m_filePath = filePath;
@@ -42,7 +45,7 @@ void EPROM::writeFromXmltoEprom(QTreeWidgetItem *writenItem) {
 Uint32 EPROM::readID() {
     Uint8 result[4];
     int16 axis = 0;
-    Uint16 ofst = 7 + baseAdd;
+    Uint16 ofst = PWR_ID_OFFSET + baseAdd;
     Uint16 num = 4;
     readEprom(axis, ofst, result, num, m_type, 0xf0);
     Uint32 tempValue = 0;

@@ -1,175 +1,183 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>400</width>
-    <height>400</height>
-   </rect>
-  </property>
-  <property name="windowTitle">
-   <string>Form</string>
-  </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <widget class="QTreeWidget" name="treeWidget">
-     <column>
-      <property name="text">
-       <string>name</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>value</string>
-      </property>
-     </column>
-     <item>
-      <property name="text">
-       <string>xmlinformation</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <item>
-       <property name="text">
-        <string>version</string>
-       </property>
-       <property name="text">
-        <string>1</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>update time</string>
-       </property>
-       <property name="text">
-        <string>2017-11-02</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>xmlBaseAddress</string>
-       </property>
-       <property name="text">
-        <string>64</string>
-       </property>
-      </item>
-     </item>
-     <item>
-      <property name="text">
-       <string>basicinformation</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <item>
-       <property name="text">
-        <string>M</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <item>
-        <property name="text">
-         <string>M4</string>
+    <class>Form</class>
+    <widget class="QWidget" name="Form">
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>400</width>
+                <height>400</height>
+            </rect>
         </property>
-        <property name="text">
-         <string>Marvie4</string>
+        <property name="windowTitle">
+            <string>Form</string>
         </property>
-        <item>
-         <property name="text">
-          <string>series1</string>
-         </property>
-         <property name="text">
-          <string>Marvie41</string>
-         </property>
-         <item>
-          <property name="text">
-           <string>21000508</string>
-          </property>
-          <property name="text">
-           <string>21000508</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>41000509</string>
-          </property>
-          <property name="text">
-           <string>21000509</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>51000509</string>
-          </property>
-          <property name="text">
-           <string>41000509</string>
-          </property>
-         </item>
-        </item>
-        <item>
-         <property name="text">
-          <string>series2</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>series3</string>
-         </property>
-        </item>
-       </item>
-       <item>
-        <property name="text">
-         <string>M6</string>
-        </property>
-        <property name="text">
-         <string>Marvie6</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>series1</string>
-         </property>
-         <property name="text">
-          <string>Marvie61</string>
-         </property>
-         <item>
-          <property name="text">
-           <string>21000595</string>
-          </property>
-          <property name="text">
-           <string>21000595</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>21000541</string>
-          </property>
-          <property name="text">
-           <string>21000541</string>
-          </property>
-         </item>
-        </item>
-       </item>
-      </item>
-      <item>
-       <property name="text">
-        <string>A系列</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>B系列</string>
-       </property>
-      </item>
-     </item>
+        <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+                <widget class="QTreeWidget" name="treeWidget">
+                    <column>
+                        <property name="text">
+                            <string>name</string>
+                        </property>
+                    </column>
+                    <column>
+                        <property name="text">
+                            <string>value</string>
+                        </property>
+                    </column>
+                    <item>
+                        <property name="text">
+                            <string>xmlinformation</string>
+                        </property>
+                        <property name="text">
+                            <string></string>
+                        </property>
+                        <item>
+                            <property name="text">
+                                <string>version</string>
+                            </property>
+                            <property name="text">
+                                <string>1</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>update time</string>
+                            </property>
+                            <property name="text">
+                                <string>2017-11-02</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>xmlBaseAddress</string>
+                            </property>
+                            <property name="text">
+                                <string>128</string>
+                            </property>
+                        </item>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>basicinformation</string>
+                        </property>
+                        <property name="text">
+                            <string></string>
+                        </property>
+                        <item>
+                            <property name="text">
+                                <string>M</string>
+                            </property>
+                            <property name="text">
+                                <string></string>
+                            </property>
+                            <item>
+                                <property name="text">
+                                    <string>M4</string>
+                                </property>
+                                <property name="text">
+                                    <string>Marvie4</string>
+                                </property>
+                                <item>
+                                    <property name="text">
+                                        <string>series1</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>Marvie41</string>
+                                    </property>
+                                    <item>
+                                        <property name="text">
+                                            <string>21000508</string>
+                                        </property>
+                                        <property name="text">
+                                            <string>21000508</string>
+                                        </property>
+                                    </item>
+                                    <item>
+                                        <property name="text">
+                                            <string>41000509</string>
+                                        </property>
+                                        <property name="text">
+                                            <string>21000509</string>
+                                        </property>
+                                    </item>
+                                    <item>
+                                        <property name="text">
+                                            <string>51000509</string>
+                                        </property>
+                                        <property name="text">
+                                            <string>41000509</string>
+                                        </property>
+                                    </item>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>series2</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>series3</string>
+                                    </property>
+                                </item>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>M6</string>
+                                </property>
+                                <property name="text">
+                                    <string>Marvie6</string>
+                                </property>
+                                <item>
+                                    <property name="text">
+                                        <string>series1</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>Marvie61</string>
+                                    </property>
+                                    <item>
+                                        <property name="text">
+                                            <string>21000595</string>
+                                        </property>
+                                        <property name="text">
+                                            <string>21000595</string>
+                                        </property>
+                                    </item>
+                                    <item>
+                                        <property name="text">
+                                            <string>21000541</string>
+                                        </property>
+                                        <property name="text">
+                                            <string>21000541</string>
+                                        </property>
+                                    </item>
+                                    <item>
+                                        <property name="text">
+                                            <string>Nick</string>
+                                        </property>
+                                        <property name="text">
+                                            <string>33333</string>
+                                        </property>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>A系列</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>B系列</string>
+                            </property>
+                        </item>
+                    </item>
+                </widget>
+            </item>
+        </layout>
     </widget>
-   </item>
-  </layout>
- </widget>
- <resources/>
- <connections/>
+    <resources/>
+    <connections/>
 </ui>

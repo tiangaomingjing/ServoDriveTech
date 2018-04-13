@@ -186,7 +186,9 @@ void EpromManager::onWriteClicked() {
 
     ui->tabWidget->setCurrentIndex(1);
     onReadClicked();
-    onCompareClicked();
+    if (ui->readTreeWidget->topLevelItemCount() != 0) {
+        onCompareClicked();
+    }
 }
 
 void EpromManager::onWriteClicked_2() {
@@ -215,7 +217,9 @@ void EpromManager::onWriteClicked_2() {
 
     ui->tabWidget_2->setCurrentIndex(1);
     onReadClicked_2();
-    onCompareClicked_2();
+    if (ui->readTreeWidget_2->topLevelItemCount() != 0) {
+        onCompareClicked_2();
+    }
 }
 
 void EpromManager::treeItemClicked(QTreeWidgetItem* item, int column) {
@@ -233,8 +237,8 @@ void EpromManager::treeItemClicked(QTreeWidgetItem* item, int column) {
         }
         QTreeWidgetItem *powerIndexItem = GLO::findItem(m_powerID, powerIndex, TREE_VALUE);
         QTreeWidgetItem *controlIndexItem = GLO::findItem(m_controlID, controlIndex, TREE_VALUE);
-        m_powerPath = GLO::getPath(powerIndexItem);
-        m_controlPath = GLO::getPath(controlIndexItem);
+        m_powerPath = GLO::getPath(powerIndexItem) + "/" + m_powerID + "/" + m_powerID + ".ui";
+        m_controlPath = GLO::getPath(controlIndexItem) + "/" + m_controlID + "/" + m_controlID + ".ui";
         m_powerPath = GTUtils::databasePath() + "Board/PB/" + m_powerPath;
         m_controlPath = GTUtils::databasePath() + "Board/CB/" + m_controlPath;
         changeConfigText(m_powerID, powerIndex);
