@@ -1,4 +1,4 @@
-#include "gtutils.h"
+﻿#include "gtutils.h"
 #include "qttreemanager.h"
 #include "selfbuilder.h"
 

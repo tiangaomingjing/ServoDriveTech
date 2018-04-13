@@ -392,6 +392,15 @@ quint32 SevDevice::devId() const
   Q_D(const SevDevice);
   return d->m_devConfig->m_devId;
 }
+
+void SevDevice::resetDevId(quint32 id)
+{
+  Q_D(SevDevice);
+  d->m_devConfig->m_devId=id;
+  QByteArray byte;
+  byte.append(65+d->m_devConfig->m_devId);
+  d->m_aliasName=QString::fromLatin1(byte);
+}
 quint32 SevDevice::pwrId() const
 {
   Q_D(const SevDevice);

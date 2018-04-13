@@ -5,6 +5,8 @@
 #include "gtutils.h"
 #include "sdtglobaldef.h"
 #include "sevdevice.h"
+#include "tabctlpanel129.h"
+#include "plottabctlprms.h"
 
 #include <QDebug>
 #include <QTimer>
@@ -23,106 +25,9 @@
 #define ICON_NAME_CONFIG    "plot_config.png"
 #define ICON_NAME_FIT       "plot_fit.png"
 #define ICON_NAME_TAG       "plot_tag.png"
-#define ICON_NAME_OPEN       "plot_open.png"
-#define ICON_NAME_SAVE       "plot_save.png"
+#define ICON_NAME_OPEN      "plot_open.png"
+#define ICON_NAME_SAVE      "plot_save.png"
 
-class ModeCtlPrms
-{
-public:
-typedef enum{
-    MODE_IDLE,
-    MODE_ADC,
-    MODE_IPA,
-    MODE_MPI,
-    MODE_COL,
-    MODE_CCL,
-    MODE_VCL,
-    MODE_VPL,
-    MODE_VSL,
-    MODE_FIX,
-    MODE_PT,
-    MODE_DB,
-    MODE_CSC
-  }ModeCtlType;
-
-  bool m_isChecked;
-  ModeCtlType m_curMode;
-  //mode ipa
-  qreal m_ipa;
-  //mode col
-  qreal m_uaref;
-  qreal m_ubref;
-  qreal m_ucref;
-  qreal m_udref;
-  qreal m_uqref;
-  //mode ccl
-  qreal m_idref;
-  qreal m_iqref;
-  //mode vcl
-  qreal m_vcl;
-  //mode vpl
-  qreal m_vpl;
-  //mode vsl
-  qreal m_vsl;
-  //mode pt
-  qreal m_pt;
-};
-class MotionCtlPrms
-{
-public:
-  typedef enum{
-    MOTION_SRC_PC,
-    MOTION_SRC_GLINK2
-  }MotionSource;
-  typedef enum{
-    MOTION_TYPE_NONE,
-    MOTION_TYPE_VEL
-  }MotionType;
-
-  bool m_isChecked;
-  MotionSource m_src;
-  MotionType m_type;
-
-  //motion type vel
-  bool m_isCircle;
-  qreal m_stepAmp;
-  quint16 m_stepTimes;
-  qreal m_circleAmp;
-  quint16 m_circleT;
-  quint16 m_circleCount;
-
-};
-
-class PlotTabCtlPrms
-{
-public:
-  explicit PlotTabCtlPrms(quint16 id,quint16 axisCount):m_id(id),
-    m_axisCount(axisCount),
-    m_curModeAxis(0),
-    m_curMotionAxis(0)
-  {
-    for(int i=0;i<axisCount;i++)
-    {
-      ModeCtlPrms *mode=new ModeCtlPrms;
-      m_modeCtlPrmsList.append(mode);
-      MotionCtlPrms *motion=new MotionCtlPrms;
-      m_motionCtlPrmsList.append(motion);
-    }
-  }
-  ~PlotTabCtlPrms()
-  {
-    GT::deepClearList(m_modeCtlPrmsList);
-    GT::deepClearList(m_motionCtlPrmsList);
-  }
-
-  quint16 m_id;
-  quint16 m_axisCount;
-  quint16 m_curModeAxis;
-  quint16 m_curMotionAxis;
-
-  QList<ModeCtlPrms*>m_modeCtlPrmsList;
-  QList<MotionCtlPrms*>m_motionCtlPrmsList;
-};
 
 class PlotUnitGraph129Private:public IPlotUnitGraphPrivate
 {
@@ -133,6 +38,7 @@ public:
 protected:
   friend class PlotUnitGraph129;
   QList<PlotTabCtlPrms*>m_ctlPrms;//每个设备对应一个
+  QList<TabCtlPanel129 *>m_tabCtl;
   QTimer *m_timer;
 
 };
@@ -161,9 +67,14 @@ PlotUnitGraph129::PlotUnitGraph129(const QList<SevDevice *> &sevList, QWidget *p
   d->m_timer=new QTimer(this);
   d->m_timer->setInterval(1000);
 
+  while(ui->stackedWidget_tabCtlPanel->count()>0)
+  {
+    QWidget *w=ui->stackedWidget_tabCtlPanel->widget(0);
+    ui->stackedWidget_tabCtlPanel->removeWidget(w);
+  }
+
   gtPlotInit();
   ctlPanelInit();
-  installSpinBoxEventFilter();
 
   OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
   setPlotIcons(face->css());
@@ -192,59 +103,59 @@ void PlotUnitGraph129::onSevDeviceListChanged(const QList<SevDevice *> &sevlist)
   ctlPanelInit();
 }
 
-bool PlotUnitGraph129::eventFilter(QObject *obj, QEvent *event)
-{
-  if(event->type()==QEvent::KeyPress)
-  {
-    QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
-    if (keyEvent->key() == Qt::Key_Return || keyEvent->key() == Qt::Key_Enter)
-    {
-      Q_D(PlotUnitGraph129);
-      //tab mode
-      PlotTabCtlPrms *prms=d->m_ctlPrms.at(d->m_curSevInx);
-      ModeCtlPrms* modePrms=prms->m_modeCtlPrmsList.at(prms->m_curModeAxis);
-      QSpinBox *box=qobject_cast<QSpinBox *>(obj);
-      qDebug()<<"spinBox value"<<box->value();
-      if(obj==ui->spinBox_mode_ipa)//3 初始化相位
-      {
-        modePrms->m_ipa=ui->spinBox_mode_ipa->value();
-      }
-      else if(obj==ui->spinBox_mode_uaref||obj==ui->spinBox_mode_ubref\
-              ||obj==ui->spinBox_mode_ucref||obj==ui->spinBox_mode_udref\
-              ||obj==ui->spinBox_mode_udref||obj==ui->spinBox_mode_uqref) //4 电压开环调试
-      {
-        modePrms->m_uaref=ui->spinBox_mode_uaref->value();
-        modePrms->m_ubref=ui->spinBox_mode_ubref->value();
-        modePrms->m_ucref=ui->spinBox_mode_ucref->value();
-        modePrms->m_udref=ui->spinBox_mode_udref->value();
-        modePrms->m_uqref=ui->spinBox_mode_uqref->value();
-      }
-      else if(obj==ui->spinBox_mode_idref||obj==ui->spinBox_mode_iqref)   //5 电流闭环调试
-      {
-        modePrms->m_idref=ui->spinBox_mode_idref->value();
-        modePrms->m_iqref=ui->spinBox_mode_iqref->value();
-      }
-      else if(obj==ui->spinBox_mode_vcl)                                  //6 速度闭环调试
-      {
-        modePrms->m_vcl=ui->spinBox_mode_vcl->value();
-      }
-      else if(obj==ui->spinBox_mode_vpl)                                  //7 轮廓速度跟踪
-      {
-        modePrms->m_vpl=ui->spinBox_mode_vpl->value();
-      }
-      else if(obj==ui->spinBox_mode_vsl)                                  //8 周期同步速度跟踪
-      {
-        modePrms->m_vsl=ui->spinBox_mode_vsl->value();
-      }
-      else if(obj==ui->spinBox_mode_pt)                                  //8 周期同步位置跟踪
-      {
-        modePrms->m_pt=ui->spinBox_mode_pt->value();
-      }
-      return true;
-    }
-  }
-  return QWidget::eventFilter(obj,event);
-}
+//bool PlotUnitGraph129::eventFilter(QObject *obj, QEvent *event)
+//{
+//  if(event->type()==QEvent::KeyPress)
+//  {
+//    QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
+//    if (keyEvent->key() == Qt::Key_Return || keyEvent->key() == Qt::Key_Enter)
+//    {
+//      Q_D(PlotUnitGraph129);
+//      //tab mode
+//      PlotTabCtlPrms *prms=d->m_ctlPrms.at(d->m_curSevInx);
+//      ModeCtlPrms* modePrms=prms->m_modeCtlPrmsList.at(prms->m_curModeAxis);
+//      QSpinBox *box=qobject_cast<QSpinBox *>(obj);
+//      qDebug()<<"spinBox value"<<box->value();
+//      if(obj==ui->spinBox_mode_ipa)//3 初始化相位
+//      {
+//        modePrms->m_ipa=ui->spinBox_mode_ipa->value();
+//      }
+//      else if(obj==ui->spinBox_mode_uaref||obj==ui->spinBox_mode_ubref\
+//              ||obj==ui->spinBox_mode_ucref||obj==ui->spinBox_mode_udref\
+//              ||obj==ui->spinBox_mode_udref||obj==ui->spinBox_mode_uqref) //4 电压开环调试
+//      {
+//        modePrms->m_uaref=ui->spinBox_mode_uaref->value();
+//        modePrms->m_ubref=ui->spinBox_mode_ubref->value();
+//        modePrms->m_ucref=ui->spinBox_mode_ucref->value();
+//        modePrms->m_udref=ui->spinBox_mode_udref->value();
+//        modePrms->m_uqref=ui->spinBox_mode_uqref->value();
+//      }
+//      else if(obj==ui->spinBox_mode_idref||obj==ui->spinBox_mode_iqref)   //5 电流闭环调试
+//      {
+//        modePrms->m_idref=ui->spinBox_mode_idref->value();
+//        modePrms->m_iqref=ui->spinBox_mode_iqref->value();
+//      }
+//      else if(obj==ui->spinBox_mode_vcl)                                  //6 速度闭环调试
+//      {
+//        modePrms->m_vcl=ui->spinBox_mode_vcl->value();
+//      }
+//      else if(obj==ui->spinBox_mode_vpl)                                  //7 轮廓速度跟踪
+//      {
+//        modePrms->m_vpl=ui->spinBox_mode_vpl->value();
+//      }
+//      else if(obj==ui->spinBox_mode_vsl)                                  //8 周期同步速度跟踪
+//      {
+//        modePrms->m_vsl=ui->spinBox_mode_vsl->value();
+//      }
+//      else if(obj==ui->spinBox_mode_pt)                                  //8 周期同步位置跟踪
+//      {
+//        modePrms->m_pt=ui->spinBox_mode_pt->value();
+//      }
+//      return true;
+//    }
+//  }
+//  return QWidget::eventFilter(obj,event);
+//}
 
 void PlotUnitGraph129::createConnections()
 {
@@ -263,8 +174,12 @@ void PlotUnitGraph129::createConnections()
 
   connect(d->m_timer,SIGNAL(timeout()),this,SLOT(onTimeOut()));
 
-  connect(ui->modeCtlPanel,SIGNAL(checkChanged(quint16,int)),this,SLOT(onModeCtlPanelCheckChanged(quint16,int)));
-  connect(ui->modeCtlPanel,SIGNAL(modeChanged(quint16,int)),this,SLOT(onModeCtlPanelModeChanged(quint16,int)));
+  connect(ui->listWidget_plot_device,SIGNAL(currentRowChanged(int)),this,SLOT(onListWidgetDeviceCurrentRowChanged(int)));
+
+//  //tab mode
+//  connect(ui->modeCtlPanel,SIGNAL(checkChanged(quint16,int)),this,SLOT(onModeCtlPanelCheckChanged(quint16,int)));
+//  connect(ui->modeCtlPanel,SIGNAL(modeChanged(quint16,int)),this,SLOT(onModeCtlPanelModeChanged(quint16,int)));
+//  //tab motion
 }
 void PlotUnitGraph129::onBtnFloatInClicked(bool checked)
 {
@@ -352,128 +267,138 @@ void PlotUnitGraph129::onTimeOut()
 
 }
 
-void PlotUnitGraph129::onModeCtlPanelCheckChanged(quint16 axis, int mode)
-{
-  qDebug()<<axis<<mode;
-  if(mode<ui->stackedWidget_plot_mode->count())
-  {
-    Q_D(PlotUnitGraph129);
-    PlotTabCtlPrms *prms=d->m_ctlPrms.at(d->m_curSevInx);
-    prms->m_curModeAxis=axis;
-    ModeCtlPrms* modePrms=prms->m_modeCtlPrmsList.at(axis);
-    ui->stackedWidget_plot_mode->setCurrentIndex(mode);
-    switch(mode)
-    {
-    case ModeCtlPrms::MODE_IDLE:break;
-    case ModeCtlPrms::MODE_ADC:break;
-    case ModeCtlPrms::MODE_IPA:
-    {
-      ui->spinBox_mode_ipa->setValue(modePrms->m_ipa);
-    }
-    break;
-    case ModeCtlPrms::MODE_MPI:break;
-    case ModeCtlPrms::MODE_COL:
-    {
-      ui->spinBox_mode_uaref->setValue(modePrms->m_uaref);
-      ui->spinBox_mode_ubref->setValue(modePrms->m_ubref);
-      ui->spinBox_mode_ucref->setValue(modePrms->m_ucref);
-      ui->spinBox_mode_udref->setValue(modePrms->m_udref);
-      ui->spinBox_mode_uqref->setValue(modePrms->m_uqref);
-    }
-    break;
-    case ModeCtlPrms::MODE_CCL:
-    {
-      ui->spinBox_mode_idref->setValue(modePrms->m_idref);
-      ui->spinBox_mode_iqref->setValue(modePrms->m_iqref);
-    }
-    break;
-    case ModeCtlPrms::MODE_VCL:
-    {
-      ui->spinBox_mode_vcl->setValue(modePrms->m_vcl);
-    }
-    break;
-    case ModeCtlPrms::MODE_VPL:
-    {
-      ui->spinBox_mode_vpl->setValue(modePrms->m_vpl);
-    }
-    break;
-    case ModeCtlPrms::MODE_VSL:
-    {
-      ui->spinBox_mode_vsl->setValue(modePrms->m_vsl);
-    }
-    break;
-    case ModeCtlPrms::MODE_FIX:break;
-    case ModeCtlPrms::MODE_PT:
-    {
-      ui->spinBox_mode_pt->setValue(modePrms->m_pt);
-    }
-    break;
-    case ModeCtlPrms::MODE_DB:break;
-    case ModeCtlPrms::MODE_CSC:break;
-    }
-  }
-}
+//void PlotUnitGraph129::onModeCtlPanelCheckChanged(quint16 axis, int mode)
+//{
+//  qDebug()<<axis<<mode;
+//  if(mode<ui->stackedWidget_plot_mode->count())
+//  {
+//    Q_D(PlotUnitGraph129);
+//    PlotTabCtlPrms *prms=d->m_ctlPrms.at(d->m_curSevInx);
+//    prms->m_curModeAxis=axis;
+//    ModeCtlPrms* modePrms=prms->m_modeCtlPrmsList.at(axis);
+//    modePrms->m_curMode=(ModeCtlPrms::ModeCtlType)mode;
+//    ui->stackedWidget_plot_mode->setCurrentIndex(mode);
+//    switch(mode)
+//    {
+//    case ModeCtlPrms::MODE_IDLE:break;
+//    case ModeCtlPrms::MODE_ADC:break;
+//    case ModeCtlPrms::MODE_IPA:
+//    {
+//      ui->spinBox_mode_ipa->setValue(modePrms->m_ipa);
+//    }
+//    break;
+//    case ModeCtlPrms::MODE_MPI:break;
+//    case ModeCtlPrms::MODE_COL:
+//    {
+//      ui->spinBox_mode_uaref->setValue(modePrms->m_uaref);
+//      ui->spinBox_mode_ubref->setValue(modePrms->m_ubref);
+//      ui->spinBox_mode_ucref->setValue(modePrms->m_ucref);
+//      ui->spinBox_mode_udref->setValue(modePrms->m_udref);
+//      ui->spinBox_mode_uqref->setValue(modePrms->m_uqref);
+//    }
+//    break;
+//    case ModeCtlPrms::MODE_CCL:
+//    {
+//      ui->spinBox_mode_idref->setValue(modePrms->m_idref);
+//      ui->spinBox_mode_iqref->setValue(modePrms->m_iqref);
+//    }
+//    break;
+//    case ModeCtlPrms::MODE_VCL:
+//    {
+//      ui->spinBox_mode_vcl->setValue(modePrms->m_vcl);
+//    }
+//    break;
+//    case ModeCtlPrms::MODE_VPL:
+//    {
+//      ui->spinBox_mode_vpl->setValue(modePrms->m_vpl);
+//    }
+//    break;
+//    case ModeCtlPrms::MODE_VSL:
+//    {
+//      ui->spinBox_mode_vsl->setValue(modePrms->m_vsl);
+//    }
+//    break;
+//    case ModeCtlPrms::MODE_FIX:break;
+//    case ModeCtlPrms::MODE_PT:
+//    {
+//      ui->spinBox_mode_pt->setValue(modePrms->m_pt);
+//    }
+//    break;
+//    case ModeCtlPrms::MODE_DB:break;
+//    case ModeCtlPrms::MODE_CSC:break;
+//    }
+//  }
+//}
 
-void PlotUnitGraph129::onModeCtlPanelModeChanged(quint16 axis, int mode)
+//void PlotUnitGraph129::onModeCtlPanelModeChanged(quint16 axis, int mode)
+//{
+//  qDebug()<<axis<<mode;
+//  if(mode<ui->stackedWidget_plot_mode->count())
+//  {
+//    Q_D(PlotUnitGraph129);
+//    PlotTabCtlPrms *prms=d->m_ctlPrms.at(d->m_curSevInx);
+//    prms->m_curModeAxis=axis;
+//    ModeCtlPrms* modePrms=prms->m_modeCtlPrmsList.at(axis);
+//    modePrms->m_curMode=(ModeCtlPrms::ModeCtlType)mode;
+//    ui->stackedWidget_plot_mode->setCurrentIndex(mode);
+//    switch(mode)
+//    {
+//    case ModeCtlPrms::MODE_IDLE:break;
+//    case ModeCtlPrms::MODE_ADC:break;
+//    case ModeCtlPrms::MODE_IPA:
+//    {
+//      ui->spinBox_mode_ipa->setValue(modePrms->m_ipa);
+//    }
+//    break;
+//    case ModeCtlPrms::MODE_MPI:break;
+//    case ModeCtlPrms::MODE_COL:
+//    {
+//      ui->spinBox_mode_uaref->setValue(modePrms->m_uaref);
+//      ui->spinBox_mode_ubref->setValue(modePrms->m_ubref);
+//      ui->spinBox_mode_ucref->setValue(modePrms->m_ucref);
+//      ui->spinBox_mode_udref->setValue(modePrms->m_udref);
+//      ui->spinBox_mode_uqref->setValue(modePrms->m_uqref);
+//    }
+//    break;
+//    case ModeCtlPrms::MODE_CCL:
+//    {
+//      ui->spinBox_mode_idref->setValue(modePrms->m_idref);
+//      ui->spinBox_mode_iqref->setValue(modePrms->m_iqref);
+//    }
+//    break;
+//    case ModeCtlPrms::MODE_VCL:
+//    {
+//      ui->spinBox_mode_vcl->setValue(modePrms->m_vcl);
+//    }
+//    break;
+//    case ModeCtlPrms::MODE_VPL:
+//    {
+//      ui->spinBox_mode_vpl->setValue(modePrms->m_vpl);
+//    }
+//    break;
+//    case ModeCtlPrms::MODE_VSL:
+//    {
+//      ui->spinBox_mode_vsl->setValue(modePrms->m_vsl);
+//    }
+//    break;
+//    case ModeCtlPrms::MODE_FIX:break;
+//    case ModeCtlPrms::MODE_PT:
+//    {
+//      ui->spinBox_mode_pt->setValue(modePrms->m_pt);
+//    }
+//    break;
+//    case ModeCtlPrms::MODE_DB:break;
+//    case ModeCtlPrms::MODE_CSC:break;
+//    }
+//  }
+//}
+
+void PlotUnitGraph129::onListWidgetDeviceCurrentRowChanged(int row)
 {
-  qDebug()<<axis<<mode;
-  if(mode<ui->stackedWidget_plot_mode->count())
-  {
-    Q_D(PlotUnitGraph129);
-    PlotTabCtlPrms *prms=d->m_ctlPrms.at(d->m_curSevInx);
-    prms->m_curModeAxis=axis;
-    ModeCtlPrms* modePrms=prms->m_modeCtlPrmsList.at(axis);
-    ui->stackedWidget_plot_mode->setCurrentIndex(mode);
-    switch(mode)
-    {
-    case ModeCtlPrms::MODE_IDLE:break;
-    case ModeCtlPrms::MODE_ADC:break;
-    case ModeCtlPrms::MODE_IPA:
-    {
-      ui->spinBox_mode_ipa->setValue(modePrms->m_ipa);
-    }
-    break;
-    case ModeCtlPrms::MODE_MPI:break;
-    case ModeCtlPrms::MODE_COL:
-    {
-      ui->spinBox_mode_uaref->setValue(modePrms->m_uaref);
-      ui->spinBox_mode_ubref->setValue(modePrms->m_ubref);
-      ui->spinBox_mode_ucref->setValue(modePrms->m_ucref);
-      ui->spinBox_mode_udref->setValue(modePrms->m_udref);
-      ui->spinBox_mode_uqref->setValue(modePrms->m_uqref);
-    }
-    break;
-    case ModeCtlPrms::MODE_CCL:
-    {
-      ui->spinBox_mode_idref->setValue(modePrms->m_idref);
-      ui->spinBox_mode_iqref->setValue(modePrms->m_iqref);
-    }
-    break;
-    case ModeCtlPrms::MODE_VCL:
-    {
-      ui->spinBox_mode_vcl->setValue(modePrms->m_vcl);
-    }
-    break;
-    case ModeCtlPrms::MODE_VPL:
-    {
-      ui->spinBox_mode_vpl->setValue(modePrms->m_vpl);
-    }
-    break;
-    case ModeCtlPrms::MODE_VSL:
-    {
-      ui->spinBox_mode_vsl->setValue(modePrms->m_vsl);
-    }
-    break;
-    case ModeCtlPrms::MODE_FIX:break;
-    case ModeCtlPrms::MODE_PT:
-    {
-      ui->spinBox_mode_pt->setValue(modePrms->m_pt);
-    }
-    break;
-    case ModeCtlPrms::MODE_DB:break;
-    case ModeCtlPrms::MODE_CSC:break;
-    }
-  }
+  Q_D(PlotUnitGraph129);
+  d->m_curSevInx=row;
+  qDebug()<<"updateCtlPanelBySelectDevice"<<row;
+  updateCtlPanelBySelectDevice(row);
 }
 
 void PlotUnitGraph129::setPlotIcons(const QString &css)
@@ -526,22 +451,42 @@ void PlotUnitGraph129::gtPlotInit()
 void PlotUnitGraph129::ctlPanelInit()
 {
   Q_D(PlotUnitGraph129);
-  GT::deepClearList(d->m_ctlPrms);
+
+  GT::deepClearList(d->m_tabCtl);
   ui->listWidget_plot_device->clear();
 
   for(int i=0;i<d->m_sevList.size();i++)
   {
-    PlotTabCtlPrms *prms=new PlotTabCtlPrms(i,d->m_sevList.at(i)->axisNum());
-    d->m_ctlPrms.append(prms);
+    TabCtlPanel129 *panel=new TabCtlPanel129(d->m_sevList.at(i));
+    d->m_tabCtl.append(panel);
+    ui->stackedWidget_tabCtlPanel->addWidget(panel);
     ui->listWidget_plot_device->addItem(d->m_sevList.at(i)->aliasName());
   }
   d->m_curSevInx=0;
   ui->listWidget_plot_device->setCurrentRow(d->m_curSevInx);
   bool isShow=(d->m_sevList.count()>1);
   ui->widget_plot_device_nav->setVisible(isShow);
-  ui->modeCtlPanel->setAxis(d->m_sevList.at(d->m_curSevInx)->axisNum());
-  ui->modeCtlPanel->setChecked(0,true);
-  ui->stackedWidget_plot_mode->setCurrentIndex(0);
+
+}
+
+void PlotUnitGraph129::updateCtlPanelBySelectDevice(int sevInx)
+{
+  Q_D(PlotUnitGraph129);
+  if(!(sevInx<d->m_sevList.size())||(sevInx==-1))
+    return;
+
+  ui->stackedWidget_tabCtlPanel->setCurrentIndex(sevInx);
+//  ui->modeCtlPanel->setAxis(d->m_sevList.at(sevInx)->axisNum());
+
+//  PlotTabCtlPrms *prms=d->m_ctlPrms.at(sevInx);
+//  ModeCtlPrms *modePrms=NULL;
+//  for(int i=0;i<prms->m_modeCtlPrmsList.size();i++)
+//  {
+//    modePrms=prms->m_modeCtlPrmsList.at(i);
+//    ui->modeCtlPanel->setChecked(i,modePrms->m_isChecked);
+//    ui->modeCtlPanel->setMode(i,modePrms->m_curMode);
+//  }
+//  ui->stackedWidget_plot_mode->setCurrentIndex(prms->m_modeCtlPrmsList.at(prms->m_curModeAxis)->m_curMode);
 }
 
 //void PlotUnitGraph129::onPushButtonTestClicked(bool checked)
@@ -617,20 +562,3 @@ void PlotUnitGraph129::setTimerStatus()
   }
 }
 
-void PlotUnitGraph129::installSpinBoxEventFilter()
-{
-  //tab1 mode
-  ui->spinBox_mode_idref->installEventFilter(this);
-  ui->spinBox_mode_ipa->installEventFilter(this);
-  ui->spinBox_mode_iqref->installEventFilter(this);
-  ui->spinBox_mode_pt->installEventFilter(this);
-  ui->spinBox_mode_uaref->installEventFilter(this);
-  ui->spinBox_mode_ubref->installEventFilter(this);
-  ui->spinBox_mode_ucref->installEventFilter(this);
-  ui->spinBox_mode_udref->installEventFilter(this);
-  ui->spinBox_mode_uqref->installEventFilter(this);
-  ui->spinBox_mode_vcl->installEventFilter(this);
-  ui->spinBox_mode_vpl->installEventFilter(this);
-  ui->spinBox_mode_vsl->installEventFilter(this);
-  //tab2 motion
-}

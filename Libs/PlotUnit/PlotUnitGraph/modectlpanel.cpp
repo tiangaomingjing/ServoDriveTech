@@ -41,6 +41,8 @@ UiCheckCombo::UiCheckCombo(quint16 axis,QWidget *parent):QWidget(parent),
   hlayout->setStretch(1,1);
   hlayout->setMargin(0);
 
+  m_comboBox->setCurrentIndex(0);
+
   connect(m_checkBox,SIGNAL(clicked(bool)),this,SIGNAL(checkChanged(bool)));
   connect(m_comboBox,SIGNAL(currentIndexChanged(int)),this,SIGNAL(modeChanged(int)));
 }
@@ -93,6 +95,7 @@ void ModeCtlPanel::setAxis(quint16 axis)
     m_uiCheckComboList.append(uiBox);
     layout()->addWidget(uiBox);
   }
+  m_uiCheckComboList.at(0)->m_checkBox->setChecked(true);
 }
 
 bool ModeCtlPanel::isChecked(quint16 axis)

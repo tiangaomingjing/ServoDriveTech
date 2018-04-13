@@ -53,7 +53,8 @@ SOURCES += \
     modectlpanel.cpp \
     qcpitemhandletag.cpp \
     qcpitemmeasure.cpp \
-    qcustomplot.cpp
+    qcustomplot.cpp \
+    tabctlpanel129.cpp
 
 HEADERS += \
         plotunitgraph_global.h \
@@ -64,7 +65,9 @@ HEADERS += \
     modectlpanel.h \
     qcpitemhandletag.h \
     qcpitemmeasure.h \
-    qcustomplot.h
+    qcustomplot.h \
+    tabctlpanel129.h \
+    plottabctlprms.h
 
 unix {
     target.path = /usr/lib
@@ -72,6 +75,7 @@ unix {
 }
 
 FORMS += \
-    plotunitgraph129.ui
+    plotunitgraph129.ui\
+    tabctlpanel129.ui
 
 TRANSLATIONS    += ch_plotunit.ts en_plotunit.ts

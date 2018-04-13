@@ -1,4 +1,4 @@
-#ifndef SELFBUILDER_H
+﻿#ifndef SELFBUILDER_H
 #define SELFBUILDER_H
 
 #include <QObject>
@@ -6,7 +6,7 @@
 
 #include "builderparameters.h"
 #include "gtutils_global.h"
-#include "../../Com/Communication/icom.h"
+#include "icom.h"
 
 class QTreeWidgetItem;
 

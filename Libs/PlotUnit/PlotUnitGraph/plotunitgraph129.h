@@ -25,8 +25,8 @@ public:
 public slots:
   void onSevDeviceListChanged(const QList<SevDevice *> &sevlist) Q_DECL_OVERRIDE;
 
-protected:
-  bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
+//protected:
+//  bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
 
 private slots:
 //  void onPushButtonTestClicked(bool checked);
@@ -43,19 +43,19 @@ private slots:
 
   void onTimeOut();
 
-  void onModeCtlPanelCheckChanged(quint16 axis,int mode);
-  void onModeCtlPanelModeChanged(quint16 axis,int mode);
+//  void onModeCtlPanelCheckChanged(quint16 axis,int mode);
+//  void onModeCtlPanelModeChanged(quint16 axis,int mode);
+  void onListWidgetDeviceCurrentRowChanged(int row);
 
 private:
   void createConnections();
   void setPlotIcons(const QString &css);
   void gtPlotInit();
   void ctlPanelInit();
+  void updateCtlPanelBySelectDevice(int sevInx);
 
   void setupSimpleDemo(QCustomPlot *customPlot);//test
   void setTimerStatus();
-
-  void installSpinBoxEventFilter();
 
 private:
   Ui::PlotUnitGraph129 *ui;
