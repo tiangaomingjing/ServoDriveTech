@@ -4592,19 +4592,9 @@
                 </property>
                </item>
               </item>
-             </item>
+             </item>                                                               
             </item>
-           </item>
-          </item>
-         </item>
-        </item>
-       </item>
-      </item>
-     </item>
     </widget>
-   </item>
-  </layout>
- </widget>
- <resources/>
- <connections/>
+    <resources/>
+    <connections/>
 </ui>

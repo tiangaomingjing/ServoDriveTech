@@ -4,6 +4,15 @@ QDoubleSpinBox{
 	min-width:150px;
 	border-radius:5px;
 	padding-left:5px;
+	border:1px solid #BBB9B9;
+}
+QDoubleSpinBox:focus{
+	border:1px solid black;
+}
+QDoubleSpinBox:!enabled{
+	border:none;
+	color:gray;
+	background-color:gray;
 }
 
 QMainWindow#CombinedWindow {
@@ -82,8 +91,8 @@ QToolBar {
 }
 QToolButton { /* all types of tool button */
     border: none;
-	padding-top:5px;
-	padding-bottom:5px;
+	padding-top:1px;
+	padding-bottom:1px;
 	padding-left:0px;
 	padding-right:0px;
 	color:white;
@@ -224,7 +233,7 @@ border:2px solid #BBB9B9;
 }
 
 QLabel#label_motorCur{
-border:1px solid black;
+border:1px solid #BBB9B9;
 border-top:none;
 border-left:none;
 border-right:none;
@@ -232,7 +241,7 @@ padding-bottom: 10px;
 }
 
 QLabel#label_MotorMac{
-border:1px solid black;
+border:1px solid #BBB9B9;
 border-top:none;
 border-left:none;
 border-right:none;
@@ -240,7 +249,7 @@ padding-bottom: 10px;
 }
 
 QLabel#label_motorVel{
-border:1px solid black;
+border:1px solid #BBB9B9;
 border-top:none;
 border-left:none;
 border-right:none;
@@ -248,7 +257,7 @@ padding-bottom: 10px;
 }
 
 QLabel#label_MotorImp{
-border:1px solid black;
+border:1px solid #BBB9B9;
 border-top:none;
 border-left:none;
 border-right:none;
@@ -256,7 +265,7 @@ padding-bottom: 10px;
 }
 
 QLabel#label_motorTor{
-border:1px solid black;
+border:1px solid #BBB9B9;
 border-top:none;
 border-left:none;
 border-right:none;
@@ -315,7 +324,7 @@ border:2px solid #BBB9B9;
 }
 
 QLabel#label_pwrBVP{
-border:1px solid black;
+border:1px solid #BBB9B9;
 border-top:none;
 border-left:none;
 border-right:none;
@@ -323,7 +332,7 @@ padding-bottom: 10px;
 }
 
 QLabel#label_pwrSSRV{
-border:1px solid black;
+border:1px solid #BBB9B9;
 border-top:none;
 border-left:none;
 border-right:none;
@@ -331,7 +340,7 @@ padding-bottom: 10px;
 }
 
 QLabel#label_pwrBHV{
-border:1px solid black;
+border:1px solid #BBB9B9;
 border-top:none;
 border-left:none;
 border-right:none;
@@ -359,7 +368,7 @@ border:2px solid #BBB9B9;
 }
 
 QLabel#label_brakeEmergency{
-border:1px solid black;
+border:1px solid #BBB9B9;
 border-top:none;
 border-left:none;
 border-right:none;
@@ -367,7 +376,7 @@ padding-bottom: 10px;
 }
 
 QLabel#label_brakeDynamic{
-border:1px solid black;
+border:1px solid #BBB9B9;
 border-top:none;
 border-left:none;
 border-right:none;
@@ -375,7 +384,7 @@ padding-bottom: 10px;
 }
 
 QLabel#label_brakeExternal{
-border:1px solid black;
+border:1px solid #BBB9B9;
 border-top:none;
 border-left:none;
 border-right:none;
@@ -410,7 +419,7 @@ QLabel#label_currentTitle{
 	margin-bottom:5px;
 	color:black;
 	border:1px solid transparent;
-	border-bottom-color:black;
+	border-bottom-color:#BBB9B9;
 	font-weight:bold;
 }
 
@@ -456,7 +465,7 @@ QLabel#label_velPidTitle{
 	margin-bottom:5px;
 	color:black;
 	border:1px solid transparent;
-	border-bottom-color:black;
+	border-bottom-color:#BBB9B9;
 	font-weight:bold;
 }
 
@@ -523,7 +532,7 @@ QLabel#label_posPidTitle{
 	margin-bottom:5px;
 	color:black;
 	border:1px solid transparent;
-	border-bottom-color:black;
+	border-bottom-color:#BBB9B9;
 	font-weight:bold;
 }
 
@@ -648,7 +657,7 @@ QGroupBox#pswBox {
 	border:0px
 }
 
-/*=========================================边框=============================*/
+/*=========================================无窗口边框=============================*/
 
 QToolButton#btn_Min,QToolButton#btn_icon,QToolButton#btn_Max,QToolButton#btn_Close{
 	background-color: #252A3E;
@@ -675,4 +684,20 @@ QWidget#widget_frameWidget {
 	background-color: rgb(37, 42, 62);
 }
 
+/*=========================PlotUintGraph=====================*/
+QWidget#widget_plot_up{
+	background-color:#F0F0F0;
+} 
+QWidget#widget_plot_up QToolButton:hover{
+	background-color:#BBB9B9;
+	color:white;
+} 
+QWidget#widget_plot_up QToolButton:hover:pressed{
+	background-color:gray;
+	color:white;
+} 
+QWidget#widget_plot_up QToolButton{
+	background-color:transparent;
+	min-width:40px;
+} 
 	

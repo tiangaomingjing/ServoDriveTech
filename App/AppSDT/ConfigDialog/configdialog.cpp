@@ -185,6 +185,8 @@ void ConfigDialog::setDevicePreview(const QString &sd)
   QString sdInfoPath=m_iconProductPath+sd+".txt";
   QString sdInfo=readDeviceDescription(sdInfoPath);
   ui->label_deviceInfo->setText(sdInfo);
+//  qDebug()<<"iconpath"<<sd61IconPath;
+//  qDebug()<<"sdinfo"<<sdInfoPath;
 }
 //!
 //! \brief ConfigDialog::loadSrcTreeWidget

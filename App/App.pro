@@ -24,4 +24,5 @@ SUBDIRS += \
     AppDragDropTest \
     AppSelfBuilderTest \
     AppCustomPlotTest \
-    AppXmlRWTest
+    AppXmlRWTest \
+    AppPlotTest

@@ -21,11 +21,13 @@ GlobalUiControler::~GlobalUiControler()
 void GlobalUiControler::createUis()
 {
   // 当前全局的ui只有绘图
-  //如果以后要动态增加其它的ui，可以再做个配置表来实现，根据类名生成对象机制
+  //如果以后要动态增加其它的ui，可以再做个配置表来实现，根据类名生成对象机制(目前没有这个必要)
+
   IUiWidget *uiPlot=new UiPlot;
   uiPlot->init(NULL);
-  IPlotUnit *iplot=new PlotUnitGraph129;
-  uiPlot->accept(iplot);
+  IPlotUnit *iplot=new PlotUnitGraph129(m_sevList);
+  uiPlot->accept(iplot);//take ownership of iplot
+  connect(this,SIGNAL(sevDeviceListChanged(QList<SevDevice*>)),iplot,SLOT(onSevDeviceListChanged(QList<SevDevice*>)));
 
   m_uiLists.append(uiPlot);
 }
@@ -33,8 +35,10 @@ void GlobalUiControler::createUis()
 IUiWidget *GlobalUiControler::uiWidget(const QString &name)
 {
   IUiWidget *ui=NULL;
-  foreach (IUiWidget *w, m_uiLists)
+  IUiWidget *w=NULL;
+  for(int i=0;i<m_uiLists.size();i++)
   {
+    w=m_uiLists.at(i);
     if(w->objectName()==name)
     {
       ui=w;
@@ -47,4 +51,5 @@ IUiWidget *GlobalUiControler::uiWidget(const QString &name)
 void GlobalUiControler::setSevDeviceList(const QList<SevDevice *> &sevList)
 {
   m_sevList=sevList;
+  emit sevDeviceListChanged(sevList);
 }

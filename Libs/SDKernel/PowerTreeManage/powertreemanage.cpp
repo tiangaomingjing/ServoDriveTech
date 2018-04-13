@@ -6,6 +6,7 @@
 #include <QTreeWidgetItem>
 #include <QDebug>
 #include <QMessageBox>
+#include "deviceconfig.h"
 #define INX_CURRENT_SAMPLING_TYPE_NAME  "axis.cur.sampling"
 #define INX_CURRENT_SAMPLING_RES_VALUE  "axis.cur.sampling.shunt.res.value"
 typedef enum{
@@ -81,8 +82,8 @@ PowerTreeManage::PowerTreeManage(DeviceConfig *sev, QObject *parent) : QObject(p
 {
     m_powerTree = NULL;
     mp_pwrTarget = NULL;
-    m_sev = sev;
-    QString idStr = QString::number(m_sev->m_pwrId, 10);
+    m_sevConfig = sev;
+    QString idStr = QString::number(m_sevConfig->m_pwrId, 10);
     qDebug()<<idStr;
     QString path = GTUtils::databasePath() + "Board/PB/";
     QString filePath = path + "pbindex.ui";
@@ -175,7 +176,7 @@ bool PowerTreeManage::updatePowerLimitMapList(QList<QMap<QString, PowerBoardLimi
   int axisNum;
 //  QTreeWidgetItem *item;
   powerLimitMapList.clear();
-  m_filterPath = m_filterPath + m_sev->m_version + "/" + m_sev->m_version + ".ui";
+  m_filterPath = m_filterPath + m_sevConfig->m_version + "/" + m_sevConfig->m_version + ".ui";
   qDebug()<<"filterpath "<<m_filterPath;
   QTreeWidget* filterTree = QtTreeManager::createTreeWidgetFromXmlFile(m_filterPath);
 

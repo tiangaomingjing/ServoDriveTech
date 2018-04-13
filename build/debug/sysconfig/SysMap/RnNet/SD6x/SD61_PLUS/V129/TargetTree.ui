@@ -383,6 +383,18 @@
         <property name="text">
          <string>UiPlot</string>
         </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="text">
+         <string>PlotUnitGraph129</string>
+        </property>
        </item>
       </item>
      </item>

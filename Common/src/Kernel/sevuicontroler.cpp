@@ -60,16 +60,12 @@ void SevUiControler::createUis()
         QWidget *uiGraph=UiFactory::createObject(uiGraphName.toLatin1());
         ui->accept(uiGraph);
       }
-//      ui->createQmlWidget();
-
 
       m_uiLists.append(ui);
-//      qDebug()<<"class name "<<ui->objectName();
+
       sum+=dec;
-//      qDebug()<<"sum"<<sum;
       emit initProgressInfo((int)sum,tr("build ui %1").arg(className));
     }
-    qDebug()<<"------------------build device ui :"<<i;
   }
 
 
@@ -87,9 +83,7 @@ void SevUiControler::createUis()
     ui->addTreeWidget(m_sev->globalTreeSource(i));
 
     m_uiLists.append(ui);
-//    qDebug()<<"class name "<<ui->objectName();
     sum=100;
-//    qDebug()<<"sum"<<sum;
     emit initProgressInfo((int)sum,tr("build ui %1").arg(className));
   }
 }

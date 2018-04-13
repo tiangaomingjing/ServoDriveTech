@@ -5,6 +5,7 @@
 #include "icom.h"
 #include "deviceidhelper.h"
 #include "gtutils.h"
+#include "deviceconfig.h"
 
 #include <QDebug>
 

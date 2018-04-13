@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += widgets
+QT       += widgets printsupport
 
 QT       -= gui
 
@@ -48,13 +48,23 @@ DEFINES += PLOTUNITGRAPH_LIBRARY
 
 SOURCES += \
     plotunitgraph129.cpp \
-    iplotunitgraph.cpp
+    iplotunitgraph.cpp \
+    gtplot.cpp \
+    modectlpanel.cpp \
+    qcpitemhandletag.cpp \
+    qcpitemmeasure.cpp \
+    qcustomplot.cpp
 
 HEADERS += \
         plotunitgraph_global.h \
     plotunitgraph129.h \
     iplotunitgraph.h \
-    iplotunitgraph_p.h
+    iplotunitgraph_p.h \
+    gtplot.h \
+    modectlpanel.h \
+    qcpitemhandletag.h \
+    qcpitemmeasure.h \
+    qcustomplot.h
 
 unix {
     target.path = /usr/lib

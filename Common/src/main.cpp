@@ -158,6 +158,14 @@ int main(int argc, char *argv[])
     qDebug()<<"s2d:"<<QString::number(s2d.toLatin1().at(i));
   }
 
+  QString test="helloworld";
+  int length=test.size();
+  qDebug()<<"test size"<<test.size();
+  char *p=(char *)malloc(length+1);
+  memcpy_s(p,length,test.toStdString().c_str(),length);
+  p[length]='\0';
+  printf("after %s",p);
+
   return a.exec();
 }
 

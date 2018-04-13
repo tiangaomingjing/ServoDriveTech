@@ -3,11 +3,11 @@
 
 #include <QObject>
 #include <QVector>
-#include "deviceconfig.h"
 
 
 class QTreeWidgetItem;
 class QTreeWidget;
+class DeviceConfig;
 
 struct PowerBoardLimit{
   double max;
@@ -61,7 +61,7 @@ private:
   QTreeWidgetItem *mp_pwrTarget;
   QString m_filterPath;
   QStringList m_filterList;
-  DeviceConfig *m_sev;
+  DeviceConfig *m_sevConfig;
 };
 
 #endif // POWERTREEMANAGE_H

@@ -14,10 +14,13 @@ class PLOTUNITGRAPHSHARED_EXPORT IPlotUnitGraph : public IPlotUnit
 public:
   virtual ~IPlotUnitGraph();
   virtual void visit(IUiWidget *uiWidget) Q_DECL_OVERRIDE;
+  virtual void respondUiActive(bool actived) = 0;
 
 signals:
 
 public slots:
+  virtual void onSevDeviceListChanged(const QList<SevDevice*> &sevlist) = 0;
+
 
 protected:
   IPlotUnitGraph(IPlotUnitGraphPrivate&dd,QWidget *parent=0);
