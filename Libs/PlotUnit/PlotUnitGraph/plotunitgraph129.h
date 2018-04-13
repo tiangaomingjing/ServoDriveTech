@@ -25,6 +25,9 @@ public:
 public slots:
   void onSevDeviceListChanged(const QList<SevDevice *> &sevlist) Q_DECL_OVERRIDE;
 
+protected:
+  bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
+
 private slots:
 //  void onPushButtonTestClicked(bool checked);
   void onBtnFloatInClicked(bool checked);
@@ -51,6 +54,8 @@ private:
 
   void setupSimpleDemo(QCustomPlot *customPlot);//test
   void setTimerStatus();
+
+  void installSpinBoxEventFilter();
 
 private:
   Ui::PlotUnitGraph129 *ui;

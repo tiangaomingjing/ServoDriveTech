@@ -80,19 +80,6 @@
               </widget>
              </item>
              <item>
-              <widget class="QToolButton" name="tbtn_plot_config">
-               <property name="minimumSize">
-                <size>
-                 <width>30</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>config</string>
-               </property>
-              </widget>
-             </item>
-             <item>
               <widget class="QToolButton" name="tbtn_plot_auto">
                <property name="minimumSize">
                 <size>
@@ -119,19 +106,6 @@
               </widget>
              </item>
              <item>
-              <widget class="QToolButton" name="tbtn_plot_tag">
-               <property name="minimumSize">
-                <size>
-                 <width>30</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>tag</string>
-               </property>
-              </widget>
-             </item>
-             <item>
               <widget class="QToolButton" name="tbtn_plot_mea_horizontal">
                <property name="minimumSize">
                 <size>
@@ -154,6 +128,32 @@
                </property>
                <property name="text">
                 <string>vert</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QToolButton" name="tbtn_plot_config">
+               <property name="minimumSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>config</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QToolButton" name="tbtn_plot_tag">
+               <property name="minimumSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>tag</string>
                </property>
               </widget>
              </item>
@@ -422,7 +422,7 @@
                   <string notr="true">background-color:gray;</string>
                  </property>
                  <property name="currentIndex">
-                  <number>12</number>
+                  <number>4</number>
                  </property>
                  <widget class="QWidget" name="page_idle">
                   <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -465,9 +465,9 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="QDoubleSpinBox" name="doubleSpinBox">
-                     <property name="maximum">
-                      <double>100.000000000000000</double>
+                    <widget class="QSpinBox" name="spinBox_mode_ipa">
+                     <property name="buttonSymbols">
+                      <enum>QAbstractSpinBox::NoButtons</enum>
                      </property>
                     </widget>
                    </item>
@@ -507,7 +507,7 @@
                     </widget>
                    </item>
                    <item row="0" column="1">
-                    <widget class="QSpinBox" name="spinBox_3">
+                    <widget class="QSpinBox" name="spinBox_mode_uaref">
                      <property name="buttonSymbols">
                       <enum>QAbstractSpinBox::NoButtons</enum>
                      </property>
@@ -516,7 +516,7 @@
                    <item row="0" column="2">
                     <widget class="QLabel" name="label_8">
                      <property name="text">
-                      <string>ua_ref (%)</string>
+                      <string>ub_ref (%)</string>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -524,7 +524,7 @@
                     </widget>
                    </item>
                    <item row="0" column="3">
-                    <widget class="QSpinBox" name="spinBox_4">
+                    <widget class="QSpinBox" name="spinBox_mode_ubref">
                      <property name="buttonSymbols">
                       <enum>QAbstractSpinBox::NoButtons</enum>
                      </property>
@@ -533,7 +533,7 @@
                    <item row="0" column="4">
                     <widget class="QLabel" name="label_9">
                      <property name="text">
-                      <string>ua_ref (%)</string>
+                      <string>uc_ref (%)</string>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -541,7 +541,7 @@
                     </widget>
                    </item>
                    <item row="0" column="5">
-                    <widget class="QSpinBox" name="spinBox_5">
+                    <widget class="QSpinBox" name="spinBox_mode_ucref">
                      <property name="buttonSymbols">
                       <enum>QAbstractSpinBox::NoButtons</enum>
                      </property>
@@ -550,7 +550,7 @@
                    <item row="1" column="0">
                     <widget class="QLabel" name="label_10">
                      <property name="text">
-                      <string>ua_ref (%)</string>
+                      <string>ud_ref (%)</string>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -558,7 +558,7 @@
                     </widget>
                    </item>
                    <item row="1" column="1">
-                    <widget class="QSpinBox" name="spinBox_6">
+                    <widget class="QSpinBox" name="spinBox_mode_udref">
                      <property name="buttonSymbols">
                       <enum>QAbstractSpinBox::NoButtons</enum>
                      </property>
@@ -567,7 +567,7 @@
                    <item row="1" column="2">
                     <widget class="QLabel" name="label_16">
                      <property name="text">
-                      <string>ua_ref (%)</string>
+                      <string>uq_ref (%)</string>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -575,7 +575,7 @@
                     </widget>
                    </item>
                    <item row="1" column="3">
-                    <widget class="QSpinBox" name="spinBox_7">
+                    <widget class="QSpinBox" name="spinBox_mode_uqref">
                      <property name="buttonSymbols">
                       <enum>QAbstractSpinBox::NoButtons</enum>
                      </property>
@@ -596,7 +596,7 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="QSpinBox" name="spinBox_8">
+                    <widget class="QSpinBox" name="spinBox_mode_idref">
                      <property name="buttonSymbols">
                       <enum>QAbstractSpinBox::NoButtons</enum>
                      </property>
@@ -613,7 +613,7 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="QSpinBox" name="spinBox_9">
+                    <widget class="QSpinBox" name="spinBox_mode_iqref">
                      <property name="buttonSymbols">
                       <enum>QAbstractSpinBox::NoButtons</enum>
                      </property>
@@ -641,7 +641,7 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="QSpinBox" name="spinBox_10">
+                    <widget class="QSpinBox" name="spinBox_mode_vcl">
                      <property name="buttonSymbols">
                       <enum>QAbstractSpinBox::NoButtons</enum>
                      </property>
@@ -669,7 +669,7 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="QSpinBox" name="spinBox_11">
+                    <widget class="QSpinBox" name="spinBox_mode_vpl">
                      <property name="buttonSymbols">
                       <enum>QAbstractSpinBox::NoButtons</enum>
                      </property>
@@ -697,7 +697,7 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="QSpinBox" name="spinBox_12">
+                    <widget class="QSpinBox" name="spinBox_mode_vsl">
                      <property name="buttonSymbols">
                       <enum>QAbstractSpinBox::NoButtons</enum>
                      </property>
@@ -739,7 +739,7 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="QSpinBox" name="spinBox_13">
+                    <widget class="QSpinBox" name="spinBox_mode_pt">
                      <property name="buttonSymbols">
                       <enum>QAbstractSpinBox::NoButtons</enum>
                      </property>
