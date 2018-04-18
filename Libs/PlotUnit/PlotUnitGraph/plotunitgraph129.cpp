@@ -435,6 +435,13 @@ void PlotUnitGraph129::setPlotIcons(const QString &css)
   ui->tbtn_plot_save->setIcon(QIcon(QPixmap(iconPath+ICON_NAME_SAVE)));
   ui->tbtn_plot_save->setIconSize(iconSize);
 
+  Q_D(PlotUnitGraph129);
+  for(int i=0;i<d->m_tabCtl.size();i++)
+  {
+    d->m_tabCtl.at(i)->setupIcons(css);
+  }
+
+
 //  qDebug()<<"PlotUnitGraph129 css changed"<<css<<iconPath;
 }
 
@@ -466,7 +473,6 @@ void PlotUnitGraph129::ctlPanelInit()
   ui->listWidget_plot_device->setCurrentRow(d->m_curSevInx);
   bool isShow=(d->m_sevList.count()>1);
   ui->widget_plot_device_nav->setVisible(isShow);
-
 }
 
 void PlotUnitGraph129::updateCtlPanelBySelectDevice(int sevInx)

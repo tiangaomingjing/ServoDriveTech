@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/PlotCurveUsrPosd/META-INF">
+        <file>MANIFEST.MF</file>
+    </qresource>
+</RCC>

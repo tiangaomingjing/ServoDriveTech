@@ -330,7 +330,7 @@
          </widget>
          <widget class="QWidget" name="widget_plot_down" native="true">
           <property name="styleSheet">
-           <string notr="true">background-color:yellow;</string>
+           <string notr="true"/>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_19" stretch="1,30">
            <property name="spacing">

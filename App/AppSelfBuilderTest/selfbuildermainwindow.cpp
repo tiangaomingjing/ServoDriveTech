@@ -1,4 +1,4 @@
-#include "selfbuildermainwindow.h"
+﻿#include "selfbuildermainwindow.h"
 #include "ui_selfbuildermainwindow.h"
 #include "selfbuilder.h"
 #include "builderparameters.h"
@@ -19,7 +19,7 @@ SelfBuilderMainWindow::SelfBuilderMainWindow(QWidget *parent) :
     int ret = tempCom->open(0, 0);
     qDebug()<<"ret = "<<ret;
     SelfBuilder *builder = new SelfBuilder(tempCom);
-    SELFBUILDER_RTN rtn =  builder->buildFromEprom(&para);
+    SELFBUILDER_RTN rtn =  builder->buildFromEprom(NULL,NULL,&para);
     qDebug()<<"rtn = "<<rtn;
 }
 

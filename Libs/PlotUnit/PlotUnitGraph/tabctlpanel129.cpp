@@ -1,9 +1,15 @@
 ﻿#include "tabctlpanel129.h"
 #include "ui_tabctlpanel129.h"
 #include "sevdevice.h"
+#include "gtutils.h"
 
 #include <QDebug>
 #include <QKeyEvent>
+
+#define ICON_NAME_SERVO_ON      "plot_son.png"
+#define ICON_NAME_SERVO_OFF     "plot_soff.png"
+#define PIC_NAME_VSTEP          "plot_vstep.png"
+#define PIC_NAME_VSEQ           "plot_vseq.png"
 
 TabCtlPanel129::TabCtlPanel129(SevDevice *sev, QWidget *parent) : QWidget(parent),
   ui(new Ui::TabCtlPanel129),
@@ -14,14 +20,58 @@ TabCtlPanel129::TabCtlPanel129(SevDevice *sev, QWidget *parent) : QWidget(parent
   ui->modeCtlPanel->setAxis(sev->axisNum());
 
   //tab mode
+  ui->spinBox_mode_idref->installEventFilter(this);
+  ui->spinBox_mode_ipa->installEventFilter(this);
+  ui->spinBox_mode_iqref->installEventFilter(this);
+  ui->spinBox_mode_uaref->installEventFilter(this);
+  ui->spinBox_mode_ubref->installEventFilter(this);
+  ui->spinBox_mode_ucref->installEventFilter(this);
+  ui->spinBox_mode_udref->installEventFilter(this);
+  ui->spinBox_mode_uqref->installEventFilter(this);
+  ui->spinBox_mode_vcl->installEventFilter(this);
+  ui->spinBox_mode_vpl->installEventFilter(this);
+  ui->spinBox_mode_vsl->installEventFilter(this);
+  ui->spinBox_mode_pt->installEventFilter(this);
+
+  ui->tbtn_plot_servoOnMode->setCheckable(true);
+  ui->tbtn_plot_servoGoMotion->setCheckable(true);
+
+  //tab motion
+  ui->stackedWidget_vel_plan->setCurrentIndex(0);
+
+  //tab mode
   connect(ui->modeCtlPanel,SIGNAL(checkChanged(quint16,int)),this,SLOT(onModeCtlPanelCheckChanged(quint16,int)));
   connect(ui->modeCtlPanel,SIGNAL(modeChanged(quint16,int)),this,SLOT(onModeCtlPanelModeChanged(quint16,int)));
   //tab motion
+  connect(ui->checkBox_circleSw,SIGNAL(clicked(bool)),this,SLOT(onCheckBoxCircleSWClicked()));
 }
 
 TabCtlPanel129::~TabCtlPanel129()
 {
   delete m_data;
+}
+
+void TabCtlPanel129::setupIcons(const QString &css)
+{
+  QSize iconSize(100,100);
+  QString iconPath=GTUtils::customPath()+"option/style/"+css+"/icon/";
+  QIcon servoOnIcon;
+  servoOnIcon.addPixmap(QPixmap(iconPath+ICON_NAME_SERVO_OFF),QIcon::Selected,QIcon::Off);
+  servoOnIcon.addPixmap(QPixmap(iconPath+ICON_NAME_SERVO_ON),QIcon::Selected,QIcon::On);
+  ui->tbtn_plot_servoOnMode->setIcon(servoOnIcon);
+  ui->tbtn_plot_servoOnMode->setIconSize(iconSize);
+  ui->tbtn_plot_servoGoMotion->setIcon(servoOnIcon);
+  ui->tbtn_plot_servoGoMotion->setIconSize(iconSize);
+
+//  ui->tbtn_icon_vplan_seq->setIcon(QPixmap(iconPath+PIC_NAME_VSEQ));
+//  ui->tbtn_icon_vplan_step->setIcon(QPixmap(iconPath+PIC_NAME_VSTEP));
+//  ui->tbtn_icon_vplan_seq->setIconSize(QSize(520,110));
+//  ui->tbtn_icon_vplan_seq->setIconSize(QSize(520,110));
+  ui->label_vplan_seq->setScaledContents(true);
+  ui->label_vplan_step->setScaledContents(true);
+  ui->label_vplan_seq->setPixmap(QPixmap(iconPath+PIC_NAME_VSEQ));
+  ui->label_vplan_step->setPixmap(QPixmap(iconPath+PIC_NAME_VSTEP));
+
 }
 
 bool TabCtlPanel129::eventFilter(QObject *obj, QEvent *event)
@@ -199,5 +249,13 @@ void TabCtlPanel129::onModeCtlPanelModeChanged(quint16 axis, int mode)
     case ModeCtlPrms::MODE_CSC:break;
     }
   }
+}
+
+void TabCtlPanel129::onCheckBoxCircleSWClicked()
+{
+  if(ui->checkBox_circleSw->isChecked())
+    ui->stackedWidget_vel_plan->setCurrentIndex(1);
+  else
+    ui->stackedWidget_vel_plan->setCurrentIndex(0);
 }
 

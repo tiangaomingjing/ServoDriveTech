@@ -700,4 +700,13 @@ QWidget#widget_plot_up QToolButton{
 	background-color:transparent;
 	min-width:40px;
 } 
+QToolButton#tbtn_plot_servoOnMode,QToolButton#tbtn_plot_servoGoMotion{
+	background-color:transparent
+	
+}
+QToolButton#tbtn_plot_servoOnMode:hover,QToolButton#tbtn_plot_servoGoMotion:hover{
+	border:1px solid gray;
+	border-radius:50px;
+	
+}
 	

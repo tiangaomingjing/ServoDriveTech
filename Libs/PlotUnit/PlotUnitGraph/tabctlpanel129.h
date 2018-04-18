@@ -17,6 +17,8 @@ public:
   explicit TabCtlPanel129(SevDevice *sev,QWidget *parent = 0);
   ~TabCtlPanel129();
 
+  void setupIcons(const QString &css);
+
 signals:
 
 public slots:
@@ -26,6 +28,7 @@ protected:
 private slots:
   void onModeCtlPanelCheckChanged(quint16 axis,int mode);
   void onModeCtlPanelModeChanged(quint16 axis,int mode);
+  void onCheckBoxCircleSWClicked();
 
 private:
   friend class PlotUnitGraph129;

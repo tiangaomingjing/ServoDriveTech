@@ -32,7 +32,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab_mode">
       <attribute name="title">
@@ -52,7 +52,9 @@
        <item>
         <widget class="QStackedWidget" name="stackedWidget_plot_mode">
          <property name="styleSheet">
-          <string notr="true">border:1px solid red;</string>
+          <string notr="true">QStackedWidget{
+border:1px solid gray;
+}</string>
          </property>
          <property name="currentIndex">
           <number>11</number>
@@ -418,7 +420,7 @@
         </widget>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_4">
+        <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1,0">
          <item>
           <widget class="QLabel" name="label_7">
            <property name="text">
@@ -472,6 +474,9 @@
        </item>
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_7">
+         <property name="spacing">
+          <number>0</number>
+         </property>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_14">
            <property name="spacing">
@@ -521,6 +526,21 @@
            <widget class="QWidget" name="page_3"/>
            <widget class="QWidget" name="page_4">
             <layout class="QHBoxLayout" name="horizontalLayout_18" stretch="0,1">
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
              <item>
               <widget class="QListWidget" name="listWidget_2">
                <property name="maximumSize">
@@ -533,6 +553,9 @@
              </item>
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_12">
+               <property name="spacing">
+                <number>0</number>
+               </property>
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_16">
                  <item>
@@ -549,7 +572,7 @@
                   </spacer>
                  </item>
                  <item>
-                  <widget class="QCheckBox" name="checkBox">
+                  <widget class="QCheckBox" name="checkBox_circleSw">
                    <property name="text">
                     <string>circle</string>
                    </property>
@@ -558,9 +581,38 @@
                 </layout>
                </item>
                <item>
-                <widget class="QStackedWidget" name="stackedWidget_3">
-                 <widget class="QWidget" name="page_5"/>
-                 <widget class="QWidget" name="page_6"/>
+                <widget class="QStackedWidget" name="stackedWidget_vel_plan">
+                 <property name="currentIndex">
+                  <number>1</number>
+                 </property>
+                 <widget class="QWidget" name="page_vplan_step">
+                  <layout class="QHBoxLayout" name="horizontalLayout_3">
+                   <item>
+                    <widget class="QLabel" name="label_vplan_step">
+                     <property name="text">
+                      <string>TextLabel</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                 <widget class="QWidget" name="page_vplan_seq">
+                  <layout class="QHBoxLayout" name="horizontalLayout_5">
+                   <item>
+                    <widget class="QLabel" name="label_vplan_seq">
+                     <property name="text">
+                      <string>TextLabel</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
                 </widget>
                </item>
                <item>
@@ -607,7 +659,7 @@
           <layout class="QHBoxLayout" name="hlayout_processBars"/>
          </item>
          <item>
-          <layout class="QVBoxLayout" name="verticalLayout_9">
+          <layout class="QVBoxLayout" name="verticalLayout_9" stretch="1,0">
            <item>
             <widget class="QLabel" name="label_13">
              <property name="text">

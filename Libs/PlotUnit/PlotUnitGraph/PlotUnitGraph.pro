@@ -54,7 +54,8 @@ SOURCES += \
     qcpitemhandletag.cpp \
     qcpitemmeasure.cpp \
     qcustomplot.cpp \
-    tabctlpanel129.cpp
+    tabctlpanel129.cpp \
+    pcurve.cpp
 
 HEADERS += \
         plotunitgraph_global.h \
@@ -67,7 +68,8 @@ HEADERS += \
     qcpitemmeasure.h \
     qcustomplot.h \
     tabctlpanel129.h \
-    plottabctlprms.h
+    plottabctlprms.h \
+    pcurve.h
 
 unix {
     target.path = /usr/lib
