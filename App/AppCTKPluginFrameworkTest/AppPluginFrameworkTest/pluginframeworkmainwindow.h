@@ -10,6 +10,8 @@ class PluginFrameworkMainWindow;
 }
 class IPlotCurve;
 class ctkPluginContext;
+class QTreeWidget;
+class QTreeWidgetItem;
 class PluginFrameworkMainWindow : public QMainWindow
 {
   Q_OBJECT
@@ -25,13 +27,25 @@ private slots:
 
   void on_actionDeleteFactory_triggered();
 
+  void on_actionClone_triggered();
+
+  void on_actionShowCloneObj_triggered();
+  void on_actionVectorTest_triggered();
+
+private:
+  QVector<double> &vec();//test
+
+  void loadFiles(QString path, QTreeWidget *treewidget, QTreeWidgetItem *item) ;
 private:
   Ui::PluginFrameworkMainWindow *ui;
 
   QList<QSharedPointer<ctkPlugin>> plugins;
   QList<IPlotCurve*>curves;
+  QList<IPlotCurve*>cloneCurves;
   ctkPluginContext* context;
   ctkPluginFrameworkFactory *frameWorkFactory;
+
+  QVector<double> vector;
 };
 
 #endif // PLUGINFRAMEWORKMAINWINDOW_H

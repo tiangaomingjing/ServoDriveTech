@@ -8,6 +8,7 @@ SUBDIRS += \
     SDKernel\
     PlotUnit/IPlotUnit\
     UI \
-    PlotUnit/PlotUnitGraph
+    PlotUnit/PlotUnitGraph \
+    PlotCurvePluginFramework
 
 

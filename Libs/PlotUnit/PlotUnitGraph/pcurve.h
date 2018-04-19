@@ -45,8 +45,6 @@ public:
   QString m_fullName;
   QString m_shortName;
 
-
-
   double m_k;
   QList<CurveConst>m_constInputs;
   QList<CurveVar>m_varInputs;

@@ -12,7 +12,9 @@ class PlotCurveUsrPos : public QObject ,public IPlotCurve
   Q_INTERFACES(IPlotCurve)
 public:
   explicit PlotCurveUsrPos(ctkPluginContext *context);
+  PlotCurveUsrPos();
   void sayHello() Q_DECL_OVERRIDE;
+  IPlotCurve *clone() Q_DECL_OVERRIDE;
 
 signals:
 

@@ -12,7 +12,9 @@ class PlotCurveRaw : public QObject ,public IPlotCurve
   Q_INTERFACES(IPlotCurve)
 public:
   explicit PlotCurveRaw(ctkPluginContext *context);
+  PlotCurveRaw();
   void sayHello() Q_DECL_OVERRIDE;
+  IPlotCurve *clone() Q_DECL_OVERRIDE;
 
 signals:
 

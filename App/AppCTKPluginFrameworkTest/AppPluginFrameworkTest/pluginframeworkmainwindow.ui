@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>534</width>
     <height>300</height>
    </rect>
   </property>
@@ -19,7 +19,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>534</width>
      <height>23</height>
     </rect>
    </property>
@@ -34,6 +34,9 @@
    <addaction name="actionStopPlugin"/>
    <addaction name="actionStartPlugin"/>
    <addaction name="actionDeleteFactory"/>
+   <addaction name="actionClone"/>
+   <addaction name="actionShowCloneObj"/>
+   <addaction name="actionVectorTest"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionStopPlugin">
@@ -49,6 +52,21 @@
   <action name="actionDeleteFactory">
    <property name="text">
     <string>deleteFactory</string>
+   </property>
+  </action>
+  <action name="actionClone">
+   <property name="text">
+    <string>clone</string>
+   </property>
+  </action>
+  <action name="actionShowCloneObj">
+   <property name="text">
+    <string>showCloneObj</string>
+   </property>
+  </action>
+  <action name="actionVectorTest">
+   <property name="text">
+    <string>vectorTest</string>
    </property>
   </action>
  </widget>

@@ -10,6 +10,8 @@
 
 #include <QDebug>
 #include <QDirIterator>
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
 
 PluginFrameworkMainWindow::PluginFrameworkMainWindow(QWidget *parent) :
   QMainWindow(parent),
@@ -81,11 +83,24 @@ PluginFrameworkMainWindow::PluginFrameworkMainWindow(QWidget *parent) :
         // 调用服务
         curves.append(service);
         service->sayHello();
+        for(int i=0;i<100;i++)
+        {
+          service->data.values.append(i);
+        }
 
       }
     }
   }
 
+  for(int i=0;i<100;i++)
+  {
+    vector.append(i);
+  }
+
+  QTreeWidget *tree=new QTreeWidget;
+  QString file="D:/Smart/ServoMaster/git-project/ServoDriveTech/ServoDriveTech/build/debug/custom/plugins/plot";
+  loadFiles(file,tree,NULL);
+  tree->show();
 }
 
 PluginFrameworkMainWindow::~PluginFrameworkMainWindow()
@@ -155,4 +170,72 @@ void PluginFrameworkMainWindow::on_actionDeleteFactory_triggered()
     curves.at(i)->sayHello();
 //    delete curves.at(i);
   }
+}
+
+void PluginFrameworkMainWindow::on_actionClone_triggered()
+{
+  for(int i=0;i<curves.size();i++)
+  {
+    IPlotCurve *curve=curves.at(i)->clone();
+    cloneCurves.append(curve);
+    qDebug()<<"size"<<curve->data.values.size();
+    for(int i=0;i<curve->data.values.size();i++)
+      qDebug()<<curve->data.values.at(i);
+  }
+}
+
+void PluginFrameworkMainWindow::on_actionShowCloneObj_triggered()
+{
+  for(int i=0;i<cloneCurves.size();i++)
+  {
+   cloneCurves.at(i)->sayHello();
+  }
+}
+
+QVector<double> &PluginFrameworkMainWindow::vec()
+{
+  return vector;
+}
+
+void PluginFrameworkMainWindow::on_actionVectorTest_triggered()
+{
+    QVector<double> &v=vec();
+    for(int i=0;i<v.size();i++)
+    {
+      qDebug()<<v.at(i);
+    }
+    for(int i=0;i<100;i++)
+    {
+      v.append(100+i);
+    }
+    qDebug()<<"after";
+    for(int i=0;i<vector.size();i++)
+    {
+      qDebug()<<vector.at(i);
+    }
+}
+
+void PluginFrameworkMainWindow::loadFiles(QString path, QTreeWidget *treewidget, QTreeWidgetItem *item)
+{
+    QDir dir(path);
+    if (!dir.exists()) return;
+
+    dir.setFilter(QDir::Dirs | QDir::Files | QDir::NoSymLinks);
+    QFileInfoList list = dir.entryInfoList();
+    int size = list.size();
+    for (int i = 0; i < size; i++) {
+        QFileInfo info = list.at(i);
+        if (info.fileName() == "." || info.fileName() == "..") continue;
+
+        if (info.isDir()) {
+            QTreeWidgetItem *fileItem = new QTreeWidgetItem(QStringList() << info.fileName(), 0);  //0表示目录
+            if (treewidget == NULL) item->addChild(fileItem);
+            else treewidget->addTopLevelItem(fileItem);
+            loadFiles(info.filePath(), NULL, fileItem);
+        } else {
+            QTreeWidgetItem *fileItem = new QTreeWidgetItem(QStringList() << info.fileName(), 1);   //1表示是文件
+            if (treewidget == NULL) item->addChild(fileItem);
+            else treewidget->addTopLevelItem(fileItem);
+        }
+    }
 }

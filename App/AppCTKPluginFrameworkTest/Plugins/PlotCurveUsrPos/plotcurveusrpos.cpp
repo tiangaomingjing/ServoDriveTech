@@ -11,8 +11,20 @@ PlotCurveUsrPos::PlotCurveUsrPos(ctkPluginContext *context)
   context->registerService<IPlotCurve>(this,dic);
 }
 
+PlotCurveUsrPos::PlotCurveUsrPos()
+{
+
+}
+
 void PlotCurveUsrPos::sayHello()
 {
   qDebug()<<"PlotCurveUsrPos HelloWorld";
+}
+
+IPlotCurve *PlotCurveUsrPos::clone()
+{
+  IPlotCurve *c=new PlotCurveUsrPos;
+  c->data=this->data;
+  return c;
 }
 
