@@ -688,18 +688,30 @@ QWidget#widget_frameWidget {
 QWidget#widget_plot_up{
 	background-color:#F0F0F0;
 } 
-QWidget#widget_plot_up QToolButton:hover{
+QWidget#widget_plot_up  QToolButton:hover{
 	background-color:#BBB9B9;
-	color:white;
 } 
 QWidget#widget_plot_up QToolButton:hover:pressed{
 	background-color:gray;
-	color:white;
 } 
 QWidget#widget_plot_up QToolButton{
 	background-color:transparent;
 	min-width:40px;
 } 
+
+QWidget#widget_plotGraph_right QToolButton:hover{
+	background-color:#BBB9B9;
+} 
+QWidget#widget_plotGraph_right QToolButton:hover:pressed{
+	background-color:gray;
+} 
+QWidget#widget_plotGraph_right QToolButton{
+	background-color:transparent;
+	min-width:40px;
+	color:black;
+} 
+
+
 QToolButton#tbtn_plot_servoOnMode,QToolButton#tbtn_plot_servoGoMotion{
 	background-color:transparent
 	
@@ -708,5 +720,9 @@ QToolButton#tbtn_plot_servoOnMode:hover,QToolButton#tbtn_plot_servoGoMotion:hove
 	border:1px solid gray;
 	border-radius:50px;
 	
+}
+QTableWidget{
+	border:none;
+	background-color:lightgray;
 }
 	

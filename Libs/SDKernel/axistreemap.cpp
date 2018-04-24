@@ -45,6 +45,8 @@ AxisTreeMap::AxisTreeMap(quint8 axis, const QTreeWidgetItem *targetTree, const Q
     Q_ASSERT(tree);
 
     m_axisTreeList.append(tree);
+
+    m_nameTrees.insert(item->text(GT::COL_TARGET_CONFIG_NAME),tree);
   }
 }
 
@@ -52,5 +54,6 @@ AxisTreeMap::~AxisTreeMap()
 {
   qDebug()<<m_axis<<" AxisTreeMap-->destruct";
   GT::deepClearList(m_axisTreeList);
+  m_nameTrees.clear();
 //  GT::deepClearList(m_globalTreeList);
 }

@@ -1,6 +1,7 @@
 ﻿#ifndef ICURVE_H
 #define ICURVE_H
 
+#include "icurve_global.h"
 #include <QObject>
 #include <QVector>
 #include <QHash>
@@ -39,7 +40,7 @@ public:
   QVector<double>datas;
 };
 class QTreeWidgetItem;
-class ICurve
+class ICURVESHARED_EXPORT ICurve
 {
 public:
   virtual ~ICurve();
@@ -79,9 +80,6 @@ public:
   int rowInx() const;
   void setRowInx(int rowInx);
 
-  CurveData m_cData;
-  CurveData m_sData;
-
   int devInx() const;
   void setDevInx(int devInx);
 
@@ -89,11 +87,20 @@ public:
   void setDevName(const QString &devName);
 
   double samplInterval() const;
-  void setSamplInterval(double samplInterval);
+  void setSamplInterval(double samplIntervalUS);
 
   void adjustData();
 
   void setStorePointCount(qint32 storePointCount);
+
+  int axisInx() const;
+  void setAxisInx(int axisInx);
+
+  QColor color() const;
+  void setColor(const QColor &color);
+
+  bool isDraw() const;
+  void setIsDraw(bool isDraw);
 
 protected:
 
@@ -117,6 +124,8 @@ protected:
   QList<CurveVar>m_varInputs;
   QHash<QString,double> m_units;
 
+  CurveData m_cData;
+  CurveData m_sData;
 
   QString m_pluginName;
 };

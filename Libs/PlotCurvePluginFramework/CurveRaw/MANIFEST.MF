@@ -1,4 +1,4 @@
-﻿Plugin-SymbolicName: PlotCurveRaw
+﻿Plugin-SymbolicName: CurveRaw
 Plugin-ActivationPolicy: eager
 Plugin-Category: Demos
 Plugin-ContactAddress: https://github.com/Waleon

@@ -437,6 +437,12 @@ QTreeWidget *SevDevice::axisTreeSource(int axis,int page) const
   Q_D(const SevDevice);
   return d->m_dspMap->axisTreeWidget(axis,page);
 }
+
+QTreeWidget *SevDevice::axisTreeSource(int axis, const QString &name) const
+{
+  Q_D(const SevDevice);
+  return d->m_dspMap->axisTreeWidget(axis,name);
+}
 QTreeWidget *SevDevice::globalTreeSource(int page) const
 {
   Q_D(const SevDevice);

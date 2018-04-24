@@ -2,6 +2,7 @@
 #include "ui_tabctlpanel129.h"
 #include "sevdevice.h"
 #include "gtutils.h"
+#include "Option"
 
 #include <QDebug>
 #include <QKeyEvent>
@@ -35,6 +36,9 @@ TabCtlPanel129::TabCtlPanel129(SevDevice *sev, QWidget *parent) : QWidget(parent
 
   ui->tbtn_plot_servoOnMode->setCheckable(true);
   ui->tbtn_plot_servoGoMotion->setCheckable(true);
+
+  OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
+  setupIcons(face->css());
 
   //tab motion
   ui->stackedWidget_vel_plan->setCurrentIndex(0);

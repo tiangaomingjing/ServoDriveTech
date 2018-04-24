@@ -45,6 +45,8 @@ public:
   static QTreeWidgetItem* findItem(const QString &text, QTreeWidget* tree, int col);
   static QTreeWidgetItem* findItemInItem(const QString &text, QTreeWidgetItem* tree, int col);
 
+  static int byteNumbers(const QString &str);
+
 private:
   inline static QString sdtPath();
 };

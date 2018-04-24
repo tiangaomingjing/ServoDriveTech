@@ -16,6 +16,8 @@ void ICurve::prepare()
   m_sData.keys.append(0);
   m_sData.values.append(0);
   m_k=1;
+  m_isDraw=true;
+  m_color=QColor(Qt::black);
 }
 
 void ICurve::exec()
@@ -36,7 +38,7 @@ void ICurve::setNote(const QString &note)
 
 QString ICurve::displayName()
 {
-  return QObject::tr("%1.%2").arg(m_name).arg(m_note);
+  return QObject::tr("%1.%2").arg(m_name).arg(m_unitName);
 }
 
 QString ICurve::fullName()
@@ -113,9 +115,9 @@ double ICurve::samplInterval() const
   return m_samplInterval;
 }
 
-void ICurve::setSamplInterval(double samplInterval)
+void ICurve::setSamplInterval(double samplIntervalUS)
 {
-  m_samplInterval = samplInterval;
+  m_samplInterval = samplIntervalUS;
 }
 
 void ICurve::adjustData()
@@ -144,6 +146,36 @@ void ICurve::adjustData()
 void ICurve::setStorePointCount(qint32 storePointCount)
 {
   m_storePointCount = storePointCount;
+}
+
+int ICurve::axisInx() const
+{
+    return m_axisInx;
+}
+
+void ICurve::setAxisInx(int axisInx)
+{
+    m_axisInx = axisInx;
+}
+
+QColor ICurve::color() const
+{
+  return m_color;
+}
+
+void ICurve::setColor(const QColor &color)
+{
+  m_color = color;
+}
+
+bool ICurve::isDraw() const
+{
+  return m_isDraw;
+}
+
+void ICurve::setIsDraw(bool isDraw)
+{
+  m_isDraw = isDraw;
 }
 
 QStringList ICurve::constInputKeys()

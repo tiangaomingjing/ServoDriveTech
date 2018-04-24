@@ -18,10 +18,10 @@ CONFIG(debug,debug|release){
 DESTDIR=$$PLOT_PLUGINS_PATH/expert
 
 SOURCES += curveraw.cpp \
-    ../ICurve/icurve.cpp
+    curverawactivator.cpp
 
 HEADERS += curveraw.h \
-    ../ICurve/icurve.h
+    curverawactivator.h
 
 unix {
     target.path = /usr/lib

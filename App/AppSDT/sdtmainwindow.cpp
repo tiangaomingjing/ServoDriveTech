@@ -778,7 +778,8 @@ void SDTMainWindow::onActnNewConfigClicked()
 {
   QList<DeviceConfig *>list;
   ConfigDialog dia(&list,0);
-  dia.exec();
+  if(QDialog::Rejected==dia.exec())
+     return;
   m_statusBar->statusProgressBar()->setVisible(true);
   m_statusBar->statusProgressBar()->setValue(0);
   updateSDTMainUiByConfigList(list);

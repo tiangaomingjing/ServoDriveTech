@@ -18,8 +18,11 @@ public:
 
   void calculate() Q_DECL_OVERRIDE;
 
-  QString name() Q_DECL_OVERRIDE {return QString("");}
-  QString note() Q_DECL_OVERRIDE {return QString("");}
+  QString name() Q_DECL_OVERRIDE {return QString("abc");}
+  QString note() Q_DECL_OVERRIDE {return QString("efg");}
+
+  QString displayName() Q_DECL_OVERRIDE;
+  QString fullName() Q_DECL_OVERRIDE;
 };
 
 #endif // CURVERAW_H

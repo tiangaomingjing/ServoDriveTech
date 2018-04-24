@@ -16,6 +16,14 @@ QTreeWidget *IDspMap::axisTreeWidget(int axis,int page) const
   return m_axisTreeMapList.at(axis)->m_axisTreeList.at(page);
 }
 
+QTreeWidget *IDspMap::axisTreeWidget(int axis, const QString &name) const
+{
+  QTreeWidget *tree=NULL;
+  if(m_axisTreeMapList.at(axis)->m_nameTrees.contains(name))
+    tree = m_axisTreeMapList.at(axis)->m_nameTrees.value(name);
+  return tree;
+}
+
 QTreeWidget *IDspMap::globalTreeWidget(int page) const
 {
   if(page<m_globalTreeList.count())

@@ -2,4 +2,5 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     ICurve \
-    CurveRaw
+    CurveRaw \
+    PluginsManager

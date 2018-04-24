@@ -34,6 +34,16 @@ typedef enum{
   ROW_TARGET_CONFIG_GLOBAL
 }TargetConfigRow;
 
+typedef enum{
+  COL_FLASH_RAM_TREE_NAME,
+  COL_FLASH_RAM_TREE_VALUE,
+  COL_FLASH_RAM_TREE_TYPE,
+  COL_FLASH_RAM_TREE_OFFSET,
+  COL_FLASH_RAM_TREE_ISBIT,
+  COL_FLASH_RAM_TREE_BITSTART,
+  COL_FLASH_RAM_TREE_BITWIDTH
+}FlashRamColumn;
+
 template <typename T>
 static void deepClearList(QList<T*>&list)
 {

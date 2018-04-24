@@ -398,6 +398,9 @@
            </item>
            <item>
             <widget class="QStackedWidget" name="stackedWidget_tabCtlPanel">
+             <property name="currentIndex">
+              <number>0</number>
+             </property>
              <widget class="QWidget" name="page_7"/>
              <widget class="QWidget" name="page_8"/>
             </widget>
@@ -410,7 +413,7 @@
      </widget>
      <widget class="QWidget" name="widget_plotGraph_right" native="true">
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(170, 170, 127);</string>
+       <string notr="true"/>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <property name="leftMargin">
@@ -430,7 +433,7 @@
          <item>
           <widget class="QLabel" name="label_11">
            <property name="text">
-            <string>Sampling(X 62.5us):</string>
+            <string>Sampling(62.5us X):</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -513,6 +516,12 @@
         <layout class="QHBoxLayout" name="horizontalLayout_5">
          <item>
           <widget class="QToolButton" name="tbtn_plot_curveAll">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="minimumSize">
             <size>
              <width>30</width>
@@ -522,10 +531,19 @@
            <property name="text">
             <string>All</string>
            </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonTextUnderIcon</enum>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QToolButton" name="tbtn_plot_curveAdd">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="minimumSize">
             <size>
              <width>30</width>
@@ -535,10 +553,19 @@
            <property name="text">
             <string>add</string>
            </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonTextUnderIcon</enum>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QToolButton" name="tbtn_plot_curveRemove">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="minimumSize">
             <size>
              <width>30</width>
@@ -548,10 +575,19 @@
            <property name="text">
             <string>rev</string>
            </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonTextUnderIcon</enum>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QToolButton" name="tbtn_plot_curveClear">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="minimumSize">
             <size>
              <width>30</width>
@@ -560,6 +596,9 @@
            </property>
            <property name="text">
             <string>clr</string>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonTextUnderIcon</enum>
            </property>
           </widget>
          </item>

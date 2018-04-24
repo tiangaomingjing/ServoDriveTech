@@ -64,6 +64,7 @@ public:
   DeviceConfig *deviceConfig() const;
   QTreeWidgetItem* targetTree() const;
   QTreeWidget *axisTreeSource(int axis,int page) const;
+  QTreeWidget *axisTreeSource(int axis,const QString&name) const;
   QTreeWidget *globalTreeSource(int page) const;
 
   void setVersionAttributeActive();

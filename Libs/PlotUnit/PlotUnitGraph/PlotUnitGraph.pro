@@ -3,7 +3,7 @@
 # Project created by QtCreator 2018-03-28T17:06:00
 #
 #-------------------------------------------------
-
+include(../../PlotCurvePluginFramework/ctkplugins.pri)
 QT       += widgets printsupport
 
 QT       -= gui
@@ -18,7 +18,12 @@ INCLUDEPATH +=$${MYLIB_PATH}/UI/IUiWidget\
               $${MYLIB_PATH}/GTUtils\
               $${MYLIB_PATH}/SDKernel\
               $${PWD}/../../../Common/src/SdtGlobal\
-              $${PWD}/../IPlotUnit
+              $${PWD}/../IPlotUnit\
+              $${PWD}/../../PlotCurvePluginFramework/ICurve\
+              $${PWD}/../../PlotCurvePluginFramework/PluginsManager\
+              $${PWD}/DialogPickCurve\
+              $${PWD}/CurveManager
+
 
 CONFIG(debug, debug|release){
 
@@ -55,7 +60,10 @@ SOURCES += \
     qcpitemmeasure.cpp \
     qcustomplot.cpp \
     tabctlpanel129.cpp \
-    pcurve.cpp
+    ../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.cpp \
+    DialogPickCurve/dialogpickcurve.cpp \
+    CurveManager/curvemanager.cpp \
+    CurveManager/curvetableaxisitem.cpp
 
 HEADERS += \
         plotunitgraph_global.h \
@@ -69,7 +77,10 @@ HEADERS += \
     qcustomplot.h \
     tabctlpanel129.h \
     plottabctlprms.h \
-    pcurve.h
+    ../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.h \
+    DialogPickCurve/dialogpickcurve.h \
+    CurveManager/curvemanager.h \
+    CurveManager/curvetableaxisitem.h
 
 unix {
     target.path = /usr/lib
@@ -78,6 +89,7 @@ unix {
 
 FORMS += \
     plotunitgraph129.ui\
-    tabctlpanel129.ui
+    tabctlpanel129.ui \
+    DialogPickCurve/dialogpickcurve.ui
 
 TRANSLATIONS    += ch_plotunit.ts en_plotunit.ts

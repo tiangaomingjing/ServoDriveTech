@@ -10,11 +10,19 @@ class PlotUnitGraph129;
 }
 class PlotUnitGraph129Private;
 class QCustomPlot;
+class QTreeWidgetItem;
+class QTableWidget;
+class ICurve;
+class QTableWidgetItem;
 
 class PLOTUNITGRAPHSHARED_EXPORT PlotUnitGraph129 : public IPlotUnitGraph
 {
   Q_OBJECT
   Q_DECLARE_PRIVATE(PlotUnitGraph129)
+  Q_PROPERTY(QColor curveShowColor READ curveShowColor WRITE setCurveShowColor)
+  Q_PROPERTY(QColor curveBackShowColor READ curveBackShowColor WRITE setCurveBackShowColor)
+  Q_PROPERTY(QColor curveHideColor READ curveHideColor WRITE setCurveHideColor)
+  Q_PROPERTY(QColor curveBackHideColor READ curveBackHideColor WRITE setCurveBackHideColor)
 
 public:
   explicit PlotUnitGraph129(const QList<SevDevice *> &sevList,QWidget *parent = 0);
@@ -22,14 +30,19 @@ public:
 
   void respondUiActive(bool actived) Q_DECL_OVERRIDE;
 
+  QColor curveShowColor() const ;
+  void setCurveShowColor(const QColor &color);
+  QColor curveBackShowColor() const;
+  void setCurveBackShowColor(const QColor &color);
+  QColor curveHideColor() const;
+  void setCurveHideColor(const QColor &color);
+  QColor curveBackHideColor() const;
+  void setCurveBackHideColor(const QColor &color);
+
 public slots:
   void onSevDeviceListChanged(const QList<SevDevice *> &sevlist) Q_DECL_OVERRIDE;
 
-//protected:
-//  bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
-
 private slots:
-//  void onPushButtonTestClicked(bool checked);
   void onBtnFloatInClicked(bool checked);
   void onOptFaceCssChanged(const QString &css);
 
@@ -42,10 +55,17 @@ private slots:
   void onPlotMeaHposChanged(qreal v1, qreal v2, qreal dv);
 
   void onTimeOut();
-
-//  void onModeCtlPanelCheckChanged(quint16 axis,int mode);
-//  void onModeCtlPanelModeChanged(quint16 axis,int mode);
   void onListWidgetDeviceCurrentRowChanged(int row);
+
+  //曲线选择相关
+  void onBtnCurveAddClicked();
+  void onExpertTreeWidgetDoubleClicked(QTableWidget *table,QTreeWidgetItem *item);
+  void onBtnCurveRemoveClicked();
+  void onBtnCurveClearClicked();
+  void onBtnCurveShowAllClicked();
+  void onCurveTableItemClicked(QTableWidgetItem * item);
+  void onCurveTableItemDoubleClicked(QTableWidgetItem * item);
+  void onCurveTableItemEnteredMoreDetail(QTableWidgetItem * item);//鼠标悬停，可以显示详细的名称
 
 private:
   void createConnections();
@@ -56,6 +76,10 @@ private:
 
   void setupSimpleDemo(QCustomPlot *customPlot);//test
   void setTimerStatus();
+
+  SevDevice *currentSevDevice() const;
+  void addTableRowPrm(ICurve *curve);
+
 
 private:
   Ui::PlotUnitGraph129 *ui;
