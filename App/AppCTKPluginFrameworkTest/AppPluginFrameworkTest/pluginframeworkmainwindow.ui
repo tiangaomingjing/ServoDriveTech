@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PluginFrameworkMainWindow</class>
+ <widget class="QMainWindow" name="PluginFrameworkMainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>534</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>PluginFrameworkMainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>534</width>
+     <height>23</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionStopPlugin"/>
+   <addaction name="actionStartPlugin"/>
+   <addaction name="actionDeleteFactory"/>
+   <addaction name="actionClone"/>
+   <addaction name="actionShowCloneObj"/>
+   <addaction name="actionVectorTest"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionStopPlugin">
+   <property name="text">
+    <string>stopPlugin</string>
+   </property>
+  </action>
+  <action name="actionStartPlugin">
+   <property name="text">
+    <string>startPlugin</string>
+   </property>
+  </action>
+  <action name="actionDeleteFactory">
+   <property name="text">
+    <string>deleteFactory</string>
+   </property>
+  </action>
+  <action name="actionClone">
+   <property name="text">
+    <string>clone</string>
+   </property>
+  </action>
+  <action name="actionShowCloneObj">
+   <property name="text">
+    <string>showCloneObj</string>
+   </property>
+  </action>
+  <action name="actionVectorTest">
+   <property name="text">
+    <string>vectorTest</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

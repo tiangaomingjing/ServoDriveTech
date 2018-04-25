@@ -3,7 +3,7 @@
 # Project created by QtCreator 2018-03-28T17:06:00
 #
 #-------------------------------------------------
-
+include(../../PlotCurvePluginFramework/ctkplugins.pri)
 QT       += widgets printsupport
 
 QT       -= gui
@@ -20,6 +20,11 @@ INCLUDEPATH +=$${MYLIB_PATH}/UI/IUiWidget\
               $${PWD}/../../../Common/src/SdtGlobal\
               $${PWD}/../IPlotUnit\
               $${PWD}/../../Com/Communication\
+              $${PWD}/../../PlotCurvePluginFramework/ICurve\
+              $${PWD}/../../PlotCurvePluginFramework/PluginsManager\
+              $${PWD}/DialogPickCurve\
+              $${PWD}/CurveManager\
+              $${PWD}/ThreadSample
 
 CONFIG(debug, debug|release){
 
@@ -54,7 +59,13 @@ SOURCES += \
     modectlpanel.cpp \
     qcpitemhandletag.cpp \
     qcpitemmeasure.cpp \
-    qcustomplot.cpp
+    qcustomplot.cpp \
+    tabctlpanel129.cpp \
+    ../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.cpp \
+    DialogPickCurve/dialogpickcurve.cpp \
+    CurveManager/curvemanager.cpp \
+    CurveManager/curvetableaxisitem.cpp \
+    ThreadSample/threadsample.cpp
 
 HEADERS += \
         plotunitgraph_global.h \
@@ -65,7 +76,14 @@ HEADERS += \
     modectlpanel.h \
     qcpitemhandletag.h \
     qcpitemmeasure.h \
-    qcustomplot.h
+    qcustomplot.h \
+    tabctlpanel129.h \
+    plottabctlprms.h \
+    ../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.h \
+    DialogPickCurve/dialogpickcurve.h \
+    CurveManager/curvemanager.h \
+    CurveManager/curvetableaxisitem.h \
+    ThreadSample/threadsample.h
 
 unix {
     target.path = /usr/lib
@@ -73,6 +91,8 @@ unix {
 }
 
 FORMS += \
-    plotunitgraph129.ui
+    plotunitgraph129.ui\
+    tabctlpanel129.ui \
+    DialogPickCurve/dialogpickcurve.ui
 
 TRANSLATIONS    += ch_plotunit.ts en_plotunit.ts

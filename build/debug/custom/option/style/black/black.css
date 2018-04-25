@@ -693,16 +693,74 @@ QWidget#widget_frameWidget {
 QWidget#widget_plot_up{
 	background-color:#F0F0F0;
 } 
-QWidget#widget_plot_up QToolButton:hover{
+QWidget#widget_plot_up  QToolButton:hover{
 	background-color:#BBB9B9;
-	color:white;
 } 
 QWidget#widget_plot_up QToolButton:hover:pressed{
 	background-color:gray;
-	color:white;
 } 
 QWidget#widget_plot_up QToolButton{
 	background-color:transparent;
 	min-width:40px;
 } 
+
+QWidget#widget_plotGraph_right QToolButton:hover{
+	background-color:#BBB9B9;
+} 
+QWidget#widget_plotGraph_right QToolButton:hover:pressed{
+	background-color:gray;
+} 
+QWidget#widget_plotGraph_right QToolButton{
+	background-color:transparent;
+	min-width:40px;
+	color:black;
+} 
+
+
+QToolButton#tbtn_plot_servoOnMode,QToolButton#tbtn_plot_servoGoMotion{
+	background-color:transparent
+	
+}
+QToolButton#tbtn_plot_servoOnMode:hover,QToolButton#tbtn_plot_servoGoMotion:hover{
+	border:1px solid gray;
+	border-radius:50px;
+	
+}
+QTableWidget{
+	border:none;
+	background-color:lightgray;
+}
+QWidget#widget_plotGraph_right  QComboBox{
+	border-radius: 3px;
+	margin:0px;
+	padding-bottom:0px;
+	padding-top:0px;
+	padding-left:10px;
+	padding-right:0px;
+	border: none;
+	background-color:transparent;
+}
+QWidget#widget_plotGraph_right  QComboBox:hover{
+	border-radius: 3px;
+	padding-bottom:0px;
+	padding-top:0px;
+	padding-left:10px;
+	padding-right:0px;
+	border: 1px solid #636363;
+	background-color: gray;
+}
+QWidget#widget_plotGraph_right  QComboBox::drop-down{
+	subcontrol-origin: padding;
+	subcontrol-position: top right;
+	width: 15px; 
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-left-color: transparent;
+}
+QWidget#widget_plotGraph_right QComboBox::down-arrow{
+ 
+	image: url(../custom/option/style/black/icon/array_down.png);
+}
 	

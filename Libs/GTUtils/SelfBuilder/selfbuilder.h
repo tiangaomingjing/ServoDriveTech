@@ -1,15 +1,29 @@
-#ifndef SELFBUILDER_H
+﻿#ifndef SELFBUILDER_H
 #define SELFBUILDER_H
 
 #include <QObject>
 
-
-#include "builderparameters.h"
 #include "gtutils_global.h"
 #include "icom.h"
 
 class QTreeWidgetItem;
 class SelfBuilderPrivate;
+
+class GTUTILSSHARED_EXPORT BuilderParameters : public QObject {
+      Q_OBJECT
+public:
+    int m_pwrId;
+    int m_ctrId;
+    QString m_version;
+
+    explicit BuilderParameters(QObject *parent = 0, int pwrID = 0, int ctrID = 0, const QString &version = "V0"):QObject(parent),
+    m_pwrId(pwrID),
+    m_ctrId(ctrID),
+    m_version(version)
+    {
+    }
+
+};
 
 namespace ComDriver {
   class ICom;

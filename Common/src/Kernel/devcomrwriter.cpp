@@ -185,7 +185,7 @@ DeviceConfig* DevComRWriter::buildConfigFromCom(void (*processCallback)(void *pb
   if(pok&&cok&&vok&&fok)
   {
     config=new DeviceConfig(0);
-    BuilderParameters *para = new BuilderParameters(pid, cid, version);
+    BuilderParameters *para = new BuilderParameters(this, pid, cid, version);
     SelfBuilder *builder = new SelfBuilder(com);
     connect(builder, SIGNAL(sendProcessInfo(int,QString)), this, SIGNAL(sendDevProcessInfo(int,QString)));
     SelfBuilder::Rtn_Self rtn = builder->buildFromEprom(processCallback, processbar, para);
@@ -195,6 +195,8 @@ DeviceConfig* DevComRWriter::buildConfigFromCom(void (*processCallback)(void *pb
     } else {
         emit sendDevProcessInfo(0, tr("Building Finished!"));
     }
+    delete builder;
+
     config->m_pwrId= pid;
     config->m_ctrId= cid;
     config->m_version=version;

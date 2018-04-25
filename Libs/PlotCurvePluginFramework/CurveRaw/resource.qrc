@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/CurveRawd/META-INF">
+        <file>MANIFEST.MF</file>
+    </qresource>
+    <qresource prefix="/CurveRaw/META-INF">
+        <file>MANIFEST.MF</file>
+    </qresource>
+</RCC>

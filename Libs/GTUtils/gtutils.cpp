@@ -154,6 +154,20 @@ QTreeWidgetItem* GTUtils::findItemInItem(const QString &text, QTreeWidgetItem* t
     return result;
 }
 
+int GTUtils::byteNumbers(const QString &str)
+{
+  int num;
+  if(str.contains("16"))
+    num=2;
+  else if(str.contains("32"))
+    num=4;
+  else if(str.contains("64"))
+    num=8;
+  else
+    num=2;
+  return num;
+}
+
 //--------------------private function-------------------------------
 QString GTUtils::sdtPath()
 {

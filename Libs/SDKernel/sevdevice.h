@@ -65,6 +65,7 @@ public:
   QString versionName()const;
 
   quint32 devId() const;
+  void resetDevId(quint32 id);
   quint32 pwrId() const ;
   quint32 ctrId() const;
   quint32 fpgaId() const ;
@@ -72,6 +73,7 @@ public:
   DeviceConfig *deviceConfig() const;
   QTreeWidgetItem* targetTree() const;
   QTreeWidget *axisTreeSource(int axis,int page) const;
+  QTreeWidget *axisTreeSource(int axis,const QString&name) const;
   QTreeWidget *globalTreeSource(int page) const;
 
   void setVersionAttributeActive();

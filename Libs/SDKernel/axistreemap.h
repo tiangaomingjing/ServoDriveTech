@@ -2,6 +2,7 @@
 #define AXISTREEMAP_H
 
 #include <QObject>
+#include <QHash>
 class QTreeWidget;
 class QTreeWidgetItem;
 class AxisTreeMap : public QObject
@@ -11,7 +12,7 @@ public:
   explicit AxisTreeMap(quint8 axis, const QTreeWidgetItem *targetTree, const QString &filePath, QObject *parent = 0);
   ~AxisTreeMap();
 
-
+  QHash<QString ,QTreeWidget *>m_nameTrees;
   QList<QTreeWidget *>m_axisTreeList;
   quint8 m_axis;
 

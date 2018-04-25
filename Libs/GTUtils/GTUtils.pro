@@ -52,7 +52,6 @@ HEADERS +=\
     gtutils.h \
     DeviceIdHelper/deviceidhelper.h \
     SelfBuilder/selfbuilder.h \
-    BuilderParameters/builderparameters.h \
     BitItemHelper/bititemhelper.h \
     CmdManager/cmdmanager.h
 

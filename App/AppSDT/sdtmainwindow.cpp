@@ -778,7 +778,8 @@ void SDTMainWindow::onActnNewConfigClicked()
 {
   QList<DeviceConfig *>list;
   ConfigDialog dia(&list,0);
-  dia.exec();
+  if(QDialog::Rejected==dia.exec())
+     return;
   m_statusBar->statusProgressBar()->setVisible(true);
   m_statusBar->statusProgressBar()->setValue(0);
   updateSDTMainUiByConfigList(list);
@@ -1049,17 +1050,25 @@ void SDTMainWindow::createSdAssemblyListByDevConfig(const QList<DeviceConfig *> 
 
   GT::deepClearList(m_sdAssemblyList);
 
-  foreach (DeviceConfig *cfg, devConfigBuf)
+  for(int i=0;i<devConfigBuf.size();i++)
   {
-    qDebug()<<"new SdAssembly()";
+    DeviceConfig *cfg=devConfigBuf.at(i);
     currentSdAssembly=createSdAssembly(cfg);
     if(currentSdAssembly!=NULL)
     {
       sdAssemblyListTemp.append(currentSdAssembly);
     }
   }
-
   m_sdAssemblyList=sdAssemblyListTemp;
+
+  for(int i=0;i<m_sdAssemblyList.size();i++)
+  {
+    currentSdAssembly=m_sdAssemblyList.at(i);
+    currentSdAssembly->sevDevice()->resetDevId(i);
+    qDebug()<<"---------------------------------------------alias name "<<currentSdAssembly->sevDevice()->aliasName();
+  }
+
+
   qDebug()<<"after sdAssembly list count"<<m_sdAssemblyList.count();
 
 }
