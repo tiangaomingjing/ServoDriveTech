@@ -18,7 +18,8 @@ INCLUDEPATH +=$${MYLIB_PATH}/UI/IUiWidget\
               $${MYLIB_PATH}/GTUtils\
               $${MYLIB_PATH}/SDKernel\
               $${PWD}/../../../Common/src/SdtGlobal\
-              $${PWD}/../IPlotUnit
+              $${PWD}/../IPlotUnit\
+              $${PWD}/../../Com/Communication\
 
 CONFIG(debug, debug|release){
 

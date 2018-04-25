@@ -11,6 +11,8 @@ QT       -= gui
 INCLUDEPATH+=$${PWD}/../GTUtils\
             $${PWD}/../GTUtils/QtTreeManager\
             $${PWD}/../GTUtils/DeviceIdHelper\
+            $${PWD}/../GTUtils/IFRamManager\
+            $${PWD}/../GTUtils/CmdManager\
             $${PWD}/../Option\
             $${PWD}/../Com/Communication\
             $${PWD}/../../Common/src\

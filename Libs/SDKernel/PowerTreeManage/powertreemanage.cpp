@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <QMessageBox>
 #include "deviceconfig.h"
+#include "sdtglobaldef.h"
 #define INX_CURRENT_SAMPLING_TYPE_NAME  "axis.cur.sampling"
 #define INX_CURRENT_SAMPLING_RES_VALUE  "axis.cur.sampling.shunt.res.value"
 typedef enum{
@@ -20,20 +21,6 @@ typedef enum{
 typedef enum{
   DETINFO_ROW_INX_AXISNUM
 }DetailInfoRowInx;
-
-enum PwrColumnInx{
-  PWR_COL_INX_NAME,
-  PWR_COL_INX_VALUE,
-  PWR_COL_INX_UNIT,
-  PWR_COL_INX_SCALE,
-  PWR_COL_INX_DESCRIPTION,
-  PWR_COL_INX_TYPE,
-  PWR_COL_INX_ADDR,
-  PWR_COL_INX_CTLNAME,
-  PWR_COL_INX_CTLMAX,
-  PWR_COL_INX_CTLMIN,
-  PWR_COL_INX_UNIQUENAME
-};
 
 SamplingDataInfo::SamplingDataInfo()
 {
@@ -89,17 +76,17 @@ PowerTreeManage::PowerTreeManage(DeviceConfig *sev, QObject *parent) : QObject(p
     QString filePath = path + "pbindex.ui";
     qDebug()<<filePath;
     QTreeWidget *indexTree = QtTreeManager::createTreeWidgetFromXmlFile(filePath);
-    QTreeWidgetItem* targetItem = GTUtils::findItem(idStr, indexTree, PWR_COL_INX_VALUE);
+    QTreeWidgetItem* targetItem = GTUtils::findItem(idStr, indexTree, GT::COL_INDEX_VALUE);
     if (targetItem == NULL) {
         qDebug()<<"null";
         return;
     }
-    QString itemPath = path + getPath(targetItem) + "/" + idStr + "/" + idStr + ".ui";
+    QString itemPath = path + getPath(targetItem) + idStr + "/" + idStr + ".ui";
     qDebug()<<"itemPath "<<itemPath;
-    m_filterPath = path + getFilterPath(targetItem) + "/" + idStr + "/filter/";
+    m_filterPath = path + getFilterPath(targetItem) + idStr + "/filter/";
     qDebug()<<"filterPath"<<m_filterPath;
     m_powerTree = QtTreeManager::createTreeWidgetFromXmlFile(itemPath);
-    mp_pwrTarget = GTUtils::findItem(idStr, m_powerTree, PWR_COL_INX_VALUE);
+    mp_pwrTarget = GTUtils::findItem(idStr, m_powerTree, GT::COL_BOARDTREE_VALUE);
     delete indexTree;
 }
 
@@ -236,13 +223,13 @@ qDebug()<<*isOK;
     if(typeItem!=NULL)
     {
 //      qDebug()<<typeItem->text(0);
-      type=typeItem->text(PWR_COL_INX_VALUE).toUInt();
+      type=typeItem->text(GT::COL_BOARDTREE_VALUE).toUInt();
       if(type==1)//电阻采样
       {
         QTreeWidgetItem *dataItem=findItemByName(typeItem,QString(INX_CURRENT_SAMPLING_RES_VALUE));
         if(dataItem!=NULL)
         {
-          value=dataItem->text(PWR_COL_INX_VALUE).toDouble();
+          value=dataItem->text(GT::COL_BOARDTREE_VALUE).toDouble();
 //          qDebug()<<"type="<<type<<" value="<<value<<" "<<dataItem->text(PWR_COL_INX_UNIQUENAME);
         }
         else
@@ -270,12 +257,12 @@ qDebug()<<*isOK;
 
 void PowerTreeManage::insertLimit(QTreeWidgetItem *item, QMap<QString ,PowerBoardLimit> &limitMap)
 {
-  if((item->text(PWR_COL_INX_CTLNAME)!="null")&&(item->text(PWR_COL_INX_CTLNAME)!="") && m_filterList.contains(item->text(PWR_COL_INX_CTLNAME), Qt::CaseSensitive))
+  if((item->text(GT::COL_BOARDTREE_CTRNAME)!="null")&&(item->text(GT::COL_BOARDTREE_CTRNAME)!="") && m_filterList.contains(item->text(GT::COL_BOARDTREE_CTRNAME), Qt::CaseSensitive))
   {
-    QString name=item->text(PWR_COL_INX_CTLNAME);
+    QString name=item->text(GT::COL_BOARDTREE_CTRNAME);
     PowerBoardLimit limit;
-    limit.max=item->text(PWR_COL_INX_CTLMAX).toDouble();
-    limit.min=item->text(PWR_COL_INX_CTLMIN).toDouble();
+    limit.max=item->text(GT::COL_BOARDTREE_CTRMAX).toDouble();
+    limit.min=item->text(GT::COL_BOARDTREE_CTRMIN).toDouble();
     limitMap.insert(name,limit);
   }
   insertLimitRecursion(item, limitMap);
@@ -287,12 +274,12 @@ void PowerTreeManage::insertLimitRecursion(QTreeWidgetItem *item, QMap<QString, 
   for(int i=0;i<item->childCount();i++)
   {
     itemChild=item->child(i);
-    if((itemChild->text(PWR_COL_INX_CTLNAME)!="null")&&(itemChild->text(PWR_COL_INX_CTLNAME)!="") && m_filterList.contains(item->text(PWR_COL_INX_CTLNAME), Qt::CaseSensitive))
+    if((itemChild->text(GT::COL_BOARDTREE_CTRNAME)!="null")&&(itemChild->text(GT::COL_BOARDTREE_CTRNAME)!="") && m_filterList.contains(item->text(GT::COL_BOARDTREE_CTRNAME), Qt::CaseSensitive))
     {
-      QString name=itemChild->text(PWR_COL_INX_CTLNAME);
+      QString name=itemChild->text(GT::COL_BOARDTREE_CTRNAME);
       PowerBoardLimit limit;
-      limit.max=itemChild->text(PWR_COL_INX_CTLMAX).toDouble();
-      limit.min=itemChild->text(PWR_COL_INX_CTLMIN).toDouble();
+      limit.max=itemChild->text(GT::COL_BOARDTREE_CTRMAX).toDouble();
+      limit.min=itemChild->text(GT::COL_BOARDTREE_CTRMIN).toDouble();
       limitMap.insert(name,limit);
     }
     insertLimit(itemChild,limitMap);
@@ -303,7 +290,7 @@ QTreeWidgetItem *PowerTreeManage::findItemByName(QTreeWidgetItem *item,QString &
 {
 
   QTreeWidgetItem *targetItem=NULL;
-  if(item->text(PWR_COL_INX_UNIQUENAME)==targetName)
+  if(item->text(GT::COL_BOARDTREE_UNIQUENAME)==targetName)
   {
 //    qDebug()<<"find target :"<<item->text(0)<<item->text(PWR_COL_INX_UNIQUENAME);
     targetItem=item;
@@ -326,7 +313,7 @@ QTreeWidgetItem *PowerTreeManage::findItemByNameRecursion(QTreeWidgetItem *item,
 
     child=item->child(i);
 //    qDebug()<<tr("%1%2").arg(tr("----------------------------------------------------------").left(level)).arg(child->text(0))<<"finding.......";
-    if(child->text(PWR_COL_INX_UNIQUENAME)==targetName)
+    if(child->text(GT::COL_BOARDTREE_UNIQUENAME)==targetName)
     {
 //      qDebug()<<"find target"<<child->text(0)<<child->text(PWR_COL_INX_UNIQUENAME);
       target=child;
@@ -348,7 +335,7 @@ QString PowerTreeManage::getPath(QTreeWidgetItem *item) {
     QTreeWidgetItem *currentItem = item;
     while (count < 3) {
         currentItem = currentItem->parent();
-        result = currentItem->text(PWR_COL_INX_NAME) + "/" + result;
+        result = currentItem->text(GT::COL_INDEX_NAME) + "/" + result;
         count++;
     }
     //result = result + "/" + fileName;
@@ -362,7 +349,7 @@ QString PowerTreeManage::getFilterPath(QTreeWidgetItem *item) {
     QTreeWidgetItem *currentItem = item;
     while (count < 3) {
         currentItem = currentItem->parent();
-        result = currentItem->text(PWR_COL_INX_NAME) + "/" + result;
+        result = currentItem->text(GT::COL_INDEX_NAME) + "/" + result;
         count++;
     }
     //result = result + "/filter/";

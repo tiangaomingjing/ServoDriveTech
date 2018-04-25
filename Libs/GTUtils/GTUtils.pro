@@ -16,6 +16,8 @@ INCLUDEPATH+=$${PWD}/QtTreeManager\
              $${PWD}/../Com/Communication\
              $${PWD}/SelfBuilder\
              $${PWD}/BuilderParameters\
+             $${PWD}/BitItemHelper\
+             $${PWD}/CmdManager\
 
 QT +=designer
 QT       -= gui
@@ -41,7 +43,8 @@ SOURCES += \
     gtutils.cpp \
     DeviceIdHelper/deviceidhelper.cpp \
     SelfBuilder/selfbuilder.cpp \
-    BuilderParameters/builderparameters.cpp
+    BitItemHelper/bititemhelper.cpp \
+    CmdManager/cmdmanager.cpp
 
 HEADERS +=\
     QtTreeManager/qttreemanager.h \
@@ -49,7 +52,9 @@ HEADERS +=\
     gtutils.h \
     DeviceIdHelper/deviceidhelper.h \
     SelfBuilder/selfbuilder.h \
-    BuilderParameters/builderparameters.h
+    BuilderParameters/builderparameters.h \
+    BitItemHelper/bititemhelper.h \
+    CmdManager/cmdmanager.h
 
 unix {
     target.path = /usr/lib

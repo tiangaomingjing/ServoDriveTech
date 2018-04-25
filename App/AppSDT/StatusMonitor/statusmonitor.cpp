@@ -45,7 +45,7 @@ void StatusMonitor::stopMonitor()
 
 void StatusMonitor::onMonitorTimeOut()
 {
-  qDebug()<<"monitor timeout";
+  //qDebug()<<"monitor timeout";
   bool offline=true;
   foreach (SevDevice *dev, m_sevDeviceList)
   {

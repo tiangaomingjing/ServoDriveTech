@@ -1,6 +1,6 @@
 ﻿#ifndef ICOM_H
 #define ICOM_H
-#include <comglobal.h>
+#include "comglobal.h"
 
 using namespace std;
 

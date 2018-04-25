@@ -187,7 +187,14 @@ DeviceConfig* DevComRWriter::buildConfigFromCom(void (*processCallback)(void *pb
     config=new DeviceConfig(0);
     BuilderParameters *para = new BuilderParameters(pid, cid, version);
     SelfBuilder *builder = new SelfBuilder(com);
-    builder->buildFromEprom(processCallback, processbar, para);
+    connect(builder, SIGNAL(sendProcessInfo(int,QString)), this, SIGNAL(sendDevProcessInfo(int,QString)));
+    SelfBuilder::Rtn_Self rtn = builder->buildFromEprom(processCallback, processbar, para);
+    if (rtn != SelfBuilder::RTN_SELF_SUCCESS) {
+        emit sendDevProcessInfo(0, tr("Building fails %1").arg(QString::number(rtn)));
+        return config;
+    } else {
+        emit sendDevProcessInfo(0, tr("Building Finished!"));
+    }
     config->m_pwrId= pid;
     config->m_ctrId= cid;
     config->m_version=version;
@@ -211,14 +218,14 @@ DeviceConfig* DevComRWriter::buildConfigFromCom(void (*processCallback)(void *pb
 
     //加软件是否支持当前配置判断? 主要是查V129 V130 ...有没有在软件中
     //如果没有的话，自动选择一个比较新的版本（为了让客户用老的软件也可以调新的固件)
-    bool support=true;
-    support=checkSupport(config);
-    if(!support)
-    {
+//    bool support=true;
+//    support=checkSupport(config);
+//    if(!support)
+    //{
 //      delete config;
 //      config=NULL;
 //      SdtError::instance()->errorStringList()->append(tr("your software is too old ,not support the current device\nplease update from\n\nhttp://www.googoltech.com.cn\n"));
-    }
+    //}
   }
   else
   {
@@ -284,7 +291,7 @@ QTreeWidgetItem* DevComRWriter::findItemByText(QTreeWidgetItem*srcItem,const QSt
   while(*it)
   {
     item=(*it);
-    if(item->text(COL_NAME)==text)
+    if(item->text(GT::COL_CONFIG_NAME)==text)
     {
       targetItem=item;
       qDebug()<<"find target item "<<targetItem->text(0);

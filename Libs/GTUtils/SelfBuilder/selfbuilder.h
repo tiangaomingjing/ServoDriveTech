@@ -6,109 +6,70 @@
 
 #include "builderparameters.h"
 #include "gtutils_global.h"
-#include "../../Com/Communication/icom.h"
+#include "icom.h"
 
 class QTreeWidgetItem;
-
-enum SELFBUILDER_RTN{
-    SELFBUILDER_SUCCESS = 0,
-    SELFBUILDER_READPRODUCTERR = -1,
-    SELFBUILDER_READSERIESERR = -2,
-    SELFBUILDER_READAXISERR = -3,
-    SELFBUILDER_NOPRODUCT = -4,
-    SELFBUILDER_NEWMODEERR = -5,
-    SELFBUILDER_WRITETREEERR = -6,
-    SELFBUILDER_CREATEPATHERR = -7,
-    SELFBUILDER_COPYERR = -8,
-    SELFBUILDER_CREATETREEERR = -9,
-    SELFBUILDER_READXMLERR = -10,
-    SELFBUILDER_READTREEERR = -11
-};
-
-enum IDMAP {
-    IDMAP_ID = 0,
-    IDMAP_TYPE = 1,
-    IDMAP_MODE = 2,
-    IDMAP_NICK = 3,
-    IDMAP_AXISNUM = 4
-};
-
-enum CONFIGTREE {
-    CONFIG_NAME = 0,
-    CONFIG_PARAMETER = 1,
-    CONFIG_ID = 2,
-    CONFIG_PRMEX = 3
-};
-
-enum INDEXTREE {
-    INDEX_NAME = 0,
-    INDEX_VALUE = 1
-};
-
-enum TREE{
-    TREE_NAME = 0,
-    TREE_VALUE = 1,
-    TREE_SCALE = 3,
-    TREE_TYPE = 5,
-    TREE_ADDRESS = 6,
-};
+class SelfBuilderPrivate;
 
 namespace ComDriver {
   class ICom;
 }
 
-class GTUTILSSHARED_EXPORT SelfBuilder
+class GTUTILSSHARED_EXPORT SelfBuilder : public QObject
 {
+    Q_OBJECT
 public:
+    typedef enum {
+        RTN_SELF_SUCCESS = 0,
+        RTN_SELF_READPRODUCTERR = -1,
+        RTN_SELF_READSERIESERR = -2,
+        RTN_SELF_READAXISERR = -3,
+        RTN_SELF_NOPRODUCT = -4,
+        RTN_SELF_NEWMODEERR = -5,
+        RTN_SELF_WRITETREEERR = -6,
+        RTN_SELF_CREATEPATHERR = -7,
+        RTN_SELF_COPYERR = -8,
+        RTN_SELF_CREATETREEERR = -9,
+        RTN_SELF_READXMLERR = -10,
+        RTN_SELF_READTREEERR = -11
+    }Rtn_Self;
+
     SelfBuilder(ComDriver::ICom *com);
-    SELFBUILDER_RTN buildFromEprom(void (*processCallback)(void *pbar,short *value), void *processbar, BuilderParameters *parameters);
+    SelfBuilder::Rtn_Self buildFromEprom(void (*processCallback)(void *pbar,short *value), void *processbar, BuilderParameters *parameters);
+signals:
+    void sendProcessInfo(int value, const QString &msg);
 private:
-    QString m_modeName;
-    QString m_typeName;
-    int m_axisNum;
-    QString m_product;
-    QString m_series;
-    QString m_powerID;
-    QString m_controlID;
-    QString m_version;
-    ComDriver::ICom *m_com;
-    ComDriver::IComType m_type;
-    QString m_newestMode;
-    QString m_newestType;
-    QString m_newestID;
-    QString m_newestVersion;
-    bool m_modeCreated;
+    SelfBuilderPrivate *dd;
+
 private:
-    SELFBUILDER_RTN buildPower(void (*processCallback)(void *, short *), void *processbar);
-    SELFBUILDER_RTN buildControl();
-    SELFBUILDER_RTN initParameters();
+    SelfBuilder::Rtn_Self buildPower(void (*processCallback)(void *, short *), void *processbar);
+    SelfBuilder::Rtn_Self buildControl();
+    SelfBuilder::Rtn_Self initParameters();
     bool idExisted(const QString &id, const QString &path);
     bool versionExisted(const QString &ver, const QString &path);
     bool ctrVerExisted(const QString &ver, const QString &path);
-    SELFBUILDER_RTN addModeToIdMap(const QString &id, const QString &path);
+    SelfBuilder::Rtn_Self addModeToIdMap(const QString &id, const QString &path);
     bool createNewModeName(const QString &path);
     bool axisNumExisted(const QString &num, const QString &path);
     QString getNewestVersion(const QString &path);
     bool copyFileToPath(QString sourceDir, QString toDir, bool coverFileIfExist);
     bool copyDirectoryFiles(const QString &fromDir, const QString &toDir, bool coverFileIfExist);
-    SELFBUILDER_RTN addNewDatabase(const QString &id, const QString &path, const QString &indexPath);
-    SELFBUILDER_RTN addNewCtrDatabase(const QString &id, const QString &path, const QString &indexPath);
-    SELFBUILDER_RTN addIndexTree(const QString &path, const QString &id);
-    SELFBUILDER_RTN addSelectTree(const QString &path, const QString &id);
-    SELFBUILDER_RTN addDatabaseSelectTree(const QString &path);
-    SELFBUILDER_RTN addSysConfig(void (*processCallback)(void *, short *), void *processbar);
-    SELFBUILDER_RTN addSystemMap();
-    SELFBUILDER_RTN addDatabaseVersion(const QString &id, const QString &path);
+    SelfBuilder::Rtn_Self addNewDatabase(const QString &id, const QString &path, const QString &indexPath);
+    SelfBuilder::Rtn_Self addNewCtrDatabase(const QString &id, const QString &path, const QString &indexPath);
+    SelfBuilder::Rtn_Self addIndexTree(const QString &path, const QString &id);
+    SelfBuilder::Rtn_Self addSelectTree(const QString &path, const QString &id);
+    SelfBuilder::Rtn_Self addDatabaseSelectTree(const QString &path);
+    SelfBuilder::Rtn_Self addSysConfig(void (*processCallback)(void *, short *), void *processbar);
+    SelfBuilder::Rtn_Self addSystemMap();
+    SelfBuilder::Rtn_Self addDatabaseVersion(const QString &id, const QString &path);
     QTreeWidgetItem *addBasicChild(QTreeWidgetItem *item, const QStringList &list);
     QString getOldPath(const QString &indexPath);
-    SELFBUILDER_RTN readDataFromEEprom(const QString &path, bool isPwr);
-    SELFBUILDER_RTN readTreeData(QTreeWidgetItem *item, bool isPwr);
-    SELFBUILDER_RTN changeDocuments(void (*processCallback)(void *, short *), void *processbar, const QString &path);
+    SelfBuilder::Rtn_Self readDataFromEEprom(const QString &path, bool isPwr);
+    SelfBuilder::Rtn_Self readTreeData(QTreeWidgetItem *item, bool isPwr);
+    SelfBuilder::Rtn_Self changeDocuments(void (*processCallback)(void *, short *), void *processbar, const QString &path);
 
     bool createNewNode(const QString &path, const QString &id);
     bool createSysPath(const QString &path);
-
-    static void updateProgessBar(void *arg, short *value);
 };
 
 #endif // SELFBUILDER_H

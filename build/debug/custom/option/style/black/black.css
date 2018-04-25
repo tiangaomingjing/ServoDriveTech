@@ -204,6 +204,11 @@ StyleWidget{
 	qproperty-msgErrorColor:red;
 }
 
+UiFlash {
+	qproperty-flashNodeColor:blue;
+	qproperty-ramNodeColor:blue;
+}
+
 
 /*====================电机界面===================*/
 QWidget#widget_machinePrm{

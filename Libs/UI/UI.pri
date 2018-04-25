@@ -4,7 +4,9 @@ INCLUDEPATH+=$${PWD}/IUiWidget\
             $${PWD}/IUiWidget/SDTGraphicsItems\
             $${PWD}/../SDKernel\
             $${PWD}/../Option\
-            $${PWD}/../GTUtils
+            $${PWD}/../GTUtils\
+            $${PWD}/../GTUtils/BitItemHelper\
+            $${PWD}/../Com/Communication\
 
 QT+=quickwidgets qml
 

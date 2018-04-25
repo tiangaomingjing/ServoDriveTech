@@ -39,7 +39,7 @@ signals:
 
 public slots:
 protected:
-  IGraphEncoder(IGraphEncoderPrivate&dd, QWidget *parent=0);
+  IGraphEncoder(IGraphEncoderPrivate &dd, QWidget *parent=0);
 };
 
 #endif // IGRAPHENCODER_H

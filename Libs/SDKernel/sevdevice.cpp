@@ -354,7 +354,31 @@ bool SevDevice::writeItemFlash(quint16 axisInx, QTreeWidgetItem *item)
 bool SevDevice::readItemFlash(quint16 axisInx, QTreeWidgetItem *item)
 {
   Q_D(SevDevice);
-  return d->m_socket->readItemFlash(axisInx,item);
+    return d->m_socket->readItemFlash(axisInx,item);
+}
+
+bool SevDevice::writeUiFlash(quint16 axisInx, QTreeWidgetItem *item)
+{
+    Q_D(SevDevice);
+    return d->m_socket->writeUiItemFlash(axisInx, item);
+}
+
+bool SevDevice::writeUiRam(quint16 axisInx, QTreeWidgetItem *item)
+{
+    Q_D(SevDevice);
+    return d->m_socket->writeUiItemRam(axisInx, item);
+}
+
+bool SevDevice::readUiFlash(quint16 axisInx, QTreeWidgetItem *item)
+{
+    Q_D(SevDevice);
+    return d->m_socket->readUiItemFlash(axisInx, item);
+}
+
+bool SevDevice::readUiRam(quint16 axisInx, QTreeWidgetItem *item)
+{
+    Q_D(SevDevice);
+    return d->m_socket->readUiItemRam(axisInx, item);
 }
 
 bool SevDevice::clearAlarm(quint16 axisInx)
@@ -631,6 +655,5 @@ bool SevDevice::checkParameters(int axis,QTreeWidget *tree)
       }
     }
   }
-
   return isOk;
 }

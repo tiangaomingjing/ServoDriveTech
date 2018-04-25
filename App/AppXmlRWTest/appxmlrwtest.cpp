@@ -27,7 +27,43 @@ AppXmlRWTest::AppXmlRWTest(QWidget *parent) :
     connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(onActionReadClicked()));
     int16 com_type = GTSD_COM_TYPE_RNNET;
     short ret0 = GTSD_CMD_Open(updateProgessBar, (void*)&aa, com_type);
-    qDebug()<<"open ret"<<ret0;
+    short a = 752;
+
+    QList<int> list1;
+    list1<<0<<1<<2<<3<<4<<5<<6<<7;
+    QList<int> list2;
+    list2<<1<<1<<1<<1<<1<<1<<1<<9;
+    quint32 temp = 0;
+    for (int i = 0; i < list1.length(); i++) {
+        int start = list1.at(i);
+        int length = list2.at(i);
+        quint32 opera = getOperationValue(start, length);
+        temp = a & opera;
+        temp >>= start;
+        qDebug()<<i<<QString::number(temp);
+    }
+    QList<int> list3;
+    list3<<0<<0<<0<<0<<1<<1<<1<<5;
+    quint32 result = 0;
+    for (int i = 0; i < list3.length(); i++) {
+        int start = list1.at(i);
+        int length = list2.at(i);
+        quint32 opera = getOperationValue(start, length);
+        //result = result + ((~opera) & list3.at(i) | (list3.at(i) << start));
+        result = result + ((list3.at(i) << start) & opera);
+    }
+    qDebug()<<"result"<<result;
+}
+
+quint32 AppXmlRWTest::getOperationValue(int start, int length)
+{
+    quint32 temp = 0;
+    for (int i = 0; i < length; i++) {
+        temp <<= 1;
+        temp += 1;
+    }
+    temp <<= start;
+    return temp;
 }
 
 AppXmlRWTest::~AppXmlRWTest()

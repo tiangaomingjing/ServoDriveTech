@@ -31,6 +31,7 @@ public:
   static QString iconPath();
   static QString ubootPath();
   static QString languagePath();
+  static QString cmdPath();
   static void delayms(quint16 ms);
 //  static QTreeWidgetItem* findItem(QString text, QTreeWidget* tree, int col);
 //  static QTreeWidgetItem* findItemByValue(Uint8* value, Uint16 num, QTreeWidget *tree);

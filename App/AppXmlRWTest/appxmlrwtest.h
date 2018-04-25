@@ -35,6 +35,7 @@ private:
     QString m_path11;
     QString m_path22;
     QString m_path33;
+    quint32 getOperationValue(int start, int length);
 protected:
     void closeEvent(QCloseEvent *event);
 };

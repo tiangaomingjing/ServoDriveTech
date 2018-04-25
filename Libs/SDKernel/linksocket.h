@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "sdtglobaldef.h"
+#include "icom.h"
 
 GT_USE_NAMESPACE
 namespace ComDriver
@@ -13,6 +14,7 @@ namespace ComDriver
 class SevDevicePrivate;
 class QTreeWidgetItem;
 class GeneralCmd;
+class CmdManager;
 
 class LinkSocket : public QObject
 {
@@ -31,6 +33,12 @@ public:
   bool readItemFlash(int axis,QTreeWidgetItem *item);
   bool writeItemFlash(int axis,QTreeWidgetItem *item);
 
+  bool readUiItemFlash(int axisInx, QTreeWidgetItem *item);
+  bool writeUiItemFlash(int axisInx, QTreeWidgetItem *item);
+  bool readUiItemRam(int axisInx, QTreeWidgetItem *item);
+  bool writeUiItemRam(int axisInx, QTreeWidgetItem *item);
+
+
 
   //通用RAM读写操作
   quint64 genCmdRead(const QString &cmdReadName,qint16 axisIndex,bool &isOk);
@@ -46,6 +54,7 @@ public:
 
 protected:
 
+private:
 
 signals:
 
@@ -57,6 +66,7 @@ private:
   ComDriver::ICom *m_com;
   quint8 m_tryWriteCount;
   GeneralCmd *m_genCmd;
+  CmdManager *m_cmdManager;
 };
 
 #endif // LINKSOCKET_H

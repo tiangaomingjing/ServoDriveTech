@@ -4,10 +4,13 @@
 #include <QObject>
 #include "sdkernel_global.h"
 #include "sevpwrboard.h"
+#include "icom.h"
 
 namespace ComDriver {
 class ICom;
 }
+
+//using namespace ComDriver;
 
 class DeviceConfig;
 class LinkSocket;
@@ -48,6 +51,12 @@ public:
   bool writeItemFlash(quint16 axisInx,QTreeWidgetItem *item);
   bool readItemFlash(quint16 axisInx,QTreeWidgetItem *item);
 
+  bool writeUiFlash(quint16 axisInx, QTreeWidgetItem *item);
+  bool writeUiRam(quint16 axisInx, QTreeWidgetItem *item);
+
+  bool readUiFlash(quint16 axisInx, QTreeWidgetItem *item);
+  bool readUiRam(quint16 axisInx, QTreeWidgetItem *item);
+
   bool clearAlarm(quint16 axisInx);
 
   QString aliasName() const;
@@ -87,6 +96,10 @@ private:
   bool checkPropertyParameters(QTreeWidgetItem *item);
   bool checkPowerBoardParameters(QTreeWidgetItem *item,const QMap<QString ,PowerBoardLimit> *limit);
   bool checkParameters(int axis,QTreeWidget *tree);
+  void assignBits(QTreeWidgetItem *item);
+  void assign16Bits(QTreeWidgetItem *item, ComDriver::int16_t value);
+  void assign32Bits(QTreeWidgetItem *item, ComDriver::int32_t value);
+  bool isTargetItem(QTreeWidgetItem *item, const QString &str, int index);
 private:
   SevDevicePrivate *d_ptr;
 };

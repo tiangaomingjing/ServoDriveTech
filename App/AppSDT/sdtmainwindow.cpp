@@ -954,6 +954,7 @@ bool SDTMainWindow::setConnect(bool net)
       QList<DeviceConfig*> configList;
       bool isOk;
       IDevReadWriter *idevRWriter=new DevComRWriter(0);
+      connect(idevRWriter, SIGNAL(sendDevProcessInfo(int,QString)), this, SLOT(onProgressInfo(int,QString)));
       configList=idevRWriter->createConfig(processCallBack,(void *)(bar),isOk);
       if(isOk)
       {
