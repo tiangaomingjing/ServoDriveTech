@@ -58,6 +58,7 @@ typedef enum {
   COL_TABLE_CURVE_SHOW,
   COL_TABLE_CURVE_NAME,
   COL_TABLE_CURVE_AXIS,
+  COL_TABLE_CURVE_DEV,
   COL_TABLE_CURVE_SIZE
 }TableCurveColumnInx;
 
@@ -137,6 +138,8 @@ PlotUnitGraph129::PlotUnitGraph129(const QList<SevDevice *> &sevList, QWidget *p
   //曲线表格初始化
   int curveTableWidth = 250;
   int columnCount=3;
+  if(sevList.size()>1)
+    columnCount=4;
   ui->tableWidget_plot_curve->setColumnCount(columnCount);
   ui->tableWidget_plot_curve->setMinimumWidth(curveTableWidth);
   ui->tableWidget_plot_curve->setEditTriggers(QAbstractItemView::NoEditTriggers);//编辑触发模式
@@ -145,16 +148,20 @@ PlotUnitGraph129::PlotUnitGraph129(const QList<SevDevice *> &sevList, QWidget *p
 //  connect(ui->tableWidget,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(onTablePopMenu(QPoint)));
 //  m_popuMenuTable=new QMenu(this);
 //  addTableMenuAction(mp_userConfig->model.axisCount);//初始化m_popuMenuTable 右键弹出QAction
-  int columnWidth=(curveTableWidth-20)/columnCount;
+
+  int columnWidth=(curveTableWidth-10)/columnCount;
   for(int i=0;i<columnCount;i++)
     ui->tableWidget_plot_curve->horizontalHeader()->resizeSection(i,columnWidth);
+
   QStringList headerList;
   headerList<<tr("checked")<<tr("name")<<tr("axis");
   ui->tableWidget_plot_curve->setHorizontalHeaderLabels(headerList);
+//  ui->tableWidget_plot_curve->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
   ui->tableWidget_plot_curve->setMouseTracking(true);
   ui->label_plot_detailName->setMaximumWidth(250);
   ui->label_plot_detailName->setWordWrap(true);
   ui->label_plot_detailName->setAlignment(Qt::AlignTop|Qt::AlignLeft);
+//  ui->tableWidget_plot_curve->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
 
   gtPlotInit();
   ctlPanelInit();
@@ -162,7 +169,6 @@ PlotUnitGraph129::PlotUnitGraph129(const QList<SevDevice *> &sevList, QWidget *p
   OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
   setPlotIcons(face->css());
   createConnections();
-
 }
 
 PlotUnitGraph129::~PlotUnitGraph129()
@@ -232,6 +238,26 @@ void PlotUnitGraph129::onSevDeviceListChanged(const QList<SevDevice *> &sevlist)
   d->m_sevList=sevlist;
   d->m_timer->stop();
   ctlPanelInit();
+
+  if(sevlist.size()>1)
+  {
+    QStringList headerList;
+    int columnWidth;
+    headerList<<tr("checked")<<tr("name")<<tr("axis")<<tr("dev");
+    ui->tableWidget_plot_curve->setColumnCount(4);
+    ui->tableWidget_plot_curve->setHorizontalHeaderLabels(headerList);
+    columnWidth=(ui->tableWidget_plot_curve->minimumWidth()-10)/4;
+    for(int i=0;i<4;i++)
+      ui->tableWidget_plot_curve->horizontalHeader()->resizeSection(i,columnWidth);
+  }
+  else
+  {
+    int columnWidth;
+    columnWidth=(ui->tableWidget_plot_curve->minimumWidth()-10)/3;
+    ui->tableWidget_plot_curve->setColumnCount(3);
+    for(int i=0;i<3;i++)
+      ui->tableWidget_plot_curve->horizontalHeader()->resizeSection(i,columnWidth);
+  }
 }
 
 void PlotUnitGraph129::createConnections()
@@ -457,7 +483,6 @@ void PlotUnitGraph129::onExpertTreeWidgetDoubleClicked(QTableWidget *table,QTree
     curve->prepare();
     curve->setAxisInx(axisInx);
     curve->setDevInx(d->m_curSevInx);
-    curve->setDevName(currentSevDevice()->aliasName());
     curve->setName(name);
     curve->setNote("");
     curve->setRowInx(curveTotalSize);
@@ -744,12 +769,12 @@ void PlotUnitGraph129::addTableRowPrm(ICurve *curve)
   for (int nCol = 0; nCol < COL_TABLE_CURVE_SIZE; nCol++)
   {
 
+    QTableWidgetItem *item = new QTableWidgetItem();
+    item->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
     switch (nCol)
     {
     case COL_TABLE_CURVE_SHOW:
     {
-      QTableWidgetItem *item = new QTableWidgetItem();
-      item->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
       if(curve->isDraw())
       {
         str=tr("on");
@@ -763,43 +788,37 @@ void PlotUnitGraph129::addTableRowPrm(ICurve *curve)
         item->setTextColor(d->m_hideColor);
       }
       item->setBackgroundColor(color);
-
-      QVariant v;
-      v.setValue(curve);
-      item->setData(ROLE_TABLE_CURVE_ICURVE_PTR,v);
-      item->setText(str);
-      ui->tableWidget_plot_curve->setItem(rowCount, nCol, item);
     }
     break;
 
     case COL_TABLE_CURVE_NAME:
     {
-      QTableWidgetItem *item = new QTableWidgetItem();
-      item->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
       str=curve->displayName();
       color=curve->color();
       item->setTextColor(color);
-      QVariant v;
-      v.setValue(curve);
-      item->setData(ROLE_TABLE_CURVE_ICURVE_PTR,v);
-      item->setText(str);
-      ui->tableWidget_plot_curve->setItem(rowCount, nCol, item);
     }
     break;
 
     case COL_TABLE_CURVE_AXIS:
     {
-      CurveTableAxisItem *axisItem=new CurveTableAxisItem;
-      axisItem->m_curve=curve;
-      axisItem->m_label->setText(QString::number(curve->axisInx()));
-      axisItem->m_box->addItem(curve->devName());
-      ui->tableWidget_plot_curve->setCellWidget(rowCount,nCol,axisItem);
+      str=QString::number(curve->axisInx());
+    }
+    break;
+
+    case COL_TABLE_CURVE_DEV:
+    {
+      str=curve->devName();
     }
     break;
 
     default:
     break;
     }
+    QVariant v;
+    v.setValue(curve);
+    item->setData(ROLE_TABLE_CURVE_ICURVE_PTR,v);
+    item->setText(str);
+    ui->tableWidget_plot_curve->setItem(rowCount, nCol, item);
   }
 }
 

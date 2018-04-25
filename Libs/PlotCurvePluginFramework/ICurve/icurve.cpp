@@ -102,12 +102,9 @@ void ICurve::setDevInx(int devInx)
 
 QString ICurve::devName() const
 {
-  return m_devName;
-}
-
-void ICurve::setDevName(const QString &devName)
-{
-  m_devName = devName;
+  QByteArray byte;
+  byte.append(65+m_devInx);
+  return QString::fromLatin1(byte);
 }
 
 double ICurve::samplInterval() const

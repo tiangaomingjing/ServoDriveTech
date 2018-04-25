@@ -84,7 +84,6 @@ public:
   void setDevInx(int devInx);
 
   QString devName() const;
-  void setDevName(const QString &devName);
 
   double samplInterval() const;
   void setSamplInterval(double samplIntervalUS);
@@ -108,7 +107,6 @@ protected:
   int m_axisInx;
   int m_dspInx;
   int m_devInx;
-  QString m_devName;
 
   bool m_isDraw;
   QColor m_color;
