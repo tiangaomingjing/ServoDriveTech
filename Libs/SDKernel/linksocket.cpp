@@ -274,46 +274,46 @@ bool LinkSocket::writeItemFlash(int axis,QTreeWidgetItem *item)
 
 bool LinkSocket::readUiItemFlash(int axisInx, QTreeWidgetItem *item)
 {
-    if (item->text(GT::COL_FR_ADDRESS).compare("-1") != 0) {
-        uint16_t ofst = item->text(GT::COL_FR_ADDRESS).toUShort();
-        QString itemType = item->text(GT::COL_FR_TYPE);
+    if (item->text(GT::COL_FLASH_RAM_TREE_ADDR).compare("-1") != 0) {
+        uint16_t ofst = item->text(GT::COL_FLASH_RAM_TREE_ADDR).toUShort();
+        QString itemType = item->text(GT::COL_FLASH_RAM_TREE_TYPE);
         uint8_t page = 0;
         int16_t ret = 0;
         if (itemType.compare("int32") == 0) {
             int32_t value;
             ret = m_com->readFLASH32(axisInx, ofst, page, value);
             if (ret == 0) {
-                item->setText(GT::COL_FR_VALUE, QString::number(value));
+                item->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
             }
         } else if (itemType.compare("Uint32") == 0) {
             uint32_t value;
             ret = m_com->readFLASH32(axisInx, ofst, page, (int32_t&)value);
             if (ret == 0) {
-                item->setText(GT::COL_FR_VALUE, QString::number(value));
+                item->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
             }
         } else if (itemType.compare("int64") == 0) {
             int64_t value;
             ret = m_com->readFLASH64(axisInx, ofst, page, value);
             if (ret == 0) {
-                item->setText(GT::COL_FR_VALUE, QString::number(value));
+                item->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
             }
         } else if (itemType.compare("Uint64") == 0) {
             uint64_t value;
             ret = m_com->readFLASH64(axisInx, ofst, page, (int64_t&)value);
             if (ret == 0) {
-                item->setText(GT::COL_FR_VALUE, QString::number(value));
+                item->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
             }
         } else if (itemType.compare("int16") == 0) {
             int16_t value;
             ret = m_com->readFLASH16(axisInx, ofst, page, value);
             if (ret == 0) {
-                item->setText(GT::COL_FR_VALUE, QString::number(value));
+                item->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
             }
         } else {
             uint16_t value;
             ret = m_com->readFLASH16(axisInx, ofst, page, (int16_t&)value);
             if (ret == 0) {
-                item->setText(GT::COL_FR_VALUE, QString::number(value));
+                item->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
             }
         }
         if (ret != 0) {
@@ -325,41 +325,41 @@ bool LinkSocket::readUiItemFlash(int axisInx, QTreeWidgetItem *item)
 
 bool LinkSocket::writeUiItemFlash(int axisInx, QTreeWidgetItem *item)
 {
-    if (item->text(GT::COL_FR_ADDRESS).compare("-1") != 0) {
-        uint16_t ofst = item->text(GT::COL_FR_ADDRESS).toUShort();
-        QString itemType = item->text(GT::COL_FR_TYPE);
+    if (item->text(GT::COL_FLASH_RAM_TREE_ADDR).compare("-1") != 0) {
+        uint16_t ofst = item->text(GT::COL_FLASH_RAM_TREE_ADDR).toUShort();
+        QString itemType = item->text(GT::COL_FLASH_RAM_TREE_TYPE);
         uint8_t page = 0;
         errcode_t ret = 0;
         if (itemType.compare("Uint32") == 0) {
-            uint32_t value = item->text(GT::COL_FR_VALUE).toULong();
+            uint32_t value = item->text(GT::COL_FLASH_RAM_TREE_VALUE).toULong();
             ret = m_com->writeFLASH32(axisInx, ofst, page, value);
 //            ret = m_com->readFLASH32(axisInx, ofst, page, (int32_t&)value);
-//            item->setText(GT::COL_FR_VALUE, QString::number(value));
+//            item->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
         } else if (itemType.compare("int32") == 0) {
-            int32_t value = item->text(GT::COL_FR_VALUE).toLong();
+            int32_t value = item->text(GT::COL_FLASH_RAM_TREE_VALUE).toLong();
             ret = m_com->writeFLASH32(axisInx, ofst, page, value);
 //            ret = m_com->readFLASH32(axisInx, ofst, page, value);
-//            item->setText(GT::COL_FR_VALUE, QString::number(value));
+//            item->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
         } else if (itemType.compare("Uint64") == 0) {
-            uint64_t value = item->text(GT::COL_FR_VALUE).toULongLong();
+            uint64_t value = item->text(GT::COL_FLASH_RAM_TREE_VALUE).toULongLong();
             ret = m_com->writeFLASH64(axisInx, ofst, page, value);
 //            ret = m_com->readFLASH64(axisInx, ofst, page, (int64_t&)value);
-//            item->setText(GT::COL_FR_VALUE, QString::number(value));
+//            item->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
         } else if (itemType.compare("int64") == 0) {
-            int64_t value = item->text(GT::COL_FR_VALUE).toLongLong();
+            int64_t value = item->text(GT::COL_FLASH_RAM_TREE_VALUE).toLongLong();
             ret = m_com->writeFLASH64(axisInx, ofst, page, value);
 //            ret = m_com->readFLASH64(axisInx, ofst, page, value);
-//            item->setText(GT::COL_FR_VALUE, QString::number(value));
+//            item->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
         } else if (itemType.compare("int16") == 0) {
-            int16_t value = item->text(GT::COL_FR_VALUE).toShort();
+            int16_t value = item->text(GT::COL_FLASH_RAM_TREE_VALUE).toShort();
             ret = m_com->writeFLASH16(axisInx, ofst, page, value);
 //            ret = m_com->readFLASH16(axisInx, ofst, page, value);
-//            item->setText(GT::COL_FR_VALUE, QString::number(value));
+//            item->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
         } else {
-            uint16_t value = item->text(GT::COL_FR_VALUE).toUShort();
+            uint16_t value = item->text(GT::COL_FLASH_RAM_TREE_VALUE).toUShort();
             ret = m_com->writeFLASH16(axisInx, ofst, page, value);
 //            ret = m_com->readFLASH16(axisInx, ofst, page, (int16_t&)value);
-//            item->setText(GT::COL_FR_VALUE, QString::number(value));
+//            item->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
         }
         if (ret != 0) {
             return false;
@@ -370,10 +370,10 @@ bool LinkSocket::writeUiItemFlash(int axisInx, QTreeWidgetItem *item)
 
 bool LinkSocket::readUiItemRam(int axisInx, QTreeWidgetItem *item)
 {
-    if (item->text(GT::COL_FR_ADDRESS).compare("-1") != 0) {
-        uint16_t ofst = item->text(GT::COL_FR_ADDRESS).toUShort();
-        QString itemType = item->text(GT::COL_FR_TYPE);
-        QStringList keyList = item->text(GT::COL_FR_NAME).split(".");
+    if (item->text(GT::COL_FLASH_RAM_TREE_ADDR).compare("-1") != 0) {
+        uint16_t ofst = item->text(GT::COL_FLASH_RAM_TREE_ADDR).toUShort();
+        QString itemType = item->text(GT::COL_FLASH_RAM_TREE_TYPE);
+        QStringList keyList = item->text(GT::COL_FLASH_RAM_TREE_NAME).split(".");
         QString key = keyList.at(0);
         uint8_t page = m_cmdManager->getValue(key);
         int16_t ret = 0;
@@ -381,37 +381,37 @@ bool LinkSocket::readUiItemRam(int axisInx, QTreeWidgetItem *item)
             int32_t value;
             ret = m_com->readRAM32(axisInx, ofst, page, value);
             if (ret == 0) {
-                item->setText(GT::COL_FR_VALUE, QString::number(value));
+                item->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
             }
         } else if (itemType.compare("Uint32") == 0) {
             uint32_t value;
             ret = m_com->readRAM32(axisInx, ofst, page, (int32_t&)value);
             if (ret == 0) {
-                item->setText(GT::COL_FR_VALUE, QString::number(value));
+                item->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
             }
         } else if (itemType.compare("int64") == 0) {
             int64_t value;
             ret = m_com->readRAM64(axisInx, ofst, page, value);
             if (ret == 0) {
-                item->setText(GT::COL_FR_VALUE, QString::number(value));
+                item->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
             }
         } else if (itemType.compare("Uint64") == 0) {
             uint64_t value;
             ret = m_com->readRAM64(axisInx, ofst, page, (int64_t&)value);
             if (ret == 0) {
-                item->setText(GT::COL_FR_VALUE, QString::number(value));
+                item->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
             }
         } else if (itemType.compare("int16") == 0) {
             int16_t value;
             ret = m_com->readRAM16(axisInx, ofst, page, value);
             if (ret == 0) {
-                item->setText(GT::COL_FR_VALUE, QString::number(value));
+                item->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
             }
         } else {
             uint16_t value;
             ret = m_com->readRAM16(axisInx, ofst, page, (int16_t&)value);
             if (ret == 0) {
-                item->setText(GT::COL_FR_VALUE, QString::number(value));
+                item->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
             }
         }
         if (ret != 0) {
@@ -423,43 +423,43 @@ bool LinkSocket::readUiItemRam(int axisInx, QTreeWidgetItem *item)
 
 bool LinkSocket::writeUiItemRam(int axisInx, QTreeWidgetItem *item)
 {
-    if (item->text(GT::COL_FR_ADDRESS).compare("-1") != 0) {
-        uint16_t ofst = item->text(GT::COL_FR_ADDRESS).toUShort();
-        QString itemType = item->text(GT::COL_FR_TYPE);
+    if (item->text(GT::COL_FLASH_RAM_TREE_ADDR).compare("-1") != 0) {
+        uint16_t ofst = item->text(GT::COL_FLASH_RAM_TREE_ADDR).toUShort();
+        QString itemType = item->text(GT::COL_FLASH_RAM_TREE_TYPE);
         errcode_t ret = 0;
-        QStringList keyList = item->text(GT::COL_FR_NAME).split(".");
+        QStringList keyList = item->text(GT::COL_FLASH_RAM_TREE_NAME).split(".");
         QString key = keyList.at(0);
         uint8_t page = m_cmdManager->getValue(key);
         if (itemType.compare("Uint32") == 0) {
-            uint32_t value = item->text(GT::COL_FR_VALUE).toULong();
+            uint32_t value = item->text(GT::COL_FLASH_RAM_TREE_VALUE).toULong();
             ret = m_com->writeRAM32(axisInx, ofst, page, value);
 //            ret = m_com->readRAM32(axisInx, ofst, page, (int32_t&)value);
-//            item->setText(GT::COL_FR_VALUE, QString::number(value));
+//            item->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
         } else if (itemType.compare("int32") == 0) {
-            int32_t value = item->text(GT::COL_FR_VALUE).toLong();
+            int32_t value = item->text(GT::COL_FLASH_RAM_TREE_VALUE).toLong();
             ret = m_com->writeRAM32(axisInx, ofst, page, value);
 //            ret = m_com->readRAM32(axisInx, ofst, page, value);
-//            item->setText(GT::COL_FR_VALUE, QString::number(value));
+//            item->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
         } else if (itemType.compare("Uint64") == 0) {
-            uint64_t value = item->text(GT::COL_FR_VALUE).toULongLong();
+            uint64_t value = item->text(GT::COL_FLASH_RAM_TREE_VALUE).toULongLong();
             ret = m_com->writeRAM64(axisInx, ofst, page, value);
 //            ret = m_com->readRAM64(axisInx, ofst, page, (int64_t&)value);
-//            item->setText(GT::COL_FR_VALUE, QString::number(value));
+//            item->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
         } else if (itemType.compare("int64") == 0) {
-            int64_t value = item->text(GT::COL_FR_VALUE).toLongLong();
+            int64_t value = item->text(GT::COL_FLASH_RAM_TREE_VALUE).toLongLong();
             ret = m_com->writeRAM64(axisInx, ofst, page, value);
 //            ret = m_com->readRAM64(axisInx, ofst, page, value);
-//            item->setText(GT::COL_FR_VALUE, QString::number(value));
+//            item->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
         } else if (itemType.compare("int16") == 0) {
-            int16_t value = item->text(GT::COL_FR_VALUE).toShort();
+            int16_t value = item->text(GT::COL_FLASH_RAM_TREE_VALUE).toShort();
             ret = m_com->writeRAM16(axisInx, ofst, page, value);
 //            ret = m_com->readRAM16(axisInx, ofst, page, value);
-//            item->setText(GT::COL_FR_VALUE, QString::number(value));
+//            item->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
         } else {
-            uint16_t value = item->text(GT::COL_FR_VALUE).toUShort();
+            uint16_t value = item->text(GT::COL_FLASH_RAM_TREE_VALUE).toUShort();
             ret = m_com->writeRAM16(axisInx, ofst, page, value);
 //            ret = m_com->readRAM16(axisInx, ofst, page, (int16_t&)value);
-//            item->setText(GT::COL_FR_VALUE, QString::number(value));
+//            item->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
         }
         if (ret != 0) {
             return false;

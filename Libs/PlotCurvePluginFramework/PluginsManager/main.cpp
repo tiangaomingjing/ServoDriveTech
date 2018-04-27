@@ -2,6 +2,14 @@
 #include "pluginsmanager.h"
 #include <QDebug>
 
+class Test{
+public:
+  Test(){}
+  void sayHello(){printf("hello");a=10;}
+private:
+  int a;
+};
+
 int main(int argc, char *argv[])
 {
   QApplication a(argc, argv);
@@ -74,6 +82,9 @@ int main(int argc, char *argv[])
   foreach (int v, dsps) {
     qDebug()<<v;
   }
+
+  Test *test;
+  test->sayHello();
 
   return a.exec();
 }

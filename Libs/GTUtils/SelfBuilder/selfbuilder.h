@@ -9,14 +9,14 @@
 class QTreeWidgetItem;
 class SelfBuilderPrivate;
 
-class GTUTILSSHARED_EXPORT BuilderParameters : public QObject {
-      Q_OBJECT
+class  BuilderParameters
+{
 public:
     int m_pwrId;
     int m_ctrId;
     QString m_version;
 
-    explicit BuilderParameters(QObject *parent = 0, int pwrID = 0, int ctrID = 0, const QString &version = "V0"):QObject(parent),
+    explicit BuilderParameters(int pwrID = 0, int ctrID = 0, const QString &version = "V0"):
     m_pwrId(pwrID),
     m_ctrId(ctrID),
     m_version(version)
@@ -46,44 +46,46 @@ public:
         RTN_SELF_CREATETREEERR = -9,
         RTN_SELF_READXMLERR = -10,
         RTN_SELF_READTREEERR = -11
-    }Rtn_Self;
+    }RtnSelf;
 
     SelfBuilder(ComDriver::ICom *com);
-    SelfBuilder::Rtn_Self buildFromEprom(void (*processCallback)(void *pbar,short *value), void *processbar, BuilderParameters *parameters);
+    RtnSelf buildFromEprom(void (*processCallback)(void *pbar,short *value), void *processbar, BuilderParameters *parameters);
 signals:
     void sendProcessInfo(int value, const QString &msg);
-private:
-    SelfBuilderPrivate *dd;
 
 private:
-    SelfBuilder::Rtn_Self buildPower(void (*processCallback)(void *, short *), void *processbar);
-    SelfBuilder::Rtn_Self buildControl();
-    SelfBuilder::Rtn_Self initParameters();
+    RtnSelf buildPower(void (*processCallback)(void *, short *), void *processbar);
+    RtnSelf buildControl();
+    RtnSelf initParameters();
     bool idExisted(const QString &id, const QString &path);
     bool versionExisted(const QString &ver, const QString &path);
     bool ctrVerExisted(const QString &ver, const QString &path);
-    SelfBuilder::Rtn_Self addModeToIdMap(const QString &id, const QString &path);
+    SelfBuilder::RtnSelf addModeToIdMap(const QString &id, const QString &path);
     bool createNewModeName(const QString &path);
     bool axisNumExisted(const QString &num, const QString &path);
     QString getNewestVersion(const QString &path);
     bool copyFileToPath(QString sourceDir, QString toDir, bool coverFileIfExist);
     bool copyDirectoryFiles(const QString &fromDir, const QString &toDir, bool coverFileIfExist);
-    SelfBuilder::Rtn_Self addNewDatabase(const QString &id, const QString &path, const QString &indexPath);
-    SelfBuilder::Rtn_Self addNewCtrDatabase(const QString &id, const QString &path, const QString &indexPath);
-    SelfBuilder::Rtn_Self addIndexTree(const QString &path, const QString &id);
-    SelfBuilder::Rtn_Self addSelectTree(const QString &path, const QString &id);
-    SelfBuilder::Rtn_Self addDatabaseSelectTree(const QString &path);
-    SelfBuilder::Rtn_Self addSysConfig(void (*processCallback)(void *, short *), void *processbar);
-    SelfBuilder::Rtn_Self addSystemMap();
-    SelfBuilder::Rtn_Self addDatabaseVersion(const QString &id, const QString &path);
+    RtnSelf addNewDatabase(const QString &id, const QString &path, const QString &indexPath);
+    RtnSelf addNewCtrDatabase(const QString &id, const QString &path, const QString &indexPath);
+    RtnSelf addIndexTree(const QString &path, const QString &id);
+    RtnSelf addSelectTree(const QString &path, const QString &id);
+    RtnSelf addDatabaseSelectTree(const QString &path);
+    RtnSelf addSysConfig(void (*processCallback)(void *, short *), void *processbar);
+    RtnSelf addSystemMap();
+    RtnSelf addDatabaseVersion(const QString &id, const QString &path);
     QTreeWidgetItem *addBasicChild(QTreeWidgetItem *item, const QStringList &list);
     QString getOldPath(const QString &indexPath);
-    SelfBuilder::Rtn_Self readDataFromEEprom(const QString &path, bool isPwr);
-    SelfBuilder::Rtn_Self readTreeData(QTreeWidgetItem *item, bool isPwr);
-    SelfBuilder::Rtn_Self changeDocuments(void (*processCallback)(void *, short *), void *processbar, const QString &path);
+    RtnSelf readDataFromEEprom(const QString &path, bool isPwr);
+    RtnSelf readTreeData(QTreeWidgetItem *item, bool isPwr);
+    RtnSelf changeDocuments(void (*processCallback)(void *, short *), void *processbar, const QString &path);
 
     bool createNewNode(const QString &path, const QString &id);
     bool createSysPath(const QString &path);
+private:
+    SelfBuilderPrivate *dd;
+
+
 };
 
 #endif // SELFBUILDER_H

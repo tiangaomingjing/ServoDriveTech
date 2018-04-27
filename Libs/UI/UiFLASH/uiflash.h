@@ -39,11 +39,11 @@ private:
   QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;
   QVBoxLayout *getVBoxLayout(void)Q_DECL_OVERRIDE;
   void setDefaultUi()Q_DECL_OVERRIDE;
-    void setItemColor(QTreeWidgetItem *item);
-    void updateItemData(QTreeWidgetItem *item);
-    void writeItem(QTreeWidgetItem *item);
-    void readItem(QTreeWidgetItem *item);
-    bool isEditedDataValid(QTreeWidgetItem *item);
+  void setItemColor(QTreeWidgetItem *item);
+  void updateItemData(QTreeWidgetItem *item);
+  void writeItem(QTreeWidgetItem *item);
+  void readItem(QTreeWidgetItem *item);
+  bool isEditedDataValid(QTreeWidgetItem *item);
 
 private:
     Ui::UiFLASH *ui;
