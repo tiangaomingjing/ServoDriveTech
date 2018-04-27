@@ -349,9 +349,17 @@ void PlotUnitGraph129::onBtnConfigClicked()
 void PlotUnitGraph129::onBtnStartSampleClicked()
 {
   Q_D(PlotUnitGraph129);
+//  if(currentSevDevice()->isConnecting() == false)
+//  {
+//    ui->tbtn_plot_startSampling->setChecked(false);
+//    return;
+//  }
+
   if(ui->tbtn_plot_startSampling->isChecked())
   {
-    d->m_threadSample = new ThreadSample(d->m_curveManager->samplPrms());
+    //读取所有曲线静态变量
+
+    d->m_threadSample = new ThreadSample(d->m_sevList,d->m_curveManager->samplPrms());
     d->m_threadCalcultate = new ThreadCalculate;
     connect(d->m_threadSample,SIGNAL(sampleDataIn(SampleData)),d->m_threadCalcultate,SIGNAL(sampleDataIn(SampleData)));
 

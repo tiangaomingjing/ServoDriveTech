@@ -7,11 +7,13 @@
 #include "sampledata.h"
 #include "curvemanager.h"
 
+class SevDevice;
+
 class ThreadSample : public QThread
 {
   Q_OBJECT
 public:
-  explicit ThreadSample(const QList<DevSamplePrm> &samplPrms,QObject *parent = 0);
+  explicit ThreadSample(const QList<SevDevice *> &sevList,const QList<DevSamplePrm> &samplPrms,QObject *parent = 0);
   ~ThreadSample();
 
   void stop();
@@ -24,8 +26,12 @@ signals:
 
 public slots:
 private:
+  void stopSampling();
+  bool startSampling();
+private:
   volatile bool m_bRun;
   QList<DevSamplePrm> m_samplPrms;
+  QList<SevDevice *> m_sevList;
 };
 
 #endif // THREADSAMPLE_H

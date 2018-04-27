@@ -272,7 +272,7 @@ bool LinkSocket::writeItemFlash(int axis,QTreeWidgetItem *item)
   return true;
 }
 
-bool LinkSocket::readUiItemFlash(int axisInx, QTreeWidgetItem *item)
+bool LinkSocket::readAdvItemFlash(int axisInx, QTreeWidgetItem *item)
 {
     if (item->text(GT::COL_FLASH_RAM_TREE_ADDR).compare("-1") != 0) {
         uint16_t ofst = item->text(GT::COL_FLASH_RAM_TREE_ADDR).toUShort();
@@ -323,7 +323,7 @@ bool LinkSocket::readUiItemFlash(int axisInx, QTreeWidgetItem *item)
     return true;
 }
 
-bool LinkSocket::writeUiItemFlash(int axisInx, QTreeWidgetItem *item)
+bool LinkSocket::writeAdvItemFlash(int axisInx, QTreeWidgetItem *item)
 {
     if (item->text(GT::COL_FLASH_RAM_TREE_ADDR).compare("-1") != 0) {
         uint16_t ofst = item->text(GT::COL_FLASH_RAM_TREE_ADDR).toUShort();
@@ -368,7 +368,7 @@ bool LinkSocket::writeUiItemFlash(int axisInx, QTreeWidgetItem *item)
     return true;
 }
 
-bool LinkSocket::readUiItemRam(int axisInx, QTreeWidgetItem *item)
+bool LinkSocket::readAdvItemRam(int axisInx, QTreeWidgetItem *item)
 {
     if (item->text(GT::COL_FLASH_RAM_TREE_ADDR).compare("-1") != 0) {
         uint16_t ofst = item->text(GT::COL_FLASH_RAM_TREE_ADDR).toUShort();
@@ -421,7 +421,7 @@ bool LinkSocket::readUiItemRam(int axisInx, QTreeWidgetItem *item)
     return true;
 }
 
-bool LinkSocket::writeUiItemRam(int axisInx, QTreeWidgetItem *item)
+bool LinkSocket::writeAdvItemRam(int axisInx, QTreeWidgetItem *item)
 {
     if (item->text(GT::COL_FLASH_RAM_TREE_ADDR).compare("-1") != 0) {
         uint16_t ofst = item->text(GT::COL_FLASH_RAM_TREE_ADDR).toUShort();
@@ -466,6 +466,24 @@ bool LinkSocket::writeUiItemRam(int axisInx, QTreeWidgetItem *item)
         }
     }
     return true;
+}
+
+bool LinkSocket::startPlot(const PlotControlPrm &ctrPrm)
+{
+  errcode_t ret=m_com->startPlot(ctrPrm);
+  return ret == 0;
+}
+
+bool LinkSocket::stopPlot(const PlotControlPrm &ctrPrm)
+{
+  errcode_t ret=m_com->stopPlot(ctrPrm);
+  return ret == 0;
+}
+
+bool LinkSocket::getPlotData(const PlotControlPrm &ctrPrm, ComDriver::CurveList &curveList)
+{
+  errcode_t ret=m_com->getPlotData(ctrPrm,curveList);
+  return ret == 0;
 }
 
 quint64 LinkSocket::genCmdRead(const QString &cmdReadName, qint16 axisIndex, bool &isOk)

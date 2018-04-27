@@ -33,11 +33,14 @@ public:
   bool readItemFlash(int axis,QTreeWidgetItem *item);
   bool writeItemFlash(int axis,QTreeWidgetItem *item);
 
-  bool readUiItemFlash(int axisInx, QTreeWidgetItem *item);
-  bool writeUiItemFlash(int axisInx, QTreeWidgetItem *item);
-  bool readUiItemRam(int axisInx, QTreeWidgetItem *item);
-  bool writeUiItemRam(int axisInx, QTreeWidgetItem *item);
+  bool readAdvItemFlash(int axisInx, QTreeWidgetItem *item);
+  bool writeAdvItemFlash(int axisInx, QTreeWidgetItem *item);
+  bool readAdvItemRam(int axisInx, QTreeWidgetItem *item);
+  bool writeAdvItemRam(int axisInx, QTreeWidgetItem *item);
 
+  bool startPlot(const ComDriver::PlotControlPrm &ctrPrm);
+  bool stopPlot(const ComDriver::PlotControlPrm &ctrPrm);
+  bool getPlotData(const ComDriver::PlotControlPrm &ctrPrm,ComDriver::CurveList &curveList);
 
 
   //通用RAM读写操作

@@ -357,28 +357,46 @@ bool SevDevice::readItemFlash(quint16 axisInx, QTreeWidgetItem *item)
     return d->m_socket->readItemFlash(axisInx,item);
 }
 
-bool SevDevice::writeUiFlash(quint16 axisInx, QTreeWidgetItem *item)
+bool SevDevice::writeAdvFlash(quint16 axisInx, QTreeWidgetItem *item)
 {
     Q_D(SevDevice);
-    return d->m_socket->writeUiItemFlash(axisInx, item);
+    return d->m_socket->writeAdvItemFlash(axisInx, item);
 }
 
-bool SevDevice::writeUiRam(quint16 axisInx, QTreeWidgetItem *item)
+bool SevDevice::writeAdvRam(quint16 axisInx, QTreeWidgetItem *item)
 {
     Q_D(SevDevice);
-    return d->m_socket->writeUiItemRam(axisInx, item);
+    return d->m_socket->writeAdvItemRam(axisInx, item);
 }
 
-bool SevDevice::readUiFlash(quint16 axisInx, QTreeWidgetItem *item)
+bool SevDevice::readAdvFlash(quint16 axisInx, QTreeWidgetItem *item)
 {
     Q_D(SevDevice);
-    return d->m_socket->readUiItemFlash(axisInx, item);
+    return d->m_socket->readAdvItemFlash(axisInx, item);
 }
 
-bool SevDevice::readUiRam(quint16 axisInx, QTreeWidgetItem *item)
+bool SevDevice::readAdvRam(quint16 axisInx, QTreeWidgetItem *item)
 {
     Q_D(SevDevice);
-    return d->m_socket->readUiItemRam(axisInx, item);
+  return d->m_socket->readAdvItemRam(axisInx, item);
+}
+
+bool SevDevice::startPlot(const ComDriver::PlotControlPrm &ctrPrm)
+{
+  Q_D(SevDevice);
+  return d->m_socket->startPlot(ctrPrm);
+}
+
+bool SevDevice::stopPlot(const ComDriver::PlotControlPrm &ctrPrm)
+{
+  Q_D(SevDevice);
+  return d->m_socket->stopPlot(ctrPrm);
+}
+
+bool SevDevice::getPlotData(const ComDriver::PlotControlPrm &ctrPrm, ComDriver::CurveList &curveList)
+{
+  Q_D(SevDevice);
+  return d->m_socket->getPlotData(ctrPrm,curveList);
 }
 
 bool SevDevice::clearAlarm(quint16 axisInx)

@@ -196,18 +196,18 @@ void UiFLASH::writeItem(QTreeWidgetItem *item)
             quint16 value = d->m_bitHelper->calculate16Bits(item);
             allItem->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
         }
-        d->m_device->writeUiFlash(uiIndexs().axisInx, allItem);
-        d->m_device->readUiFlash(uiIndexs().axisInx, allItem);
+        d->m_device->writeAdvFlash(uiIndexs().axisInx, allItem);
+        d->m_device->readAdvFlash(uiIndexs().axisInx, allItem);
     } else {
-        d->m_device->writeUiFlash(uiIndexs().axisInx, item);
-        d->m_device->readUiFlash(uiIndexs().axisInx, item);
+        d->m_device->writeAdvFlash(uiIndexs().axisInx, item);
+        d->m_device->readAdvFlash(uiIndexs().axisInx, item);
     }
 }
 
 void UiFLASH::readItem(QTreeWidgetItem *item)
 {
     Q_D(UiFLASH);
-    d->m_device->readUiFlash(uiIndexs().axisInx, item);
+    d->m_device->readAdvFlash(uiIndexs().axisInx, item);
     QStringList list = item->text(GT::COL_FLASH_RAM_TREE_NAME).split(".");
     int listIndex = list.length() - 1;
     if (d->m_bitHelper->isTargetItem(item, STR_MARK_ALL, listIndex)) {

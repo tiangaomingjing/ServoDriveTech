@@ -8,7 +8,8 @@
 
 #define CURVE_MANAGER_TEST 1
 
-CurveManager::CurveManager(QObject *parent) : QObject(parent)
+CurveManager::CurveManager(QObject *parent) : QObject(parent),
+  m_sampleScale(1)
 {
   //----设置好默认颜色------------
   m_colorDefault.append(QColor(Qt::red));
@@ -220,7 +221,7 @@ QList<DevSamplePrm> CurveManager::samplPrms()
       const ComDriver::PlotControlPrm *prm=&(dev->m_prms.at(j));
       qDebug()<<QString("dspIndex = %1 ,curve number = %2 ,samplScale = %3").arg(prm->dspIndex).arg(prm->number).arg(prm->samplingScale);
 
-      for(int k=0;k<prm->curveInfo.size();k++)
+      for(int k=0;k<(int)prm->curveInfo.size();k++)
       {
         const ComDriver::PlotCurveInfo *info=&(prm->curveInfo.at(k));
         qDebug()<<QString("base = %1 , bytes = %2 , ofst = %3").arg(info->base).arg(info->bytes).arg(info->ofst);
