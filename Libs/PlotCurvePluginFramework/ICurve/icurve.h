@@ -101,6 +101,13 @@ public:
   bool isDraw() const;
   void setIsDraw(bool isDraw);
 
+  QList<CurveVar> varInputs() const;
+
+  QList<CurveConst> constInputs() const;
+
+  int dspInx() const;
+  void setDspInx(int dspInx);
+
 protected:
 
   int m_rowInx;

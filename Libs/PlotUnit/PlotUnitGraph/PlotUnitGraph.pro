@@ -23,7 +23,8 @@ INCLUDEPATH +=$${MYLIB_PATH}/UI/IUiWidget\
               $${PWD}/../../PlotCurvePluginFramework/PluginsManager\
               $${PWD}/DialogPickCurve\
               $${PWD}/CurveManager\
-              $${PWD}/ThreadSample
+              $${PWD}/Thread\
+              $${PWD}/../../Com/Communication
 
 
 CONFIG(debug, debug|release){
@@ -65,7 +66,8 @@ SOURCES += \
     DialogPickCurve/dialogpickcurve.cpp \
     CurveManager/curvemanager.cpp \
     CurveManager/curvetableaxisitem.cpp \
-    ThreadSample/threadsample.cpp
+    Thread/threadsample.cpp \
+    Thread/threadcalculate.cpp
 
 HEADERS += \
         plotunitgraph_global.h \
@@ -83,7 +85,9 @@ HEADERS += \
     DialogPickCurve/dialogpickcurve.h \
     CurveManager/curvemanager.h \
     CurveManager/curvetableaxisitem.h \
-    ThreadSample/threadsample.h
+    Thread/threadsample.h \
+    Thread/threadcalculate.h \
+    Thread/sampledata.h
 
 unix {
     target.path = /usr/lib

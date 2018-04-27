@@ -11,6 +11,8 @@
 #include "sdtglobaldef.h"
 #include "curvemanager.h"
 #include "curvetableaxisitem.h"
+#include "threadsample.h"
+#include "threadcalculate.h"
 
 #include "pluginsmanager.h"
 #include "icurve.h"
@@ -78,7 +80,9 @@ public:
     m_showColor(QColor(Qt::white)),
     m_backShowColor(QColor(Qt::green).darker()),
     m_hideColor(QColor(Qt::white)),
-    m_backHideColor(QColor(Qt::gray))
+    m_backHideColor(QColor(Qt::gray)),
+    m_threadSample(NULL),
+    m_threadCalcultate(NULL)
   {
 
   }
@@ -94,6 +98,8 @@ protected:
   QColor m_backShowColor;
   QColor m_hideColor;
   QColor m_backHideColor;
+  ThreadSample *m_threadSample;
+  ThreadCalculate *m_threadCalcultate;
 };
 
 PlotUnitGraph129::PlotUnitGraph129(const QList<SevDevice *> &sevList, QWidget *parent) :
@@ -270,6 +276,7 @@ void PlotUnitGraph129::createConnections()
   connect(ui->tbtn_plot_mea_vertical,SIGNAL(clicked(bool)),this,SLOT(onBtnMeaVClicked(bool)));
   connect(ui->tbtn_plot_fit,SIGNAL(clicked(bool)),this,SLOT(onBtnFitClicked()));
   connect(ui->tbtn_plot_config,SIGNAL(clicked(bool)),this,SLOT(onBtnConfigClicked()));
+  connect(ui->tbtn_plot_startSampling,SIGNAL(clicked(bool)),this,SLOT(onBtnStartSampleClicked()));
 
   connect(ui->plot,SIGNAL(currentPosChanged(QPointF)),this,SLOT(onPlotPosHoverChanged(QPointF)));
   connect(ui->plot,SIGNAL(horizMeaDataChanged(qreal,qreal,qreal)),this,SLOT(onPlotMeaHposChanged(qreal,qreal,qreal)));
@@ -339,6 +346,30 @@ void PlotUnitGraph129::onBtnConfigClicked()
   ui->tbtn_plot_startSampling->setChecked(!checked);
 }
 
+void PlotUnitGraph129::onBtnStartSampleClicked()
+{
+  Q_D(PlotUnitGraph129);
+  if(ui->tbtn_plot_startSampling->isChecked())
+  {
+    d->m_threadSample = new ThreadSample(d->m_curveManager->samplPrms());
+    d->m_threadCalcultate = new ThreadCalculate;
+    connect(d->m_threadSample,SIGNAL(sampleDataIn(SampleData)),d->m_threadCalcultate,SIGNAL(sampleDataIn(SampleData)));
+
+    d->m_threadCalcultate->start();
+    d->m_threadSample->start();
+  }
+  else
+  {
+    if(d->m_threadSample == NULL)
+      return ;
+    disconnect(d->m_threadSample,SIGNAL(sampleDataIn(SampleData)),d->m_threadCalcultate,SIGNAL(sampleDataIn(SampleData)));
+    d->m_threadSample->deleteLater();
+    d->m_threadCalcultate->deleteLater();
+    d->m_threadSample = NULL;
+    d->m_threadCalcultate = NULL;
+  }
+}
+
 void PlotUnitGraph129::onPlotPosHoverChanged(const QPointF &point)
 {
   ui->label_plot_x->setText(QString("X=%1 ms").arg(QString::number(point.x()*1000,'f',2)));
@@ -361,9 +392,9 @@ void PlotUnitGraph129::onPlotMeaHposChanged(qreal v1, qreal v2, qreal dv)
 
 void PlotUnitGraph129::onTimeOut()
 {
-  Q_D(PlotUnitGraph129);
+//  Q_D(PlotUnitGraph129);
   static quint32 i=0;
-  qDebug()<<"time out"<<i;
+//  qDebug()<<"time out"<<i;
   i++;
 }
 
@@ -465,8 +496,9 @@ void PlotUnitGraph129::onExpertTreeWidgetDoubleClicked(QTableWidget *table,QTree
 #if TEST_DEBUG
   for(int i=0;i<varPrmList.count();i++)
   {
-    qDebug()<<"add curve axis="<<varPrmList.at(i).axis;
+    qDebug()<<"add curve axis = "<<varPrmList.at(i).axis;
     qDebug()<<"bytes"<<varPrmList.at(i).varPrm.prm.bytes<<" offset"<<varPrmList.at(i).varPrm.prm.offtAddr<<" base"<<varPrmList.at(i).varPrm.prm.baseAddr;
+
   }
 #endif
 
@@ -492,11 +524,14 @@ void PlotUnitGraph129::onExpertTreeWidgetDoubleClicked(QTableWidget *table,QTree
     curve->addVarInputByName(name);
     curve->fillVarInputsPrm(0,varPrmList.at(i).varPrm.prm);
     d->m_curveManager->addCurve(curve);
+    d->m_curveManager->setSampleScale(ui->comboBox_plot_sampling->currentText().toInt());
     //表格增加曲线标识
     addTableRowPrm(curve);
     //gtplot增加曲线
     ui->plot->addGraph();
     ui->plot->graph(curveTotalSize)->setPen(curve->color());
+
+    qDebug()<<QString("add curve =%1 devInx=%2 dspInx=%3 varSize=%4").arg(curve->fullName()).arg(curve->devInx()).arg(curve->dspInx()).arg(curve->varInputsKeys().size());
   }
 
   qDebug()<<"curve total size ="<<d->m_curveManager->curveList().size();

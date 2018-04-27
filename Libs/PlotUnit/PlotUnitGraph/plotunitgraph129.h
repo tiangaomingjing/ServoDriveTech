@@ -50,6 +50,7 @@ private slots:
   void onBtnMeaVClicked(bool checked);
   void onBtnFitClicked();
   void onBtnConfigClicked();
+  void onBtnStartSampleClicked();
   void onPlotPosHoverChanged(const QPointF &point);
   void onPlotMeaVposChanged(qreal v1, qreal v2, qreal dv);
   void onPlotMeaHposChanged(qreal v1, qreal v2, qreal dv);

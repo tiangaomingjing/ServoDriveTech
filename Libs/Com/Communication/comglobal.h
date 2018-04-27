@@ -119,6 +119,11 @@ typedef enum{
   EEPROM_CS_POWER,
   EEPROM_CS_CONTROL
 }EEPROMSelect;
+
+typedef enum{
+  PLOT_DISABLE = 0,
+  PLOT_ENABLE = 1
+}PlotEnableState;
 /* |mode|cmd|len|<-------data-->|
  * |_ _ |_ _|_ _|_ _|_ _|_ _|_ _|
  * len是指data的长度 以int16为单位

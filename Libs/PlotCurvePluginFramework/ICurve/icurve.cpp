@@ -87,7 +87,6 @@ int ICurve::rowInx() const
 void ICurve::setRowInx(int rowInx)
 {
   m_rowInx = rowInx;
-  m_dspInx = rowInx/2;
 }
 
 int ICurve::devInx() const
@@ -153,6 +152,7 @@ int ICurve::axisInx() const
 void ICurve::setAxisInx(int axisInx)
 {
     m_axisInx = axisInx;
+    m_dspInx = axisInx/2;
 }
 
 QColor ICurve::color() const
@@ -173,6 +173,26 @@ bool ICurve::isDraw() const
 void ICurve::setIsDraw(bool isDraw)
 {
   m_isDraw = isDraw;
+}
+
+QList<CurveVar> ICurve::varInputs() const
+{
+  return m_varInputs;
+}
+
+QList<CurveConst> ICurve::constInputs() const
+{
+  return m_constInputs;
+}
+
+int ICurve::dspInx() const
+{
+  return m_dspInx;
+}
+
+void ICurve::setDspInx(int dspInx)
+{
+  m_dspInx = dspInx;
 }
 
 QStringList ICurve::constInputKeys()
