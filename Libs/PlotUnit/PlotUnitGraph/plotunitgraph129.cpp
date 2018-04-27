@@ -399,9 +399,9 @@ void PlotUnitGraph129::onExpertTreeWidgetDoubleClicked(QTableWidget *table,QTree
 //  QList<int>axisList;
 //  QList<CurveVar> varPrmList;
   QList<VarCurvePrm>varPrmList;
-  name=item->text(GT::COL_FLASH_RAM_TREE_NAME);
+  name=item->text(GT::COL_FR_NAME);
 
-  isBit=item->text(GT::COL_FLASH_RAM_TREE_ISBIT).toInt();
+  isBit=item->text(GT::COL_FR_ISBIT).toInt();
   if(isBit==1)//判断是不是位，如果是位就不增加
   {
     QMessageBox::information(0,tr("warning"),tr("%1 is BIT").arg(name));
@@ -416,9 +416,9 @@ void PlotUnitGraph129::onExpertTreeWidgetDoubleClicked(QTableWidget *table,QTree
       VarCurvePrm var;
       var.axis=i;
       var.varPrm.keyName=name;
-      var.varPrm.prm.bytes=GTUtils::byteNumbers(item->text(GT::COL_FLASH_RAM_TREE_TYPE));
+      var.varPrm.prm.bytes=GTUtils::byteNumbers(item->text(GT::COL_FR_TYPE));
       var.varPrm.prm.baseAddr=0;
-      var.varPrm.prm.offtAddr=item->text(GT::COL_FLASH_RAM_TREE_OFFSET).toUShort();
+      var.varPrm.prm.offtAddr=item->text(GT::COL_FR_ADDRESS).toUShort();
       varPrmList.append(var);
     }
   }
@@ -431,7 +431,7 @@ void PlotUnitGraph129::onExpertTreeWidgetDoubleClicked(QTableWidget *table,QTree
     if(axisInx%2!=0)//0 2 4不检查 1 3 5检查
     {
       QTreeWidget *ramTree=currentSevDevice()->axisTreeSource(axisInx,"RAM");
-      QTreeWidgetItem *item=GTUtils::findItem(name,ramTree,GT::COL_FLASH_RAM_TREE_NAME);
+      QTreeWidgetItem *item=GTUtils::findItem(name,ramTree,GT::COL_FR_NAME);
       if(NULL==item)
       {
         varPrmList.removeAt(i);
@@ -439,9 +439,9 @@ void PlotUnitGraph129::onExpertTreeWidgetDoubleClicked(QTableWidget *table,QTree
       }
       else//更新地址
       {
-        varPrmList[i].varPrm.prm.offtAddr=item->text(GT::COL_FLASH_RAM_TREE_OFFSET).toUShort();
+        varPrmList[i].varPrm.prm.offtAddr=item->text(GT::COL_FR_ADDRESS).toUShort();
       }
-      qDebug()<<"axis "<<axisInx<<"find item"<<item->text(GT::COL_FLASH_RAM_TREE_NAME);
+      qDebug()<<"axis "<<axisInx<<"find item"<<item->text(GT::COL_FR_NAME);
     }
   }
 

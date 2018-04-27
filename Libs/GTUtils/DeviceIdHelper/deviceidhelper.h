@@ -12,14 +12,6 @@ class GTUTILSSHARED_EXPORT DeviceIdHelper : public QObject
 {
   Q_OBJECT
 public:
-  typedef enum
-  {
-    COL_IDMAP_ID,
-    COL_IDMAP_TYPE,
-    COL_IDMAP_MODE,
-    COL_IDMAP_NICKNAME,
-    COL_IDMAP_AXISNUM
-  }IdMapColumn;
   explicit DeviceIdHelper(QObject *parent = 0);
   explicit DeviceIdHelper(ComDriver::ICom *com,QObject *parent = 0);
   ~DeviceIdHelper();

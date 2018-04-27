@@ -2,6 +2,7 @@
 #include "gtutils.h"
 #include "qttreemanager.h"
 #include "icom.h"
+#include "sdtglobaldef.h"
 
 
 #include <QTreeWidget>
@@ -85,14 +86,14 @@ quint32 DeviceIdHelper::readPwrId(bool &isOk)
     while(*it)
     {
       item=*it;
-      quint32 id=item->text(COL_IDMAP_ID).toUInt();
+      quint32 id=item->text(GT::COL_IDMAP_ID).toUInt();
       if(id==m_pwrId)
       {
         findId=true;
         m_hasPwrId=true;
-        m_typeName=item->text(COL_IDMAP_TYPE);
-        m_modeName=item->text(COL_IDMAP_MODE);
-        m_axisNum=item->text(COL_IDMAP_AXISNUM).toUInt();
+        m_typeName=item->text(GT::COL_IDMAP_TYPE);
+        m_modeName=item->text(GT::COL_IDMAP_MODE);
+        m_axisNum=item->text(GT::COL_IDMAP_AXISNUM).toUInt();
         qDebug()<<tr("typeName=%1,modeName=%2,axisNum=%3").arg(m_typeName).arg(m_modeName).arg(m_axisNum);
         break;
       }

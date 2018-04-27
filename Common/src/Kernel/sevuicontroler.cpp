@@ -45,7 +45,6 @@ void SevUiControler::createUis()
     {
       className=axisItem->child(j)->text(2);
       uiGraphName=axisItem->child(j)->text(6);
-
       ui=dynamic_cast<IUiWidget *> (UiFactory::createObject(className.toLatin1()));
       ui->init(m_sev);
       UiIndexs index;
@@ -60,9 +59,7 @@ void SevUiControler::createUis()
         QWidget *uiGraph=UiFactory::createObject(uiGraphName.toLatin1());
         ui->accept(uiGraph);
       }
-
       m_uiLists.append(ui);
-
       sum+=dec;
       emit initProgressInfo((int)sum,tr("build ui %1").arg(className));
     }
@@ -81,7 +78,6 @@ void SevUiControler::createUis()
     index.pageInx=i;
     ui->setUiIndexs(index);
     ui->addTreeWidget(m_sev->globalTreeSource(i));
-
     m_uiLists.append(ui);
     sum=100;
     emit initProgressInfo((int)sum,tr("build ui %1").arg(className));

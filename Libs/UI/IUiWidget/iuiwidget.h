@@ -5,11 +5,12 @@
 #include "iuiwidgetgdef.h"
 #include <QWidget>
 
+
 class IUiWidgetPrivate;
-class QTreeWidget;
 class QStackedWidget;
 class QVBoxLayout;
 class SevDevice;
+class QTreeWidget;
 class QTreeWidgetItem;
 
 class UiIndexs

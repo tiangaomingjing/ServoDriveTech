@@ -7,6 +7,7 @@
 include (../../Libs.pri)
 INCLUDEPATH+=$${PWD}/../../SDKernel\
               $${PWD}/../../GTUtils\
+              $${PWD}/../../Com/Communication\
               $${PWD}/../../GTUtils/QtTreeManager\
               $${PWD}/../../Option\
               $${PWD}/SDTGraphicsItems\
