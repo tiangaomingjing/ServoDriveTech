@@ -240,18 +240,19 @@ void ComparisonDialog::onActionSaveClicked()
         QMessageBox::information(NULL, tr("Path"), tr("You selected ") + path);
         m_newFileInfo.setFile(path);
         m_newFilePath = m_newFileInfo.filePath() + "/";
-        QTreeWidget *tree = new QTreeWidget;
-        QTreeWidgetItem *item;
-        for(int i = 0; i < ui->treeWidget_compNew->topLevelItemCount(); i++)
-        {
-            item = ui->treeWidget_compNew->topLevelItem(i)->clone();
-            tree->addTopLevelItem(item);
-        }
-        item = ui->treeWidget_compNew->headerItem()->clone();
-        tree->setHeaderItem(item);
-        eliminateEmptyItem(tree);
-        QtTreeManager::writeTreeWidgetToXmlFile(path, tree);
-        delete tree;
+//        QTreeWidget *tree = new QTreeWidget;
+//        QTreeWidgetItem *item;
+//        for(int i = 0; i < ui->treeWidget_compNew->topLevelItemCount(); i++)
+//        {
+//            item = ui->treeWidget_compNew->topLevelItem(i)->clone();
+//            tree->addTopLevelItem(item);
+//        }
+//        item = ui->treeWidget_compNew->headerItem()->clone();
+//        tree->setHeaderItem(item);
+//        eliminateEmptyItem(tree);
+//        QtTreeManager::writeTreeWidgetToXmlFile(path, tree);
+//        delete tree;
+        QtTreeManager::writeTreeWidgetToXmlFile(path, ui->treeWidget_compNew);
     }
 }
 

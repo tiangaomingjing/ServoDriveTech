@@ -15,6 +15,7 @@
 #define DIR_ICON "resource/icon/"
 #define DIR_UBOOT "resource/uboot/"
 #define DIR_LANGUAGE "resource/language/"
+#define DIR_CMD "resource/cmd/"
 
 
 GTUtils::GTUtils()
@@ -69,6 +70,12 @@ QString GTUtils::languagePath()
 {
   QString path=sdtPath()+DIR_LANGUAGE;
   return path;
+}
+
+QString GTUtils::cmdPath()
+{
+    QString path=sdtPath()+DIR_CMD;
+    return path;
 }
 
 void GTUtils::delayms(quint16 ms)

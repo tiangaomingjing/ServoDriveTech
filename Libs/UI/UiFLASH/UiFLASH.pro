@@ -9,7 +9,6 @@ QT       += widgets
 
 QT       -= gui
 
-
 TEMPLATE = lib
 
 DEFINES += UIFLASH_LIBRARY

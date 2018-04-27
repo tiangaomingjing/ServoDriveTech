@@ -186,11 +186,11 @@ void CXmlCode::ReleaseEncodeBuffer()
 short CXmlCode::OpenFile(char* pFileName)
 {
 	short rtn;
-	char des_file_name[100];
+    char des_file_name[1000];
 	line_cnt = 0;
 	write_buffer_cnt = 0;
 
-	rtn = GenDesTempFileName(pFileName, des_file_name, 100);
+    rtn = GenDesTempFileName(pFileName, des_file_name, 1000);
 	if (rtn)
 	{
 		return rtn;
@@ -1152,7 +1152,7 @@ short CXmlCode::WriteFile(char* pFileNameList[], int pFileTypeList[], int file_n
 	void(*tpfUpdataProgressPt)(void*, short*), void* ptrv, short& progress)
 {
 	short rtn = RTN_SUCCESS;
-	char des_file_name[100];
+    char des_file_name[1000];
 
 	fstream src, des;
 	const int BUFFER_SIZE = 1 << 10;
@@ -1165,7 +1165,7 @@ short CXmlCode::WriteFile(char* pFileNameList[], int pFileTypeList[], int file_n
 		if (rtn != RTN_SUCCESS)
 			return rtn;
 
-		rtn = GenDesTempFileName(pFileNameList[i], des_file_name, 100);
+        rtn = GenDesTempFileName(pFileNameList[i], des_file_name, 1000);
 		if (rtn != RTN_SUCCESS)
 			return rtn;
 
@@ -1173,7 +1173,7 @@ short CXmlCode::WriteFile(char* pFileNameList[], int pFileTypeList[], int file_n
 		if (rtn != RTN_SUCCESS)
 			return rtn;
 
-		rtn = GenDesTempFileName(des_file_name, des_file_name, 100);
+        rtn = GenDesTempFileName(des_file_name, des_file_name, 1000);
 		if (rtn != RTN_SUCCESS)
 			return rtn;
 
@@ -1304,7 +1304,7 @@ short CXmlCode::WriteFile(char* pFileNameList[], int pFileTypeList[], int file_n
 short CXmlCode::CalcWriteFileSize(char* pFileNameList[], int pFileTypeList[], int file_num)
 {
 	short rtn = RTN_SUCCESS;
-	char des_file_name[100];
+    char des_file_name[1000];
 
 	fstream des;
 	ReleaseEncodeBuffer();
@@ -1333,7 +1333,7 @@ short CXmlCode::CalcWriteFileSize(char* pFileNameList[], int pFileTypeList[], in
 	for (int i = 0; i < file_num;i++)
 	{
 		m_pEncodeTypeList[i] = pFileTypeList[i];
-		rtn = GenDesTempFileName(pFileNameList[i], des_file_name, 100);
+        rtn = GenDesTempFileName(pFileNameList[i], des_file_name, 1000);
 		if (rtn != RTN_SUCCESS)
 			return rtn;
 
@@ -1369,7 +1369,7 @@ short CXmlCode::ReadFile(char* pFileNameList[], int pFileTypeList[], int& file_n
 {
 	short rtn = RTN_SUCCESS;
 	file_num = file_num > m_EncodeNum ? m_EncodeNum : file_num;
-	char des_file_name[100];
+    char des_file_name[1000];
 
 	fstream* pFile_in;
 	fstream* pFile_out;
@@ -1397,7 +1397,7 @@ short CXmlCode::ReadFile(char* pFileNameList[], int pFileTypeList[], int& file_n
 
 	for (int i = 0; i < file_num; i++)
 	{
-		rtn = GenDesTempFileName(pFileNameList[i], des_file_name, 100);
+        rtn = GenDesTempFileName(pFileNameList[i], des_file_name, 1000);
 		if (rtn != RTN_SUCCESS)
 			return rtn;
 		////////////////////////write readout data//////////////////////////////////////////////////

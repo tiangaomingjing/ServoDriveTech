@@ -240,6 +240,5 @@ void OptUser::onActionBtnChecked() {
 }
 
 void OptUser::onActionLineChange() {
-    qDebug()<<"s";
     setModify(true);
 }

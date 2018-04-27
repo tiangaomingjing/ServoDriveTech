@@ -9,12 +9,13 @@
 #include <QStackedWidget>
 #include <QVBoxLayout>
 #include <QDebug>
-#include <QTreeWidgetItem>
 #include <QQuickWidget>
 #include <QQmlContext>
 #include <QAction>
 #include <QQmlEngine>
 #include <QLabel>
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
 #include <QDebug>
 
 //IUiWidget::IUiWidget(QWidget *parent):QWidget(parent),d_ptr(new IUiWidgetPrivate())

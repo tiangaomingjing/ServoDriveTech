@@ -34,15 +34,51 @@ typedef enum{
   ROW_TARGET_CONFIG_GLOBAL
 }TargetConfigRow;
 
-typedef enum{
-  COL_FLASH_RAM_TREE_NAME,
-  COL_FLASH_RAM_TREE_VALUE,
-  COL_FLASH_RAM_TREE_TYPE,
-  COL_FLASH_RAM_TREE_OFFSET,
-  COL_FLASH_RAM_TREE_ISBIT,
-  COL_FLASH_RAM_TREE_BITSTART,
-  COL_FLASH_RAM_TREE_BITWIDTH
-}FlashRamColumn;
+typedef enum {
+    COL_CONFIG_NAME = 0,
+    COL_CONFIG_PARAMETER = 1,
+    COL_CONFIG_ID = 2,
+    COL_CONFIG_PRMEX = 3
+} ColConfigTree;
+
+typedef enum {
+    COL_BOARDTREE_NAME = 0,
+    COL_BOARDTREE_VALUE = 1,
+    COL_BOARDTREE_UNIT = 2,
+    COL_BOARDTREE_SCALE = 3,
+    COL_BOARDTREE_DESCRIP = 4,
+    COL_BOARDTREE_TYPE = 5,
+    COL_BOARDTREE_ADDRESS = 6,
+    COL_BOARDTREE_CTRNAME = 7,
+    COL_BOARDTREE_CTRMAX = 8,
+    COL_BOARDTREE_CTRMIN = 9,
+    COL_BOARDTREE_UNIQUENAME = 10
+} ColBoardTree;
+
+typedef enum {
+    COL_INDEX_NAME = 0,
+    COL_INDEX_VALUE = 1
+} ColIndexTree;
+
+typedef enum
+{
+  COL_IDMAP_ID = 0,
+  COL_IDMAP_TYPE = 1,
+  COL_IDMAP_MODE = 2,
+  COL_IDMAP_NICKNAME = 3,
+  COL_IDMAP_AXISNUM = 4
+} ColIdMap;
+
+typedef enum
+{
+  COL_FR_NAME,
+  COL_FR_VALUE,
+  COL_FR_TYPE,
+  COL_FR_ADDRESS,
+  COL_FR_ISBIT,
+  COL_FR_BITSTART,
+  COL_FR_BITWIDTH
+} ColFR;
 
 template <typename T>
 static void deepClearList(QList<T*>&list)

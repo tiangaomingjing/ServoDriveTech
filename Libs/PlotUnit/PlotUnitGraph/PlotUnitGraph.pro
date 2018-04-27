@@ -19,13 +19,13 @@ INCLUDEPATH +=$${MYLIB_PATH}/UI/IUiWidget\
               $${MYLIB_PATH}/SDKernel\
               $${PWD}/../../../Common/src/SdtGlobal\
               $${PWD}/../IPlotUnit\
+              $${PWD}/../../Com/Communication\
               $${PWD}/../../PlotCurvePluginFramework/ICurve\
               $${PWD}/../../PlotCurvePluginFramework/PluginsManager\
               $${PWD}/DialogPickCurve\
               $${PWD}/CurveManager\
               $${PWD}/Thread\
               $${PWD}/../../Com/Communication
-
 
 CONFIG(debug, debug|release){
 

@@ -4,6 +4,7 @@
 #include "rnnet.h"
 #include "qttreemanager.h"
 #include "gtutils.h"
+#include "sdtglobaldef.h"
 
 #include <QTreeWidget>
 
@@ -35,18 +36,18 @@ QList<DeviceConfig *>DevTextRWriter::createConfig(void (*processCallback)(void *
       modelItem=typeItem->child(0);
       versionItem=modelItem->child(0);
       DeviceConfig *device=new DeviceConfig();
-      device->m_devId=devItem->text(COL_ID).toUInt();
-      device->m_comType=comItem->text(COL_PRM).toUInt();
-      device->m_rnStationId=comItem->text(COL_PRM_EX0).toUInt();
-      device->m_typeName=typeItem->text(COL_NAME);
-      device->m_axisNum=modelItem->text(COL_PRM).toUInt();
-      device->m_modeName=modelItem->text(COL_NAME);
-      device->m_version=versionItem->text(COL_NAME);
+      device->m_devId=devItem->text(GT::COL_CONFIG_ID).toUInt();
+      device->m_comType=comItem->text(GT::COL_CONFIG_PARAMETER).toUInt();
+      device->m_rnStationId=comItem->text(GT::COL_CONFIG_PRMEX).toUInt();
+      device->m_typeName=typeItem->text(GT::COL_CONFIG_NAME);
+      device->m_axisNum=modelItem->text(GT::COL_CONFIG_PARAMETER).toUInt();
+      device->m_modeName=modelItem->text(GT::COL_CONFIG_NAME);
+      device->m_version=versionItem->text(GT::COL_CONFIG_NAME);
 
       //根据modeName typeName找到powerId
-      device->m_pwrId=modelItem->text(COL_ID).toUInt();
-      device->m_ctrId=versionItem->text(COL_ID).toUInt();
-      device->m_fpgaId=comItem->text(COL_ID).toUInt();
+      device->m_pwrId=modelItem->text(GT::COL_CONFIG_ID).toUInt();
+      device->m_ctrId=versionItem->text(GT::COL_CONFIG_ID).toUInt();
+      device->m_fpgaId=comItem->text(GT::COL_CONFIG_ID).toUInt();
       list.append(device);
       pvalue+=40;
       processCallback(processbar,&pvalue);
