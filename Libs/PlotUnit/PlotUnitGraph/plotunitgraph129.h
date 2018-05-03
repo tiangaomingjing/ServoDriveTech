@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "iplotunitgraph.h"
 #include "plotunitgraph_global.h"
+#include "plotdata.h"
 
 namespace Ui {
 class PlotUnitGraph129;
@@ -67,6 +68,7 @@ private slots:
   void onCurveTableItemClicked(QTableWidgetItem * item);
   void onCurveTableItemDoubleClicked(QTableWidgetItem * item);
   void onCurveTableItemEnteredMoreDetail(QTableWidgetItem * item);//鼠标悬停，可以显示详细的名称
+  void onPlotDataIn(PlotData data);
 
 private:
   void createConnections();
@@ -80,6 +82,8 @@ private:
 
   SevDevice *currentSevDevice() const;
   void addTableRowPrm(ICurve *curve);
+
+  void clearGraphData();
 
 
 private:

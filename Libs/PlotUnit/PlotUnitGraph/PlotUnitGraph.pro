@@ -87,7 +87,8 @@ HEADERS += \
     CurveManager/curvetableaxisitem.h \
     Thread/threadsample.h \
     Thread/threadcalculate.h \
-    Thread/sampledata.h
+    Thread/sampledata.h \
+    plotdata.h
 
 unix {
     target.path = /usr/lib

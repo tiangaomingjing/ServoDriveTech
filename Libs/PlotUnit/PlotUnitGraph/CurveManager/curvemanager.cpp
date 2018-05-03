@@ -78,9 +78,47 @@ QColor CurveManager::color(int totalCount) const
   return m_colorDefault.at(totalCount%m_colorDefault.size());
 }
 
-QList<DevSamplePrm> CurveManager::samplPrms()
+QList<DevSamplePrm> CurveManager::samplPrms() const
+{
+  return m_samplPrms;
+}
+
+int CurveManager::sampleScale() const
+{
+  return m_sampleScale;
+}
+
+void CurveManager::setSampleScale(int sampleScale)
+{
+  m_sampleScale = sampleScale;
+  for(int i=0;i<m_curveList.size();i++)
+  {
+    ICurve *c=m_curveList.at(i);
+    c->setSamplInterval(m_sampleScale);
+  }
+}
+
+int CurveManager::storeTime() const
+{
+  return m_storeTimeS;
+}
+
+void CurveManager::setStoreTime(int storeTimeS)
+{
+  m_storeTimeS = storeTimeS;
+  double s=storeTimeS*1000000/SAMPLING_INTERVAL_US ;
+  for(int i=0;i<m_curveList.size();i++)
+  {
+    ICurve *c=m_curveList.at(i);
+    c->setStorePointCount(s);
+  }
+
+}
+
+void CurveManager::updateSamplPrms()
 {
   m_samplPrms.clear();
+  m_devCurves.clear();
 
   //找到采样的设备ID
   QList<int> devs;
@@ -90,7 +128,6 @@ QList<DevSamplePrm> CurveManager::samplPrms()
     if(devs.isEmpty())
     {
       devs.append(dev);
-      continue;
     }
     else
     {
@@ -115,15 +152,21 @@ QList<DevSamplePrm> CurveManager::samplPrms()
     ICurve *curve=m_curveList.at(i);
     multiHashDev.insert(curve->devInx(),curve);
   }
-  qDebug()<<"device total size"<<devs.size()<<"hashDev value(0) size"<<multiHashDev.values(0).size();
+
+#if CURVE_MANAGER_TEST
+  if(devs.size()>0)
+    qDebug()<<"device total size"<<devs.size()<<"hashDev value(0) size"<<multiHashDev.values(0).size();
+#endif
 
   for(int i=0;i<devs.size();i++)
   {
     QList<ICurve *>curves;
     ICurve *c;
     DevSamplePrm devPrm;
+    DevCurves devCurves;
     devPrm.m_devInx=devs.at(i);
-    curves=multiHashDev.values(devPrm.m_devInx);
+    devCurves.m_devInx=devs.at(i);
+    curves=multiHashDev.values(devPrm.m_devInx);//这个设备下所有的曲线
     qDebug()<<"at device "<<devPrm.m_devInx<<"curves total size"<<curves.size();
 
     //找出DSP 0 1 2
@@ -181,6 +224,9 @@ QList<DevSamplePrm> CurveManager::samplPrms()
       curvesInDsp=multiHashDSP.values(dspInx);//单个DSP下面的所有曲线
       qDebug()<<"dspinx"<<dspInx<<"curvesInDsp.size = "<<curvesInDsp.size();
 
+      DSPCurves dspCurves;
+      dspCurves.m_dspInx=dspInx;
+
       ComDriver::PlotControlPrm prm;
 
       prm.dspIndex = dspInx;
@@ -191,6 +237,8 @@ QList<DevSamplePrm> CurveManager::samplPrms()
       for(int j=0;j<curvesInDsp.size();j++)
       {
         ICurve *c=curvesInDsp.at(j);
+        dspCurves.m_curves.append(c);
+
         int varSize = c->varInputsKeys().size();
         qDebug()<<"varSize "<<varSize;
         for(int k=0;k<varSize;k++)
@@ -206,9 +254,11 @@ QList<DevSamplePrm> CurveManager::samplPrms()
       }
 
       devPrm.m_prms.append(prm);
+      devCurves.m_dspCurves.append(dspCurves);
     }
 
     m_samplPrms.append(devPrm);
+    m_devCurves.append(devCurves);
   }
 
 #if CURVE_MANAGER_TEST
@@ -228,18 +278,25 @@ QList<DevSamplePrm> CurveManager::samplPrms()
       }
     }
   }
+
+  qDebug()<<"show dspcurve";
+  for(int i=0;i<m_devCurves.size();i++)
+  {
+    qDebug()<<"at device ="<<m_devCurves.at(i).m_devInx;
+    for(int j=0;j<m_devCurves.at(i).m_dspCurves.size();j++)
+    {
+      qDebug()<<"at dsp = "<<m_devCurves.at(i).m_dspCurves.at(j).m_dspInx;
+      for(int k=0;k<m_devCurves.at(i).m_dspCurves.at(j).m_curves.size();k++)
+      {
+        qDebug()<<"curve ="<<m_devCurves.at(i).m_dspCurves.at(j).m_curves.at(k)->fullName()<<"offset"<<m_devCurves.at(i).m_dspCurves.at(j).m_curves.at(k)->varInputs().at(0).prm.offtAddr;
+      }
+    }
+  }
 #endif
-
-  return m_samplPrms;
 }
 
-int CurveManager::sampleScale() const
+QList<DevCurves> CurveManager::devCurves() const
 {
-  return m_sampleScale;
-}
-
-void CurveManager::setSampleScale(int sampleScale)
-{
-  m_sampleScale = sampleScale;
+  return m_devCurves;
 }
 

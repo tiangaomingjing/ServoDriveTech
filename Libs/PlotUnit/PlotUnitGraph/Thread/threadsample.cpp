@@ -46,7 +46,7 @@ void ThreadSample::run()
   while(m_bRun)
   {
     static quint32 count=0;
-    qDebug()<<"ThreadSample run count"<<count;
+//    qDebug()<<"ThreadSample run count"<<count;
     sample.curves.clear();
 
 
@@ -66,7 +66,7 @@ void ThreadSample::run()
     }
 
     count++;
-    msleep(80);
+    msleep(50);
   }
 
   stopSampling();

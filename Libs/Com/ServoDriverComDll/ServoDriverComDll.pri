@@ -35,7 +35,7 @@ HEADERS += ./ComBase.h \
     ./targetver.h \
     ./XmlCode.h \
     ./XmlCodeUpdate.h \
-    ./NetCom/include/BaseReturn_def.h \
+#    ./NetCom/include/BaseReturn_def.h \
     ./NetCom/include/Basetype_def.h \
     ./NetCom/include/Net.h \
     ./NetCom/include/NetCommunication.h \

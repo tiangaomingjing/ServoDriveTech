@@ -25,16 +25,16 @@ ICurve *CurveRaw::clone()
 
 void CurveRaw::calculate()
 {
-  m_cData.values=m_varInputs.at(0).datas;
-
+  dd.m_cData.values.clear();
+  dd.m_cData.values.append(dd.m_varInputs.at(0).datas);
 }
 
 QString CurveRaw::displayName()
 {
-  return m_name.split('.').last();
+  return dd.m_name.split('.').last();
 }
 
 QString CurveRaw::fullName()
 {
-  return QObject::tr("%1").arg(m_name);
+  return QObject::tr("%1").arg(dd.m_name);
 }
