@@ -10,6 +10,7 @@ SUBDIRS += \
     UI \
     PlotCurvePluginFramework\
     PlotUnit/PlotUnitGraph \
+    AdvUser
 
 
 

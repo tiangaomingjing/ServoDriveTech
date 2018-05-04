@@ -6,7 +6,7 @@
 #include "UserResp.h"
 
 class CRnDriverPlot : 
-    public CUserResp
+	public CUserResp
 {
 public:
 	CRnDriverPlot();

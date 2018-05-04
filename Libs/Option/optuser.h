@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QWidget>
 #include <QLayout>
-#include <QCheckBox>
 #include <QLabel>
 #include <QLineEdit>
 #include "iopt.h"
@@ -25,7 +24,6 @@ public:
   void uiInit()Q_DECL_OVERRIDE;
 
   bool isAdmin() const;
-  bool isChecked() const;
 protected:
   bool optActive()Q_DECL_OVERRIDE;
   bool readOpt()Q_DECL_OVERRIDE;
@@ -38,30 +36,9 @@ public slots:
 private:
   Ui::OptUser *ui;
 private slots:
-  void onActionBtnChecked();
   void onActionLineChange();
+  void onActionBtnChecked();
 private:
-};
-
-class UserCheckWidgetPrivate : public QWidget
-{
-    Q_OBJECT
-
-public:
-    explicit UserCheckWidgetPrivate(QWidget *parent = 0);
-    ~UserCheckWidgetPrivate();
-    void setCheck(bool isChecked);
-    bool isChecked();
-    QString getPsw();
-    void pswClear();
-signals:
-    void stateChanged();
-
-private:
-    QCheckBox *checkBox;
-    QLineEdit *lineEdit;
-private slots:
-    void onStateChanged();
 };
 
 #endif // OPTUSER_H

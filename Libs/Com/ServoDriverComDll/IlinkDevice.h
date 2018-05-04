@@ -14,7 +14,7 @@
 
 typedef struct
 {
-    Uint8				Offset_L : 8;//Æ«ÒÆ
+	Uint8				Offset_L : 8;//Æ«ÒÆ
 	Uint8				Offset_H : 8;//Æ«ÒÆ
 }ILINK_OFFSET_BIT;
 typedef union

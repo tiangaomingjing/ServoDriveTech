@@ -7,7 +7,7 @@ CFPGAUpdate::CFPGAUpdate()
 {
 	m_pCom = NULL;
 	m_des_id = 0;
-    m_byte_write = 0;
+	m_byte_write = 0;
 }
 
 CFPGAUpdate::~CFPGAUpdate()

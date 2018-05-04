@@ -8,7 +8,7 @@ typedef struct
 	Uint16 m_dsp_id;//dsp_id
 	Uint8 m_station_id;
 	Uint8 m_station_ch;
-    Uint8 m_axi_id_in_dsp;//该轴在该DSP中属于哪一个轴。
+	Uint8 m_axi_id_in_dsp;//该轴在该DSP中属于哪一个轴。
 }StDspAxiStationInf;
 
 class CRnServoAxiMapping

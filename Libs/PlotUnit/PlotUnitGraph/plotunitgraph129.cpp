@@ -363,7 +363,7 @@ void PlotUnitGraph129::onTimeOut()
 {
   Q_D(PlotUnitGraph129);
   static quint32 i=0;
-  qDebug()<<"time out"<<i;
+  //qDebug()<<"time out"<<i;
   i++;
 }
 

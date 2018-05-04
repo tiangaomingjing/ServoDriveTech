@@ -2,7 +2,12 @@
 #include "ui_sdtmainwindow.h"
 
 #include "Option"
+#include "iadvuser.h"
+#include "advusercheck.h"
+#include "advusermask.h"
+#include "advusercontainer.h"
 #include "dialogoption.h"
+#include "dialogadvusr.h"
 
 #include "gtutils.h"
 #include "appiconname.h"
@@ -198,6 +203,9 @@ void SDTMainWindow::createActions()
   m_produceClicked = false;
   m_actnProduce=new QAction(tr("produce"),m_tbtnMore);
 
+  m_actnAdvUser = new QAction(tr("Advanced User"), m_tbtnMore);
+  m_actnAdvUser->setVisible(false);
+
 //  m_tbtnMore->addAction(m_actnOnMode);
 //  m_tbtnMore->addAction(m_actnOffMode);
 //  m_tbtnMore->addAction(actspacer1);
@@ -215,6 +223,7 @@ void SDTMainWindow::createActions()
   menuUpdateFlash->addAction(m_actnReset);
   menu->addAction(m_actnOption);
   menu->addAction(m_actnProduce);
+  menu->addAction(m_actnAdvUser);
   menu->addMenu(menuSoftMode);
   menuSoftMode->addAction(m_actnOnMode);
   menuSoftMode->addAction(m_actnOffMode);
@@ -263,6 +272,7 @@ void SDTMainWindow::createConnections()
   connect(m_actnSave,SIGNAL(triggered(bool)),this,SLOT(onActnSaveClicked()));
   connect(m_actnConfig,SIGNAL(triggered(bool)),this,SLOT(onActnConfigClicked()));
   connect(m_actnProduce, SIGNAL(triggered()), this, SLOT(onActnProduceClicked()));
+  connect(m_actnAdvUser, SIGNAL(triggered()), this, SLOT(onActnAdvUserClicked()));
   connect(m_actnCompare,SIGNAL(triggered(bool)),this,SLOT(onActnCompareClicked()));
 
   OptAutoLoad *optAuto=dynamic_cast<OptAutoLoad *>(OptContainer::instance()->optItem("optautoload"));
@@ -275,6 +285,10 @@ void SDTMainWindow::createConnections()
   if(optface!=NULL)
     connect(optface,SIGNAL(faceCssChanged(QString)),this,SLOT(onOptFaceCssChanged(QString)));
 
+  OptUser *optuser = dynamic_cast<OptUser *>(OptContainer::instance()->optItem("optuser"));
+  if (optuser != NULL) {
+      connect(optuser, SIGNAL(usrChange(bool)), this, SLOT(onOptUserChanged(bool)));
+  }
   connect(ui->treeWidget,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(onNavTreeWidgetItemClicked(QTreeWidgetItem*,int)));
 
   connect(m_statusBar,SIGNAL(statusPageChanged(int)),this,SLOT(onStatusBarPageChanged(int)));
@@ -571,6 +585,24 @@ void SDTMainWindow::onActnProduceClicked() {
     }
 }
 
+void SDTMainWindow::onActnAdvUserClicked()
+{
+    DialogAdvUsr dialogAdv;
+    AdvUserContainer *advc = AdvUserContainer::instance();
+    QList<IAdvUser*> advList = advc->advItems();
+    for (int i = 0; i < advList.count(); i++) {
+        IAdvUser* adv = advList.at(i);
+        if (adv->name().compare("advusermask") == 0) {
+            AdvUserMask *advMask = dynamic_cast<AdvUserMask*>(adv);
+            advMask->setSevList(sevList());
+            advMask->uiInit();
+        } else {
+            adv->uiInit();
+        }
+    }
+    dialogAdv.exec();
+}
+
 void SDTMainWindow::onActnCompareClicked()
 {
   for(int i=0;i<ui->mainStackedWidget->count();i++)
@@ -814,6 +846,15 @@ void SDTMainWindow::onOptFaceCssChanged(const QString &css)
 {
   setAppIcon();
   qDebug()<<"setAppIcon"<<css;
+}
+
+void SDTMainWindow::onOptUserChanged(bool isAdmin)
+{
+    if (isAdmin) {
+        m_actnAdvUser->setVisible(true);
+    } else {
+        m_actnAdvUser->setVisible(false);
+    }
 }
 void SDTMainWindow::onProgressInfo(int barValue,QString msg)
 {

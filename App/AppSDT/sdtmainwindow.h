@@ -98,6 +98,7 @@ private slots:
   void onActnSaveClicked();
   void onActnConfigClicked();
   void onActnProduceClicked();
+  void onActnAdvUserClicked();
   void onActnCompareClicked();
   void onStartMsgReceived();
   void onCloseMsgReceived();
@@ -105,6 +106,7 @@ private slots:
   //响应option选项slots
   void onOptAutoLoadChanged(bool changed);
   void onOptFaceCssChanged(const QString &css);
+  void onOptUserChanged(bool isAdmin);
 
   void onProgressInfo(int barValue, QString msg);
 
@@ -139,6 +141,7 @@ private:
   QAction *m_actnUpdateFlash;
   QAction *m_actnOption;
   QAction *m_actnProduce;
+  QAction *m_actnAdvUser;
   SdtStatusBar *m_statusBar;
   QProgressBar *mp_progressBar;
   UiShowStatus m_currentUiStatus;

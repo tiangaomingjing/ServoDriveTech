@@ -6,8 +6,8 @@ INCLUDEPATH+=$${LIBS_PATH}/Com/Communication\
             $${LIBS_PATH}/GTUtils/QtTreeManager\
             $${LIBS_PATH}/GTUtils/DeviceIdHelper\
             $${LIBS_PATH}/GTUtils/SelfBuilder\
-            $${LIBS_PATH}/GTUtils/BuilderParameters\
             $${LIBS_PATH}/SDKernel\
+            $${LIBS_PATH}/AdvUser\
             $${LIBS_PATH}/UI\
             $${LIBS_PATH}/UI/UiPlot\
             $${LIBS_PATH}/UI/IUiWidget\
@@ -41,7 +41,8 @@ CONFIG(debug, debug|release){
           -lSDKerneld\
           -lOptiond\
           -lPlotUnitGraphd\
-          -lIPlotUnitd
+          -lIPlotUnitd\
+          -lAdvUserd
 } else{
     APPTEST_OUT_PATH=$${PWD}/../build/release/bin
     LIBPATH=$${APPTEST_OUT_PATH}
@@ -65,6 +66,7 @@ CONFIG(debug, debug|release){
           -lSDKernel\
           -lOption\
           -lPlotUnitGraph\
-          -lIPlotUnit
+          -lIPlotUnit\
+          -lAdvUser
 }
 DESTDIR =$${APPTEST_OUT_PATH}
