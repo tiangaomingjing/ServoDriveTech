@@ -9,7 +9,6 @@ INCLUDEPATH+=../../Libs/Com/Communication\
               ../../Libs/GTUtils/QtTreeManager\
               ../../Libs/GTUtils/DeviceIdHelper\
               ../../Libs/GTUtils/SelfBuilder\
-              ../../Libs/GTUtils/BuilderParameters\
               ../../Libs/GTUtils\
               ../../Libs/UI\
               ../../Libs/UI/IUiWidget\
@@ -17,6 +16,7 @@ INCLUDEPATH+=../../Libs/Com/Communication\
               ../../Libs/Option\
               ../../Libs/PlotUnit/PlotUnitGraph\
               ../../Libs/PlotUnit/IPlotUnit\
+              $${PWD}/../../Libs/PlotCurvePluginFramework/ICurve\
               $${PWD}/UiFactory\
               $${PWD}/Kernel\
               $${PWD}/SdtGlobal

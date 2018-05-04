@@ -48,6 +48,7 @@
 int main(int argc, char *argv[])
 {
   QApplication a(argc, argv);
+
   OptContainer *optc=OptContainer::instance();
 
   IOpt *opt=new OptUser("optuser",0);

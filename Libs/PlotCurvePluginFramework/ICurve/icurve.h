@@ -2,6 +2,7 @@
 #define ICURVE_H
 
 #include "icurve_global.h"
+#include "icurvedef.h"
 #include <QObject>
 #include <QVector>
 #include <QHash>
@@ -11,37 +12,7 @@
 #define SAMPLING_INTERVAL_US 62.5
 
 #define ICurve_iid "gt.plot.curve.icurve"
-class CurveData
-{
-public:
-  CurveData(){}
-  QVector<double>values;
-  QVector<double>keys;
-};
 
-class CurvePrm
-{
-public:
-  CurvePrm(){}
-  quint16 bytes;
-  quint16 offtAddr;
-  quint16 baseAddr;
-};
-
-class CurveConst
-{
-public:
-  QString keyName;
-  CurvePrm prm;
-  double constK;
-};
-class CurveVar
-{
-public:
-  QString keyName;
-  CurvePrm prm;
-  QVector<double>datas;
-};
 class QTreeWidgetItem;
 class ICURVESHARED_EXPORT ICurve
 {

@@ -5,6 +5,7 @@
 #include "ctkPluginException.h"
 #include "ctkPluginContext.h"
 #include "ctkPluginFramework.h"
+#include "ctkPluginFrameworkFactory.h"
 
 #include <QFile>
 #include <QTextStream>
@@ -16,7 +17,8 @@
 PluginsManager::PluginsManager(QObject *parent) : QObject(parent),
   m_expertCurve(NULL)
 {
-  QSharedPointer<ctkPluginFramework> framework = m_frameWorkFactory.getFramework();
+  m_frameWorkFactory = new ctkPluginFrameworkFactory;
+  QSharedPointer<ctkPluginFramework> framework = m_frameWorkFactory->getFramework();
   try {
       // 初始化并启动插件框架
       framework->init();
@@ -26,6 +28,12 @@ PluginsManager::PluginsManager(QObject *parent) : QObject(parent),
       qDebug() << "Failed to initialize the plugin framework: " << e.what();
   }
   m_context = framework->getPluginContext();
+}
+
+PluginsManager::~PluginsManager()
+{
+  delete m_frameWorkFactory;
+  m_frameWorkFactory = NULL;
 }
 
 bool PluginsManager::loadPlugins()

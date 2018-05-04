@@ -84,6 +84,7 @@ private:
   void addTableRowPrm(ICurve *curve);
 
   void clearGraphData();
+  void checkCurveValid();
 
 
 private:

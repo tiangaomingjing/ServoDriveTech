@@ -1,7 +1,8 @@
 ﻿#ifndef PLOTDATA
 #define PLOTDATA
 #include <QHash>
-#include <icurve.h>
+#include "icurvedef.h"
+class ICurve;
 class PlotData
 {
 public:

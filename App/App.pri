@@ -13,6 +13,7 @@ INCLUDEPATH+=$${LIBS_PATH}/Com/Communication\
             $${LIBS_PATH}/Option\
             $${LIBS_PATH}/PlotUnit/PlotUnitGraph\
             $${LIBS_PATH}/PlotUnit/IPlotUnit\
+            $${LIBS_PATH}/PlotCurvePluginFramework/ICurve\
             $${COMMON_PATH}/src\
             $${COMMON_PATH}/src/Kernel\
             $${COMMON_PATH}/src/UiFactory\

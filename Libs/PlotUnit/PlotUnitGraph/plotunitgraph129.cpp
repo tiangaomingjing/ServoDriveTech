@@ -131,7 +131,6 @@ PlotUnitGraph129::PlotUnitGraph129(const QList<SevDevice *> &sevList, QWidget *p
     QWidget *w=ui->stackedWidget_tabCtlPanel->widget(0);
     ui->stackedWidget_tabCtlPanel->removeWidget(w);
   }
-
   //加载插件
   bool loadPluginOk=true;
   d->m_pluginManager=new PluginsManager(this);
@@ -140,6 +139,7 @@ PlotUnitGraph129::PlotUnitGraph129(const QList<SevDevice *> &sevList, QWidget *p
     QMessageBox::information(0,tr("error"),tr("load plugin error!\n"));
 
   d->m_curveManager=new CurveManager(this);
+
 
   //曲线表格初始化
   int curveTableWidth = 250;
@@ -321,17 +321,17 @@ void PlotUnitGraph129::onOptFaceCssChanged(const QString &css)
 void PlotUnitGraph129::onBtnMeaHClicked(bool checked)
 {
   if(checked)
-    ui->plot->createHorizMea();
-  else
-    ui->plot->clearHorizMea();
-}
-
-void PlotUnitGraph129::onBtnMeaVClicked(bool checked)
-{
-  if(checked)
     ui->plot->createVertiMea();
   else
     ui->plot->clearVertiMea();
+}
+
+void PlotUnitGraph129::onBtnMeaVClicked(bool checked)
+{ 
+  if(checked)
+    ui->plot->createHorizMea();
+  else
+    ui->plot->clearHorizMea();
 }
 
 void PlotUnitGraph129::onBtnFitClicked()
@@ -358,10 +358,12 @@ void PlotUnitGraph129::onBtnStartSampleClicked()
   if(ui->tbtn_plot_startSampling->isChecked())
   {
     clearGraphData();
+    //检查曲线参数有效性
+    checkCurveValid();
 
     qDebug()<<"sampleScale "<<ui->comboBox_plot_sampling->currentText().toInt();
     d->m_curveManager->setSampleScale(ui->comboBox_plot_sampling->currentText().toInt());
-    d->m_curveManager->setStoreTime(10);
+    d->m_curveManager->setStoreTime(20);
     d->m_curveManager->updateSamplPrms();
     //读取所有曲线静态变量
 
@@ -669,9 +671,9 @@ void PlotUnitGraph129::onPlotDataIn(PlotData data)
     }
   }
   count ++;
-  if(count >2)
+  if(count >3)
   {
-    ui->plot->xAxis->setRange(lastkeyValue, 4, Qt::AlignRight);
+    ui->plot->xAxis->setRange(lastkeyValue, 2, Qt::AlignRight);
     ui->plot->replot();
     count = 0;
   }
@@ -912,14 +914,7 @@ void PlotUnitGraph129::addTableRowPrm(ICurve *curve)
 
 void PlotUnitGraph129::clearGraphData()
 {
-  Q_D(PlotUnitGraph129);
   int graphCount =  ui->plot->graphCount();
-//  ui->plot->clearGraphs();
-//  for(int i=0;i<graphCount;i++)
-//  {
-//    ui->plot->addGraph();
-//    ui->plot->graph(i)->setPen(d->m_curveManager->curveList().at(i)->color());
-//  }
 
   for(int i=0;i<graphCount;i++)
   {
@@ -927,6 +922,12 @@ void PlotUnitGraph129::clearGraphData()
   }
   ui->plot->rescaleAxes();
   ui->plot->replot(QCustomPlot::rpImmediateRefresh);
+}
+
+void PlotUnitGraph129::checkCurveValid()
+{
+  //对应的设备有没有这个轴，没有的话直接删除
+  //对应设备更新其地址信息
 }
 
 

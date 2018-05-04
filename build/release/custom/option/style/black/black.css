@@ -4,6 +4,19 @@ QDoubleSpinBox{
 	min-width:150px;
 	border-radius:5px;
 	padding-left:5px;
+	border:1px solid #BBB9B9;
+}
+QDoubleSpinBox:focus{
+	border:1px solid black;
+}
+QDoubleSpinBox:!enabled{
+	border:none;
+	color:gray;
+	background-color:gray;
+}
+
+QMainWindow#CombinedWindow {
+	background-color:#F0F0F0;
 }
 /*==========================main treeWidget 导航栏=====================*/
 QDockWidget  QTreeView {
@@ -78,8 +91,8 @@ QToolBar {
 }
 QToolButton { /* all types of tool button */
     border: none;
-	padding-top:5px;
-	padding-bottom:5px;
+	padding-top:1px;
+	padding-bottom:1px;
 	padding-left:0px;
 	padding-right:0px;
 	color:white;
@@ -104,6 +117,9 @@ QToolButton:hover:pressed {
     background-color: rgb(86, 86, 86);
 	font-weight:normal;
 	color:#252A3E;
+}
+QToolButton:!enabled {
+	color:gray;
 }
 /*QToolButton:checked {
     background-color: rgb(40, 40, 40);
@@ -188,6 +204,11 @@ StyleWidget{
 	qproperty-msgErrorColor:red;
 }
 
+UiFlash {
+	qproperty-flashNodeColor:blue;
+	qproperty-ramNodeColor:blue;
+}
+
 
 /*====================电机界面===================*/
 QWidget#widget_machinePrm{
@@ -217,7 +238,7 @@ border:2px solid #BBB9B9;
 }
 
 QLabel#label_motorCur{
-border:1px solid black;
+border:1px solid #BBB9B9;
 border-top:none;
 border-left:none;
 border-right:none;
@@ -225,7 +246,7 @@ padding-bottom: 10px;
 }
 
 QLabel#label_MotorMac{
-border:1px solid black;
+border:1px solid #BBB9B9;
 border-top:none;
 border-left:none;
 border-right:none;
@@ -233,7 +254,7 @@ padding-bottom: 10px;
 }
 
 QLabel#label_motorVel{
-border:1px solid black;
+border:1px solid #BBB9B9;
 border-top:none;
 border-left:none;
 border-right:none;
@@ -241,7 +262,7 @@ padding-bottom: 10px;
 }
 
 QLabel#label_MotorImp{
-border:1px solid black;
+border:1px solid #BBB9B9;
 border-top:none;
 border-left:none;
 border-right:none;
@@ -249,7 +270,7 @@ padding-bottom: 10px;
 }
 
 QLabel#label_motorTor{
-border:1px solid black;
+border:1px solid #BBB9B9;
 border-top:none;
 border-left:none;
 border-right:none;
@@ -308,7 +329,7 @@ border:2px solid #BBB9B9;
 }
 
 QLabel#label_pwrBVP{
-border:1px solid black;
+border:1px solid #BBB9B9;
 border-top:none;
 border-left:none;
 border-right:none;
@@ -316,7 +337,7 @@ padding-bottom: 10px;
 }
 
 QLabel#label_pwrSSRV{
-border:1px solid black;
+border:1px solid #BBB9B9;
 border-top:none;
 border-left:none;
 border-right:none;
@@ -324,7 +345,7 @@ padding-bottom: 10px;
 }
 
 QLabel#label_pwrBHV{
-border:1px solid black;
+border:1px solid #BBB9B9;
 border-top:none;
 border-left:none;
 border-right:none;
@@ -352,7 +373,7 @@ border:2px solid #BBB9B9;
 }
 
 QLabel#label_brakeEmergency{
-border:1px solid black;
+border:1px solid #BBB9B9;
 border-top:none;
 border-left:none;
 border-right:none;
@@ -360,7 +381,7 @@ padding-bottom: 10px;
 }
 
 QLabel#label_brakeDynamic{
-border:1px solid black;
+border:1px solid #BBB9B9;
 border-top:none;
 border-left:none;
 border-right:none;
@@ -368,12 +389,13 @@ padding-bottom: 10px;
 }
 
 QLabel#label_brakeExternal{
-border:1px solid black;
+border:1px solid #BBB9B9;
 border-top:none;
 border-left:none;
 border-right:none;
 padding-bottom: 10px;
 }
+
 /*====================Current 电流控制器页面===================*/
 IGraphWidget{
 	border:none;
@@ -386,6 +408,11 @@ SumItemWidget{
 	qproperty-lineColor: gray;
 	qproperty-fillColor: #E0DDDD;
 } 
+SaturationItemWidget{
+    qproperty-lineColor: gray;
+	qproperty-fillColor: #E0DDDD;
+}
+
 
 QWidget#widget_currentPid{
 	background-color: #E0DDDD;
@@ -397,7 +424,7 @@ QLabel#label_currentTitle{
 	margin-bottom:5px;
 	color:black;
 	border:1px solid transparent;
-	border-bottom-color:black;
+	border-bottom-color:#BBB9B9;
 	font-weight:bold;
 }
 
@@ -420,6 +447,63 @@ QLabel#label_currentEndText,QLabel#label_currentStartText{
 	border:none;
 }
 
+/*====================Velocity 速度控制器页面==================*/
+
+QWidget#widget_velPid{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+
+QWidget#widget_velSaturation{
+	background-color:transparent;
+	border:none;
+} 
+QWidget#widget_velSaturation:hover{
+	background-color:#E0DDDD;
+	border:2px solid red;
+	border-radius:5px;
+}
+
+QLabel#label_velPidTitle{
+	padding-bottom:10px;
+	margin-bottom:5px;
+	color:black;
+	border:1px solid transparent;
+	border-bottom-color:#BBB9B9;
+	font-weight:bold;
+}
+
+QLabel#label_velInputFilter,QLabel#label_velOutputFilter{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:50px;
+	padding:5px;
+}
+QLabel#label_velVelocityFeedback{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:30px;
+	padding:10px;
+}
+QLabel#label_velStartText,QLabel#label_velEndText{
+	background-color: transparent;
+	border:none;
+}
+
+/*饱和控制项*/
+
+QWidget#widget_velMaxTq,QWidget#widget_velMaxTqPositive,QWidget#widget_velMaxTqNegative{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+QLabel#label_velTextPositiveMaxTq,QLabel#label_velTextNegativeMaxTq{
+	background-color: transparent;
+	border:none;
+}
 
 /*====================Position 位置控制器页面===================*/
 
@@ -438,12 +522,22 @@ QWidget#widget_posFFacc{
 	border:2px solid #BBB9B9;
 	border-radius:10px;
 }
-QLabel#label_posTitle{
+QWidget#widget_posSaturation{
+	background-color:transparent;
+	border:none;
+} 
+QWidget#widget_posSaturation:hover{
+	background-color:#E0DDDD;
+	border:2px solid red;
+	border-radius:5px;
+}
+
+QLabel#label_posPidTitle{
 	padding-bottom:10px;
 	margin-bottom:5px;
 	color:black;
 	border:1px solid transparent;
-	border-bottom-color:black;
+	border-bottom-color:#BBB9B9;
 	font-weight:bold;
 }
 
@@ -480,6 +574,44 @@ QLabel#label_posCurCtler{
 	min-height:50px;
 	padding:5px;
 }
+/*饱和控制项*/
+FrameItemWidget{
+	background-color:transparent;
+	qproperty-lineColor: #BBB9B9;
+	qproperty-fillColor: #E0DDDD;
+}
+QWidget#widget_posMaxVel,QWidget#widget_posMaxVelPositive,QWidget#widget_posMaxVelNegative{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+QLabel#label_posTextPositiveMaxV,QLabel#label_posTextNegativeMaxV{
+	background-color: transparent;
+	border:none;
+}
+
+/*=====================Status状态界面===========================*/
+QWidget#widget_statusAlarm,QWidget#widget_statusInfo{
+background-color: #E0DDDD;
+border-radius:10px;
+border:2px solid #BBB9B9;
+}
+QPushButton#btn_statusClearAlarm{
+	min-height:50px;
+	min-width:100px;
+	border:2px solid #BBB9B9;
+	background-color:transparent;
+	border-radius:10px;
+}
+QPushButton#btn_statusClearAlarm:hover{
+	background-color:gray;
+	font-weight:bold;
+}
+QPushButton#btn_statusClearAlarm:hover:pressed{
+	background-color:#404040;
+	font-weight:normal;
+}
+
 
 /*====================option设置对话框===================*/
 
@@ -530,3 +662,105 @@ QGroupBox#pswBox {
 	border:0px
 }
 
+/*=========================================无窗口边框=============================*/
+
+QToolButton#btn_Min,QToolButton#btn_icon,QToolButton#btn_Max,QToolButton#btn_Close{
+	background-color: #252A3E;
+	min-width:30px;
+}
+
+QToolButton#btn_Min:hover{
+	background-color: gray;
+}
+
+QToolButton#btn_Max:hover{
+	background-color: gray;
+}
+
+QToolButton#btn_Close:hover{
+	background-color: rgb(207, 73, 53);
+}
+
+QLabel#label_title,QLabel#label_combinedInfo{
+	color: rgb(255, 255, 255);
+}
+
+QWidget#widget_frameWidget {	
+	background-color: rgb(37, 42, 62);
+}
+
+/*=========================PlotUintGraph=====================*/
+QWidget#widget_plot_up{
+	background-color:#F0F0F0;
+} 
+QWidget#widget_plot_up  QToolButton:hover{
+	background-color:#BBB9B9;
+} 
+QWidget#widget_plot_up QToolButton:hover:pressed{
+	background-color:gray;
+} 
+QWidget#widget_plot_up QToolButton{
+	background-color:transparent;
+	min-width:40px;
+} 
+
+QWidget#widget_plotGraph_right QToolButton:hover{
+	background-color:#BBB9B9;
+} 
+QWidget#widget_plotGraph_right QToolButton:hover:pressed{
+	background-color:gray;
+} 
+QWidget#widget_plotGraph_right QToolButton{
+	background-color:transparent;
+	min-width:40px;
+	color:black;
+} 
+
+
+QToolButton#tbtn_plot_servoOnMode,QToolButton#tbtn_plot_servoGoMotion{
+	background-color:transparent
+	
+}
+QToolButton#tbtn_plot_servoOnMode:hover,QToolButton#tbtn_plot_servoGoMotion:hover{
+	border:1px solid gray;
+	border-radius:50px;
+	
+}
+QTableWidget{
+	border:none;
+	background-color:lightgray;
+}
+QWidget#widget_plotGraph_right  QComboBox{
+	border-radius: 3px;
+	margin:0px;
+	padding-bottom:0px;
+	padding-top:0px;
+	padding-left:10px;
+	padding-right:0px;
+	border: none;
+	background-color:transparent;
+}
+QWidget#widget_plotGraph_right  QComboBox:hover{
+	border-radius: 3px;
+	padding-bottom:0px;
+	padding-top:0px;
+	padding-left:10px;
+	padding-right:0px;
+	border: 1px solid #636363;
+	background-color: gray;
+}
+QWidget#widget_plotGraph_right  QComboBox::drop-down{
+	subcontrol-origin: padding;
+	subcontrol-position: top right;
+	width: 15px; 
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-left-color: transparent;
+}
+QWidget#widget_plotGraph_right QComboBox::down-arrow{
+ 
+	image: url(../custom/option/style/black/icon/array_down.png);
+}
+	

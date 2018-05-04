@@ -12,7 +12,7 @@ public:
   IOpt *q_ptr;
   bool m_isModify;
   QString m_name;
-  static QString m_optPath;
+  QString m_optPath;
 };
 
 #endif // IOPT_P_H

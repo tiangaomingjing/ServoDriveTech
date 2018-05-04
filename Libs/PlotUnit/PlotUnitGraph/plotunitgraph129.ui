@@ -106,19 +106,6 @@
               </widget>
              </item>
              <item>
-              <widget class="QToolButton" name="tbtn_plot_mea_horizontal">
-               <property name="minimumSize">
-                <size>
-                 <width>30</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>hori</string>
-               </property>
-              </widget>
-             </item>
-             <item>
               <widget class="QToolButton" name="tbtn_plot_mea_vertical">
                <property name="minimumSize">
                 <size>
@@ -128,6 +115,19 @@
                </property>
                <property name="text">
                 <string>vert</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QToolButton" name="tbtn_plot_mea_horizontal">
+               <property name="minimumSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>hori</string>
                </property>
               </widget>
              </item>

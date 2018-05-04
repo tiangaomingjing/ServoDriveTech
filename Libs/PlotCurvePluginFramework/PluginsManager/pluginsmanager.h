@@ -5,16 +5,18 @@
 #include <QHash>
 #include <QList>
 #include "ctkPlugin.h"
-#include "ctkPluginFrameworkFactory.h"
 
 class ICurve;
 class ctkPluginContext;
+class ctkPluginFrameworkFactory;
 
 class PluginsManager : public QObject
 {
   Q_OBJECT
 public:
   explicit PluginsManager(QObject *parent = 0);
+  ~ PluginsManager();
+
   bool loadPlugins();
 
   ICurve *expertCurve() const;
@@ -30,7 +32,7 @@ signals:
 
 public slots:
 private:
-  ctkPluginFrameworkFactory m_frameWorkFactory;
+  ctkPluginFrameworkFactory *m_frameWorkFactory;
   ctkPluginContext* m_context;
 
   QHash<QString,QSharedPointer<ctkPlugin>>m_plugins;
