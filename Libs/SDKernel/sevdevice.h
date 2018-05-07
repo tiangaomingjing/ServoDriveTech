@@ -51,11 +51,15 @@ public:
   bool writeItemFlash(quint16 axisInx,QTreeWidgetItem *item);
   bool readItemFlash(quint16 axisInx,QTreeWidgetItem *item);
 
-  bool writeUiFlash(quint16 axisInx, QTreeWidgetItem *item);
-  bool writeUiRam(quint16 axisInx, QTreeWidgetItem *item);
+  bool writeAdvFlash(quint16 axisInx, QTreeWidgetItem *item);
+  bool writeAdvRam(quint16 axisInx, QTreeWidgetItem *item);
 
-  bool readUiFlash(quint16 axisInx, QTreeWidgetItem *item);
-  bool readUiRam(quint16 axisInx, QTreeWidgetItem *item);
+  bool readAdvFlash(quint16 axisInx, QTreeWidgetItem *item);
+  bool readAdvRam(quint16 axisInx, QTreeWidgetItem *item);
+
+  bool startPlot(const ComDriver::PlotControlPrm &ctrPrm);
+  bool stopPlot(const ComDriver::PlotControlPrm &ctrPrm);
+  bool getPlotData(const ComDriver::PlotControlPrm &ctrPrm,ComDriver::CurveList &curveList);
 
   bool clearAlarm(quint16 axisInx);
 

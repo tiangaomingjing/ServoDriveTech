@@ -1,4 +1,4 @@
-#ifndef BITITEMHELPER_H
+﻿#ifndef BITITEMHELPER_H
 #define BITITEMHELPER_H
 
 #include <QObject>
@@ -29,8 +29,6 @@ signals:
 
 public slots:
 
-private:
-    QString m_tablePath;
 private:   
     static quint64 getOperationValue(int start, int length);
 };

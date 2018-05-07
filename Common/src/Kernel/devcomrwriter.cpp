@@ -185,10 +185,10 @@ DeviceConfig* DevComRWriter::buildConfigFromCom(void (*processCallback)(void *pb
   if(pok&&cok&&vok&&fok)
   {
     config=new DeviceConfig(0);
-    BuilderParameters *para = new BuilderParameters(this, pid, cid, version);
+    BuilderParameters para(pid, cid, version);
     SelfBuilder *builder = new SelfBuilder(com);
     connect(builder, SIGNAL(sendProcessInfo(int,QString)), this, SIGNAL(sendDevProcessInfo(int,QString)));
-    SelfBuilder::Rtn_Self rtn = builder->buildFromEprom(processCallback, processbar, para);
+    SelfBuilder::RtnSelf rtn = builder->buildFromEprom(processCallback, processbar, &para);
     if (rtn != SelfBuilder::RTN_SELF_SUCCESS) {
         emit sendDevProcessInfo(0, tr("Building fails %1").arg(QString::number(rtn)));
         return config;

@@ -76,6 +76,8 @@ build/release/bin/*.lib
 !build/debug/bin/qwtd.dll
 !build/release/bin/qwt*.dll
 !Libs/ThirdParty
+build/debug/bin/configuration
+build/release/bin/configuration
 
 
 

@@ -28,6 +28,9 @@ DialogAdvUsr::DialogAdvUsr(QWidget *parent) :
     }
     ui->listWidget->setCurrentRow(0);
     ui->stackedWidget->setCurrentIndex(0);
+    connect(ui->btn_advUsrApply, SIGNAL(clicked()), this, SLOT(onApplyButtonClicked()));
+    connect(ui->btn_AdvUsrCancel, SIGNAL(clicked()), this, SLOT(onCancelButtonClicked()));
+    connect(ui->btn_advUsrOk, SIGNAL(clicked()), this, SLOT(onOkButtonClicked()));
 }
 
 DialogAdvUsr::~DialogAdvUsr()

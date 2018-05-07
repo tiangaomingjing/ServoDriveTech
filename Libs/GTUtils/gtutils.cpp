@@ -171,7 +171,7 @@ int GTUtils::byteNumbers(const QString &str)
 //--------------------private function-------------------------------
 QString GTUtils::sdtPath()
 {
-  QString path=QApplication::applicationDirPath();
+  QString path=qApp->applicationDirPath();
   QDir dir(path);
   dir.cdUp();
   path=dir.absolutePath()+"/";

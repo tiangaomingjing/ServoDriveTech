@@ -2,43 +2,17 @@
 #define ICURVE_H
 
 #include "icurve_global.h"
+#include "icurvedef.h"
 #include <QObject>
 #include <QVector>
 #include <QHash>
 #include <QColor>
 #include <QList>
+
+#define SAMPLING_INTERVAL_US 62.5
+
 #define ICurve_iid "gt.plot.curve.icurve"
-class CurveData
-{
-public:
-  CurveData(){}
-  QVector<double>values;
-  QVector<double>keys;
-};
 
-class CurvePrm
-{
-public:
-  CurvePrm(){}
-  quint16 bytes;
-  quint16 offtAddr;
-  quint16 baseAddr;
-};
-
-class CurveConst
-{
-public:
-  QString keyName;
-  CurvePrm prm;
-  double constK;
-};
-class CurveVar
-{
-public:
-  QString keyName;
-  CurvePrm prm;
-  QVector<double>datas;
-};
 class QTreeWidgetItem;
 class ICURVESHARED_EXPORT ICurve
 {
@@ -48,7 +22,7 @@ public:
   virtual void init() = 0;
   virtual void exec();
 
-  virtual void calculate() = 0;
+
 
   virtual QString name() = 0;
   virtual QString note() = 0;
@@ -75,7 +49,7 @@ public:
   void fillVarInputsPrm(int inx ,const CurvePrm &prm);
 
   void setConstInputK(int channel,double value);
-  QVector<double> &varInputVector(int channel);
+  void setVarInputVector(int channel ,const QVector<double> &in);
 
   int rowInx() const;
   void setRowInx(int rowInx);
@@ -86,7 +60,7 @@ public:
   QString devName() const;
 
   double samplInterval() const;
-  void setSamplInterval(double samplIntervalUS);
+  void setSamplInterval(int samplIntervalScale);
 
   void adjustData();
 
@@ -101,31 +75,54 @@ public:
   bool isDraw() const;
   void setIsDraw(bool isDraw);
 
+  QList<CurveVar> varInputs() const;
+
+  QList<CurveConst> constInputs() const;
+
+  int dspInx() const;
+  void setDspInx(int dspInx);
+
+  CurveData *cData();
+  CurveData *sData() ;
+
+protected:
+  virtual void calculate() = 0;
+
 protected:
 
-  int m_rowInx;
-  int m_axisInx;
-  int m_dspInx;
-  int m_devInx;
+  class ICurvePrivate
+  {
+  public:
+    ICurvePrivate();
 
-  bool m_isDraw;
-  QColor m_color;
-  QString m_name;
-  QString m_note;
-  QString m_unitName;
+    int m_rowInx;
+    int m_axisInx;
+    int m_dspInx;
+    int m_devInx;
 
-  double m_k;
-  double m_samplInterval;//us
-  qint32 m_storePointCount;
+    bool m_isDraw;
+    QColor m_color;
+    QString m_name;
+    QString m_note;
+    QString m_unitName;
 
-  QList<CurveConst>m_constInputs;
-  QList<CurveVar>m_varInputs;
-  QHash<QString,double> m_units;
+    double m_k;
+    double m_samplInterval;//s
+    double m_currentTime;//s
+    qint32 m_storePointCount;
 
-  CurveData m_cData;
-  CurveData m_sData;
+    QList<CurveConst>m_constInputs;
+    QList<CurveVar>m_varInputs;
+    QHash<QString,double> m_units;
 
-  QString m_pluginName;
+    CurveData m_cData;
+    CurveData m_sData;
+
+    QString m_pluginName;
+  };
+
+  ICurvePrivate dd;
+
 };
 
 Q_DECLARE_INTERFACE(ICurve,ICurve_iid)

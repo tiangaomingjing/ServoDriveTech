@@ -1,4 +1,4 @@
-#include "bititemhelper.h"
+﻿#include "bititemhelper.h"
 #include "gtutils.h"
 #include "sdtglobaldef.h"
 #include "rnnet.h"
@@ -23,13 +23,13 @@ void BitItemHelper::assign16Bits(QTreeWidgetItem *item, uint16_t value)
 //    qDebug()<<"count"<<item->childCount();
 //    qDebug()<<"value"<<value;
     for (int i = 0; i < item->childCount(); i++) {
-        int start = item->child(i)->text(GT::COL_FR_BITSTART).toInt();
-        int length = item->child(i)->text(GT::COL_FR_BITWIDTH).toInt();
+        int start = item->child(i)->text(GT::COL_FLASH_RAM_TREE_BITSTART).toInt();
+        int length = item->child(i)->text(GT::COL_FLASH_RAM_TREE_BITWIDTH).toInt();
         quint16 opera = getOperationValue(start, length);
         temp = value & opera;
         temp >>= start;
         //qDebug()<<i<<temp;
-        item->child(i)->setText(GT::COL_FR_VALUE, QString::number(temp));
+        item->child(i)->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(temp));
     }
 }
 
@@ -39,13 +39,13 @@ void BitItemHelper::assign32Bits(QTreeWidgetItem *item, uint32_t value)
 //    qDebug()<<"count"<<item->childCount();
 //    qDebug()<<"value"<<value;
     for (int i = 0; i < item->childCount(); i++) {
-        int start = item->child(i)->text(GT::COL_FR_BITSTART).toInt();
-        int length = item->child(i)->text(GT::COL_FR_BITWIDTH).toInt();
+        int start = item->child(i)->text(GT::COL_FLASH_RAM_TREE_BITSTART).toInt();
+        int length = item->child(i)->text(GT::COL_FLASH_RAM_TREE_BITWIDTH).toInt();
         quint32 opera = getOperationValue(start, length);
         temp = value & opera;
         temp >>= start;
         //qDebug()<<i<<temp;
-        item->child(i)->setText(GT::COL_FR_VALUE, QString::number(temp));
+        item->child(i)->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(temp));
     }
 }
 
@@ -55,13 +55,13 @@ void BitItemHelper::assign64Bits(QTreeWidgetItem *item, uint64_t value)
 //    qDebug()<<"count"<<item->childCount();
 //    qDebug()<<"value"<<value;
     for (int i = 0; i < item->childCount(); i++) {
-        int start = item->child(i)->text(GT::COL_FR_BITSTART).toInt();
-        int length = item->child(i)->text(GT::COL_FR_BITWIDTH).toInt();
+        int start = item->child(i)->text(GT::COL_FLASH_RAM_TREE_BITSTART).toInt();
+        int length = item->child(i)->text(GT::COL_FLASH_RAM_TREE_BITWIDTH).toInt();
         quint64 opera = getOperationValue(start, length);
         temp = value & opera;
         temp >>= start;
         //qDebug()<<i<<temp;
-        item->child(i)->setText(GT::COL_FR_VALUE, QString::number(temp));
+        item->child(i)->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(temp));
     }
 }
 
@@ -79,7 +79,7 @@ quint64 BitItemHelper::getOperationValue(int start, int length)
 bool BitItemHelper::isTargetItem(QTreeWidgetItem *item, const QString &str, int index)
 {
     if (item != NULL) {
-        QStringList list = item->text(GT::COL_FR_NAME).split(".");
+        QStringList list = item->text(GT::COL_FLASH_RAM_TREE_NAME).split(".");
         if (str.compare(list.at(index)) == 0) {
             return true;
         }
@@ -91,12 +91,12 @@ quint16 BitItemHelper::calculate16Bits(QTreeWidgetItem *item)
 {
     quint16 result = 0;
     for (int i = 0; i < item->childCount(); i++) {
-        int start = item->child(i)->text(GT::COL_FR_BITSTART).toInt();
-        int length = item->child(i)->text(GT::COL_FR_BITWIDTH).toInt();
-        uint16_t value = item->child(i)->text(GT::COL_FR_VALUE).toUShort();
+        int start = item->child(i)->text(GT::COL_FLASH_RAM_TREE_BITSTART).toInt();
+        int length = item->child(i)->text(GT::COL_FLASH_RAM_TREE_BITWIDTH).toInt();
+        uint16_t value = item->child(i)->text(GT::COL_FLASH_RAM_TREE_VALUE).toUShort();
         quint16 opera = getOperationValue(start, length);
         result = result + ((value << start) & opera);
-        item->child(i)->setTextColor(GT::COL_FR_VALUE, Qt::black);
+        item->child(i)->setTextColor(GT::COL_FLASH_RAM_TREE_VALUE, Qt::black);
     }
     return result;
 }
@@ -105,12 +105,12 @@ quint32 BitItemHelper::calculate32Bits(QTreeWidgetItem *item)
 {
     quint32 result = 0;
     for (int i = 0; i < item->childCount(); i++) {
-        int start = item->child(i)->text(GT::COL_FR_BITSTART).toInt();
-        int length = item->child(i)->text(GT::COL_FR_BITWIDTH).toInt();
-        uint32_t value = item->child(i)->text(GT::COL_FR_VALUE).toULong();
+        int start = item->child(i)->text(GT::COL_FLASH_RAM_TREE_BITSTART).toInt();
+        int length = item->child(i)->text(GT::COL_FLASH_RAM_TREE_BITWIDTH).toInt();
+        uint32_t value = item->child(i)->text(GT::COL_FLASH_RAM_TREE_VALUE).toULong();
         quint32 opera = getOperationValue(start, length);
         result = result + ((value << start) & opera);
-        item->child(i)->setTextColor(GT::COL_FR_VALUE, Qt::black);
+        item->child(i)->setTextColor(GT::COL_FLASH_RAM_TREE_VALUE, Qt::black);
     }
     return result;
 }
@@ -119,12 +119,12 @@ quint64 BitItemHelper::calculate64Bits(QTreeWidgetItem *item)
 {
     quint64 result = 0;
     for (int i = 0; i < item->childCount(); i++) {
-        int start = item->child(i)->text(GT::COL_FR_BITSTART).toInt();
-        int length = item->child(i)->text(GT::COL_FR_BITWIDTH).toInt();
-        uint64_t value = item->child(i)->text(GT::COL_FR_VALUE).toULongLong();
+        int start = item->child(i)->text(GT::COL_FLASH_RAM_TREE_BITSTART).toInt();
+        int length = item->child(i)->text(GT::COL_FLASH_RAM_TREE_BITWIDTH).toInt();
+        uint64_t value = item->child(i)->text(GT::COL_FLASH_RAM_TREE_VALUE).toULongLong();
         quint64 opera = getOperationValue(start, length);
         result = result + ((value << start) & opera);
-        item->child(i)->setTextColor(GT::COL_FR_VALUE, Qt::black);
+        item->child(i)->setTextColor(GT::COL_FLASH_RAM_TREE_VALUE, Qt::black);
     }
     return result;
 }

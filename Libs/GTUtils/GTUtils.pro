@@ -15,7 +15,6 @@ isEqual(UtilsTest,0){
 INCLUDEPATH+=$${PWD}/QtTreeManager\
              $${PWD}/../Com/Communication\
              $${PWD}/SelfBuilder\
-             $${PWD}/BuilderParameters\
              $${PWD}/BitItemHelper\
              $${PWD}/CmdManager\
 

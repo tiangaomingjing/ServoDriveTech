@@ -23,5 +23,6 @@ SOURCES += \
 
 HEADERS += \
     icurve.h \
-    icurve_global.h
+    icurve_global.h \
+    icurvedef.h
 

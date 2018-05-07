@@ -440,6 +440,7 @@ void SDTMainWindow::navigationTreeInit()
 #endif
 
   m_statusBar->updateDeviceNavTreeWhenChanged(ui->treeWidget);
+
 }
 
 void SDTMainWindow::clearNavigationTree()
@@ -452,7 +453,6 @@ void SDTMainWindow::globalUiPageInit()
   QList<SevDevice *>sevList;
   for(int i=0;i<m_sdAssemblyList.count();i++)
     sevList.append(m_sdAssemblyList.at(i)->sevDevice());
-
   m_gUiControl=new GlobalUiControler(sevList);
   m_gUiControl->createUis();
 }

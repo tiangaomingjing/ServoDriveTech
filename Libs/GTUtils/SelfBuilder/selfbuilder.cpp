@@ -43,12 +43,12 @@ SelfBuilder::SelfBuilder(ComDriver::ICom *com)
     //dd->m_type = ICOM_TYPE_RNNET;
 }
 
-SelfBuilder::Rtn_Self SelfBuilder::buildFromEprom(void (*processCallback)(void *pbar,short *value),void *processbar, BuilderParameters *parameters)
+SelfBuilder::RtnSelf SelfBuilder::buildFromEprom(void (*processCallback)(void *pbar,short *value),void *processbar, BuilderParameters *parameters)
 {
     dd->m_powerID = QString::number(parameters->m_pwrId);
     dd->m_controlID = QString::number(parameters->m_ctrId);
     dd->m_version = parameters->m_version;
-    Rtn_Self rtn;
+    RtnSelf rtn;
     rtn = initParameters();
     if (rtn != RTN_SELF_SUCCESS) {
         return rtn;
@@ -64,7 +64,7 @@ SelfBuilder::Rtn_Self SelfBuilder::buildFromEprom(void (*processCallback)(void *
     return RTN_SELF_SUCCESS;
 }
 
-SelfBuilder::Rtn_Self SelfBuilder::buildPower(void (*processCallback)(void *pbar,short *value),void *processbar)
+SelfBuilder::RtnSelf SelfBuilder::buildPower(void (*processCallback)(void *pbar,short *value),void *processbar)
 {
     emit sendProcessInfo(0, tr("Building new power board"));
     QString boardPath = GTUtils::databasePath() + "Board/PB/";
@@ -72,7 +72,7 @@ SelfBuilder::Rtn_Self SelfBuilder::buildPower(void (*processCallback)(void *pbar
     QString pwrMapPath = boardPath + "IdMap_Power.ui";
     QString selectPath = GTUtils::sysPath() + "SysMap/ConfigSelectTree.ui";
     QString databaseSelPath = GTUtils::databasePath() + "Board/SelectTree.ui";
-    Rtn_Self rtn;
+    RtnSelf rtn;
     emit sendProcessInfo(5, tr("Checking axis number"));
     if (!axisNumExisted(QString::number(dd->m_axisNum), pwrMapPath)) {
         qDebug()<<"no such product";
@@ -142,13 +142,15 @@ SelfBuilder::Rtn_Self SelfBuilder::buildPower(void (*processCallback)(void *pbar
     return RTN_SELF_SUCCESS;
 }
 
-SelfBuilder::Rtn_Self SelfBuilder::buildControl()
+
+
+SelfBuilder::RtnSelf SelfBuilder::buildControl()
 {
     emit sendProcessInfo(50, tr("Building new control board"));
     QString boardPath = GTUtils::databasePath() + "Board/CB/";
     QString indexPath = boardPath + "cbindex.ui";
     QString ctrMapPath = boardPath + "IdMap_Control.ui";
-    Rtn_Self rtn;
+    RtnSelf rtn;
     emit sendProcessInfo(55, tr("Checking axis number"));
     if (!axisNumExisted(QString::number(dd->m_axisNum), ctrMapPath)) {
         qDebug()<<"no such product";
@@ -176,7 +178,7 @@ SelfBuilder::Rtn_Self SelfBuilder::buildControl()
     return RTN_SELF_SUCCESS;
 }
 
-SelfBuilder::Rtn_Self SelfBuilder::initParameters()
+SelfBuilder::RtnSelf SelfBuilder::initParameters()
 {
     // read axisNum, product type, series num from hardware
     uint16_t ofst = 1 + POWER_BASEADDR;
@@ -300,7 +302,7 @@ bool SelfBuilder::ctrVerExisted(const QString &ver, const QString &path)
     return false;
 }
 
-SelfBuilder::Rtn_Self SelfBuilder::addModeToIdMap(const QString &id, const QString &path)
+SelfBuilder::RtnSelf SelfBuilder::addModeToIdMap(const QString &id, const QString &path)
 {
     QTreeWidget *tree = QtTreeManager::createTreeWidgetFromXmlFile(path);
     if (tree == NULL) {
@@ -328,7 +330,7 @@ SelfBuilder::Rtn_Self SelfBuilder::addModeToIdMap(const QString &id, const QStri
     return RTN_SELF_SUCCESS;
 }
 
-SelfBuilder::Rtn_Self SelfBuilder::addNewDatabase(const QString &id, const QString &path, const QString &indexPath) {
+SelfBuilder::RtnSelf SelfBuilder::addNewDatabase(const QString &id, const QString &path, const QString &indexPath) {
     QString idPath = path + dd->m_product + "/" + dd->m_product + QString::number(dd->m_axisNum) +
                      "/series" + dd->m_series + "/" + id +"/";
     QString versionPath = idPath + "filter/" + dd->m_version + "/";
@@ -348,14 +350,14 @@ SelfBuilder::Rtn_Self SelfBuilder::addNewDatabase(const QString &id, const QStri
     if (!ok) {
         return RTN_SELF_COPYERR;
     }
-    Rtn_Self rtn = readDataFromEEprom(idPath + id + ".ui", true);
+    RtnSelf rtn = readDataFromEEprom(idPath + id + ".ui", true);
     if (rtn != RTN_SELF_SUCCESS) {
         return rtn;
     }
     return RTN_SELF_SUCCESS;
 }
 
-SelfBuilder::Rtn_Self SelfBuilder::addNewCtrDatabase(const QString &id, const QString &path, const QString &indexPath)
+SelfBuilder::RtnSelf SelfBuilder::addNewCtrDatabase(const QString &id, const QString &path, const QString &indexPath)
 {
     QString idPath = path + dd->m_product + "/" + dd->m_product + QString::number(dd->m_axisNum) +
                      "/series" + dd->m_series + "/" + id +"/";
@@ -368,14 +370,14 @@ SelfBuilder::Rtn_Self SelfBuilder::addNewCtrDatabase(const QString &id, const QS
     if (!ok) {
         return RTN_SELF_COPYERR;
     }
-    Rtn_Self rtn = readDataFromEEprom(idPath + id + ".ui", false);
+    RtnSelf rtn = readDataFromEEprom(idPath + id + ".ui", false);
     if (rtn != RTN_SELF_SUCCESS) {
         return rtn;
     }
     return RTN_SELF_SUCCESS;
 }
 
-SelfBuilder::Rtn_Self SelfBuilder::addIndexTree(const QString &path, const QString &id)
+SelfBuilder::RtnSelf SelfBuilder::addIndexTree(const QString &path, const QString &id)
 {
     QTreeWidget* indexTree = QtTreeManager::createTreeWidgetFromXmlFile(path);
     if (indexTree == NULL) {
@@ -402,7 +404,7 @@ SelfBuilder::Rtn_Self SelfBuilder::addIndexTree(const QString &path, const QStri
     return RTN_SELF_SUCCESS;
 }
 
-SelfBuilder::Rtn_Self SelfBuilder::addSelectTree(const QString &path, const QString &id)
+SelfBuilder::RtnSelf SelfBuilder::addSelectTree(const QString &path, const QString &id)
 {
     QTreeWidget *selectTree = QtTreeManager::createTreeWidgetFromXmlFile(path);
     if (selectTree == NULL) {
@@ -431,7 +433,7 @@ SelfBuilder::Rtn_Self SelfBuilder::addSelectTree(const QString &path, const QStr
     return RTN_SELF_SUCCESS;
 }
 
-SelfBuilder::Rtn_Self SelfBuilder::addDatabaseSelectTree(const QString &path)
+SelfBuilder::RtnSelf SelfBuilder::addDatabaseSelectTree(const QString &path)
 {
     QTreeWidget *selectTree = QtTreeManager::createTreeWidgetFromXmlFile(path);
     if (selectTree == NULL) {
@@ -453,7 +455,7 @@ SelfBuilder::Rtn_Self SelfBuilder::addDatabaseSelectTree(const QString &path)
     return RTN_SELF_SUCCESS;
 }
 
-SelfBuilder::Rtn_Self SelfBuilder::addSysConfig(void (*processCallback)(void *pbar,short *value),void *processbar)
+SelfBuilder::RtnSelf SelfBuilder::addSysConfig(void (*processCallback)(void *pbar,short *value),void *processbar)
 {
     QString toDir = GTUtils::sysPath() + dd->m_typeName + "/" + dd->m_modeName + "/" + dd->m_version + "/";
     QString fromDir = GTUtils::sysPath() + dd->m_newestType + "/" + dd->m_newestMode + "/" + dd->m_newestVersion + "/";
@@ -462,14 +464,14 @@ SelfBuilder::Rtn_Self SelfBuilder::addSysConfig(void (*processCallback)(void *pb
         return RTN_SELF_COPYERR;
     }
     //use huanglian's interface to deal with the xml documents
-    Rtn_Self rtn = changeDocuments(processCallback, processbar, toDir);
+    RtnSelf rtn = changeDocuments(processCallback, processbar, toDir);
     if (rtn != RTN_SELF_SUCCESS) {
         return rtn;
     }
     return RTN_SELF_SUCCESS;
 }
 
-SelfBuilder::Rtn_Self SelfBuilder::addSystemMap()
+SelfBuilder::RtnSelf SelfBuilder::addSystemMap()
 {
     QString comType;
     if (dd->m_type == ICOM_TYPE_PCDEBUG) {
@@ -491,7 +493,7 @@ SelfBuilder::Rtn_Self SelfBuilder::addSystemMap()
     return RTN_SELF_SUCCESS;
 }
 
-SelfBuilder::Rtn_Self SelfBuilder::addDatabaseVersion(const QString &id, const QString &path)
+SelfBuilder::RtnSelf SelfBuilder::addDatabaseVersion(const QString &id, const QString &path)
 {
     QString idPath = path + dd->m_product + "/" + dd->m_product + QString::number(dd->m_axisNum) +
                      "/series" + dd->m_series + "/" + id +"/";
@@ -536,13 +538,13 @@ QString SelfBuilder::getOldPath(const QString &indexPath)
     return result;
 }
 
-SelfBuilder::Rtn_Self SelfBuilder::readDataFromEEprom(const QString &path, bool isPwr)
+SelfBuilder::RtnSelf SelfBuilder::readDataFromEEprom(const QString &path, bool isPwr)
 {
     QTreeWidget *tree = QtTreeManager::createTreeWidgetFromXmlFile(path);
     if (tree == NULL) {
         return RTN_SELF_CREATETREEERR;
     }
-    Rtn_Self rtn = readTreeData(tree->invisibleRootItem(), isPwr);
+    RtnSelf rtn = readTreeData(tree->invisibleRootItem(), isPwr);
     if (rtn != RTN_SELF_SUCCESS) {
         return rtn;
     }
@@ -554,7 +556,7 @@ SelfBuilder::Rtn_Self SelfBuilder::readDataFromEEprom(const QString &path, bool 
     return RTN_SELF_SUCCESS;
 }
 
-SelfBuilder::Rtn_Self SelfBuilder::readTreeData(QTreeWidgetItem *item, bool isPwr)
+SelfBuilder::RtnSelf SelfBuilder::readTreeData(QTreeWidgetItem *item, bool isPwr)
 {
     dd->m_count++;
     if (dd->m_count % 5 == 0) {
@@ -615,7 +617,7 @@ SelfBuilder::Rtn_Self SelfBuilder::readTreeData(QTreeWidgetItem *item, bool isPw
     return RTN_SELF_SUCCESS;
 }
 
-SelfBuilder::Rtn_Self SelfBuilder::changeDocuments(void (*processCallback)(void *, short *), void *processbar, const QString &path)
+SelfBuilder::RtnSelf SelfBuilder::changeDocuments(void (*processCallback)(void *, short *), void *processbar, const QString &path)
 {
     QString path_allAxis = path + "FlashPrm_AllAxis.xml";
     QString path_axis0 = path + "page/PrmRAMAxis0.xml";

@@ -34,9 +34,6 @@ protected:
 
     void saveDataToFile(const QString &group, const QString &key, const QVariant &value);
     QVariant dataFromFile(const QString &group,const QString &key,const QVariant &defaultValue);
-
-    void saveDataToDriver(QTreeWidgetItem *item, SevDevice *dev, int axisInx);
-    void dataFromDriver(QTreeWidgetItem *item, SevDevice *dev, int axisInx);
 private:
 
 signals:

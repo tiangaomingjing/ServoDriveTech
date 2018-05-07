@@ -1,3 +1,4 @@
 TEMPLATE = subdirs
-SUBDIRS += AppPluginFrameworkTest \
-    Plugins
+SUBDIRS += \
+    Plugins \
+    PluginWindowTest

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>599</width>
-    <height>272</height>
+    <width>400</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -43,7 +43,7 @@
      </column>
      <item>
       <property name="text">
-       <string>21000509</string>
+       <string>21000508</string>
       </property>
       <property name="text">
        <string>SD4x</string>
@@ -52,7 +52,7 @@
        <string>SD41</string>
       </property>
       <property name="text">
-       <string>SD43P003</string>
+       <string>SD43P002</string>
       </property>
       <property name="text">
        <string>4</string>
@@ -83,7 +83,7 @@
        <string>SD6x</string>
       </property>
       <property name="text">
-       <string>SD61</string>
+       <string>SD61_PLUS</string>
       </property>
       <property name="text">
        <string>SD63P006</string>

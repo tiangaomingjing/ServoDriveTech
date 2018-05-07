@@ -14,7 +14,7 @@ INCLUDEPATH+= $${PWD}/DialogOption\
               $${PWD}/StatusMonitor\
               $${PWD}/CombinedWindow\
               $${PWD}/DeviceInfoDialog\
-              $${PWD}/DialogAdvUsr\
+              $${PWD}/DialogAdvUsr
 
 QT       += core gui qml sql network
 

@@ -60,6 +60,7 @@ AdvUserMask::~AdvUserMask()
 void AdvUserMask::uiInit()
 {
     Q_D(AdvUserMask);
+    ui->tree_advMask->clear();
     QList<QTreeWidgetItem*> topItemList;
     for (int i = 0; i < d->m_devList.count(); i++) {
         SevDevice* dev = d->m_devList.at(i);
@@ -70,7 +71,7 @@ void AdvUserMask::uiInit()
             QStringList axisStrList;
             axisStrList<<"axis" + QString::number(j + 1);
             QTreeWidgetItem *axisItem = new QTreeWidgetItem(axisStrList);
-            QTreeWidgetItem *targetItem = GTUtils::findItem(ITEM_NAME_0, dev->axisTreeSource(j, "FLASH"), GT::COL_FR_NAME);
+            QTreeWidgetItem *targetItem = GTUtils::findItem(ITEM_NAME_0, dev->axisTreeSource(j, "FLASH"), GT::COL_FLASH_RAM_TREE_NAME);
             modifyItemStructure(axisItem, targetItem);
             item->addChild(axisItem);
         }
@@ -98,7 +99,7 @@ bool AdvUserMask::eventFilter(QObject *obj, QEvent *event)
                     if (d->m_editedItem != NULL) {
                         d->m_editedItem->setFlags(d->m_editedItem->flags()&(~Qt::ItemIsEditable));
                         if (!isEditedDataValid(d->m_editedItem)) {
-                            d->m_editedItem->setText(GT::COL_FR_VALUE, d->m_originText);
+                            d->m_editedItem->setText(GT::COL_FLASH_RAM_TREE_VALUE, d->m_originText);
                         }
                         if (d->m_devList.at(devIndex)->isConnecting()) {
                             writeItem(d->m_editedItem);
@@ -116,7 +117,7 @@ bool AdvUserMask::eventFilter(QObject *obj, QEvent *event)
                             int devIndex = findDevIndex(item);
                             if (d->m_devList.at(devIndex)->isConnecting()) {
                                 writeItem(item);
-                                item->setTextColor(GT::COL_FR_VALUE, Qt::black);
+                                item->setTextColor(GT::COL_FLASH_RAM_TREE_VALUE, Qt::black);
                             } else {
                                 QMessageBox::information(this, tr("Warning"), tr("Please connect the device!"));
                             }
@@ -202,7 +203,7 @@ QTreeWidgetItem *AdvUserMask::findItemInTarget(QTreeWidgetItem *targetItem, cons
 {
     for (int i = 0; i < targetItem->childCount(); i++) {
         QTreeWidgetItem *item = targetItem->child(i);
-        QStringList list = item->text(GT::COL_FR_NAME).split(".");
+        QStringList list = item->text(GT::COL_FLASH_RAM_TREE_NAME).split(".");
         int listIndex = list.length() - 1;
         if (BitItemHelper::isTargetItem(item, str, listIndex)) {
             return item;
@@ -214,7 +215,7 @@ QTreeWidgetItem *AdvUserMask::findItemInTarget(QTreeWidgetItem *targetItem, cons
 int AdvUserMask::findAxisIndex(QTreeWidgetItem *item)
 {
     if (item != NULL) {
-        QString itemText = item->text(GT::COL_FR_NAME);
+        QString itemText = item->text(GT::COL_FLASH_RAM_TREE_NAME);
         if (itemText.left(4).compare("axis") == 0) {
             return itemText.right(1).toInt();
         } else {
@@ -228,7 +229,7 @@ int AdvUserMask::findDevIndex(QTreeWidgetItem *item)
 {
     Q_D(AdvUserMask);
     if (item != NULL) {
-        QString itemText = item->text(GT::COL_FR_NAME);
+        QString itemText = item->text(GT::COL_FLASH_RAM_TREE_NAME);
         for (int i = 0; i < d->m_devList.count(); i++) {
             if (itemText.compare(d->m_devList.at(i)->deviceConfig()->m_modeName) == 0) {
                 return i;
@@ -242,7 +243,7 @@ int AdvUserMask::findDevIndex(QTreeWidgetItem *item)
 void AdvUserMask::onItemExpanded(QTreeWidgetItem *item)
 {
     Q_D(AdvUserMask);
-    ui->tree_advMask->resizeColumnToContents(GT::COL_FR_NAME);
+    ui->tree_advMask->resizeColumnToContents(GT::COL_FLASH_RAM_TREE_NAME);
     int devIndex = findDevIndex(item);
     if (d->m_devList.at(devIndex)->isConnecting()) {
         updateItemData(item);
@@ -254,7 +255,7 @@ void AdvUserMask::onItemExpanded(QTreeWidgetItem *item)
 void AdvUserMask::updateItemData(QTreeWidgetItem *item)
 {
     //Q_D(UiFLASH);
-    if (item->text(GT::COL_FR_ADDRESS).compare("-1") != 0) {
+    if (item->text(GT::COL_FLASH_RAM_TREE_ADDR).compare("-1") != 0) {
         readItem(item);
     }
     for (int i = 0; i < item->childCount(); i++) {
@@ -269,26 +270,26 @@ void AdvUserMask::writeItem(QTreeWidgetItem *item)
     Q_D(AdvUserMask);
     int devIndex = findDevIndex(item);
     int axisIndex = findAxisIndex(item);
-    QStringList list = item->text(GT::COL_FR_NAME).split(".");
+    QStringList list = item->text(GT::COL_FLASH_RAM_TREE_NAME).split(".");
     int index = list.length() - 1;
     if (BitItemHelper::isTargetItem(item, STR_MARK_BIT, index)) {
         int index = item->parent()->indexOfChild(item);
         QTreeWidgetItem* allItem = item->parent()->child(index - 1);
-        if (allItem->text(GT::COL_FR_TYPE).compare("Uint64") == 0 || allItem->text(GT::COL_FR_TYPE).compare("int64") == 0) {
+        if (allItem->text(GT::COL_FLASH_RAM_TREE_TYPE).compare("Uint64") == 0 || allItem->text(GT::COL_FLASH_RAM_TREE_TYPE).compare("int64") == 0) {
             quint64 value = BitItemHelper::calculate64Bits(item);
-            allItem->setText(GT::COL_FR_VALUE, QString::number(value));
-        } else if (allItem->text(GT::COL_FR_TYPE).compare("Uint32") == 0 || allItem->text(GT::COL_FR_TYPE).compare("int32") == 0){
+            allItem->setText(GT::COL_FLASH_RAM_TREE_TYPE, QString::number(value));
+        } else if (allItem->text(GT::COL_FLASH_RAM_TREE_TYPE).compare("Uint32") == 0 || allItem->text(GT::COL_FLASH_RAM_TREE_TYPE).compare("int32") == 0){
             quint32 value = BitItemHelper::calculate32Bits(item);
-            allItem->setText(GT::COL_FR_VALUE, QString::number(value));
+            allItem->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
         } else {
             quint16 value = BitItemHelper::calculate16Bits(item);
-            allItem->setText(GT::COL_FR_VALUE, QString::number(value));
+            allItem->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
         }
-        d->m_devList.at(devIndex)->writeUiFlash(axisIndex, allItem);
-        d->m_devList.at(devIndex)->readUiFlash(axisIndex, allItem);
+        d->m_devList.at(devIndex)->writeAdvFlash(axisIndex, allItem);
+        d->m_devList.at(devIndex)->readAdvFlash(axisIndex, allItem);
     } else {
-        d->m_devList.at(devIndex)->writeUiFlash(axisIndex, item);
-        d->m_devList.at(devIndex)->readUiFlash(axisIndex, item);
+        d->m_devList.at(devIndex)->writeAdvFlash(axisIndex, item);
+        d->m_devList.at(devIndex)->readAdvFlash(axisIndex, item);
     }
 }
 
@@ -297,23 +298,23 @@ void AdvUserMask::readItem(QTreeWidgetItem *item)
     Q_D(AdvUserMask);
     int devIndex = findDevIndex(item);
     int axisIndex = findAxisIndex(item);
-    d->m_devList.at(devIndex)->readUiFlash(axisIndex, item);
-    QStringList list = item->text(GT::COL_FR_NAME).split(".");
+    d->m_devList.at(devIndex)->readAdvFlash(axisIndex, item);
+    QStringList list = item->text(GT::COL_FLASH_RAM_TREE_NAME).split(".");
     int listIndex = list.length() - 1;
     if (BitItemHelper::isTargetItem(item, STR_MARK_ALL, listIndex)) {
         int index = item->parent()->indexOfChild(item);
         QTreeWidgetItem* bitItem = item->parent()->child(index + 1);
-        list = bitItem->text(GT::COL_FR_NAME).split(".");
+        list = bitItem->text(GT::COL_FLASH_RAM_TREE_NAME).split(".");
         listIndex = list.length() - 1;
         if (BitItemHelper::isTargetItem(bitItem, STR_MARK_BIT, listIndex)) {
-            if (item->text(GT::COL_FR_TYPE).compare("Uint64") == 0 || item->text(GT::COL_FR_TYPE).compare("int64") == 0) {
-                quint64 value = item->text(GT::COL_FR_VALUE).toULongLong();
+            if (item->text(GT::COL_FLASH_RAM_TREE_TYPE).compare("Uint64") == 0 || item->text(GT::COL_FLASH_RAM_TREE_TYPE).compare("int64") == 0) {
+                quint64 value = item->text(GT::COL_FLASH_RAM_TREE_VALUE).toULongLong();
                 BitItemHelper::assign64Bits(bitItem, value);
-            } else if (item->text(GT::COL_FR_TYPE).compare("Uint32") == 0 || item->text(GT::COL_FR_TYPE).compare("int32") == 0) {
-                quint32 value = item->text(GT::COL_FR_VALUE).toULong();
+            } else if (item->text(GT::COL_FLASH_RAM_TREE_TYPE).compare("Uint32") == 0 || item->text(GT::COL_FLASH_RAM_TREE_TYPE).compare("int32") == 0) {
+                quint32 value = item->text(GT::COL_FLASH_RAM_TREE_VALUE).toULong();
                 BitItemHelper::assign32Bits(bitItem, value);
             } else {
-                quint16 value = item->text(GT::COL_FR_VALUE).toUShort();
+                quint16 value = item->text(GT::COL_FLASH_RAM_TREE_VALUE).toUShort();
                 BitItemHelper::assign16Bits(bitItem, value);
             }
         }
@@ -323,22 +324,22 @@ void AdvUserMask::readItem(QTreeWidgetItem *item)
 void AdvUserMask::onTreeItemClickedEdit(QTreeWidgetItem *item, int column)
 {
     Q_D(AdvUserMask);
-    QStringList list = item->text(GT::COL_FR_NAME).split(".");
+    QStringList list = item->text(GT::COL_FLASH_RAM_TREE_NAME).split(".");
     int listIndex = list.length() - 1;
-    if (column == GT::COL_FR_VALUE && item->childCount() == 0 && BitItemHelper::isTargetItem(item, STR_MARK_ALL, listIndex)) {
+    if (column == GT::COL_FLASH_RAM_TREE_VALUE && item->childCount() == 0 && BitItemHelper::isTargetItem(item, STR_MARK_ALL, listIndex)) {
         item->setFlags(item->flags()|Qt::ItemIsEditable);
-        d->m_originText = item->text(GT::COL_FR_VALUE);
+        d->m_originText = item->text(GT::COL_FLASH_RAM_TREE_VALUE);
         ui->tree_advMask->editItem(item, column);
         d->m_editedItem = item;
         d->m_editedCol = column;
         d->m_isEditing = true;
-    } else if (column == GT::COL_FR_VALUE && item->childCount() == 0) {
+    } else if (column == GT::COL_FLASH_RAM_TREE_VALUE && item->childCount() == 0) {
         item->setFlags(item->flags()&(~Qt::ItemIsEditable));
-        if (item->text(GT::COL_FR_VALUE).compare("1") == 0) {
-            item->setText(GT::COL_FR_VALUE, "1");
+        if (item->text(GT::COL_FLASH_RAM_TREE_VALUE).compare("1") == 0) {
+            item->setText(GT::COL_FLASH_RAM_TREE_VALUE, "1");
             writeItem(item);
-        } else if (item->text(GT::COL_FR_VALUE).compare("0") == 0) {
-            item->setText(GT::COL_FR_VALUE, "0");
+        } else if (item->text(GT::COL_FLASH_RAM_TREE_VALUE).compare("0") == 0) {
+            item->setText(GT::COL_FLASH_RAM_TREE_VALUE, "0");
             writeItem(item);
         }
     } else {
@@ -355,8 +356,8 @@ void AdvUserMask::onActionEditFinished()
             d->m_editedItem->setFlags(d->m_editedItem->flags()&(~Qt::ItemIsEditable));
             d->m_isEditing = false;
             if (!isEditedDataValid(d->m_editedItem)) {
-                d->m_editedItem->setText(GT::COL_FR_VALUE, d->m_originText);
-            } else if (d->m_editedItem->text(GT::COL_FR_VALUE).compare(d->m_originText) != 0) {
+                d->m_editedItem->setText(GT::COL_FLASH_RAM_TREE_VALUE, d->m_originText);
+            } else if (d->m_editedItem->text(GT::COL_FLASH_RAM_TREE_VALUE).compare(d->m_originText) != 0) {
                 d->m_editedItem->setTextColor(d->m_editedCol, Qt::red);
             }
             d->m_editedItem = NULL;
@@ -367,17 +368,17 @@ void AdvUserMask::onActionEditFinished()
 bool AdvUserMask::isEditedDataValid(QTreeWidgetItem *item)
 {
     Q_D(AdvUserMask);
-    QString itemType = item->text(GT::COL_FR_TYPE);
+    QString itemType = item->text(GT::COL_FLASH_RAM_TREE_TYPE);
     bool ok;
-    QStringList list = item->parent()->text(GT::COL_FR_NAME).split(".");
+    QStringList list = item->parent()->text(GT::COL_FLASH_RAM_TREE_NAME).split(".");
     int listIndex = list.length() - 1;
     if (BitItemHelper::isTargetItem(item->parent(), STR_MARK_BIT, listIndex)) {
         //qDebug()<<"1";
-        quint64 upLimit = pow(2, item->text(GT::COL_FR_BITWIDTH).toInt()) - 1;
+        quint64 upLimit = pow(2, item->text(GT::COL_FLASH_RAM_TREE_BITWIDTH).toInt()) - 1;
         //qDebug()<<"up limit"<<upLimit;
         quint64 downLimit = 0;
         //qDebug()<<"down limit"<<downLimit;
-        quint64 value = item->text(GT::COL_FR_VALUE).toULongLong(&ok, 10);
+        quint64 value = item->text(GT::COL_FLASH_RAM_TREE_VALUE).toULongLong(&ok, 10);
         //qDebug()<<"value"<<value;
         if (value < downLimit || value > upLimit || !ok) {
             //qDebug()<<"false";
@@ -387,7 +388,7 @@ bool AdvUserMask::isEditedDataValid(QTreeWidgetItem *item)
         //qDebug()<<"2";
         quint64 upLimit = 18446744073709551615 - 1;
         quint64 downLimit = 0;
-        quint64 value = item->text(GT::COL_FR_VALUE).toULongLong(&ok, 10);
+        quint64 value = item->text(GT::COL_FLASH_RAM_TREE_VALUE).toULongLong(&ok, 10);
         //qDebug()<<"up limit"<<upLimit;
         //qDebug()<<"down limit"<<downLimit;
         //qDebug()<<"value"<<value;
@@ -399,7 +400,7 @@ bool AdvUserMask::isEditedDataValid(QTreeWidgetItem *item)
         //qDebug()<<"3";
         qint64 upLimit = 9223372036854775807 - 1;
         qint64 downLimit = -9223372036854775807 + 1;
-        qint64 value = item->text(GT::COL_FR_VALUE).toLongLong(&ok, 10);
+        qint64 value = item->text(GT::COL_FLASH_RAM_TREE_VALUE).toLongLong(&ok, 10);
         //qDebug()<<"up limit"<<upLimit;
         //qDebug()<<"down limit"<<downLimit;
         //qDebug()<<"value"<<value;
@@ -411,7 +412,7 @@ bool AdvUserMask::isEditedDataValid(QTreeWidgetItem *item)
         //qDebug()<<"4";
         quint64 upLimit = 4294967295;
         quint64 downLimit = 0;
-        quint64 value = item->text(GT::COL_FR_VALUE).toULongLong(&ok, 10);
+        quint64 value = item->text(GT::COL_FLASH_RAM_TREE_VALUE).toULongLong(&ok, 10);
         //qDebug()<<"up limit"<<upLimit;
         //qDebug()<<"down limit"<<downLimit;
         //qDebug()<<"value"<<value;
@@ -423,7 +424,7 @@ bool AdvUserMask::isEditedDataValid(QTreeWidgetItem *item)
         //qDebug()<<"5";
         qint64 upLimit = 2147483647;
         qint64 downLimit = -2147483647;
-        qint64 value = item->text(GT::COL_FR_VALUE).toLongLong(&ok, 10);
+        qint64 value = item->text(GT::COL_FLASH_RAM_TREE_VALUE).toLongLong(&ok, 10);
         //qDebug()<<"up limit"<<upLimit;
         //qDebug()<<"down limit"<<downLimit;
         //qDebug()<<"value"<<value;
@@ -435,7 +436,7 @@ bool AdvUserMask::isEditedDataValid(QTreeWidgetItem *item)
         //qDebug()<<"6";
         qint64 upLimit = 32767;
         qint64 downLimit = -32767;
-        qint64 value = item->text(GT::COL_FR_VALUE).toLongLong(&ok, 10);
+        qint64 value = item->text(GT::COL_FLASH_RAM_TREE_VALUE).toLongLong(&ok, 10);
         //qDebug()<<"up limit"<<upLimit;
         //qDebug()<<"down limit"<<downLimit;
         //qDebug()<<"value"<<value;
@@ -447,7 +448,7 @@ bool AdvUserMask::isEditedDataValid(QTreeWidgetItem *item)
         //qDebug()<<"7";
         quint64 upLimit = 65535;
         quint64 downLimit = 0;
-        quint64 value = item->text(GT::COL_FR_VALUE).toULongLong(&ok, 10);
+        quint64 value = item->text(GT::COL_FLASH_RAM_TREE_VALUE).toULongLong(&ok, 10);
         //qDebug()<<"up limit"<<upLimit;
         //qDebug()<<"down limit"<<downLimit;
         //qDebug()<<"value"<<value;

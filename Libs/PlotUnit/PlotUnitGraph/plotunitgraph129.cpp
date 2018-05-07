@@ -11,6 +11,8 @@
 #include "sdtglobaldef.h"
 #include "curvemanager.h"
 #include "curvetableaxisitem.h"
+#include "threadsample.h"
+#include "threadcalculate.h"
 
 #include "pluginsmanager.h"
 #include "icurve.h"
@@ -78,7 +80,9 @@ public:
     m_showColor(QColor(Qt::white)),
     m_backShowColor(QColor(Qt::green).darker()),
     m_hideColor(QColor(Qt::white)),
-    m_backHideColor(QColor(Qt::gray))
+    m_backHideColor(QColor(Qt::gray)),
+    m_threadSample(NULL),
+    m_threadCalcultate(NULL)
   {
 
   }
@@ -94,6 +98,8 @@ protected:
   QColor m_backShowColor;
   QColor m_hideColor;
   QColor m_backHideColor;
+  ThreadSample *m_threadSample;
+  ThreadCalculate *m_threadCalcultate;
 };
 
 PlotUnitGraph129::PlotUnitGraph129(const QList<SevDevice *> &sevList, QWidget *parent) :
@@ -125,7 +131,6 @@ PlotUnitGraph129::PlotUnitGraph129(const QList<SevDevice *> &sevList, QWidget *p
     QWidget *w=ui->stackedWidget_tabCtlPanel->widget(0);
     ui->stackedWidget_tabCtlPanel->removeWidget(w);
   }
-
   //加载插件
   bool loadPluginOk=true;
   d->m_pluginManager=new PluginsManager(this);
@@ -134,6 +139,7 @@ PlotUnitGraph129::PlotUnitGraph129(const QList<SevDevice *> &sevList, QWidget *p
     QMessageBox::information(0,tr("error"),tr("load plugin error!\n"));
 
   d->m_curveManager=new CurveManager(this);
+
 
   //曲线表格初始化
   int curveTableWidth = 250;
@@ -270,6 +276,7 @@ void PlotUnitGraph129::createConnections()
   connect(ui->tbtn_plot_mea_vertical,SIGNAL(clicked(bool)),this,SLOT(onBtnMeaVClicked(bool)));
   connect(ui->tbtn_plot_fit,SIGNAL(clicked(bool)),this,SLOT(onBtnFitClicked()));
   connect(ui->tbtn_plot_config,SIGNAL(clicked(bool)),this,SLOT(onBtnConfigClicked()));
+  connect(ui->tbtn_plot_startSampling,SIGNAL(clicked(bool)),this,SLOT(onBtnStartSampleClicked()));
 
   connect(ui->plot,SIGNAL(currentPosChanged(QPointF)),this,SLOT(onPlotPosHoverChanged(QPointF)));
   connect(ui->plot,SIGNAL(horizMeaDataChanged(qreal,qreal,qreal)),this,SLOT(onPlotMeaHposChanged(qreal,qreal,qreal)));
@@ -314,22 +321,22 @@ void PlotUnitGraph129::onOptFaceCssChanged(const QString &css)
 void PlotUnitGraph129::onBtnMeaHClicked(bool checked)
 {
   if(checked)
-    ui->plot->createHorizMea();
-  else
-    ui->plot->clearHorizMea();
-}
-
-void PlotUnitGraph129::onBtnMeaVClicked(bool checked)
-{
-  if(checked)
     ui->plot->createVertiMea();
   else
     ui->plot->clearVertiMea();
 }
 
+void PlotUnitGraph129::onBtnMeaVClicked(bool checked)
+{ 
+  if(checked)
+    ui->plot->createHorizMea();
+  else
+    ui->plot->clearHorizMea();
+}
+
 void PlotUnitGraph129::onBtnFitClicked()
 {
-  ui->plot->rescaleAxes();
+  ui->plot->rescaleAxes(true);
   ui->plot->replot();
 }
 
@@ -337,6 +344,47 @@ void PlotUnitGraph129::onBtnConfigClicked()
 {
   bool checked=ui->tbtn_plot_startSampling->isChecked();
   ui->tbtn_plot_startSampling->setChecked(!checked);
+}
+
+void PlotUnitGraph129::onBtnStartSampleClicked()
+{
+  Q_D(PlotUnitGraph129);
+//  if(currentSevDevice()->isConnecting() == false)
+//  {
+//    ui->tbtn_plot_startSampling->setChecked(false);
+//    return;
+//  }
+
+  if(ui->tbtn_plot_startSampling->isChecked())
+  {
+    clearGraphData();
+    //检查曲线参数有效性
+    checkCurveValid();
+
+    qDebug()<<"sampleScale "<<ui->comboBox_plot_sampling->currentText().toInt();
+    d->m_curveManager->setSampleScale(ui->comboBox_plot_sampling->currentText().toInt());
+    d->m_curveManager->setStoreTime(20);
+    d->m_curveManager->updateSamplPrms();
+    //读取所有曲线静态变量
+
+    d->m_threadSample = new ThreadSample(d->m_sevList,d->m_curveManager->samplPrms());
+    d->m_threadCalcultate = new ThreadCalculate(d->m_curveManager->devCurves());
+    connect(d->m_threadSample,SIGNAL(sampleDataIn(SampleData)),d->m_threadCalcultate,SIGNAL(sampleDataIn(SampleData)));
+    connect(d->m_threadCalcultate,SIGNAL(plotDataIn(PlotData)),this,SLOT(onPlotDataIn(PlotData)));
+    d->m_threadCalcultate->start();
+    d->m_threadSample->start();
+  }
+  else
+  {
+    if(d->m_threadSample == NULL)
+      return ;
+    disconnect(d->m_threadSample,SIGNAL(sampleDataIn(SampleData)),d->m_threadCalcultate,SIGNAL(sampleDataIn(SampleData)));
+    disconnect(d->m_threadCalcultate,SIGNAL(plotDataIn(PlotData)),this,SLOT(onPlotDataIn(PlotData)));
+    d->m_threadSample->deleteLater();
+    d->m_threadCalcultate->deleteLater();
+    d->m_threadSample = NULL;
+    d->m_threadCalcultate = NULL;
+  }
 }
 
 void PlotUnitGraph129::onPlotPosHoverChanged(const QPointF &point)
@@ -361,9 +409,9 @@ void PlotUnitGraph129::onPlotMeaHposChanged(qreal v1, qreal v2, qreal dv)
 
 void PlotUnitGraph129::onTimeOut()
 {
-  Q_D(PlotUnitGraph129);
+//  Q_D(PlotUnitGraph129);
   static quint32 i=0;
-  //qDebug()<<"time out"<<i;
+//  qDebug()<<"time out"<<i;
   i++;
 }
 
@@ -399,9 +447,9 @@ void PlotUnitGraph129::onExpertTreeWidgetDoubleClicked(QTableWidget *table,QTree
 //  QList<int>axisList;
 //  QList<CurveVar> varPrmList;
   QList<VarCurvePrm>varPrmList;
-  name=item->text(GT::COL_FR_NAME);
+  name=item->text(GT::COL_FLASH_RAM_TREE_NAME);
 
-  isBit=item->text(GT::COL_FR_ISBIT).toInt();
+  isBit=item->text(GT::COL_FLASH_RAM_TREE_ISBIT).toInt();
   if(isBit==1)//判断是不是位，如果是位就不增加
   {
     QMessageBox::information(0,tr("warning"),tr("%1 is BIT").arg(name));
@@ -416,9 +464,9 @@ void PlotUnitGraph129::onExpertTreeWidgetDoubleClicked(QTableWidget *table,QTree
       VarCurvePrm var;
       var.axis=i;
       var.varPrm.keyName=name;
-      var.varPrm.prm.bytes=GTUtils::byteNumbers(item->text(GT::COL_FR_TYPE));
+      var.varPrm.prm.bytes=GTUtils::byteNumbers(item->text(GT::COL_FLASH_RAM_TREE_TYPE));
       var.varPrm.prm.baseAddr=0;
-      var.varPrm.prm.offtAddr=item->text(GT::COL_FR_ADDRESS).toUShort();
+      var.varPrm.prm.offtAddr=item->text(GT::COL_FLASH_RAM_TREE_ADDR).toUShort();
       varPrmList.append(var);
     }
   }
@@ -431,7 +479,7 @@ void PlotUnitGraph129::onExpertTreeWidgetDoubleClicked(QTableWidget *table,QTree
     if(axisInx%2!=0)//0 2 4不检查 1 3 5检查
     {
       QTreeWidget *ramTree=currentSevDevice()->axisTreeSource(axisInx,"RAM");
-      QTreeWidgetItem *item=GTUtils::findItem(name,ramTree,GT::COL_FR_NAME);
+      QTreeWidgetItem *item=GTUtils::findItem(name,ramTree,GT::COL_FLASH_RAM_TREE_NAME);
       if(NULL==item)
       {
         varPrmList.removeAt(i);
@@ -439,9 +487,9 @@ void PlotUnitGraph129::onExpertTreeWidgetDoubleClicked(QTableWidget *table,QTree
       }
       else//更新地址
       {
-        varPrmList[i].varPrm.prm.offtAddr=item->text(GT::COL_FR_ADDRESS).toUShort();
+        varPrmList[i].varPrm.prm.offtAddr=item->text(GT::COL_FLASH_RAM_TREE_ADDR).toUShort();
       }
-      qDebug()<<"axis "<<axisInx<<"find item"<<item->text(GT::COL_FR_NAME);
+      qDebug()<<"axis "<<axisInx<<"find item"<<item->text(GT::COL_FLASH_RAM_TREE_NAME);
     }
   }
 
@@ -465,8 +513,9 @@ void PlotUnitGraph129::onExpertTreeWidgetDoubleClicked(QTableWidget *table,QTree
 #if TEST_DEBUG
   for(int i=0;i<varPrmList.count();i++)
   {
-    qDebug()<<"add curve axis="<<varPrmList.at(i).axis;
+    qDebug()<<"add curve axis = "<<varPrmList.at(i).axis;
     qDebug()<<"bytes"<<varPrmList.at(i).varPrm.prm.bytes<<" offset"<<varPrmList.at(i).varPrm.prm.offtAddr<<" base"<<varPrmList.at(i).varPrm.prm.baseAddr;
+
   }
 #endif
 
@@ -486,17 +535,20 @@ void PlotUnitGraph129::onExpertTreeWidgetDoubleClicked(QTableWidget *table,QTree
     curve->setName(name);
     curve->setNote("");
     curve->setRowInx(curveTotalSize);
-    curve->setSamplInterval(62.5);//这里还要从Option-plot里读取
-    curve->setStorePointCount(10/62.5*1000000);//这里还要从Option-plot里读取
+//    curve->setSamplInterval(62.5);//这里还要从Option-plot里读取
+//    curve->setStorePointCount(10/62.5*1000000);//这里还要从Option-plot里读取
     curve->setColor(d->m_curveManager->color(curveTotalSize));
     curve->addVarInputByName(name);
     curve->fillVarInputsPrm(0,varPrmList.at(i).varPrm.prm);
     d->m_curveManager->addCurve(curve);
+
     //表格增加曲线标识
     addTableRowPrm(curve);
     //gtplot增加曲线
     ui->plot->addGraph();
     ui->plot->graph(curveTotalSize)->setPen(curve->color());
+
+    qDebug()<<QString("add curve =%1 devInx=%2 dspInx=%3 varSize=%4").arg(curve->fullName()).arg(curve->devInx()).arg(curve->dspInx()).arg(curve->varInputsKeys().size());
   }
 
   qDebug()<<"curve total size ="<<d->m_curveManager->curveList().size();
@@ -590,6 +642,44 @@ void PlotUnitGraph129::onCurveTableItemEnteredMoreDetail(QTableWidgetItem * item
   }
 }
 
+void PlotUnitGraph129::onPlotDataIn(PlotData data)
+{
+  static int count = 0;
+  ICurve *c = NULL;
+  double lastkeyValue =0;
+  for(int i=0;i<data.m_dataHash.keys().size();i++)
+  {
+    c=data.m_dataHash.keys().at(i);
+    int row = -1;
+    for(int j=0;j<ui->tableWidget_plot_curve->rowCount();j++)
+    {
+      ICurve *curve=ui->tableWidget_plot_curve->item(j,COL_TABLE_CURVE_NAME)->data(ROLE_TABLE_CURVE_ICURVE_PTR).value<ICurve *>();
+      if(curve==c)
+      {
+        row=j;
+        break;
+      }
+    }
+    if(row != -1)
+    {
+      quint8 storeTimeS=20;
+      ui->plot->graph(row)->addData(data.m_dataHash.value(c).keys,data.m_dataHash.value(c).values);
+      ui->plot->graph(row)->data()->removeBefore(data.m_dataHash.value(c).keys.last() - storeTimeS);
+//      ui->plot->graph(row)->removeDataBefore(data.m_dataHash.value(c).keys.last() - storeTimeS);
+      lastkeyValue=data.m_dataHash.value(c).keys.last();
+//      qDebug()<<"i = "<<i<<" last key = "<<lastkeyValue;
+    }
+  }
+  count ++;
+  if(count >3)
+  {
+    ui->plot->xAxis->setRange(lastkeyValue, 2, Qt::AlignRight);
+    ui->plot->replot();
+    count = 0;
+  }
+
+}
+
 void PlotUnitGraph129::setPlotIcons(const QString &css)
 {
   QSize iconSize(24,24);
@@ -647,7 +737,7 @@ void PlotUnitGraph129::setPlotIcons(const QString &css)
 
 void PlotUnitGraph129::gtPlotInit()
 {
-  setupSimpleDemo(ui->plot);
+//  setupSimpleDemo(ui->plot);
   ui->plot->xAxis2->setVisible(false);
   ui->plot->xAxis2->setTickLabels(false);
   ui->plot->yAxis2->setVisible(false);
@@ -820,6 +910,24 @@ void PlotUnitGraph129::addTableRowPrm(ICurve *curve)
     item->setText(str);
     ui->tableWidget_plot_curve->setItem(rowCount, nCol, item);
   }
+}
+
+void PlotUnitGraph129::clearGraphData()
+{
+  int graphCount =  ui->plot->graphCount();
+
+  for(int i=0;i<graphCount;i++)
+  {
+    ui->plot->graph(i)->data()->clear();
+  }
+  ui->plot->rescaleAxes();
+  ui->plot->replot(QCustomPlot::rpImmediateRefresh);
+}
+
+void PlotUnitGraph129::checkCurveValid()
+{
+  //对应的设备有没有这个轴，没有的话直接删除
+  //对应设备更新其地址信息
 }
 
 

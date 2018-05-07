@@ -6,13 +6,13 @@ BUILD_PATH=$$PWD/../../build
 
 
 CONFIG(debug,debug|release){
-  LIBS+=$$CTK_LIB_PATH/CTKCore.lib\
-        $$CTK_LIB_PATH/CTKPluginFramework.lib\
+  LIBS+=$$CTK_LIB_PATH/CTKCored.lib\
+        $$CTK_LIB_PATH/CTKPluginFrameworkd.lib\
         $$BUILD_PATH/debug/bin/ICurved.lib
   PLOT_PLUGINS_PATH=$$PWD/../../build/debug/custom/plugins/plot
 }else{
   LIBS+=$$CTK_LIB_PATH/CTKCore.lib\
         $$CTK_LIB_PATH/CTKPluginFramework.lib\
-        $$BUILD_PATH/debug/bin/ICurve.lib
+        $$BUILD_PATH/release/bin/ICurve.lib
   PLOT_PLUGINS_PATH=$$PWD/../../build/release/custom/plugins/plot
 }

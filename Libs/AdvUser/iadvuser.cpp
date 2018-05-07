@@ -71,17 +71,6 @@ QVariant IAdvUser::dataFromFile(const QString &group, const QString &key, const 
     return vd;
 }
 
-void IAdvUser::saveDataToDriver(QTreeWidgetItem *item, SevDevice *dev, int axisInx)
-{
-    dev->writeUiFlash(axisInx, item);
-}
-
-void IAdvUser::dataFromDriver(QTreeWidgetItem *item, SevDevice *dev, int axisInx)
-{
-    dev->readUiFlash(axisInx, item);
-}
-
-
 QString IAdvUser::name()
 {
     Q_D(IAdvUser);

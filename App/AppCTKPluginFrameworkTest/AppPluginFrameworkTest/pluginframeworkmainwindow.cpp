@@ -10,15 +10,16 @@
 
 #include <QDebug>
 #include <QDirIterator>
-#include <QTreeWidget>
-#include <QTreeWidgetItem>
+//#include <QTreeWidget>
+//#include <QTreeWidgetItem>
 
-Q_DECLARE_METATYPE(QList<IPlotCurve*>)
+
 
 PluginFrameworkMainWindow::PluginFrameworkMainWindow(QWidget *parent) :
   QMainWindow(parent),
   ui(new Ui::PluginFrameworkMainWindow)
 {
+  Q_DECLARE_METATYPE(QList<IPlotCurve*>)
   ui->setupUi(this);
 
 //  ctkPluginFrameworkFactory frameWorkFactory;
@@ -99,23 +100,23 @@ PluginFrameworkMainWindow::PluginFrameworkMainWindow(QWidget *parent) :
     vector.append(i);
   }
 
-  QTreeWidget *tree=new QTreeWidget;
-  QString file="D:/Smart/ServoMaster/git-project/ServoDriveTech/ServoDriveTech/build/debug/custom/plugins/plot";
-  loadFiles(file,tree,NULL);
-  tree->show();
+//  QTreeWidget *tree=new QTreeWidget;
+//  QString file="D:/Smart/ServoMaster/git-project/ServoDriveTech/ServoDriveTech/build/debug/custom/plugins/plot";
+//  loadFiles(file,tree,NULL);
+//  tree->show();
 
 
-  QTreeWidgetItem *item=new QTreeWidgetItem;
-  QVariant v;
-  v.setValue(curves);
-  item->setData(0,Qt::UserRole+1,v);
+//  QTreeWidgetItem *item=new QTreeWidgetItem;
+//  QVariant v;
+//  v.setValue(curves);
+//  item->setData(0,Qt::UserRole+1,v);
 
-  qDebug()<<"------------QTreeWidgetItem data sayhello-------------";
-  QList<IPlotCurve*> cs=item->data(0,Qt::UserRole+1).value<QList<IPlotCurve*>>();
-  for(int i=0;i<cs.size();i++)
-  {
-    cs.at(i)->sayHello();
-  }
+//  qDebug()<<"------------QTreeWidgetItem data sayhello-------------";
+//  QList<IPlotCurve*> cs=item->data(0,Qt::UserRole+1).value<QList<IPlotCurve*>>();
+//  for(int i=0;i<cs.size();i++)
+//  {
+//    cs.at(i)->sayHello();
+//  }
 }
 
 PluginFrameworkMainWindow::~PluginFrameworkMainWindow()

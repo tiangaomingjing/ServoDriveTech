@@ -7,9 +7,10 @@
 
 #define OPT_START_INI "opt.ini"
 
-QString IOptPrivate::m_optPath=GTUtils::customPath()+"option/";
+//QString IOptPrivate::m_optPath=GTUtils::customPath()+"option/";
 
-IOptPrivate::IOptPrivate():m_name("iopt"),m_isModify(false)
+IOptPrivate::IOptPrivate():m_name("iopt"),m_isModify(false),
+  m_optPath(GTUtils::customPath()+"option/")
 {
 
 }

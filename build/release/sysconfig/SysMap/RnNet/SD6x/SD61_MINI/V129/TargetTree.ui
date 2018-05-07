@@ -322,7 +322,7 @@
       </item>
       <item>
        <property name="text">
-        <string>Global</string>
+        <string>UiGlobal</string>
        </property>
        <property name="text">
         <string>NULL</string>
@@ -360,6 +360,16 @@
         </property>
         <property name="text">
          <string>NULL</string>
+        </property>
+       </item>
+      </item>
+      <item>
+       <property name="text">
+        <string>Global</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>Plot</string>
         </property>
        </item>
       </item>

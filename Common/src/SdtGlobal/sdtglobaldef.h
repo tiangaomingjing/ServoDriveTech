@@ -69,16 +69,16 @@ typedef enum
   COL_IDMAP_AXISNUM = 4
 } ColIdMap;
 
-typedef enum
-{
-  COL_FR_NAME,
-  COL_FR_VALUE,
-  COL_FR_TYPE,
-  COL_FR_ADDRESS,
-  COL_FR_ISBIT,
-  COL_FR_BITSTART,
-  COL_FR_BITWIDTH
-} ColFR;
+
+typedef enum{
+  COL_FLASH_RAM_TREE_NAME,
+  COL_FLASH_RAM_TREE_VALUE,
+  COL_FLASH_RAM_TREE_TYPE,
+  COL_FLASH_RAM_TREE_ADDR,
+  COL_FLASH_RAM_TREE_ISBIT,
+  COL_FLASH_RAM_TREE_BITSTART,
+  COL_FLASH_RAM_TREE_BITWIDTH
+}FlashRamColumn;
 
 template <typename T>
 static void deepClearList(QList<T*>&list)
