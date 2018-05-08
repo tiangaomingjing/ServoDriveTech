@@ -294,7 +294,9 @@ void SDTMainWindow::closeEvent(QCloseEvent *e)
 //  bool close=MessageBoxAsk(tr("Do you want to close the application?"));
 //  if(close)
 //  {
+    emit appClosed();
     disactiveAllUi();
+
     setConnect(false);
     OptContainer *optc=OptContainer::instance();
     optc->saveOpt();
@@ -440,6 +442,7 @@ void SDTMainWindow::globalUiPageInit()
   for(int i=0;i<m_sdAssemblyList.count();i++)
     sevList.append(m_sdAssemblyList.at(i)->sevDevice());
   m_gUiControl=new GlobalUiControler(sevList);
+  connect(this,SIGNAL(appClosed()),m_gUiControl,SIGNAL(appClosed()));
   m_gUiControl->createUis();
 }
 void SDTMainWindow::stackedWidgetInit()
@@ -1098,6 +1101,7 @@ void SDTMainWindow::updateSDTMainUiByConfigList(const QList<DeviceConfig *> &con
 
   updateStatusMonitorDevice(sevList());
   m_gUiControl->setSevDeviceList(sevList());
+
 }
 
 void SDTMainWindow::updateStatusMonitorDevice(const QList<SevDevice *> &list)

@@ -74,6 +74,24 @@
        </property>
        <item>
         <property name="text">
+         <string>M2</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>series1</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>SD21</string>
+          </property>
+          <property name="text">
+           <string>21000507</string>
+          </property>
+         </item>
+        </item>
+       </item>
+       <item>
+        <property name="text">
          <string>M4</string>
         </property>
         <property name="text">
@@ -88,7 +106,7 @@
          </property>
          <item>
           <property name="text">
-           <string>21000508</string>
+           <string>SD41</string>
           </property>
           <property name="text">
            <string>21000508</string>
@@ -96,18 +114,10 @@
          </item>
          <item>
           <property name="text">
-           <string>41000509</string>
+           <string>SD42</string>
           </property>
           <property name="text">
            <string>21000509</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>51000509</string>
-          </property>
-          <property name="text">
-           <string>41000509</string>
           </property>
          </item>
         </item>
@@ -138,7 +148,7 @@
          </property>
          <item>
           <property name="text">
-           <string>21000595</string>
+           <string>SD61_MINI</string>
           </property>
           <property name="text">
            <string>21000595</string>
@@ -146,7 +156,7 @@
          </item>
          <item>
           <property name="text">
-           <string>21000541</string>
+           <string>SD61_PLUS</string>
           </property>
           <property name="text">
            <string>21000541</string>

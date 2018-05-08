@@ -131,7 +131,7 @@ void ICurve::adjustData()
   for(quint32 i=0;i<size;i++)
   {
     dd.m_currentTime = dd.m_currentTime+dd.m_samplInterval;//坐标s显示
-    dd.m_sData.keys.append(dd.m_currentTime);
+//    dd.m_sData.keys.append(dd.m_currentTime);
     dd.m_cData.keys.append(dd.m_currentTime);
   }
 //  qDebug()<<"dd.m_currentTime"<<dd.m_currentTime;
@@ -139,12 +139,13 @@ void ICurve::adjustData()
   qint32 overSize=dd.m_sData.values.size()- dd.m_storePointCount;
   if(overSize>0)
   {
-    dd.m_sData.keys.remove(0,overSize);
+//    dd.m_sData.keys.remove(0,overSize);
     dd.m_sData.values.remove(0,overSize);
+//    qDebug()<<"store data size = "<<dd.m_sData.values.size();
   }
 }
 
-void ICurve::setStorePointCount(qint32 storePointCount)
+void ICurve::setStorePointCount(quint32 storePointCount)
 {
   dd.m_storePointCount = storePointCount;
 }
@@ -200,6 +201,16 @@ void ICurve::setDspInx(int dspInx)
   dd.m_dspInx = dspInx;
 }
 
+void ICurve::setAxisCount(int axisCount)
+{
+  dd.m_axisCount = axisCount;
+}
+
+int ICurve::axisCount() const
+{
+  return dd.m_axisCount;
+}
+
 CurveData *ICurve::cData()
 {
   return &(dd.m_cData);
@@ -208,6 +219,16 @@ CurveData *ICurve::cData()
 CurveData *ICurve::sData()
 {
   return &(dd.m_sData);
+}
+
+void ICurve::savePrepare()
+{
+  dd.m_sData.keys.clear();
+  for(int i = dd.m_sData.values.size();i >0; i--)
+  {
+    double time = dd.m_currentTime - dd.m_samplInterval*i;
+    dd.m_sData.keys.append(time);
+  }
 }
 
 QStringList ICurve::constInputKeys()
@@ -279,4 +300,5 @@ ICurve::ICurvePrivate::ICurvePrivate()
   m_currentTime = 0;
   m_samplInterval=62.5*0.000001;
   m_storePointCount=10*1000000/62.5;
+  m_axisCount = 4;
 }

@@ -93,6 +93,7 @@ signals:
   void itemRangeValid(QTreeWidgetItem *item,int status);
   void alarmError(quint16 devId,quint16 axisInx,bool hasError);//当checkStatus时，对外发送状态信息
   void netError(quint16 axisInx);
+  void connectionChanged(bool isConnected);
 
 public slots:
   bool onReadPageFlash(int axis,QTreeWidget *pageTree);

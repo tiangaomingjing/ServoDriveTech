@@ -73,16 +73,6 @@ void CalculateWorker::onSampleDataIn(SampleData data)
 
     pd.m_dataHash.insert(c,cData);
     cInx++;
-//    QVector<double> v=QVector<double>::fromStdVector(vec);
-//    qDebug()<<"vector size "<<vec.size()<<"  QVector size"<<v.size()<<"value "<<v.at(0);
-
-//    CurveDatasIterator dIt = vec.begin();
-//    double v;
-//    for(;dIt!=vec.end();dIt++)
-//    {
-//      v=*dIt;
-//      qDebug()<<v;
-//    }
   }
   emit plotDataIn(pd);
 }

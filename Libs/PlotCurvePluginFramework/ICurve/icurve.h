@@ -62,9 +62,7 @@ public:
   double samplInterval() const;
   void setSamplInterval(int samplIntervalScale);
 
-  void adjustData();
-
-  void setStorePointCount(qint32 storePointCount);
+  void setStorePointCount(quint32 storePointCount);
 
   int axisInx() const;
   void setAxisInx(int axisInx);
@@ -82,11 +80,17 @@ public:
   int dspInx() const;
   void setDspInx(int dspInx);
 
+  void setAxisCount (int axisCount);
+  int axisCount() const;
+
   CurveData *cData();
   CurveData *sData() ;
 
+  void savePrepare();
+
 protected:
   virtual void calculate() = 0;
+  void adjustData();
 
 protected:
 
@@ -109,7 +113,7 @@ protected:
     double m_k;
     double m_samplInterval;//s
     double m_currentTime;//s
-    qint32 m_storePointCount;
+    quint32 m_storePointCount;
 
     QList<CurveConst>m_constInputs;
     QList<CurveVar>m_varInputs;
@@ -119,6 +123,7 @@ protected:
     CurveData m_sData;
 
     QString m_pluginName;
+    int m_axisCount;
   };
 
   ICurvePrivate dd;
