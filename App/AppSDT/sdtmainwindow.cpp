@@ -295,16 +295,24 @@ void SDTMainWindow::closeEvent(QCloseEvent *e)
 //  if(close)
 //  {
     emit appClosed();
+    qDebug()<<"emit appclose !";
+    GTUtils::delayms(2000);
     disactiveAllUi();
 
+    m_connecting=false;
+    setUiStatusConnect(m_connecting);
+    m_statusMonitor->stopMonitor();
     setConnect(false);
+
+    GTUtils::delayms(10);
     OptContainer *optc=OptContainer::instance();
     optc->saveOpt();
 
     //保存当前的配置
-    GT::deepClearList(m_sdAssemblyList);
+
     delete m_gUiControl;
     delete m_optc;
+    GT::deepClearList(m_sdAssemblyList);
     e->accept();
 //  }
 //  else
@@ -442,7 +450,7 @@ void SDTMainWindow::globalUiPageInit()
   for(int i=0;i<m_sdAssemblyList.count();i++)
     sevList.append(m_sdAssemblyList.at(i)->sevDevice());
   m_gUiControl=new GlobalUiControler(sevList);
-  connect(this,SIGNAL(appClosed()),m_gUiControl,SIGNAL(appClosed()));
+  connect(this,SIGNAL(appClosed()),m_gUiControl,SIGNAL(appClosed()),Qt::QueuedConnection);
   m_gUiControl->createUis();
 }
 void SDTMainWindow::stackedWidgetInit()
@@ -757,11 +765,12 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
 }
 void SDTMainWindow::onActnDisConnectClicked(bool checked)
 {
-  disactiveAllUi();
-  setConnect(false);
   m_connecting=false;
   setUiStatusConnect(m_connecting);
   m_statusMonitor->stopMonitor();
+  disactiveAllUi();
+  setConnect(false);
+
   qDebug()<<"checked"<<checked;
 }
 void SDTMainWindow::onActnHelpDeviceInfoClicked()
@@ -783,12 +792,14 @@ void SDTMainWindow::onActnNewConfigClicked()
   ConfigDialog dia(&list,0);
   if(QDialog::Rejected==dia.exec())
      return;
+  setUiAllEnable(false);
   m_statusBar->statusProgressBar()->setVisible(true);
   m_statusBar->statusProgressBar()->setValue(0);
   updateSDTMainUiByConfigList(list);
   m_statusBar->statusProgressBar()->setVisible(false);
   m_statusBar->statusProgressBar()->setValue(100);
   m_statusBar->setMsg("");
+  setUiAllEnable(true);
 }
 void SDTMainWindow::onActnSaveClicked()
 {
@@ -1093,7 +1104,6 @@ void SDTMainWindow::updateSDTMainUiByConfigList(const QList<DeviceConfig *> &con
   clearNavigationTree();
 
   navigationTreeInit();
-  qDebug()<<"stackedWidgetInit";
   stackedWidgetInit();
 //  ui->progressBar->setValue(100);
 

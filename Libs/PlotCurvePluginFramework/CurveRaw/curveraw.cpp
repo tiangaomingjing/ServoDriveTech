@@ -20,6 +20,7 @@ CurveRaw::CurveRaw(ctkPluginContext *context)
 ICurve *CurveRaw::clone()
 {
   ICurve *c=new CurveRaw();
+  c->prepare();
   return c;
 }
 

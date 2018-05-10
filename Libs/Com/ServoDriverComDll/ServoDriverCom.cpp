@@ -84,22 +84,31 @@ short CServoDriverCom::Initial(CRingNetInterface* pDriver)
 		int dsp_num = 0;
 		for (int i = 0; i < station_num; i++)
 		{
-			switch (m_pDriver->m_pRnDeviceOnline[i]->m_CNS.m_station_msg.bit.station_msg)
+			if (0x8000 == ((m_pDriver->m_pRnDeviceOnline[i]->m_staion_type) & 0xF000))
 			{
-			case TB_GTSD13:
-			case TB_GTSD21:
-				dsp_num += 1;
-				break;
-			case TB_GTDS41:
-			case TB_GTDS42:
-				dsp_num += 2;
-				break;
-			case TB_GTSD61:
-				dsp_num += 3;
-				break;
-			default:
-				break;
+				Uint16 axisNum = (((m_pDriver->m_pRnDeviceOnline[i]->m_staion_type) & 0x0F00) >> 8);
+				if (axisNum%2)
+				{
+					axisNum++;
+				}
+				dsp_num += (axisNum / 2);
 			}
+// 			switch (m_pDriver->m_pRnDeviceOnline[i]->m_CNS.m_station_msg.bit.station_msg)
+// 			{
+// 			case TB_MARVIE11:
+// 			case TB_MARVIE21:
+// 				dsp_num += 1;
+// 				break;
+// 			case TB_MARVIE41:
+// 			case TB_MARVIE42:
+// 				dsp_num += 2;
+// 				break;
+// 			case TB_MARVIE61:
+// 				dsp_num += 3;
+// 				break;
+// 			default:
+// 				break;
+// 			}
 		}
 
 		Uint16 *dsp_list = NULL;
@@ -2637,7 +2646,7 @@ short CServoDriverCom::GTSD_CMD_XmlWriteFile(int16 axis, char* pFileNameList[], 
 	void(*tpfUpdataProgressPt)(void*, short*), void* ptrv, short& progress)
 {
 
-    if (axis >= COM_AXIS_MAX)
+	if (axis >= COM_AXIS_MAX)
 	{
 		return RTN_PARAM_OVERFLOW;
 	}
@@ -2652,7 +2661,8 @@ short CServoDriverCom::GTSD_CMD_XmlWriteFile(int16 axis, char* pFileNameList[], 
 	}
 	CComBase* pComBase = m_pDriver;
 	firmware.m_pCom = &pComBase;
-	firmware.m_des_id = station_id >> 8;
+	firmware.m_des_id = 0;// station_id >> 8;
+
 
 	rtn = firmware.WriteFile(pFileNameList, pFileTypeList, file_num, tpfUpdataProgressPt, ptrv, progress);
 	return rtn;
@@ -2677,7 +2687,7 @@ short CServoDriverCom::GTSD_CMD_XmlReadFile(int16 axis, char* pFileNameList[], i
 	}
 	CComBase* pComBase = m_pDriver;
 	firmware.m_pCom = &pComBase;
-	firmware.m_des_id = station_id >> 8;
+	firmware.m_des_id = 0;// station_id >> 8;
 
 
 	rtn = firmware.ReadFile(pFileNameList, pFileTypeList, file_num, tpfUpdataProgressPt, ptrv, progress);
@@ -2701,6 +2711,8 @@ short CServoDriverCom::SetStationId(Uint16 station_id)
 	}
 
 	m_station_id = 0xF0;
+
+	return RTN_SUCCESS;
 }
 
 short CServoDriverCom::GetStationIdList(vector<int16>& stationIdList)
@@ -2710,44 +2722,57 @@ short CServoDriverCom::GetStationIdList(vector<int16>& stationIdList)
 	stationIdList.clear();
 	for (int16 i = 0; i < m_pDriver->m_device_num; i++)
 	{
-		switch (m_pDriver->m_pRnDeviceOnline[i]->m_CNS.m_station_msg.bit.station_msg)
-		{
-		case TB_GTSD13:
-		case TB_GTSD21:
-		case TB_GTDS41:
-		case TB_GTDS42:
-		case TB_GTSD61:
-			stationId = m_pDriver->m_pRnDeviceOnline[i]->m_CNS.m_online_msg.bit.device_id;
-			stationIdList.push_back(stationId);
-			break;
-		default:
-			break;
-		}
+// 		switch (m_pDriver->m_pRnDeviceOnline[i]->m_CNS.m_station_msg.bit.station_msg)
+// 		{
+			if (0x8000 == ((m_pDriver->m_pRnDeviceOnline[i]->m_staion_type) & 0xF000))
+			{
+				stationId = m_pDriver->m_pRnDeviceOnline[i]->m_CNS.m_online_msg.bit.device_id;
+				stationIdList.push_back(stationId);
+			}
+// 		case TB_MARVIE11:
+// 		case TB_MARVIE21:
+// 		case TB_MARVIE41:
+// 		case TB_MARVIE42:
+// 		case TB_MARVIE61:
+// 			stationId = m_pDriver->m_pRnDeviceOnline[i]->m_CNS.m_online_msg.bit.device_id;
+// 			stationIdList.push_back(stationId);
+// 			break;
+// 		default:
+// 			break;
+//		}
 	}
 	return RTN_SUCCESS;
 }
 
 short CServoDriverCom::GetStationAxisNum(int16* axisNum)
 {
-	switch (m_pDriver->m_pRnDevice[m_station_id]->m_staion_type)
+	if (0x8000 == ((m_pDriver->m_pRnDevice[m_station_id]->m_staion_type) & 0xF000))
 	{
-	case TB_GTSD13:
-		*axisNum = 1;
-		break;
-	case TB_GTSD21:
-		*axisNum = 2;
-		break;
-	case TB_GTDS41:
-	case TB_GTDS42:
-		*axisNum = 4;
-		break;
-	case TB_GTSD61:
-		*axisNum = 6;
-		break;
-	default:
-		return RTN_PARAM_ERR;
-		break;
+		*axisNum = (((m_pDriver->m_pRnDevice[m_station_id]->m_staion_type) & 0x0F00) >> 8);
 	}
+	else
+	{
+		return RTN_PARAM_ERR;
+	}
+// 	switch (m_pDriver->m_pRnDevice[m_station_id]->m_staion_type)
+// 	{
+// 	case TB_MARVIE11:
+// 		*axisNum = 1;
+// 		break;
+// 	case TB_MARVIE21:
+// 		*axisNum = 2;
+// 		break;
+// 	case TB_MARVIE41:
+// 	case TB_MARVIE42:
+// 		*axisNum = 4;
+// 		break;
+// 	caseTB_MARVIE61:
+// 		*axisNum = 6;
+// 		break;
+// 	default:
+// 		return RTN_PARAM_ERR;
+// 		break;
+// 	}
 	return RTN_SUCCESS;
 }
 /////////////////////////////////////////////

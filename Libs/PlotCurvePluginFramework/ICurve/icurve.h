@@ -36,8 +36,9 @@ public:
 
   void addConstInputByName(const QString &name);
   void addVarInputByName(const QString &name);
-  void addUnit(const QString &uName,double k);
 
+  //单位处理
+  void addUnit(const QString &uName,double k);
   void setUnit(const QString &uName);
   double curUnitK();
   QString curUnitName();
@@ -50,9 +51,6 @@ public:
 
   void setConstInputK(int channel,double value);
   void setVarInputVector(int channel ,const QVector<double> &in);
-
-  int rowInx() const;
-  void setRowInx(int rowInx);
 
   int devInx() const;
   void setDevInx(int devInx);
@@ -73,9 +71,9 @@ public:
   bool isDraw() const;
   void setIsDraw(bool isDraw);
 
-  QList<CurveVar> varInputs() const;
+  QList<CurveVar> & varInputs();
 
-  QList<CurveConst> constInputs() const;
+  QList<CurveConst> & constInputs();
 
   int dspInx() const;
   void setDspInx(int dspInx);
@@ -88,9 +86,13 @@ public:
 
   void savePrepare();
 
+  QString pluginName() const;
+  void setPluginName(const QString &name);
+
 protected:
   virtual void calculate() = 0;
   void adjustData();
+  void updateCurrentTime();
 
 protected:
 
@@ -99,7 +101,6 @@ protected:
   public:
     ICurvePrivate();
 
-    int m_rowInx;
     int m_axisInx;
     int m_dspInx;
     int m_devInx;
@@ -117,7 +118,9 @@ protected:
 
     QList<CurveConst>m_constInputs;
     QList<CurveVar>m_varInputs;
+
     QHash<QString,double> m_units;
+    QStringList m_unitNameList;
 
     CurveData m_cData;
     CurveData m_sData;

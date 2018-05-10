@@ -49,11 +49,11 @@ public slots:
 private slots:
   void onBtnFloatInClicked(bool checked);
   void onOptFaceCssChanged(const QString &css);
+  void onWinFloatingChanged(bool isFloating);
 
   void onBtnMeaHClicked(bool checked);
   void onBtnMeaVClicked(bool checked);
   void onBtnFitClicked();
-  void onBtnConfigClicked();
   void onBtnStartSampleClicked(bool checked);
   void onPlotPosHoverChanged(const QPointF &point);
   void onPlotMeaVposChanged(qreal v1, qreal v2, qreal dv);
@@ -90,7 +90,7 @@ private:
   void clearGraphData();
   void checkCurveValid();
 
-
+  void showAllData();
 
 
 private:

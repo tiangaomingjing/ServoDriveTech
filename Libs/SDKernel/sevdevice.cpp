@@ -189,9 +189,9 @@ bool SevDevice::enableConnection(void (*processCallBack)(void *argv, short *valu
 void SevDevice::disableConnection()
 {
   Q_D(SevDevice);
+  emit connectionChanged(false);
   d->m_connected=false;
   d->m_socket->disConnect();
-  emit connectionChanged(d->m_connected);
 }
 bool SevDevice::isConnecting() const
 {

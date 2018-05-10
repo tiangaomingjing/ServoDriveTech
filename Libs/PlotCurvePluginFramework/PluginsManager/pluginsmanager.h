@@ -2,7 +2,7 @@
 #define PLUGINSMANAGER_H
 
 #include <QObject>
-#include <QHash>
+#include <QMultiMap>
 #include <QList>
 #include "ctkPlugin.h"
 
@@ -27,7 +27,13 @@ public:
 
 private:
   QStringList pluginsFromReadTxt(const QString &fileName);
+  QString plotPluginsPath();
   bool installPlugin(const QString &name,const QString &path);
+
+  bool installExpertPlugin();
+  bool installUsrPlugin();
+  bool installCustomPlugin();
+
 signals:
 
 public slots:
@@ -35,11 +41,12 @@ private:
   ctkPluginFrameworkFactory *m_frameWorkFactory;
   ctkPluginContext* m_context;
 
-  QHash<QString,QSharedPointer<ctkPlugin>>m_plugins;
+  QMultiMap<QString,QSharedPointer<ctkPlugin>>m_plugins;
 
   QList<ICurve *>m_usrCurves;
   ICurve *m_expertCurve;
   QList<QList<ICurve *>>m_customCurves;
+
 };
 
 #endif // PLUGINSMANAGER_H

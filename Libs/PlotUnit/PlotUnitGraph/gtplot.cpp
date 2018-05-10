@@ -60,7 +60,8 @@ GtPlot::GtPlot(QWidget *parent) : QCustomPlot(parent),
 
   setInteraction(QCP::iSelectItems,true);
   setInteraction(QCP::iMultiSelect,true);
-  setInteractions(QCP::iRangeDrag | QCP::iRangeZoom );
+  setInteraction(QCP::iRangeDrag,true);
+  setInteraction(QCP::iRangeZoom,true);
   connect(xAxis, SIGNAL(rangeChanged(QCPRange)), xAxis2, SLOT(setRange(QCPRange)));
   connect(yAxis, SIGNAL(rangeChanged(QCPRange)), yAxis2, SLOT(setRange(QCPRange)));
 }
