@@ -26,4 +26,5 @@ SUBDIRS += \
     AppCustomPlotTest \
     AppXmlRWTest \
     AppPlotTest \
-    AppCTKPluginFrameworkTest
+    AppCTKPluginFrameworkTest \
+    consoleTest

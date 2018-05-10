@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>400</height>
+    <width>670</width>
+    <height>413</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -41,6 +41,31 @@
        <string>axisNum</string>
       </property>
      </column>
+     <column>
+      <property name="text">
+       <string>note</string>
+      </property>
+     </column>
+     <item>
+      <property name="text">
+       <string>21000507</string>
+      </property>
+      <property name="text">
+       <string>SD2x</string>
+      </property>
+      <property name="text">
+       <string>SD21</string>
+      </property>
+      <property name="text">
+       <string>SD21</string>
+      </property>
+      <property name="text">
+       <string>2</string>
+      </property>
+      <property name="text">
+       <string>暂时使用这个ID,非正式号</string>
+      </property>
+     </item>
      <item>
       <property name="text">
        <string>21000508</string>

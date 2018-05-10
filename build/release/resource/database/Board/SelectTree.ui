@@ -28,6 +28,19 @@
      </column>
      <item>
       <property name="text">
+       <string>SD2x</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>SD21</string>
+       </property>
+       <property name="text">
+        <string>1</string>
+       </property>
+      </item>
+     </item>
+     <item>
+      <property name="text">
        <string>SD4x</string>
       </property>
       <item>

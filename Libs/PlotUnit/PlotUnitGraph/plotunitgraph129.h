@@ -15,6 +15,7 @@ class QTreeWidgetItem;
 class QTableWidget;
 class ICurve;
 class QTableWidgetItem;
+class QCPGraph;
 
 class PLOTUNITGRAPHSHARED_EXPORT PlotUnitGraph129 : public IPlotUnitGraph
 {
@@ -42,16 +43,18 @@ public:
 
 public slots:
   void onSevDeviceListChanged(const QList<SevDevice *> &sevlist) Q_DECL_OVERRIDE;
+  void onAppClosed() Q_DECL_OVERRIDE;
+  void onSocketConnectionChanged(bool isConnected) Q_DECL_OVERRIDE;
 
 private slots:
   void onBtnFloatInClicked(bool checked);
   void onOptFaceCssChanged(const QString &css);
+  void onWinFloatingChanged(bool isFloating);
 
   void onBtnMeaHClicked(bool checked);
   void onBtnMeaVClicked(bool checked);
   void onBtnFitClicked();
-  void onBtnConfigClicked();
-  void onBtnStartSampleClicked();
+  void onBtnStartSampleClicked(bool checked);
   void onPlotPosHoverChanged(const QPointF &point);
   void onPlotMeaVposChanged(qreal v1, qreal v2, qreal dv);
   void onPlotMeaHposChanged(qreal v1, qreal v2, qreal dv);
@@ -76,19 +79,23 @@ private:
   void gtPlotInit();
   void ctlPanelInit();
   void updateCtlPanelBySelectDevice(int sevInx);
+  void resizeSectionCurveTableWidget(const QList<SevDevice *> &sevlist);
 
   void setupSimpleDemo(QCustomPlot *customPlot);//test
   void setTimerStatus();
 
   SevDevice *currentSevDevice() const;
-  void addTableRowPrm(ICurve *curve);
+  void addTableRowPrm(ICurve *curve , QCPGraph *graph);
 
   void clearGraphData();
   void checkCurveValid();
 
+  void showAllData();
+
 
 private:
   Ui::PlotUnitGraph129 *ui;
+
 };
 
 #endif // PLOTUNITGRAPH129_H

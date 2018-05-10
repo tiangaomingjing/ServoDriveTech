@@ -696,6 +696,16 @@ QWidget#widget_plot_up{
 QWidget#widget_plot_up  QToolButton:hover{
 	background-color:#BBB9B9;
 } 
+QWidget#widget_plot_up  QToolButton:checked{
+	background-color:#E0E0E0;
+	border: 1px solid #BBB9B9;
+	border-radius:5px;
+}
+QWidget#widget_plot_up  QToolButton:checked:hover{
+	background-color:#BBB9B9;
+	border: 1px solid #BBB9B9;
+	border-radius:5px;
+}
 QWidget#widget_plot_up QToolButton:hover:pressed{
 	background-color:gray;
 } 

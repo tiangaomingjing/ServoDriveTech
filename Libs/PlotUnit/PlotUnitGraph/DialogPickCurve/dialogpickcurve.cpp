@@ -33,6 +33,8 @@ DialogPickCurve::DialogPickCurve(QWidget *parent) :
   ui->btn_curve_user->setChecked(true);
   ui->stackedWidget_plotCurve->setCurrentIndex(USR_ROLE_USR);
 
+  ui->tableWidget_usr->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
   connect(ui->btn_curve_custom,SIGNAL(clicked(bool)),this,SLOT(onUserSelectChanged()));
   connect(ui->btn_curve_user,SIGNAL(clicked(bool)),this,SLOT(onUserSelectChanged()));
   connect(ui->btn_curve_expert,SIGNAL(clicked(bool)),this,SLOT(onUserSelectChanged()));

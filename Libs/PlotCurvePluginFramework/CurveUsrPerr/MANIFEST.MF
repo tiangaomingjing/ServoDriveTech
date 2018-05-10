@@ -1,0 +1,8 @@
+﻿Plugin-SymbolicName: CurveUsrPerr
+Plugin-ActivationPolicy: eager
+Plugin-Category: Demos
+Plugin-ContactAddress: https://github.com/Waleon
+Plugin-Description: A plugin for plot curve usr position error
+Plugin-Name: CurveUsrPerr
+Plugin-Vendor: chenchao
+Plugin-Version: 1.0.0

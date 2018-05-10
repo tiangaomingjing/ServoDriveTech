@@ -182,12 +182,14 @@ bool SevDevice::enableConnection(void (*processCallBack)(void *argv, short *valu
 {
   Q_D(SevDevice);
   d->m_connected=d->m_socket->connect(processCallBack,uiProcessBar);
+  emit connectionChanged(d->m_connected);
   return d->m_connected;
 }
 
 void SevDevice::disableConnection()
 {
   Q_D(SevDevice);
+  emit connectionChanged(false);
   d->m_connected=false;
   d->m_socket->disConnect();
 }
@@ -523,6 +525,7 @@ bool SevDevice::checkNetStatus()
 
     if(!offline)
     {
+      emit connectionChanged(false);
       emit netError(i);
       qDebug()<<"Emit netError"<<i<<"When the net is broken";
       break;

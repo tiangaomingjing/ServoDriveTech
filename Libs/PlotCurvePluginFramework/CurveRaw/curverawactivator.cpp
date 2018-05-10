@@ -13,6 +13,7 @@ void CurveRawActivator::start(ctkPluginContext *context)
 {
   qDebug()<<"activator start   new CurveRaw";
   m_iCurve = new CurveRaw(context);
+  m_iCurve->prepare();
 }
 
 void CurveRawActivator::stop(ctkPluginContext *context)

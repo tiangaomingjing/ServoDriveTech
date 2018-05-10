@@ -11,7 +11,7 @@ QT+=widgets
 TEMPLATE = lib
 
 CONFIG(debug,debug|release){
-  TARGET = CurveRawd
+  TARGET = CurveRaw
 }else{
   TARGET = CurveRaw
 }

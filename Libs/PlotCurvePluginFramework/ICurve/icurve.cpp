@@ -8,7 +8,10 @@ ICurve::~ICurve()
 {
 
 }
-
+/**
+ * @brief ICurve::prepare
+ * 客户端使用时，新建对象后须先调用prepare函数进行初始化
+ */
 void ICurve::prepare()
 {
   setName(name());
@@ -18,6 +21,7 @@ void ICurve::prepare()
 
 void ICurve::exec()
 {
+  updateCurrentTime();
   calculate();
   adjustData();
 }
@@ -72,16 +76,6 @@ void ICurve::setVarInputVector(int channel, const QVector<double> &in)
   }
 }
 
-int ICurve::rowInx() const
-{
-  return dd.m_rowInx;
-}
-
-void ICurve::setRowInx(int rowInx)
-{
-  dd.m_rowInx = rowInx;
-}
-
 int ICurve::devInx() const
 {
   return dd.m_devInx;
@@ -124,27 +118,32 @@ void ICurve::adjustData()
   }
   dd.m_sData.values.append(dd.m_cData.values);
 
-  quint32 size=dd.m_cData.values.size();
+
+  qint32 overSize=dd.m_sData.values.size()- dd.m_storePointCount;
+  if(overSize>0)
+  {
+//    dd.m_sData.keys.remove(0,overSize);
+    dd.m_sData.values.remove(0,overSize);
+//    qDebug()<<"store data size = "<<dd.m_sData.values.size();
+  }
+}
+
+void ICurve::updateCurrentTime()
+{
+  quint32 size=dd.m_varInputs.at(0).datas.size();
 //  qDebug()<<"curve size"<<size;
 
   dd.m_cData.keys.clear();
   for(quint32 i=0;i<size;i++)
   {
     dd.m_currentTime = dd.m_currentTime+dd.m_samplInterval;//坐标s显示
-    dd.m_sData.keys.append(dd.m_currentTime);
+//    dd.m_sData.keys.append(dd.m_currentTime);
     dd.m_cData.keys.append(dd.m_currentTime);
   }
 //  qDebug()<<"dd.m_currentTime"<<dd.m_currentTime;
-
-  qint32 overSize=dd.m_sData.values.size()- dd.m_storePointCount;
-  if(overSize>0)
-  {
-    dd.m_sData.keys.remove(0,overSize);
-    dd.m_sData.values.remove(0,overSize);
-  }
 }
 
-void ICurve::setStorePointCount(qint32 storePointCount)
+void ICurve::setStorePointCount(quint32 storePointCount)
 {
   dd.m_storePointCount = storePointCount;
 }
@@ -180,12 +179,13 @@ void ICurve::setIsDraw(bool isDraw)
   dd.m_isDraw = isDraw;
 }
 
-QList<CurveVar> ICurve::varInputs() const
+QList<CurveVar> &ICurve::varInputs()
 {
   return dd.m_varInputs;
 }
 
-QList<CurveConst> ICurve::constInputs() const
+
+QList<CurveConst> &ICurve::constInputs()
 {
   return dd.m_constInputs;
 }
@@ -200,6 +200,16 @@ void ICurve::setDspInx(int dspInx)
   dd.m_dspInx = dspInx;
 }
 
+void ICurve::setAxisCount(int axisCount)
+{
+  dd.m_axisCount = axisCount;
+}
+
+int ICurve::axisCount() const
+{
+  return dd.m_axisCount;
+}
+
 CurveData *ICurve::cData()
 {
   return &(dd.m_cData);
@@ -208,6 +218,26 @@ CurveData *ICurve::cData()
 CurveData *ICurve::sData()
 {
   return &(dd.m_sData);
+}
+
+void ICurve::savePrepare()
+{
+  dd.m_sData.keys.clear();
+  for(int i = dd.m_sData.values.size();i >0; i--)
+  {
+    double time = dd.m_currentTime - dd.m_samplInterval*i;
+    dd.m_sData.keys.append(time);
+  }
+}
+
+QString ICurve::pluginName() const
+{
+  return dd.m_pluginName;
+}
+
+void ICurve::setPluginName(const QString &name)
+{
+  dd.m_pluginName = name;
 }
 
 QStringList ICurve::constInputKeys()
@@ -243,6 +273,11 @@ void ICurve::addVarInputByName(const QString &name)
 void ICurve::addUnit(const QString &uName, double k)
 {
   dd.m_units.insert(uName,k);
+  for(int i = 0;i<dd.m_unitNameList.size();i++)
+  {
+    if(dd.m_unitNameList.at(i) != uName)
+      dd.m_unitNameList.append(uName);
+  }
 }
 
 void ICurve::setUnit(const QString &uName)
@@ -266,7 +301,7 @@ QString ICurve::curUnitName()
 
 QStringList ICurve::unitNames()
 {
-  return QStringList(dd.m_units.keys());
+  return dd.m_unitNameList;
 }
 
 ICurve::ICurvePrivate::ICurvePrivate()
@@ -279,4 +314,5 @@ ICurve::ICurvePrivate::ICurvePrivate()
   m_currentTime = 0;
   m_samplInterval=62.5*0.000001;
   m_storePointCount=10*1000000/62.5;
+  m_axisCount = 4;
 }

@@ -132,32 +132,6 @@
               </widget>
              </item>
              <item>
-              <widget class="QToolButton" name="tbtn_plot_config">
-               <property name="minimumSize">
-                <size>
-                 <width>30</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>config</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QToolButton" name="tbtn_plot_tag">
-               <property name="minimumSize">
-                <size>
-                 <width>30</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>tag</string>
-               </property>
-              </widget>
-             </item>
-             <item>
               <widget class="QToolButton" name="tbtn_plot_open">
                <property name="minimumSize">
                 <size>

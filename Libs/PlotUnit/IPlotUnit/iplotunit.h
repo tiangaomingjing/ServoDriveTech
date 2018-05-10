@@ -31,6 +31,8 @@ protected:
 
 public slots:
   virtual void onSevDeviceListChanged(const QList<SevDevice*> &sevlist) = 0;
+  virtual void onAppClosed() = 0;
+  virtual void onSocketConnectionChanged(bool isConnected) = 0;
 protected:
   IPlotUnit(IPlotUnitPrivate&dd,QWidget *parent=0);
   IPlotUnitPrivate *d_ptr;

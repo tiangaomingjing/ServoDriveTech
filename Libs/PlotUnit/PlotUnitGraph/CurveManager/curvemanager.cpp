@@ -106,7 +106,7 @@ int CurveManager::storeTime() const
 void CurveManager::setStoreTime(int storeTimeS)
 {
   m_storeTimeS = storeTimeS;
-  double s=storeTimeS*1000000/SAMPLING_INTERVAL_US ;
+  quint32 s=storeTimeS*1000000/SAMPLING_INTERVAL_US ;
   for(int i=0;i<m_curveList.size();i++)
   {
     ICurve *c=m_curveList.at(i);

@@ -449,7 +449,7 @@
         <string/>
        </property>
        <property name="text">
-        <string>保留</string>
+        <string>过压力</string>
        </property>
       </item>
       <item>
@@ -587,7 +587,7 @@
         <string/>
        </property>
        <property name="text">
-        <string>STO故障</string>
+        <string>STO</string>
        </property>
       </item>
       <item>
@@ -702,7 +702,7 @@
         <string/>
        </property>
        <property name="text">
-        <string>GLINK2通信异常</string>
+        <string>保留</string>
        </property>
       </item>
      </item>

@@ -78,6 +78,8 @@ build/release/bin/*.lib
 !Libs/ThirdParty
 build/debug/bin/configuration
 build/release/bin/configuration
+!build/debug/bin/CTK*.dll
+!build/release/bin/CTK*.dll
 
 
 

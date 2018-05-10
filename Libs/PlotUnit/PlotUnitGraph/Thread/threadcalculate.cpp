@@ -47,42 +47,36 @@ void CalculateWorker::onSampleDataIn(SampleData data)
   for(;it!=data.curves.end();)
   {
     c=dspCurves->m_curves.at(cInx);
+    //曲线输入，并计算
     for(int i=0;i<c->varInputsKeys().size();i++)
     {
       CurveDatas vec= *it;
       c->setVarInputVector(i,QVector<double>::fromStdVector(vec));
       it++;
     }
-    c->exec();//开始计算
+    c->exec();
 
+    //取样输出
     CurveData cData;
-    int maxPoint=maxPointSize();
-    quint16 size=c->cData()->values.size();
-    int interval=size/maxPoint;
-    if(interval == 0)
-      interval = 1;
-//    qDebug()<<"interval = "<<interval<<" size = "<<size;
-    for(int i=0;i<size;i++)
-    {
-      if(0 == i%interval)
-      {
-        cData.keys.append(c->cData()->keys.at(i));
-        cData.values.append(c->cData()->values.at(i));
-      }
-    }
+//    int maxPoint=maxPointSize();
+//    quint16 size=c->cData()->values.size();
+//    int interval=size/maxPoint;
+//    if(interval == 0)
+//      interval = 1;
+////    qDebug()<<"interval = "<<interval<<" size = "<<size;
+//    for(int i=0;i<size;i++)
+//    {
+//      if(0 == i%interval)
+//      {
+//        cData.keys.append(c->cData()->keys.at(i));
+//        cData.values.append(c->cData()->values.at(i));
+//      }
+//    }
+    cData.keys.append(c->cData()->keys);
+    cData.values.append(c->cData()->values);
 
     pd.m_dataHash.insert(c,cData);
     cInx++;
-//    QVector<double> v=QVector<double>::fromStdVector(vec);
-//    qDebug()<<"vector size "<<vec.size()<<"  QVector size"<<v.size()<<"value "<<v.at(0);
-
-//    CurveDatasIterator dIt = vec.begin();
-//    double v;
-//    for(;dIt!=vec.end();dIt++)
-//    {
-//      v=*dIt;
-//      qDebug()<<v;
-//    }
   }
   emit plotDataIn(pd);
 }
