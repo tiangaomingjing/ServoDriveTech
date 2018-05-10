@@ -2,6 +2,7 @@
 #include "qttreemanager.h"
 #include "selfbuilder.h"
 #include "sdtglobaldef.h"
+#include "sdterror.h"
 
 #include <QFile>
 #include <QTextStream>
@@ -10,8 +11,6 @@
 #include <QDir>
 #include <QByteArray>
 #include <QMessageBox>
-
-#define POWER_BASEADDR 64
 
 using namespace ComDriver;
 
@@ -33,6 +32,8 @@ public:
     QString m_newestVersion;
     bool m_modeCreated;
     int m_count;
+    int m_pwrBaseAddr;
+    int m_ctrBaseAddr;
 };
 
 SelfBuilder::SelfBuilder(ComDriver::ICom *com)
@@ -76,46 +77,49 @@ SelfBuilder::RtnSelf SelfBuilder::buildPower(void (*processCallback)(void *pbar,
     emit sendProcessInfo(5, tr("Checking axis number"));
     if (!axisNumExisted(QString::number(dd->m_axisNum), pwrMapPath)) {
         qDebug()<<"no such product";
-        QMessageBox::warning(0, tr("Warning"), tr("No such product. Please update the software."));
+        //SdtError::instance()->errorStringList()->append(tr("No such product. Please update the software."));
         return RTN_SELF_NOPRODUCT;
     }
     if (!idExisted(dd->m_powerID, pwrMapPath)) {
         //pwrID nonexist
-        emit sendProcessInfo(10, tr("Updating IdMap"));
-        rtn = addModeToIdMap(dd->m_powerID, pwrMapPath);
-        if (rtn != RTN_SELF_SUCCESS) {
-            return rtn;
-        }
-        emit sendProcessInfo(12, tr("Updating database"));
-        rtn = addNewDatabase(dd->m_powerID, boardPath, indexPath);
-        if (rtn != RTN_SELF_SUCCESS) {
-            return rtn;
-        }
-        emit sendProcessInfo(25, tr("Updating index tree"));
-        rtn = addIndexTree(indexPath, dd->m_powerID);
-        if (rtn != RTN_SELF_SUCCESS) {
-            return rtn;
-        }
-        emit sendProcessInfo(30, tr("Updating select tree"));
-        rtn = addSelectTree(selectPath, dd->m_powerID);
-        if (rtn != RTN_SELF_SUCCESS) {
-            return rtn;
-        }
-        emit sendProcessInfo(35, tr("Updating select tree"));
-        rtn = addDatabaseSelectTree(databaseSelPath);
-        if (rtn != RTN_SELF_SUCCESS) {
-            return rtn;
-        }
-        emit sendProcessInfo(40, tr("Updating system config"));
-        rtn = addSysConfig(processCallback, processbar);
-        if (rtn != RTN_SELF_SUCCESS) {
-            return rtn;
-        }
-        emit sendProcessInfo(50, tr("Updating system map"));
-        rtn = addSystemMap();
-        if (rtn != RTN_SELF_SUCCESS) {
-            return rtn;
-        }
+//        emit sendProcessInfo(10, tr("Updating IdMap"));
+//        rtn = addModeToIdMap(dd->m_powerID, pwrMapPath);
+//        if (rtn != RTN_SELF_SUCCESS) {
+//            return rtn;
+//        }
+//        emit sendProcessInfo(12, tr("Updating database"));
+//        rtn = addNewDatabase(dd->m_powerID, boardPath, indexPath);
+//        if (rtn != RTN_SELF_SUCCESS) {
+//            return rtn;
+//        }
+//        emit sendProcessInfo(25, tr("Updating index tree"));
+//        rtn = addIndexTree(indexPath, dd->m_powerID);
+//        if (rtn != RTN_SELF_SUCCESS) {
+//            return rtn;
+//        }
+//        emit sendProcessInfo(30, tr("Updating select tree"));
+//        rtn = addSelectTree(selectPath, dd->m_powerID);
+//        if (rtn != RTN_SELF_SUCCESS) {
+//            return rtn;
+//        }
+//        emit sendProcessInfo(35, tr("Updating select tree"));
+//        rtn = addDatabaseSelectTree(databaseSelPath);
+//        if (rtn != RTN_SELF_SUCCESS) {
+//            return rtn;
+//        }
+//        emit sendProcessInfo(40, tr("Updating system config"));
+//        rtn = addSysConfig(processCallback, processbar);
+//        if (rtn != RTN_SELF_SUCCESS) {
+//            return rtn;
+//        }
+//        emit sendProcessInfo(50, tr("Updating system map"));
+//        rtn = addSystemMap();
+//        if (rtn != RTN_SELF_SUCCESS) {
+//            return rtn;
+//        }
+        qDebug()<<"no power id";
+        //SdtError::instance()->errorStringList()->append(tr("your software is too old ,not support the current device\nplease update from\n\nhttp://www.googoltech.com.cn\n"));
+        return RTN_SELF_IDNONEXIST;
     } else if (!versionExisted(dd->m_version, selectPath)) {
         //pwrID exist while version nonexist
         emit sendProcessInfo(10, tr("Updating database version"));
@@ -154,26 +158,29 @@ SelfBuilder::RtnSelf SelfBuilder::buildControl()
     emit sendProcessInfo(55, tr("Checking axis number"));
     if (!axisNumExisted(QString::number(dd->m_axisNum), ctrMapPath)) {
         qDebug()<<"no such product";
-        QMessageBox::warning(0, tr("Warning"), tr("No such product. Please update the software."));
+        //SdtError::instance()->errorStringList()->append(tr("No such product. Please update the software."));
         return RTN_SELF_NOPRODUCT;
     }
     if (!idExisted(dd->m_controlID, ctrMapPath)) {
         //pwrID nonexist
-        emit sendProcessInfo(60, tr("Updating Id Map"));
-        rtn = addModeToIdMap(dd->m_controlID, ctrMapPath);
-        if (rtn != RTN_SELF_SUCCESS) {
-            return rtn;
-        }
-        emit sendProcessInfo(70, tr("Updating database"));
-        rtn = addNewCtrDatabase(dd->m_controlID, boardPath, indexPath);
-        if (rtn != RTN_SELF_SUCCESS) {
-            return rtn;
-        }
-        emit sendProcessInfo(95, tr("Updating index tree"));
-        rtn = addIndexTree(indexPath, dd->m_controlID);
-        if (rtn != RTN_SELF_SUCCESS) {
-            return rtn;
-        }
+//        emit sendProcessInfo(60, tr("Updating Id Map"));
+//        rtn = addModeToIdMap(dd->m_controlID, ctrMapPath);
+//        if (rtn != RTN_SELF_SUCCESS) {
+//            return rtn;
+//        }
+//        emit sendProcessInfo(70, tr("Updating database"));
+//        rtn = addNewCtrDatabase(dd->m_controlID, boardPath, indexPath);
+//        if (rtn != RTN_SELF_SUCCESS) {
+//            return rtn;
+//        }
+//        emit sendProcessInfo(95, tr("Updating index tree"));
+//        rtn = addIndexTree(indexPath, dd->m_controlID);
+//        if (rtn != RTN_SELF_SUCCESS) {
+//            return rtn;
+//        }
+        qDebug()<<"no control id";
+        //SdtError::instance()->errorStringList()->append(tr("your software is too old ,not support the current device\nplease update from\n\nhttp://www.googoltech.com.cn\n"));
+        return RTN_SELF_IDNONEXIST;
     }
     return RTN_SELF_SUCCESS;
 }
@@ -181,7 +188,15 @@ SelfBuilder::RtnSelf SelfBuilder::buildControl()
 SelfBuilder::RtnSelf SelfBuilder::initParameters()
 {
     // read axisNum, product type, series num from hardware
-    uint16_t ofst = 1 + POWER_BASEADDR;
+    QString boardPath = GTUtils::databasePath() + "Board/PB/";
+    QString indexPath = boardPath + "pbindex.ui";
+    dd->m_pwrBaseAddr = getBaseAddress(indexPath);
+    qDebug()<<"pwrBaseAdd"<<dd->m_pwrBaseAddr;
+    boardPath = GTUtils::databasePath() + "Board/CB/";
+    indexPath = boardPath + "cbindex.ui";
+    dd->m_ctrBaseAddr = getBaseAddress(indexPath);
+    qDebug()<<"ctrBaseAdd"<<dd->m_ctrBaseAddr;
+    uint16_t ofst = 1 + dd->m_pwrBaseAddr;
     uint8_t value[4];
     uint16_t num = 2;
     uint8_t cs = 0;
@@ -197,7 +212,7 @@ SelfBuilder::RtnSelf SelfBuilder::initParameters()
     }
     dd->m_product = QString::fromLatin1(tempByte);
 
-    ofst = 3 + POWER_BASEADDR;
+    ofst = 3 + dd->m_pwrBaseAddr;
     ret = dd->m_com->readEEPROM(ofst, value, num, cs);
     if (ret != 0) {
         return RTN_SELF_READAXISERR;
@@ -208,7 +223,7 @@ SelfBuilder::RtnSelf SelfBuilder::initParameters()
     }
     dd->m_axisNum = tempValue;
 
-    ofst = 5 + POWER_BASEADDR;
+    ofst = 5 + dd->m_pwrBaseAddr;
     ret = dd->m_com->readEEPROM(ofst, value, num, cs);
     if (ret != 0) {
         return RTN_SELF_READSERIESERR;
@@ -544,6 +559,13 @@ SelfBuilder::RtnSelf SelfBuilder::readDataFromEEprom(const QString &path, bool i
     if (tree == NULL) {
         return RTN_SELF_CREATETREEERR;
     }
+    QTreeWidgetItem *codeItem = tree->topLevelItem(1)->child(0)->child(0)->child(0)->child(0);
+    codeItem->setText(GT::COL_BOARDTREE_NAME, dd->m_modeName);
+    if (isPwr) {
+        codeItem->setText(GT::COL_BOARDTREE_VALUE, dd->m_powerID);
+    } else {
+        codeItem->setText(GT::COL_BOARDTREE_VALUE, dd->m_controlID);
+    }
     RtnSelf rtn = readTreeData(tree->invisibleRootItem(), isPwr);
     if (rtn != RTN_SELF_SUCCESS) {
         return rtn;
@@ -562,57 +584,24 @@ SelfBuilder::RtnSelf SelfBuilder::readTreeData(QTreeWidgetItem *item, bool isPwr
     if (dd->m_count % 5 == 0) {
         emit sendProcessInfo(dd->m_count % 100, tr("Updating database"));
     }
-    for (int i = 0; i < item->childCount(); i++) {
-        if (item->child(i)->text(GT::COL_BOARDTREE_ADDRESS).compare("0x0001") == 0) {
-            item->child(i)->setText(GT::COL_BOARDTREE_VALUE, dd->m_product);
-        } else if (item->child(i)->text(GT::COL_BOARDTREE_ADDRESS).compare("0x0000") == 0) {
-
-        } else if (item->child(i)->text(GT::COL_BOARDTREE_ADDRESS).compare("0x0003") == 0) {
-            item->child(i)->setText(GT::COL_BOARDTREE_VALUE, QString::number(dd->m_axisNum));
-        } else if (item->child(i)->text(GT::COL_BOARDTREE_ADDRESS).compare("0x0005") == 0) {
-            item->child(i)->setText(GT::COL_BOARDTREE_VALUE, dd->m_series);
-        } else if (item->child(i)->text(GT::COL_BOARDTREE_ADDRESS).compare("-1") != 0 && item->child(i)->text(GT::COL_BOARDTREE_ADDRESS).compare("") != 0) {
-            bool ok;
-            uint16_t ofst = item->child(i)->text(GT::COL_BOARDTREE_ADDRESS).toUShort(&ok, 16);
-            uint8_t value[4];
-            QString numType = item->child(i)->text(GT::COL_BOARDTREE_TYPE);
-            uint16_t num;
-            if (numType.compare("Uint8") == 0 || numType.compare("int8") == 0) {
-                num = 1;
-            } else if (numType.compare("Uint16") == 0 || numType.compare("int16") == 0) {
-                num = 2;
-            } else if (numType.compare("Uint32") == 0 || numType.compare("int32") == 0) {
-                num = 4;
-            }
-            uint8_t cs = 0;
-            if (isPwr) {
-                cs = 0;
-            } else {
-                cs = 1;
-            }
-            errcode_t ret = dd->m_com->readEEPROM(ofst, value, num, cs);
-            if (ret != 0) {
-                return RTN_SELF_READTREEERR;
-            }
-            double tempValue = 0;
-            double scale = item->child(i)->text(GT::COL_BOARDTREE_SCALE).toDouble();
-            for (int j = 0; j < num; j++) {
-                tempValue = tempValue + (value[j] << (j * 8));
-            }
-            if (numType.compare("int8") == 0) {
-                int8_t tempValueTwo = tempValue;
-                item->child(i)->setText(GT::COL_BOARDTREE_VALUE, QString::number(tempValueTwo / scale, 'g', 8));
-            } else if (numType.compare("int16") == 0) {
-                int16_t tempValueTwo = tempValue;
-                item->child(i)->setText(GT::COL_BOARDTREE_VALUE, QString::number(tempValueTwo / scale, 'g', 8));
-            } else if (numType.compare("int32") == 0) {
-                int32_t tempValueTwo = tempValue;
-                item->child(i)->setText(GT::COL_BOARDTREE_VALUE, QString::number(tempValueTwo / scale, 'g', 8));
-            } else {
-                item->child(i)->setText(GT::COL_BOARDTREE_VALUE, QString::number(tempValue / scale, 'g', 8));
+    RtnSelf rtn;
+    rtn = readSingle(item, isPwr);
+    if (rtn != RTN_SELF_SUCCESS) {
+        return rtn;
+    }
+    if (item->text(GT::COL_BOARDTREE_TYPE).compare("Case") == 0) {
+        int index = item->text(GT::COL_BOARDTREE_VALUE).toInt();
+        rtn = readTreeData(item->child(index), isPwr);
+        if (rtn != RTN_SELF_SUCCESS) {
+            return rtn;
+        }
+    } else {
+        for (int i = 0; i < item->childCount(); i++) {
+            rtn = readTreeData(item->child(i), isPwr);
+            if (rtn != RTN_SELF_SUCCESS) {
+                return rtn;
             }
         }
-        readTreeData(item->child(i), isPwr);
     }
     return RTN_SELF_SUCCESS;
 }
@@ -805,4 +794,69 @@ bool SelfBuilder::copyDirectoryFiles(const QString &fromDir, const QString &toDi
         }
     }
     return true;
+}
+
+int SelfBuilder::getBaseAddress(const QString indexPath)
+{
+    QTreeWidget* indexTree = QtTreeManager::createTreeWidgetFromXmlFile(indexPath);
+    QTreeWidgetItem *xmlBaseAdd;
+    bool ok;
+    xmlBaseAdd = GTUtils::findItem("xmlBaseAddress", indexTree, GT::COL_INDEX_NAME);
+    int baseAdd = xmlBaseAdd->text(GT::COL_INDEX_VALUE).toInt(&ok, 10);
+    delete indexTree;
+    return baseAdd;
+}
+
+SelfBuilder::RtnSelf SelfBuilder::readSingle(QTreeWidgetItem *item, bool isPwr)
+{
+    if (item->text(GT::COL_BOARDTREE_ADDRESS).compare("0x0001") == 0) {
+        item->setText(GT::COL_BOARDTREE_VALUE, dd->m_product);
+    } else if (item->text(GT::COL_BOARDTREE_ADDRESS).compare("0x0003") == 0) {
+        item->setText(GT::COL_BOARDTREE_VALUE, QString::number(dd->m_axisNum));
+    } else if (item->text(GT::COL_BOARDTREE_ADDRESS).compare("0x0005") == 0) {
+        item->setText(GT::COL_BOARDTREE_VALUE, dd->m_series);
+    } else if (item->text(GT::COL_BOARDTREE_ADDRESS).compare("-1") != 0 && item->text(GT::COL_BOARDTREE_ADDRESS).compare("") != 0) {
+        bool ok;
+        uint16_t ofst = item->text(GT::COL_BOARDTREE_ADDRESS).toUShort(&ok, 16);
+        uint8_t value[4];
+        QString numType = item->text(GT::COL_BOARDTREE_TYPE);
+        uint16_t num;
+        if (numType.compare("Uint8") == 0 || numType.compare("int8") == 0) {
+            num = 1;
+        } else if (numType.compare("Uint16") == 0 || numType.compare("int16") == 0) {
+            num = 2;
+        } else if (numType.compare("Uint32") == 0 || numType.compare("int32") == 0) {
+            num = 4;
+        }
+        uint8_t cs = 0;
+        if (isPwr) {
+            cs = 0;
+            ofst = ofst + dd->m_pwrBaseAddr;
+        } else {
+            cs = 1;
+            ofst = ofst + dd->m_ctrBaseAddr;
+        }
+        errcode_t ret = dd->m_com->readEEPROM(ofst, value, num, cs);
+        if (ret != 0) {
+            return RTN_SELF_READTREEERR;
+        }
+        double tempValue = 0;
+        double scale = item->text(GT::COL_BOARDTREE_SCALE).toDouble();
+        for (int j = 0; j < num; j++) {
+            tempValue = tempValue + (value[j] << (j * 8));
+        }
+        if (numType.compare("int8") == 0) {
+            int8_t tempValueTwo = tempValue;
+            item->setText(GT::COL_BOARDTREE_VALUE, QString::number(tempValueTwo / scale, 'g', 8));
+        } else if (numType.compare("int16") == 0) {
+            int16_t tempValueTwo = tempValue;
+            item->setText(GT::COL_BOARDTREE_VALUE, QString::number(tempValueTwo / scale, 'g', 8));
+        } else if (numType.compare("int32") == 0) {
+            int32_t tempValueTwo = tempValue;
+            item->setText(GT::COL_BOARDTREE_VALUE, QString::number(tempValueTwo / scale, 'g', 8));
+        } else {
+            item->setText(GT::COL_BOARDTREE_VALUE, QString::number(tempValue / scale, 'g', 8));
+        }
+    }
+    return RTN_SELF_SUCCESS;
 }

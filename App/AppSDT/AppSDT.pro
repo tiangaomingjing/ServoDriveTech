@@ -13,7 +13,8 @@ INCLUDEPATH+= $${PWD}/DialogOption\
               $${PWD}/MessageServer\
               $${PWD}/StatusMonitor\
               $${PWD}/CombinedWindow\
-              $${PWD}/DeviceInfoDialog
+              $${PWD}/DeviceInfoDialog\
+              $${PWD}/DialogAdvUsr
 
 QT       += core gui qml sql network
 
@@ -54,6 +55,7 @@ SOURCES += main.cpp\
     StatusMonitor/statusmonitor.cpp \
     CombinedWindow/combinedwindow.cpp\
     DeviceInfoDialog/deviceinfodialog.cpp \
+    DialogAdvUsr/dialogadvusr.cpp
 
 HEADERS  += sdtmainwindow.h \
     appiconname.h \
@@ -85,6 +87,7 @@ HEADERS  += sdtmainwindow.h \
     StatusMonitor/statusmonitor.h \
     CombinedWindow/combinedwindow.h\
     DeviceInfoDialog/deviceinfodialog.h \
+    DialogAdvUsr/dialogadvusr.h
 
 FORMS    += sdtmainwindow.ui \
     DialogOption/dialogoption.ui \
@@ -92,7 +95,8 @@ FORMS    += sdtmainwindow.ui \
     SdtStatusBar/statuserrdialog.ui \
     ConfigDialog/configdialog.ui \
     CombinedWindow/combinedwindow.ui\
-    DeviceInfoDialog/deviceinfodialog.ui
+    DeviceInfoDialog/deviceinfodialog.ui \
+    DialogAdvUsr/dialogadvusr.ui
 
 TRANSLATIONS    += ch_main.ts en_main.ts
 

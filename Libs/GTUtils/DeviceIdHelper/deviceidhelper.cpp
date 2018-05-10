@@ -10,9 +10,9 @@
 #include <QTreeWidgetItemIterator>
 #include <QDebug>
 #define IDMAP_FILENAME "IdMap_Power.ui"
-#define PWR_BASE_ADDR 128
+#define INDEX_POWER_FILENAME "pbindex.ui"
+#define INDEX_CONTROL_FILENAME "cbindex.ui"
 #define PWR_ID_OFFSET 7
-#define CTR_BASE_ADDR 128
 #define CTR_ID_OFFSET 7
 
 #define TEST_READ_VERSION 0
@@ -57,7 +57,15 @@ quint32 DeviceIdHelper::readPwrId(bool &isOk)
 //  quint32 id=21000509;//test for SD42
 //  m_com->readEEPROM();//从硬件读取ID
   //m_pwrId=21000541;//test for SD61
-  uint16_t ofst = PWR_ID_OFFSET + PWR_BASE_ADDR;
+    QString boardPath = GTUtils::databasePath() + "Board/PB/";
+    QString indexPath = boardPath + INDEX_POWER_FILENAME;
+    QTreeWidget* indexTree = QtTreeManager::createTreeWidgetFromXmlFile(indexPath);
+    QTreeWidgetItem *xmlBaseAdd;
+    bool ok;
+    xmlBaseAdd = GTUtils::findItem("xmlBaseAddress", indexTree, GT::COL_BOARDTREE_NAME);
+    int baseAdd = xmlBaseAdd->text(GT::COL_BOARDTREE_VALUE).toInt(&ok, 10);
+    delete indexTree;
+  uint16_t ofst = PWR_ID_OFFSET + baseAdd;
   uint16_t num = 4;
   uint8_t value[4];
   uint8_t cs = 0;
@@ -77,44 +85,44 @@ quint32 DeviceIdHelper::readPwrId(bool &isOk)
   }
   m_pwrId = id;
 
-  QString idMapPath=GTUtils::databasePath()+"Board/PB/"+IDMAP_FILENAME;
-  QTreeWidget *idMapTree=QtTreeManager::createTreeWidgetFromXmlFile(idMapPath);
-  bool findId=false;
-  {
-    QTreeWidgetItem *item;
-    QTreeWidgetItemIterator it(idMapTree);
-    while(*it)
-    {
-      item=*it;
-      quint32 id=item->text(GT::COL_IDMAP_ID).toUInt();
-      if(id==m_pwrId)
-      {
-        findId=true;
-        m_hasPwrId=true;
-        m_typeName=item->text(GT::COL_IDMAP_TYPE);
-        m_modeName=item->text(GT::COL_IDMAP_MODE);
-        m_axisNum=item->text(GT::COL_IDMAP_AXISNUM).toUInt();
-        qDebug()<<tr("typeName=%1,modeName=%2,axisNum=%3").arg(m_typeName).arg(m_modeName).arg(m_axisNum);
-        break;
-      }
-      it++;
-    }
-  }
-  if(findId==false)
-  {
+//  QString idMapPath=GTUtils::databasePath()+"Board/PB/"+IDMAP_FILENAME;
+//  QTreeWidget *idMapTree=QtTreeManager::createTreeWidgetFromXmlFile(idMapPath);
+//  bool findId=false;
+//  {
+//    QTreeWidgetItem *item;
+//    QTreeWidgetItemIterator it(idMapTree);
+//    while(*it)
+//    {
+//      item=*it;
+//      quint32 id=item->text(GT::COL_IDMAP_ID).toUInt();
+//      if(id==m_pwrId)
+//      {
+//        findId=true;
+//        m_hasPwrId=true;
+//        m_typeName=item->text(GT::COL_IDMAP_TYPE);
+//        m_modeName=item->text(GT::COL_IDMAP_MODE);
+//        m_axisNum=item->text(GT::COL_IDMAP_AXISNUM).toUInt();
+//        qDebug()<<tr("typeName=%1,modeName=%2,axisNum=%3").arg(m_typeName).arg(m_modeName).arg(m_axisNum);
+//        break;
+//      }
+//      it++;
+//    }
+//  }
+//  if(findId==false)
+//  {
     //NEED TO REWRITE
     //在IdMap_Power.ui文件中找不到这个ID，说明固件是新的，而调试软件是老版的，或是升级调试软件
 
     //从EPROM重构自己
     //重构成功，isOk=true else isOk=false
 
-    m_typeName="NULL";
-    m_modeName="NULL";
-    m_axisNum=0;
-    m_hasPwrId=false;
-    isOk=false;
-  }
-  delete idMapTree;
+//    m_typeName="NULL";
+//    m_modeName="NULL";
+//    m_axisNum=0;
+//    m_hasPwrId=false;
+//    isOk=true;
+//  }
+//  delete idMapTree;
 
 
   return m_pwrId;
@@ -123,7 +131,16 @@ quint32 DeviceIdHelper::readPwrId(bool &isOk)
 quint32 DeviceIdHelper::readCtrId(bool &isOk)
 {
   //需要从硬件读取
-  uint16_t ofst = CTR_ID_OFFSET + CTR_BASE_ADDR;
+    QString boardPath = GTUtils::databasePath() + "Board/CB/";
+    QString indexPath = boardPath + INDEX_CONTROL_FILENAME;
+    QTreeWidget* indexTree = QtTreeManager::createTreeWidgetFromXmlFile(indexPath);
+    QTreeWidgetItem *xmlBaseAdd;
+    bool ok;
+    xmlBaseAdd = GTUtils::findItem("xmlBaseAddress", indexTree, GT::COL_BOARDTREE_NAME);
+    int baseAdd = xmlBaseAdd->text(GT::COL_BOARDTREE_VALUE).toInt(&ok, 10);
+    delete indexTree;
+
+  uint16_t ofst = CTR_ID_OFFSET + baseAdd;
   uint16_t num = 4;
   uint8_t value[4];
   uint8_t cs = 1;
@@ -197,23 +214,50 @@ QString DeviceIdHelper::readVersion(bool &isOk)
     return result;
 }
 
-QString DeviceIdHelper::modeNameFromIdMap()
+QString DeviceIdHelper::modeNameFromIdMap(quint32 pwrId)
 {
 //  return "SD42";
 //  return "SD61";
+    m_modeName = "";
+    QString idMapPath=GTUtils::databasePath()+"Board/PB/"+IDMAP_FILENAME;
+    QTreeWidget* idMapTree=QtTreeManager::createTreeWidgetFromXmlFile(idMapPath);
+    for (int i = 0; i < idMapTree->topLevelItemCount(); i++) {
+        if (pwrId == idMapTree->topLevelItem(i)->text(GT::COL_IDMAP_ID).toUInt()) {
+            m_modeName = idMapTree->topLevelItem(i)->text(GT::COL_IDMAP_MODE);
+        }
+    }
+    delete idMapTree;
   return m_modeName;
 }
 
-QString DeviceIdHelper::typeNameFromIdMap()
+QString DeviceIdHelper::typeNameFromIdMap(quint32 pwrId)
 {
 //  return "SD4x";
 //  return "SD6x";
+    m_typeName = "";
+    QString idMapPath=GTUtils::databasePath()+"Board/PB/"+IDMAP_FILENAME;
+    QTreeWidget* idMapTree=QtTreeManager::createTreeWidgetFromXmlFile(idMapPath);
+    for (int i = 0; i < idMapTree->topLevelItemCount(); i++) {
+        if (pwrId == idMapTree->topLevelItem(i)->text(GT::COL_IDMAP_ID).toUInt()) {
+            m_typeName = idMapTree->topLevelItem(i)->text(GT::COL_IDMAP_TYPE);
+        }
+    }
+    delete idMapTree;
   return m_typeName;
 }
-quint8 DeviceIdHelper::axisNumFromIdMap()
+quint8 DeviceIdHelper::axisNumFromIdMap(quint32 pwrId)
 {
 //  return 4;
 //  return 6;
+    m_axisNum = 0;
+    QString idMapPath=GTUtils::databasePath()+"Board/PB/"+IDMAP_FILENAME;
+    QTreeWidget* idMapTree=QtTreeManager::createTreeWidgetFromXmlFile(idMapPath);
+    for (int i = 0; i < idMapTree->topLevelItemCount(); i++) {
+        if (pwrId == idMapTree->topLevelItem(i)->text(GT::COL_IDMAP_ID).toUInt()) {
+            m_axisNum = idMapTree->topLevelItem(i)->text(GT::COL_IDMAP_AXISNUM).toUInt();
+        }
+    }
+    delete idMapTree;
   return m_axisNum;
 }
 
