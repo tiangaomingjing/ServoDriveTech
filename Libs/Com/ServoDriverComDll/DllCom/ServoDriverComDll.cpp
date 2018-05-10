@@ -411,9 +411,8 @@ SERVODRIVERCOMDLL_API int16 GTSD_CMD_GetStationAxisNum(int16* axisNum, int16 com
       {
         return rtn;
       }
-//			g_RnServoCom->GetStationAxisNum(axisNum);
+			g_RnServoCom->GetStationAxisNum(axisNum);
     }
-    g_RnServoCom->GetStationAxisNum(axisNum);
 		return RTN_SUCCESS;
 	}
 	return RTN_PARAM_ERR;
@@ -3151,7 +3150,6 @@ SERVODRIVERCOMDLL_API short GTSD_CMD_XmlWriteFile(int16 axis, char* pFileNameLis
 
 	if (com_type == GTSD_COM_TYPE_RNNET && g_RnServoCom == NULL)
 		return Unlock(RTN_OBJECT_UNCREATED);
-
 	if (com_type == GTSD_COM_TYPE_RNNET)
 	{
 		if (0xF0 != stationId)

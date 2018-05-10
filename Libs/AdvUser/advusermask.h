@@ -43,7 +43,7 @@ private slots:
 private:
     Ui::AdvUserMask *ui;
 private:
-    void modifyItemStructure(QTreeWidgetItem* axisItem, QTreeWidgetItem* targetItem);
+    void modifyItemStructure(QTreeWidgetItem* axisItem, QTreeWidgetItem* targetItem, SevDevice *dev);
     QTreeWidgetItem* findItemInTarget(QTreeWidgetItem* targetItem, const QString &str);
     int findAxisIndex(QTreeWidgetItem* item);
     int findDevIndex(QTreeWidgetItem* item);

@@ -9,7 +9,7 @@
 
 CRingNetDriver::CRingNetDriver()
 {
-	m_none_gigabit_device = true;
+    m_none_gigabit_device = true;
 	m_none_operate_device = true;
 	int i;
 // 	srand(time(0));/*设置种子,并生成伪随机序列*/

@@ -11,6 +11,7 @@ DialogAdvUsr::DialogAdvUsr(QWidget *parent) :
     ui(new Ui::DialogAdvUsr)
 {
     ui->setupUi(this);
+    setWindowFlags(windowFlags() | Qt::WindowMaximizeButtonHint | Qt::WindowMinimizeButtonHint);
     connect(ui->listWidget, SIGNAL(currentRowChanged(int)), this, SLOT(onListWidgetRowChanged(int)));
 
     QWidget *w;
@@ -28,8 +29,10 @@ DialogAdvUsr::DialogAdvUsr(QWidget *parent) :
     }
     ui->listWidget->setCurrentRow(0);
     ui->stackedWidget->setCurrentIndex(0);
+    ui->splitter->setStretchFactor(0, 0);
+    ui->splitter->setStretchFactor(1, 1);
     connect(ui->btn_advUsrApply, SIGNAL(clicked()), this, SLOT(onApplyButtonClicked()));
-    connect(ui->btn_AdvUsrCancel, SIGNAL(clicked()), this, SLOT(onCancelButtonClicked()));
+    connect(ui->btn_advUsrCancel, SIGNAL(clicked()), this, SLOT(onCancelButtonClicked()));
     connect(ui->btn_advUsrOk, SIGNAL(clicked()), this, SLOT(onOkButtonClicked()));
 }
 

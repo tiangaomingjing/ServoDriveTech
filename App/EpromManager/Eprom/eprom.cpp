@@ -12,20 +12,15 @@ EPROM::EPROM(QString filePath, int16 com_type)
     m_writeTree = TreeManager::createTreeWidgetFromXmlFile(m_filePath);
     m_type = com_type;
     m_wrongItem = NULL;
-    QTreeWidgetItem *xmlBaseAdd;
-    bool ok;
-    xmlBaseAdd = GLO::findItem("xmlBaseAddress", m_writeTree, TREE_NAME);
-    baseAdd = xmlBaseAdd->text(TREE_VALUE).toInt(&ok, 10);
-    delete xmlBaseAdd;
-    //qDebug()<<baseAdd;
+    //m_baseAdd = getBaseAddress();
 }
 
 EPROM::~EPROM() {
 
 }
 
-void EPROM::writeFromXmltoEprom(QTreeWidgetItem *writenItem) {
-    continueWrite = true;
+bool EPROM::writeFromXmltoEprom(QTreeWidgetItem *writenItem) {
+    m_continueWrite = true;
     qDebug()<<"writeFormXmltoEprom: "<<writenItem->text(TREE_NAME);
     if (m_wrongItem != NULL) {
         for (int i = 0; i < m_wrongItem->columnCount(); i++) {
@@ -36,16 +31,17 @@ void EPROM::writeFromXmltoEprom(QTreeWidgetItem *writenItem) {
 //    while (continueWrite) {
 //        writeEEprom(writenItem);
 //    }
-    writeEEprom(writenItem);
-    if (continueWrite) {
+    bool ok = writeEEprom(writenItem);
+    if (m_continueWrite) {
         emit sendWarnMsg(tr("Finish! Please read the data and do the comparison!"));
     }
+    return ok;
 }
 
 Uint32 EPROM::readID() {
     Uint8 result[4];
     int16 axis = 0;
-    Uint16 ofst = PWR_ID_OFFSET + baseAdd;
+    Uint16 ofst = PWR_ID_OFFSET + m_baseAdd;
     Uint16 num = 4;
     readEprom(axis, ofst, result, num, m_type, 0xf0);
     Uint32 tempValue = 0;
@@ -55,26 +51,31 @@ Uint32 EPROM::readID() {
     return tempValue;
 }
 
-void EPROM::writeEEprom(QTreeWidgetItem *item) {
-    if (continueWrite) {
-        writeSingle(item);
+bool EPROM::writeEEprom(QTreeWidgetItem *item) {
+    bool isOk = false;
+    if (m_continueWrite) {
+        isOk = writeSingle(item);
         //emit sendScrollItem(item);
         GLO::delayms(5);
         emit updateBarCount();
         if (item->text(TREE_TYPE).compare("Case") == 0) {
             bool ok;
             int index = item->text(TREE_VALUE).toInt(&ok, 10);
-            writeEEprom(item->child(index));
+            isOk = writeEEprom(item->child(index));
         } else {
             for (int i = 0; i < item->childCount(); i++) {
-                writeEEprom(item->child(i));
+                isOk = writeEEprom(item->child(i));
+                if (!isOk) {
+                    break;
+                }
             }
         }
     }
+    return isOk;
     qApp->processEvents();
 }
 
-void EPROM::writeSingle(QTreeWidgetItem *item) {
+bool EPROM::writeSingle(QTreeWidgetItem *item) {
     if (item->text(TREE_ADDRESS) != "-1" && item->text(TREE_ADDRESS) != "") {
         emit sendWarnMsg(item->text(TREE_NAME));
         qDebug()<<item->text(0)<<item->text(TREE_ADDRESS);
@@ -101,7 +102,7 @@ void EPROM::writeSingle(QTreeWidgetItem *item) {
         Uint8 result[4];
         int16 axis = 0;
         int count = 0;        
-        Uint16 ofst = item->text(TREE_ADDRESS).toUShort(&ok, 16) + baseAdd;
+        Uint16 ofst = item->text(TREE_ADDRESS).toUShort(&ok, 16) + m_baseAdd;
         qDebug()<<"ofst"<<ofst;
         if (ofst < 0 || ofst > 1023) {
             ofst = 1023;
@@ -148,7 +149,7 @@ void EPROM::writeSingle(QTreeWidgetItem *item) {
             qDebug()<<"axis = "<<axis;
             qDebug()<<"ofst = "<<ofst;
             qDebug()<<"num = "<<num;
-            continueWrite = false;
+            m_continueWrite = false;
             warnMsg = warnMsg + "ret1 = " + ret1 + " ret2 = " + ret2;
             emit sendWarnMsg(warnMsg);
             m_wrongItem = item;
@@ -156,9 +157,10 @@ void EPROM::writeSingle(QTreeWidgetItem *item) {
                 m_wrongItem->setBackgroundColor(i, Qt::red);
                 m_wrongItem->setTextColor(i, Qt::white);
             }
-            return;
+            return false;
         }
     }
+    return true;
 }
 
 bool EPROM::writeSuccessful(Uint8* value, Uint8* result, Uint16 num) {
@@ -171,26 +173,37 @@ bool EPROM::writeSuccessful(Uint8* value, Uint8* result, Uint16 num) {
 }
 
 
-void EPROM::readFromEprom(QTreeWidget *tree) {
+bool EPROM::readFromEprom(QTreeWidget *tree) {
+    bool ok = true;
     Uint32 id = readID();
     m_readTree = createReadTree(id);
     if (m_readTree == NULL) {
-        return;
+        return ok;
     }
-    tree->addTopLevelItem(m_readTree->topLevelItem(1)->clone());
-    QTreeWidgetItem *readTreeItem = m_readTree->topLevelItem(1);
-    if (readTreeItem == NULL) {
-        return;
+    for (int i = 0; i < m_readTree->topLevelItemCount(); i++) {
+        tree->addTopLevelItem(m_readTree->topLevelItem(i)->clone());
     }
-    QTreeWidgetItem *uiTreeItem = tree->topLevelItem(0);
+//
+//    if (readTreeItem == NULL) {
+//        return;
+//    }
+//
     emit changeBarCount(20);
-    readEEpromItem(readTreeItem, uiTreeItem);
+    for (int i = 0; i < m_readTree->topLevelItemCount(); i++) {
+        QTreeWidgetItem *readTreeItem = m_readTree->topLevelItem(i);
+        QTreeWidgetItem *uiTreeItem = tree->topLevelItem(i);
+        ok = readEEpromItem(readTreeItem, uiTreeItem);
+        if (!ok) {
+            return ok;
+        }
+    }
     tree->expandAll();
     tree->resizeColumnToContents(0);
+    return ok;
 }
 
-void EPROM::readEEpromItem(QTreeWidgetItem* readTreeItem, QTreeWidgetItem* uiTreeItem) {
-    readSingle(readTreeItem, uiTreeItem);
+bool EPROM::readEEpromItem(QTreeWidgetItem* readTreeItem, QTreeWidgetItem* uiTreeItem) {
+    bool isOk = readSingle(readTreeItem, uiTreeItem);
     QTreeWidgetItem *newReadItem;
     QTreeWidgetItem *newUiItem;
     bool ok;
@@ -198,23 +211,27 @@ void EPROM::readEEpromItem(QTreeWidgetItem* readTreeItem, QTreeWidgetItem* uiTre
         int index = readTreeItem->text(TREE_VALUE).toInt(&ok, 10);
         newReadItem = readTreeItem->child(index);
         newUiItem = uiTreeItem->child(index);
-        readEEpromItem(newReadItem, newUiItem);
+        isOk = readEEpromItem(newReadItem, newUiItem);
     }
     else {
         for (int i = 0; i < readTreeItem->childCount(); i++) {
             newReadItem = readTreeItem->child(i);
             newUiItem = uiTreeItem->child(i);
-            readEEpromItem(newReadItem, newUiItem);
+            isOk = readEEpromItem(newReadItem, newUiItem);
+            if (!isOk) {
+                break;
+            }
         }
     }
+    return isOk;
 }
 
-void EPROM::readSingle(QTreeWidgetItem* readTreeItem, QTreeWidgetItem* uiTreeItem) {
+bool EPROM::readSingle(QTreeWidgetItem* readTreeItem, QTreeWidgetItem* uiTreeItem) {
     if (readTreeItem->text(TREE_ADDRESS) != "-1" && readTreeItem->text(TREE_ADDRESS) != "") {
         Uint8 result[4];
         int16 axis = 0;
         bool ok;
-        Uint16 ofst = readTreeItem->text(TREE_ADDRESS).toInt(&ok, 16) + baseAdd;
+        Uint16 ofst = readTreeItem->text(TREE_ADDRESS).toInt(&ok, 16) + m_baseAdd;
         Uint16 num = 0;
         if (readTreeItem->text(TREE_TYPE) == "Uint8" || readTreeItem->text(TREE_TYPE) == "int8") {
             num = 1;
@@ -225,7 +242,10 @@ void EPROM::readSingle(QTreeWidgetItem* readTreeItem, QTreeWidgetItem* uiTreeIte
         else if (readTreeItem->text(TREE_TYPE) == "Uint32" || readTreeItem->text(TREE_TYPE) == "int32") {
             num = 4;
         }
-        readEprom(axis, ofst, result, num, m_type, 0xf0);
+        int16 ret = readEprom(axis, ofst, result, num, m_type, 0xf0);
+        if (ret != 0) {
+            return false;
+        }
         double scale = readTreeItem->text(TREE_SCALE).toDouble(&ok);
         double tempValue = 0;
         for (int j = 0; j < num; j++) {
@@ -257,6 +277,7 @@ void EPROM::readSingle(QTreeWidgetItem* readTreeItem, QTreeWidgetItem* uiTreeIte
         emit updateBarCount();
         qApp->processEvents();
     }
+    return true;
 }
 
 void EPROM::compare(QTreeWidget *tree) {

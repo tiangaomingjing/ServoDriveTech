@@ -3,7 +3,7 @@
 
 EPROM_POWER::EPROM_POWER(QString filePath, int16 com_type) : EPROM(filePath, com_type)
 {
-
+    m_baseAdd = getBaseAddress();
 }
 
 EPROM_POWER::~EPROM_POWER() {
@@ -31,4 +31,17 @@ QTreeWidget* EPROM_POWER::createReadTree(Uint32 id) {
     powerPath = GTUtils::databasePath() + "Board/PB/" + powerPath + "/" + idStr + "/" + idStr + ".ui";
     QTreeWidget* readTree = TreeManager::createTreeWidgetFromXmlFile(powerPath);
     return readTree;
+}
+
+int EPROM_POWER::getBaseAddress()
+{
+    QString boardPath = GTUtils::databasePath() + "Board/PB/";
+    QString indexPath = boardPath + "pbindex.ui";
+    QTreeWidget* indexTree = TreeManager::createTreeWidgetFromXmlFile(indexPath);
+    QTreeWidgetItem *xmlBaseAdd;
+    bool ok;
+    xmlBaseAdd = GLO::findItem("xmlBaseAddress", indexTree, TREE_NAME);
+    int baseAdd = xmlBaseAdd->text(TREE_VALUE).toInt(&ok, 10);
+    delete indexTree;
+    return baseAdd;
 }

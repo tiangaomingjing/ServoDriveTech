@@ -13,7 +13,8 @@ CONFIG(debug, debug|release){
     LIBS +=$${PWD}/NetCom/wpcap/lib/wpcap.lib
 }
 DEFINES += _WINDOWS _USRDLL SERVODRIVERCOMDLL_EXPORTS
-INCLUDEPATH += ./NetCom/include \
+INCLUDEPATH += ./DllCom \
+    ./NetCom/include \
     ./NetCom/wpcap/Include/pcap \
     ./NetCom/wpcap/Include \
     ./AbsCom/include \
@@ -27,12 +28,10 @@ INCLUDEPATH += ./NetCom/include \
     ./RingNetCom/include \
     ./socketCom/include \
     ./eeprom/include \
-    ./DllCom
-
 PRECOMPILED_HEADER = stdafx.h
 DEPENDPATH += .
-MOC_DIR += ./GeneratedFiles/debug
-OBJECTS_DIR += debug
+MOC_DIR += ./GeneratedFiles/release
+OBJECTS_DIR += release
 UI_DIR += ./GeneratedFiles
 RCC_DIR += ./GeneratedFiles
 include(ServoDriverComDll.pri)

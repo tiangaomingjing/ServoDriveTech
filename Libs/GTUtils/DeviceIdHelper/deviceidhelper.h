@@ -4,6 +4,8 @@
 #include <QObject>
 #include "gtutils_global.h"
 
+class QTreeWidget;
+
 namespace ComDriver {
   class ICom;
 }
@@ -23,9 +25,9 @@ public:
   bool readFpgaDate(quint16 &year, quint16 &day);
   QString readVersion(bool &isOk);
 
-  QString modeNameFromIdMap();
-  QString typeNameFromIdMap();
-  quint8 axisNumFromIdMap();
+  QString modeNameFromIdMap(quint32 pwrId);
+  QString typeNameFromIdMap(quint32 pwrId);
+  quint8 axisNumFromIdMap(quint32 pwrId);
 
   bool databaseHasPwrId() const;
 

@@ -770,7 +770,7 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
       m_statusBar->statusProgressBar()->setValue(50);
       if(!isAutoLoad())
       {
-        SdtError::instance()->errorStringList()->append(tr("your connect com is worong"));
+        SdtError::instance()->errorStringList()->append(tr("your connect com is wrong"));
         SdtError::instance()->errorStringList()->append(tr("your select com type is wrong"));
       }
       QMessageBox::information(0,tr("connect error"),tr("Net Error\n\nexception cause maybe:\n%1\n").arg(SdtError::instance()->errorStringList()->join("\n")));

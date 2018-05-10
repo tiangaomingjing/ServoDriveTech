@@ -59,17 +59,15 @@ bool SerialCtl::open(int16 axis, int32 baudRate, int16 com_type, int16 stationId
 	}
 	int16 Axis			= axis;												//轴号
 	int16 dsp_number	= GTSD_DSP_A;
-	/////change by luo.mj 20180503
 	//根据轴号计算是哪个dsp
-	dsp_number = (Axis % 6) / 2;
-// 	if (Axis > 1)
-// 	{
-// 		dsp_number = (int16)(GTSD_DSP_B);
-// 	}
-// 	if (Axis > 3)
-// 	{
-// 		dsp_number = (int16)(GTSD_DSP_C);
-// 	}
+	if (Axis > 1)
+	{
+		dsp_number = (int16)(GTSD_DSP_B);
+	}
+	if (Axis > 3)
+	{
+		dsp_number = (int16)(GTSD_DSP_C);
+	}
 	//----------------------------------------------------------------------------
 	int16 com_addr		= FPGA_UART_CONFIG_W;								//写配置地址
 	int16 com_addr1		= FPGA_UART_BAUDRATE_WR;							//读写波特率地址
@@ -222,17 +220,15 @@ bool SerialCtl::close(int16 axis, int16 com_type, int16 stationId)
 		}
 		int16 Axis			= axis;												//轴号
 		int16 dsp_number	= GTSD_DSP_A;
-		/////change by luo.mj 20180503
 		//根据轴号计算是哪个dsp
-		dsp_number = (Axis % 6) / 2;
-		// 	if (Axis > 1)
-		// 	{
-		// 		dsp_number = (int16)(GTSD_DSP_B);
-		// 	}
-		// 	if (Axis > 3)
-		// 	{
-		// 		dsp_number = (int16)(GTSD_DSP_C);
-		// 	}
+		if (Axis > 1)
+		{
+			dsp_number = (int16)(GTSD_DSP_B);
+		}
+		if (Axis > 3)
+		{
+			dsp_number = (int16)(GTSD_DSP_C);
+		}
 		int16 com_addr		= FPGA_UART_STARTEND_W;								//关闭模块地址
 		int16 com_addr1		= FPGA_UART_CONFIG_R;								//查看是否未使能
 		//根据dsp号选择FPGA基地址

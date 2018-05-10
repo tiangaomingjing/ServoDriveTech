@@ -5,6 +5,7 @@
 #include "sdtglobaldef.h"
 #include "bititemhelper.h"
 #include "deviceconfig.h"
+#include "qttreemanager.h"
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 #include <QKeyEvent>
@@ -14,6 +15,7 @@
 #define ITEM_NAME_0 "gSevDrv.sev_obj.cur.pro.prm.alm_mask_flag"
 #define STR_MARK_ALL "all"
 #define STR_MARK_BIT "bit"
+#define INFORMATION_FILENAME "PrmFuncDeviceStatusAlarmInfo0.xml"
 
 class AdvUserMaskPrivate : public IAdvUserPrivate {
     Q_DECLARE_PUBLIC(AdvUserMask)
@@ -72,7 +74,7 @@ void AdvUserMask::uiInit()
             axisStrList<<"axis" + QString::number(j + 1);
             QTreeWidgetItem *axisItem = new QTreeWidgetItem(axisStrList);
             QTreeWidgetItem *targetItem = GTUtils::findItem(ITEM_NAME_0, dev->axisTreeSource(j, "FLASH"), GT::COL_FLASH_RAM_TREE_NAME);
-            modifyItemStructure(axisItem, targetItem);
+            modifyItemStructure(axisItem, targetItem, dev);
             item->addChild(axisItem);
         }
         topItemList.append(item);
@@ -172,18 +174,22 @@ void AdvUserMask::respondErrorExecute()
 
 }
 
-void AdvUserMask::modifyItemStructure(QTreeWidgetItem *axisItem, QTreeWidgetItem *targetItem)
+void AdvUserMask::modifyItemStructure(QTreeWidgetItem *axisItem, QTreeWidgetItem *targetItem, SevDevice *dev)
 {
     QTreeWidgetItem* allItem = findItemInTarget(targetItem, STR_MARK_ALL)->clone();
     QTreeWidgetItem* bitItem = findItemInTarget(targetItem, STR_MARK_BIT)->clone();
-//    for (int i = 0; i < bitItem->childCount(); i++) {
-//        if (bitItem->child(i)->text(GT::COL_FR_BITWIDTH).compare("1") == 0) {
-//            allItem->addChild(bitItem->child(i)->clone());
-//        }
-//    }
-//    axisItem->addChild(allItem);
-    axisItem->addChild(allItem);
-    axisItem->addChild(bitItem);
+    axisItem->setText(GT::COL_FLASH_RAM_TREE_VALUE, allItem->text(GT::COL_FLASH_RAM_TREE_VALUE));
+    axisItem->setText(GT::COL_FLASH_RAM_TREE_ADDR, allItem->text(GT::COL_FLASH_RAM_TREE_ADDR));
+    QTreeWidget *tree = QtTreeManager::createTreeWidgetFromXmlFile(dev->filePath() + "page/" + INFORMATION_FILENAME);
+    QTreeWidgetItem* infoItem = tree->topLevelItem(0);
+    for (int i = 0; i < bitItem->childCount(); i++) {
+        if (bitItem->child(i)->text(GT::COL_FLASH_RAM_TREE_BITWIDTH).compare("1") == 0) {
+            QTreeWidgetItem* tempItem = bitItem->child(i)->clone();
+            tempItem->setText(GT::COL_FLASH_RAM_TREE_NAME, infoItem->child(i)->text(GT::COL_PAGE_TREE_INTRODUCT));
+            axisItem->addChild(tempItem);
+        }
+    }
+    delete tree;
 }
 
 void AdvUserMask::setItemColor(QTreeWidgetItem *item)
