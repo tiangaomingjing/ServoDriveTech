@@ -38,15 +38,15 @@ private:
     void onOkClicked();
     void closeEvent(QCloseEvent *event);
 private:
-    EPROM *powerBoard;
-    EPROM *controlBoard;
-    QTreeWidget *powerMap;
-    QTreeWidget *controlMap;
-    QTreeWidget *powerIndex;
-    QTreeWidget *controlIndex;
-    QString itemText;
+    EPROM *m_powerBoard;
+    EPROM *m_controlBoard;
+    QTreeWidget *m_powerMap;
+    QTreeWidget *m_controlMap;
+    QTreeWidget *m_powerIndex;
+    QTreeWidget *m_controlIndex;
+    QString m_itemText;
     int m_dspNum;
-    int barCount;
+    int m_barCount;
     bool m_isOpenCom;
     QString m_filePath;
     QString m_hexPath;

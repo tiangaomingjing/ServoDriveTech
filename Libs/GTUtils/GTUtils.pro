@@ -43,7 +43,8 @@ SOURCES += \
     DeviceIdHelper/deviceidhelper.cpp \
     SelfBuilder/selfbuilder.cpp \
     BitItemHelper/bititemhelper.cpp \
-    CmdManager/cmdmanager.cpp
+    CmdManager/cmdmanager.cpp \
+    ../../Common/src/Kernel/sdterror.cpp
 
 HEADERS +=\
     QtTreeManager/qttreemanager.h \
@@ -52,7 +53,8 @@ HEADERS +=\
     DeviceIdHelper/deviceidhelper.h \
     SelfBuilder/selfbuilder.h \
     BitItemHelper/bititemhelper.h \
-    CmdManager/cmdmanager.h
+    CmdManager/cmdmanager.h \
+    ../../Common/src/Kernel/sdterror.h
 
 unix {
     target.path = /usr/lib

@@ -89,10 +89,10 @@ EpromManager::~EpromManager()
 void EpromManager::initializeTree() {
     showSelectTree();
     ui->selectTree->topLevelItem(0)->child(0)->setSelected(true);
-    powerIndex = TreeManager::createTreeWidgetFromXmlFile(GTUtils::databasePath() + "Board/PB/pbindex.ui");
-    controlIndex = TreeManager::createTreeWidgetFromXmlFile(GTUtils::databasePath() + "Board/CB/cbindex.ui");
-    powerMap = TreeManager::createTreeWidgetFromXmlFile(GTUtils::databasePath() + "Board/PB/IdMap_Power.ui");
-    controlMap = TreeManager::createTreeWidgetFromXmlFile(GTUtils::databasePath() + "Board/CB/IdMap_Control.ui");
+    m_powerIndex = TreeManager::createTreeWidgetFromXmlFile(GTUtils::databasePath() + "Board/PB/pbindex.ui");
+    m_controlIndex = TreeManager::createTreeWidgetFromXmlFile(GTUtils::databasePath() + "Board/CB/cbindex.ui");
+    m_powerMap = TreeManager::createTreeWidgetFromXmlFile(GTUtils::databasePath() + "Board/PB/IdMap_Power.ui");
+    m_controlMap = TreeManager::createTreeWidgetFromXmlFile(GTUtils::databasePath() + "Board/CB/IdMap_Control.ui");
     treeItemClicked(ui->selectTree->topLevelItem(0)->child(0), 0);
 }
 
@@ -105,9 +105,9 @@ com_type EpromManager::getComType() {
 }
 
 void EpromManager::onBarUpdate() {
-    barCount++;
-    if (barCount % 10 == 0) {
-        ui->progressBar->setValue(barCount % 100);
+    m_barCount++;
+    if (m_barCount % 10 == 0) {
+        ui->progressBar->setValue(m_barCount % 100);
     }
 }
 
@@ -116,9 +116,9 @@ void EpromManager::showWarn(QString msg) {
 }
 
 void EpromManager::setBarCount(int value) {
-    barCount = value;
-    if (barCount % 10 == 0) {
-        ui->progressBar->setValue(barCount % 100);
+    m_barCount = value;
+    if (m_barCount % 10 == 0) {
+        ui->progressBar->setValue(m_barCount % 100);
     }
 }
 
@@ -130,8 +130,8 @@ void EpromManager::onOkClicked() {
     ui->readButton_2->setEnabled(true);
     ui->hexButton->setEnabled(true);
     ui->xmlButton->setEnabled(true);
-    showTree(m_powerID, powerBoard->getTree(), ui->treeWidget);
-    showTree(m_controlID, controlBoard->getTree(), ui->treeWidget_2);
+    showTree(m_powerID, m_powerBoard->getTree(), ui->treeWidget);
+    showTree(m_controlID, m_controlBoard->getTree(), ui->treeWidget_2);
 }
 
 void EpromManager::showSelectTree() {
@@ -167,7 +167,7 @@ void EpromManager::onWriteClicked() {
         QMessageBox::warning(this, tr("Warning"), tr("Please enter a PCBA code!"), QMessageBox::Ok);
         return;
     }
-    int ret = QMessageBox::question(this, tr("Question"), tr("Are you sure to write\n") + itemText + "?", QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+    int ret = QMessageBox::question(this, tr("Question"), tr("Are you sure to write\n") + m_itemText + "?", QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
     if (ret == QMessageBox::No) {
         return;
     }
@@ -176,18 +176,23 @@ void EpromManager::onWriteClicked() {
     ui->warnLabel->clear();
     ui->progressBar->setRange(0, 100);
     ui->progressBar->show();
-    barCount = 0;
-    ui->progressBar->setValue(barCount);
-    QTreeWidgetItem *item = ui->treeWidget->topLevelItem(0);
-    powerBoard->writeFromXmltoEprom(item);
+    m_barCount = 0;
+    ui->progressBar->setValue(m_barCount);
+    bool ok;
+    for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++) {
+        QTreeWidgetItem *item = ui->treeWidget->topLevelItem(i);
+        ok = m_powerBoard->writeFromXmltoEprom(item);
+        if (!ok) {
+            break;
+        }
+    }
     ui->progressBar->hide();
     ui->lineEdit->setReadOnly(false);
     ui->readButton->setEnabled(true);
 
     ui->tabWidget->setCurrentIndex(1);
-    onReadClicked();
-    if (ui->readTreeWidget->topLevelItemCount() != 0) {
-        onCompareClicked();
+    if (ok) {
+        onReadClicked();
     }
 }
 
@@ -198,7 +203,7 @@ void EpromManager::onWriteClicked_2() {
         QMessageBox::warning(this, tr("Warning"), tr("Please enter a PCBA code!"), QMessageBox::Ok);
         return;
     }
-    int ret = QMessageBox::question(this, tr("Question"), tr("Are you sure to write\n") + itemText + "?", QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+    int ret = QMessageBox::question(this, tr("Question"), tr("Are you sure to write\n") + m_itemText + "?", QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
     if (ret == QMessageBox::No) {
         return;
     }
@@ -207,41 +212,46 @@ void EpromManager::onWriteClicked_2() {
     ui->warnLabel->clear();
     ui->progressBar->setRange(0, 100);
     ui->progressBar->show();
-    barCount = 0;
-    ui->progressBar->setValue(barCount);
-    QTreeWidgetItem *item = ui->treeWidget_2->topLevelItem(0);
-    controlBoard->writeFromXmltoEprom(item);
+    m_barCount = 0;
+    ui->progressBar->setValue(m_barCount);
+    bool ok;
+    for (int i = 0; i < ui->treeWidget_2->topLevelItemCount(); i++) {
+        QTreeWidgetItem *item = ui->treeWidget_2->topLevelItem(i);
+        ok = m_controlBoard->writeFromXmltoEprom(item);
+        if (!ok) {
+            break;
+        }
+    }
     ui->progressBar->hide();
     ui->lineEdit_2->setReadOnly(false);
     ui->readButton_2->setEnabled(true);
 
     ui->tabWidget_2->setCurrentIndex(1);
-    onReadClicked_2();
-    if (ui->readTreeWidget_2->topLevelItemCount() != 0) {
-        onCompareClicked_2();
+    if (ok) {
+        onReadClicked_2();
     }
 }
 
 void EpromManager::treeItemClicked(QTreeWidgetItem* item, int column) {
-    itemText = item->text(column);
-    qDebug()<<"item text"<<itemText;
+    m_itemText = item->text(column);
+    //qDebug()<<"item text"<<m_itemText;
     if (item->childCount() == 0) {
-        m_modeName = itemText;
+        m_modeName = m_itemText;
         m_typeName = item->parent()->text(column);
-        QTreeWidgetItem *controlItem = GLO::findItem(itemText, controlMap, IDMAP_MODE);
-        QTreeWidgetItem *powerItem = GLO::findItem(itemText, powerMap, IDMAP_MODE);
+        QTreeWidgetItem *controlItem = GLO::findItem(m_itemText, m_controlMap, IDMAP_MODE);
+        QTreeWidgetItem *powerItem = GLO::findItem(m_itemText, m_powerMap, IDMAP_MODE);
         m_powerID = powerItem->text(IDMAP_ID);
         m_controlID = controlItem->text(IDMAP_ID);
         if (!m_tcpSuccess) {
             m_dspNum = item->text(column + 1).toInt();
         }
-        QTreeWidgetItem *powerIndexItem = GLO::findItem(m_powerID, powerIndex, TREE_VALUE);
-        QTreeWidgetItem *controlIndexItem = GLO::findItem(m_controlID, controlIndex, TREE_VALUE);
+        QTreeWidgetItem *powerIndexItem = GLO::findItem(m_powerID, m_powerIndex, TREE_VALUE);
+        QTreeWidgetItem *controlIndexItem = GLO::findItem(m_controlID, m_controlIndex, TREE_VALUE);
         m_powerPath = GLO::getPath(powerIndexItem) + "/" + m_powerID + "/" + m_powerID + ".ui";
         m_controlPath = GLO::getPath(controlIndexItem) + "/" + m_controlID + "/" + m_controlID + ".ui";
         m_powerPath = GTUtils::databasePath() + "Board/PB/" + m_powerPath;
         m_controlPath = GTUtils::databasePath() + "Board/CB/" + m_controlPath;
-        changeConfigText(m_powerID, powerIndex);
+        changeConfigText(m_powerID, m_powerIndex);
     }
     showText(m_configText, m_comText);
 }
@@ -267,7 +277,9 @@ void EpromManager::showText(QString configText, QString comText) {
 void EpromManager::showTree(QString text, QTreeWidget *tree, QTreeWidget *uiTree) {
     QTreeWidgetItem *item = GLO::findItem(text, tree, TREE_VALUE);
     uiTree->clear();
-    uiTree->addTopLevelItem(tree->topLevelItem(1)->clone());
+    for (int i = 0; i < tree->topLevelItemCount(); i++) {
+        uiTree->addTopLevelItem(tree->topLevelItem(i)->clone());
+    }
     uiTree->expandAll();
     uiTree->resizeColumnToContents(0);
     delete item;
@@ -281,9 +293,12 @@ void EpromManager::onReadClicked() {
     ui->readTreeWidget->clear();
     ui->warnLabel->clear();
     ui->progressBar->show();
-    barCount = 0;
+    m_barCount = 0;
     ui->progressBar->setValue(0);
-    powerBoard->readFromEprom(ui->readTreeWidget);
+    bool ok = m_powerBoard->readFromEprom(ui->readTreeWidget);
+    if (ok && ui->readTreeWidget->topLevelItemCount() != 0) {
+        onCompareClicked();
+    }
     ui->progressBar->hide();
     ui->compareButton->setEnabled(true);
 }
@@ -292,9 +307,12 @@ void EpromManager::onReadClicked_2() {
     ui->readTreeWidget_2->clear();
     ui->warnLabel->clear();
     ui->progressBar->show();
-    barCount = 0;
-    ui->progressBar->setValue(0);
-    controlBoard->readFromEprom(ui->readTreeWidget_2);
+    m_barCount = 0;
+    ui->progressBar->setValue(m_barCount);
+    bool ok = m_controlBoard->readFromEprom(ui->readTreeWidget_2);
+    if (ok && ui->readTreeWidget_2->topLevelItemCount() != 0) {
+        onCompareClicked_2();
+    }
     ui->progressBar->hide();
     ui->compareButton_2->setEnabled(true);
 }
@@ -305,18 +323,18 @@ void EpromManager::onReadClicked_2() {
 void EpromManager::onCompareClicked() {
     ui->warnLabel->clear();
     ui->progressBar->show();
-    barCount = 0;
-    ui->progressBar->setValue(barCount);
-    powerBoard->compare(ui->readTreeWidget);
+    m_barCount = 0;
+    ui->progressBar->setValue(m_barCount);
+    m_powerBoard->compare(ui->readTreeWidget);
     ui->progressBar->hide();
 }
 
 void EpromManager::onCompareClicked_2() {
     ui->warnLabel->clear();
     ui->progressBar->show();
-    barCount = 0;
-    ui->progressBar->setValue(barCount);
-    controlBoard->compare(ui->readTreeWidget_2);
+    m_barCount = 0;
+    ui->progressBar->setValue(m_barCount);
+    m_controlBoard->compare(ui->readTreeWidget_2);
     ui->progressBar->hide();
 }
 
@@ -337,16 +355,16 @@ void EpromManager::onActionConnectClicked() {
             ui->connectIcon->setIcon(QIcon(GTUtils::iconPath() + ICON_STATUS_CONNECT));
             m_isOpenCom = true;
             com_type comType = getComType();
-            powerBoard = new EPROM_POWER(m_powerPath, comType);
-            controlBoard = new EPROM_CONTROL(m_controlPath, comType);
-            connect(powerBoard, SIGNAL(updateBarCount()), this, SLOT(onBarUpdate()));
-            connect(powerBoard, SIGNAL(sendWarnMsg(QString)), this, SLOT(showWarn(QString)));
-            connect(powerBoard, SIGNAL(changeBarCount(int)), this, SLOT(setBarCount(int)));
-            connect(powerBoard, SIGNAL(sendScrollItem(QTreeWidgetItem*)), this, SLOT(scrollTree(QTreeWidgetItem*)));
-            connect(controlBoard, SIGNAL(updateBarCount()), this, SLOT(onBarUpdate()));
-            connect(controlBoard, SIGNAL(sendWarnMsg(QString)), this, SLOT(showWarn(QString)));
-            connect(controlBoard, SIGNAL(changeBarCount(int)), this, SLOT(setBarCount(int)));
-            connect(controlBoard, SIGNAL(sendScrollItem(QTreeWidgetItem*)), this, SLOT(scrollTree_2(QTreeWidgetItem*)));
+            m_powerBoard = new EPROM_POWER(m_powerPath, comType);
+            m_controlBoard = new EPROM_CONTROL(m_controlPath, comType);
+            connect(m_powerBoard, SIGNAL(updateBarCount()), this, SLOT(onBarUpdate()));
+            connect(m_powerBoard, SIGNAL(sendWarnMsg(QString)), this, SLOT(showWarn(QString)));
+            connect(m_powerBoard, SIGNAL(changeBarCount(int)), this, SLOT(setBarCount(int)));
+            connect(m_powerBoard, SIGNAL(sendScrollItem(QTreeWidgetItem*)), this, SLOT(scrollTree(QTreeWidgetItem*)));
+            connect(m_controlBoard, SIGNAL(updateBarCount()), this, SLOT(onBarUpdate()));
+            connect(m_controlBoard, SIGNAL(sendWarnMsg(QString)), this, SLOT(showWarn(QString)));
+            connect(m_controlBoard, SIGNAL(changeBarCount(int)), this, SLOT(setBarCount(int)));
+            connect(m_controlBoard, SIGNAL(sendScrollItem(QTreeWidgetItem*)), this, SLOT(scrollTree_2(QTreeWidgetItem*)));
             onOkClicked();
         }
         ui->progressBar->hide();
@@ -370,8 +388,8 @@ void EpromManager::onActionDisConnectClicked() {
         ui->xmlLine->clear();
         ui->treeWidget->clear();
         ui->treeWidget_2->clear();
-        delete powerBoard;
-        delete controlBoard;
+        delete m_powerBoard;
+        delete m_controlBoard;
     }
 }
 
@@ -458,7 +476,7 @@ void EpromManager::onLineTextChange_2(QString text) {
 
 void EpromManager::onTextChange(QString text, QTreeWidget *tree, const QString &id) {
     QTreeWidgetItem *item = GLO::findItem("PCBA code", tree, TREE_NAME);
-    QTreeWidgetItem *item_2 = GLO::findItem(id, tree, TREE_NAME);
+    QTreeWidgetItem *item_2 = tree->topLevelItem(1)->child(0)->child(0)->child(0)->child(0);
     if (item != NULL) {
         item->setText(TREE_VALUE, text);
         item_2->setText(TREE_VALUE, text);
@@ -493,10 +511,10 @@ void EpromManager::closeEvent(QCloseEvent *event)
     {
         onActionDisConnectClicked();
     }
-    delete powerMap;
-    delete controlMap;
-    delete powerIndex;
-    delete controlIndex;
+    delete m_powerMap;
+    delete m_controlMap;
+    delete m_powerIndex;
+    delete m_controlIndex;
     event->accept();
 }
 

@@ -45,7 +45,8 @@ public:
         RTN_SELF_COPYERR = -8,
         RTN_SELF_CREATETREEERR = -9,
         RTN_SELF_READXMLERR = -10,
-        RTN_SELF_READTREEERR = -11
+        RTN_SELF_READTREEERR = -11,
+        RTN_SELF_IDNONEXIST = -12
     }RtnSelf;
 
     SelfBuilder(ComDriver::ICom *com);
@@ -82,10 +83,10 @@ private:
 
     bool createNewNode(const QString &path, const QString &id);
     bool createSysPath(const QString &path);
+    int getBaseAddress(const QString indexPath);
+    RtnSelf readSingle(QTreeWidgetItem *item, bool isPwr);
 private:
     SelfBuilderPrivate *dd;
-
-
 };
 
 #endif // SELFBUILDER_H
