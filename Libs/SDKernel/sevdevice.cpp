@@ -383,6 +383,12 @@ bool SevDevice::readAdvRam(quint16 axisInx, QTreeWidgetItem *item)
   return d->m_socket->readAdvItemRam(axisInx, item);
 }
 
+bool SevDevice::readAdvRam(quint16 axisInx, quint16 offset, quint16 base, int bytesNum, double &result)
+{
+  Q_D(SevDevice);
+return d->m_socket->readAdvItemRam(axisInx, offset,base,bytesNum,result);
+}
+
 bool SevDevice::startPlot(const ComDriver::PlotControlPrm &ctrPrm)
 {
   Q_D(SevDevice);

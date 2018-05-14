@@ -391,7 +391,24 @@ void PlotUnitGraph129::onBtnStartSampleClicked(bool checked)
     d->m_curveManager->setStoreTime(60);
     d->m_curveManager->updateSamplPrms();
     //读取所有曲线静态变量
+    for(int i=0;i<d->m_curveManager->curveList().size();i++)
+    {
+      ICurve *c = d->m_curveManager->curveList().at(i);
+      for(int j =0;j<c->constInputs().size();j++)
+      {
+        double value = 0;
+        d->m_sevList.at(c->devInx())->readAdvRam(c->axisInx(),\
+                                                 c->constInputs().at(j).prm.offtAddr,\
+                                                 c->constInputs().at(j).prm.baseAddr,\
+                                                 c->constInputs().at(j).prm.bytes,\
+                                                 value);
 
+        c->constInputs()[j].constK = value;
+        qDebug()<<c->name()<<"constK = "<<c->constInputs()[j].constK;
+      }
+    }
+
+    qDebug()<<"curveManager samplprms size = "<<d->m_curveManager->samplPrms().size();
     d->m_threadSample = new ThreadSample(d->m_sevList,d->m_curveManager->samplPrms());
     d->m_threadCalcultate = new ThreadCalculate(d->m_curveManager->devCurves());
     connect(d->m_threadSample,SIGNAL(sampleDataIn(SampleData)),d->m_threadCalcultate,SIGNAL(sampleDataIn(SampleData)));
@@ -750,19 +767,22 @@ void PlotUnitGraph129::onPlotDataIn(PlotData data)
     }
     if(row != -1)
     {
-      quint8 storeTimeS=20;
+      quint8 storeTimeS=10;
       ui->plot->graph(row)->addData(data.m_dataHash.value(c).keys,data.m_dataHash.value(c).values);
       ui->plot->graph(row)->data()->removeBefore(data.m_dataHash.value(c).keys.last() - storeTimeS);
-//      ui->plot->graph(row)->removeDataBefore(data.m_dataHash.value(c).keys.last() - storeTimeS);
       lastkeyValue=data.m_dataHash.value(c).keys.last();
-      qDebug()<<"i = "<<i<<" last key = "<<lastkeyValue;
+//      qDebug()<<"i = "<<i<<" last key = "<<lastkeyValue;
     }
   }
   count ++;
   if(count%3 == 0)
   {
-    ui->plot->xAxis->setRange(lastkeyValue, 2, Qt::AlignRight);
-    ui->plot->replot();
+//    qDebug()<<"lastKey "<<lastkeyValue;
+    if(lastkeyValue > 0 )
+    {
+      ui->plot->xAxis->setRange(lastkeyValue, 5, Qt::AlignRight);
+      ui->plot->replot();
+    }
   }
 
   if(ui->tbtn_plot_auto->isChecked()&&(count%10 == 0))

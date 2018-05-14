@@ -56,6 +56,7 @@ public:
 
   bool readAdvFlash(quint16 axisInx, QTreeWidgetItem *item);
   bool readAdvRam(quint16 axisInx, QTreeWidgetItem *item);
+  bool readAdvRam(quint16 axisInx, quint16 offset, quint16 base, int bytesNum , double &result);
 
   bool startPlot(const ComDriver::PlotControlPrm &ctrPrm);
   bool stopPlot(const ComDriver::PlotControlPrm &ctrPrm);

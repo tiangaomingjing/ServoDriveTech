@@ -429,6 +429,45 @@ bool LinkSocket::readAdvItemRam(int axisInx, QTreeWidgetItem *item)
     return false;
 }
 
+bool LinkSocket::readAdvItemRam(quint16 axisInx, quint16 offset, quint16 base, int bytesNum, double &result)
+{
+  int16_t value16 = 0;
+  int32_t value32 = 0;
+  int64_t value64 = 0;
+  int16_t ret = 0;
+  switch (bytesNum)
+  {
+  case 2:
+    ret = m_com->readRAM16(axisInx,offset,base,value16);
+    if(ret != 0)
+      ret = m_com->readRAM16(axisInx,offset,base,value16);
+    result = value16;
+    break;
+
+  case 4:
+    ret = m_com->readRAM32(axisInx,offset,base,value32);
+    if(ret != 0)
+      ret = m_com->readRAM32(axisInx,offset,base,value32);
+    result = value32;
+    break;
+
+  case 8:
+    ret = m_com->readRAM64(axisInx,offset,base,value64);
+    if(ret != 0)
+      ret = m_com->readRAM64(axisInx,offset,base,value64);
+    result = value64;
+    break;
+
+  default:
+    ret = m_com->readRAM16(axisInx,offset,base,value16);
+    if(ret != 0)
+      ret = m_com->readRAM16(axisInx,offset,base,value16);
+    result = value16;
+    break;
+  }
+  return ret == 0;
+}
+
 bool LinkSocket::writeAdvItemRam(int axisInx, QTreeWidgetItem *item)
 {
     if (isConnected()) {

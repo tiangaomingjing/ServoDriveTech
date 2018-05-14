@@ -139,6 +139,7 @@ void ICurve::adjustData()
     dd.m_sData.values.remove(0,overSize);
 //    qDebug()<<"store data size = "<<dd.m_sData.values.size();
   }
+
 }
 
 void ICurve::updateCurrentTime()

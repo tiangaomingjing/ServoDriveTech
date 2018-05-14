@@ -139,6 +139,7 @@ void CurveManager::updateCurveCtlPrmsFromDevice(SevDevice *dev, ICurve *c)
 
   c->setDevInx(dev->devId());
 
+  qDebug()<<"---------------------update curve :axis = "<<c->axisInx()<<"----------------------";
   for(int i = 0;i<c->constInputKeys().size();i++)
   {
     keyName = c->constInputKeys().at(i);
@@ -167,7 +168,7 @@ void CurveManager::updateCurveCtlPrmsFromDevice(SevDevice *dev, ICurve *c)
       prm.bytes = GTUtils::byteNumbers(item->text(GT::COL_FLASH_RAM_TREE_TYPE));
       prm.offtAddr = item->text(GT::COL_FLASH_RAM_TREE_ADDR).toUShort();
       c->fillVarInputsPrm(i,prm);
-      qDebug()<<QString("fill varinput channel = %1 , keyName = %2 , baseAddr = %3 bytes = %4 offtAddr = %5")\
+      qDebug()<<QString("fill varinput channel = %1 , keyName = %2 , baseAddr = %3 bytes = %4 offtAddr = %5\n")\
                 .arg(i).arg(keyName).arg(prm.baseAddr).arg(prm.bytes).arg(prm.offtAddr);
     }
   }
