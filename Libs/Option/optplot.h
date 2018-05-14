@@ -19,7 +19,8 @@ public:
   void uiInit()Q_DECL_OVERRIDE;
 
   quint16 delayTime();
-  double xLength();
+  double xStoreTime();
+  double xDisplayTime();
   double yMax();
   double yMin();
   double storedTime();

@@ -3,6 +3,7 @@
 #include "gtutils.h"
 #include "sdtglobaldef.h"
 #include "sevdevice.h"
+#include "cmdmanager.h"
 
 #include <QMultiHash>
 #include <QDebug>
@@ -129,11 +130,15 @@ bool CurveManager::checkCurveInSevDevice(SevDevice *dev, ICurve *c)
  * @param dev
  * @param c
  */
-CurveManager::updateCurveCtlPrmsFromDevice(SevDevice *dev, ICurve *c)
+void CurveManager::updateCurveCtlPrmsFromDevice(SevDevice *dev, ICurve *c)
 {
   QTreeWidget *ramTree=dev->axisTreeSource(c->axisInx(),"RAM");
   QTreeWidgetItem *item = NULL ;
   QString keyName ;
+  CmdManager cmd;
+
+  c->setDevInx(dev->devId());
+
   for(int i = 0;i<c->constInputKeys().size();i++)
   {
     keyName = c->constInputKeys().at(i);
@@ -141,10 +146,12 @@ CurveManager::updateCurveCtlPrmsFromDevice(SevDevice *dev, ICurve *c)
     if(item != NULL)
     {
       CurvePrm prm;
-      prm.baseAddr = 0;
-      prm.bytes = item->text(GT::COL_FLASH_RAM_TREE_TYPE).toUShort();
+      prm.baseAddr = cmd.getBaseAddress(keyName);
+      prm.bytes = GTUtils::byteNumbers(item->text(GT::COL_FLASH_RAM_TREE_TYPE));
       prm.offtAddr = item->text(GT::COL_FLASH_RAM_TREE_ADDR).toUShort();
       c->fillConstInputsPrm(i,prm);
+      qDebug()<<QString("fill constinput channel = %1 , keyName = %2 , baseAddr = %3 bytes = %4 offtAddr = %5")\
+                .arg(i).arg(keyName).arg(prm.baseAddr).arg(prm.bytes).arg(prm.offtAddr);
     }
   }
   item = NULL;
@@ -156,10 +163,12 @@ CurveManager::updateCurveCtlPrmsFromDevice(SevDevice *dev, ICurve *c)
     if(item != NULL)
     {
       CurvePrm prm;
-      prm.baseAddr = 0;
-      prm.bytes = item->text(GT::COL_FLASH_RAM_TREE_TYPE).toUShort();
+      prm.baseAddr = cmd.getBaseAddress(keyName);
+      prm.bytes = GTUtils::byteNumbers(item->text(GT::COL_FLASH_RAM_TREE_TYPE));
       prm.offtAddr = item->text(GT::COL_FLASH_RAM_TREE_ADDR).toUShort();
       c->fillVarInputsPrm(i,prm);
+      qDebug()<<QString("fill varinput channel = %1 , keyName = %2 , baseAddr = %3 bytes = %4 offtAddr = %5")\
+                .arg(i).arg(keyName).arg(prm.baseAddr).arg(prm.bytes).arg(prm.offtAddr);
     }
   }
 

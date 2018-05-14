@@ -47,6 +47,7 @@ LinkSocket::LinkSocket(SevDevicePrivate *sev, QObject *parent):QObject(parent),q
   QString gcmdPath=sev->m_filePath+"cmd/GeneralCmd.xml";
   QTreeWidget *cmdTree=QtTreeManager::createTreeWidgetFromXmlFile(gcmdPath);
   m_genCmd->fillCmdMaps(cmdTree);
+
   m_cmdManager = new CmdManager(this);
   delete cmdTree;
 }
@@ -380,9 +381,7 @@ bool LinkSocket::readAdvItemRam(int axisInx, QTreeWidgetItem *item)
         if (item->text(GT::COL_FLASH_RAM_TREE_ADDR).compare("-1") != 0) {
             uint16_t ofst = item->text(GT::COL_FLASH_RAM_TREE_ADDR).toUShort();
             QString itemType = item->text(GT::COL_FLASH_RAM_TREE_TYPE);
-            QStringList keyList = item->text(GT::COL_FLASH_RAM_TREE_NAME).split(".");
-            QString key = keyList.at(0);
-            uint8_t page = m_cmdManager->getValue(key);
+            uint8_t page = m_cmdManager->getBaseAddress(item->text(GT::COL_FLASH_RAM_TREE_NAME));
             int16_t ret = 0;
             if (itemType.compare("int32") == 0) {
                 int32_t value;
@@ -437,9 +436,7 @@ bool LinkSocket::writeAdvItemRam(int axisInx, QTreeWidgetItem *item)
             uint16_t ofst = item->text(GT::COL_FLASH_RAM_TREE_ADDR).toUShort();
             QString itemType = item->text(GT::COL_FLASH_RAM_TREE_TYPE);
             errcode_t ret = 0;
-            QStringList keyList = item->text(GT::COL_FLASH_RAM_TREE_NAME).split(".");
-            QString key = keyList.at(0);
-            uint8_t page = m_cmdManager->getValue(key);
+            uint8_t page = m_cmdManager->getBaseAddress(item->text(GT::COL_FLASH_RAM_TREE_NAME));
             if (itemType.compare("Uint32") == 0) {
                 uint32_t value = item->text(GT::COL_FLASH_RAM_TREE_VALUE).toULong();
                 ret = m_com->writeRAM32(axisInx, ofst, page, value);

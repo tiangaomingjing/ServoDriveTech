@@ -16,6 +16,7 @@
 
 #include "pluginsmanager.h"
 #include "icurve.h"
+#include "cmdmanager.h"
 
 #include <QDebug>
 #include <QTimer>
@@ -490,9 +491,10 @@ void PlotUnitGraph129::onExpertTreeWidgetDoubleClicked(QTableWidget *table,QTree
     if(table->item(0,i)->isSelected())
     {
       VarCurvePrm var; 
+      CmdManager cmd;
       var.axis=i;
       var.varPrm.bytes=GTUtils::byteNumbers(item->text(GT::COL_FLASH_RAM_TREE_TYPE));
-      var.varPrm.baseAddr=0;
+      var.varPrm.baseAddr=cmd.getBaseAddress(item->text(GT::COL_FLASH_RAM_TREE_NAME));
       var.varPrm.offtAddr=item->text(GT::COL_FLASH_RAM_TREE_ADDR).toUShort();
       varPrmList.append(var);
     }
@@ -611,7 +613,8 @@ void PlotUnitGraph129::onAddUsrCurveRequested(ICurve *c)
   bool isOverSize = d->m_curveManager->isOverMaxCurveSizeWhenAdd(c);
   if(isOverSize)
     return ;
-  bool hasCurve = checkCurveInSevDevice(c);
+  SevDevice *dev = currentSevDevice();
+  bool hasCurve = d->m_curveManager->checkCurveInSevDevice(dev,c);
   if(!hasCurve)
   {
     QMessageBox::information(0,tr("error"),tr("The curve = %1 is not in the device").arg(c->name()));
@@ -625,9 +628,7 @@ void PlotUnitGraph129::onAddUsrCurveRequested(ICurve *c)
   ui->plot->graph(ui->plot->graphCount() -1 )->setPen(QPen(c->color()));
   addTableRowPrm(c,ui->plot->graph(ui->plot->graphCount() -1));
 
-  c->setDevInx(d->m_curSevInx);
-  SevDevice *dev = d->m_sevList.at(d->m_curSevInx);
-//  updateCurveCtlPrmsFromDevice(dev,c);
+  d->m_curveManager->updateCurveCtlPrmsFromDevice(dev,c);
 }
 
 void PlotUnitGraph129::onBtnCurveRemoveClicked()
@@ -754,13 +755,13 @@ void PlotUnitGraph129::onPlotDataIn(PlotData data)
       ui->plot->graph(row)->data()->removeBefore(data.m_dataHash.value(c).keys.last() - storeTimeS);
 //      ui->plot->graph(row)->removeDataBefore(data.m_dataHash.value(c).keys.last() - storeTimeS);
       lastkeyValue=data.m_dataHash.value(c).keys.last();
-//      qDebug()<<"i = "<<i<<" last key = "<<lastkeyValue;
+      qDebug()<<"i = "<<i<<" last key = "<<lastkeyValue;
     }
   }
   count ++;
   if(count%3 == 0)
   {
-    ui->plot->xAxis->setRange(lastkeyValue, 5, Qt::AlignRight);
+    ui->plot->xAxis->setRange(lastkeyValue, 2, Qt::AlignRight);
     ui->plot->replot();
   }
 

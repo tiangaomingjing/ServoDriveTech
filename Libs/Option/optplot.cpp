@@ -11,7 +11,8 @@ public:
   OptPlotPrivate();
   ~OptPlotPrivate();
   quint16 m_delayTime;
-  double m_xLength;
+  double m_xStoreTime;
+  double m_xDisplayTime;
   double m_yMax;
   double m_yMin;
   double m_storedTime;
@@ -37,8 +38,9 @@ OptPlot::OptPlot(const QString &optName, QWidget *parent) : IOpt(optName,*new Op
   readOpt();
   uiInit();
 
+
   connect(ui->spinBox_plotDelay, SIGNAL(valueChanged(int)), this, SLOT(valueModified()));
-  connect(ui->doubleSpinBox_plotXLength, SIGNAL(valueChanged(double)), this, SLOT(valueModified()));
+  connect(ui->doubleSpinBox_plotXDisplayTime, SIGNAL(valueChanged(double)), this, SLOT(valueModified()));
   connect(ui->doubleSpinBox_ployYMax, SIGNAL(valueChanged(double)), this, SLOT(valueModified()));
   connect(ui->doubleSpinBox_plotYMin, SIGNAL(valueChanged(double)), this, SLOT(valueModified()));
   connect(ui->doubleSpinBox_plotStore, SIGNAL(valueChanged(double)), this, SLOT(valueModified()));
@@ -54,7 +56,8 @@ void OptPlot::uiInit()
     Q_D(OptPlot);
     qDebug()<<"plot ui Init";
     ui->spinBox_plotDelay->setValue(d->m_delayTime);
-    ui->doubleSpinBox_plotXLength->setValue(d->m_xLength);
+    ui->doubleSpinBox_plotXDisplayTime->setValue(d->m_xDisplayTime);
+    ui->doubleSpinBox_plotXStoreTime->setValue(d->m_xStoreTime);
     ui->doubleSpinBox_ployYMax->setValue(d->m_yMax);
     ui->doubleSpinBox_plotYMin->setValue(d->m_yMin);
     ui->doubleSpinBox_plotStore->setValue(d->m_storedTime);
@@ -65,13 +68,19 @@ void OptPlot::uiInit()
 quint16 OptPlot::delayTime()
 {
     Q_D(OptPlot);
-    return d->m_delayTime;
+  return d->m_delayTime;
 }
 
-double OptPlot::xLength()
+double OptPlot::xStoreTime()
+{
+  Q_D(OptPlot);
+  return d->m_xStoreTime;
+}
+
+double OptPlot::xDisplayTime()
 {
     Q_D(OptPlot);
-    return d->m_xLength;
+    return d->m_xDisplayTime;
 }
 
 double OptPlot::yMax()
@@ -109,7 +118,8 @@ bool OptPlot::optActive()
     Q_D(OptPlot);
   qDebug()<<"opt plot execute active ";
     d->m_delayTime = ui->spinBox_plotDelay->value();
-    d->m_xLength = ui->doubleSpinBox_plotXLength->value();
+    d->m_xStoreTime = ui->doubleSpinBox_plotXStoreTime->value();
+    d->m_xDisplayTime = ui->doubleSpinBox_plotXDisplayTime->value();
     d->m_yMax = ui->doubleSpinBox_ployYMax->value();
     d->m_yMin = ui->doubleSpinBox_plotYMin->value();
     d->m_storedTime = ui->doubleSpinBox_plotStore->value();
@@ -121,11 +131,12 @@ bool OptPlot::optActive()
 bool OptPlot::readOpt()
 {
   Q_D(OptPlot);
-  d->m_delayTime=data("plot","delayTime",500).toUInt();
-  d->m_xLength = data("plot", "xLength", 5.00).toDouble();
+  d->m_delayTime=data("plot","delayTime",1000).toUInt();
+  d->m_xStoreTime = data("plot","xStoreTime",20).toDouble();
+  d->m_xDisplayTime = data("plot", "xDisplayTime", 5.00).toDouble();
   d->m_yMax = data("plot", "yMax", 5000.00).toDouble();
   d->m_yMin = data("plot", "yMin", -500.00).toDouble();
-  d->m_storedTime = data("plot", "storeTime", 5.00).toDouble();
+  d->m_storedTime = data("plot", "storeTime", 60).toDouble();
   d->m_pointNum = data("plot", "pointAmount", 1000).toUInt();
   d->m_color = data("plot", "color", "white").toString();
   qDebug()<<"optplot read opt";
@@ -135,7 +146,8 @@ bool OptPlot::writeOpt()
 {
   Q_D(OptPlot);
   saveData("plot","delayTime",d->m_delayTime);
-  saveData("plot", "xLength", d->m_xLength);
+  saveData("plot","xStoreTime",d->m_xStoreTime);
+  saveData("plot", "xDisplayTime", d->m_xDisplayTime);
   saveData("plot", "yMax", d->m_yMax);
   saveData("plot", "yMin", d->m_yMin);
   saveData("plot", "storeTime", d->m_storedTime);
@@ -150,5 +162,5 @@ void OptPlot::respondErrorExecute()
 
 void OptPlot::valueModified()
 {
-    setModify(true);
+   setModify(true);
 }

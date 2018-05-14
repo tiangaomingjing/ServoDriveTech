@@ -26,7 +26,7 @@ CONFIG(debug, debug|release){
            $${ADVUSR_OUT_PATH}/SDKerneld.lib
     TARGET = AdvUserd
 } else{
-    OPT_OUT_PATH=$${APP_BUILD_PATH}/release/bin
+    ADVUSR_OUT_PATH=$${APP_BUILD_PATH}/release/bin
     LIBS +=$${ADVUSR_OUT_PATH}/GTUtils.lib\
            $${ADVUSR_OUT_PATH}/SDKernel.lib
     TARGET = AdvUser

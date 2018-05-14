@@ -62,7 +62,7 @@ public:
   bool isOverMaxCurveSizeWhenAdd(ICurve *c);
 
   bool checkCurveInSevDevice(SevDevice *dev,ICurve *c);
-  updateCurveCtlPrmsFromDevice(SevDevice *dev ,ICurve *c);
+  void updateCurveCtlPrmsFromDevice(SevDevice *dev ,ICurve *c);
 
 signals:
 

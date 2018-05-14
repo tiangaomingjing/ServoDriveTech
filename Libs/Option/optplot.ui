@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>404</width>
-    <height>419</height>
+    <height>391</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,84 +38,28 @@
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <widget class="QWidget" name="widget_plot" native="true">
-         <layout class="QGridLayout" name="gridLayout" columnstretch="2,1" columnminimumwidth="0,0">
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_plotDelay">
-            <property name="text">
-             <string>Delay Time (ms):</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QSpinBox" name="spinBox_plotDelay">
-            <property name="maximum">
-             <number>65535</number>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
+         <layout class="QGridLayout" name="gridLayout" columnstretch="2,0">
+          <item row="2" column="0">
            <widget class="QLabel" name="label_plotXLength">
             <property name="text">
-             <string>X Length (s):</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QDoubleSpinBox" name="doubleSpinBox_plotXLength">
-            <property name="maximum">
-             <double>10.000000000000000</double>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_plotYMax">
-            <property name="text">
-             <string>Y Max:</string>
+             <string>X Store Time (s):</string>
             </property>
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QDoubleSpinBox" name="doubleSpinBox_ployYMax">
-            <property name="minimum">
-             <double>-18446744073709551616.000000000000000</double>
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_plotXStoreTime">
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
             </property>
             <property name="maximum">
-             <double>18446744073709551616.000000000000000</double>
+             <double>30.000000000000000</double>
             </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_plotYMin">
-            <property name="text">
-             <string>Y Min:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QDoubleSpinBox" name="doubleSpinBox_plotYMin">
-            <property name="minimum">
-             <double>-18446744073709551616.000000000000000</double>
-            </property>
-            <property name="maximum">
-             <double>18446744073709551616.000000000000000</double>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="label_plotStore">
-            <property name="text">
-             <string>Store Time (s):</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1">
-           <widget class="QDoubleSpinBox" name="doubleSpinBox_plotStore">
-            <property name="maximum">
+            <property name="value">
              <double>10.000000000000000</double>
             </property>
            </widget>
           </item>
-          <item row="5" column="0">
+          <item row="6" column="0">
            <widget class="QLabel" name="label_plotPoint">
             <property name="text">
              <string>Point Amount:</string>
@@ -123,21 +67,133 @@
            </widget>
           </item>
           <item row="5" column="1">
-           <widget class="QSpinBox" name="spinBox_plotPoint">
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_plotStore">
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
             <property name="maximum">
-             <number>2000</number>
+             <double>60.000000000000000</double>
+            </property>
+            <property name="value">
+             <double>30.000000000000000</double>
             </property>
            </widget>
           </item>
-          <item row="6" column="0">
+          <item row="5" column="0">
+           <widget class="QLabel" name="label_plotStore">
+            <property name="text">
+             <string>Store Time (s):</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_plotYMin">
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="minimum">
+             <double>-18446744073709551616.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>18446744073709551616.000000000000000</double>
+            </property>
+            <property name="value">
+             <double>-5000.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_plotYMin">
+            <property name="text">
+             <string>Y Min:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_ployYMax">
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="minimum">
+             <double>-18446744073709551616.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>18446744073709551616.000000000000000</double>
+            </property>
+            <property name="value">
+             <double>5000.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_plotYMax">
+            <property name="text">
+             <string>Y Max:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="spinBox_plotDelay">
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="maximum">
+             <number>65535</number>
+            </property>
+            <property name="value">
+             <number>1000</number>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_plotDelay">
+            <property name="text">
+             <string>Delay Time (ms):</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="1">
+           <widget class="QSpinBox" name="spinBox_plotPoint">
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+            <property name="value">
+             <number>1000</number>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="0">
            <widget class="QLabel" name="label_plotColor">
             <property name="text">
              <string>Color:</string>
             </property>
            </widget>
           </item>
-          <item row="6" column="1">
+          <item row="7" column="1">
            <widget class="QComboBox" name="comboBox_plotColor"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_plotXLength_2">
+            <property name="text">
+             <string>X Display Time (s):</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_plotXDisplayTime">
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::NoButtons</enum>
+            </property>
+            <property name="maximum">
+             <double>10.000000000000000</double>
+            </property>
+            <property name="value">
+             <double>5.000000000000000</double>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>

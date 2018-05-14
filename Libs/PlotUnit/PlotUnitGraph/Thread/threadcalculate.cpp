@@ -50,8 +50,8 @@ void CalculateWorker::onSampleDataIn(SampleData data)
     //曲线输入，并计算
     for(int i=0;i<c->varInputsKeys().size();i++)
     {
-      CurveDatas vec= *it;
-      c->setVarInputVector(i,QVector<double>::fromStdVector(vec));
+//      CurveDatas vec= *it;
+      c->setVarInputVector(i,QVector<double>::fromStdVector(*it));
       it++;
     }
     c->exec();
