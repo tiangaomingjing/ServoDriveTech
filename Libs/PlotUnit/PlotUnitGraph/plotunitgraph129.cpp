@@ -48,8 +48,6 @@
 #define ICON_NAME_CURVE_REMOVE "plot_remove.png"
 #define ICON_NAME_CURVE_CLEAR  "plot_clear.png"
 
-#define CURVE_MAX_NUM           16
-
 class VarCurvePrm
 {
 public:
@@ -458,10 +456,12 @@ void PlotUnitGraph129::onBtnCurveAddClicked()
   SevDevice *dev=d->m_sevList.at(d->m_curSevInx);
 
   QTreeWidget *treeExpert=dev->axisTreeSource(0,"RAM");
-  dia->addExpertTreeWidget(treeExpert);
-  dia->setAxisTable(dev->axisNum());
+  dia->expertTreeWidgetInit(treeExpert);
+  dia->axisTableInit(dev->axisNum());
+  dia->usrCurveTableInit(d->m_pluginManager->usrCurves());
 
   connect(dia,SIGNAL(expertTreeItemDoubleClicked(QTableWidget*,QTreeWidgetItem*)),this,SLOT(onExpertTreeWidgetDoubleClicked(QTableWidget*,QTreeWidgetItem*)));
+  connect(dia,SIGNAL(addUsrCurveRequest(ICurve*)),this,SLOT(onAddUsrCurveRequested(ICurve*)));
 
   dia->exec();
   dia->deleteLater();
@@ -586,7 +586,7 @@ void PlotUnitGraph129::onExpertTreeWidgetDoubleClicked(QTableWidget *table,QTree
 
     //gtplot增加曲线
     ui->plot->addGraph();
-    ui->plot->graph(curveTotalSize)->setPen(curve->color());
+    ui->plot->graph(curveTotalSize)->setPen(QPen(curve->color()));
 
     //表格增加曲线标识
     addTableRowPrm(curve,ui->plot->graph(curveTotalSize));
@@ -596,6 +596,38 @@ void PlotUnitGraph129::onExpertTreeWidgetDoubleClicked(QTableWidget *table,QTree
 
   qDebug()<<"curve total size ="<<d->m_curveManager->curveList().size();
 
+}
+
+void PlotUnitGraph129::onAddUsrCurveRequested(ICurve *c)
+{
+  Q_D(PlotUnitGraph129);
+  //检查曲线有没有超过最大值
+  //检查曲线在这个设备在存不存在
+  //gtplot增加曲线
+  //曲线表格增加
+  //curvemanager 增加曲线
+  //更新曲线常量与变量地址
+
+  bool isOverSize = d->m_curveManager->isOverMaxCurveSizeWhenAdd(c);
+  if(isOverSize)
+    return ;
+  bool hasCurve = checkCurveInSevDevice(c);
+  if(!hasCurve)
+  {
+    QMessageBox::information(0,tr("error"),tr("The curve = %1 is not in the device").arg(c->name()));
+    return ;
+  }
+  c->setColor(d->m_curveManager->color(d->m_curveManager->curveList().size()));
+  d->m_curveManager->addCurve(c);
+
+  ui->plot->addGraph();
+
+  ui->plot->graph(ui->plot->graphCount() -1 )->setPen(QPen(c->color()));
+  addTableRowPrm(c,ui->plot->graph(ui->plot->graphCount() -1));
+
+  c->setDevInx(d->m_curSevInx);
+  SevDevice *dev = d->m_sevList.at(d->m_curSevInx);
+//  updateCurveCtlPrmsFromDevice(dev,c);
 }
 
 void PlotUnitGraph129::onBtnCurveRemoveClicked()
@@ -726,11 +758,12 @@ void PlotUnitGraph129::onPlotDataIn(PlotData data)
     }
   }
   count ++;
-  if(count%4 == 0)
+  if(count%3 == 0)
   {
-    ui->plot->xAxis->setRange(lastkeyValue, 2, Qt::AlignRight);
+    ui->plot->xAxis->setRange(lastkeyValue, 5, Qt::AlignRight);
     ui->plot->replot();
   }
+
   if(ui->tbtn_plot_auto->isChecked()&&(count%10 == 0))
   {
     ui->plot->rescaleAxes(true);
@@ -1251,6 +1284,39 @@ void PlotUnitGraph129::showAllData()
     graph->addData(c->sData()->keys,c->sData()->values);
   }
   ui->plot->replot();
+}
+
+bool PlotUnitGraph129::checkCurveInSevDevice(ICurve *c)
+{
+  bool ret = true;
+  QTreeWidget *ramTree=currentSevDevice()->axisTreeSource(c->axisInx(),"RAM");
+  QString curveName;
+  for(int i = 0;i<c->varInputsKeys().size();i++)
+  {
+    curveName = c->varInputsKeys().at(i);
+    QTreeWidgetItem *item = NULL ;
+    item = GTUtils::findItem(curveName,ramTree,GT::COL_FLASH_RAM_TREE_NAME);
+    if(item == NULL)
+    {
+      ret = false ;
+      break;
+    }
+  }
+  if(ret)
+  {
+    for(int i = 0;i<c->constInputKeys().size();i++)
+    {
+      curveName = c->constInputKeys().at(i);
+      QTreeWidgetItem *item = NULL ;
+      item  = GTUtils::findItem(curveName,ramTree,GT::COL_FLASH_RAM_TREE_NAME);
+      if(item == NULL)
+      {
+        ret = false ;
+        break;
+      }
+    }
+  }
+  return ret;
 }
 
 

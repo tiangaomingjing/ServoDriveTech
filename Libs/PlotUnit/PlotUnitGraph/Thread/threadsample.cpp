@@ -66,7 +66,7 @@ void ThreadSample::run()
     }
 
     count++;
-    msleep(50);
+    msleep(40);
   }
 
   stopSampling();

@@ -72,6 +72,7 @@ void CalculateWorker::onSampleDataIn(SampleData data)
 //        cData.values.append(c->cData()->values.at(i));
 //      }
 //    }
+
     cData.keys.append(c->cData()->keys);
     cData.values.append(c->cData()->values);
 

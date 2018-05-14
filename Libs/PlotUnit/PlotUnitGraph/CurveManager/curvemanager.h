@@ -3,8 +3,11 @@
 
 #include <QObject>
 #include "comglobal.h"
+#define CURVE_MAX_NUM           16
 
 class ICurve;
+class SevDevice;
+
 class DevSamplePrm
 {
 public:
@@ -55,6 +58,11 @@ public:
   void updateSamplPrms();
   QList<DevCurves> devCurves() const;
   QList<DevSamplePrm> samplPrms() const;
+
+  bool isOverMaxCurveSizeWhenAdd(ICurve *c);
+
+  bool checkCurveInSevDevice(SevDevice *dev,ICurve *c);
+  updateCurveCtlPrmsFromDevice(SevDevice *dev ,ICurve *c);
 
 signals:
 

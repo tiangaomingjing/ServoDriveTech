@@ -10,6 +10,7 @@ class OptFace;
 class QTreeWidget;
 class QTreeWidgetItem;
 class QTableWidget;
+class ICurve;
 
 class DialogPickCurve : public QDialog
 {
@@ -19,12 +20,13 @@ public:
   explicit DialogPickCurve(QWidget *parent = 0);
   ~DialogPickCurve();
 
-  void addExpertTreeWidget(const QTreeWidget *tree);
-  void setAxisTable(int axisCount);
-
+  void expertTreeWidgetInit(const QTreeWidget *tree);
+  void axisTableInit(int axisCount);
+  void usrCurveTableInit(QList<ICurve *> curves);
 
 signals:
   void expertTreeItemDoubleClicked(QTableWidget* axisTable,QTreeWidgetItem *item);
+  void addUsrCurveRequest(ICurve *newc);
 
 protected:
 
@@ -32,6 +34,7 @@ private slots:
   void onUserSelectChanged();
   void onTreeWidgetExpertExpandedClicked();
   void onExpertTreeWidgetDoubleClicked(QTreeWidgetItem *item,int column);
+  void onUsrTableCellDoubleClicked(int row, int column);
 
 private:
   void setIcons();
