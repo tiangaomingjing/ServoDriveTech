@@ -148,11 +148,18 @@ CurveManager::updateCurveCtlPrmsFromDevice(SevDevice *dev, ICurve *c)
     }
   }
   item = NULL;
+
   for(int i = 0;i<c->varInputsKeys().size();i++)
   {
-    item = GTUtils::findItem(curveName,ramTree,GT::COL_FLASH_RAM_TREE_NAME);
+    keyName = c->varInputsKeys().at(i);
+    item = GTUtils::findItem(keyName,ramTree,GT::COL_FLASH_RAM_TREE_NAME);
     if(item != NULL)
     {
+      CurvePrm prm;
+      prm.baseAddr = 0;
+      prm.bytes = item->text(GT::COL_FLASH_RAM_TREE_TYPE).toUShort();
+      prm.offtAddr = item->text(GT::COL_FLASH_RAM_TREE_ADDR).toUShort();
+      c->fillVarInputsPrm(i,prm);
     }
   }
 

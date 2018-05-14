@@ -13,6 +13,11 @@
 #include "optuser.h"
 #include "optpath.h"
 
+#include "iadvuser.h"
+#include "advusercheck.h"
+#include "advusermask.h"
+#include "advusercontainer.h"
+
 #include "gtutils.h"
 
 #include "registerfunction.h"
@@ -48,6 +53,12 @@
 int main(int argc, char *argv[])
 {
   QApplication a(argc, argv);
+
+  AdvUserContainer *advc = AdvUserContainer::instance();
+  IAdvUser *adv = new AdvUserCheck("advusercheck", 0);
+  advc->addAdvUserItem(adv);
+  adv = new AdvUserMask("advusermask", 0);
+  advc->addAdvUserItem(adv);
 
   OptContainer *optc=OptContainer::instance();
 

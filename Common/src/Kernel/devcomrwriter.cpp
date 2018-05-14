@@ -176,6 +176,7 @@ DeviceConfig* DevComRWriter::buildConfigFromCom(void (*processCallback)(void *pb
   {
     qDebug()<<"ssssssssssss";
     pid= idHelper.readPwrId(pok);
+    qDebug()<<"pid"<<pid;
     cid= idHelper.readCtrId(cok);
     version=idHelper.readVersion(vok);
     fid=idHelper.readFpgaId(fok);
@@ -189,9 +190,13 @@ DeviceConfig* DevComRWriter::buildConfigFromCom(void (*processCallback)(void *pb
     SelfBuilder *builder = new SelfBuilder(com);
     connect(builder, SIGNAL(sendProcessInfo(int,QString)), this, SIGNAL(sendDevProcessInfo(int,QString)));
     SelfBuilder::RtnSelf rtn = builder->buildFromEprom(processCallback, processbar, &para);
-    if (rtn != SelfBuilder::RTN_SELF_SUCCESS) {
-        emit sendDevProcessInfo(0, tr("Building fails %1").arg(QString::number(rtn)));
-        return config;
+    if (rtn != SelfBuilder::RTN_SELF_SUCCESS) {        
+        SdtError::instance()->errorStringList()->append(tr("Building fails %1").arg(QString::number(rtn)));
+        if (rtn == SelfBuilder::RTN_SELF_IDNONEXIST || rtn == SelfBuilder::RTN_SELF_NOPRODUCT){
+            qDebug()<<"rtn"<<rtn;
+            SdtError::instance()->errorStringList()->append(tr("Your software is too old ,not support the current device\nPlease update from\n\nhttp://www.googoltech.com.cn\n"));
+        }
+        return NULL;
     } else {
         emit sendDevProcessInfo(0, tr("Building Finished!"));
     }
@@ -202,11 +207,11 @@ DeviceConfig* DevComRWriter::buildConfigFromCom(void (*processCallback)(void *pb
     config->m_version=version;
     config->m_fpgaId=fid;
     config->m_comType=com->iComType();
-    config->m_axisNum=idHelper.axisNumFromIdMap();
+    config->m_axisNum=idHelper.axisNumFromIdMap(pid);
     config->m_devId=devId;
 
-    config->m_modeName=idHelper.modeNameFromIdMap();
-    config->m_typeName=idHelper.typeNameFromIdMap();
+    config->m_modeName=idHelper.modeNameFromIdMap(pid);
+    config->m_typeName=idHelper.typeNameFromIdMap(pid);
     config->m_rnStationId=rnstation;
 
     qDebug()<<"config->m_pwrId"<<config->m_pwrId;
@@ -236,15 +241,15 @@ DeviceConfig* DevComRWriter::buildConfigFromCom(void (*processCallback)(void *pb
     int i=1;
     if(!pok)
     {
-      if(idHelper.databaseHasPwrId()==false)
-      {
-        SdtError::instance()->errorStringList()->append(tr("  %1 your SDT software is too old ,cannot find PowerBoard ID").arg(i++));
-        solution.append(tr("Must update the SDT software\n"));
-      }
-      else
-      {
+//      if(idHelper.databaseHasPwrId()==false)
+//      {
+//        SdtError::instance()->errorStringList()->append(tr("  %1 your SDT software is too old ,cannot find PowerBoard ID").arg(i++));
+//        solution.append(tr("Must update the SDT software\n"));
+//      }
+//      else
+//      {
         SdtError::instance()->errorStringList()->append(tr("  %1 read powerboard eeprom error").arg(i++));
-      }
+      //}
     }
     if(!cok)
       SdtError::instance()->errorStringList()->append(tr("  %1 read controlboard eeprom error").arg(i++));

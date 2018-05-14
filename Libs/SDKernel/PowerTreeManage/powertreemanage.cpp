@@ -175,7 +175,6 @@ bool PowerTreeManage::updatePowerLimitMapList(QList<QMap<QString, PowerBoardLimi
   //detailed information
   QTreeWidgetItem *detailItem = detailInfoTreeItem(mp_pwrTarget);
   axisNum=detailItem->child(DETINFO_ROW_INX_AXISNUM)->childCount();
-
   for(int i=0;i < axisNum; i++)
   {
     QMap<QString ,PowerBoardLimit> plimitMap;

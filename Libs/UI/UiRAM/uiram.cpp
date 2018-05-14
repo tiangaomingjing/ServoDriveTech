@@ -24,7 +24,6 @@ protected:
   bool m_isEditing;
   QColor m_nodeColor;
   QString m_originText;
-  BitItemHelper *m_bitHelper;
 };
 UiRAMPrivate::UiRAMPrivate()
 {
@@ -183,17 +182,17 @@ void UiRAM::writeItem(QTreeWidgetItem *item)
     Q_D(UiRAM);
     QStringList list = item->text(GT::COL_FLASH_RAM_TREE_NAME).split(".");
     int index = list.length() - 1;
-    if (d->m_bitHelper->isTargetItem(item, STR_MARK_BIT, index)) {
+    if (BitItemHelper::isTargetItem(item, STR_MARK_BIT, index)) {
         int index = item->parent()->indexOfChild(item);
         QTreeWidgetItem* allItem = item->parent()->child(index - 1);
         if (allItem->text(GT::COL_FLASH_RAM_TREE_TYPE).compare("Uint64") == 0 || allItem->text(GT::COL_FLASH_RAM_TREE_TYPE).compare("int64") == 0) {
-            quint64 value = d->m_bitHelper->calculate64Bits(item);
+            quint64 value = BitItemHelper::calculate64Bits(item);
             allItem->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
         } else if (allItem->text(GT::COL_FLASH_RAM_TREE_TYPE).compare("Uint32") == 0 || allItem->text(GT::COL_FLASH_RAM_TREE_TYPE).compare("int32") == 0) {
-            quint32 value = d->m_bitHelper->calculate32Bits(item);
+            quint32 value = BitItemHelper::calculate32Bits(item);
             allItem->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
         } else {
-            quint16 value = d->m_bitHelper->calculate16Bits(item);
+            quint16 value = BitItemHelper::calculate16Bits(item);
             allItem->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
         }
         d->m_device->writeAdvRam(uiIndexs().axisInx, allItem);
@@ -210,21 +209,21 @@ void UiRAM::readItem(QTreeWidgetItem *item)
     d->m_device->readAdvRam(uiIndexs().axisInx, item);
     QStringList list = item->text(GT::COL_FLASH_RAM_TREE_NAME).split(".");
     int listIndex = list.length() - 1;
-    if (d->m_bitHelper->isTargetItem(item, STR_MARK_ALL, listIndex)) {
+    if (BitItemHelper::isTargetItem(item, STR_MARK_ALL, listIndex)) {
         int index = item->parent()->indexOfChild(item);
         QTreeWidgetItem* bitItem = item->parent()->child(index + 1);
         list = bitItem->text(GT::COL_FLASH_RAM_TREE_NAME).split(".");
         listIndex = list.length() - 1;
-        if (d->m_bitHelper->isTargetItem(bitItem, STR_MARK_BIT, listIndex)) {
+        if (BitItemHelper::isTargetItem(bitItem, STR_MARK_BIT, listIndex)) {
             if (item->text(GT::COL_FLASH_RAM_TREE_TYPE).compare("Uint64") == 0 || item->text(GT::COL_FLASH_RAM_TREE_TYPE).compare("int64") == 0) {
                 quint64 value = item->text(GT::COL_FLASH_RAM_TREE_VALUE).toULongLong();
-                d->m_bitHelper->assign64Bits(bitItem, value);
+                BitItemHelper::assign64Bits(bitItem, value);
             } else if (item->text(GT::COL_FLASH_RAM_TREE_TYPE).compare("Uint32") == 0 || item->text(GT::COL_FLASH_RAM_TREE_TYPE).compare("int32") == 0) {
                 quint32 value = item->text(GT::COL_FLASH_RAM_TREE_VALUE).toULong();
-                d->m_bitHelper->assign32Bits(bitItem, value);
+                BitItemHelper::assign32Bits(bitItem, value);
             } else {
                 quint16 value = item->text(GT::COL_FLASH_RAM_TREE_VALUE).toUShort();
-                d->m_bitHelper->assign16Bits(bitItem, value);
+                BitItemHelper::assign16Bits(bitItem, value);
             }
         }
     }
@@ -281,7 +280,7 @@ bool UiRAM::isEditedDataValid(QTreeWidgetItem *item)
     bool ok;
     QStringList list = item->parent()->text(GT::COL_FLASH_RAM_TREE_NAME).split(".");
     int listIndex = list.length() - 1;
-    if (d->m_bitHelper->isTargetItem(item->parent(), STR_MARK_BIT, listIndex)) {
+    if (BitItemHelper::isTargetItem(item->parent(), STR_MARK_BIT, listIndex)) {
         //qDebug()<<"1";
         quint64 upLimit = pow(2, item->text(GT::COL_FLASH_RAM_TREE_BITWIDTH).toInt()) - 1;
         //qDebug()<<"up limit"<<upLimit;
