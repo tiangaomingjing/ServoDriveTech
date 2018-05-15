@@ -1,10 +1,12 @@
 ﻿#include "threadcalculate.h"
 #include <QDebug>
+#include "Option"
 using namespace ComDriver;
 CalculateWorker::CalculateWorker(const QList<DevCurves> & devCurves,QObject *parent) : QObject(parent),
   m_devCurves(devCurves)
 {
-
+  OptPlot *op = dynamic_cast<OptPlot *>(OptContainer::instance()->optItem("optplot"));
+  m_maxPoint = op->pointNum();
 }
 
 CalculateWorker::~CalculateWorker()
@@ -13,7 +15,7 @@ CalculateWorker::~CalculateWorker()
 }
 int CalculateWorker::maxPointSize()
 {
-  return 1000;
+  return m_maxPoint;
 }
 
 void CalculateWorker::onSampleDataIn(SampleData data)
@@ -58,23 +60,30 @@ void CalculateWorker::onSampleDataIn(SampleData data)
 
     //取样输出
     CurveData cData;
-//    int maxPoint=maxPointSize();
-//    quint16 size=c->cData()->values.size();
-//    int interval=size/maxPoint;
-//    if(interval == 0)
-//      interval = 1;
-////    qDebug()<<"interval = "<<interval<<" size = "<<size;
-//    for(int i=0;i<size;i++)
-//    {
-//      if(0 == i%interval)
-//      {
-//        cData.keys.append(c->cData()->keys.at(i));
-//        cData.values.append(c->cData()->values.at(i));
-//      }
-//    }
+    int maxPoint=maxPointSize();
+    quint16 size=c->cData()->values.size();
 
-    cData.keys.append(c->cData()->keys);
-    cData.values.append(c->cData()->values);
+    int interval=size/maxPoint;
+    if(interval == 0)
+      interval = 1;
+//    static quint32 oi = 0;
+//    if(oi % 20 ==0)
+//    {
+//      qDebug()<<"curve size = "<<size;
+////      qDebug()<<"interval = "<<interval<<" size = "<<size;
+//    }
+//    oi ++ ;
+    for(int i=0;i<size;i++)
+    {
+      if(0 == i%interval)
+      {
+        cData.keys.append(c->cData()->keys.at(i));
+        cData.values.append(c->cData()->values.at(i));
+      }
+    }
+
+//    cData.keys.append(c->cData()->keys);
+//    cData.values.append(c->cData()->values);
 
     pd.m_dataHash.insert(c,cData);
     cInx++;

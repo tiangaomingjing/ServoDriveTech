@@ -16,6 +16,7 @@ class QTableWidget;
 class ICurve;
 class QTableWidgetItem;
 class QCPGraph;
+class OptPlot;
 
 class PLOTUNITGRAPHSHARED_EXPORT PlotUnitGraph129 : public IPlotUnitGraph
 {
@@ -94,6 +95,8 @@ private:
   void showAllData();
 
   bool checkCurveInSevDevice(ICurve *c);
+
+  OptPlot *optPlot(void);
 
 private:
   Ui::PlotUnitGraph129 *ui;

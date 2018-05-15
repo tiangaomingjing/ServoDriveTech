@@ -34,7 +34,8 @@ protected:
 
 signals:
     void plotParametersChanged();
-public slots:
+private slots:
+    void onComboBoxColorChanged(int inx);
 private:
   Ui::OptPlot *ui;
 private slots:

@@ -84,7 +84,10 @@ public:
     m_hideColor(QColor(Qt::white)),
     m_backHideColor(QColor(Qt::gray)),
     m_threadSample(NULL),
-    m_threadCalcultate(NULL)
+    m_threadCalcultate(NULL),
+    m_storeTime(20),
+    m_xDisplayTime(5),
+    m_xStoreTime(10)
   {
 
   }
@@ -102,6 +105,10 @@ protected:
   QColor m_backHideColor;
   ThreadSample *m_threadSample;
   ThreadCalculate *m_threadCalcultate;
+  double m_storeTime;
+  double m_xDisplayTime;
+  double m_xStoreTime;
+  double m_lastKeyTime;
 };
 
 PlotUnitGraph129::PlotUnitGraph129(const QList<SevDevice *> &sevList, QWidget *parent) :
@@ -368,6 +375,15 @@ void PlotUnitGraph129::onBtnMeaVClicked(bool checked)
 void PlotUnitGraph129::onBtnFitClicked()
 {
   ui->plot->rescaleAxes(true);
+
+  double low = ui->plot->yAxis->range().lower;
+  double upper = ui->plot->yAxis->range().upper;
+  double size = ui->plot->yAxis->range().size();
+  double dsize = 0.05*size;
+  QCPRange plottableRange(low - dsize,upper + dsize);
+  qDebug()<<"before:"<<ui->plot->yAxis->range().lower<<ui->plot->yAxis->range().upper<<ui->plot->yAxis->range().size();
+  ui->plot->yAxis->setRange(plottableRange);
+  qDebug()<<"after:"<<ui->plot->yAxis->range().lower<<ui->plot->yAxis->range().upper<<ui->plot->yAxis->range().size();
   ui->plot->replot();
 }
 
@@ -384,11 +400,14 @@ void PlotUnitGraph129::onBtnStartSampleClicked(bool checked)
   {
     clearGraphData();
     //检查曲线参数有效性
-//    checkCurveValid();
+    d->m_storeTime = optPlot()->storedTime();
+    d->m_xDisplayTime = optPlot()->xDisplayTime();
+    d->m_xStoreTime = optPlot()->xStoreTime();
+    d->m_lastKeyTime = 0;
 
     qDebug()<<"sampleScale "<<ui->comboBox_plot_sampling->currentText().toInt();
     d->m_curveManager->setSampleScale(ui->comboBox_plot_sampling->currentText().toInt());
-    d->m_curveManager->setStoreTime(60);
+    d->m_curveManager->setStoreTime(d->m_storeTime);
     d->m_curveManager->updateSamplPrms();
     //读取所有曲线静态变量
     for(int i=0;i<d->m_curveManager->curveList().size();i++)
@@ -411,10 +430,14 @@ void PlotUnitGraph129::onBtnStartSampleClicked(bool checked)
     qDebug()<<"curveManager samplprms size = "<<d->m_curveManager->samplPrms().size();
     d->m_threadSample = new ThreadSample(d->m_sevList,d->m_curveManager->samplPrms());
     d->m_threadCalcultate = new ThreadCalculate(d->m_curveManager->devCurves());
-    connect(d->m_threadSample,SIGNAL(sampleDataIn(SampleData)),d->m_threadCalcultate,SIGNAL(sampleDataIn(SampleData)));
-    connect(d->m_threadCalcultate,SIGNAL(plotDataIn(PlotData)),this,SLOT(onPlotDataIn(PlotData)));
+
+    connect(d->m_threadSample,SIGNAL(sampleDataIn(SampleData)),d->m_threadCalcultate,SIGNAL(sampleDataIn(SampleData)),Qt::QueuedConnection);
+    connect(d->m_threadCalcultate,SIGNAL(plotDataIn(PlotData)),this,SLOT(onPlotDataIn(PlotData)),Qt::QueuedConnection);
     d->m_threadCalcultate->start();
     d->m_threadSample->start();
+
+    d->m_threadSample->setPriority(QThread::TimeCriticalPriority);
+    d->m_threadCalcultate->setPriority(QThread::TimeCriticalPriority);
     qDebug()<<"start thread sample ";
   }
   else
@@ -749,6 +772,8 @@ void PlotUnitGraph129::onCurveTableItemEnteredMoreDetail(QTableWidgetItem * item
 
 void PlotUnitGraph129::onPlotDataIn(PlotData data)
 {
+  Q_D(PlotUnitGraph129);
+
   static quint64 count = 0;
   ICurve *c = NULL;
   double lastkeyValue =0;
@@ -767,9 +792,9 @@ void PlotUnitGraph129::onPlotDataIn(PlotData data)
     }
     if(row != -1)
     {
-      quint8 storeTimeS=10;
+      quint8 xStoreTimeS = d->m_xStoreTime;
       ui->plot->graph(row)->addData(data.m_dataHash.value(c).keys,data.m_dataHash.value(c).values);
-      ui->plot->graph(row)->data()->removeBefore(data.m_dataHash.value(c).keys.last() - storeTimeS);
+      ui->plot->graph(row)->data()->removeBefore(data.m_dataHash.value(c).keys.last() - xStoreTimeS);
       lastkeyValue=data.m_dataHash.value(c).keys.last();
 //      qDebug()<<"i = "<<i<<" last key = "<<lastkeyValue;
     }
@@ -780,12 +805,12 @@ void PlotUnitGraph129::onPlotDataIn(PlotData data)
 //    qDebug()<<"lastKey "<<lastkeyValue;
     if(lastkeyValue > 0 )
     {
-      ui->plot->xAxis->setRange(lastkeyValue, 5, Qt::AlignRight);
-      ui->plot->replot();
+      ui->plot->xAxis->setRange(lastkeyValue, d->m_xDisplayTime, Qt::AlignRight);
+      ui->plot->replot(QCustomPlot::rpQueuedReplot);
     }
   }
 
-  if(ui->tbtn_plot_auto->isChecked()&&(count%10 == 0))
+  if(ui->tbtn_plot_auto->isChecked()&&(count%50 == 0))
   {
     ui->plot->rescaleAxes(true);
   }
@@ -849,6 +874,7 @@ void PlotUnitGraph129::gtPlotInit()
   ui->plot->yAxis2->setVisible(false);
   ui->plot->yAxis2->setTickLabels(false);
   ui->plot->setBackground(QBrush(QColor(240,240,240)));
+  ui->plot->setOpenGl(true);
 }
 
 void PlotUnitGraph129::ctlPanelInit()
@@ -1338,6 +1364,15 @@ bool PlotUnitGraph129::checkCurveInSevDevice(ICurve *c)
     }
   }
   return ret;
+}
+
+OptPlot *PlotUnitGraph129::optPlot()
+{
+  OptPlot *op = NULL;
+
+  op = dynamic_cast<OptPlot *>(OptContainer::instance()->optItem("optplot"));
+
+  return op;
 }
 
 

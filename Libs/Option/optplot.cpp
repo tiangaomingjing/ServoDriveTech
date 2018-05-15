@@ -4,6 +4,12 @@
 
 #include <QDebug>
 
+class PlotColor{
+  QColor a;
+  QColor b;
+  QColor c;
+};
+
 class OptPlotPrivate:public IOptPrivate
 {
   Q_DECLARE_PUBLIC(OptPlot)
@@ -18,6 +24,7 @@ public:
   double m_storedTime;
   quint16 m_pointNum;
   QString m_color;
+  QMap<QString ,PlotColor>m_plotColorMap;
 };
 OptPlotPrivate::OptPlotPrivate()
 {
@@ -41,11 +48,12 @@ OptPlot::OptPlot(const QString &optName, QWidget *parent) : IOpt(optName,*new Op
 
   connect(ui->spinBox_plotDelay, SIGNAL(valueChanged(int)), this, SLOT(valueModified()));
   connect(ui->doubleSpinBox_plotXDisplayTime, SIGNAL(valueChanged(double)), this, SLOT(valueModified()));
+  connect(ui->doubleSpinBox_plotXStoreTime, SIGNAL(valueChanged(double)), this, SLOT(valueModified()));
   connect(ui->doubleSpinBox_ployYMax, SIGNAL(valueChanged(double)), this, SLOT(valueModified()));
   connect(ui->doubleSpinBox_plotYMin, SIGNAL(valueChanged(double)), this, SLOT(valueModified()));
   connect(ui->doubleSpinBox_plotStore, SIGNAL(valueChanged(double)), this, SLOT(valueModified()));
   connect(ui->spinBox_plotPoint, SIGNAL(valueChanged(int)), this, SLOT(valueModified()));
-  connect(ui->comboBox_plotColor, SIGNAL(currentIndexChanged(int)), this, SLOT(valueModified()));
+  connect(ui->comboBox_plotColor, SIGNAL(currentIndexChanged(int)), this, SLOT(onComboBoxColorChanged(int)));
 }
 OptPlot::~OptPlot()
 {
@@ -125,7 +133,7 @@ bool OptPlot::optActive()
     d->m_storedTime = ui->doubleSpinBox_plotStore->value();
     d->m_pointNum = ui->spinBox_plotPoint->value();
     d->m_color = ui->comboBox_plotColor->currentText();
-    emit plotParametersChanged();
+
   return true;
 }
 bool OptPlot::readOpt()
@@ -158,6 +166,14 @@ bool OptPlot::writeOpt()
 void OptPlot::respondErrorExecute()
 {
 
+}
+
+void OptPlot::onComboBoxColorChanged(int inx)
+{
+  //根据inx改变颜色组
+  //to be added
+  setModify(true);
+  emit plotParametersChanged();
 }
 
 void OptPlot::valueModified()

@@ -24,6 +24,7 @@ private:
   int maxPointSize();
 private:
   QList<DevCurves> m_devCurves;
+  int m_maxPoint;
 
 };
 
