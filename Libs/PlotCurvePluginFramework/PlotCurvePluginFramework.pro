@@ -6,4 +6,7 @@ SUBDIRS += \
     CurveUsrPos\
     CurveUsrPerr\
     CurveUsrVcmd\
+    CurveUsrVfb\
+    CurveUsrIcmd\
+    CurveUsrIfb\
     PluginsManager

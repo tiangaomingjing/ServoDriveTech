@@ -41,11 +41,13 @@ void CurveUsrVcmd::calculate()
 {
   double result = 0;
   double nos = dd.m_constInputs.at(0).constK;
+//  nos = 5000;
   dd.m_cData.values.clear();
   for(int i = 0;i<dd.m_varInputs.at(0).datas.size();i++)
   {
     result = (dd.m_varInputs.at(0).datas.at(i)/16777216.0)*nos;
     dd.m_cData.values.append(result);
+//    qDebug()<<QString("vcmd %1 cal: in = %2,out = %3").arg(dd.m_axisInx).arg(dd.m_varInputs.at(0).datas.at(i)).arg(result);
   }
 
 }

@@ -2,6 +2,8 @@
 #include "icurve.h"
 #include "gtutils.h"
 #include "sdtglobaldef.h"
+#include "sevdevice.h"
+#include "cmdmanager.h"
 
 #include <QMultiHash>
 #include <QDebug>
@@ -81,6 +83,96 @@ QColor CurveManager::color(int totalCount) const
 QList<DevSamplePrm> CurveManager::samplPrms() const
 {
   return m_samplPrms;
+}
+
+bool CurveManager::isOverMaxCurveSizeWhenAdd(ICurve *c)
+{
+  int size = varCurveTotalCount() + c->varInputsKeys().size();
+  return (size - CURVE_MAX_NUM) > 0;
+}
+
+bool CurveManager::checkCurveInSevDevice(SevDevice *dev, ICurve *c)
+{
+  bool ret = true;
+  QTreeWidget *ramTree=dev->axisTreeSource(c->axisInx(),"RAM");
+  QString curveName;
+  for(int i = 0;i<c->varInputsKeys().size();i++)
+  {
+    curveName = c->varInputsKeys().at(i);
+    QTreeWidgetItem *item = NULL ;
+    item = GTUtils::findItem(curveName,ramTree,GT::COL_FLASH_RAM_TREE_NAME);
+    if(item == NULL)
+    {
+      ret = false ;
+      break;
+    }
+  }
+  if(ret)
+  {
+    for(int i = 0;i<c->constInputKeys().size();i++)
+    {
+      curveName = c->constInputKeys().at(i);
+      QTreeWidgetItem *item = NULL ;
+      item  = GTUtils::findItem(curveName,ramTree,GT::COL_FLASH_RAM_TREE_NAME);
+      if(item == NULL)
+      {
+        ret = false ;
+        break;
+      }
+    }
+  }
+  return ret;
+}
+
+/**
+ * @brief CurveManager::updateCurveCtlPrmsFromDevice
+ * 在使用这个函数之前先确认曲线是不存在设备当中
+ * @param dev
+ * @param c
+ */
+void CurveManager::updateCurveCtlPrmsFromDevice(SevDevice *dev, ICurve *c)
+{
+  QTreeWidget *ramTree=dev->axisTreeSource(c->axisInx(),"RAM");
+  QTreeWidgetItem *item = NULL ;
+  QString keyName ;
+  CmdManager cmd;
+
+  c->setDevInx(dev->devId());
+
+  qDebug()<<"---------------------update curve :axis = "<<c->axisInx()<<"----------------------";
+  for(int i = 0;i<c->constInputKeys().size();i++)
+  {
+    keyName = c->constInputKeys().at(i);
+    item  = GTUtils::findItem(keyName,ramTree,GT::COL_FLASH_RAM_TREE_NAME);
+    if(item != NULL)
+    {
+      CurvePrm prm;
+      prm.baseAddr = cmd.getBaseAddress(keyName);
+      prm.bytes = GTUtils::byteNumbers(item->text(GT::COL_FLASH_RAM_TREE_TYPE));
+      prm.offtAddr = item->text(GT::COL_FLASH_RAM_TREE_ADDR).toUShort();
+      c->fillConstInputsPrm(i,prm);
+      qDebug()<<QString("fill constinput channel = %1 , keyName = %2 , baseAddr = %3 bytes = %4 offtAddr = %5")\
+                .arg(i).arg(keyName).arg(prm.baseAddr).arg(prm.bytes).arg(prm.offtAddr);
+    }
+  }
+  item = NULL;
+
+  for(int i = 0;i<c->varInputsKeys().size();i++)
+  {
+    keyName = c->varInputsKeys().at(i);
+    item = GTUtils::findItem(keyName,ramTree,GT::COL_FLASH_RAM_TREE_NAME);
+    if(item != NULL)
+    {
+      CurvePrm prm;
+      prm.baseAddr = cmd.getBaseAddress(keyName);
+      prm.bytes = GTUtils::byteNumbers(item->text(GT::COL_FLASH_RAM_TREE_TYPE));
+      prm.offtAddr = item->text(GT::COL_FLASH_RAM_TREE_ADDR).toUShort();
+      c->fillVarInputsPrm(i,prm);
+      qDebug()<<QString("fill varinput channel = %1 , keyName = %2 , baseAddr = %3 bytes = %4 offtAddr = %5\n")\
+                .arg(i).arg(keyName).arg(prm.baseAddr).arg(prm.bytes).arg(prm.offtAddr);
+    }
+  }
+
 }
 
 int CurveManager::sampleScale() const

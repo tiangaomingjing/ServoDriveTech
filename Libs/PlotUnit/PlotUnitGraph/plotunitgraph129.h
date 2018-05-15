@@ -16,6 +16,7 @@ class QTableWidget;
 class ICurve;
 class QTableWidgetItem;
 class QCPGraph;
+class OptPlot;
 
 class PLOTUNITGRAPHSHARED_EXPORT PlotUnitGraph129 : public IPlotUnitGraph
 {
@@ -62,9 +63,10 @@ private slots:
   void onTimeOut();
   void onListWidgetDeviceCurrentRowChanged(int row);
 
-  //曲线选择相关
+  //曲线相关
   void onBtnCurveAddClicked();
   void onExpertTreeWidgetDoubleClicked(QTableWidget *table,QTreeWidgetItem *item);
+  void onAddUsrCurveRequested(ICurve *c);
   void onBtnCurveRemoveClicked();
   void onBtnCurveClearClicked();
   void onBtnCurveShowAllClicked();
@@ -92,6 +94,9 @@ private:
 
   void showAllData();
 
+  bool checkCurveInSevDevice(ICurve *c);
+
+  OptPlot *optPlot(void);
 
 private:
   Ui::PlotUnitGraph129 *ui;

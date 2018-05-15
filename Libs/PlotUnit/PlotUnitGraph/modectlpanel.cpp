@@ -58,6 +58,8 @@ ModeCtlPanel::ModeCtlPanel(QWidget *parent):QWidget(parent),
   m_axisCount(0)
 {
   QVBoxLayout *vlayout=new QVBoxLayout(this);
+  vlayout->setSpacing(0);
+  vlayout->setMargin(0);
   setLayout(vlayout);
 }
 
@@ -66,6 +68,8 @@ ModeCtlPanel::ModeCtlPanel(quint16 axisCount,QWidget *parent) : QWidget(parent),
   m_keyCtlIsPressed(false)
 {
   QVBoxLayout *vlayout=new QVBoxLayout(this);
+  vlayout->setSpacing(0);
+  vlayout->setMargin(0);
   setLayout(vlayout);
 
   for(int i=0;i<axisCount;i++)

@@ -1,4 +1,4 @@
-#ifndef CMDMANAGER_H
+﻿#ifndef CMDMANAGER_H
 #define CMDMANAGER_H
 
 #include <QObject>
@@ -10,7 +10,7 @@ class GTUTILSSHARED_EXPORT CmdManager : public QObject
     Q_OBJECT
 public:
     explicit CmdManager(QObject *parent = 0);
-    int getValue(const QString &key);
+    int getBaseAddress(const QString &key);
 private:
     QString m_tablePath;
     QMap<QString, int> m_map;

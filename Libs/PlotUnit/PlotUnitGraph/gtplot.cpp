@@ -132,7 +132,7 @@ void GtPlot::clearVertiMea()
 void GtPlot::mousePressEvent(QMouseEvent *event)
 {
 
-  qDebug()<<"press-->";
+//  qDebug()<<"press-->";
   if((event->button()==Qt::LeftButton)&&(QApplication::keyboardModifiers()==Qt::ControlModifier))
   {
     setSelectionRectMode(QCP::srmZoom);
@@ -143,7 +143,7 @@ void GtPlot::mousePressEvent(QMouseEvent *event)
 
 void GtPlot::mouseReleaseEvent(QMouseEvent *event)
 {
-  qDebug()<<"release-->";
+//  qDebug()<<"release-->";
 
   QCustomPlot::mouseReleaseEvent(event);
   setSelectionRectMode(QCP::srmNone);

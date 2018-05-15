@@ -16,6 +16,7 @@ INCLUDEPATH +=$${MYLIB_PATH}/UI/IUiWidget\
               $${MYLIB_PATH}/UI/UiPlot\
               $${MYLIB_PATH}/Option\
               $${MYLIB_PATH}/GTUtils\
+              $${MYLIB_PATH}/GTUtils/CmdManager\
               $${MYLIB_PATH}/SDKernel\
               $${PWD}/../../../Common/src/SdtGlobal\
               $${PWD}/../IPlotUnit\

@@ -47,6 +47,6 @@ QString CurveUsrPos::name()
 
 QString CurveUsrPos::note()
 {
-  return tr("PositionFeedback");
+  return tr("Position Feedback");
 }
 

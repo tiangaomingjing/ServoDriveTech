@@ -1,4 +1,9 @@
 ﻿/*==========================全局属性===================================*/
+/*
+hover :#D0D0D0 ,color :black
+checked:gray ,color:white
+
+*/
 QDoubleSpinBox{
 	min-height:30px;
 	min-width:150px;
@@ -17,6 +22,61 @@ QDoubleSpinBox:!enabled{
 
 QMainWindow#CombinedWindow {
 	background-color:#F0F0F0;
+}
+
+QComboBox{
+	border-radius: 3px;
+	margin:0px;
+	padding-bottom:0px;
+	padding-top:0px;
+	padding-left:5px;
+	padding-right:0px;
+	border: none;
+	background-color:transparent;
+	min-height:24px;
+}
+QComboBox:hover{
+	border-radius: 3px;
+	padding-bottom:0px;
+	padding-top:0px;
+	padding-right:0px;
+	border: 1px solid #636363;
+	background-color: #D0D0D0;
+	color:black;
+}
+QComboBox::drop-down{
+	subcontrol-origin: padding;
+	subcontrol-position: top right;
+	width: 15px; 
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-left-color: transparent;
+}
+QComboBox::down-arrow{
+ 
+	image: url(../custom/option/style/black/icon/array_down.png);
+}
+
+QListView::item {
+	border: 1px solid #d9d9d9;
+	border-left-color: transparent;
+	border-top-color: transparent;
+	min-height:24px;
+}
+QListView::item:hover {
+	background: #D0D0D0;
+	border: 1px solid #bfcde4;
+}
+QListView::item:selected {
+	border: none;
+}
+QListView::item:selected:active{
+	background: gray;
+}
+QListView::item:selected:!active {
+	background: gray;
 }
 /*==========================main treeWidget 导航栏=====================*/
 QDockWidget  QTreeView {
@@ -58,25 +118,7 @@ QPushButton:hover:pressed{
   border-radius:5px;
   background: gray;
 }
-QListView::item {
-	border: 1px solid #d9d9d9;
-	border-left-color: transparent;
-	border-top-color: transparent;
-	min-height:30px;
-}
-QListView::item:hover {
-	background: lightgray;
-	border: 1px solid #bfcde4;
-}
-QListView::item:selected {
-	border: none;
-}
-QListView::item:selected:active{
-	background: gray;
-}
-QListView::item:selected:!active {
-	background: gray;
-}
+
 QWidget#dockWidgetContents_2{
 background-color: rgb(161, 161, 161);
 }
@@ -110,7 +152,6 @@ QToolButton[popupMode="1"] { /* only for MenuButtonPopup */
 QToolButton:hover:!pressed {
     background-color: gray;
 	border:none;
-	
 	font-weight:bold;
 }
 QToolButton:hover:pressed {
@@ -694,16 +735,16 @@ QWidget#widget_plot_up{
 	background-color:#F0F0F0;
 } 
 QWidget#widget_plot_up  QToolButton:hover{
-	background-color:#BBB9B9;
+	background-color:#D0D0D0;
 } 
 QWidget#widget_plot_up  QToolButton:checked{
 	background-color:#E0E0E0;
-	border: 1px solid #BBB9B9;
+	border: 1px solid #D0D0D0;
 	border-radius:5px;
 }
 QWidget#widget_plot_up  QToolButton:checked:hover{
-	background-color:#BBB9B9;
-	border: 1px solid #BBB9B9;
+	background-color:#D0D0D0;
+	border: 1px solid #D0D0D0;
 	border-radius:5px;
 }
 QWidget#widget_plot_up QToolButton:hover:pressed{
@@ -715,7 +756,7 @@ QWidget#widget_plot_up QToolButton{
 } 
 
 QWidget#widget_plotGraph_right QToolButton:hover{
-	background-color:#BBB9B9;
+	background-color:#C0C0C0;
 } 
 QWidget#widget_plotGraph_right QToolButton:hover:pressed{
 	background-color:gray;
@@ -738,39 +779,7 @@ QToolButton#tbtn_plot_servoOnMode:hover,QToolButton#tbtn_plot_servoGoMotion:hove
 }
 QTableWidget{
 	border:none;
-	background-color:lightgray;
+	background-color:#E8E8E8;
 }
-QWidget#widget_plotGraph_right  QComboBox{
-	border-radius: 3px;
-	margin:0px;
-	padding-bottom:0px;
-	padding-top:0px;
-	padding-left:10px;
-	padding-right:0px;
-	border: none;
-	background-color:transparent;
-}
-QWidget#widget_plotGraph_right  QComboBox:hover{
-	border-radius: 3px;
-	padding-bottom:0px;
-	padding-top:0px;
-	padding-left:10px;
-	padding-right:0px;
-	border: 1px solid #636363;
-	background-color: gray;
-}
-QWidget#widget_plotGraph_right  QComboBox::drop-down{
-	subcontrol-origin: padding;
-	subcontrol-position: top right;
-	width: 15px; 
-	border-left-width: 1px;
-	border-left-style: solid;
-	border-top-right-radius: 3px;
-	border-bottom-right-radius: 3px;
-	border-left-color: transparent;
-}
-QWidget#widget_plotGraph_right QComboBox::down-arrow{
- 
-	image: url(../custom/option/style/black/icon/array_down.png);
-}
+
 	

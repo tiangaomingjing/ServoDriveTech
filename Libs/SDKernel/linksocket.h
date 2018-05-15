@@ -36,6 +36,7 @@ public:
   bool readAdvItemFlash(int axisInx, QTreeWidgetItem *item);
   bool writeAdvItemFlash(int axisInx, QTreeWidgetItem *item);
   bool readAdvItemRam(int axisInx, QTreeWidgetItem *item);
+  bool readAdvItemRam(quint16 axisInx, quint16 offset, quint16 base, int bytesNum , double &result);
   bool writeAdvItemRam(int axisInx, QTreeWidgetItem *item);
 
   bool startPlot(const ComDriver::PlotControlPrm &ctrPrm);

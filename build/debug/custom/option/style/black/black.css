@@ -18,6 +18,60 @@ QDoubleSpinBox:!enabled{
 QMainWindow#CombinedWindow {
 	background-color:#F0F0F0;
 }
+
+QComboBox{
+	border-radius: 3px;
+	margin:0px;
+	padding-bottom:0px;
+	padding-top:0px;
+	padding-left:5px;
+	padding-right:0px;
+	border: none;
+	background-color:transparent;
+	min-height:24px;
+}
+QComboBox:hover{
+	border-radius: 3px;
+	padding-bottom:0px;
+	padding-top:0px;
+	padding-right:0px;
+	border: 1px solid #636363;
+	background-color: gray;
+	color:white;
+}
+QComboBox::drop-down{
+	subcontrol-origin: padding;
+	subcontrol-position: top right;
+	width: 15px; 
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-left-color: transparent;
+}
+QComboBox::down-arrow{
+ 
+	image: url(../custom/option/style/black/icon/array_down.png);
+}
+QListView::item {
+	border: 1px solid #d9d9d9;
+	border-left-color: transparent;
+	border-top-color: transparent;
+	min-height:24px;
+}
+QListView::item:hover {
+	background: lightgray;
+	border: 1px solid #bfcde4;
+}
+QListView::item:selected {
+	border: none;
+}
+QListView::item:selected:active{
+	background: gray;
+}
+QListView::item:selected:!active {
+	background: gray;
+}
 /*==========================main treeWidget 导航栏=====================*/
 QDockWidget  QTreeView {
 	border:1px solid lightgray;
@@ -58,25 +112,7 @@ QPushButton:hover:pressed{
   border-radius:5px;
   background: gray;
 }
-QListView::item {
-	border: 1px solid #d9d9d9;
-	border-left-color: transparent;
-	border-top-color: transparent;
-	min-height:30px;
-}
-QListView::item:hover {
-	background: lightgray;
-	border: 1px solid #bfcde4;
-}
-QListView::item:selected {
-	border: none;
-}
-QListView::item:selected:active{
-	background: gray;
-}
-QListView::item:selected:!active {
-	background: gray;
-}
+
 QWidget#dockWidgetContents_2{
 background-color: rgb(161, 161, 161);
 }
@@ -738,39 +774,7 @@ QToolButton#tbtn_plot_servoOnMode:hover,QToolButton#tbtn_plot_servoGoMotion:hove
 }
 QTableWidget{
 	border:none;
-	background-color:lightgray;
+	background-color:#E0E0E0;
 }
-QWidget#widget_plotGraph_right  QComboBox{
-	border-radius: 3px;
-	margin:0px;
-	padding-bottom:0px;
-	padding-top:0px;
-	padding-left:10px;
-	padding-right:0px;
-	border: none;
-	background-color:transparent;
-}
-QWidget#widget_plotGraph_right  QComboBox:hover{
-	border-radius: 3px;
-	padding-bottom:0px;
-	padding-top:0px;
-	padding-left:10px;
-	padding-right:0px;
-	border: 1px solid #636363;
-	background-color: gray;
-}
-QWidget#widget_plotGraph_right  QComboBox::drop-down{
-	subcontrol-origin: padding;
-	subcontrol-position: top right;
-	width: 15px; 
-	border-left-width: 1px;
-	border-left-style: solid;
-	border-top-right-radius: 3px;
-	border-bottom-right-radius: 3px;
-	border-left-color: transparent;
-}
-QWidget#widget_plotGraph_right QComboBox::down-arrow{
- 
-	image: url(../custom/option/style/black/icon/array_down.png);
-}
+
 	

@@ -40,6 +40,7 @@ public:
   //单位处理
   void addUnit(const QString &uName,double k);
   void setUnit(const QString &uName);
+  double unitValue(const QString &uName);
   double curUnitK();
   QString curUnitName();
   QStringList unitNames();

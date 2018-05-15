@@ -824,11 +824,15 @@ void SDTMainWindow::onActnHelpDeviceInfoClicked()
 }
 void SDTMainWindow::onActnNewConfigClicked()
 {
+  setUiAllEnable(false);
   QList<DeviceConfig *>list;
   ConfigDialog dia(&list,0);
   if(QDialog::Rejected==dia.exec())
-     return;
-  setUiAllEnable(false);
+  {
+    setUiAllEnable(true);
+    return;
+  }
+
   m_statusBar->statusProgressBar()->setVisible(true);
   m_statusBar->statusProgressBar()->setValue(0);
   updateSDTMainUiByConfigList(list);

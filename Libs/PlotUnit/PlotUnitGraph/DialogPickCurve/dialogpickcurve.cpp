@@ -2,9 +2,12 @@
 #include "ui_dialogpickcurve.h"
 #include "Option"
 #include "gtutils.h"
+#include "icurve.h"
 
 #include <QButtonGroup>
 #include <QDebug>
+#include <QComboBox>
+#include <QStyledItemDelegate>
 
 #define ICON_NAME_USR         "plot_curve_usr.png"
 #define ICON_NAME_EXPERT      "plot_curve_expert.png"
@@ -15,6 +18,17 @@ enum UsrRoleIndex{
   USR_ROLE_EXPERT,
   USR_ROLE_CUSTOM
 };
+enum UsrCurveColumn{
+  COL_USR_CURVE_NAME,
+  COL_USR_CURVE_NOTE,
+  COL_USR_CURVE_UNIT,
+  COL_USR_CURVE_SIZE
+};
+typedef enum{
+  ROLE_USR_TABLE_CURVE_ICURVE_PTR = Qt::UserRole+1
+}UsrCurveTableDataRole;
+
+Q_DECLARE_METATYPE(ICurve*)
 
 DialogPickCurve::DialogPickCurve(QWidget *parent) :
   QDialog(parent),
@@ -34,13 +48,16 @@ DialogPickCurve::DialogPickCurve(QWidget *parent) :
   ui->stackedWidget_plotCurve->setCurrentIndex(USR_ROLE_USR);
 
   ui->tableWidget_usr->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+  ui->tableWidget_usr->setEditTriggers(QTableView::NoEditTriggers);
+  ui->tableWidget_usr->setAlternatingRowColors(true);
+  ui->tableWidget_usr->setSelectionBehavior(QAbstractItemView::SelectRows);//整行选中的方式
 
   connect(ui->btn_curve_custom,SIGNAL(clicked(bool)),this,SLOT(onUserSelectChanged()));
   connect(ui->btn_curve_user,SIGNAL(clicked(bool)),this,SLOT(onUserSelectChanged()));
   connect(ui->btn_curve_expert,SIGNAL(clicked(bool)),this,SLOT(onUserSelectChanged()));
   connect(ui->treeWidgetExpert,SIGNAL(itemExpanded(QTreeWidgetItem*)),this,SLOT(onTreeWidgetExpertExpandedClicked()));
   connect(ui->treeWidgetExpert,SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),this,SLOT(onExpertTreeWidgetDoubleClicked(QTreeWidgetItem*,int)));
-
+  connect(ui->tableWidget_usr,SIGNAL(cellDoubleClicked(int,int)),this,SLOT(onUsrTableCellDoubleClicked(int,int)));
 }
 
 DialogPickCurve::~DialogPickCurve()
@@ -49,7 +66,7 @@ DialogPickCurve::~DialogPickCurve()
   delete ui;
 }
 
-void DialogPickCurve::addExpertTreeWidget(const QTreeWidget *tree)
+void DialogPickCurve::expertTreeWidgetInit(const QTreeWidget *tree)
 {
   QTreeWidgetItem *item;
   for(int i=0;i<tree->topLevelItemCount();i++)
@@ -72,7 +89,7 @@ void DialogPickCurve::addExpertTreeWidget(const QTreeWidget *tree)
   ui->treeWidgetExpert->resizeColumnToContents(1);
 }
 
-void DialogPickCurve::setAxisTable(int axisCount)
+void DialogPickCurve::axisTableInit(int axisCount)
 {
   //各个轴号的选择表
   QTableWidgetItem *tableItem;
@@ -91,6 +108,59 @@ void DialogPickCurve::setAxisTable(int axisCount)
     ui->tableWidget_axis->setItem(0,i,tableItem);
   }
   ui->tableWidget_axis->item(0,0)->setSelected(true);
+}
+
+void DialogPickCurve::usrCurveTableInit(QList<ICurve *> curves)
+{
+  ICurve *c = NULL;
+  QTableWidgetItem *item = NULL;
+  qDebug()<<"curves size = "<<curves.size();
+  for(int i=0;i<curves.size();i++)
+  {
+    c = curves.at(i);
+    ui->tableWidget_usr->insertRow(i);
+    for(int col = 0;col <COL_USR_CURVE_SIZE;col++)
+    {
+
+      switch(col)
+      {
+      case COL_USR_CURVE_NAME:
+      {
+        QVariant v;
+        item = new QTableWidgetItem;
+        item->setText(c->name());
+        v.setValue(c);
+        item->setData(ROLE_USR_TABLE_CURVE_ICURVE_PTR,v);
+        ui->tableWidget_usr->setItem(i,col,item);
+      }
+      break;
+
+      case COL_USR_CURVE_NOTE:
+        item = new QTableWidgetItem;
+        item->setText(c->note());
+        item->setTextAlignment(Qt::AlignCenter);
+        ui->tableWidget_usr->setItem(i,col,item);
+      break;
+
+      case COL_USR_CURVE_UNIT:
+      {
+        QComboBox *comboBox = new QComboBox;
+        QStyledItemDelegate* itemDelegate = new QStyledItemDelegate(comboBox);
+        comboBox->setItemDelegate(itemDelegate);
+        qDebug()<<"unit names = "<<c->unitNames().size();
+        for(int inx=0;inx<c->unitNames().size();inx++)
+        {
+          QString key = c->unitNames().at(inx);
+          double factor = c->unitValue(key);
+          comboBox->addItem(key,factor);
+        }
+        ui->tableWidget_usr->setCellWidget(i,col,comboBox);
+      }
+      break;
+
+      }
+    }
+  }
 }
 
 
@@ -116,6 +186,30 @@ void DialogPickCurve::onExpertTreeWidgetDoubleClicked(QTreeWidgetItem *item, int
   Q_UNUSED(column);
 
   emit expertTreeItemDoubleClicked(ui->tableWidget_axis,item);
+}
+
+void DialogPickCurve::onUsrTableCellDoubleClicked(int row, int column)
+{
+  Q_UNUSED(column);
+  int axisCount = ui->tableWidget_axis->columnCount();
+  for(int axis=0;axis<axisCount;axis++)
+  {
+    if(ui->tableWidget_axis->item(0,axis)->isSelected())
+    {
+      ICurve *c = ui->tableWidget_usr->item(row,COL_USR_CURVE_NAME)->data(ROLE_USR_TABLE_CURVE_ICURVE_PTR).value<ICurve *>();
+      QComboBox *box =dynamic_cast<QComboBox * >(ui->tableWidget_usr->cellWidget(row,COL_USR_CURVE_UNIT)) ;
+      double k = box->currentData().toDouble();
+      QString uName = box->currentText();
+      ICurve *newCurve = c->clone();
+
+      qDebug()<<"unit k = "<<k;
+      newCurve->setUnit(uName);
+      newCurve->setAxisInx(axis);
+      newCurve->setAxisCount(axisCount);
+      qDebug()<<newCurve->curUnitName()<<" curve unit k = "<<newCurve->curUnitK() <<"axis = "<<newCurve->axisInx();
+      emit addUsrCurveRequest(newCurve);
+    }
+  }
 }
 
 void DialogPickCurve::setIcons()

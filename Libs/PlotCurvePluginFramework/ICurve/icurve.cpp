@@ -17,6 +17,7 @@ void ICurve::prepare()
   setName(name());
   setNote(note());
   init();
+  qDebug()<<name()<<"prepare";
 }
 
 void ICurve::exec()
@@ -38,12 +39,24 @@ void ICurve::setNote(const QString &note)
 
 QString ICurve::displayName()
 {
-  return QObject::tr("%1.%2").arg(dd.m_name).arg(dd.m_unitName);
+  QString dname ;
+  if(dd.m_unitName == "NULL")
+    dname = QObject::tr("%1").arg(dd.m_name);
+  else
+    dname = QObject::tr("%1(%2)").arg(dd.m_name).arg(dd.m_unitName);
+
+  return dname;
 }
 
 QString ICurve::fullName()
 {
-  return QObject::tr("%1.%2.%3").arg(name()).arg(note()).arg(dd.m_unitName);
+  QString fname ;
+  if(dd.m_unitName == "NULL")
+    fname = QObject::tr("%1.%2").arg(name()).arg(note());
+  else
+    fname = QObject::tr("%1.%2(%3)").arg(name()).arg(note()).arg(dd.m_unitName);
+
+  return fname;
 }
 
 
@@ -126,6 +139,7 @@ void ICurve::adjustData()
     dd.m_sData.values.remove(0,overSize);
 //    qDebug()<<"store data size = "<<dd.m_sData.values.size();
   }
+
 }
 
 void ICurve::updateCurrentTime()
@@ -273,11 +287,7 @@ void ICurve::addVarInputByName(const QString &name)
 void ICurve::addUnit(const QString &uName, double k)
 {
   dd.m_units.insert(uName,k);
-  for(int i = 0;i<dd.m_unitNameList.size();i++)
-  {
-    if(dd.m_unitNameList.at(i) != uName)
-      dd.m_unitNameList.append(uName);
-  }
+  dd.m_unitNameList.append(uName);
 }
 
 void ICurve::setUnit(const QString &uName)
@@ -287,6 +297,16 @@ void ICurve::setUnit(const QString &uName)
     dd.m_unitName=uName;
     dd.m_k=dd.m_units.value(uName);
   }
+}
+
+double ICurve::unitValue(const QString &uName)
+{
+  double v = 1;
+  if(dd.m_units.contains(uName))
+  {
+    v=dd.m_units.value(uName);
+  }
+  return v;
 }
 
 double ICurve::curUnitK()
@@ -315,4 +335,5 @@ ICurve::ICurvePrivate::ICurvePrivate()
   m_samplInterval=62.5*0.000001;
   m_storePointCount=10*1000000/62.5;
   m_axisCount = 4;
+  m_unitName = "NULL";
 }

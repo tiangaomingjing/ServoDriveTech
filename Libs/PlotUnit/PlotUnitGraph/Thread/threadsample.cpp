@@ -50,7 +50,6 @@ void ThreadSample::run()
     sample.curves.clear();
 
 
-
     for(int i=0;i<m_samplPrms.size();i++)//设备
     {
       samplPrmPtr=&(m_samplPrms.at(i));
@@ -61,12 +60,13 @@ void ThreadSample::run()
         prm=&(samplPrmPtr->m_prms.at(j));//DSP j
         sample.dspId=prm->dspIndex;
         m_sevList.at(sample.devId)->getPlotData(*prm,sample.curves);
-        emit sampleDataIn(sample);
+        if(sample.curves.size() > 0)
+          emit sampleDataIn(sample);
       }
     }
 
     count++;
-    msleep(50);
+    msleep(60);
   }
 
   stopSampling();

@@ -19,7 +19,8 @@ public:
   void uiInit()Q_DECL_OVERRIDE;
 
   quint16 delayTime();
-  double xLength();
+  double xStoreTime();
+  double xDisplayTime();
   double yMax();
   double yMin();
   double storedTime();
@@ -33,7 +34,8 @@ protected:
 
 signals:
     void plotParametersChanged();
-public slots:
+private slots:
+    void onComboBoxColorChanged(int inx);
 private:
   Ui::OptPlot *ui;
 private slots:

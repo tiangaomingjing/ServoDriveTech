@@ -1,10 +1,12 @@
 ﻿#include "threadcalculate.h"
 #include <QDebug>
+#include "Option"
 using namespace ComDriver;
 CalculateWorker::CalculateWorker(const QList<DevCurves> & devCurves,QObject *parent) : QObject(parent),
   m_devCurves(devCurves)
 {
-
+  OptPlot *op = dynamic_cast<OptPlot *>(OptContainer::instance()->optItem("optplot"));
+  m_maxPoint = op->pointNum();
 }
 
 CalculateWorker::~CalculateWorker()
@@ -13,7 +15,7 @@ CalculateWorker::~CalculateWorker()
 }
 int CalculateWorker::maxPointSize()
 {
-  return 1000;
+  return m_maxPoint;
 }
 
 void CalculateWorker::onSampleDataIn(SampleData data)
@@ -50,30 +52,38 @@ void CalculateWorker::onSampleDataIn(SampleData data)
     //曲线输入，并计算
     for(int i=0;i<c->varInputsKeys().size();i++)
     {
-      CurveDatas vec= *it;
-      c->setVarInputVector(i,QVector<double>::fromStdVector(vec));
+//      CurveDatas vec= *it;
+      c->setVarInputVector(i,QVector<double>::fromStdVector(*it));
       it++;
     }
     c->exec();
 
     //取样输出
     CurveData cData;
-//    int maxPoint=maxPointSize();
-//    quint16 size=c->cData()->values.size();
-//    int interval=size/maxPoint;
-//    if(interval == 0)
-//      interval = 1;
-////    qDebug()<<"interval = "<<interval<<" size = "<<size;
-//    for(int i=0;i<size;i++)
+    int maxPoint=maxPointSize();
+    quint16 size=c->cData()->values.size();
+
+    int interval=size/maxPoint;
+    if(interval == 0)
+      interval = 1;
+//    static quint32 oi = 0;
+//    if(oi % 20 ==0)
 //    {
-//      if(0 == i%interval)
-//      {
-//        cData.keys.append(c->cData()->keys.at(i));
-//        cData.values.append(c->cData()->values.at(i));
-//      }
+//      qDebug()<<"curve size = "<<size;
+////      qDebug()<<"interval = "<<interval<<" size = "<<size;
 //    }
-    cData.keys.append(c->cData()->keys);
-    cData.values.append(c->cData()->values);
+//    oi ++ ;
+    for(int i=0;i<size;i++)
+    {
+      if(0 == i%interval)
+      {
+        cData.keys.append(c->cData()->keys.at(i));
+        cData.values.append(c->cData()->values.at(i));
+      }
+    }
+
+//    cData.keys.append(c->cData()->keys);
+//    cData.values.append(c->cData()->values);
 
     pd.m_dataHash.insert(c,cData);
     cInx++;

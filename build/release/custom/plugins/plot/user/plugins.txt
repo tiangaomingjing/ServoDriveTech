@@ -1,0 +1,6 @@
+CurveUsrPos
+CurveUsrPerr
+CurveUsrVcmd
+CurveUsrVfb
+CurveUsrIcmd
+CurveUsrIfb

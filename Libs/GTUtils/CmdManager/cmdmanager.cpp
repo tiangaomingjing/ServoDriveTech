@@ -1,4 +1,4 @@
-#include "cmdmanager.h"
+﻿#include "cmdmanager.h"
 #include "gtutils.h"
 
 #include <QSettings>
@@ -12,12 +12,20 @@ CmdManager::CmdManager(QObject *parent) : QObject(parent)
     iniMap();
 }
 
-int CmdManager::getValue(const QString &key)
+int CmdManager::getBaseAddress(const QString &key)
 {
-    int result = -1;
-    if (m_map.contains(key)) {
-        result = m_map.value(key);
+  int result = -1;
+  QStringList list = key.split(".");
+//  qDebug()<<"key = "<<list;
+//  qDebug()<<"map "<<m_map.keys();
+  if(!list.isEmpty())
+  {
+    QString first = list.at(0);
+    if (m_map.contains(first)) {
+      result = m_map.value(first);
+      qDebug()<<"find value"<<first<<result;
     }
+  }
     return result;
 }
 
@@ -36,7 +44,7 @@ void CmdManager::iniMap()
     int value;
     value = data("ramPage", "gSevDrv", 0).toInt();
     m_map.insert("gSevDrv", value);
-    value = data("ramPage", "gAuxFunc", 0).toInt();
+    value = data("ramPage", "gAuxFunc", 1).toInt();
     m_map.insert("gAuxFunc", value);
 }
 
