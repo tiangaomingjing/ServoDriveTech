@@ -34,8 +34,8 @@ QVariant CmdManager::data(const QString &group, const QString &key, const QVaria
 void CmdManager::iniMap()
 {
     int value;
-    value = data("ramPage", "gSerDrv", 0).toInt();
-    m_map.insert("gSerDrv", value);
+    value = data("ramPage", "gSevDrv", 0).toInt();
+    m_map.insert("gSevDrv", value);
     value = data("ramPage", "gAuxFunc", 0).toInt();
     m_map.insert("gAuxFunc", value);
 }

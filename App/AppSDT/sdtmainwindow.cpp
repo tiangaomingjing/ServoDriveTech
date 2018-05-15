@@ -695,9 +695,10 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
         //3 是否要进行参数检查 m_versionNeedCheck=(softIsBigger128&&hardIsBigger128);
       }*/
       DeviceIdHelper idHelper;
-      IVerMatching *vMatch=new MemeryVerMatching;
+      //IVerMatching *vMatch=new MemeryVerMatching;
+      IVerMatching *dbMatch=new DbVerMatching;
       IVerMatching::CheckStatus checkStatus=IVerMatching::CHECK_STA_OK;
-      vMatch->open();
+      dbMatch->open();
       foreach (SdAssembly*sd, m_sdAssemblyList)
       {
         ComDriver::ICom *com=sd->sevDevice()->socketCom();
@@ -738,7 +739,8 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
           verInfo.f=f;
           verInfo.p=p;
           verInfo.v=v;
-          checkStatus=vMatch->check(verInfo);
+          //checkStatus=vMatch->check(verInfo);
+          checkStatus = dbMatch->check(verInfo);
         }
 
         if(checkStatus!=IVerMatching::CHECK_STA_OK)
@@ -759,8 +761,10 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
         sd->sevDevice()->setVersionAttributeActive();
 
       }
-      vMatch->close();
-      delete vMatch;
+//      vMatch->close();
+//      delete vMatch;
+      dbMatch->close();
+      delete dbMatch;
 
       if(isContinue)
       {
