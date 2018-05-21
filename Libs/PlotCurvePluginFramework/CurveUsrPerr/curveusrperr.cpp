@@ -22,6 +22,7 @@ ICurve *CurveUsrPerr::clone()
 {
   ICurve *c=new CurveUsrPerr();
   c->prepare();
+  c->setPluginName(dd.m_pluginName);
   return c;
 }
 

@@ -436,6 +436,11 @@ void SDTMainWindow::navigationTreeInit()
   }
 
 #if UI_TREE_SHOW_COLUMN==1
+  ui->treeWidget->setHeaderHidden(false);
+  ui->treeWidget->setColumnCount(7);
+#endif
+#if UI_TREE_SHOW_COLUMN==0
+
   ui->treeWidget->setHeaderHidden(true);
   ui->treeWidget->setColumnHidden(1,true);
   ui->treeWidget->setColumnHidden(2,true);
@@ -443,10 +448,6 @@ void SDTMainWindow::navigationTreeInit()
   ui->treeWidget->setColumnHidden(4,true);
   ui->treeWidget->setColumnHidden(5,true);
   ui->treeWidget->setColumnHidden(6,true);
-#endif
-#if UI_TREE_SHOW_COLUMN==0
-  ui->treeWidget->setHeaderHidden(false);
-  ui->treeWidget->setColumnCount(7);
 #endif
 
   m_statusBar->updateDeviceNavTreeWhenChanged(ui->treeWidget);
@@ -465,6 +466,7 @@ void SDTMainWindow::globalUiPageInit()
     sevList.append(m_sdAssemblyList.at(i)->sevDevice());
   m_gUiControl=new GlobalUiControler(sevList);
   connect(this,SIGNAL(appClosed()),m_gUiControl,SIGNAL(appClosed()),Qt::QueuedConnection);
+  connect(this,SIGNAL(beforeSevDeviceChanged()),m_gUiControl,SIGNAL(beforeSevDeviceChanged()));
   m_gUiControl->createUis();
 }
 void SDTMainWindow::stackedWidgetInit()
@@ -829,6 +831,7 @@ void SDTMainWindow::onActnNewConfigClicked()
     return;
   }
 
+  emit beforeSevDeviceChanged();
   m_statusBar->statusProgressBar()->setVisible(true);
   m_statusBar->statusProgressBar()->setValue(0);
   updateSDTMainUiByConfigList(list);

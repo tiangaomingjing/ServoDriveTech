@@ -80,6 +80,11 @@ typedef enum{
   COL_FLASH_RAM_TREE_BITWIDTH
 }FlashRamColumn;
 
+typedef enum {
+  SEV_CTL_SRC_PC,
+  SEV_CTL_SRC_GLINK2
+}SevControlSrc;
+
 template <typename T>
 static void deepClearList(QList<T*>&list)
 {

@@ -66,15 +66,15 @@ errcode_t PcDebug::clearAlarm(uint8_t axis)
   return ret;
 }
 
-errcode_t PcDebug::setServoTaskMode(uint8_t axis,ServoTaskMode_t mode)
+errcode_t PcDebug::setServoTaskMode(uint8_t axis,TaskServoMode mode)
 {
   Q_D(PcDebug);
 
-  int16_t ret=GTSD_CMD_SetServoTaskMode(axis,(ServoTaskMode)mode ,d->m_comType);
+  int16_t ret=GTSD_CMD_SetServoTaskMode(axis,(TaskServoMode)mode ,d->m_comType);
   return ret;
 }
 
-ServoTaskMode_t PcDebug::currentServoTaskMode(uint8_t axis,errcode_t &errcode)
+TaskServoMode PcDebug::currentServoTaskMode(uint8_t axis,errcode_t &errcode)
 {
   Q_D(PcDebug);
   SERVO_MODE mode;
@@ -82,7 +82,7 @@ ServoTaskMode_t PcDebug::currentServoTaskMode(uint8_t axis,errcode_t &errcode)
   ret=GTSD_CMD_GetServoTaskMode(axis,&mode,d->m_comType);
   errcode=ret;
 
-  return ServoTaskMode_t(mode.usr_mode);
+  return TaskServoMode(mode.usr_mode);
 }
 
 errcode_t PcDebug::setIdRef(uint8_t axis ,double idRef)
@@ -131,6 +131,16 @@ errcode_t PcDebug::getSpdRef(uint8_t axis,double &value)
   SPD_STATE spdState;
   int16_t ret=GTSD_CMD_GetSpdRef(axis,&spdState,d->m_comType);
   value=spdState.ctl_spd_ref;
+  return ret;
+}
+
+errcode_t PcDebug::getSpdFb(uint8_t axis, double &value)
+{
+  Q_D(PcDebug);
+
+  SPD_STATE spdState;
+  int16_t ret=GTSD_CMD_GetSpdRef(axis,&spdState,d->m_comType);
+  value=spdState.rsv_mot_spd;
   return ret;
 }
 errcode_t PcDebug::setUdRef(uint8_t axis,double udRef)

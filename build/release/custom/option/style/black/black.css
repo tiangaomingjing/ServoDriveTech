@@ -78,6 +78,23 @@ QListView::item:selected:active{
 QListView::item:selected:!active {
 	background: gray;
 }
+
+QCheckBox{
+    margin:0px 0px 0px 0px;
+}
+QCheckBox::indicator::unchecked{
+    image:url(../custom/option/style/black/icon/checkbox_unchecked.png);
+}
+QCheckBox::indicator:unchecked:hover{
+    image:url(../custom/option/style/black/icon/checkbox_unchecked_hover.png);
+}
+QCheckBox::indicator::checked {
+    image:url(../custom/option/style/black/icon/checkbox_checked.png);
+}
+/*QCheckBox::indicator:checked:hover{
+    image:url(../custom/option/style/black/icon/checkbox_checked_hover.png);
+}*/
+
 /*==========================main treeWidget 导航栏=====================*/
 QDockWidget  QTreeView {
 	border:1px solid lightgray;
@@ -769,7 +786,7 @@ QWidget#widget_plotGraph_right QToolButton{
 
 
 QToolButton#tbtn_plot_servoOnMode,QToolButton#tbtn_plot_servoGoMotion{
-	background-color:transparent
+	background-color:transparent;
 	
 }
 QToolButton#tbtn_plot_servoOnMode:hover,QToolButton#tbtn_plot_servoGoMotion:hover{
@@ -777,6 +794,30 @@ QToolButton#tbtn_plot_servoOnMode:hover,QToolButton#tbtn_plot_servoGoMotion:hove
 	border-radius:50px;
 	
 }
+/************PC GLINK2 ToolButton******/
+QToolButton#tbtn_plot_ctlsrc_pc:hover,QToolButton#tbtn_plot_ctlsrc_glink2:hover{
+	background-color:#D0D0D0;
+} 
+QToolButton#tbtn_plot_ctlsrc_pc:checked,QToolButton#tbtn_plot_ctlsrc_glink2:checked{
+	background-color:#E0E0E0;
+	border: 1px solid gray;
+	border-radius:5px;
+}
+QToolButton#tbtn_plot_ctlsrc_pc:checked:hover,QToolButton#tbtn_plot_ctlsrc_glink2:checked:hover{
+	background-color:#D0D0D0;
+	border: 1px solid #D0D0D0;
+	border-radius:5px;
+}
+QToolButton#tbtn_plot_ctlsrc_pc:hover:pressed,QToolButton#tbtn_plot_ctlsrc_glink2:hover:pressed{
+	background-color:gray;
+} 
+QToolButton#tbtn_plot_ctlsrc_pc,QToolButton#tbtn_plot_ctlsrc_glink2{
+	background-color:transparent;
+	min-width:40px;
+	color:black;
+}
+
+
 QTableWidget{
 	border:none;
 	background-color:#E8E8E8;

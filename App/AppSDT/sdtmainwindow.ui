@@ -77,6 +77,12 @@
    </property>
   </widget>
   <widget class="QDockWidget" name="dockWidgetNav">
+   <property name="maximumSize">
+    <size>
+     <width>524287</width>
+     <height>524287</height>
+    </size>
+   </property>
    <property name="features">
     <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
    </property>

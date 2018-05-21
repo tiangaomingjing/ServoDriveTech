@@ -64,6 +64,7 @@ public:
   bool checkCurveInSevDevice(SevDevice *dev,ICurve *c);
   void updateCurveCtlPrmsFromDevice(SevDevice *dev ,ICurve *c);
 
+
 signals:
 
 public slots:

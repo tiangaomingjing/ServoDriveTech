@@ -18,6 +18,7 @@ public:
   ~TabCtlPanel129();
 
   void setupIcons(const QString &css);
+  void updateServoStatus();
 
 signals:
 
@@ -26,9 +27,20 @@ protected:
   bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
 
 private slots:
+  //tab1
   void onModeCtlPanelCheckChanged(quint16 axis,int mode);
   void onModeCtlPanelModeChanged(quint16 axis,int mode);
+  void onModeSpinBoxValueChanged(int value);
+  void onBtnServoOnClicked(bool checked);
+  //tab2
   void onCheckBoxCircleSWClicked();
+  void onMotionAxisRowChanged(int row);
+  void onBtnCtlSrcPcClicked();
+  void onBtnCtlSrcGLink2Clicked();
+
+
+private:
+  void setUiCurrentCtlSrc(int src);
 
 private:
   friend class PlotUnitGraph129;

@@ -1,8 +1,28 @@
 ﻿#include "icurve.h"
+#include "gtutils.h"
+
 #include <QHash>
 #include <QVector>
 #include <QDebug>
+#include <QTreeWidgetItem>
 
+#define XML_NODE_CURVE            "Curve"
+#define XML_NODE_DEVINX           "DevIndex"
+#define XML_NODE_AXISINX          "AxisIndex"
+#define XML_NODE_AXISCOUNT        "AxisCount"
+#define XML_NODE_NAME             "Name"
+#define XML_NODE_NOTE             "Note"
+#define XML_NODE_COLOR            "Color"
+#define XML_NODE_ISDRAW           "IsDraw"
+#define XML_NODE_UNIT             "Unit"
+#define XML_NODE_CONSTINPUTS      "ConstInputs"
+#define XML_NODE_VARINPUTS        "VarInputs"
+
+class UnitKeyValue{
+public:
+  QString key;
+  double value;
+};
 
 ICurve::~ICurve()
 {
@@ -57,6 +77,293 @@ QString ICurve::fullName()
     fname = QObject::tr("%1.%2(%3)").arg(name()).arg(note()).arg(dd.m_unitName);
 
   return fname;
+}
+
+/**
+ * @brief ICurve::write
+ * 序列化对象到 QTreeWidgetItem
+ * @param treeItem
+ */
+void ICurve::write(QTreeWidgetItem *treeItem)
+{
+  treeItem->setText(COL_CURVE_XML_NAME,XML_NODE_CURVE);
+  treeItem->setText(COL_CURVE_XML_VALUE,dd.m_pluginName);
+
+  QTreeWidgetItem *devItem = new QTreeWidgetItem(treeItem);
+  devItem->setText(COL_CURVE_XML_NAME,XML_NODE_DEVINX);
+  devItem->setText(COL_CURVE_XML_VALUE,QString::number(dd.m_devInx));
+
+  QTreeWidgetItem *axisItem = new QTreeWidgetItem(treeItem);
+  axisItem->setText(COL_CURVE_XML_NAME,XML_NODE_AXISINX);
+  axisItem->setText(COL_CURVE_XML_VALUE,QString::number(dd.m_axisInx));
+
+  QTreeWidgetItem *axisCountItem = new QTreeWidgetItem(treeItem);
+  axisCountItem->setText(COL_CURVE_XML_NAME,XML_NODE_AXISCOUNT);
+  axisCountItem->setText(COL_CURVE_XML_VALUE,QString::number(dd.m_axisCount));
+
+  QTreeWidgetItem *nameItem = new QTreeWidgetItem(treeItem);
+  nameItem->setText(COL_CURVE_XML_NAME,XML_NODE_NAME);
+  nameItem->setText(COL_CURVE_XML_VALUE,dd.m_name);
+
+  QTreeWidgetItem *noteItem = new QTreeWidgetItem(treeItem);
+  noteItem->setText(COL_CURVE_XML_NAME,XML_NODE_NOTE);
+  noteItem->setText(COL_CURVE_XML_VALUE,dd.m_note);
+
+  QTreeWidgetItem *colorItem = new QTreeWidgetItem(treeItem);
+  colorItem->setText(COL_CURVE_XML_NAME,XML_NODE_COLOR);
+  QTreeWidgetItem * colorItem_R=new QTreeWidgetItem(colorItem);//R
+  colorItem_R->setText(COL_CURVE_XML_NAME,"ColorR");
+  colorItem_R->setText(COL_CURVE_XML_VALUE,QString::number(dd.m_color.red()));
+  QTreeWidgetItem * colorItem_G=new QTreeWidgetItem(colorItem);//G
+  colorItem_G->setText(COL_CURVE_XML_NAME,"ColorR");
+  colorItem_G->setText(COL_CURVE_XML_VALUE,QString::number(dd.m_color.green()));
+  QTreeWidgetItem * colorItem_B=new QTreeWidgetItem(colorItem);//B
+  colorItem_B->setText(COL_CURVE_XML_NAME,"ColorR");
+  colorItem_B->setText(COL_CURVE_XML_VALUE,QString::number(dd.m_color.blue()));
+
+  QTreeWidgetItem *isDrawItem = new QTreeWidgetItem(treeItem);
+  isDrawItem->setText(COL_CURVE_XML_NAME,XML_NODE_ISDRAW);
+  if(dd.m_isDraw)
+    isDrawItem->setText(COL_CURVE_XML_VALUE,"1");
+  else
+    isDrawItem->setText(COL_CURVE_XML_VALUE,"0");
+
+  //单位
+  QTreeWidgetItem *unitItem = new QTreeWidgetItem(treeItem);
+  unitItem->setText(COL_CURVE_XML_NAME,XML_NODE_UNIT);
+  if(dd.m_unitNameList.isEmpty())
+    unitItem->setText(COL_CURVE_XML_VALUE,"-1");
+  else
+  {
+    int uinx = 0;
+    for(int i = 0;i<dd.m_unitNameList.size();i++)
+    {
+      if(dd.m_unitName == dd.m_unitNameList.at(i))
+      {
+        uinx = i;
+        break;
+      }
+    }
+    unitItem->setText(COL_CURVE_XML_VALUE,QString::number(uinx));
+  }
+
+  QString unitName;
+  for(int i = 0;i<dd.m_unitNameList.size();i++)
+  {
+    unitName = dd.m_unitNameList.at(i);
+    if(dd.m_unitsHash.contains(unitName))
+    {
+      QTreeWidgetItem * item=new QTreeWidgetItem(unitItem);//B
+      item->setText(COL_CURVE_XML_NAME,unitName);
+      double value = dd.m_unitsHash.value(unitName);
+      item->setText(COL_CURVE_XML_VALUE,QString::number(value,'f',5));
+    }
+  }
+  //常量输入
+  QTreeWidgetItem *constItem = new QTreeWidgetItem(treeItem);
+  constItem->setText(COL_CURVE_XML_NAME,XML_NODE_CONSTINPUTS);
+  for(int i = 0;i<dd.m_constInputs.size();i++)
+  {
+    QTreeWidgetItem * item=new QTreeWidgetItem(constItem);
+    item->setText(COL_CURVE_XML_NAME,"const");
+    item->setText(COL_CURVE_XML_VALUE,dd.m_constInputs.at(i).keyName);
+
+    quint16 base = dd.m_constInputs.at(i).prm.baseAddr;
+    quint16 offt = dd.m_constInputs.at(i).prm.offtAddr;
+    quint16 bytes = dd.m_constInputs.at(i).prm.bytes;
+    QTreeWidgetItem * prmItem=new QTreeWidgetItem(item);
+    prmItem->setText(COL_CURVE_XML_NAME,"BaseAddr");
+    prmItem->setText(COL_CURVE_XML_VALUE,QString::number(base));
+    prmItem=new QTreeWidgetItem(item);
+    prmItem->setText(COL_CURVE_XML_NAME,"OffsetAddr");
+    prmItem->setText(COL_CURVE_XML_VALUE,QString::number(offt));
+    prmItem=new QTreeWidgetItem(item);
+    prmItem->setText(COL_CURVE_XML_NAME,"Bytes");
+    prmItem->setText(COL_CURVE_XML_VALUE,QString::number(bytes));
+  }
+
+  //变量输入
+  QTreeWidgetItem *varItem = new QTreeWidgetItem(treeItem);
+  varItem->setText(COL_CURVE_XML_NAME,XML_NODE_VARINPUTS);
+  for(int i = 0;i<dd.m_varInputs.size();i++)
+  {
+    QTreeWidgetItem * item=new QTreeWidgetItem(varItem);
+    item->setText(COL_CURVE_XML_NAME,"Var");
+    item->setText(COL_CURVE_XML_VALUE,dd.m_varInputs.at(i).keyName);
+
+    quint16 base = dd.m_varInputs.at(i).prm.baseAddr;
+    quint16 offt = dd.m_varInputs.at(i).prm.offtAddr;
+    quint16 bytes = dd.m_varInputs.at(i).prm.bytes;
+    QTreeWidgetItem * prmItem=new QTreeWidgetItem(item);
+    prmItem->setText(COL_CURVE_XML_NAME,"BaseAddr");
+    prmItem->setText(COL_CURVE_XML_VALUE,QString::number(base));
+    prmItem=new QTreeWidgetItem(item);
+    prmItem->setText(COL_CURVE_XML_NAME,"OffsetAddr");
+    prmItem->setText(COL_CURVE_XML_VALUE,QString::number(offt));
+    prmItem=new QTreeWidgetItem(item);
+    prmItem->setText(COL_CURVE_XML_NAME,"Bytes");
+    prmItem->setText(COL_CURVE_XML_VALUE,QString::number(bytes));
+
+  }
+
+
+}
+
+/**
+ * @brief ICurve::read
+ * 从QTreeWidgetItem 中反序列化生成对象
+ * @param treeItem
+ */
+bool ICurve::read(QTreeWidgetItem *treeItem)
+{
+  int devInx = 0;
+  int axisInx = 0;
+  int axisCount = 0;
+  QString name;
+  QString note;
+  QColor color;
+  int clrR,clrG,clrB;
+  bool isDraw = true;
+  int unitInx;
+  QList<UnitKeyValue> unitList;
+  QList<CurveConst> curveConstInputList;
+  QList<CurveVar> curveVarInputList;
+
+
+  clrR = clrG = clrB = 0;
+
+  QTreeWidgetItem *item = NULL;
+  item = GTUtils::findItemInItem(XML_NODE_CURVE,treeItem,COL_CURVE_XML_NAME);
+  if(item != NULL)
+    devInx = item->text(COL_CURVE_XML_VALUE).toInt();
+  else
+    return false;
+
+  item = GTUtils::findItemInItem(XML_NODE_AXISINX,treeItem,COL_CURVE_XML_NAME);
+  if(item != NULL)
+    axisInx = item->text(COL_CURVE_XML_VALUE).toInt();
+  else
+    return false;
+
+  item = GTUtils::findItemInItem(XML_NODE_AXISCOUNT,treeItem,COL_CURVE_XML_NAME);
+  if(item != NULL)
+    axisCount = item->text(COL_CURVE_XML_VALUE).toInt();
+  else
+    return false;
+
+  item = GTUtils::findItemInItem(XML_NODE_NAME,treeItem,COL_CURVE_XML_NAME);
+  if(item != NULL)
+    name = item->text(COL_CURVE_XML_VALUE);
+  else
+    return false;
+
+  item = GTUtils::findItemInItem(XML_NODE_NOTE,treeItem,COL_CURVE_XML_NAME);
+  if(item != NULL)
+    note = item->text(COL_CURVE_XML_VALUE);
+  else
+    return false;
+
+  //color
+  item = GTUtils::findItemInItem(XML_NODE_COLOR,treeItem,COL_CURVE_XML_NAME);
+  if(item != NULL)
+  {
+    clrR = item->child(0)->text(COL_CURVE_XML_VALUE).toInt();
+    clrG = item->child(1)->text(COL_CURVE_XML_VALUE).toInt();
+    clrB = item->child(2)->text(COL_CURVE_XML_VALUE).toInt();
+    color.setRgb(clrR,clrG,clrB);
+  }
+  else
+    return false;
+
+  item = GTUtils::findItemInItem(XML_NODE_ISDRAW,treeItem,COL_CURVE_XML_NAME);
+  if(item != NULL)
+  {
+    int d = item->text(COL_CURVE_XML_VALUE).toInt();
+    isDraw = (d == 1);
+  }
+  else
+    return false;
+
+  //单位
+  item = GTUtils::findItemInItem(XML_NODE_UNIT,treeItem,COL_CURVE_XML_NAME);
+  if(item != NULL)
+  {
+    unitInx = 0;
+    unitInx = item->text(COL_CURVE_XML_VALUE).toInt();
+
+    UnitKeyValue uk;
+    for(int i=0;i<item->childCount();i++)
+    {
+      uk.key = item->child(i)->text(COL_CURVE_XML_NAME);
+      uk.value = item->child(i)->text(COL_CURVE_XML_VALUE).toDouble();
+      unitList.append(uk);
+    }
+  }
+  else
+    return false;
+
+  //const inputs
+  item = GTUtils::findItemInItem(XML_NODE_CONSTINPUTS,treeItem,COL_CURVE_XML_NAME);
+  if(item != NULL)
+  {
+    CurveConst cconst;
+    QTreeWidgetItem *constItem = NULL;
+    for(int i=0;i<item->childCount();i++)
+    {
+      constItem = item->child(i);
+      cconst.keyName = constItem->text(COL_CURVE_XML_VALUE);
+      cconst.prm.baseAddr = constItem->child(0)->text(COL_CURVE_XML_VALUE).toUShort();
+      cconst.prm.offtAddr = constItem->child(1)->text(COL_CURVE_XML_VALUE).toUShort();
+      cconst.prm.bytes = constItem->child(2)->text(COL_CURVE_XML_VALUE).toUShort();
+      curveConstInputList.append(cconst);
+    }
+  }
+  else
+    return false;
+
+  //var inputs
+  item = GTUtils::findItemInItem(XML_NODE_VARINPUTS,treeItem,COL_CURVE_XML_NAME);
+  if(item != NULL)
+  {
+    CurveVar var;
+    QTreeWidgetItem *varItem = NULL;
+    for(int i=0;i<item->childCount();i++)
+    {
+      varItem = item->child(i);
+      var.keyName = varItem->text(COL_CURVE_XML_VALUE);
+      var.prm.baseAddr = varItem->child(0)->text(COL_CURVE_XML_VALUE).toUShort();
+      var.prm.offtAddr = varItem->child(1)->text(COL_CURVE_XML_VALUE).toUShort();
+      var.prm.bytes = varItem->child(2)->text(COL_CURVE_XML_VALUE).toUShort();
+      curveVarInputList.append(var);
+    }
+  }
+  else
+    return false;
+
+  setDevInx(devInx);
+  setAxisInx(axisInx);
+  setAxisCount(axisCount);
+  setName(name);
+  setNote(note);
+  setColor(color);
+  setIsDraw(isDraw);
+
+  dd.m_unitsHash.clear();
+  dd.m_unitNameList.clear();
+  for(int i =0;i<unitList.size();i++)
+  {
+    addUnit(unitList.at(i).key,unitList.at(i).value);
+  }
+  setUnit(unitList.at(unitInx).key);
+
+  dd.m_constInputs.clear();
+  dd.m_constInputs = curveConstInputList;
+
+  dd.m_varInputs.clear();
+  dd.m_varInputs = curveVarInputList;
+
+
+  return true;
 }
 
 
@@ -286,25 +593,25 @@ void ICurve::addVarInputByName(const QString &name)
 
 void ICurve::addUnit(const QString &uName, double k)
 {
-  dd.m_units.insert(uName,k);
+  dd.m_unitsHash.insert(uName,k);
   dd.m_unitNameList.append(uName);
 }
 
 void ICurve::setUnit(const QString &uName)
 {
-  if(dd.m_units.contains(uName))
+  if(dd.m_unitsHash.contains(uName))
   {
     dd.m_unitName=uName;
-    dd.m_k=dd.m_units.value(uName);
+    dd.m_k=dd.m_unitsHash.value(uName);
   }
 }
 
 double ICurve::unitValue(const QString &uName)
 {
   double v = 1;
-  if(dd.m_units.contains(uName))
+  if(dd.m_unitsHash.contains(uName))
   {
-    v=dd.m_units.value(uName);
+    v=dd.m_unitsHash.value(uName);
   }
   return v;
 }

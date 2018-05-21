@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>726</width>
-    <height>274</height>
+    <width>696</width>
+    <height>203</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_mode">
       <attribute name="title">
@@ -57,7 +57,7 @@ border:1px solid gray;
 }</string>
          </property>
          <property name="currentIndex">
-          <number>11</number>
+          <number>12</number>
          </property>
          <widget class="QWidget" name="page_idle">
           <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -104,6 +104,9 @@ border:1px solid gray;
              <property name="buttonSymbols">
               <enum>QAbstractSpinBox::NoButtons</enum>
              </property>
+             <property name="maximum">
+              <number>1000</number>
+             </property>
             </widget>
            </item>
            <item>
@@ -146,6 +149,12 @@ border:1px solid gray;
              <property name="buttonSymbols">
               <enum>QAbstractSpinBox::NoButtons</enum>
              </property>
+             <property name="minimum">
+              <number>-1000</number>
+             </property>
+             <property name="maximum">
+              <number>1000</number>
+             </property>
             </widget>
            </item>
            <item row="0" column="2">
@@ -162,6 +171,12 @@ border:1px solid gray;
             <widget class="QSpinBox" name="spinBox_mode_ubref">
              <property name="buttonSymbols">
               <enum>QAbstractSpinBox::NoButtons</enum>
+             </property>
+             <property name="minimum">
+              <number>-1000</number>
+             </property>
+             <property name="maximum">
+              <number>1000</number>
              </property>
             </widget>
            </item>
@@ -180,6 +195,12 @@ border:1px solid gray;
              <property name="buttonSymbols">
               <enum>QAbstractSpinBox::NoButtons</enum>
              </property>
+             <property name="minimum">
+              <number>-1000</number>
+             </property>
+             <property name="maximum">
+              <number>1000</number>
+             </property>
             </widget>
            </item>
            <item row="1" column="0">
@@ -197,6 +218,12 @@ border:1px solid gray;
              <property name="buttonSymbols">
               <enum>QAbstractSpinBox::NoButtons</enum>
              </property>
+             <property name="minimum">
+              <number>-1000</number>
+             </property>
+             <property name="maximum">
+              <number>1000</number>
+             </property>
             </widget>
            </item>
            <item row="1" column="2">
@@ -213,6 +240,12 @@ border:1px solid gray;
             <widget class="QSpinBox" name="spinBox_mode_uqref">
              <property name="buttonSymbols">
               <enum>QAbstractSpinBox::NoButtons</enum>
+             </property>
+             <property name="minimum">
+              <number>-1000</number>
+             </property>
+             <property name="maximum">
+              <number>1000</number>
              </property>
             </widget>
            </item>
@@ -235,6 +268,12 @@ border:1px solid gray;
              <property name="buttonSymbols">
               <enum>QAbstractSpinBox::NoButtons</enum>
              </property>
+             <property name="minimum">
+              <number>-1000</number>
+             </property>
+             <property name="maximum">
+              <number>1000</number>
+             </property>
             </widget>
            </item>
            <item>
@@ -251,6 +290,12 @@ border:1px solid gray;
             <widget class="QSpinBox" name="spinBox_mode_iqref">
              <property name="buttonSymbols">
               <enum>QAbstractSpinBox::NoButtons</enum>
+             </property>
+             <property name="minimum">
+              <number>-1000</number>
+             </property>
+             <property name="maximum">
+              <number>1000</number>
              </property>
             </widget>
            </item>
@@ -280,6 +325,12 @@ border:1px solid gray;
              <property name="buttonSymbols">
               <enum>QAbstractSpinBox::NoButtons</enum>
              </property>
+             <property name="minimum">
+              <number>-1000</number>
+             </property>
+             <property name="maximum">
+              <number>1000</number>
+             </property>
             </widget>
            </item>
            <item>
@@ -308,6 +359,12 @@ border:1px solid gray;
              <property name="buttonSymbols">
               <enum>QAbstractSpinBox::NoButtons</enum>
              </property>
+             <property name="minimum">
+              <number>-1000</number>
+             </property>
+             <property name="maximum">
+              <number>1000</number>
+             </property>
             </widget>
            </item>
            <item>
@@ -335,6 +392,12 @@ border:1px solid gray;
             <widget class="QSpinBox" name="spinBox_mode_vsl">
              <property name="buttonSymbols">
               <enum>QAbstractSpinBox::NoButtons</enum>
+             </property>
+             <property name="minimum">
+              <number>-1000</number>
+             </property>
+             <property name="maximum">
+              <number>1000</number>
              </property>
             </widget>
            </item>
@@ -377,6 +440,12 @@ border:1px solid gray;
             <widget class="QSpinBox" name="spinBox_mode_pt">
              <property name="buttonSymbols">
               <enum>QAbstractSpinBox::NoButtons</enum>
+             </property>
+             <property name="minimum">
+              <number>-429496729</number>
+             </property>
+             <property name="maximum">
+              <number>429496729</number>
              </property>
             </widget>
            </item>
@@ -422,9 +491,12 @@ border:1px solid gray;
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1,0">
          <item>
-          <widget class="QLabel" name="label_7">
+          <widget class="QLabel" name="label_plot_servo_onoff">
            <property name="text">
             <string>TextLabel</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -455,18 +527,18 @@ border:1px solid gray;
       <attribute name="title">
        <string>Tab 2</string>
       </attribute>
-      <layout class="QHBoxLayout" name="horizontalLayout_15" stretch="0,1,0">
+      <layout class="QHBoxLayout" name="horizontalLayout_15" stretch="1,7,1">
        <item>
-        <widget class="QListWidget" name="listWidget">
+        <widget class="QListWidget" name="listWidget_plot_tab2_axis">
          <property name="minimumSize">
           <size>
-           <width>100</width>
+           <width>40</width>
            <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>120</width>
+           <width>16777215</width>
            <height>16777215</height>
           </size>
          </property>
@@ -490,14 +562,14 @@ border:1px solid gray;
             </widget>
            </item>
            <item>
-            <widget class="QToolButton" name="toolButton_12">
+            <widget class="QToolButton" name="tbtn_plot_ctlsrc_pc">
              <property name="text">
               <string>PC</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QToolButton" name="toolButton_13">
+            <widget class="QToolButton" name="tbtn_plot_ctlsrc_glink2">
              <property name="text">
               <string>GLink2</string>
              </property>
@@ -519,13 +591,12 @@ border:1px solid gray;
           </layout>
          </item>
          <item>
-          <widget class="QStackedWidget" name="stackedWidget_2">
+          <widget class="QStackedWidget" name="stackedWidget_pc_glink2">
            <property name="currentIndex">
-            <number>1</number>
+            <number>0</number>
            </property>
-           <widget class="QWidget" name="page_3"/>
-           <widget class="QWidget" name="page_4">
-            <layout class="QHBoxLayout" name="horizontalLayout_18" stretch="0,1">
+           <widget class="QWidget" name="page_pc">
+            <layout class="QHBoxLayout" name="horizontalLayout_18" stretch="0,0">
              <property name="spacing">
               <number>0</number>
              </property>
@@ -542,7 +613,7 @@ border:1px solid gray;
               <number>0</number>
              </property>
              <item>
-              <widget class="QListWidget" name="listWidget_2">
+              <widget class="QListWidget" name="listWidget_plot_motion_type_inx">
                <property name="maximumSize">
                 <size>
                  <width>120</width>
@@ -552,103 +623,113 @@ border:1px solid gray;
               </widget>
              </item>
              <item>
-              <layout class="QVBoxLayout" name="verticalLayout_12">
-               <property name="spacing">
-                <number>0</number>
+              <widget class="QStackedWidget" name="stackedWidget_motion_type">
+               <property name="minimumSize">
+                <size>
+                 <width>200</width>
+                 <height>0</height>
+                </size>
                </property>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_16">
+               <widget class="QWidget" name="page_motion_none"/>
+               <widget class="QWidget" name="page_motion_vel_plan">
+                <layout class="QVBoxLayout" name="verticalLayout">
                  <item>
-                  <spacer name="horizontalSpacer_5">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                 <item>
-                  <widget class="QCheckBox" name="checkBox_circleSw">
-                   <property name="text">
-                    <string>circle</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <widget class="QStackedWidget" name="stackedWidget_vel_plan">
-                 <property name="currentIndex">
-                  <number>1</number>
-                 </property>
-                 <widget class="QWidget" name="page_vplan_step">
-                  <layout class="QHBoxLayout" name="horizontalLayout_3">
+                  <layout class="QHBoxLayout" name="horizontalLayout_16">
                    <item>
-                    <widget class="QLabel" name="label_vplan_step">
-                     <property name="text">
-                      <string>TextLabel</string>
+                    <spacer name="horizontalSpacer_5">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
                      </property>
-                     <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                   <item>
+                    <widget class="QCheckBox" name="checkBox_circleSw">
+                     <property name="text">
+                      <string>circle</string>
                      </property>
                     </widget>
                    </item>
                   </layout>
-                 </widget>
-                 <widget class="QWidget" name="page_vplan_seq">
-                  <layout class="QHBoxLayout" name="horizontalLayout_5">
+                 </item>
+                 <item>
+                  <widget class="QStackedWidget" name="stackedWidget_vel_plan">
+                   <property name="currentIndex">
+                    <number>0</number>
+                   </property>
+                   <widget class="QWidget" name="page_vplan_step">
+                    <layout class="QHBoxLayout" name="horizontalLayout_3">
+                     <item>
+                      <widget class="QLabel" name="label_vplan_step">
+                       <property name="text">
+                        <string>TextLabel</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                   <widget class="QWidget" name="page_vplan_seq">
+                    <layout class="QHBoxLayout" name="horizontalLayout_5">
+                     <item>
+                      <widget class="QLabel" name="label_vplan_seq">
+                       <property name="text">
+                        <string>TextLabel</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </widget>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_17">
                    <item>
-                    <widget class="QLabel" name="label_vplan_seq">
+                    <widget class="QLabel" name="label_14">
                      <property name="text">
                       <string>TextLabel</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
+                   <item>
+                    <widget class="QSpinBox" name="spinBox"/>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="label_15">
+                     <property name="text">
+                      <string>TextLabel</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QSpinBox" name="spinBox_2"/>
+                   </item>
                   </layout>
-                 </widget>
-                </widget>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_17">
-                 <item>
-                  <widget class="QLabel" name="label_14">
-                   <property name="text">
-                    <string>TextLabel</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QSpinBox" name="spinBox"/>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="label_15">
-                   <property name="text">
-                    <string>TextLabel</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QSpinBox" name="spinBox_2"/>
                  </item>
                 </layout>
-               </item>
-              </layout>
+               </widget>
+               <widget class="QWidget" name="page_2"/>
+              </widget>
              </item>
             </layout>
            </widget>
+           <widget class="QWidget" name="page_glink2"/>
           </widget>
          </item>
         </layout>

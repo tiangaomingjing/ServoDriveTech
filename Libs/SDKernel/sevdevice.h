@@ -5,6 +5,7 @@
 #include "sdkernel_global.h"
 #include "sevpwrboard.h"
 #include "icom.h"
+#include "sdtglobaldef.h"
 
 namespace ComDriver {
 class ICom;
@@ -89,6 +90,25 @@ public:
 
   Q_INVOKABLE void qmlTest();
 
+  bool axisServoIsOn(quint16 axisInx);
+  void setAxisServoOn(quint16 axisInx, bool enable);
+
+  int currentTaskServoMode(quint16 axisInx);
+  void setCurrentTaskServoMode(quint16 axisInx,int mode);
+  void setControlSrc(quint16 axisInx ,GT::SevControlSrc ctlSrc);
+  GT::SevControlSrc controlSrc(quint16 axisInx);
+
+  void cmdSetPosAdjRef(quint16 axisInx,double value);
+  void cmdSetUaRef(quint16 axisInx,double value);
+  void cmdSetUbRef(quint16 axisInx,double value);
+  void cmdSetUcRef(quint16 axisInx,double value);
+  void cmdSetUdRef(quint16 axisInx,double value);
+  void cmdSetUqRef(quint16 axisInx,double value);
+  void cmdSetIdRef(quint16 axisInx,double value);
+  void cmdSetIqRef(quint16 axisInx,double value);
+  void cmdSetSpdRef(quint16 axisInx,double value);
+  void cmdSetPosRef(quint16 axisInx,qint32 value);
+
 signals:
   void initProgressInfo(int value,QString msg);
   void itemRangeValid(QTreeWidgetItem *item,int status);
@@ -104,10 +124,7 @@ private:
   bool checkPropertyParameters(QTreeWidgetItem *item);
   bool checkPowerBoardParameters(QTreeWidgetItem *item,const QMap<QString ,PowerBoardLimit> *limit);
   bool checkParameters(int axis,QTreeWidget *tree);
-  void assignBits(QTreeWidgetItem *item);
-  void assign16Bits(QTreeWidgetItem *item, ComDriver::int16_t value);
-  void assign32Bits(QTreeWidgetItem *item, ComDriver::int32_t value);
-  bool isTargetItem(QTreeWidgetItem *item, const QString &str, int index);
+
 private:
   SevDevicePrivate *d_ptr;
 };

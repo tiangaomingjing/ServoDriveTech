@@ -8,6 +8,7 @@
 #include <QMultiHash>
 #include <QDebug>
 
+
 #define CURVE_MANAGER_TEST 1
 
 CurveManager::CurveManager(QObject *parent) : QObject(parent),
@@ -174,6 +175,7 @@ void CurveManager::updateCurveCtlPrmsFromDevice(SevDevice *dev, ICurve *c)
   }
 
 }
+
 
 int CurveManager::sampleScale() const
 {

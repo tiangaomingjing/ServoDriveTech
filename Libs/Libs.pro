@@ -9,8 +9,10 @@ SUBDIRS += \
     PlotUnit/IPlotUnit\
     UI \
     PlotCurvePluginFramework\
+    SDMotion\
     PlotUnit/PlotUnitGraph \
     AdvUser
+
 
 
 

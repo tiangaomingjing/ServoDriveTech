@@ -23,6 +23,9 @@
        </property>
        <widget class="QListWidget" name="listWidget"/>
        <widget class="QStackedWidget" name="stackedWidget">
+        <property name="currentIndex">
+         <number>1</number>
+        </property>
         <widget class="QWidget" name="page"/>
         <widget class="QWidget" name="page_2"/>
        </widget>

@@ -108,8 +108,8 @@ void QCPItemMeasure::initPosition()
   }
   else
   {
-    m_tag1->position->setCoords(1, 0.45);
-    m_tag2->position->setCoords(1, 0.55);
+    m_tag1->position->setCoords(1, 0.55);
+    m_tag2->position->setCoords(1, 0.45);
     m_parentPlot->replot();
 
     m_tag1->position->setTypeY(QCPItemPosition::ptPlotCoords);

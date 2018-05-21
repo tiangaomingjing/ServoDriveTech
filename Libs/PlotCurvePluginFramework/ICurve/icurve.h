@@ -17,6 +17,12 @@ class QTreeWidgetItem;
 class ICURVESHARED_EXPORT ICurve
 {
 public:
+  typedef enum{
+    COL_CURVE_XML_NAME ,
+    COL_CURVE_XML_VALUE,
+    COL_CURVE_XML_SIZE
+  }CurveXmlColumn;
+
   virtual ~ICurve();
   virtual void prepare() ;
   virtual void init() = 0;
@@ -33,6 +39,9 @@ public:
   void setNote(const QString &note);
   virtual QString displayName();
   virtual QString fullName();
+
+  virtual void write(QTreeWidgetItem *treeItem);
+  virtual bool read(QTreeWidgetItem *treeItem);
 
   void addConstInputByName(const QString &name);
   void addVarInputByName(const QString &name);
@@ -120,7 +129,7 @@ protected:
     QList<CurveConst>m_constInputs;
     QList<CurveVar>m_varInputs;
 
-    QHash<QString,double> m_units;
+    QHash<QString,double> m_unitsHash;
     QStringList m_unitNameList;
 
     CurveData m_cData;

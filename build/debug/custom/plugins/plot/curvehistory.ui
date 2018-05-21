@@ -1,2416 +1,607 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>521</width>
-    <height>496</height>
-   </rect>
-  </property>
-  <property name="windowTitle">
-   <string>Form</string>
-  </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <widget class="QTreeWidget" name="treeWidget">
-     <column>
-      <property name="text">
-       <string>Item</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Value</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Description</string>
-      </property>
-     </column>
-     <item>
-      <property name="text">
-       <string>Row</string>
-      </property>
-      <property name="text">
-       <string>1</string>
-      </property>
-      <property name="text">
-       <string>CurveType</string>
-      </property>
-      <item>
-       <property name="text">
-        <string>CurveId</string>
-       </property>
-       <property name="text">
-        <string>3</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>IsDraw</string>
-       </property>
-       <property name="text">
-        <string>1</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>FullName</string>
-       </property>
-       <property name="text">
-        <string>位置速度指令.Vffd(rpm)</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Color</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>ColorR</string>
-        </property>
-        <property name="text">
-         <string>255</string>
-        </property>
-        <property name="text">
-         <string>NULL</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>ColorG</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-        <property name="text">
-         <string>NULL</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>ColorB</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-        <property name="text">
-         <string>NULL</string>
-        </property>
-       </item>
-      </item>
-      <item>
-       <property name="text">
-        <string>AxisNum</string>
-       </property>
-       <property name="text">
-        <string>0</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>BytesNum</string>
-       </property>
-       <property name="text">
-        <string>2</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>OffsetAddr</string>
-       </property>
-       <property name="text">
-        <string>0</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>BaseAddr</string>
-       </property>
-       <property name="text">
-        <string>0</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>AddValue</string>
-       </property>
-       <property name="text">
-        <string>0.00</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>MultiValue</string>
-       </property>
-       <property name="text">
-        <string>1.000000</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Xoffset</string>
-       </property>
-       <property name="text">
-        <string>0.00</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>EquationDescription</string>
-       </property>
-       <property name="text">
-        <string>(V0/16777216)*C0</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>PrmFactor</string>
-       </property>
-       <property name="text">
-        <string>1</string>
-       </property>
-       <property name="text">
-        <string>VarCount</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>Factor</string>
-        </property>
-        <property name="text">
-         <string>1</string>
-        </property>
-        <property name="text">
-         <string>PlotPrmFatorTypeID</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>FullName</string>
-         </property>
-         <property name="text">
-          <string>gSevDrv.sev_obj.pos.ffd.spdr</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BytesNum</string>
-         </property>
-         <property name="text">
-          <string>4</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>OffsetAddr</string>
-         </property>
-         <property name="text">
-          <string>7160</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BaseAddr</string>
-         </property>
-         <property name="text">
-          <string>0</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-       </item>
-       <item>
-        <property name="text">
-         <string>Factor</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-        <property name="text">
-         <string>PlotPrmFatorTypeID</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>FullName</string>
-         </property>
-         <property name="text">
-          <string>gSevDrv.sev_obj.cur.mot.Nos_1</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BytesNum</string>
-         </property>
-         <property name="text">
-          <string>2</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>OffsetAddr</string>
-         </property>
-         <property name="text">
-          <string>412</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BaseAddr</string>
-         </property>
-         <property name="text">
-          <string>0</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-       </item>
-      </item>
-     </item>
-     <item>
-      <property name="text">
-       <string>Row</string>
-      </property>
-      <property name="text">
-       <string>1</string>
-      </property>
-      <property name="text">
-       <string>CurveType</string>
-      </property>
-      <item>
-       <property name="text">
-        <string>CurveId</string>
-       </property>
-       <property name="text">
-        <string>3</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>IsDraw</string>
-       </property>
-       <property name="text">
-        <string>1</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>FullName</string>
-       </property>
-       <property name="text">
-        <string>位置速度指令.Vffd(rpm)</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Color</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>ColorR</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-        <property name="text">
-         <string>NULL</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>ColorG</string>
-        </property>
-        <property name="text">
-         <string>255</string>
-        </property>
-        <property name="text">
-         <string>NULL</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>ColorB</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-        <property name="text">
-         <string>NULL</string>
-        </property>
-       </item>
-      </item>
-      <item>
-       <property name="text">
-        <string>AxisNum</string>
-       </property>
-       <property name="text">
-        <string>1</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>BytesNum</string>
-       </property>
-       <property name="text">
-        <string>2</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>OffsetAddr</string>
-       </property>
-       <property name="text">
-        <string>0</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>BaseAddr</string>
-       </property>
-       <property name="text">
-        <string>0</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>AddValue</string>
-       </property>
-       <property name="text">
-        <string>0.00</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>MultiValue</string>
-       </property>
-       <property name="text">
-        <string>1.000000</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Xoffset</string>
-       </property>
-       <property name="text">
-        <string>0.00</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>EquationDescription</string>
-       </property>
-       <property name="text">
-        <string>(V0/16777216)*C0</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>PrmFactor</string>
-       </property>
-       <property name="text">
-        <string>1</string>
-       </property>
-       <property name="text">
-        <string>VarCount</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>Factor</string>
-        </property>
-        <property name="text">
-         <string>1</string>
-        </property>
-        <property name="text">
-         <string>PlotPrmFatorTypeID</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>FullName</string>
-         </property>
-         <property name="text">
-          <string>gSevDrv.sev_obj.pos.ffd.spdr</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BytesNum</string>
-         </property>
-         <property name="text">
-          <string>4</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>OffsetAddr</string>
-         </property>
-         <property name="text">
-          <string>14912</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BaseAddr</string>
-         </property>
-         <property name="text">
-          <string>0</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-       </item>
-       <item>
-        <property name="text">
-         <string>Factor</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-        <property name="text">
-         <string>PlotPrmFatorTypeID</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>FullName</string>
-         </property>
-         <property name="text">
-          <string>gSevDrv.sev_obj.cur.mot.Nos_1</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BytesNum</string>
-         </property>
-         <property name="text">
-          <string>2</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>OffsetAddr</string>
-         </property>
-         <property name="text">
-          <string>8164</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BaseAddr</string>
-         </property>
-         <property name="text">
-          <string>0</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-       </item>
-      </item>
-     </item>
-     <item>
-      <property name="text">
-       <string>Row</string>
-      </property>
-      <property name="text">
-       <string>1</string>
-      </property>
-      <property name="text">
-       <string>CurveType</string>
-      </property>
-      <item>
-       <property name="text">
-        <string>CurveId</string>
-       </property>
-       <property name="text">
-        <string>3</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>IsDraw</string>
-       </property>
-       <property name="text">
-        <string>1</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>FullName</string>
-       </property>
-       <property name="text">
-        <string>位置速度指令.Vffd(rpm)</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Color</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>ColorR</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-        <property name="text">
-         <string>NULL</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>ColorG</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-        <property name="text">
-         <string>NULL</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>ColorB</string>
-        </property>
-        <property name="text">
-         <string>255</string>
-        </property>
-        <property name="text">
-         <string>NULL</string>
-        </property>
-       </item>
-      </item>
-      <item>
-       <property name="text">
-        <string>AxisNum</string>
-       </property>
-       <property name="text">
-        <string>2</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>BytesNum</string>
-       </property>
-       <property name="text">
-        <string>2</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>OffsetAddr</string>
-       </property>
-       <property name="text">
-        <string>0</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>BaseAddr</string>
-       </property>
-       <property name="text">
-        <string>0</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>AddValue</string>
-       </property>
-       <property name="text">
-        <string>0.00</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>MultiValue</string>
-       </property>
-       <property name="text">
-        <string>1.000000</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Xoffset</string>
-       </property>
-       <property name="text">
-        <string>0.00</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>EquationDescription</string>
-       </property>
-       <property name="text">
-        <string>(V0/16777216)*C0</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>PrmFactor</string>
-       </property>
-       <property name="text">
-        <string>1</string>
-       </property>
-       <property name="text">
-        <string>VarCount</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>Factor</string>
-        </property>
-        <property name="text">
-         <string>1</string>
-        </property>
-        <property name="text">
-         <string>PlotPrmFatorTypeID</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>FullName</string>
-         </property>
-         <property name="text">
-          <string>gSevDrv.sev_obj.pos.ffd.spdr</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BytesNum</string>
-         </property>
-         <property name="text">
-          <string>4</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>OffsetAddr</string>
-         </property>
-         <property name="text">
-          <string>7160</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BaseAddr</string>
-         </property>
-         <property name="text">
-          <string>0</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-       </item>
-       <item>
-        <property name="text">
-         <string>Factor</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-        <property name="text">
-         <string>PlotPrmFatorTypeID</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>FullName</string>
-         </property>
-         <property name="text">
-          <string>gSevDrv.sev_obj.cur.mot.Nos_1</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BytesNum</string>
-         </property>
-         <property name="text">
-          <string>2</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>OffsetAddr</string>
-         </property>
-         <property name="text">
-          <string>412</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BaseAddr</string>
-         </property>
-         <property name="text">
-          <string>0</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-       </item>
-      </item>
-     </item>
-     <item>
-      <property name="text">
-       <string>Row</string>
-      </property>
-      <property name="text">
-       <string>1</string>
-      </property>
-      <property name="text">
-       <string>CurveType</string>
-      </property>
-      <item>
-       <property name="text">
-        <string>CurveId</string>
-       </property>
-       <property name="text">
-        <string>3</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>IsDraw</string>
-       </property>
-       <property name="text">
-        <string>1</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>FullName</string>
-       </property>
-       <property name="text">
-        <string>位置速度指令.Vffd(rpm)</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Color</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>ColorR</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-        <property name="text">
-         <string>NULL</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>ColorG</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-        <property name="text">
-         <string>NULL</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>ColorB</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-        <property name="text">
-         <string>NULL</string>
-        </property>
-       </item>
-      </item>
-      <item>
-       <property name="text">
-        <string>AxisNum</string>
-       </property>
-       <property name="text">
-        <string>3</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>BytesNum</string>
-       </property>
-       <property name="text">
-        <string>2</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>OffsetAddr</string>
-       </property>
-       <property name="text">
-        <string>0</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>BaseAddr</string>
-       </property>
-       <property name="text">
-        <string>0</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>AddValue</string>
-       </property>
-       <property name="text">
-        <string>0.00</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>MultiValue</string>
-       </property>
-       <property name="text">
-        <string>1.000000</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Xoffset</string>
-       </property>
-       <property name="text">
-        <string>0.00</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>EquationDescription</string>
-       </property>
-       <property name="text">
-        <string>(V0/16777216)*C0</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>PrmFactor</string>
-       </property>
-       <property name="text">
-        <string>1</string>
-       </property>
-       <property name="text">
-        <string>VarCount</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>Factor</string>
-        </property>
-        <property name="text">
-         <string>1</string>
-        </property>
-        <property name="text">
-         <string>PlotPrmFatorTypeID</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>FullName</string>
-         </property>
-         <property name="text">
-          <string>gSevDrv.sev_obj.pos.ffd.spdr</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BytesNum</string>
-         </property>
-         <property name="text">
-          <string>4</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>OffsetAddr</string>
-         </property>
-         <property name="text">
-          <string>14912</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BaseAddr</string>
-         </property>
-         <property name="text">
-          <string>0</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-       </item>
-       <item>
-        <property name="text">
-         <string>Factor</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-        <property name="text">
-         <string>PlotPrmFatorTypeID</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>FullName</string>
-         </property>
-         <property name="text">
-          <string>gSevDrv.sev_obj.cur.mot.Nos_1</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BytesNum</string>
-         </property>
-         <property name="text">
-          <string>2</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>OffsetAddr</string>
-         </property>
-         <property name="text">
-          <string>8164</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BaseAddr</string>
-         </property>
-         <property name="text">
-          <string>0</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-       </item>
-      </item>
-     </item>
-     <item>
-      <property name="text">
-       <string>Row</string>
-      </property>
-      <property name="text">
-       <string>1</string>
-      </property>
-      <property name="text">
-       <string>CurveType</string>
-      </property>
-      <item>
-       <property name="text">
-        <string>CurveId</string>
-       </property>
-       <property name="text">
-        <string>4</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>IsDraw</string>
-       </property>
-       <property name="text">
-        <string>1</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>FullName</string>
-       </property>
-       <property name="text">
-        <string>目标速度.Vcmd(rpm)</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Color</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>ColorR</string>
-        </property>
-        <property name="text">
-         <string>255</string>
-        </property>
-        <property name="text">
-         <string>NULL</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>ColorG</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-        <property name="text">
-         <string>NULL</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>ColorB</string>
-        </property>
-        <property name="text">
-         <string>255</string>
-        </property>
-        <property name="text">
-         <string>NULL</string>
-        </property>
-       </item>
-      </item>
-      <item>
-       <property name="text">
-        <string>AxisNum</string>
-       </property>
-       <property name="text">
-        <string>0</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>BytesNum</string>
-       </property>
-       <property name="text">
-        <string>4</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>OffsetAddr</string>
-       </property>
-       <property name="text">
-        <string>0</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>BaseAddr</string>
-       </property>
-       <property name="text">
-        <string>0</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>AddValue</string>
-       </property>
-       <property name="text">
-        <string>0.00</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>MultiValue</string>
-       </property>
-       <property name="text">
-        <string>1.000000</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Xoffset</string>
-       </property>
-       <property name="text">
-        <string>0.00</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>EquationDescription</string>
-       </property>
-       <property name="text">
-        <string>(V0/16777216)*C0</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>PrmFactor</string>
-       </property>
-       <property name="text">
-        <string>1</string>
-       </property>
-       <property name="text">
-        <string>VarCount</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>Factor</string>
-        </property>
-        <property name="text">
-         <string>1</string>
-        </property>
-        <property name="text">
-         <string>PlotPrmFatorTypeID</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>FullName</string>
-         </property>
-         <property name="text">
-          <string>gSevDrv.sev_obj.vel.ctl.spd_ref</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BytesNum</string>
-         </property>
-         <property name="text">
-          <string>4</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>OffsetAddr</string>
-         </property>
-         <property name="text">
-          <string>1864</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BaseAddr</string>
-         </property>
-         <property name="text">
-          <string>0</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-       </item>
-       <item>
-        <property name="text">
-         <string>Factor</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-        <property name="text">
-         <string>PlotPrmFatorTypeID</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>FullName</string>
-         </property>
-         <property name="text">
-          <string>gSevDrv.sev_obj.cur.mot.Nos_1</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BytesNum</string>
-         </property>
-         <property name="text">
-          <string>2</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>OffsetAddr</string>
-         </property>
-         <property name="text">
-          <string>412</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BaseAddr</string>
-         </property>
-         <property name="text">
-          <string>0</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-       </item>
-      </item>
-     </item>
-     <item>
-      <property name="text">
-       <string>Row</string>
-      </property>
-      <property name="text">
-       <string>1</string>
-      </property>
-      <property name="text">
-       <string>CurveType</string>
-      </property>
-      <item>
-       <property name="text">
-        <string>CurveId</string>
-       </property>
-       <property name="text">
-        <string>4</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>IsDraw</string>
-       </property>
-       <property name="text">
-        <string>1</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>FullName</string>
-       </property>
-       <property name="text">
-        <string>目标速度.Vcmd(rpm)</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Color</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>ColorR</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-        <property name="text">
-         <string>NULL</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>ColorG</string>
-        </property>
-        <property name="text">
-         <string>170</string>
-        </property>
-        <property name="text">
-         <string>NULL</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>ColorB</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-        <property name="text">
-         <string>NULL</string>
-        </property>
-       </item>
-      </item>
-      <item>
-       <property name="text">
-        <string>AxisNum</string>
-       </property>
-       <property name="text">
-        <string>1</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>BytesNum</string>
-       </property>
-       <property name="text">
-        <string>4</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>OffsetAddr</string>
-       </property>
-       <property name="text">
-        <string>0</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>BaseAddr</string>
-       </property>
-       <property name="text">
-        <string>0</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>AddValue</string>
-       </property>
-       <property name="text">
-        <string>0.00</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>MultiValue</string>
-       </property>
-       <property name="text">
-        <string>1.000000</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Xoffset</string>
-       </property>
-       <property name="text">
-        <string>0.00</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>EquationDescription</string>
-       </property>
-       <property name="text">
-        <string>(V0/16777216)*C0</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>PrmFactor</string>
-       </property>
-       <property name="text">
-        <string>1</string>
-       </property>
-       <property name="text">
-        <string>VarCount</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>Factor</string>
-        </property>
-        <property name="text">
-         <string>1</string>
-        </property>
-        <property name="text">
-         <string>PlotPrmFatorTypeID</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>FullName</string>
-         </property>
-         <property name="text">
-          <string>gSevDrv.sev_obj.vel.ctl.spd_ref</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BytesNum</string>
-         </property>
-         <property name="text">
-          <string>4</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>OffsetAddr</string>
-         </property>
-         <property name="text">
-          <string>9616</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BaseAddr</string>
-         </property>
-         <property name="text">
-          <string>0</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-       </item>
-       <item>
-        <property name="text">
-         <string>Factor</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-        <property name="text">
-         <string>PlotPrmFatorTypeID</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>FullName</string>
-         </property>
-         <property name="text">
-          <string>gSevDrv.sev_obj.cur.mot.Nos_1</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BytesNum</string>
-         </property>
-         <property name="text">
-          <string>2</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>OffsetAddr</string>
-         </property>
-         <property name="text">
-          <string>8164</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BaseAddr</string>
-         </property>
-         <property name="text">
-          <string>0</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-       </item>
-      </item>
-     </item>
-     <item>
-      <property name="text">
-       <string>Row</string>
-      </property>
-      <property name="text">
-       <string>1</string>
-      </property>
-      <property name="text">
-       <string>CurveType</string>
-      </property>
-      <item>
-       <property name="text">
-        <string>CurveId</string>
-       </property>
-       <property name="text">
-        <string>4</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>IsDraw</string>
-       </property>
-       <property name="text">
-        <string>1</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>FullName</string>
-       </property>
-       <property name="text">
-        <string>目标速度.Vcmd(rpm)</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Color</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>ColorR</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-        <property name="text">
-         <string>NULL</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>ColorG</string>
-        </property>
-        <property name="text">
-         <string>170</string>
-        </property>
-        <property name="text">
-         <string>NULL</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>ColorB</string>
-        </property>
-        <property name="text">
-         <string>255</string>
-        </property>
-        <property name="text">
-         <string>NULL</string>
-        </property>
-       </item>
-      </item>
-      <item>
-       <property name="text">
-        <string>AxisNum</string>
-       </property>
-       <property name="text">
-        <string>2</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>BytesNum</string>
-       </property>
-       <property name="text">
-        <string>4</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>OffsetAddr</string>
-       </property>
-       <property name="text">
-        <string>0</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>BaseAddr</string>
-       </property>
-       <property name="text">
-        <string>0</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>AddValue</string>
-       </property>
-       <property name="text">
-        <string>0.00</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>MultiValue</string>
-       </property>
-       <property name="text">
-        <string>1.000000</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Xoffset</string>
-       </property>
-       <property name="text">
-        <string>0.00</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>EquationDescription</string>
-       </property>
-       <property name="text">
-        <string>(V0/16777216)*C0</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>PrmFactor</string>
-       </property>
-       <property name="text">
-        <string>1</string>
-       </property>
-       <property name="text">
-        <string>VarCount</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>Factor</string>
-        </property>
-        <property name="text">
-         <string>1</string>
-        </property>
-        <property name="text">
-         <string>PlotPrmFatorTypeID</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>FullName</string>
-         </property>
-         <property name="text">
-          <string>gSevDrv.sev_obj.vel.ctl.spd_ref</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BytesNum</string>
-         </property>
-         <property name="text">
-          <string>4</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>OffsetAddr</string>
-         </property>
-         <property name="text">
-          <string>1864</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BaseAddr</string>
-         </property>
-         <property name="text">
-          <string>0</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-       </item>
-       <item>
-        <property name="text">
-         <string>Factor</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-        <property name="text">
-         <string>PlotPrmFatorTypeID</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>FullName</string>
-         </property>
-         <property name="text">
-          <string>gSevDrv.sev_obj.cur.mot.Nos_1</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BytesNum</string>
-         </property>
-         <property name="text">
-          <string>2</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>OffsetAddr</string>
-         </property>
-         <property name="text">
-          <string>412</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BaseAddr</string>
-         </property>
-         <property name="text">
-          <string>0</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-       </item>
-      </item>
-     </item>
-     <item>
-      <property name="text">
-       <string>Row</string>
-      </property>
-      <property name="text">
-       <string>1</string>
-      </property>
-      <property name="text">
-       <string>CurveType</string>
-      </property>
-      <item>
-       <property name="text">
-        <string>CurveId</string>
-       </property>
-       <property name="text">
-        <string>4</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>IsDraw</string>
-       </property>
-       <property name="text">
-        <string>1</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>FullName</string>
-       </property>
-       <property name="text">
-        <string>目标速度.Vcmd(rpm)</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Color</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>ColorR</string>
-        </property>
-        <property name="text">
-         <string>170</string>
-        </property>
-        <property name="text">
-         <string>NULL</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>ColorG</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-        <property name="text">
-         <string>NULL</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>ColorB</string>
-        </property>
-        <property name="text">
-         <string>255</string>
-        </property>
-        <property name="text">
-         <string>NULL</string>
-        </property>
-       </item>
-      </item>
-      <item>
-       <property name="text">
-        <string>AxisNum</string>
-       </property>
-       <property name="text">
-        <string>3</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>BytesNum</string>
-       </property>
-       <property name="text">
-        <string>4</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>OffsetAddr</string>
-       </property>
-       <property name="text">
-        <string>0</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>BaseAddr</string>
-       </property>
-       <property name="text">
-        <string>0</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>AddValue</string>
-       </property>
-       <property name="text">
-        <string>0.00</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>MultiValue</string>
-       </property>
-       <property name="text">
-        <string>1.000000</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Xoffset</string>
-       </property>
-       <property name="text">
-        <string>0.00</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>EquationDescription</string>
-       </property>
-       <property name="text">
-        <string>(V0/16777216)*C0</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>PrmFactor</string>
-       </property>
-       <property name="text">
-        <string>1</string>
-       </property>
-       <property name="text">
-        <string>VarCount</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>Factor</string>
-        </property>
-        <property name="text">
-         <string>1</string>
-        </property>
-        <property name="text">
-         <string>PlotPrmFatorTypeID</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>FullName</string>
-         </property>
-         <property name="text">
-          <string>gSevDrv.sev_obj.vel.ctl.spd_ref</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BytesNum</string>
-         </property>
-         <property name="text">
-          <string>4</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>OffsetAddr</string>
-         </property>
-         <property name="text">
-          <string>9616</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BaseAddr</string>
-         </property>
-         <property name="text">
-          <string>0</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-       </item>
-       <item>
-        <property name="text">
-         <string>Factor</string>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-        <property name="text">
-         <string>PlotPrmFatorTypeID</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>FullName</string>
-         </property>
-         <property name="text">
-          <string>gSevDrv.sev_obj.cur.mot.Nos_1</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BytesNum</string>
-         </property>
-         <property name="text">
-          <string>2</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>OffsetAddr</string>
-         </property>
-         <property name="text">
-          <string>8164</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BaseAddr</string>
-         </property>
-         <property name="text">
-          <string>0</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-        </item>
-       </item>
-      </item>
-     </item>
+    <class>Form</class>
+    <widget class="QWidget" name="Form">
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>400</width>
+                <height>400</height>
+            </rect>
+        </property>
+        <property name="windowTitle">
+            <string>Form</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+                <widget class="QTreeWidget" name="treeWidget">
+                    <column>
+                        <property name="text">
+                            <string>Name</string>
+                        </property>
+                    </column>
+                    <column>
+                        <property name="text">
+                            <string>Value</string>
+                        </property>
+                    </column>
+                    <item>
+                        <property name="text">
+                            <string>Curve</string>
+                        </property>
+                        <property name="text">
+                            <string>CurveUsrPos</string>
+                        </property>
+                        <item>
+                            <property name="text">
+                                <string>DevIndex</string>
+                            </property>
+                            <property name="text">
+                                <string>0</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>AxisIndex</string>
+                            </property>
+                            <property name="text">
+                                <string>0</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>AxisCount</string>
+                            </property>
+                            <property name="text">
+                                <string>4</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Name</string>
+                            </property>
+                            <property name="text">
+                                <string>Pos</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Note</string>
+                            </property>
+                            <property name="text">
+                                <string>Position Feedback</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Color</string>
+                            </property>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>255</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>0</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>0</string>
+                                </property>
+                            </item>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>IsDraw</string>
+                            </property>
+                            <property name="text">
+                                <string>1</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Unit</string>
+                            </property>
+                            <property name="text">
+                                <string>0</string>
+                            </property>
+                            <item>
+                                <property name="text">
+                                    <string>pulse</string>
+                                </property>
+                                <property name="text">
+                                    <string>1.00000</string>
+                                </property>
+                            </item>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>ConstInputs</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>VarInputs</string>
+                            </property>
+                            <item>
+                                <property name="text">
+                                    <string>Var</string>
+                                </property>
+                                <property name="text">
+                                    <string>gSevDrv.sev_obj.cur.rsv.pos</string>
+                                </property>
+                                <item>
+                                    <property name="text">
+                                        <string>BaseAddr</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>0</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>OffsetAddr</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>756</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>Bytes</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>4</string>
+                                    </property>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>Curve</string>
+                        </property>
+                        <property name="text">
+                            <string>CurveUsrPos</string>
+                        </property>
+                        <item>
+                            <property name="text">
+                                <string>DevIndex</string>
+                            </property>
+                            <property name="text">
+                                <string>0</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>AxisIndex</string>
+                            </property>
+                            <property name="text">
+                                <string>1</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>AxisCount</string>
+                            </property>
+                            <property name="text">
+                                <string>4</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Name</string>
+                            </property>
+                            <property name="text">
+                                <string>Pos</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Note</string>
+                            </property>
+                            <property name="text">
+                                <string>Position Feedback</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Color</string>
+                            </property>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>0</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>255</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>0</string>
+                                </property>
+                            </item>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>IsDraw</string>
+                            </property>
+                            <property name="text">
+                                <string>1</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Unit</string>
+                            </property>
+                            <property name="text">
+                                <string>0</string>
+                            </property>
+                            <item>
+                                <property name="text">
+                                    <string>pulse</string>
+                                </property>
+                                <property name="text">
+                                    <string>1.00000</string>
+                                </property>
+                            </item>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>ConstInputs</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>VarInputs</string>
+                            </property>
+                            <item>
+                                <property name="text">
+                                    <string>Var</string>
+                                </property>
+                                <property name="text">
+                                    <string>gSevDrv.sev_obj.cur.rsv.pos</string>
+                                </property>
+                                <item>
+                                    <property name="text">
+                                        <string>BaseAddr</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>0</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>OffsetAddr</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>8508</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>Bytes</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>4</string>
+                                    </property>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>Curve</string>
+                        </property>
+                        <property name="text">
+                            <string>CurveUsrPos</string>
+                        </property>
+                        <item>
+                            <property name="text">
+                                <string>DevIndex</string>
+                            </property>
+                            <property name="text">
+                                <string>0</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>AxisIndex</string>
+                            </property>
+                            <property name="text">
+                                <string>2</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>AxisCount</string>
+                            </property>
+                            <property name="text">
+                                <string>4</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Name</string>
+                            </property>
+                            <property name="text">
+                                <string>Pos</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Note</string>
+                            </property>
+                            <property name="text">
+                                <string>Position Feedback</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Color</string>
+                            </property>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>0</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>0</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>255</string>
+                                </property>
+                            </item>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>IsDraw</string>
+                            </property>
+                            <property name="text">
+                                <string>1</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Unit</string>
+                            </property>
+                            <property name="text">
+                                <string>0</string>
+                            </property>
+                            <item>
+                                <property name="text">
+                                    <string>pulse</string>
+                                </property>
+                                <property name="text">
+                                    <string>1.00000</string>
+                                </property>
+                            </item>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>ConstInputs</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>VarInputs</string>
+                            </property>
+                            <item>
+                                <property name="text">
+                                    <string>Var</string>
+                                </property>
+                                <property name="text">
+                                    <string>gSevDrv.sev_obj.cur.rsv.pos</string>
+                                </property>
+                                <item>
+                                    <property name="text">
+                                        <string>BaseAddr</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>0</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>OffsetAddr</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>756</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>Bytes</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>4</string>
+                                    </property>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>Curve</string>
+                        </property>
+                        <property name="text">
+                            <string>CurveUsrPos</string>
+                        </property>
+                        <item>
+                            <property name="text">
+                                <string>DevIndex</string>
+                            </property>
+                            <property name="text">
+                                <string>0</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>AxisIndex</string>
+                            </property>
+                            <property name="text">
+                                <string>3</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>AxisCount</string>
+                            </property>
+                            <property name="text">
+                                <string>4</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Name</string>
+                            </property>
+                            <property name="text">
+                                <string>Pos</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Note</string>
+                            </property>
+                            <property name="text">
+                                <string>Position Feedback</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Color</string>
+                            </property>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>0</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>0</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>0</string>
+                                </property>
+                            </item>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>IsDraw</string>
+                            </property>
+                            <property name="text">
+                                <string>1</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Unit</string>
+                            </property>
+                            <property name="text">
+                                <string>0</string>
+                            </property>
+                            <item>
+                                <property name="text">
+                                    <string>pulse</string>
+                                </property>
+                                <property name="text">
+                                    <string>1.00000</string>
+                                </property>
+                            </item>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>ConstInputs</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>VarInputs</string>
+                            </property>
+                            <item>
+                                <property name="text">
+                                    <string>Var</string>
+                                </property>
+                                <property name="text">
+                                    <string>gSevDrv.sev_obj.cur.rsv.pos</string>
+                                </property>
+                                <item>
+                                    <property name="text">
+                                        <string>BaseAddr</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>0</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>OffsetAddr</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>8508</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>Bytes</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>4</string>
+                                    </property>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </widget>
+            </item>
+        </layout>
     </widget>
-   </item>
-  </layout>
- </widget>
- <resources/>
- <connections/>
+    <resources/>
+    <connections/>
 </ui>

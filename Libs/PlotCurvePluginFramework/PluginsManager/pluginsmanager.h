@@ -25,6 +25,9 @@ public:
 
   QList<QList<ICurve *> > customCurves() const;
 
+  void saveCurvesToXml(const QList<ICurve *> &clist);
+  QList<ICurve *> buildCurvesFromXml();
+
 private:
   QStringList pluginsFromReadTxt(const QString &fileName);
   QString plotPluginsPath();
@@ -33,6 +36,8 @@ private:
   bool installExpertPlugin();
   bool installUsrPlugin();
   bool installCustomPlugin();
+
+  ICurve *createICurveFromContainer(const QString &name);
 
 signals:
 

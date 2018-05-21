@@ -17,6 +17,7 @@ INCLUDEPATH +=$${MYLIB_PATH}/UI/IUiWidget\
               $${MYLIB_PATH}/Option\
               $${MYLIB_PATH}/GTUtils\
               $${MYLIB_PATH}/GTUtils/CmdManager\
+              $${MYLIB_PATH}/GTUtils/QtTreeManager\
               $${MYLIB_PATH}/SDKernel\
               $${PWD}/../../../Common/src/SdtGlobal\
               $${PWD}/../IPlotUnit\
@@ -68,7 +69,10 @@ SOURCES += \
     CurveManager/curvemanager.cpp \
     CurveManager/curvetableaxisitem.cpp \
     Thread/threadsample.cpp \
-    Thread/threadcalculate.cpp
+    Thread/threadcalculate.cpp \
+    TabModeCtl/tabmodectl.cpp \
+    TabMotion/tabmotion.cpp \
+    itabwidget.cpp
 
 HEADERS += \
         plotunitgraph_global.h \
@@ -89,7 +93,10 @@ HEADERS += \
     Thread/threadsample.h \
     Thread/threadcalculate.h \
     Thread/sampledata.h \
-    plotdata.h
+    plotdata.h \
+    TabModeCtl/tabmodectl.h \
+    TabMotion/tabmotion.h \
+    itabwidget.h
 
 unix {
     target.path = /usr/lib
@@ -99,6 +106,8 @@ unix {
 FORMS += \
     plotunitgraph129.ui\
     tabctlpanel129.ui \
-    DialogPickCurve/dialogpickcurve.ui
+    DialogPickCurve/dialogpickcurve.ui \
+    TabModeCtl/tabmodectl.ui \
+    TabMotion/tabmotion.ui
 
 TRANSLATIONS    += ch_plotunit.ts en_plotunit.ts

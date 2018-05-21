@@ -7,12 +7,17 @@
 #include "ctkPluginFramework.h"
 #include "ctkPluginFrameworkFactory.h"
 
+#include "QtTreeManager/qttreemanager.h"
+
 #include <QFile>
 #include <QTextStream>
 #include <QMessageBox>
 #include <QDebug>
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
 
-#define PLUGINLIST_FILE_NAME "plugins.txt"
+#define PLUGINLIST_FILE_NAME        "plugins.txt"
+#define CURVE_HISTORY_FILE_NAME     "curvehistory.ui"
 
 PluginsManager::PluginsManager(QObject *parent) : QObject(parent),
   m_expertCurve(NULL)
@@ -209,9 +214,76 @@ bool PluginsManager::installCustomPlugin()
   return true;
 }
 
+ICurve *PluginsManager::createICurveFromContainer(const QString &name)
+{
+  ICurve * c = NULL;
+  if(name == m_expertCurve->pluginName())
+  {
+    c = m_expertCurve->clone();
+    return c;
+  }
+  for(int i = 0;i<m_usrCurves.size();i++)
+  {
+    if(name == m_usrCurves.at(i)->pluginName())
+    {
+      c = m_usrCurves.at(i)->clone();
+      return c;
+    }
+  }
+  return c;
+  //还有用户定制的没有考虑
+}
+
 QList<QList<ICurve *> > PluginsManager::customCurves() const
 {
   return m_customCurves;
+}
+
+void PluginsManager::saveCurvesToXml(const QList<ICurve *> &clist)
+{
+  QTreeWidget *tree = new QTreeWidget;
+  tree->setColumnCount(ICurve::COL_CURVE_XML_SIZE);
+  QStringList title;
+  title<<"Name"<<"Value";
+  tree->setHeaderLabels(title);
+  ICurve *c = NULL;
+  QTreeWidgetItem *item = NULL;
+  for(int i = 0;i<clist.size();i++)
+  {
+    c = clist.at(i);
+    item = new QTreeWidgetItem(tree);
+    c->write(item);
+  }
+  QString file = plotPluginsPath()+CURVE_HISTORY_FILE_NAME;
+  QtTreeManager::writeTreeWidgetToXmlFile(file,tree);
+  delete tree;
+}
+
+QList<ICurve *> PluginsManager::buildCurvesFromXml()
+{
+  QList<ICurve *> list;
+  QString file = plotPluginsPath()+CURVE_HISTORY_FILE_NAME;
+  QTreeWidget *tree = QtTreeManager::createTreeWidgetFromXmlFile(file);
+  QTreeWidgetItem *item = NULL;
+
+  for(int i = 0 ;i<tree->topLevelItemCount();i++)
+  {
+    ICurve *c = NULL;
+    item = tree->topLevelItem(i);
+    QString curveName = item->text(ICurve::COL_CURVE_XML_VALUE);
+    c = createICurveFromContainer(curveName);
+    if(c)
+    {
+      bool ok = c->read(item);
+      if(ok)
+        list.append(c);
+      else
+        delete c;
+    }
+  }
+
+  delete tree;
+  return list;
 }
 
 QList<ICurve *> PluginsManager::usrCurves() const

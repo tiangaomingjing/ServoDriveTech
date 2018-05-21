@@ -21,6 +21,7 @@ ICurve *CurveRaw::clone()
 {
   ICurve *c=new CurveRaw();
   c->prepare();
+  c->setPluginName(dd.m_pluginName);
   return c;
 }
 
