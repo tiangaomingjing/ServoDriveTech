@@ -9,14 +9,19 @@
 #include "sevctrboard.h"
 #include "verattribute.h"
 #include "Option"
+#include "advusercheck.h"
+#include "advusercontainer.h"
 
 #include <QTreeWidget>
 #include <QStringList>
+#include <QApplication>
 #include <QDebug>
 #include <QTreeWidgetItemIterator>
 #include <QMessageBox>
 
+
 #define CMD_PRO_ALM_FLAG "gSevDrv.sev_obj.cur.pro.alm_flag"
+#define FILENAME_PRM_PTY_TREE "PrmPrtyTree.xml"
 
 #define TEST_CHECKSTATUS 0
 
@@ -29,7 +34,8 @@ SevDevicePrivate::SevDevicePrivate(SevDevice *sev, QObject *parent):QObject(pare
   m_ctrBoard(NULL),
   m_verAttribute(NULL),
   m_devConfig(new DeviceConfig),
-  m_connected(false)
+  m_connected(false),
+  m_barCount(0)
 {
 
 }
@@ -320,7 +326,7 @@ bool SevDevice::writeGenPageRAM(quint16 axisInx, QTreeWidget *pageTree)
     return false;
 
   bool checkOk=true;
-  checkOk=checkParameters(axisInx,pageTree);
+  checkOk=checkPageParameters(axisInx,pageTree);
   if(!checkOk)
     return false;
 
@@ -347,16 +353,28 @@ bool SevDevice::writeGenPageRAM(quint16 axisInx, QTreeWidget *pageTree)
   return rOk;
 }
 
-bool SevDevice::writeItemFlash(quint16 axisInx, QTreeWidgetItem *item)
+bool SevDevice::writePageItemFlash(quint16 axisInx, QTreeWidgetItem *item)
 {
   Q_D(SevDevice);
-  return d->m_socket->writeItemFlash(axisInx,item);
+  return d->m_socket->writePageItemFlash(axisInx,item);
 }
 
-bool SevDevice::readItemFlash(quint16 axisInx, QTreeWidgetItem *item)
+bool SevDevice::readPageItemFlash(quint16 axisInx, QTreeWidgetItem *item)
 {
   Q_D(SevDevice);
-    return d->m_socket->readItemFlash(axisInx,item);
+    return d->m_socket->readPageItemFlash(axisInx,item);
+}
+
+bool SevDevice::writePrmItemFlash(quint16 axisInx, QTreeWidgetItem *item)
+{
+  Q_D(SevDevice);
+  return d->m_socket->writePrmItemFlash(axisInx,item);
+}
+
+bool SevDevice::readPrmItemFlash(quint16 axisInx, QTreeWidgetItem *item)
+{
+  Q_D(SevDevice);
+    return d->m_socket->readPrmItemFlash(axisInx,item);
 }
 
 bool SevDevice::writeAdvFlash(quint16 axisInx, QTreeWidgetItem *item)
@@ -566,7 +584,7 @@ bool SevDevice::onReadPageFlash(int axis, QTreeWidget *pageTree)
   while (*it)
   {
     item=(*it);
-    rOk=d->m_socket->readItemFlash(axis,item);
+    rOk=d->m_socket->readPageItemFlash(axis,item);
     if(!rOk)
     {
       rOk=false;
@@ -583,7 +601,7 @@ bool SevDevice::onWritePageFlash(int axis, QTreeWidget *pageTree)
     return false;
 
   bool checkOk=true;
-  checkOk=checkParameters(axis,pageTree);
+  checkOk=checkPageParameters(axis,pageTree);
   if(!checkOk)
     return false;
 
@@ -596,11 +614,11 @@ bool SevDevice::onWritePageFlash(int axis, QTreeWidget *pageTree)
     item=(*it);
     qDebug()<<"write item"<<item->text(GT::COL_PAGE_TREE_NAME)<<"value"<<item->text(GT::COL_PAGE_TREE_VALUE);
 
-    writeOk=d->m_socket->writeItemFlash(axis,item);
+    writeOk=d->m_socket->writePageItemFlash(axis,item);
     qDebug()<<"writeOk"<<writeOk;
     if(writeOk)
     {
-      d->m_socket->readItemFlash(axis,item);
+      d->m_socket->readPageItemFlash(axis,item);
       emit itemRangeValid(item,(int)OptFace::EDIT_TEXT_STATUS_DEFAULT);
     }
     else
@@ -614,7 +632,7 @@ bool SevDevice::onWritePageFlash(int axis, QTreeWidget *pageTree)
   return writeOk;
 }
 
-bool SevDevice::checkPropertyParameters(QTreeWidgetItem *item)
+bool SevDevice::checkPagePropertyParameters(QTreeWidgetItem *item)
 {
   bool checked=true;
   double value ,min,max;
@@ -647,6 +665,7 @@ bool SevDevice::checkPowerBoardParameters(QTreeWidgetItem *item, const QMap<QStr
 {
   QString name=item->text(GT::COL_PAGE_TREE_NAME);
   bool checked=true;
+  //qDebug()<<"name"<<name;
 
   if(limit->contains(name))
   {
@@ -654,6 +673,7 @@ bool SevDevice::checkPowerBoardParameters(QTreeWidgetItem *item, const QMap<QStr
     value=item->text(GT::COL_PAGE_TREE_VALUE).toDouble();
     min=limit->value(name).min;
     max=limit->value(name).max;
+    qDebug()<<"name"<<name<<"value"<<value<<"max"<<max<<"min"<<min;
     if(!(value>=min&&value<=max))
     {
       checked=false;
@@ -664,38 +684,133 @@ bool SevDevice::checkPowerBoardParameters(QTreeWidgetItem *item, const QMap<QStr
   return checked;
 }
 
-bool SevDevice::checkParameters(int axis,QTreeWidget *tree)
+bool SevDevice::checkPageParameters(int axis, QTreeWidget *tree)
 {
 
   QTreeWidgetItem *item=NULL;
   bool isOk=true;
-
-  for(int i=0;i<tree->topLevelItemCount();i++)
-  {
-    //1 检查输入值是否在约束范围内
-    item=tree->topLevelItem(i);
-    isOk=checkPropertyParameters(item);
-    qDebug()<<"TEST_OUT"<<"checkPropertyParameters(item) ok="<<isOk;
-    if(!isOk)
-      break;
-  }
-  if(isOk)
-  {
-    //2 检查输入值是否在powerboard的约束
-    Q_D(SevDevice);
-    QMap<QString ,PowerBoardLimit> limit;
-    if(!(d->m_pwrBoard->pwrLimitMapList()->isEmpty()))
+  OptUser *user = dynamic_cast<OptUser *>(OptContainer::instance()->optItem("optuser"));
+  bool isAdmin = user->isAdmin();
+  AdvUserCheck *check = dynamic_cast<AdvUserCheck*>(AdvUserContainer::instance()->advItem("advusercheck"));
+  bool isChecked = check->isChecked();
+  if (!isAdmin || (isAdmin && isChecked)) {
+    for(int i=0;i<tree->topLevelItemCount();i++)
     {
-      limit=d->m_pwrBoard->pwrLimitMapList()->at(axis);
-
-      for(int i=0;i<tree->topLevelItemCount();i++)
-      {
+        //1 检查输入值是否在约束范围内
         item=tree->topLevelItem(i);
-        isOk=checkPowerBoardParameters(item,&limit);
+        isOk=checkPagePropertyParameters(item);
+        qDebug()<<"TEST_OUT"<<"checkPagePropertyParameters(item) ok="<<isOk;
         if(!isOk)
-          break;
-      }
+        break;
+    }
+    if(isOk)
+    {
+        //2 检查输入值是否在powerboard的约束
+        Q_D(SevDevice);
+        QMap<QString ,PowerBoardLimit> limit;
+        if(!(d->m_pwrBoard->pwrLimitMapList()->isEmpty()))
+        {
+            limit=d->m_pwrBoard->pwrLimitMapList()->at(axis);
+
+            for(int i=0;i<tree->topLevelItemCount();i++)
+            {
+                item=tree->topLevelItem(i);
+                isOk=checkPowerBoardParameters(item,&limit);
+                if(!isOk)
+                 break;
+            }
+        }
     }
   }
   return isOk;
+}
+
+bool SevDevice::checkLoadParameters(QTreeWidget *tree)
+{
+    Q_D(SevDevice);
+    d->m_barCount = 0;
+    bool isOk=true;
+    OptUser *user = dynamic_cast<OptUser *>(OptContainer::instance()->optItem("optuser"));
+    bool isAdmin = user->isAdmin();
+    AdvUserCheck *check = dynamic_cast<AdvUserCheck*>(AdvUserContainer::instance()->advItem("advusercheck"));
+    bool isChecked = check->isChecked();
+    if (!isAdmin || (isAdmin && isChecked)) {
+        qDebug()<<"check";
+        QString prmPtyPath = GTUtils::sysPath() + typeName() + "/" + modelName() + "/" + versionName() + "/" + FILENAME_PRM_PTY_TREE;
+        QTreeWidget* prmPtyTree = QtTreeManager::createTreeWidgetFromXmlFile(prmPtyPath);
+        for (int i = 0; i < tree->topLevelItemCount(); i++) {
+            isOk = checkLoadItemParameters(i, tree->topLevelItem(i), prmPtyTree);
+            if (!isOk) {
+                return isOk;
+            }
+        }
+    }
+    return isOk;
+}
+
+bool SevDevice::checkLoadItemParameters(int axis, QTreeWidgetItem *item, QTreeWidget *prmTree)
+{
+    Q_D(SevDevice);
+    if (d->m_barCount % 10 == 0) {
+        emit initProgressInfo(d->m_barCount % 100, tr("Checking axis%1").arg(QString::number(axis + 1)) + item->text(GT::COL_FLASH_ALLAXIS_NAME));
+        qApp->processEvents();
+    }
+    d->m_barCount++;
+    bool isOk = true;
+    isOk = checkLoadPropertyParameters(item, prmTree);
+    if (!isOk) {
+        return isOk;
+    }
+    QMap<QString ,PowerBoardLimit> limit;
+    if(!(d->m_pwrBoard->pwrLimitMapList()->isEmpty()))
+    {
+        limit = d->m_pwrBoard->pwrLimitMapList()->at(axis);
+        isOk = checkPowerBoardParameters(item, &limit);
+        if (!isOk) {
+            return isOk;
+        }
+    }
+    for (int i = 0; i < item->childCount(); i++) {
+        isOk = checkLoadItemParameters(axis, item->child(i), prmTree);
+        if (!isOk) {
+            return isOk;
+        }
+    }
+    return isOk;
+}
+
+bool SevDevice::checkLoadPropertyParameters(QTreeWidgetItem *item, QTreeWidget* prmTree)
+{
+    bool checked=true;
+    QString name = item->text(GT::COL_FLASH_ALLAXIS_NAME);
+    double value ,min,max;
+    value=item->text(GT::COL_FLASH_ALLAXIS_VALUE).toDouble();
+
+    QTreeWidgetItem* prmItem = GTUtils::findItem(name, prmTree, GT::COL_PRM_PRTY_NAME);
+    if (prmItem == NULL) {
+        return true;
+    }
+    min = prmItem->text(GT::COL_PRM_PRTY_MIN).toDouble();
+    max = prmItem->text(GT::COL_PRM_PRTY_MAX).toDouble();
+    if(((value>=min)&&(value<=max))==false)
+    {
+      checked=false;
+      emit itemRangeValid(item,(int)OptFace::EDIT_TEXT_STATUS_ERROR);
+      double scale;
+      bool ok=true;
+      scale=item->text(GT::COL_PAGE_TREE_SCALE).toDouble(&ok);
+      if(!ok&&scale==0)
+        scale=1;
+      value=value/scale;
+      min=min/scale;
+      max=max/scale;
+      qDebug()<<"value"<<value<<"min"<<min<<"max"<<max;
+      QString msg=QString(tr("CheckPrm Error\n:%1 %2 is out of range %3 -- %4\nparamater save fail!")\
+                               .arg(item->text(GT::COL_PAGE_TREE_NAME))\
+                               .arg(value)\
+                               .arg(min)\
+                               .arg(max));
+      QMessageBox::warning(0,tr("Prm Error"),msg);
+    }
+    return checked;
 }

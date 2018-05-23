@@ -5,12 +5,13 @@ SUBDIRS += \
     Com \
     GTUtils \
     Option\
+    AdvUser\
     SDKernel\
     PlotUnit/IPlotUnit\
     UI \
     PlotCurvePluginFramework\
-    PlotUnit/PlotUnitGraph \
-    AdvUser
+    PlotUnit/PlotUnitGraph
+
 
 
 

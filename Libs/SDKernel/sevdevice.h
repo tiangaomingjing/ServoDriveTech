@@ -48,8 +48,8 @@ public:
   bool readGenPageRAM(quint16 axisInx,QTreeWidget *pageTree);
   bool writeGenPageRAM(quint16 axisInx,QTreeWidget *pageTree);
 
-  bool writeItemFlash(quint16 axisInx,QTreeWidgetItem *item);
-  bool readItemFlash(quint16 axisInx,QTreeWidgetItem *item);
+  bool writePageItemFlash(quint16 axisInx,QTreeWidgetItem *item);
+  bool readPageItemFlash(quint16 axisInx,QTreeWidgetItem *item);
 
   bool writeAdvFlash(quint16 axisInx, QTreeWidgetItem *item);
   bool writeAdvRam(quint16 axisInx, QTreeWidgetItem *item);
@@ -63,6 +63,7 @@ public:
   bool getPlotData(const ComDriver::PlotControlPrm &ctrPrm,ComDriver::CurveList &curveList);
 
   bool clearAlarm(quint16 axisInx);
+  bool checkLoadParameters(QTreeWidget *tree);
 
   QString aliasName() const;
   QString typeName() const;
@@ -89,6 +90,8 @@ public:
 
   Q_INVOKABLE void qmlTest();
 
+  bool writePrmItemFlash(quint16 axisInx, QTreeWidgetItem *item);
+  bool readPrmItemFlash(quint16 axisInx, QTreeWidgetItem *item);
 signals:
   void initProgressInfo(int value,QString msg);
   void itemRangeValid(QTreeWidgetItem *item,int status);
@@ -101,13 +104,11 @@ public slots:
   bool onWritePageFlash(int axis,QTreeWidget *pageTree);
 
 private:
-  bool checkPropertyParameters(QTreeWidgetItem *item);
+  bool checkPagePropertyParameters(QTreeWidgetItem *item);
   bool checkPowerBoardParameters(QTreeWidgetItem *item,const QMap<QString ,PowerBoardLimit> *limit);
-  bool checkParameters(int axis,QTreeWidget *tree);
-  void assignBits(QTreeWidgetItem *item);
-  void assign16Bits(QTreeWidgetItem *item, ComDriver::int16_t value);
-  void assign32Bits(QTreeWidgetItem *item, ComDriver::int32_t value);
-  bool isTargetItem(QTreeWidgetItem *item, const QString &str, int index);
+  bool checkPageParameters(int axis,QTreeWidget *tree);
+  bool checkLoadItemParameters(int axis, QTreeWidgetItem *item, QTreeWidget *prmTree);
+  bool checkLoadPropertyParameters(QTreeWidgetItem *item, QTreeWidget *prmTree);
 private:
   SevDevicePrivate *d_ptr;
 };

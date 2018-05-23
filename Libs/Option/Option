@@ -4,5 +4,6 @@
 #include "optface.h"
 #include "optplot.h"
 #include "optuser.h"
+#include "optpath.h"
 #include "qmlstylehelper.h"
 #include "stylewidget.h"

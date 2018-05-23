@@ -99,16 +99,21 @@ private slots:
   void onActnNewConfigClicked();
   void onActnSaveClicked();
   void onActnConfigClicked();
+  void onActnDownloadClicked();
+  void onActnUploadClicked();
   void onActnProduceClicked();
   void onActnAdvUserClicked();
   void onActnCompareClicked();
   void onStartMsgReceived();
   void onCloseMsgReceived();
+  void onDownloadMsgReceived(int index, const QString &filePath);
+  void onUploadMsgReceived(int index, const QString &filePath);
 
   //响应option选项slots
   void onOptAutoLoadChanged(bool changed);
   void onOptFaceCssChanged(const QString &css);
   void onOptUserChanged(bool isAdmin);
+  void onOptPathChanged(const QStringList &list);
 
   void onProgressInfo(int barValue, QString msg);
 
@@ -166,7 +171,12 @@ private:
   bool m_connecting;
   StatusMonitor *m_statusMonitor;
 
-
+  QString m_downloadPath;
+  QString m_downloadFileName;
+  int m_downloadIndex;
+  QString m_uploadPath;
+  QString m_uploadFileName;
+  int m_uploadIndex;
 };
 
 #endif // SDTMAINWINDOW_H

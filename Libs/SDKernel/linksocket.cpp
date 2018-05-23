@@ -87,7 +87,222 @@ bool LinkSocket::isConnected() const
   return m_isConnected;
 }
 
-bool LinkSocket::readItemFlash(int axis,QTreeWidgetItem *item)
+bool LinkSocket::readPrmItemFlash(int axis,QTreeWidgetItem *item)
+{
+  if(!m_isConnected)
+    return true;
+  QString type;
+  uint16_t addr;
+  uint8_t axisInx=axis;
+  type=item->text(COL_FLASH_ALLAXIS_TYPE);
+  addr=item->text(COL_FLASH_ALLAXIS_ADDR).toUShort();
+  if(type=="Uint16")
+  {
+    int16_t value;
+    int16_t value2;
+    m_com->readFLASH16(axisInx,addr,0,value);
+    m_com->readFLASH16(axisInx,addr,0,value2);
+    if (value == value2) {
+        item->setText(COL_FLASH_ALLAXIS_VALUE,QString::number((uint16_t)value));
+    } else {
+        return false;
+    }
+  }
+  else if(type=="int16")
+  {
+    int16_t value;
+    int16_t value2;
+    m_com->readFLASH16(axisInx,addr,0,value);
+    m_com->readFLASH16(axisInx,addr,0,value2);
+    if (value == value2) {
+        item->setText(COL_FLASH_ALLAXIS_VALUE,QString::number(value));
+    } else {
+        return false;
+    }
+  }
+  else if(type=="Uint32")
+  {
+    int32_t value;
+    int32_t value2;
+    m_com->readFLASH32(axisInx,addr,0,value);
+    m_com->readFLASH32(axisInx,addr,0,value2);
+    if (value == value2) {
+        item->setText(COL_FLASH_ALLAXIS_VALUE,QString::number((uint32_t)value));
+    } else {
+        return false;
+    }
+  }
+  else if(type=="int32")
+  {
+    int32_t value;
+    int32_t value2;
+    m_com->readFLASH32(axisInx,addr,0,value);
+    m_com->readFLASH32(axisInx,addr,0,value2);
+    if (value == value2) {
+        item->setText(COL_FLASH_ALLAXIS_VALUE,QString::number(value));
+    } else {
+        return false;
+    }
+  }
+  else if(type=="Uint64")
+  {
+    int64_t value;
+    int64_t value2;
+    m_com->readFLASH64(axisInx,addr,0,(int64_t)value);
+    m_com->readFLASH64(axisInx,addr,0,(int64_t)value2);
+    if (value == value2) {
+        item->setText(COL_FLASH_ALLAXIS_VALUE,QString::number((uint64_t)value));
+    } else {
+        return false;
+    }
+  }
+  else if(type=="int64")
+  {
+    int64_t value;
+    int64_t value2;
+    m_com->readFLASH64(axisInx,addr,0,value);
+    m_com->readFLASH64(axisInx,addr,0,value2);
+    if (value == value2) {
+        item->setText(COL_FLASH_ALLAXIS_VALUE,QString::number(value));
+    } else {
+        return false;
+    }
+  }
+  else
+  {
+    int16_t value;
+    int16_t value2;
+    m_com->readFLASH16(axisInx,addr,0,value);
+    m_com->readFLASH16(axisInx,addr,0,value2);
+    if (value == value2) {
+        item->setText(COL_FLASH_ALLAXIS_VALUE,QString::number((uint16_t)value));
+    } else {
+        return false;
+    }
+  }
+  return true;
+}
+bool LinkSocket::writePrmItemFlash(int axis,QTreeWidgetItem *item)
+{
+  if(!m_isConnected)
+    return true;
+  QString type;
+  uint16_t addr;
+  ComDriver::errcode_t err;
+  uint8_t axisInx=axis;
+  type=item->text(COL_FLASH_ALLAXIS_TYPE);
+  addr=item->text(COL_FLASH_ALLAXIS_ADDR).toUShort();
+  if(type=="Uint16")
+  {
+    uint16_t wv;
+    int16_t rv;
+    wv=item->text(COL_PAGE_TREE_VALUE).toUShort();
+    quint8 tryCount=0;
+    do{
+      err=m_com->writeFLASH16(axisInx,addr,0,(int16_t)wv);
+      m_com->readFLASH16(axisInx,addr,0,rv);
+      tryCount++;
+    }while(((uint16_t)rv!=wv)&&(tryCount<m_tryWriteCount));
+    //qDebug()<<"tryCount"<<tryCount<<tr("write,read(%1,%2)").arg(wv).arg(rv);
+    if(tryCount>=m_tryWriteCount)
+      return false;
+  }
+  else if(type=="int16")
+  {
+    int16_t wv;
+    int16_t rv;
+    wv=item->text(COL_PAGE_TREE_VALUE).toShort();
+
+    quint8 tryCount=0;
+    do{
+      err=m_com->writeFLASH16(axisInx,addr,0,wv);
+      m_com->readFLASH16(axisInx,addr,0,rv);
+      tryCount++;
+    }while((rv!=wv)&&(tryCount<m_tryWriteCount));
+    //qDebug()<<"tryCount"<<tryCount<<"rv ="<<rv<<"wv ="<<wv;
+    if(tryCount>=m_tryWriteCount)
+      return false;
+
+  }
+  else if(type=="Uint32")
+  {
+    uint32_t wv;
+    int32_t rv;
+    wv=item->text(COL_PAGE_TREE_VALUE).toULong();
+
+    quint8 tryCount=0;
+    do{
+      err=m_com->writeFLASH32(axisInx,addr,0,(int32_t)wv);
+      m_com->readFLASH32(axisInx,addr,0,rv);
+      tryCount++;
+    }while(((uint32_t)rv!=wv)&&(tryCount<m_tryWriteCount));
+    if(tryCount>=m_tryWriteCount)
+      return false;
+  }
+  else if(type=="int32")
+  {
+    int32_t wv;
+    int32_t rv;
+    wv=item->text(COL_PAGE_TREE_VALUE).toLong();
+
+    quint8 tryCount=0;
+    do{
+      err=m_com->writeFLASH32(axisInx,addr,0,wv);
+      m_com->readFLASH32(axisInx,addr,0,rv);
+      tryCount++;
+    }while((rv!=wv)&&(tryCount<m_tryWriteCount));
+    if(tryCount>=m_tryWriteCount)
+      return false;
+  }
+  else if(type=="Uint64")
+  {
+    uint64_t wv;
+    int64_t rv;
+    wv=item->text(COL_PAGE_TREE_VALUE).toULongLong();
+
+    quint8 tryCount=0;
+    do{
+      err=m_com->writeFLASH64(axisInx,addr,0,(int64_t)wv);
+      m_com->readFLASH64(axisInx,addr,0,rv);
+      tryCount++;
+    }while(((uint64_t)rv!=wv)&&(tryCount<m_tryWriteCount));
+    if(tryCount>=m_tryWriteCount)
+      return false;
+  }
+  else if(type=="int64")
+  {
+    int64_t wv;
+    int64_t rv;
+    wv=item->text(COL_PAGE_TREE_VALUE).toLongLong();
+
+    quint8 tryCount=0;
+    do{
+      err=m_com->writeFLASH64(axisInx,addr,0,wv);
+      m_com->readFLASH64(axisInx,addr,0,rv);
+      tryCount++;
+    }while((rv!=wv)&&(tryCount<m_tryWriteCount));
+    if(tryCount>=m_tryWriteCount)
+      return false;
+  }
+  else
+  {
+    uint16_t wv;
+    int16_t rv;
+    wv=item->text(COL_PAGE_TREE_VALUE).toUShort();
+
+    quint8 tryCount=0;
+    do{
+      err=m_com->writeFLASH16(axisInx,addr,0,(int16_t)wv);
+      m_com->readFLASH16(axisInx,addr,0,rv);
+      tryCount++;
+    }while(((uint16_t)rv!=wv)&&(tryCount<m_tryWriteCount));
+    if(tryCount>=m_tryWriteCount)
+      return false;
+  }
+  return true;
+}
+
+bool LinkSocket::readPageItemFlash(int axis,QTreeWidgetItem *item)
 {
   if(!m_isConnected)
     return true;
@@ -140,7 +355,7 @@ bool LinkSocket::readItemFlash(int axis,QTreeWidgetItem *item)
   }
   return true;
 }
-bool LinkSocket::writeItemFlash(int axis,QTreeWidgetItem *item)
+bool LinkSocket::writePageItemFlash(int axis,QTreeWidgetItem *item)
 {
   if(!m_isConnected)
     return true;
@@ -164,7 +379,7 @@ bool LinkSocket::writeItemFlash(int axis,QTreeWidgetItem *item)
       m_com->readFLASH16(axisInx,addr,0,rv);
       tryCount++;
     }while(((uint16_t)rv!=wv)&&(tryCount<m_tryWriteCount));
-    qDebug()<<"tryCount"<<tryCount<<tr("write,read(%1,%2)").arg(wv).arg(rv);
+    //qDebug()<<"tryCount"<<tryCount<<tr("write,read(%1,%2)").arg(wv).arg(rv);
     if(tryCount>=m_tryWriteCount)
       return false;
   }

@@ -17,6 +17,12 @@ public:
     explicit OptPath(const QString &optName, QWidget *parent = 0);
     ~OptPath();
     void uiInit()Q_DECL_OVERRIDE;
+
+    QString servo2FilePath();
+    QString file2ServoPath();
+    QString flashFilePath();
+    QString oldFilePath();
+    QString newFilePath();
 signals:
     void pathesChanged(QStringList);
 private:
