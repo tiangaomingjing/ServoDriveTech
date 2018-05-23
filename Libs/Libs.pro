@@ -10,7 +10,8 @@ SUBDIRS += \
     PlotUnit/IPlotUnit\
     UI \
     PlotCurvePluginFramework\
-    PlotUnit/PlotUnitGraph
+    SDMotion\
+    PlotUnit/PlotUnitGraph \
 
 
 

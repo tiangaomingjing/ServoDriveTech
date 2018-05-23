@@ -26,6 +26,7 @@ signals:
   void currentPosChanged(const QPointF &point);
   void horizMeaDataChanged(qreal v1,qreal v2,qreal dv);
   void vertiMeaDataChanged(qreal v1,qreal v2,qreal dv);
+  void selectionRectFinish();
 
 private slots:
   void onHorizMeaDataChanged(qreal data);
@@ -35,6 +36,8 @@ private:
 
   QCPItemMeasure *m_horizMea;
   QCPItemMeasure *m_vertiMea;
+
+  bool m_ctlAndLeftKeyPressed;
 
 };
 

@@ -23,6 +23,7 @@ ICurve *CurveUsrIfb::clone()
 {
   ICurve *c=new CurveUsrIfb();
   c->prepare();
+  c->setPluginName(dd.m_pluginName);
   return c;
 }
 

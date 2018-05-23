@@ -18,8 +18,8 @@ public:
 
   errcode_t clearAlarm(uint8_t axis) override;
 
-  errcode_t setServoTaskMode(uint8_t axis,ServoTaskMode_t mode);
-  ServoTaskMode_t currentServoTaskMode(uint8_t axis,errcode_t &errcode);
+  errcode_t setServoTaskMode(uint8_t axis, TaskServoMode mode);
+  TaskServoMode currentServoTaskMode(uint8_t axis,errcode_t &errcode);
 
   errcode_t setIdRef(uint8_t axis ,double idRef)override;
   errcode_t getIdRef(uint8_t axis ,double &value)override;
@@ -27,6 +27,7 @@ public:
   errcode_t getIqRef(uint8_t axis, double &value)override;
   errcode_t setSpdRef(uint8_t axis,double spdRef)override;
   errcode_t getSpdRef(uint8_t axis,double &value)override;
+  errcode_t getSpdFb(uint8_t axis,double &value)override;
   errcode_t setUdRef(uint8_t axis,double udRef)override;
   errcode_t getUdRef(uint8_t axis,double &value)override;
   errcode_t setUqRef(uint8_t axis,double uqRef)override;

@@ -9,6 +9,7 @@ class TabCtlPanel129;
 }
 class PlotUnitGraph129;
 class SevDevice;
+class ITabWidget;
 
 class TabCtlPanel129 : public QWidget
 {
@@ -17,24 +18,20 @@ public:
   explicit TabCtlPanel129(SevDevice *sev,QWidget *parent = 0);
   ~TabCtlPanel129();
 
-  void setupIcons(const QString &css);
+  void updateServoStatus();
 
 signals:
 
 public slots:
-protected:
-  bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
-
 private slots:
-  void onModeCtlPanelCheckChanged(quint16 axis,int mode);
-  void onModeCtlPanelModeChanged(quint16 axis,int mode);
-  void onCheckBoxCircleSWClicked();
+  void onTabCurrentChanged(int inx);
 
 private:
   friend class PlotUnitGraph129;
   Ui::TabCtlPanel129 *ui;
   SevDevice *m_sev;
-  PlotTabCtlPrms *m_data;
+  int m_currentTabInx;
+  QList<ITabWidget *>m_tabWidgetList;
 };
 
 #endif // TABCTLPANEL129_H

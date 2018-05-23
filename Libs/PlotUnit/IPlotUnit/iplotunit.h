@@ -30,6 +30,7 @@ protected:
   void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 
 public slots:
+  virtual void onBeforeSevDeviceChanged() = 0;
   virtual void onSevDeviceListChanged(const QList<SevDevice*> &sevlist) = 0;
   virtual void onAppClosed() = 0;
   virtual void onSocketConnectionChanged(bool isConnected) = 0;

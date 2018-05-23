@@ -7,7 +7,8 @@
 
 GtPlot::GtPlot(QWidget *parent) : QCustomPlot(parent),
   m_horizMea(NULL),
-  m_vertiMea(NULL)
+  m_vertiMea(NULL),
+  m_ctlAndLeftKeyPressed(false)
 {
   setFocusPolicy(Qt::ClickFocus);
   setMouseTracking(true);
@@ -136,6 +137,7 @@ void GtPlot::mousePressEvent(QMouseEvent *event)
   if((event->button()==Qt::LeftButton)&&(QApplication::keyboardModifiers()==Qt::ControlModifier))
   {
     setSelectionRectMode(QCP::srmZoom);
+    m_ctlAndLeftKeyPressed = true;
     qDebug()<<"srmZoom"<<"selectionMode"<<selectionRectMode();
   }
   QCustomPlot::mousePressEvent(event);
@@ -147,6 +149,11 @@ void GtPlot::mouseReleaseEvent(QMouseEvent *event)
 
   QCustomPlot::mouseReleaseEvent(event);
   setSelectionRectMode(QCP::srmNone);
+  if(m_ctlAndLeftKeyPressed)
+  {
+    emit selectionRectFinish();
+    m_ctlAndLeftKeyPressed = false;
+  }
 }
 
 void GtPlot::mouseMoveEvent(QMouseEvent *event)

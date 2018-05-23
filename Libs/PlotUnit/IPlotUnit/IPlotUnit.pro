@@ -28,7 +28,8 @@ SOURCES += iplotunit.cpp \
 HEADERS += iplotunit.h\
         iplotunit_global.h \
     iplotunit_p.h \
-    qcustomplot.h
+    qcustomplot.h \
+    imotion_p.h
 
 unix {
     target.path = /usr/lib

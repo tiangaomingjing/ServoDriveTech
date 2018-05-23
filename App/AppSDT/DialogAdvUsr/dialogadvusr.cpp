@@ -1,4 +1,4 @@
-#include "dialogadvusr.h"
+﻿#include "dialogadvusr.h"
 #include "ui_dialogadvusr.h"
 #include "iadvuser.h"
 #include "advusercheck.h"
@@ -11,6 +11,7 @@ DialogAdvUsr::DialogAdvUsr(QWidget *parent) :
     ui(new Ui::DialogAdvUsr)
 {
     ui->setupUi(this);
+    setWindowTitle(tr("AdvUsrOption"));
     setWindowFlags(windowFlags() | Qt::WindowMaximizeButtonHint | Qt::WindowMinimizeButtonHint);
     connect(ui->listWidget, SIGNAL(currentRowChanged(int)), this, SLOT(onListWidgetRowChanged(int)));
 

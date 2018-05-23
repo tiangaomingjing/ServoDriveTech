@@ -56,23 +56,20 @@ class MotionCtlPrms
 {
 public:
   typedef enum{
-    MOTION_SRC_PC,
-    MOTION_SRC_GLINK2
-  }MotionSource;
-  typedef enum{
     MOTION_TYPE_NONE,
     MOTION_TYPE_VEL
   }MotionType;
 
-  bool m_isChecked;
-  MotionSource m_src;
+
+  GT::SevControlSrc m_src;
   MotionType m_type;
 
   //motion type vel
-  bool m_isCircle;
-  qreal m_stepAmp;
+  bool    m_isChecked;
+  bool    m_isCircle;
+  qreal   m_stepAmp;
   quint16 m_stepTimes;
-  qreal m_circleAmp;
+  qreal   m_circleAmp;
   quint16 m_circleT;
   quint16 m_circleCount;
 
@@ -103,8 +100,8 @@ public:
   quint16 m_curModeAxis;
   quint16 m_curMotionAxis;
 
-  QList<ModeCtlPrms*>m_modeCtlPrmsList;
-  QList<MotionCtlPrms*>m_motionCtlPrmsList;
+  QList<ModeCtlPrms*>m_modeCtlPrmsList;//存储每个轴 模式控制数据
+  QList<MotionCtlPrms*>m_motionCtlPrmsList;//存储每个轴 运动控制数据
 };
 #endif // PLOTTABCTLPRMS
 

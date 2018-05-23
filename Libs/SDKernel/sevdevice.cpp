@@ -22,6 +22,7 @@
 
 #define CMD_PRO_ALM_FLAG "gSevDrv.sev_obj.cur.pro.alm_flag"
 #define FILENAME_PRM_PTY_TREE "PrmPrtyTree.xml"
+#define CMD_SRC_SEL_NAME "gSevDrv.sev_obj.pos.seq.prm.cmd_src_sel"
 
 #define TEST_CHECKSTATUS 0
 
@@ -214,12 +215,19 @@ bool SevDevice::containsCmd(const QString &cmdKey)
 quint64 SevDevice::genCmdRead(const QString &cmdReadName,qint16 axisIndex,bool &isOk)
 {
   Q_D(SevDevice);
+  if(d->m_socket->isConnected()==false)
+  {
+    isOk = true;
+    return 0;
+  }
   return d->m_socket->genCmdRead(cmdReadName,axisIndex,isOk);
 }
 
 bool SevDevice::genCmdWrite(const QString &cmdWriteName,quint64 value,qint16 axisIndex)
 {
   Q_D(SevDevice);
+  if(d->m_socket->isConnected()==false)
+    return true;
   return d->m_socket->genCmdWrite(cmdWriteName,value,axisIndex);
 }
 
@@ -572,6 +580,134 @@ void SevDevice::qmlTest()
   qDebug()<<"this is qml signals to device";
 }
 
+bool SevDevice::axisServoIsOn(quint16 axisInx)
+{
+  Q_D(SevDevice);
+  if(d->m_socket->isConnected()==false)
+    return false;
+  return d->m_socket->axisServoIsOn(axisInx);
+}
+
+void SevDevice::setAxisServoOn(quint16 axisInx , bool enable)
+{
+  Q_D(SevDevice);
+  if(d->m_socket->isConnected()==false)
+    return ;
+
+  d->m_socket->setAxisServoOn(axisInx,enable);
+}
+
+int SevDevice::currentTaskServoMode(quint16 axisInx)
+{
+  Q_D(SevDevice);
+  if(d->m_socket->isConnected()==false)
+    return 0;
+
+  return d->m_socket->currentTaskServoMode(axisInx);
+}
+
+void SevDevice::setCurrentTaskServoMode(quint16 axisInx, int mode)
+{
+  Q_D(SevDevice);
+  if(d->m_socket->isConnected()==false)
+    return ;
+
+  d->m_socket->setCurrentTaskServoMode(axisInx,(ComDriver::TaskServoMode)mode);
+}
+
+void SevDevice::setControlSrc(quint16 axisInx, GT::SevControlSrc ctlSrc)
+{
+  int ctlId = ctlSrc;
+  genCmdWrite(CMD_SRC_SEL_NAME,ctlId,axisInx);
+}
+
+GT::SevControlSrc SevDevice::controlSrc(quint16 axisInx)
+{
+  bool isOK = true;
+  int src = genCmdRead(CMD_SRC_SEL_NAME,axisInx,isOK);
+  return (GT::SevControlSrc)src;
+}
+
+void SevDevice::cmdSetPosAdjRef(quint16 axisInx, double value)
+{
+  Q_D(SevDevice);
+  if(d->m_socket->isConnected()==false)
+    return ;
+  d->m_socket->m_com->setPosAdjRef(axisInx,value);
+}
+
+void SevDevice::cmdSetUaRef(quint16 axisInx, double value)
+{
+  Q_D(SevDevice);
+  if(d->m_socket->isConnected()==false)
+    return ;
+  d->m_socket->m_com->setUaRef(axisInx,value);
+}
+
+void SevDevice::cmdSetUbRef(quint16 axisInx, double value)
+{
+  Q_D(SevDevice);
+  if(d->m_socket->isConnected()==false)
+    return ;
+  d->m_socket->m_com->setUbRef(axisInx,value);
+}
+
+void SevDevice::cmdSetUcRef(quint16 axisInx, double value)
+{
+  Q_D(SevDevice);
+  if(d->m_socket->isConnected()==false)
+    return ;
+  d->m_socket->m_com->setUcRef(axisInx,value);
+}
+
+void SevDevice::cmdSetUdRef(quint16 axisInx, double value)
+{
+  Q_D(SevDevice);
+  if(d->m_socket->isConnected()==false)
+    return ;
+  d->m_socket->m_com->setUdRef(axisInx,value);
+}
+
+void SevDevice::cmdSetUqRef(quint16 axisInx, double value)
+{
+  Q_D(SevDevice);
+  if(d->m_socket->isConnected()==false)
+    return ;
+  d->m_socket->m_com->setUqRef(axisInx,value);
+}
+
+void SevDevice::cmdSetIdRef(quint16 axisInx, double value)
+{
+  Q_D(SevDevice);
+  if(d->m_socket->isConnected()==false)
+    return ;
+  d->m_socket->m_com->setIdRef(axisInx,value);
+}
+
+void SevDevice::cmdSetIqRef(quint16 axisInx, double value)
+{
+  Q_D(SevDevice);
+  if(d->m_socket->isConnected()==false)
+    return ;
+  d->m_socket->m_com->setIqRef(axisInx,value);
+}
+
+void SevDevice::cmdSetSpdRef(quint16 axisInx, double value)
+{
+  Q_D(SevDevice);
+  if(d->m_socket->isConnected()==false)
+    return ;
+  d->m_socket->m_com->setSpdRef(axisInx,value);
+}
+
+void SevDevice::cmdSetPosRef(quint16 axisInx, qint32 value)
+{
+  Q_D(SevDevice);
+  if(d->m_socket->isConnected()==false)
+    return ;
+  d->m_socket->m_com->setPosRef(axisInx,value);
+}
+
 bool SevDevice::onReadPageFlash(int axis, QTreeWidget *pageTree)
 {
   Q_D(SevDevice);
@@ -686,8 +822,6 @@ bool SevDevice::checkPowerBoardParameters(QTreeWidgetItem *item, const QMap<QStr
 
 bool SevDevice::checkPageParameters(int axis, QTreeWidget *tree)
 {
-
-  QTreeWidgetItem *item=NULL;
   bool isOk=true;
   OptUser *user = dynamic_cast<OptUser *>(OptContainer::instance()->optItem("optuser"));
   bool isAdmin = user->isAdmin();

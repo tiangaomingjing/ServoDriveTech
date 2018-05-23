@@ -823,3 +823,30 @@ bool LinkSocket::clearAlarm(quint16 axisInx)
 {
   return 0==m_com->clearAlarm(axisInx);
 }
+
+bool LinkSocket::axisServoIsOn(quint16 axisInx)
+{
+  bool on = false;
+  if(0 != m_com->checkServoIsEnable(axisInx,on))
+  {
+    if(0 != m_com->checkServoIsEnable(axisInx,on))
+      on = false;
+  }
+  return on;
+}
+
+void LinkSocket::setAxisServoOn(quint16 axisInx, bool enable)
+{
+  m_com->setServoEnable(axisInx,enable);
+}
+
+TaskServoMode LinkSocket::currentTaskServoMode(quint16 axisInx)
+{
+  errcode_t errcode;
+  return m_com->currentServoTaskMode(axisInx,errcode);
+}
+
+void LinkSocket::setCurrentTaskServoMode(quint16 axisInx, TaskServoMode mode)
+{
+  m_com->setServoTaskMode(axisInx,mode);
+}

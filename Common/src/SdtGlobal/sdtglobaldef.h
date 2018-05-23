@@ -94,6 +94,11 @@ typedef enum {
     COL_PRM_PRTY_MIN,
 }PrmPrtyColumn;
 
+typedef enum {
+  SEV_CTL_SRC_PC,
+  SEV_CTL_SRC_GLINK2
+}SevControlSrc;
+
 template <typename T>
 static void deepClearList(QList<T*>&list)
 {

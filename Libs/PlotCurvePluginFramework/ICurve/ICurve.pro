@@ -9,12 +9,16 @@ DEFINES += ICURVE_LIBRARY
 
 TEMPLATE = lib
 
+INCLUDEPATH +=$$PWD/../../GTUtils
+
 CONFIG(debug,debug|release){
   TARGET = ICurved
   BIN_PATH=$$PWD/../../../build/debug/bin
+  LIBS +=$$BIN_PATH/GTUtilsd.lib
 }else{
   TARGET = ICurve
   BIN_PATH=$$PWD/../../../build/release/bin
+  LIBS +=$$BIN_PATH/GTUtils.lib
 }
 
 DESTDIR = $$BIN_PATH

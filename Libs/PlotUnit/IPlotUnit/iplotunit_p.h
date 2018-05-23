@@ -15,7 +15,7 @@ public:
   {
 
   }
-  ~IPlotUnitPrivate()
+  virtual ~IPlotUnitPrivate()
   {
 
   }

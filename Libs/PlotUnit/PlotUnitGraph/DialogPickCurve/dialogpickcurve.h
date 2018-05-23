@@ -11,13 +11,14 @@ class QTreeWidget;
 class QTreeWidgetItem;
 class QTableWidget;
 class ICurve;
+class SevDevice;
 
 class DialogPickCurve : public QDialog
 {
   Q_OBJECT
 
 public:
-  explicit DialogPickCurve(QWidget *parent = 0);
+  explicit DialogPickCurve(SevDevice *sev,QWidget *parent = 0);
   ~DialogPickCurve();
 
   void expertTreeWidgetInit(const QTreeWidget *tree);
@@ -41,6 +42,7 @@ private:
 private:
   Ui::DialogPickCurve *ui;
   OptFace *m_face;
+  SevDevice *m_sev;
 };
 
 #endif // DIALOG_H

@@ -5,6 +5,7 @@
 #include "sdkernel_global.h"
 #include "sevpwrboard.h"
 #include "icom.h"
+#include "sdtglobaldef.h"
 
 namespace ComDriver {
 class ICom;
@@ -92,6 +93,25 @@ public:
 
   bool writePrmItemFlash(quint16 axisInx, QTreeWidgetItem *item);
   bool readPrmItemFlash(quint16 axisInx, QTreeWidgetItem *item);
+  bool axisServoIsOn(quint16 axisInx);
+  void setAxisServoOn(quint16 axisInx, bool enable);
+
+  int currentTaskServoMode(quint16 axisInx);
+  void setCurrentTaskServoMode(quint16 axisInx,int mode);
+  void setControlSrc(quint16 axisInx ,GT::SevControlSrc ctlSrc);
+  GT::SevControlSrc controlSrc(quint16 axisInx);
+
+  void cmdSetPosAdjRef(quint16 axisInx,double value);
+  void cmdSetUaRef(quint16 axisInx,double value);
+  void cmdSetUbRef(quint16 axisInx,double value);
+  void cmdSetUcRef(quint16 axisInx,double value);
+  void cmdSetUdRef(quint16 axisInx,double value);
+  void cmdSetUqRef(quint16 axisInx,double value);
+  void cmdSetIdRef(quint16 axisInx,double value);
+  void cmdSetIqRef(quint16 axisInx,double value);
+  void cmdSetSpdRef(quint16 axisInx,double value);
+  void cmdSetPosRef(quint16 axisInx,qint32 value);
+
 signals:
   void initProgressInfo(int value,QString msg);
   void itemRangeValid(QTreeWidgetItem *item,int status);
@@ -109,6 +129,7 @@ private:
   bool checkPageParameters(int axis,QTreeWidget *tree);
   bool checkLoadItemParameters(int axis, QTreeWidgetItem *item, QTreeWidget *prmTree);
   bool checkLoadPropertyParameters(QTreeWidgetItem *item, QTreeWidget *prmTree);
+
 private:
   SevDevicePrivate *d_ptr;
 };

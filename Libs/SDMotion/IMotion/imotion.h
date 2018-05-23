@@ -1,0 +1,51 @@
+﻿#ifndef IMOTION_H
+#define IMOTION_H
+
+#include <QObject>
+#include "imotion_global.h"
+
+class IMotionPrivate;
+class QWidget;
+class SevDevice;
+class IMOTIONSHARED_EXPORT IMotion:public QObject
+{
+  Q_OBJECT
+  Q_DECLARE_PRIVATE(IMotion)
+public:
+  typedef enum{
+    MOTION_TYPE_NONE = 0,
+    MOTION_TYPE_VEL = 1
+  }MotionType;
+  virtual ~IMotion();
+  virtual bool move(quint16 axisInx) = 0;
+  virtual bool stop(quint16 axisInx) = 0;
+  virtual void updateAxisUi(quint16 axisInx) = 0;
+  QWidget *ui();
+  void setName(const QString &name);
+  QString name();
+  SevDevice *sevDevice();
+  void setSevDevice(SevDevice *sev);
+
+  MotionType motionType();
+
+protected:
+  IMotion(IMotionPrivate&dd,QObject *parent=0);
+  IMotionPrivate *d_ptr;
+  void setMotionType(MotionType type);
+};
+
+class MotionNonePrivate;
+
+class IMOTIONSHARED_EXPORT MotionNone:public IMotion
+{
+  Q_OBJECT
+  Q_DECLARE_PRIVATE(MotionNone)
+public:
+  explicit MotionNone(SevDevice *sev,const QString &name = "none",QObject *parent = 0);
+  ~MotionNone();
+  bool move(quint16 axisInx) Q_DECL_OVERRIDE;
+  bool stop(quint16 axisInx) Q_DECL_OVERRIDE;
+  void updateAxisUi(quint16 axisInx) Q_DECL_OVERRIDE;
+};
+
+#endif // IMOTION_H

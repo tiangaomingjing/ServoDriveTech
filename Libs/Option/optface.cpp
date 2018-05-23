@@ -17,6 +17,7 @@
 #include <QDir>
 #include <QFileInfoList>
 #include <QDoubleSpinBox>
+#include <QStyledItemDelegate>
 
 StyleIconWidget::StyleIconWidget(const QString &iconpath,const QString &title,const QString &css,QWidget *parent):QWidget(parent),
   m_css(css),
@@ -119,9 +120,9 @@ OptFace::OptFace(const QString &optName, QWidget *parent) :  IOpt(optName,*new O
   ui->comboBox->addItem("26",26);
   ui->comboBox->addItem("28",28);
   ui->comboBox->addItem("30",30);
-  ui->comboBox->addItem("34",34);
-  ui->comboBox->addItem("38",38);
-  ui->comboBox->addItem("40",40);
+
+  QStyledItemDelegate* itemDelegate = new QStyledItemDelegate(ui->comboBox);
+  ui->comboBox->setItemDelegate(itemDelegate);
 
   //初始化样式列表
   QString fileName=d->m_optPath+"style/style.ini";

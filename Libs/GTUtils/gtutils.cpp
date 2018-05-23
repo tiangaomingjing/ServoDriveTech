@@ -141,17 +141,26 @@ QTreeWidgetItem* GTUtils::findItem(const QString &text, QTreeWidget* tree, int c
     return result;
 }
 
-QTreeWidgetItem* GTUtils::findItemInItem(const QString &text, QTreeWidgetItem* tree, int col) {
-    QTreeWidgetItemIterator treeIter(tree);
-    QTreeWidgetItem *result = NULL;
-    while (*treeIter){
-        if ((*treeIter)->text(col).compare(text) == 0) {
-            result = *treeIter;
-            return result;
-        }
-        ++treeIter;
+QTreeWidgetItem* GTUtils::findItemInItem(const QString &text, QTreeWidgetItem* treeItem, int col)
+{
+  QTreeWidgetItem *result = NULL;
+//  qDebug()<<treeItem->text(col);
+  if(treeItem->text(col).compare(text) == 0)
+  {
+    result = treeItem;
+    return result;
+  }
+  else
+  {
+    for(int i = 0;i<treeItem->childCount();i++)
+    {
+      result = findItemInItem(text,treeItem->child(i),col);
+      if(result != NULL)
+        break;
     }
     return result;
+  }
+
 }
 
 int GTUtils::byteNumbers(const QString &str)

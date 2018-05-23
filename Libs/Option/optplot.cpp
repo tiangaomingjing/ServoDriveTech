@@ -4,12 +4,6 @@
 
 #include <QDebug>
 
-class PlotColor{
-  QColor a;
-  QColor b;
-  QColor c;
-};
-
 class OptPlotPrivate:public IOptPrivate
 {
   Q_DECLARE_PUBLIC(OptPlot)
@@ -24,7 +18,6 @@ public:
   double m_storedTime;
   quint16 m_pointNum;
   QString m_color;
-  QMap<QString ,PlotColor>m_plotColorMap;
 };
 OptPlotPrivate::OptPlotPrivate()
 {

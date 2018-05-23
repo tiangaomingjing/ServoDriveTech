@@ -89,6 +89,7 @@ signals:
   void sendDevConfigToServer(QByteArray block);
   void currentTitleChanged(const QString &title);
   void appClosed();
+  void beforeSevDeviceChanged();
 
 private slots:
   void onActnOptionClicked();

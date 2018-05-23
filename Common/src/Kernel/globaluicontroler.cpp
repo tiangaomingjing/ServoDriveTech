@@ -27,6 +27,7 @@ void GlobalUiControler::createUis()
   uiPlot->init(NULL);
   IPlotUnit *iplot=new PlotUnitGraph129(m_sevList);
   uiPlot->accept(iplot);//take ownership of iplot
+  connect(this,SIGNAL(beforeSevDeviceChanged()),iplot,SLOT(onBeforeSevDeviceChanged()));
   connect(this,SIGNAL(sevDeviceListChanged(QList<SevDevice*>)),iplot,SLOT(onSevDeviceListChanged(QList<SevDevice*>)));
   connect(this,SIGNAL(appClosed()),iplot,SLOT(onAppClosed()));
   m_uiLists.append(uiPlot);

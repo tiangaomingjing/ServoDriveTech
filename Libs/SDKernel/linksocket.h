@@ -58,6 +58,11 @@ public:
 
   bool writePrmItemFlash(int axis, QTreeWidgetItem *item);
   bool readPrmItemFlash(int axis, QTreeWidgetItem *item);
+  bool axisServoIsOn(quint16 axisInx);
+  void setAxisServoOn(quint16 axisInx,bool enable);
+
+  ComDriver::TaskServoMode currentTaskServoMode(quint16 axisInx);
+  void setCurrentTaskServoMode(quint16 axisInx,ComDriver::TaskServoMode mode);
 protected:
 
 private:
@@ -67,6 +72,7 @@ signals:
 public slots:
 
 private:
+  friend class SevDevice;
   SevDevicePrivate *q_ptr;
   bool m_isConnected;
   ComDriver::ICom *m_com;

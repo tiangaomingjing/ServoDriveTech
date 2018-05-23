@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1153</width>
-    <height>554</height>
+    <width>942</width>
+    <height>489</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -157,6 +157,19 @@
                </property>
                <property name="text">
                 <string>save</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QToolButton" name="tbtn_plot_show_all">
+               <property name="minimumSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>all</string>
                </property>
               </widget>
              </item>
@@ -373,7 +386,7 @@
            <item>
             <widget class="QStackedWidget" name="stackedWidget_tabCtlPanel">
              <property name="currentIndex">
-              <number>0</number>
+              <number>1</number>
              </property>
              <widget class="QWidget" name="page_7"/>
              <widget class="QWidget" name="page_8"/>
@@ -410,7 +423,7 @@
             <string>Sampling(62.5us X):</string>
            </property>
            <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>

@@ -12,14 +12,19 @@ UiCheckCombo::UiCheckCombo(quint16 axis,QWidget *parent):QWidget(parent),
   m_axisNum(axis)
 {
   QHBoxLayout *hlayout=new QHBoxLayout(this);
-  setLayout(hlayout);
-  m_checkBox=new QCheckBox(this);
+  hlayout->setMargin(0);
+  hlayout->setSpacing(5);
+//  QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
+  m_checkBox=new QCheckBox;
+  m_checkBox->setContentsMargins(0,0,0,0);
   m_checkBox->setObjectName("modeCheckBox");
   m_checkBox->setText(tr("Axis_%1").arg(axis+1));
-  m_comboBox=new QComboBox(this);
+//  m_checkBox->setSizePolicy(sizePolicy);
+  m_comboBox=new QComboBox;
   QStyledItemDelegate* itemDelegate = new QStyledItemDelegate(m_comboBox);
   m_comboBox->setItemDelegate(itemDelegate);
   m_comboBox->setObjectName("modeComboBox");
+//  m_comboBox->setSizePolicy(sizePolicy);
   QStringList list;
   list<<tr("0IDLE")\
      <<tr("1ADC")\
@@ -39,7 +44,6 @@ UiCheckCombo::UiCheckCombo(quint16 axis,QWidget *parent):QWidget(parent),
   hlayout->addWidget(m_comboBox);
   hlayout->setStretch(0,0);
   hlayout->setStretch(1,1);
-  hlayout->setMargin(0);
 
   m_comboBox->setCurrentIndex(0);
 
@@ -50,7 +54,13 @@ UiCheckCombo::UiCheckCombo(quint16 axis,QWidget *parent):QWidget(parent),
 
 UiCheckCombo::~UiCheckCombo()
 {
+  delete m_checkBox;
+  delete m_comboBox;
+}
 
+QSize UiCheckCombo::sizeHint()
+{
+  return QSize(30,100);
 }
 
 ModeCtlPanel::ModeCtlPanel(QWidget *parent):QWidget(parent),
@@ -58,23 +68,27 @@ ModeCtlPanel::ModeCtlPanel(QWidget *parent):QWidget(parent),
   m_axisCount(0)
 {
   QVBoxLayout *vlayout=new QVBoxLayout(this);
-  vlayout->setSpacing(0);
+  vlayout->setSpacing(5);
   vlayout->setMargin(0);
-  setLayout(vlayout);
+  vlayout->setContentsMargins(0,0,0,0);
 }
 
 ModeCtlPanel::ModeCtlPanel(quint16 axisCount,QWidget *parent) : QWidget(parent),
   m_axisCount(axisCount),
   m_keyCtlIsPressed(false)
 {
+  setContentsMargins(0,0,0,0);
   QVBoxLayout *vlayout=new QVBoxLayout(this);
-  vlayout->setSpacing(0);
+  vlayout->setSpacing(5);
   vlayout->setMargin(0);
-  setLayout(vlayout);
+  vlayout->setContentsMargins(0,0,0,0);
+//  QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
 
   for(int i=0;i<axisCount;i++)
   {
     UiCheckCombo *uiBox=new UiCheckCombo(i,this);
+    uiBox->setContentsMargins(0,0,0,0);
+//    uiBox->setSizePolicy(sizePolicy);
     connect(uiBox,SIGNAL(checkChanged(bool)),this,SLOT(onCheckChanged(bool)));
     connect(uiBox,SIGNAL(modeChanged(int)),this,SLOT(onModeChanged(int)));
     m_uiCheckComboList.append(uiBox);
@@ -87,13 +101,14 @@ ModeCtlPanel::~ModeCtlPanel()
 
 }
 
-void ModeCtlPanel::setAxis(quint16 axis)
+void ModeCtlPanel::setAxisCount(quint16 axis)
 {
   m_axisCount=axis;
   clearUiCheckComboList();
   for(int i=0;i<axis;i++)
   {
     UiCheckCombo *uiBox=new UiCheckCombo(i,this);
+    uiBox->setContentsMargins(0,0,0,0);
     connect(uiBox,SIGNAL(checkChanged(bool)),this,SLOT(onCheckChanged(bool)));
     connect(uiBox,SIGNAL(modeChanged(int)),this,SLOT(onModeChanged(int)));
     m_uiCheckComboList.append(uiBox);
@@ -189,6 +204,11 @@ void ModeCtlPanel::clearUiCheckComboList()
     delete uiBox;
   }
   m_uiCheckComboList.clear();
+}
+
+quint16 ModeCtlPanel::axisCount() const
+{
+  return m_axisCount;
 }
 
 

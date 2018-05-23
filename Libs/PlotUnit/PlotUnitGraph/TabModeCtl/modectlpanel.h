@@ -12,6 +12,7 @@ public:
   explicit UiCheckCombo(quint16 axis,QWidget *parent);
   ~UiCheckCombo();
 
+  QSize sizeHint();
 signals:
   void checkChanged(bool checked);
   void modeChanged(int mode);
@@ -30,7 +31,8 @@ public:
   explicit ModeCtlPanel(quint16 axisCount,QWidget *parent = 0);
   ~ModeCtlPanel();
 
-  void setAxis(quint16 axis);
+  void setAxisCount(quint16 axis);
+  quint16 axisCount() const;
   bool isChecked(quint16 axis);
   int mode(quint16 axis);
   void setChecked(quint16 axis, bool checked);

@@ -18,6 +18,7 @@ public:
 signals:
   void sevDeviceListChanged(const QList<SevDevice *> &sevList);
   void appClosed();
+  void beforeSevDeviceChanged();
 
 public slots:
 private:

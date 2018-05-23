@@ -43,6 +43,7 @@ public:
   void setCurveBackHideColor(const QColor &color);
 
 public slots:
+  void onBeforeSevDeviceChanged() Q_DECL_OVERRIDE;
   void onSevDeviceListChanged(const QList<SevDevice *> &sevlist) Q_DECL_OVERRIDE;
   void onAppClosed() Q_DECL_OVERRIDE;
   void onSocketConnectionChanged(bool isConnected) Q_DECL_OVERRIDE;
@@ -52,10 +53,13 @@ private slots:
   void onOptFaceCssChanged(const QString &css);
   void onWinFloatingChanged(bool isFloating);
 
+  void onBtnStartSampleClicked(bool checked);
   void onBtnMeaHClicked(bool checked);
   void onBtnMeaVClicked(bool checked);
   void onBtnFitClicked();
-  void onBtnStartSampleClicked(bool checked);
+  void onBtnLoadAllCurveClicked();
+  void onBtnOpenCurveClicked(bool checked);
+  void onBtnSaveCurveClicked();
   void onPlotPosHoverChanged(const QPointF &point);
   void onPlotMeaVposChanged(qreal v1, qreal v2, qreal dv);
   void onPlotMeaHposChanged(qreal v1, qreal v2, qreal dv);
@@ -74,6 +78,8 @@ private slots:
   void onCurveTableItemDoubleClicked(QTableWidgetItem * item);
   void onCurveTableItemEnteredMoreDetail(QTableWidgetItem * item);//鼠标悬停，可以显示详细的名称
   void onPlotDataIn(PlotData data);
+
+  void onPlotSelectionRectFinish();
 
 private:
   void createConnections();
@@ -94,9 +100,12 @@ private:
 
   void showAllData();
 
-  bool checkCurveInSevDevice(ICurve *c);
-
   OptPlot *optPlot(void);
+
+  void initialCurvesFromXml();
+
+  void setUiStatusSampling(bool en);
+  void setUiStatusCurveTableWidgetOnOff(int row,bool on);
 
 private:
   Ui::PlotUnitGraph129 *ui;

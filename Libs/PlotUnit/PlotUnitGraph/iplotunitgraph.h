@@ -19,6 +19,7 @@ public:
 signals:
 
 public slots:
+  virtual void onBeforeSevDeviceChanged() = 0;
   virtual void onSevDeviceListChanged(const QList<SevDevice*> &sevlist) = 0;
 
 
