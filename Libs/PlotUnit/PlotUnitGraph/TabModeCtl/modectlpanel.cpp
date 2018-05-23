@@ -68,7 +68,7 @@ ModeCtlPanel::ModeCtlPanel(QWidget *parent):QWidget(parent),
   m_axisCount(0)
 {
   QVBoxLayout *vlayout=new QVBoxLayout(this);
-  vlayout->setSpacing(0);
+  vlayout->setSpacing(5);
   vlayout->setMargin(0);
   vlayout->setContentsMargins(0,0,0,0);
 }
@@ -79,7 +79,7 @@ ModeCtlPanel::ModeCtlPanel(quint16 axisCount,QWidget *parent) : QWidget(parent),
 {
   setContentsMargins(0,0,0,0);
   QVBoxLayout *vlayout=new QVBoxLayout(this);
-  vlayout->setSpacing(0);
+  vlayout->setSpacing(5);
   vlayout->setMargin(0);
   vlayout->setContentsMargins(0,0,0,0);
 //  QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);

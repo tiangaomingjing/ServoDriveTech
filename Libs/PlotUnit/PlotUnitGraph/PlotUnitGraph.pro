@@ -4,6 +4,7 @@
 #
 #-------------------------------------------------
 include(../../PlotCurvePluginFramework/ctkplugins.pri)
+include(../../SDMotion/MotionLibs.pri)
 QT       += widgets printsupport
 
 QT       -= gui
@@ -59,7 +60,6 @@ SOURCES += \
     plotunitgraph129.cpp \
     iplotunitgraph.cpp \
     gtplot.cpp \
-    modectlpanel.cpp \
     qcpitemhandletag.cpp \
     qcpitemmeasure.cpp \
     qcustomplot.cpp \
@@ -72,7 +72,8 @@ SOURCES += \
     Thread/threadcalculate.cpp \
     TabModeCtl/tabmodectl.cpp \
     TabMotion/tabmotion.cpp \
-    itabwidget.cpp
+    itabwidget.cpp \
+    TabModeCtl/modectlpanel.cpp
 
 HEADERS += \
         plotunitgraph_global.h \
@@ -80,7 +81,6 @@ HEADERS += \
     iplotunitgraph.h \
     iplotunitgraph_p.h \
     gtplot.h \
-    modectlpanel.h \
     qcpitemhandletag.h \
     qcpitemmeasure.h \
     qcustomplot.h \
@@ -96,7 +96,8 @@ HEADERS += \
     plotdata.h \
     TabModeCtl/tabmodectl.h \
     TabMotion/tabmotion.h \
-    itabwidget.h
+    itabwidget.h \
+    TabModeCtl/modectlpanel.h
 
 unix {
     target.path = /usr/lib

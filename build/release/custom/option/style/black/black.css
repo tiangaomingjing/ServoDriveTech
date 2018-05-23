@@ -85,8 +85,11 @@ QCheckBox{
 QCheckBox::indicator::unchecked{
     image:url(../custom/option/style/black/icon/checkbox_unchecked.png);
 }
-QCheckBox::indicator:unchecked:hover{
+/*QCheckBox::indicator:unchecked:hover{
     image:url(../custom/option/style/black/icon/checkbox_unchecked_hover.png);
+}*/
+QCheckBox::indicator:unchecked:hover{
+    image:url(../custom/option/style/black/icon/checkbox_checked_hover.png);
 }
 QCheckBox::indicator::checked {
     image:url(../custom/option/style/black/icon/checkbox_checked.png);

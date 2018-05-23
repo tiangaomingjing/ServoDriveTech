@@ -142,7 +142,7 @@ PlotUnitGraph129::PlotUnitGraph129(const QList<SevDevice *> &sevList, QWidget *p
   ui->tbtn_plot_auto->setChecked(false);
 
   d->m_timer=new QTimer(this);
-  d->m_timer->setInterval(1000);
+  d->m_timer->setInterval(500);
 
   while(ui->stackedWidget_tabCtlPanel->count()>0)
   {
@@ -368,10 +368,10 @@ void PlotUnitGraph129::onOptFaceCssChanged(const QString &css)
 
   setPlotIcons(css);
 
-  for(int i=0;i<d->m_tabCtlUiList.size();i++)
-  {
-    d->m_tabCtlUiList.at(i)->setupIcons(css);
-  }
+//  for(int i=0;i<d->m_tabCtlUiList.size();i++)
+//  {
+//    d->m_tabCtlUiList.at(i)->setupIcons(css);
+//  }
 }
 
 void PlotUnitGraph129::onWinFloatingChanged(bool isFloating)
@@ -610,7 +610,7 @@ void PlotUnitGraph129::onTimeOut()
 {
   Q_D(PlotUnitGraph129);
   static quint32 i=0;
-  qDebug()<<"time out"<<i;
+//  qDebug()<<"time out"<<i;
   i++;
   //更新当前设备当前轴 tab1  mode servo状态
   //更新当前设备当前轴 tab2  控制权状态
@@ -629,10 +629,10 @@ void PlotUnitGraph129::onListWidgetDeviceCurrentRowChanged(int row)
 void PlotUnitGraph129::onBtnCurveAddClicked()
 {
   Q_D(PlotUnitGraph129);
-  DialogPickCurve *dia=new DialogPickCurve();
   SevDevice *dev=d->m_sevList.at(d->m_curSevInx);
+  DialogPickCurve *dia=new DialogPickCurve(dev);
 
-  QTreeWidget *treeExpert=dev->axisTreeSource(0,"RAM");
+  QTreeWidget *treeExpert = dev->axisTreeSource(0,"RAM");
   dia->expertTreeWidgetInit(treeExpert);
   dia->axisTableInit(dev->axisNum());
   dia->usrCurveTableInit(d->m_pluginManager->usrCurves());

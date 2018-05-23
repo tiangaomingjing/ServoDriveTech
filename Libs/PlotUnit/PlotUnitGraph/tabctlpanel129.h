@@ -9,6 +9,7 @@ class TabCtlPanel129;
 }
 class PlotUnitGraph129;
 class SevDevice;
+class ITabWidget;
 
 class TabCtlPanel129 : public QWidget
 {
@@ -17,36 +18,20 @@ public:
   explicit TabCtlPanel129(SevDevice *sev,QWidget *parent = 0);
   ~TabCtlPanel129();
 
-  void setupIcons(const QString &css);
   void updateServoStatus();
 
 signals:
 
 public slots:
-protected:
-  bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
-
 private slots:
-  //tab1
-  void onModeCtlPanelCheckChanged(quint16 axis,int mode);
-  void onModeCtlPanelModeChanged(quint16 axis,int mode);
-  void onModeSpinBoxValueChanged(int value);
-  void onBtnServoOnClicked(bool checked);
-  //tab2
-  void onCheckBoxCircleSWClicked();
-  void onMotionAxisRowChanged(int row);
-  void onBtnCtlSrcPcClicked();
-  void onBtnCtlSrcGLink2Clicked();
-
-
-private:
-  void setUiCurrentCtlSrc(int src);
+  void onTabCurrentChanged(int inx);
 
 private:
   friend class PlotUnitGraph129;
   Ui::TabCtlPanel129 *ui;
   SevDevice *m_sev;
-  PlotTabCtlPrms *m_data;
+  int m_currentTabInx;
+  QList<ITabWidget *>m_tabWidgetList;
 };
 
 #endif // TABCTLPANEL129_H

@@ -3,6 +3,7 @@
 #include "Option"
 #include "gtutils.h"
 #include "icurve.h"
+#include "sevdevice.h"
 
 #include <QButtonGroup>
 #include <QDebug>
@@ -30,9 +31,10 @@ typedef enum{
 
 Q_DECLARE_METATYPE(ICurve*)
 
-DialogPickCurve::DialogPickCurve(QWidget *parent) :
+DialogPickCurve::DialogPickCurve(SevDevice *sev,QWidget *parent) :
   QDialog(parent),
-  ui(new Ui::DialogPickCurve)
+  ui(new Ui::DialogPickCurve),
+  m_sev(sev)
 {
   ui->setupUi(this);
 
@@ -206,6 +208,7 @@ void DialogPickCurve::onUsrTableCellDoubleClicked(int row, int column)
       newCurve->setUnit(uName);
       newCurve->setAxisInx(axis);
       newCurve->setAxisCount(axisCount);
+      newCurve->setDevInx(m_sev->devId());
       qDebug()<<newCurve->curUnitName()<<" curve unit k = "<<newCurve->curUnitK() <<"axis = "<<newCurve->axisInx();
       emit addUsrCurveRequest(newCurve);
     }

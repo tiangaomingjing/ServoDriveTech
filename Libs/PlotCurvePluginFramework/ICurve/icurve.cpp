@@ -410,6 +410,7 @@ QString ICurve::devName() const
 {
   QByteArray byte;
   byte.append(65+dd.m_devInx);
+  qDebug()<<"devInx "<<dd.m_devInx<<"name "<<QString::fromLatin1(byte);
   return QString::fromLatin1(byte);
 }
 

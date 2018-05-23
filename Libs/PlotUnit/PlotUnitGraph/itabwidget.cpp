@@ -1,10 +1,10 @@
 ﻿#include "itabwidget.h"
 #include "sevdevice.h"
 
-ITabWidget::ITabWidget(const QString &name,int axisCount ,SevDevice *sev,QWidget *parent) : QWidget(parent),
+ITabWidget::ITabWidget(const QString &name, SevDevice *sev, QWidget *parent) : QWidget(parent),
   m_name(name),
-  m_axisCount(axisCount),
-  m_sevDevice(sev)
+  m_axisCount(sev->axisNum()),
+  m_sev(sev)
 {
 
 }
@@ -27,5 +27,15 @@ int ITabWidget::axisCount() const
 void ITabWidget::setAxisCount(int axisCount)
 {
   m_axisCount = axisCount;
+}
+
+SevDevice *ITabWidget::sevDevice() const
+{
+  return m_sev;
+}
+
+void ITabWidget::setSevDevice(SevDevice *sevDevice)
+{
+  m_sev = sevDevice;
 }
 

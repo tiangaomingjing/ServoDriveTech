@@ -4,6 +4,10 @@
 #include "Option"
 #include "gtutils.h"
 
+#include <QDebug>
+#include <QKeyEvent>
+
+
 #define ICON_NAME_SERVO_ON      "plot_son.png"
 #define ICON_NAME_SERVO_OFF     "plot_soff.png"
 class ModeCtlPrms
@@ -56,14 +60,15 @@ typedef enum{
 };
 
 
-TabModeCtl::TabModeCtl(const QString &name, int axisCount, SevDevice *sev, QWidget *parent) :
-  ITabWidget(name,axisCount,sev,parent),
-  ui(new Ui::TabModeCtl)
+TabModeCtl::TabModeCtl(const QString &name, SevDevice *sev, QWidget *parent) :
+  ITabWidget(name,sev,parent),
+  ui(new Ui::TabModeCtl),
+  m_currenAxis(0)
 {
   ui->setupUi(this);
 
   ui->modeCtlPanel->setAxisCount(sev->axisNum());
-  for(int i=0;i<axisCount;i++)
+  for(int i=0;i<sev->axisNum();i++)
   {
     ModeCtlPrms *mode=new ModeCtlPrms;
     m_dataList.append(mode);
@@ -112,6 +117,21 @@ TabModeCtl::~TabModeCtl()
   GT::deepClearList(m_dataList);
 }
 
+void TabModeCtl::uiUpdate()
+{
+  quint16 curModeAxis = m_currenAxis;
+  for(int i=0;i<m_sev->axisNum();i++)
+  {
+    ui->modeCtlPanel->setMode(i,m_sev->currentTaskServoMode(i));
+  }
+
+  ui->stackedWidget_plot_mode->setCurrentIndex(ui->modeCtlPanel->mode(curModeAxis));
+
+  ui->tbtn_plot_servoOnMode->setChecked(m_sev->axisServoIsOn(curModeAxis));
+  qDebug()<<"update servo status"<<m_sev->aliasName()<<" cur mode axis = "<<curModeAxis<<" servo on = "<<m_sev->axisServoIsOn(curModeAxis);
+
+}
+
 void TabModeCtl::setupIcons(const QString &css)
 {
   QSize iconSize(100,100);
@@ -125,87 +145,85 @@ void TabModeCtl::setupIcons(const QString &css)
 
 bool TabModeCtl::eventFilter(QObject *obj, QEvent *event)
 {
-//  if(event->type()==QEvent::KeyPress)
-//  {
-//    QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
-//    if (keyEvent->key() == Qt::Key_Return || keyEvent->key() == Qt::Key_Enter)
-//    {
-//      //tab mode
-//      PlotTabCtlPrms *prms=m_data;
-//      ModeCtlPrms* modePrms=prms->m_modeCtlPrmsList.at(prms->m_curModeAxis);
-//      QSpinBox *box=qobject_cast<QSpinBox *>(obj);
-//      quint16 axisInx = prms->m_curModeAxis;
-//      qDebug()<<"spinBox value"<<box->value();
-//      if(obj==ui->spinBox_mode_ipa)//3 初始化相位
-//      {
-//        modePrms->m_ipa=ui->spinBox_mode_ipa->value();
+  if(event->type()==QEvent::KeyPress)
+  {
+    QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
+    if (keyEvent->key() == Qt::Key_Return || keyEvent->key() == Qt::Key_Enter)
+    {
+      //tab mode
+      ModeCtlPrms* modePrms=m_dataList.at(m_currenAxis);
+      QSpinBox *box=qobject_cast<QSpinBox *>(obj);
+      quint16 axisInx = m_currenAxis;
+      qDebug()<<"spinBox value"<<box->value();
+      if(obj==ui->spinBox_mode_ipa)//3 初始化相位
+      {
+        modePrms->m_ipa=ui->spinBox_mode_ipa->value();
+        m_sev->cmdSetPosAdjRef(axisInx,modePrms->m_ipa);
+        ui->spinBox_mode_ipa->setStyleSheet("color:black");
+      }
+      else if(obj==ui->spinBox_mode_uaref||obj==ui->spinBox_mode_ubref\
+              ||obj==ui->spinBox_mode_ucref||obj==ui->spinBox_mode_udref\
+              ||obj==ui->spinBox_mode_udref||obj==ui->spinBox_mode_uqref) //4 电压开环调试
+      {
+        modePrms->m_uaref=ui->spinBox_mode_uaref->value();
+        modePrms->m_ubref=ui->spinBox_mode_ubref->value();
+        modePrms->m_ucref=ui->spinBox_mode_ucref->value();
+        modePrms->m_udref=ui->spinBox_mode_udref->value();
+        modePrms->m_uqref=ui->spinBox_mode_uqref->value();
 
-//        m_sev->cmdSetPosAdjRef(axisInx,modePrms->m_ipa);
-//        ui->spinBox_mode_ipa->setStyleSheet("color:black");
-//      }
-//      else if(obj==ui->spinBox_mode_uaref||obj==ui->spinBox_mode_ubref\
-//              ||obj==ui->spinBox_mode_ucref||obj==ui->spinBox_mode_udref\
-//              ||obj==ui->spinBox_mode_udref||obj==ui->spinBox_mode_uqref) //4 电压开环调试
-//      {
-//        modePrms->m_uaref=ui->spinBox_mode_uaref->value();
-//        modePrms->m_ubref=ui->spinBox_mode_ubref->value();
-//        modePrms->m_ucref=ui->spinBox_mode_ucref->value();
-//        modePrms->m_udref=ui->spinBox_mode_udref->value();
-//        modePrms->m_uqref=ui->spinBox_mode_uqref->value();
+        m_sev->cmdSetUaRef(axisInx,modePrms->m_uaref);
+        m_sev->cmdSetUbRef(axisInx,modePrms->m_ubref);
+        m_sev->cmdSetUcRef(axisInx,modePrms->m_ucref);
+        m_sev->cmdSetUdRef(axisInx,modePrms->m_udref);
+        m_sev->cmdSetUqRef(axisInx,modePrms->m_uqref);
 
-//        m_sev->cmdSetUaRef(axisInx,modePrms->m_uaref);
-//        m_sev->cmdSetUbRef(axisInx,modePrms->m_ubref);
-//        m_sev->cmdSetUcRef(axisInx,modePrms->m_ucref);
-//        m_sev->cmdSetUdRef(axisInx,modePrms->m_udref);
-//        m_sev->cmdSetUqRef(axisInx,modePrms->m_uqref);
+        ui->spinBox_mode_uaref->setStyleSheet("color:black");
+        ui->spinBox_mode_ubref->setStyleSheet("color:black");
+        ui->spinBox_mode_ucref->setStyleSheet("color:black");
+        ui->spinBox_mode_udref->setStyleSheet("color:black");
+        ui->spinBox_mode_uqref->setStyleSheet("color:black");
+      }
+      else if(obj==ui->spinBox_mode_idref||obj==ui->spinBox_mode_iqref)   //5 电流闭环调试
+      {
+        modePrms->m_idref=ui->spinBox_mode_idref->value();
+        modePrms->m_iqref=ui->spinBox_mode_iqref->value();
 
-//        ui->spinBox_mode_uaref->setStyleSheet("color:black");
-//        ui->spinBox_mode_ubref->setStyleSheet("color:black");
-//        ui->spinBox_mode_ucref->setStyleSheet("color:black");
-//        ui->spinBox_mode_udref->setStyleSheet("color:black");
-//        ui->spinBox_mode_uqref->setStyleSheet("color:black");
-//      }
-//      else if(obj==ui->spinBox_mode_idref||obj==ui->spinBox_mode_iqref)   //5 电流闭环调试
-//      {
-//        modePrms->m_idref=ui->spinBox_mode_idref->value();
-//        modePrms->m_iqref=ui->spinBox_mode_iqref->value();
+        m_sev->cmdSetIdRef(axisInx,modePrms->m_idref);
+        m_sev->cmdSetIqRef(axisInx,modePrms->m_idref);
+        ui->spinBox_mode_idref->setStyleSheet("color:black");
+        ui->spinBox_mode_iqref->setStyleSheet("color:black");
+      }
+      else if(obj==ui->spinBox_mode_vcl)                                  //6 速度闭环调试
+      {
+        modePrms->m_vcl=ui->spinBox_mode_vcl->value();
 
-//        m_sev->cmdSetIdRef(axisInx,modePrms->m_idref);
-//        m_sev->cmdSetIqRef(axisInx,modePrms->m_idref);
-//        ui->spinBox_mode_idref->setStyleSheet("color:black");
-//        ui->spinBox_mode_iqref->setStyleSheet("color:black");
-//      }
-//      else if(obj==ui->spinBox_mode_vcl)                                  //6 速度闭环调试
-//      {
-//        modePrms->m_vcl=ui->spinBox_mode_vcl->value();
+        m_sev->cmdSetSpdRef(axisInx,modePrms->m_vcl);
+        ui->spinBox_mode_vcl->setStyleSheet("color:black");
+      }
+      else if(obj==ui->spinBox_mode_vpl)                                  //7 轮廓速度跟踪
+      {
+        modePrms->m_vpl=ui->spinBox_mode_vpl->value();
 
-//        m_sev->cmdSetSpdRef(axisInx,modePrms->m_vcl);
-//        ui->spinBox_mode_vcl->setStyleSheet("color:black");
-//      }
-//      else if(obj==ui->spinBox_mode_vpl)                                  //7 轮廓速度跟踪
-//      {
-//        modePrms->m_vpl=ui->spinBox_mode_vpl->value();
+        m_sev->cmdSetSpdRef(axisInx,modePrms->m_vpl);
+        ui->spinBox_mode_vpl->setStyleSheet("color:black");
+      }
+      else if(obj==ui->spinBox_mode_vsl)                                  //8 周期同步速度跟踪
+      {
+        modePrms->m_vsl=ui->spinBox_mode_vsl->value();
 
-//        m_sev->cmdSetSpdRef(axisInx,modePrms->m_vpl);
-//        ui->spinBox_mode_vpl->setStyleSheet("color:black");
-//      }
-//      else if(obj==ui->spinBox_mode_vsl)                                  //8 周期同步速度跟踪
-//      {
-//        modePrms->m_vsl=ui->spinBox_mode_vsl->value();
+        m_sev->cmdSetSpdRef(axisInx,modePrms->m_vsl);
+        ui->spinBox_mode_vsl->setStyleSheet("color:black");
+      }
+      else if(obj==ui->spinBox_mode_pt)                                  //8 周期同步位置跟踪
+      {
+        modePrms->m_pt=ui->spinBox_mode_pt->value();
 
-//        m_sev->cmdSetSpdRef(axisInx,modePrms->m_vsl);
-//        ui->spinBox_mode_vsl->setStyleSheet("color:black");
-//      }
-//      else if(obj==ui->spinBox_mode_pt)                                  //8 周期同步位置跟踪
-//      {
-//        modePrms->m_pt=ui->spinBox_mode_pt->value();
-
-//        m_sev->cmdSetPosRef(axisInx,modePrms->m_pt);
-//        ui->spinBox_mode_pt->setStyleSheet("color:black");
-//      }
-//      return true;
-//    }
-//  }
+        m_sev->cmdSetPosRef(axisInx,modePrms->m_pt);
+        ui->spinBox_mode_pt->setStyleSheet("color:black");
+      }
+      return true;
+    }
+  }
   return QWidget::eventFilter(obj,event);
 }
 
@@ -221,12 +239,13 @@ void TabModeCtl::onModeSpinBoxValueChanged(int value)
 }
 void TabModeCtl::onModeCtlPanelModeChanged(quint16 axis, int mode)
 {
+  if(mode == -1)
+    return ;
   qDebug()<<axis<<mode;
   if(mode<ui->stackedWidget_plot_mode->count())
   {
-    PlotTabCtlPrms *prms=m_data;
-    prms->m_curModeAxis=axis;
-    ModeCtlPrms* modePrms=prms->m_modeCtlPrmsList.at(axis);
+    m_currenAxis=axis;
+    ModeCtlPrms* modePrms=m_dataList.at(axis);
     modePrms->m_curMode=(ModeCtlPrms::ModeCtlType)mode;
     ui->stackedWidget_plot_mode->setCurrentIndex(mode);
     m_sev->setCurrentTaskServoMode(axis,mode);//下发实际指令
@@ -287,9 +306,8 @@ void TabModeCtl::onModeCtlPanelCheckChanged(quint16 axis, int mode)
   //还原对应轴的参数设置
   if(mode<ui->stackedWidget_plot_mode->count())
   {
-    PlotTabCtlPrms *prms=m_data;
-    prms->m_curModeAxis=axis;
-    ModeCtlPrms* modePrms=prms->m_modeCtlPrmsList.at(axis);
+    m_currenAxis=axis;
+    ModeCtlPrms* modePrms=m_dataList.at(axis);
     modePrms->m_curMode=(ModeCtlPrms::ModeCtlType)mode;
     ui->stackedWidget_plot_mode->setCurrentIndex(mode);
     switch(mode)
@@ -340,6 +358,24 @@ void TabModeCtl::onModeCtlPanelCheckChanged(quint16 axis, int mode)
     break;
     case ModeCtlPrms::MODE_DB:break;
     case ModeCtlPrms::MODE_CSC:break;
+    }
+  }
+}
+
+void TabModeCtl::onBtnServoOnClicked(bool checked)
+{
+  if(!m_sev->isConnecting())
+  {
+    ui->tbtn_plot_servoOnMode->setChecked(false);
+    return ;
+  }
+  for(int i = 0;i<ui->modeCtlPanel->axisCount();i++)
+  {
+    if(ui->modeCtlPanel->isChecked(i))
+    {
+      m_sev->setAxisServoOn(i,checked);
+      qDebug()<<"setServoOn "<<i<<checked;
+      qDebug()<<"----------sev axis is on"<<m_sev->axisServoIsOn(i)<<"-----------";
     }
   }
 }

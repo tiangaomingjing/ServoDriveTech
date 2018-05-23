@@ -3,7 +3,8 @@
 # Project created by QtCreator 2018-04-10T15:10:48
 #
 #-------------------------------------------------
-INCLUDEPATH +=$${PWD}/../../Libs/PlotUnit/PlotUnitGraph
+INCLUDEPATH +=$${PWD}/../../Libs/PlotUnit/PlotUnitGraph\
+              $${PWD}/../../Libs/PlotUnit/PlotUnitGraph/TabModeCtl
 
 QT       += core gui
 
@@ -16,10 +17,10 @@ TEMPLATE = app
 SOURCES += main.cpp\
         plotmainwindow.cpp \
     axismodewidget.cpp \
-    ../../Libs/PlotUnit/PlotUnitGraph/modectlpanel.cpp
+    ../../Libs/PlotUnit/PlotUnitGraph/TabModeCtl/modectlpanel.cpp
 
 HEADERS  += plotmainwindow.h \
     axismodewidget.h \
-    ../../Libs/PlotUnit/PlotUnitGraph/modectlpanel.h
+    ../../Libs/PlotUnit/PlotUnitGraph/TabModeCtl/modectlpanel.h
 
 FORMS    += plotmainwindow.ui

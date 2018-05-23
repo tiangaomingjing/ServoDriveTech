@@ -8,7 +8,8 @@ class ITabWidget : public QWidget
 {
   Q_OBJECT
 public:
-  explicit ITabWidget(const QString &name,int axisCount ,SevDevice *sev,QWidget *parent = 0);
+  explicit ITabWidget(const QString &name,SevDevice *sev,QWidget *parent = 0);
+  virtual ~ITabWidget(){}
 
   QString name() const;
   void setName(const QString &name);
@@ -19,15 +20,16 @@ public:
   SevDevice *sevDevice() const;
   void setSevDevice(SevDevice *sevDevice);
 
-  void uiUpdate() = 0 ;
+  virtual void uiUpdate() = 0 ;
 
 signals:
 
 public slots:
+
 protected:
   QString m_name;
   int m_axisCount;
-  SevDevice *m_sevDevice;
+  SevDevice *m_sev;
 };
 
 #endif // ITABWIDGET_H

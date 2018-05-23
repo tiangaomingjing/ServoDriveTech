@@ -15,10 +15,10 @@ class TabModeCtl : public ITabWidget
   Q_OBJECT
 
 public:
-  explicit TabModeCtl(const QString &name,int axisCount ,SevDevice *sev,QWidget *parent = 0);
+  explicit TabModeCtl(const QString &name, SevDevice *sev, QWidget *parent = 0);
   ~TabModeCtl();
 
-  void setupIcons(const QString &css);
+  void uiUpdate() Q_DECL_OVERRIDE;
 
 protected:
   bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
@@ -27,11 +27,14 @@ private slots:
   void onModeSpinBoxValueChanged(int value);
   void onModeCtlPanelModeChanged(quint16 axis, int mode);
   void onModeCtlPanelCheckChanged(quint16 axis, int mode);
+  void onBtnServoOnClicked(bool checked);
 
+private:
+  void setupIcons(const QString &css);
 private:
   Ui::TabModeCtl *ui;
   int m_currenAxis;
-  QList<ModeCtlPrms *>m_prms;
+  QList<ModeCtlPrms *>m_dataList;
 
 };
 

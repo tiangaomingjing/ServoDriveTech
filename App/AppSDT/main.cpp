@@ -54,12 +54,6 @@ int main(int argc, char *argv[])
 {
   QApplication a(argc, argv);
 
-  AdvUserContainer *advc = AdvUserContainer::instance();
-  IAdvUser *adv = new AdvUserCheck("advusercheck", 0);
-  advc->addAdvUserItem(adv);
-  adv = new AdvUserMask("advusermask", 0);
-  advc->addAdvUserItem(adv);
-
   OptContainer *optc=OptContainer::instance();
 
   IOpt *opt=new OptUser("optuser",0);
@@ -72,6 +66,12 @@ int main(int argc, char *argv[])
   optc->addOptItem(opt);
   opt = new OptPath("optpath", 0);
   optc->addOptItem(opt);
+
+  AdvUserContainer *advc = AdvUserContainer::instance();
+  IAdvUser *adv = new AdvUserCheck("advusercheck", 0);
+  advc->addAdvUserItem(adv);
+  adv = new AdvUserMask("advusermask", 0);
+  advc->addAdvUserItem(adv);
 
   opt=optc->optItem("optface");
   OptFace *optFace=dynamic_cast<OptFace *>(opt);
