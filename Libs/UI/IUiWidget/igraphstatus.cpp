@@ -184,7 +184,7 @@ void IGraphStatus::syncTreeDataToUiFace()
   updateUiLabelText();
 
   //读编码器屏蔽寄存器信息
-  d->m_dev->readItemFlash(d->m_uiWidget->uiIndexs().axisInx,d->m_alarmInfoItem);
+  d->m_dev->readPageItemFlash(d->m_uiWidget->uiIndexs().axisInx,d->m_alarmInfoItem);
   //将屏蔽寄存器信息更新到第一个led上面
   quint32 maskCode=d->m_alarmInfoItem->text(GT::COL_PAGE_TREE_VALUE).toUInt();
   for(int i=0;i<d->m_ledAlarmList.count();i++)
@@ -216,7 +216,7 @@ void IGraphStatus::onFaceCssChanged(const QString &css)
 void IGraphStatus::onTimeOut()
 {
   Q_D(IGraphStatus);
-  qDebug()<<"Status timeout";
+  //qDebug()<<"Status timeout";
   d->m_uiWidget->readGenPageRAM();
   syncTreeDataToUiFace();
 }
@@ -250,7 +250,7 @@ void IGraphStatus::onActnSaveMaskClicked()
   }
   qDebug()<<"after maskCode"<<QString::number(maskCode,16);
   d->m_alarmInfoItem->setText(GT::COL_PAGE_TREE_VALUE,QString::number(maskCode));
-  d->m_dev->writeItemFlash(d->m_uiWidget->uiIndexs().axisInx,d->m_alarmInfoItem);
+  d->m_dev->writePageItemFlash(d->m_uiWidget->uiIndexs().axisInx,d->m_alarmInfoItem);
 }
 
 void IGraphStatus::onActnConfigMaskClicked()

@@ -30,8 +30,8 @@ public:
   bool isConnected() const;
   void setTryWriteCount(quint8 tryWriteCount);
 
-  bool readItemFlash(int axis,QTreeWidgetItem *item);
-  bool writeItemFlash(int axis,QTreeWidgetItem *item);
+  bool readPageItemFlash(int axis,QTreeWidgetItem *item);
+  bool writePageItemFlash(int axis,QTreeWidgetItem *item);
 
   bool readAdvItemFlash(int axisInx, QTreeWidgetItem *item);
   bool writeAdvItemFlash(int axisInx, QTreeWidgetItem *item);
@@ -56,12 +56,13 @@ public:
 
   bool clearAlarm(quint16 axisInx);
 
+  bool writePrmItemFlash(int axis, QTreeWidgetItem *item);
+  bool readPrmItemFlash(int axis, QTreeWidgetItem *item);
   bool axisServoIsOn(quint16 axisInx);
   void setAxisServoOn(quint16 axisInx,bool enable);
 
   ComDriver::TaskServoMode currentTaskServoMode(quint16 axisInx);
   void setCurrentTaskServoMode(quint16 axisInx,ComDriver::TaskServoMode mode);
-
 protected:
 
 private:

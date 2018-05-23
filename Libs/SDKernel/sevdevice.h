@@ -49,8 +49,8 @@ public:
   bool readGenPageRAM(quint16 axisInx,QTreeWidget *pageTree);
   bool writeGenPageRAM(quint16 axisInx,QTreeWidget *pageTree);
 
-  bool writeItemFlash(quint16 axisInx,QTreeWidgetItem *item);
-  bool readItemFlash(quint16 axisInx,QTreeWidgetItem *item);
+  bool writePageItemFlash(quint16 axisInx,QTreeWidgetItem *item);
+  bool readPageItemFlash(quint16 axisInx,QTreeWidgetItem *item);
 
   bool writeAdvFlash(quint16 axisInx, QTreeWidgetItem *item);
   bool writeAdvRam(quint16 axisInx, QTreeWidgetItem *item);
@@ -64,6 +64,7 @@ public:
   bool getPlotData(const ComDriver::PlotControlPrm &ctrPrm,ComDriver::CurveList &curveList);
 
   bool clearAlarm(quint16 axisInx);
+  bool checkLoadParameters(QTreeWidget *tree);
 
   QString aliasName() const;
   QString typeName() const;
@@ -90,6 +91,8 @@ public:
 
   Q_INVOKABLE void qmlTest();
 
+  bool writePrmItemFlash(quint16 axisInx, QTreeWidgetItem *item);
+  bool readPrmItemFlash(quint16 axisInx, QTreeWidgetItem *item);
   bool axisServoIsOn(quint16 axisInx);
   void setAxisServoOn(quint16 axisInx, bool enable);
 
@@ -121,12 +124,15 @@ public slots:
   bool onWritePageFlash(int axis,QTreeWidget *pageTree);
 
 private:
-  bool checkPropertyParameters(QTreeWidgetItem *item);
+  bool checkPagePropertyParameters(QTreeWidgetItem *item);
   bool checkPowerBoardParameters(QTreeWidgetItem *item,const QMap<QString ,PowerBoardLimit> *limit);
-  bool checkParameters(int axis,QTreeWidget *tree);
+  bool checkPageParameters(int axis,QTreeWidget *tree);
+  bool checkLoadItemParameters(int axis, QTreeWidgetItem *item, QTreeWidget *prmTree);
+  bool checkLoadPropertyParameters(QTreeWidgetItem *item, QTreeWidget *prmTree);
 
 private:
   SevDevicePrivate *d_ptr;
+  int a;
 };
 
 #endif // SEVDEVICE_H

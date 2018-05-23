@@ -242,8 +242,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	char* pFileNameList[3];
 	int pFileTypeList[3];
 	pFileNameList[0] = "C:/Users/googol/Desktop/xml/Prm_AllAxis.xml";
-	//pFileNameList[1] = "C:/Users/googol/Desktop/xml/Prm_AllAxis.xml";
-	//pFileNameList[2] = "C:/Users/googol/Desktop/xml/Prm_AllAxis.xml";
 	pFileNameList[1] = "C:/Users/googol/Desktop/xml/PrmRAMAxis0.xml";
 	pFileNameList[2] = "C:/Users/googol/Desktop/xml/PrmRAMAxis1.xml";
 	pFileTypeList[0] = 0;
@@ -254,12 +252,12 @@ int _tmain(int argc, _TCHAR* argv[])
 	int16 com_type = GTSD_COM_TYPE_RNNET;
 	int16 stationId = 0xf0;
 	short count = 0;
-	short ret0 = GTSD_CMD_XmlWriteFile(axis, pFileNameList, pFileTypeList, num, updateProgress, (void *)&aa, count, com_type, stationId);
-	cout << "ret0 = " << ret0 << endl;
+	//short ret0 = GTSD_CMD_XmlWriteFile(axis, pFileNameList, pFileTypeList, num, updateProgress, (void *)&aa, count, com_type, stationId);
+	//cout << "ret0 = " << ret0 << endl;
 
-	pFileNameList[0] = "E:/Working/New/build/debug/sysconfig/SD6x/SD61_MINI/V130/FlashPrm_AllAxis.xml";
-	pFileNameList[1] = "E:/Working/New/build/debug/sysconfig/SD6x/SD61_MINI/V130/page/PrmRAMAxis0.xml";
-	pFileNameList[2] = "E:/Working/New/build/debug/sysconfig/SD6x/SD61_MINI/V130/page/PrmRAMAxis1.xml";
+	pFileNameList[0] = "C:/Users/googol/Desktop/xml/new/Prm_AllAxis.xml";
+	pFileNameList[1] = "C:/Users/googol/Desktop/xml/new/PrmRAMAxis0.xml";
+	pFileNameList[2] = "C:/Users/googol/Desktop/xml/new/PrmRAMAxis1.xml";
 	pFileTypeList[0] = 0;
 	pFileTypeList[1] = 0;
 	pFileTypeList[2] = 0;

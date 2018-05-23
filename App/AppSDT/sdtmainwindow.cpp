@@ -41,6 +41,10 @@
 #include "messageserver.h"
 
 #include "deviceinfodialog.h"
+#include "qttreemanager.h"
+#include "downloaddialog.h"
+#include "uploaddialog.h"
+#include "servofile.h"
 
 #include <QToolButton>
 #include <QDebug>
@@ -49,8 +53,14 @@
 #include <QProgressBar>
 #include <QMessageBox>
 #include <QCloseEvent>
+#include <QFileDialog>
+#include <QDir>
+#include <QDate>
 
 #define UI_TREE_SHOW_COLUMN 0
+#define OPT_START_INI "opt.ini"
+#define ADVUSR_INI "advusr.ini"
+
 
 using namespace GT;
 
@@ -274,6 +284,8 @@ void SDTMainWindow::createConnections()
   connect(m_actnProduce, SIGNAL(triggered()), this, SLOT(onActnProduceClicked()));
   connect(m_actnAdvUser, SIGNAL(triggered()), this, SLOT(onActnAdvUserClicked()));
   connect(m_actnCompare,SIGNAL(triggered(bool)),this,SLOT(onActnCompareClicked()));
+  connect(m_actnDownload, SIGNAL(triggered(bool)), this, SLOT(onActnDownloadClicked()));
+  connect(m_actnUpload, SIGNAL(triggered(bool)), this, SLOT(onActnUploadClicked()));
 
   OptAutoLoad *optAuto=dynamic_cast<OptAutoLoad *>(OptContainer::instance()->optItem("optautoload"));
   if(optAuto!=NULL)
@@ -288,6 +300,21 @@ void SDTMainWindow::createConnections()
   OptUser *optuser = dynamic_cast<OptUser *>(OptContainer::instance()->optItem("optuser"));
   if (optuser != NULL) {
       connect(optuser, SIGNAL(usrChange(bool)), this, SLOT(onOptUserChanged(bool)));
+  }
+
+  OptPath *optpath = dynamic_cast<OptPath *>(OptContainer::instance()->optItem("optpath"));
+  if (optpath != NULL) {
+      connect(optpath, SIGNAL(pathesChanged(QStringList)), this, SLOT(onOptPathChanged(QStringList)));
+  }
+  m_downloadPath = optpath->file2ServoPath();
+  QDir downDir(m_downloadPath);
+  if (!downDir.exists()) {
+      m_downloadPath = ".";
+  }
+  m_uploadPath = optpath->servo2FilePath();
+  QDir upDir(m_uploadPath);
+  if (!upDir.exists()) {
+      m_uploadPath = ".";
   }
   connect(ui->treeWidget,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(onNavTreeWidgetItemClicked(QTreeWidgetItem*,int)));
 
@@ -322,6 +349,9 @@ void SDTMainWindow::closeEvent(QCloseEvent *e)
     OptContainer *optc=OptContainer::instance();
     optc->saveOpt();
 
+    AdvUserContainer *advc = AdvUserContainer::instance();
+    advc->saveAdv();
+
     //保存当前的配置
 
     delete m_gUiControl;
@@ -337,6 +367,7 @@ void SDTMainWindow::processCallBack(void *argv,short *value)
   QProgressBar *pBar=static_cast<QProgressBar *>(argv);
   pBar->setValue(*value);
   qDebug()<<"progress value ="<<*value;
+  qApp->processEvents();
 }
 
 bool SDTMainWindow::deviceInit()
@@ -668,6 +699,18 @@ void SDTMainWindow::onCloseMsgReceived() {
     delete m_server;
 }
 
+void SDTMainWindow::onDownloadMsgReceived(int index, const QString &filePath)
+{
+    m_downloadFileName = filePath;
+    m_downloadIndex = index;
+}
+
+void SDTMainWindow::onUploadMsgReceived(int index, const QString &filePath)
+{
+    m_uploadFileName = filePath;
+    m_uploadIndex = index;
+}
+
 void SDTMainWindow::onActnTbtnMoreClicked()
 {
   m_tbtnMore->showMenu();
@@ -697,9 +740,10 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
         //3 是否要进行参数检查 m_versionNeedCheck=(softIsBigger128&&hardIsBigger128);
       }*/
       DeviceIdHelper idHelper;
-      IVerMatching *vMatch=new MemeryVerMatching;
+      //IVerMatching *vMatch=new MemeryVerMatching;
+      IVerMatching *dbMatch=new DbVerMatching;
       IVerMatching::CheckStatus checkStatus=IVerMatching::CHECK_STA_OK;
-      vMatch->open();
+      dbMatch->open();
       foreach (SdAssembly*sd, m_sdAssemblyList)
       {
         ComDriver::ICom *com=sd->sevDevice()->socketCom();
@@ -740,7 +784,8 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
           verInfo.f=f;
           verInfo.p=p;
           verInfo.v=v;
-          checkStatus=vMatch->check(verInfo);
+          //checkStatus=vMatch->check(verInfo);
+          checkStatus = dbMatch->check(verInfo);
         }
 
         if(checkStatus!=IVerMatching::CHECK_STA_OK)
@@ -761,8 +806,10 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
         sd->sevDevice()->setVersionAttributeActive();
 
       }
-      vMatch->close();
-      delete vMatch;
+//      vMatch->close();
+//      delete vMatch;
+      dbMatch->close();
+      delete dbMatch;
 
       if(isContinue)
       {
@@ -858,6 +905,89 @@ void SDTMainWindow::onActnConfigClicked()
   ui->writeGenPageRAM();
 }
 
+void SDTMainWindow::onActnDownloadClicked()
+{
+    if (!m_connecting) {
+        QMessageBox::information(0, tr("Warning"), tr("Please open com first!"));
+        return;
+    }
+    m_downloadFileName = QString::null;
+    m_downloadIndex = -1;
+    QList<SevDevice *> devList = sevList();
+    if (devList.count() == 1) {
+        m_downloadIndex = 0;
+        m_downloadFileName = QFileDialog::getOpenFileName(this, tr("Open XML File"), m_downloadPath, tr("XML Files(*.xml)"));
+    } else {
+        DownloadDialog downloadDialog;
+        downloadDialog.uiInit(devList, m_downloadPath);
+        connect(&downloadDialog, SIGNAL(sendDevAndPath(int, QString)), this, SLOT(onDownloadMsgReceived(int, QString)));
+        downloadDialog.exec();
+    }
+    qDebug()<<"1";
+    //fileName = QFileDialog::getOpenFileName(this, tr("Open XML File"), m_downloadPath, tr("XML Files(*.xml)"));
+    if (m_downloadFileName.isNull() || m_downloadIndex == -1) {
+        return;
+    }
+    qDebug()<<"2";
+    QFileInfo fileInfo;
+    fileInfo.setFile(m_downloadFileName);
+    m_downloadPath = fileInfo.filePath() + "/";
+    m_statusBar->statusProgressBar()->setVisible(true);
+    m_statusBar->statusProgressBar()->setValue(0);
+    ServoFile *servoFile = new ServoFile(0);
+    connect(servoFile, SIGNAL(sendProgressbarMsg(int,QString)), this, SLOT(onProgressInfo(int,QString)));
+    qDebug()<<"3";
+    servoFile->downLoadFile(processCallBack, (void *)(mp_progressBar), m_downloadFileName, devList.at(m_downloadIndex));
+    disconnect(servoFile, SIGNAL(sendProgressbarMsg(int,QString)), this, SLOT(onProgressInfo(int,QString)));
+    qDebug()<<"4";
+    delete servoFile;
+    m_statusBar->statusProgressBar()->setVisible(false);
+    m_statusBar->setMsg("");
+}
+
+void SDTMainWindow::onActnUploadClicked()
+{
+    if (!m_connecting) {
+        QMessageBox::information(0, tr("Warning"), tr("Please open com first!"));
+        return;
+    }
+
+    m_uploadFileName = QString::null;
+    m_uploadIndex = -1;
+    QList<SevDevice *> devList = sevList();
+    if (devList.count() == 1) {
+        m_uploadIndex = 0;
+        QDate curDate = QDate::currentDate();
+        QString defaultName = devList.at(0)->modelName() + "_" + devList.at(0)->versionName() + "_" + QString::number(curDate.year()) + QString::number(curDate.month()) + QString::number(curDate.day());
+        m_uploadFileName = QFileDialog::getSaveFileName(this, tr("Open XML File"), m_uploadPath + "/" + defaultName + ".xml", tr("XML Files(*.xml)"));
+    } else {
+        UploadDialog uploadDialog;
+        uploadDialog.uiInit(devList, m_uploadPath);
+        connect(&uploadDialog, SIGNAL(sendDevAndPath(int, QString)), this, SLOT(onUploadMsgReceived(int, QString)));
+        uploadDialog.exec();
+    }
+    qDebug()<<"1";
+    //fileName = QFileDialog::getOpenFileName(this, tr("Open XML File"), m_downloadPath, tr("XML Files(*.xml)"));
+    if (m_uploadFileName.isNull() || m_uploadIndex == -1) {
+        return;
+    }
+    qDebug()<<"2";
+    QFileInfo fileInfo;
+    fileInfo.setFile(m_uploadFileName);
+    m_uploadPath = fileInfo.filePath() + "/";
+    m_statusBar->statusProgressBar()->setVisible(true);
+    m_statusBar->statusProgressBar()->setValue(0);
+    ServoFile *servoFile = new ServoFile(0);
+    connect(servoFile, SIGNAL(sendProgressbarMsg(int,QString)), this, SLOT(onProgressInfo(int,QString)));
+    qDebug()<<"3";
+    servoFile->upLoadFile(processCallBack, (void *)(mp_progressBar), m_uploadFileName, devList.at(m_uploadIndex));
+    disconnect(servoFile, SIGNAL(sendProgressbarMsg(int,QString)), this, SLOT(onProgressInfo(int,QString)));
+    qDebug()<<"4";
+    delete servoFile;
+    m_statusBar->statusProgressBar()->setVisible(false);
+    m_statusBar->setMsg("");
+}
+
 void SDTMainWindow::onOptAutoLoadChanged(bool changed)
 {
   m_actnNewConfig->setVisible(!changed);
@@ -877,9 +1007,15 @@ void SDTMainWindow::onOptUserChanged(bool isAdmin)
         m_actnAdvUser->setVisible(false);
     }
 }
-void SDTMainWindow::onProgressInfo(int barValue,QString msg)
+
+void SDTMainWindow::onOptPathChanged(const QStringList &list)
 {
-  qDebug()<<"value"<<barValue<<"msg"<<msg;
+    m_uploadPath = list.at(0);
+    m_downloadPath = list.at(1);
+}
+void SDTMainWindow::onProgressInfo(int barValue, QString msg)
+{
+  //qDebug()<<"value"<<barValue<<"msg"<<msg;
   static int styleTest=0;
   if(this->isVisible())
   {

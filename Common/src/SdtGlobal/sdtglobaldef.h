@@ -81,6 +81,20 @@ typedef enum{
 }FlashRamColumn;
 
 typedef enum {
+    COL_FLASH_ALLAXIS_NAME,
+    COL_FLASH_ALLAXIS_VALUE,
+    COL_FLASH_ALLAXIS_TYPE,
+    COL_FLASH_ALLAXIS_ADDR,
+}FlashAllAxisColumn;
+
+typedef enum {
+    COL_PRM_PRTY_NAME,
+    COL_PRM_PRTY_TYPE,
+    COL_PRM_PRTY_MAX,
+    COL_PRM_PRTY_MIN,
+}PrmPrtyColumn;
+
+typedef enum {
   SEV_CTL_SRC_PC,
   SEV_CTL_SRC_GLINK2
 }SevControlSrc;

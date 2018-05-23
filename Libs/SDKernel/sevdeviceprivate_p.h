@@ -40,6 +40,7 @@ public :
   QTreeWidgetItem *m_targetTree;
 
   QString m_aliasName;
+  int m_barCount;
 
 signals:
   void initProgressInfo(int value,QString msg);
