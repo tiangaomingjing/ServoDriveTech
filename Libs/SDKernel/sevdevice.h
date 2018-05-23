@@ -132,6 +132,7 @@ private:
 
 private:
   SevDevicePrivate *d_ptr;
+  int a;
 };
 
 #endif // SEVDEVICE_H
