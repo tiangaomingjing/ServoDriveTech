@@ -12,6 +12,8 @@
 #define ICON_NAME_SERVO_ON      "plot_son.png"
 #define ICON_NAME_SERVO_OFF     "plot_soff.png"
 
+#define TEST_DEBUG 1
+
 TabMotion::TabMotion(const QString &name, SevDevice *sev, QWidget *parent) :
   ITabWidget(name,sev,parent),
   ui(new Ui::TabMotion)
@@ -34,14 +36,15 @@ TabMotion::TabMotion(const QString &name, SevDevice *sev, QWidget *parent) :
   ui->listWidget_plot_tab2_axis->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
   //初始化运动界面
-  IMotion *motion = new MotionNone(NULL,tr("None"));
+  IMotion *motion = new MotionNone(ui->listWidget_plot_tab2_axis,m_sev,tr("None"));
   for(int i = 0;i<m_axisMotionDataList.size();i++)
   {
     m_axisMotionDataList.at(i)->m_curMotion = motion;
   }
   m_motionList.append(motion);
-  motion = new MotionVelocity(m_sev,tr("Velocity"));
+  motion = new MotionVelocity(ui->listWidget_plot_tab2_axis,m_sev,tr("Velocity"));
   m_motionList.append(motion);
+
   for(int i=0;i<m_motionList.size();i++)
   {
     ui->listWidget_plot_motion_type_inx->addItem(QString("%1 %2").arg(i).arg(m_motionList.at(i)->name()));
@@ -63,17 +66,31 @@ TabMotion::TabMotion(const QString &name, SevDevice *sev, QWidget *parent) :
 
 TabMotion::~TabMotion()
 {
-  GT::deepClearList(m_motionList);
-  GT::deepClearList(m_axisMotionDataList);
+  qDebug()<<"TabMotion TabMotion TabMotion TabMotion destruct ------->";
+//  GT::deepClearList(m_motionList);
+//  GT::deepClearList(m_axisMotionDataList);
   delete ui;
 }
 
 void TabMotion::uiUpdate()
 {
-  GT::SevControlSrc src = m_sev->controlSrc(m_currenAxis);
-  qDebug()<<"motion axis = "<<m_currenAxis<<"control src "<<(int)src;
+  GT::SevControlSrc src = m_sev->controlSrc(m_currentAxis);
+//  qDebug()<<"motion axis = "<<m_currentAxis<<"control src "<<(int)src;
   setUiCurrentCtlSrc(src);
-  ui->tbtn_plot_servoGoMotion->setChecked(m_sev->axisServoIsOn(m_currenAxis));
+  ui->tbtn_plot_servoGoMotion->setChecked(m_sev->axisServoIsOn(m_currentAxis));
+}
+
+void TabMotion::resetUi()
+{
+  ui->listWidget_plot_tab2_axis->setCurrentRow(0);
+  m_currentAxis = 0;
+  for(int i = 0;i<m_axisMotionDataList.size();i++)
+  {
+    m_axisMotionDataList.at(i)->m_curMotion = m_motionList.at(0);
+  }
+  ui->listWidget_plot_motion_type_inx->setCurrentRow(0);
+  ui->stackedWidget_motion_container->setCurrentIndex(0);
+  ui->tbtn_plot_servoGoMotion->setEnabled(false);
 }
 
 void TabMotion::setupIcons(const QString &css)
@@ -116,17 +133,19 @@ void TabMotion::onCssChanged(const QString &css)
 
 void TabMotion::onMotionAxisRowChanged(int row)
 {
-  m_currenAxis = row;
+  if(row <0)
+    return;
+  m_currentAxis = row;
   //还原这个轴下已经设置的运动模式
   IMotion::MotionType type = m_axisMotionDataList.at(row)->m_curMotion->motionType();
-  qDebug()<<"Motion type "<<type;
+  qDebug()<<"Motion type "<<type<<"row "<<row;
   ui->listWidget_plot_motion_type_inx->setCurrentRow(type);
-//  m_motionList.at(m_axisMotionTypeList.at(row))->updateAxisUi(row);
+  m_motionList.at(type)->updateAxisUi(row);
   if(type == IMotion::MOTION_TYPE_NONE)
     ui->tbtn_plot_servoGoMotion->setEnabled(false);
   else
     ui->tbtn_plot_servoGoMotion->setEnabled(true);
-
+  ui->stackedWidget_motion_container->setCurrentIndex(type);
 }
 void TabMotion::onBtnCtlSrcPcClicked()
 {
@@ -180,6 +199,8 @@ void TabMotion::onListWidgetMotionTypeInxClicked(QListWidgetItem *item)
 
 void TabMotion::onBtnMotionGoClicked(bool checked)
 {
+  if(!m_sev->isConnecting())
+    return ;
   if(checked)
   {
     for(int row = 0;row<ui->listWidget_plot_tab2_axis->count();row++)

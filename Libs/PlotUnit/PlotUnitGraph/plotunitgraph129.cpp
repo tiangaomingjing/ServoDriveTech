@@ -158,7 +158,6 @@ PlotUnitGraph129::PlotUnitGraph129(const QList<SevDevice *> &sevList, QWidget *p
 
   d->m_curveManager=new CurveManager(this);
 
-
   //曲线表格初始化
   int curveTableWidth = 250;
   int columnCount=4;
@@ -187,7 +186,6 @@ PlotUnitGraph129::PlotUnitGraph129(const QList<SevDevice *> &sevList, QWidget *p
 
   gtPlotInit();
   ctlPanelInit();
-
   OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
   setPlotIcons(face->css());
   createConnections();

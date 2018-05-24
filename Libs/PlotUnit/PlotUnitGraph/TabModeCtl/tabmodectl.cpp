@@ -3,6 +3,7 @@
 #include "sevdevice.h"
 #include "Option"
 #include "gtutils.h"
+#include "sdtglobaldef.h"
 
 #include <QDebug>
 #include <QKeyEvent>
@@ -10,34 +11,19 @@
 
 #define ICON_NAME_SERVO_ON      "plot_son.png"
 #define ICON_NAME_SERVO_OFF     "plot_soff.png"
+
 class ModeCtlPrms
 {
 public:
   ModeCtlPrms():m_isChecked(false),
-    m_curMode(MODE_IDLE),m_ipa(0),m_uaref(0),m_ubref(0),m_ucref(0),m_udref(0),
+    m_curMode(GT::MODE_IDLE),m_ipa(0),m_uaref(0),m_ubref(0),m_ucref(0),m_udref(0),
     m_uqref(0),m_idref(0),m_iqref(0),m_vcl(0),m_vpl(0),m_vsl(0),m_pt(0)
   {
 
   }
 
-typedef enum{
-    MODE_IDLE,
-    MODE_ADC,
-    MODE_IPA,
-    MODE_MPI,
-    MODE_COL,
-    MODE_CCL,
-    MODE_VCL,
-    MODE_VPL,
-    MODE_VSL,
-    MODE_FIX,
-    MODE_PT,
-    MODE_DB,
-    MODE_CSC
-  }ModeCtlType;
-
   bool m_isChecked;
-  ModeCtlType m_curMode;
+  GT::ModeCtlType m_curMode;
   //mode ipa
   qreal m_ipa;
   //mode col
@@ -113,8 +99,10 @@ TabModeCtl::TabModeCtl(const QString &name, SevDevice *sev, QWidget *parent) :
 
 TabModeCtl::~TabModeCtl()
 {
-  delete ui;
+  qDebug()<<"TabModeCtl TabModeCtl TabModeCtl destruct ----->";
   GT::deepClearList(m_dataList);
+  delete ui;
+
 }
 
 void TabModeCtl::uiUpdate()
@@ -129,6 +117,11 @@ void TabModeCtl::uiUpdate()
 
   ui->tbtn_plot_servoOnMode->setChecked(m_sev->axisServoIsOn(curModeAxis));
   qDebug()<<"update servo status"<<m_sev->aliasName()<<" cur mode axis = "<<curModeAxis<<" servo on = "<<m_sev->axisServoIsOn(curModeAxis);
+
+}
+
+void TabModeCtl::resetUi()
+{
 
 }
 
@@ -246,20 +239,20 @@ void TabModeCtl::onModeCtlPanelModeChanged(quint16 axis, int mode)
   {
     m_currenAxis=axis;
     ModeCtlPrms* modePrms=m_dataList.at(axis);
-    modePrms->m_curMode=(ModeCtlPrms::ModeCtlType)mode;
+    modePrms->m_curMode=(GT::ModeCtlType)mode;
     ui->stackedWidget_plot_mode->setCurrentIndex(mode);
     m_sev->setCurrentTaskServoMode(axis,mode);//下发实际指令
     switch(mode)
     {
-    case ModeCtlPrms::MODE_IDLE:break;
-    case ModeCtlPrms::MODE_ADC:break;
-    case ModeCtlPrms::MODE_IPA:
+    case GT::MODE_IDLE:break;
+    case GT::MODE_ADC:break;
+    case GT::MODE_IPA:
     {
       ui->spinBox_mode_ipa->setValue(modePrms->m_ipa);
     }
     break;
-    case ModeCtlPrms::MODE_MPI:break;
-    case ModeCtlPrms::MODE_COL:
+    case GT::MODE_MPI:break;
+    case GT::MODE_COL:
     {
       ui->spinBox_mode_uaref->setValue(modePrms->m_uaref);
       ui->spinBox_mode_ubref->setValue(modePrms->m_ubref);
@@ -268,35 +261,35 @@ void TabModeCtl::onModeCtlPanelModeChanged(quint16 axis, int mode)
       ui->spinBox_mode_uqref->setValue(modePrms->m_uqref);
     }
     break;
-    case ModeCtlPrms::MODE_CCL:
+    case GT::MODE_CCL:
     {
       ui->spinBox_mode_idref->setValue(modePrms->m_idref);
       ui->spinBox_mode_iqref->setValue(modePrms->m_iqref);
     }
     break;
-    case ModeCtlPrms::MODE_VCL:
+    case GT::MODE_VCL:
     {
       ui->spinBox_mode_vcl->setValue(modePrms->m_vcl);
     }
     break;
-    case ModeCtlPrms::MODE_VPL:
+    case GT::MODE_VPL:
     {
       ui->spinBox_mode_vpl->setValue(modePrms->m_vpl);
     }
     break;
-    case ModeCtlPrms::MODE_VSL:
+    case GT::MODE_VSL:
     {
       ui->spinBox_mode_vsl->setValue(modePrms->m_vsl);
     }
     break;
-    case ModeCtlPrms::MODE_FIX:break;
-    case ModeCtlPrms::MODE_PT:
+    case GT::MODE_FIX:break;
+    case GT::MODE_PT:
     {
       ui->spinBox_mode_pt->setValue(modePrms->m_pt);
     }
     break;
-    case ModeCtlPrms::MODE_DB:break;
-    case ModeCtlPrms::MODE_CSC:break;
+    case GT::MODE_DB:break;
+    case GT::MODE_CSC:break;
     }
   }
 }
@@ -308,19 +301,19 @@ void TabModeCtl::onModeCtlPanelCheckChanged(quint16 axis, int mode)
   {
     m_currenAxis=axis;
     ModeCtlPrms* modePrms=m_dataList.at(axis);
-    modePrms->m_curMode=(ModeCtlPrms::ModeCtlType)mode;
+    modePrms->m_curMode=(GT::ModeCtlType)mode;
     ui->stackedWidget_plot_mode->setCurrentIndex(mode);
     switch(mode)
     {
-    case ModeCtlPrms::MODE_IDLE:break;
-    case ModeCtlPrms::MODE_ADC:break;
-    case ModeCtlPrms::MODE_IPA:
+    case GT::MODE_IDLE:break;
+    case GT::MODE_ADC:break;
+    case GT::MODE_IPA:
     {
       ui->spinBox_mode_ipa->setValue(modePrms->m_ipa);
     }
     break;
-    case ModeCtlPrms::MODE_MPI:break;
-    case ModeCtlPrms::MODE_COL:
+    case GT::MODE_MPI:break;
+    case GT::MODE_COL:
     {
       ui->spinBox_mode_uaref->setValue(modePrms->m_uaref);
       ui->spinBox_mode_ubref->setValue(modePrms->m_ubref);
@@ -329,35 +322,35 @@ void TabModeCtl::onModeCtlPanelCheckChanged(quint16 axis, int mode)
       ui->spinBox_mode_uqref->setValue(modePrms->m_uqref);
     }
     break;
-    case ModeCtlPrms::MODE_CCL:
+    case GT::MODE_CCL:
     {
       ui->spinBox_mode_idref->setValue(modePrms->m_idref);
       ui->spinBox_mode_iqref->setValue(modePrms->m_iqref);
     }
     break;
-    case ModeCtlPrms::MODE_VCL:
+    case GT::MODE_VCL:
     {
       ui->spinBox_mode_vcl->setValue(modePrms->m_vcl);
     }
     break;
-    case ModeCtlPrms::MODE_VPL:
+    case GT::MODE_VPL:
     {
       ui->spinBox_mode_vpl->setValue(modePrms->m_vpl);
     }
     break;
-    case ModeCtlPrms::MODE_VSL:
+    case GT::MODE_VSL:
     {
       ui->spinBox_mode_vsl->setValue(modePrms->m_vsl);
     }
     break;
-    case ModeCtlPrms::MODE_FIX:break;
-    case ModeCtlPrms::MODE_PT:
+    case GT::MODE_FIX:break;
+    case GT::MODE_PT:
     {
       ui->spinBox_mode_pt->setValue(modePrms->m_pt);
     }
     break;
-    case ModeCtlPrms::MODE_DB:break;
-    case ModeCtlPrms::MODE_CSC:break;
+    case GT::MODE_DB:break;
+    case GT::MODE_CSC:break;
     }
   }
 }

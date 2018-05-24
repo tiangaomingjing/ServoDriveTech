@@ -6,6 +6,7 @@
 #include "itabwidget.h"
 #include "TabModeCtl/tabmodectl.h"
 #include "TabMotion/tabmotion.h"
+#include <QDebug>
 
 //#define ICON_NAME_SERVO_ON      "plot_son.png"
 //#define ICON_NAME_SERVO_OFF     "plot_soff.png"
@@ -43,6 +44,8 @@ TabCtlPanel129::TabCtlPanel129(SevDevice *sev, QWidget *parent) : QWidget(parent
 
 TabCtlPanel129::~TabCtlPanel129()
 {
+  qDebug()<<"TabCtlPanel129 TabCtlPanel129 TabCtlPanel129 destruct ------>";
+  ui->tabWidget->clear();
   GT::deepClearList(m_tabWidgetList);
   delete ui;
 }
@@ -56,6 +59,9 @@ void TabCtlPanel129::updateServoStatus()
 
 void TabCtlPanel129::onTabCurrentChanged(int inx)
 {
+  if(inx == -1)
+    return ;
   m_currentTabInx = inx;
+  m_tabWidgetList.at(m_currentTabInx)->resetUi();
 }
 

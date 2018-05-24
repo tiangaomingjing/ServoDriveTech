@@ -26,4 +26,6 @@ HEADERS  += customplotmainwindow.h \
     ../../Libs/PlotUnit/PlotUnitGraph/qcpitemmeasure.h \
     ../../Libs/PlotUnit/PlotUnitGraph/qcustomplot.h
 
+LIBS += -lOpenGL32
+
 FORMS    += customplotmainwindow.ui

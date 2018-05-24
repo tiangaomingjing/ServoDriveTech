@@ -690,6 +690,16 @@ void SevDevice::cmdSetPosRef(quint16 axisInx, qint32 value)
   d->m_socket->m_com->setPosRef(axisInx,value);
 }
 
+bool SevDevice::cmdGetSpdFb(quint16 axisInx, double &value)
+{
+  Q_D(SevDevice);
+  if(d->m_socket->isConnected()==false)
+    return false;
+  int ret =0;
+  ret = d->m_socket->m_com->getSpdFb(axisInx,value);
+  return ret ==0;
+}
+
 bool SevDevice::onReadPageFlash(int axis, QTreeWidget *pageTree)
 {
   Q_D(SevDevice);

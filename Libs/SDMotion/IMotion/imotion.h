@@ -7,6 +7,8 @@
 class IMotionPrivate;
 class QWidget;
 class SevDevice;
+class QListWidget;
+class OptPlot;
 class IMOTIONSHARED_EXPORT IMotion:public QObject
 {
   Q_OBJECT
@@ -25,8 +27,10 @@ public:
   QString name();
   SevDevice *sevDevice();
   void setSevDevice(SevDevice *sev);
+  QListWidget *axisListWidget();
 
   MotionType motionType();
+  OptPlot *optPlot();
 
 protected:
   IMotion(IMotionPrivate&dd,QObject *parent=0);
@@ -35,13 +39,14 @@ protected:
 };
 
 class MotionNonePrivate;
+class QListWidget;
 
 class IMOTIONSHARED_EXPORT MotionNone:public IMotion
 {
   Q_OBJECT
   Q_DECLARE_PRIVATE(MotionNone)
 public:
-  explicit MotionNone(SevDevice *sev,const QString &name = "none",QObject *parent = 0);
+  explicit MotionNone(QListWidget *axisListWidget,SevDevice *sev,const QString &name = "none",QObject *parent = 0);
   ~MotionNone();
   bool move(quint16 axisInx) Q_DECL_OVERRIDE;
   bool stop(quint16 axisInx) Q_DECL_OVERRIDE;

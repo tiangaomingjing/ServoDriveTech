@@ -37,6 +37,8 @@ public:
   ~TabMotion();
 
   void uiUpdate() Q_DECL_OVERRIDE;
+  void resetUi() Q_DECL_OVERRIDE;
+
 private slots:
   void onCssChanged(const QString &css);
   void onMotionAxisRowChanged(int row);
@@ -50,7 +52,7 @@ private:
   void setUiCurrentCtlSrc(int src);
 private:
   Ui::TabMotion *ui;
-  int m_currenAxis;
+  int m_currentAxis;
   QList<TabMotionData * >m_axisMotionDataList;//保存各个轴设置的运动模式，用于点击还原界面
   QList<IMotion *>m_motionList;
 };

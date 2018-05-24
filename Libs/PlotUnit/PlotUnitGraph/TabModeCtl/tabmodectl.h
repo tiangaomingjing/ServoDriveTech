@@ -19,6 +19,7 @@ public:
   ~TabModeCtl();
 
   void uiUpdate() Q_DECL_OVERRIDE;
+  void resetUi() Q_DECL_OVERRIDE;
 
 protected:
   bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;

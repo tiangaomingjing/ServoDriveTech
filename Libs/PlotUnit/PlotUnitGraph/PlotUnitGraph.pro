@@ -6,7 +6,6 @@
 include(../../PlotCurvePluginFramework/ctkplugins.pri)
 include(../../SDMotion/MotionLibs.pri)
 QT       += widgets printsupport
-
 QT       -= gui
 
 TEMPLATE = lib
@@ -52,6 +51,8 @@ CONFIG(debug, debug|release){
 
     TARGET = PlotUnitGraph
 }
+LIBS += -lOpenGL32
+
 DESTDIR =$${PLOT_OUT_PATH}
 
 DEFINES += PLOTUNITGRAPH_LIBRARY

@@ -18,11 +18,13 @@ CONFIG(debug, debug|release){
 DEFINES += MOTIONVELOCITY_LIBRARY
 
 SOURCES += motionvelocity.cpp \
-    uimotionvelocity.cpp
+    uimotionvelocity.cpp \
+    vmotionthread.cpp
 
 HEADERS += motionvelocity.h\
         motionvelocity_global.h \
-    uimotionvelocity.h
+    uimotionvelocity.h \
+    vmotionthread.h
 
 unix {
     target.path = /usr/lib

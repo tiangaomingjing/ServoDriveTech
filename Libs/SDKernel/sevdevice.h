@@ -109,6 +109,8 @@ public:
   void cmdSetSpdRef(quint16 axisInx,double value);
   void cmdSetPosRef(quint16 axisInx,qint32 value);
 
+  bool cmdGetSpdFb(quint16 axisInx,double &value);
+
 signals:
   void initProgressInfo(int value,QString msg);
   void itemRangeValid(QTreeWidgetItem *item,int status);
