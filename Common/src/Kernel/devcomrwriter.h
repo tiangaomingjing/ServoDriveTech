@@ -13,7 +13,7 @@ class DevComRWriter:public IDevReadWriter
 public:
   explicit DevComRWriter( QObject *parent=0);
   QList<DeviceConfig *>createConfig(void (*processCallback)(void *pbar,short *value),void *processbar,bool &isOk)override;
-  bool saveConfig(const DeviceConfig *config)override;
+  bool saveConfig(const QList<DeviceConfig *> &configList) Q_DECL_OVERRIDE;
 
 private:
   ComDriver::ICom *openTragetCom(void (*processCallback)(void *pbar,short *value),void *processbar);

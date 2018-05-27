@@ -77,6 +77,10 @@ void UiMotionVelocity::updataUi(int axisInx)
     ui->spinBox_step_amp->setStyleSheet("color:black");
     ui->spinBox_step_time->setStyleSheet("color:black");
   }
+  if(data->m_runSta == UiMotionData::RUN_STA_RUNNING)
+    setEnabled(false);
+  else
+    setEnabled(true);
 }
 
 QList<UiMotionData *> UiMotionVelocity::uiDataList()

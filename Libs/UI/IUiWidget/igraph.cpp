@@ -51,6 +51,7 @@ void IGraph::initPrivateData(IUiWidget *uiWidget)
   int page=uiWidget->uiIndexs().pageInx;
   d->m_treeWidget=d->m_dev->axisTreeSource(axis,page);
   d->m_uiWidget=uiWidget;
+
 }
 void IGraph::setEditTextStatus(QDoubleSpinBox *box, int status)
 {

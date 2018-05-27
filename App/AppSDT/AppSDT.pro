@@ -55,7 +55,8 @@ SOURCES += main.cpp\
     StatusMonitor/statusmonitor.cpp \
     CombinedWindow/combinedwindow.cpp\
     DeviceInfoDialog/deviceinfodialog.cpp \
-    DialogAdvUsr/dialogadvusr.cpp
+    DialogAdvUsr/dialogadvusr.cpp \
+    sdttreewidgetnav.cpp
 
 HEADERS  += sdtmainwindow.h \
     appiconname.h \
@@ -87,7 +88,8 @@ HEADERS  += sdtmainwindow.h \
     StatusMonitor/statusmonitor.h \
     CombinedWindow/combinedwindow.h\
     DeviceInfoDialog/deviceinfodialog.h \
-    DialogAdvUsr/dialogadvusr.h
+    DialogAdvUsr/dialogadvusr.h \
+    sdttreewidgetnav.h
 
 FORMS    += sdtmainwindow.ui \
     DialogOption/dialogoption.ui \

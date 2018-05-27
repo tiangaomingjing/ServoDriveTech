@@ -2,6 +2,7 @@
 #define IDEVREADWRITER_H
 
 #include <QObject>
+#include <QMap>
 
 class QTreeWidget;
 class DeviceConfig;
@@ -17,11 +18,15 @@ public:
   explicit IDevReadWriter(QObject *parent=0);
   virtual ~IDevReadWriter(){}
   virtual QList<DeviceConfig *>createConfig(void (*processCallback)(void *pbar,short *value),void *processbar,bool &isOk)=0;
-  virtual bool saveConfig(const DeviceConfig *config)=0;
-protected:
-  DeviceConfig *m_currentConfig;
+  virtual bool saveConfig(const QList<DeviceConfig *> &configList)=0;
+
 signals:
   void sendDevProcessInfo(int value, const QString &msg);
+
+protected:
+  DeviceConfig *m_currentConfig;
+  QMap<int ,QString>m_comTypeNameMap;
+
 };
 
 #endif // IDEVREADWRITER_H

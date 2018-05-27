@@ -19,6 +19,7 @@ public:
     MOTION_TYPE_VEL = 1
   }MotionType;
   virtual ~IMotion();
+  virtual void movePrepare(quint16 axisInx) = 0;
   virtual bool move(quint16 axisInx) = 0;
   virtual bool stop(quint16 axisInx) = 0;
   virtual void updateAxisUi(quint16 axisInx) = 0;
@@ -48,6 +49,7 @@ class IMOTIONSHARED_EXPORT MotionNone:public IMotion
 public:
   explicit MotionNone(QListWidget *axisListWidget,SevDevice *sev,const QString &name = "none",QObject *parent = 0);
   ~MotionNone();
+  void movePrepare(quint16 axisInx);
   bool move(quint16 axisInx) Q_DECL_OVERRIDE;
   bool stop(quint16 axisInx) Q_DECL_OVERRIDE;
   void updateAxisUi(quint16 axisInx) Q_DECL_OVERRIDE;

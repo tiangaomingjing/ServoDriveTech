@@ -25,6 +25,7 @@ public:
   virtual void syncTreeDataToUiFace() Q_DECL_OVERRIDE;
 
 protected:
+  virtual bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
 //  virtual void setUiVersionName()Q_DECL_OVERRIDE =0;
 //  virtual void setupDataMappings() = 0;//这个放在每一个版本中处理，因为其索引可能不一样
 //  virtual void setCustomVisitActive(IUiWidget*uiWidget)Q_DECL_OVERRIDE =0;

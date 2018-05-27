@@ -24,8 +24,10 @@
 #define KEY_NAME_ENC_INFO     "gSevDrv.sev_obj.cur.pro.enc_info.all"
 #define KEY_NAME_LOST         "gSevDrv.sev_obj.cur.rsv.prm.abs_type.all"
 
+#define PRM_POS_OFFSET_INX 1
 #define LINE_NUMBER_INDEX 2
 #define FPGA_ABS_CFG_INDEX 3
+#define PRM_SEQ_DIR_INX 4
 
 class GraphEncoder129Private:public IGraphEncoderPrivate
 {
@@ -58,6 +60,8 @@ GraphEncoder129::GraphEncoder129(QWidget *parent) :
   comList<<"11"<<"13"<<"17"<<"20"<<"21"<<"22"<<"23";
   ui->comboBox_encBitNum->addItems(comList);
   ui->label_encLineNum->setText(tr("encoder lineNumber:"));
+  ui->btn_encClearErr->setText(tr("clearAlarm"));
+  ui->btn_encSavePhase->setEnabled(false);
 
   //-------------------初始化编码器配置设置框--------------------
   ui->toolBox_encConfig->setItemText(0,tr("Enc None"));
@@ -67,6 +71,8 @@ GraphEncoder129::GraphEncoder129(QWidget *parent) :
 
   ui->label_encMsg->setText(tr("active after reset"));
   ui->label_encMsg->setVisible(false);
+
+  ui->label_encSearchValue->setText("5");
 
 //  QStringList list;
 //  list<<tr("0 DuoMoChuan")<<tr("1 NiKang")<<tr("2 Haidehan")<<tr("3 SanXie")<<tr("4 XiongXia")<<tr("5 AnChuan");
@@ -80,6 +86,7 @@ GraphEncoder129::GraphEncoder129(QWidget *parent) :
   connect(ui->rbtn_encBit,SIGNAL(toggled(bool)),this,SLOT(onRadioBtnClicked()));
   connect(ui->rbtn_encLine,SIGNAL(toggled(bool)),this,SLOT(onRadioBtnClicked()));
   connect(ui->btn_encSearch,SIGNAL(clicked(bool)),this,SLOT(onBtnSearchPhaseClicked()));
+  connect(ui->btn_encSavePhase,SIGNAL(clicked(bool)),this,SLOT(onBtnSavePhaseClicked()));
 }
 
 GraphEncoder129::~GraphEncoder129()
@@ -177,10 +184,12 @@ void GraphEncoder129::onUpdateTimeOut()
   posIn=readPosInput(KEY_NAME_POS_IN);
 //  qDebug()<<"posIn"<<posIn;
   posOfst=readPosOffset(KEY_NAME_POS_OFFSET);
+  d->m_posOffset = posOfst;
 //  qDebug()<<"posOfst"<<posOfst;
   ppn=readPPN(KEY_NAME_PPN);
 //  qDebug()<<"ppn"<<ppn;
   seqDir=readSeqDir(KEY_NAME_SEQ_DIR);
+  d->m_phaseDir = seqDir;
 //  qDebug()<<"seqDir"<<seqDir;
   encInfo=readEncInfo(KEY_NAME_ENC_INFO);
 //  qDebug()<<"encInfo errorcode"<<encInfo;
@@ -256,9 +265,25 @@ void GraphEncoder129::onRadioBtnClicked()
 }
 void GraphEncoder129::onBtnSearchPhaseClicked()
 {
-  static bool en=false;
-  setEncErrorUiEnable(en);
-  en=!en;
+  Q_D(GraphEncoder129);
+  static int test = 0;
+//  if(!d->m_dev->isConnecting())
+//    return ;
+  qDebug()<<"search phase";
+//  if(d->m_dev->searchPhaseStart(d->m_uiWidget->uiIndexs().axisInx,ui->hSlider_encSearchPercent->value()))
+    ui->btn_encSavePhase->setEnabled(true);
+    d->m_posOffset = 100 + test;
+    d->m_phaseDir = test;
+    test ++;
+}
+
+void GraphEncoder129::onBtnSavePhaseClicked()
+{
+  Q_D(GraphEncoder129);
+  d->m_treeWidget->topLevelItem(PRM_POS_OFFSET_INX)->setText(GT::COL_PAGE_TREE_VALUE,QString::number(d->m_posOffset));
+  d->m_treeWidget->topLevelItem(PRM_SEQ_DIR_INX)->setText(GT::COL_PAGE_TREE_VALUE,QString::number(d->m_phaseDir));
+  d->m_dev->writeItemFlash(d->m_uiWidget->uiIndexs().axisInx,d->m_treeWidget->topLevelItem(PRM_POS_OFFSET_INX));
+  d->m_dev->writeItemFlash(d->m_uiWidget->uiIndexs().axisInx,d->m_treeWidget->topLevelItem(PRM_SEQ_DIR_INX));
 }
 void GraphEncoder129::onEncConfigListWidgetRowChanged(int curRow)
 {

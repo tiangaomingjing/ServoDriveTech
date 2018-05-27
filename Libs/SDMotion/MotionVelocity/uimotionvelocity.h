@@ -25,16 +25,14 @@ public:
     m_seqCircleCount(10),
     m_stepAmp(5),
     m_stepTime(5),
-    m_start(false),
     m_switch(true),
-    m_currentCount(0),
-    m_delayStartCount(10),
     m_seqCircleUse(0),
-    m_stepIsSetOn(false),
-    m_velrangUp(2),
-    m_velranglow(-2),
-    m_timeoutMaxCount(100),
-    m_curTimeout(0)
+    m_velrangUp(10000),
+    m_velranglow(-10000),
+    m_timeoutMaxCount(1000),
+    m_curTimeout(0),
+    m_breakByHand(false),
+    m_runSta(RUN_STA_STOPING)
   {}
   ~UiMotionData(){}
   bool m_isCircle;
@@ -44,14 +42,16 @@ public:
   int m_stepAmp;
   quint16 m_stepTime;
 
-  bool m_start;
+  volatile bool m_breakByHand;
   bool m_switch;
-  quint64 m_currentCount;
-  quint32 m_delayStartCount;
+
   MotionRunSta m_runSta;
-  QReadWriteLock m_lock;
   quint16 m_seqCircleUse;
-  bool m_stepIsSetOn;
+  quint16 m_stepCircleUse;
+  quint16 m_stepCircleCount;
+
+  int m_seqInc;
+  int m_stepInc;
 
   double m_velrangUp;
   double m_velranglow;

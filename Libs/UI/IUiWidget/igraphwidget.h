@@ -42,7 +42,7 @@ protected:
   virtual void setEditTextStatus(QDoubleSpinBox *box,int status);
   virtual void setEditTextStatusDefaultAll();
 
-  virtual bool eventFilter(QObject *obj, QEvent *event);
+//  virtual bool eventFilter(QObject *obj, QEvent *event);
 
   void setCommonConnections();
 

@@ -2,10 +2,11 @@
 #include "imotion_p.h"
 #include "uimotionvelocity.h"
 #include "sevdevice.h"
-#include "vmotionthread.h"
+#include "velplanmotion.h"
 #include "Option"
 
 #include <QDebug>
+#include <QListWidget>
 
 class MotionVelocityPrivate:public IMotionPrivate
 {
@@ -14,7 +15,7 @@ public:
   MotionVelocityPrivate(){}
   ~MotionVelocityPrivate(){}
 protected:
-  VmotionThread *m_vThread;
+  QList<VelPlanMotion *>m_velPlanList;
 };
 
 MotionVelocity::MotionVelocity(QListWidget *axisListWidget,SevDevice *sev, const QString &name, QObject *parent):
@@ -28,45 +29,49 @@ MotionVelocity::MotionVelocity(QListWidget *axisListWidget,SevDevice *sev, const
   d->m_axisListWidget = axisListWidget;
   UiMotionVelocity *uivel = new UiMotionVelocity(this,0);
   d->m_ui = uivel;
-  d->m_vThread = new VmotionThread(sev,uivel->uiDataList());
-
+  for(int i = 0;i<sev->axisNum();i++)
+  {
+    VelPlanMotion *vel = new VelPlanMotion(i,sev,uivel->uiDataList().at(i));
+    d->m_velPlanList.append(vel);
+    connect(vel,SIGNAL(motionFinish(quint16)),this,SLOT(onMotionFinish(quint16)));
+    connect(vel,SIGNAL(progressValueChanged(quint16,int)),this,SIGNAL(progressValueChanged(quint16,int)));
+  }
 }
 
 MotionVelocity::~MotionVelocity()
 {
   Q_D(MotionVelocity);
-  delete d->m_vThread;
+  GT::deepClearList(d->m_velPlanList);
   delete d->m_ui ;
+}
+
+void MotionVelocity::movePrepare(quint16 axisInx)
+{
+  Q_D(MotionVelocity);
+  d->m_velPlanList.at(axisInx)->movePrepare();
+  qDebug()<<"axis "<<axisInx<<"prepare to go";
 }
 
 bool MotionVelocity::move(quint16 axisInx)
 {
   Q_D(MotionVelocity);
   qDebug()<<"Velocity Axis "<<axisInx<<"Move";
-  if(d->m_vThread->isRunning() == false)
-  {
-    d->m_vThread->start();
-    d->m_vThread->setPriority(QThread::TimeCriticalPriority);
-  }
-  UiMotionData *data = UiMotion()->m_uiDataList.at(axisInx);
 
-  data->m_lock.lockForWrite();
+  if(false == d->m_sev->axisServoIsOn(axisInx))
+    return false ;
 
-  data->m_currentCount = 0;
-  data->m_curTimeout = 0;
-  data->m_seqCircleUse = 0;
-  data->m_start = true;
-  data->m_delayStartCount = optPlot()->delayTime()/d->m_vThread->msdelayTime();
-  data->m_runSta = UiMotionData::RUN_STA_INIT;
-
-  data->m_lock.unlock();
+  d->m_ui->setEnabled(false);//Ui不能编辑
+  d->m_velPlanList.at(axisInx)->move();
 
   return true;
 }
 
 bool MotionVelocity::stop(quint16 axisInx)
 {
+  Q_D(MotionVelocity);
   qDebug()<<"Velocity Axis "<<axisInx<<"Stop";
+  d->m_velPlanList.at(axisInx)->stop();
+  d->m_ui->setEnabled(true);
   return true;
 }
 
@@ -81,5 +86,12 @@ void MotionVelocity::updateAxisUi(quint16 axisInx)
 {
   UiMotionVelocity *ui = UiMotion();
   ui->updataUi(axisInx);
+}
+
+void MotionVelocity::onMotionFinish(quint16 axisInx)
+{
+  Q_D(MotionVelocity);
+  if(d->m_axisListWidget->currentRow() == axisInx)
+     d->m_ui->setEnabled(true);
 }
 

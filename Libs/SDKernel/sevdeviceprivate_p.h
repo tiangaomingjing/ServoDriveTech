@@ -11,6 +11,7 @@ class LinkSocket;
 class DeviceConfig;
 class VerAttribute;
 class GeneralCmd;
+class SevSearchPhaseHelper;
 
 class SevDevicePrivate:public QObject
 {
@@ -40,6 +41,8 @@ public :
   QTreeWidgetItem *m_targetTree;
 
   QString m_aliasName;
+
+  QList<SevSearchPhaseHelper *>m_searchPhaseHelperList;
 
 signals:
   void initProgressInfo(int value,QString msg);

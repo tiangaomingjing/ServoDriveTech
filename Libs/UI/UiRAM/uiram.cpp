@@ -84,6 +84,9 @@ void UiRAM::addTreeWidget(QTreeWidget *tree)
     Q_D(UiRAM);
     d->m_dataTree = tree;
     d->m_vboxLayout->addWidget(tree);
+    tree->expandToDepth(1);
+    tree->resizeColumnToContents(0);
+
     d->m_dataTree->installEventFilter(this);
     setItemColor(d->m_dataTree->invisibleRootItem());
     connect(d->m_dataTree, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(onTreeItemClickedEdit(QTreeWidgetItem*,int)));

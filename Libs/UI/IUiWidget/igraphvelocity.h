@@ -46,6 +46,8 @@ protected:
   void createAnchorItemHelper();
   virtual void setUpItemPosAnchors();
 
+  virtual bool eventFilter(QObject *obj, QEvent *event);
+
 protected slots:
   void onSaturationClicked(bool checked);
 private :

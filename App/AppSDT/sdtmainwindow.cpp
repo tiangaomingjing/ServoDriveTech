@@ -62,6 +62,7 @@ SDTMainWindow::SDTMainWindow(QWidget *parent) :
   m_statusMonitor(new StatusMonitor(this))
 {
   ui->setupUi(this);
+
   setWindowFlags(Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint);
 //  qmlRegisterType<SevDevice>("QtCppClass", 1, 0, "SevDevice");
 //  qmlRegisterType<QmlStyleHelper>("QtCppClass", 1, 0, "QmlStyleHelper");
@@ -324,6 +325,16 @@ void SDTMainWindow::closeEvent(QCloseEvent *e)
 
     //保存当前的配置
 
+    IDevReadWriter *idevRWriter=new DevTextRWriter(NULL);
+    QList<DeviceConfig*> devConfigList;
+    for(int i = 0;i<sevList().size();i++)
+    {
+      SevDevice *sev = sevList().at(i);
+      devConfigList.append(sev->deviceConfig());
+    }
+    idevRWriter->saveConfig(devConfigList);
+    delete idevRWriter;
+
     delete m_gUiControl;
     delete m_optc;
     GT::deepClearList(m_sdAssemblyList);
@@ -370,6 +381,20 @@ void SDTMainWindow::navigationTreeInit()
   SdAssembly * sd;
   int pageIndex=0;
   bool hasNickName=m_sdAssemblyList.count()>1;
+
+  QHash<QString ,QString>navTreeNameSwitchHash;
+  navTreeNameSwitchHash.insert("Motor",tr("Motor"));
+  navTreeNameSwitchHash.insert("Encoder",tr("Encoder"));
+  navTreeNameSwitchHash.insert("Power",tr("Power"));
+  navTreeNameSwitchHash.insert("Current",tr("Current"));
+  navTreeNameSwitchHash.insert("Velocity",tr("Velocity"));
+  navTreeNameSwitchHash.insert("Position",tr("Position"));
+  navTreeNameSwitchHash.insert("Brake",tr("Brake"));
+  navTreeNameSwitchHash.insert("Status",tr("Status"));
+  navTreeNameSwitchHash.insert("RAM",tr("RAM"));
+  navTreeNameSwitchHash.insert("FLASH",tr("FLASH"));
+  navTreeNameSwitchHash.insert("IO",tr("IO"));
+
   for(int  i=0;i<m_sdAssemblyList.count();i++)
   {
     int axisNum;
@@ -387,8 +412,11 @@ void SDTMainWindow::navigationTreeInit()
     {
       axisItem=sd->sevDevice()->targetTree()->child(ROW_TARGET_CONFIG_AXIS)->clone();
       axisItem->setText(COL_TARGET_CONFIG_NAME,tr("Axis_%1").arg(i+1));
+
       for(int j=0;j<axisItem->childCount();j++)
       {
+        QString keyName = axisItem->child(j)->text(COL_TARGET_CONFIG_NAME);
+        axisItem->child(j)->setText(COL_TARGET_CONFIG_NAME,navTreeNameSwitchHash.value(keyName));
         axisItem->child(j)->setText(COL_TARGET_CONFIG_PRM,QString::number(i));
         axisItem->child(j)->setText(COL_TARGET_CONFIG_INDEX,QString::number(pageIndex));
         axisItem->child(j)->setText(COL_TARGET_CONFIG_ISPLOT,"-1");
@@ -877,7 +905,7 @@ void SDTMainWindow::onOptUserChanged(bool isAdmin)
         m_actnAdvUser->setVisible(false);
     }
 }
-void SDTMainWindow::onProgressInfo(int barValue,QString msg)
+void SDTMainWindow::onProgressInfo(int barValue, const QString &msg)
 {
   qDebug()<<"value"<<barValue<<"msg"<<msg;
   static int styleTest=0;
@@ -968,25 +996,46 @@ void SDTMainWindow::onDeviceAlarmError(quint16 devId, quint16 axisInx, bool hasE
 //!
 void SDTMainWindow::onDeviceNetError(quint16 devId)
 {
-
-
-  // 3
-  // To be add...
-
-  // 1 2
-  //4 5
   onActnDisConnectClicked(true);
   m_statusBar->setMsg(tr("Device:%1 NetError!").arg(m_sdAssemblyList.at(devId)->sevDevice()->deviceConfig()->m_modeName),SdtStatusBar::MSG_TYPE_ERROR);
 
+}
+
+void SDTMainWindow::onIpaSearchPhaseInfo(int barValue, const QString &msg)
+{
+  qDebug()<<"phase "<<msg;
+  m_statusBar->setVisible(true);
+  mp_progressBar->setVisible(true);
+  mp_progressBar->setValue(barValue);
+  m_statusBar->setMsg(msg,SdtStatusBar::MSG_TYPE_NORMAL);
+}
+
+void SDTMainWindow::onIpaWarningMsg(const QString &msg)
+{
+  QMessageBox::information(0,tr("Error"),msg);
+}
+
+void SDTMainWindow::onIpaDone()
+{
+  mp_progressBar->setVisible(false);
+  ui->statusBar->setToolTip(tr("search phase complete"));
 }
 SdAssembly *SDTMainWindow::createSdAssembly(DeviceConfig *cfg)
 {
   bool initOK=true;
   SdAssembly *sd= new SdAssembly();
   connect(sd,SIGNAL(initProgressInfo(int,QString)),this,SLOT(onProgressInfo(int,QString)));
+
   initOK=sd->init(cfg);
   if(initOK)
+  {
+    SevDevice *sev = sd->sevDevice();
+    connect(sev,SIGNAL(ipaDone()),this,SLOT(onIpaDone()));
+    connect(sev,SIGNAL(ipaSearchPhaseInfo(int,QString)),this,SLOT(onIpaSearchPhaseInfo(int,QString)));
+    connect(sev,SIGNAL(ipaWarningMsg(QString)),this,SLOT(onIpaWarningMsg(QString)));
+
     return sd;
+  }
   else
   {
     delete sd;

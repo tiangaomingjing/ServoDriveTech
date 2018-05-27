@@ -111,7 +111,7 @@ private slots:
   void onOptFaceCssChanged(const QString &css);
   void onOptUserChanged(bool isAdmin);
 
-  void onProgressInfo(int barValue, QString msg);
+  void onProgressInfo(int barValue, const QString &msg);
 
   void onNavTreeWidgetItemClicked(QTreeWidgetItem * item, int column);
 
@@ -120,6 +120,11 @@ private slots:
   //响应状态监视器
   void onDeviceAlarmError(quint16 devId,quint16 axisInx,bool hasError);
   void onDeviceNetError(quint16 devId);
+
+  //响应寻相操作
+  void onIpaSearchPhaseInfo(int barValue, const QString &msg);
+  void onIpaWarningMsg(const QString &msg);
+  void onIpaDone();
 
 
 private:
@@ -166,8 +171,6 @@ private:
   PlotUnit *m_plot;
   bool m_connecting;
   StatusMonitor *m_statusMonitor;
-
-
 };
 
 #endif // SDTMAINWINDOW_H

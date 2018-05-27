@@ -11,6 +11,7 @@ class TabMotion;
 class IMotion;
 class QListWidgetItem;
 
+
 class TabMotionData
 {
 public:
@@ -26,6 +27,23 @@ public:
   }
   GT::SevControlSrc m_ctlSrc;
   IMotion *m_curMotion;
+};
+
+class QProgressBar;
+class MotionProgressBar :public QWidget
+{
+  Q_OBJECT
+public:
+  explicit MotionProgressBar(int axisCount ,QWidget *parent  = 0);
+  ~MotionProgressBar();
+
+  void hideAllBar();
+  void resetAllBarValue();
+  void setBarValue(int axisInx,int value);
+
+private:
+  int m_axisCount;
+  QList<QProgressBar *>m_barList;
 };
 
 class TabMotion : public ITabWidget
@@ -46,6 +64,7 @@ private slots:
   void onBtnCtlSrcGLink2Clicked();
   void onListWidgetMotionTypeInxClicked(QListWidgetItem *item);
   void onBtnMotionGoClicked(bool checked);
+  void onProgressValueChanged(quint16 axisInx,int value);
 
 private:
   void setupIcons(const QString &css);
@@ -55,6 +74,7 @@ private:
   int m_currentAxis;
   QList<TabMotionData * >m_axisMotionDataList;//保存各个轴设置的运动模式，用于点击还原界面
   QList<IMotion *>m_motionList;
+  MotionProgressBar *m_barWidget;
 };
 
 #endif // TABMOTION_H

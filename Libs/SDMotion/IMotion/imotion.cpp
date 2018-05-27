@@ -95,6 +95,11 @@ MotionNone::~MotionNone()
   delete d->m_ui;
 }
 
+void MotionNone::movePrepare(quint16 axisInx)
+{
+  Q_UNUSED(axisInx)
+}
+
 bool MotionNone::move(quint16 axisInx)
 {
   Q_UNUSED(axisInx)
