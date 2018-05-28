@@ -128,23 +128,25 @@ void IGraphWidget::setEditTextStatusDefaultAll()
   }
 }
 
-bool IGraphWidget::eventFilter(QObject *obj, QEvent *event)
-{
-  if (event->type()==QEvent::KeyPress)
-  {
-    QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
-    if (keyEvent->key() == Qt::Key_Return || keyEvent->key() == Qt::Key_Enter)
-    {
-      Q_D(IGraphWidget);
-      qDebug()<<"enter clicked"<<"object name"<<obj->objectName();
-      QDoubleSpinBox* box=dynamic_cast<QDoubleSpinBox*>(obj);
-      d->m_mapping->syncBoxText2Item(box);
-      setEditTextStatus(box,OptFace::EDIT_TEXT_STATUS_READY);
-      return true;
-    }
-  }
-  return InteractiveView::eventFilter(obj,event);
-}
+//bool IGraphWidget::eventFilter(QObject *obj, QEvent *event)
+//{
+//  qDebug()<<"IGraphWidget::eventFilter";
+//  if (event->type()==QEvent::KeyPress)
+//  {
+//    QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
+//    if (keyEvent->key() == Qt::Key_Return || keyEvent->key() == Qt::Key_Enter)
+//    {
+//      Q_D(IGraphWidget);
+//      qDebug()<<"enter clicked"<<"object name"<<obj->objectName();
+//      QDoubleSpinBox* box=dynamic_cast<QDoubleSpinBox*>(obj);
+//      d->m_mapping->syncBoxText2Item(box);
+////      d->m_mapping->syncBoxText2MultiItem(box);
+//      setEditTextStatus(box,OptFace::EDIT_TEXT_STATUS_READY);
+//      return true;
+//    }
+//  }
+//  return InteractiveView::eventFilter(obj,event);
+//}
 
 void IGraphWidget::setCommonConnections()
 {

@@ -16,7 +16,9 @@ public:
     m_curEncConfigItem(NULL),
     m_encConfigManage(NULL),
     m_iDataBinding(NULL),
-    m_updateTimer(NULL)
+    m_updateTimer(NULL),
+    m_posOffset(1024),
+    m_phaseDir(0)
   {
 
   }
@@ -27,6 +29,8 @@ protected:
   EncConfigManage *m_encConfigManage;
   IDataBinding *m_iDataBinding;
   QTimer*m_updateTimer;
+  qint32 m_posOffset;
+  qint16 m_phaseDir;
 };
 
 #endif // IGRAPHBRAKE_P_H

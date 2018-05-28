@@ -85,6 +85,7 @@ void CombinedWindow::onActionMaxClicked() {
 void CombinedWindow::closeEvent(QCloseEvent *event) {
     int ret = QMessageBox::question(this, tr("Close"), tr("Do you want to close the application?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
     if (ret == QMessageBox::Yes) {
+        this->hide();
         m_bottomWindow->setParent(0);
         m_bottomWindow->close();
         event->accept();

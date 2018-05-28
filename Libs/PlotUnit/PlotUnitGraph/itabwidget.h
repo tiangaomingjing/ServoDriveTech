@@ -21,6 +21,7 @@ public:
   void setSevDevice(SevDevice *sevDevice);
 
   virtual void uiUpdate() = 0 ;
+  virtual void resetUi() = 0;
 
 signals:
 

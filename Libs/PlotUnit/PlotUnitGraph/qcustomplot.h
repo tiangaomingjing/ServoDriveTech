@@ -1,4 +1,4 @@
-/***************************************************************************
+﻿/***************************************************************************
 **                                                                        **
 **  QCustomPlot, an easy to use, modern plotting widget for Qt            **
 **  Copyright (C) 2011-2017 Emanuel Eichhammer                            **
@@ -27,6 +27,8 @@
 #define QCUSTOMPLOT_H
 
 #include <QtCore/qglobal.h>
+
+#define QCUSTOMPLOT_USE_OPENGL
 
 // some Qt version/configuration dependent macros to include or exclude certain code paths:
 #ifdef QCUSTOMPLOT_USE_OPENGL

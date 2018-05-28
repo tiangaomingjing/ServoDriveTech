@@ -2,9 +2,12 @@
 #define IMOTION_P
 
 #include "imotion.h"
+#include <QList>
 
 class QWidget;
 class SevDevice;
+class QListWidget;
+
 class IMotionPrivate
 {
   Q_DECLARE_PUBLIC(IMotion)
@@ -22,6 +25,8 @@ protected:
   QWidget *m_ui;
   SevDevice *m_sev;
   IMotion::MotionType m_type;
+  int m_curAxis;
+  QListWidget *m_axisListWidget;
 };
 
 #endif // IMOTION_P

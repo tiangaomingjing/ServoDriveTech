@@ -595,7 +595,7 @@ void IGraphPosition::setUpItemPosAnchors()
   d->m_anchorHelper->addAnchor(d->m_USUM2,d->m_UCCTL,AnchorItemHelper::AnchorRight,d->m_UCCTL->boundingRect().width()+d->m_USUM2->boundingRect().width());
   d->m_anchorHelper->addAnchor(d->m_USUM2,d->m_UCCTL,AnchorItemHelper::AnchorVerticalCenter);
 
-  d->m_anchorHelper->addAnchor(d->m_UCCTL,d->m_Tend,AnchorItemHelper::AnchorRight,d->m_UCCTL->boundingRect().width());
+  d->m_anchorHelper->addAnchor(d->m_UCCTL,d->m_Tend,AnchorItemHelper::AnchorRight,d->m_UCCTL->boundingRect().width()+50);
   d->m_anchorHelper->addAnchor(d->m_UCCTL,d->m_Tend,AnchorItemHelper::AnchorVerticalCenter);
 
   d->m_anchorHelper->addAnchor(d->m_UPID,d->m_UFVB,AnchorItemHelper::AnchorHorizontalCenter);
@@ -646,6 +646,27 @@ void IGraphPosition::setUpItemPosAnchors()
 
   d->m_anchorHelper->addAnchor(d->m_T3,d->m_TextMaxVelNegative,AnchorItemHelper::AnchorRight,d->m_TextMaxVelNegative->boundingRect().width()+5);
   d->m_anchorHelper->addAnchor(d->m_T3,d->m_TextMaxVelNegative,AnchorItemHelper::AnchorVerticalCenter);
+}
+
+bool IGraphPosition::eventFilter(QObject *obj, QEvent *event)
+{
+
+  if (event->type()==QEvent::KeyPress)
+  {
+    qDebug()<<"IGraphPosition::eventFilter";
+    QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
+    if (keyEvent->key() == Qt::Key_Return || keyEvent->key() == Qt::Key_Enter)
+    {
+      Q_D(IGraphPosition);
+      qDebug()<<"enter clicked"<<"object name"<<obj->objectName();
+      QDoubleSpinBox* box=dynamic_cast<QDoubleSpinBox*>(obj);
+      d->m_mapping->syncBoxText2Item(box);
+//      d->m_mapping->syncBoxText2MultiItem(box);
+      setEditTextStatus(box,OptFace::EDIT_TEXT_STATUS_READY);
+      return true;
+    }
+  }
+  return InteractiveView::eventFilter(obj,event);
 }
 
 void IGraphPosition::onSaturationClicked(bool checked)

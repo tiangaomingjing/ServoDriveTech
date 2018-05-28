@@ -116,9 +116,9 @@ QList<DeviceConfig *>DevComRWriter::createConfig(void (*processCallback)(void *p
   return list;
 }
 
-bool DevComRWriter::saveConfig(const DeviceConfig *config)
+bool DevComRWriter::saveConfig(const QList<DeviceConfig *> &configList)
 {
-  Q_UNUSED(config);
+  Q_UNUSED(configList);
   return true;
 }
 

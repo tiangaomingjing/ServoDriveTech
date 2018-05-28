@@ -22,14 +22,11 @@ DESTDIR =$${IPLOT_OUT_PATH}
 DEFINES += IPLOTUNIT_LIBRARY \
            QCUSTOMPLOT_COMPILE_LIBRARY
 
-SOURCES += iplotunit.cpp \
-    qcustomplot.cpp
+SOURCES += iplotunit.cpp
 
 HEADERS += iplotunit.h\
         iplotunit_global.h \
-    iplotunit_p.h \
-    qcustomplot.h \
-    imotion_p.h
+    iplotunit_p.h
 
 unix {
     target.path = /usr/lib

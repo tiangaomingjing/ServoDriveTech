@@ -62,7 +62,8 @@ SOURCES += main.cpp\
     DownloadDialog/downloaddialog.cpp \
     ServoFile/servofile.cpp \
     UploadDialog/uploaddialog.cpp \
-    FirmwareFlashDialog/firmwareflashdialog.cpp
+    FirmwareFlashDialog/firmwareflashdialog.cpp\
+    sdttreewidgetnav.cpp
 
 HEADERS  += sdtmainwindow.h \
     appiconname.h \
@@ -98,7 +99,8 @@ HEADERS  += sdtmainwindow.h \
     DownloadDialog/downloaddialog.h \
     ServoFile/servofile.h \
     UploadDialog/uploaddialog.h \
-    FirmwareFlashDialog/firmwareflashdialog.h
+    FirmwareFlashDialog/firmwareflashdialog.h\
+    sdttreewidgetnav.h
 
 FORMS    += sdtmainwindow.ui \
     DialogOption/dialogoption.ui \

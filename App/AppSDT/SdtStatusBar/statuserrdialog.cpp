@@ -14,6 +14,7 @@ StatusErrDialog::StatusErrDialog(QTreeWidget *navTree, QWidget *parent) :
   ui->setupUi(this);
   connect(ui->treeWidget,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(onTreeWidgetItemClicked(QTreeWidgetItem*,int)));
   updateDevice(navTree);
+  ui->treeWidget->hideColumn(2);
 }
 
 StatusErrDialog::~StatusErrDialog()

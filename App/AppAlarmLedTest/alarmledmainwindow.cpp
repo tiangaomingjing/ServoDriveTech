@@ -60,12 +60,6 @@ AlarmLedMainWindow::AlarmLedMainWindow(QWidget *parent) :
   {
     item=alarmItem->child(i);
     led=new LedAlarm(tr("%1").arg(item->text(1)),this,i);
-    action=new QAction(tr("config mask"),led);
-    led->addMenuAction(action);
-    action=new QAction(tr("save mask"),led);
-    led->addMenuAction(action);
-    action=new QAction(tr("restore"),led);
-    led->addMenuAction(action);
 
     qDebug()<<"addwidget"<<"row"<<rowInx<<"col"<<colInx<<"count"<<i;
     gridLayout->addWidget(led,rowInx,colInx);
@@ -80,10 +74,6 @@ AlarmLedMainWindow::AlarmLedMainWindow(QWidget *parent) :
   for(int k=0;k<rsv;k++)
   {
     led=new LedAlarm(tr("hello %1").arg(rowInx),this,-1);
-    act=new QAction("Action3",led);
-    led->addMenuAction(act);
-    act=new QAction("Action4",led);
-    led->addMenuAction(act);
 
     gridLayout->addWidget(led,rowInx,colInx);
     rowInx++;
@@ -173,12 +163,12 @@ AlarmLedMainWindow::~AlarmLedMainWindow()
 void AlarmLedMainWindow::on_pushButton_clicked()
 {
 //    ui->pushButton->menu()->exec();
-  led->setMenuActive(true);
+//  led->setMenuActive(true);
   led->setError(true);
 }
 
 void AlarmLedMainWindow::on_pushButton_2_clicked()
 {
-    led->setMenuActive(false);
+//    led->setMenuActive(false);
     led->setError(false);
 }

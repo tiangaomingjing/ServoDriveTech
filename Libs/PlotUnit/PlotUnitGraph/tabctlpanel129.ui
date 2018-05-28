@@ -38,13 +38,13 @@
       <attribute name="title">
        <string>Tab 1</string>
       </attribute>
-      <layout class="QHBoxLayout" name="horizontalLayout" stretch=""/>
+      <layout class="QHBoxLayout" name="horizontalLayout"/>
      </widget>
      <widget class="QWidget" name="tab_motion">
       <attribute name="title">
        <string>Tab 2</string>
       </attribute>
-      <layout class="QHBoxLayout" name="horizontalLayout_15" stretch=""/>
+      <layout class="QHBoxLayout" name="horizontalLayout_15"/>
      </widget>
     </widget>
    </item>

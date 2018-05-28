@@ -11,7 +11,7 @@ public:
   virtual ~DevTextRWriter(){}
   //获取全局设备配置文件路径，得到信息
   QList<DeviceConfig *>createConfig(void (*processCallback)(void *pbar,short *value),void *processbar,bool &isOk)override;
-  bool saveConfig(const DeviceConfig *config)override;
+  bool saveConfig(const QList<DeviceConfig *> &configList) Q_DECL_OVERRIDE;
 };
 
 #endif // DEVTEXTRWRITER_H

@@ -12,7 +12,6 @@
 LedAlarm::LedAlarm(const QString &name, QWidget *parent, qint16 id, LedTextPosition pos) : QWidget(parent),
   m_id(id),
   m_label(new QLabel(name,this)),
-  m_menuActive(false),
   m_led(new LedAlarm::Led(this))
 {
   if(pos==LED_TEXT_BOTTOM)
@@ -34,21 +33,6 @@ LedAlarm::LedAlarm(const QString &name, QWidget *parent, qint16 id, LedTextPosit
     hLayout->setStretch(1,1);
     setLayout(hLayout);
   }
-  m_actnConfigMask=new QAction(tr("config mask"),this);
-  m_actnConfigMask->setCheckable(true);
-  connect(m_actnConfigMask,SIGNAL(triggered(bool)),this,SIGNAL(actnConfigMaskTrigger()));
-
-  m_actnSaveMask=new QAction(tr("save mask"),this);
-  m_actnSaveMask->setCheckable(true);
-  m_actnSaveMask->setToolTip(tr("active after reset"));
-  connect(m_actnSaveMask,SIGNAL(triggered(bool)),this,SIGNAL(actnSaveMaskTrigger()));
-
-//  m_actnRestoreMask=new QAction(tr("restore mask"),this);
-//  connect(m_actnRestoreMask,SIGNAL(triggered(bool)),this,SIGNAL(actnRestoreMaskTrigger()));
-
-  m_led->menu()->addAction(m_actnConfigMask);
-  m_led->menu()->addAction(m_actnSaveMask);
-//  m_led->menu()->addAction(m_actnRestoreMask);
 
 }
 
@@ -61,22 +45,6 @@ void LedAlarm::setLedName(const QString &name)
   m_label->setText(name);
 }
 
-void LedAlarm::addMenuAction(QAction *action)
-{
-  m_led->menu()->addAction(action);
-}
-
-bool LedAlarm::menuActive() const
-{
-  return m_menuActive;
-}
-
-void LedAlarm::setMenuActive(bool active)
-{
-  m_menuActive = active;
-  m_led->menu()->setEnabled(active);
-}
-
 void LedAlarm::setError(bool error)
 {
   m_led->setError(error);
@@ -87,50 +55,12 @@ qint16 LedAlarm::id() const
   return m_id;
 }
 
-bool LedAlarm::actionConfigMaskIsChecked()
-{
-  return m_actnConfigMask->isChecked();
-}
-
-bool LedAlarm::actionSaveMaskIsChecked()
-{
-  return m_actnSaveMask->isChecked();
-}
-
-void LedAlarm::setActionConfigMaskChecked(bool checked)
-{
-  m_actnConfigMask->setChecked(checked);
-}
-
-void LedAlarm::setActionSaveMaskChecked(bool checked)
-{
-  m_actnSaveMask->setChecked(checked);
-}
-
-void LedAlarm::setActionConfigMaskText(const QString &text)
-{
-  m_actnConfigMask->setText(text);
-}
-
-void LedAlarm::setActionSaveMaskText(const QString &text)
-{
-  m_actnSaveMask->setText(text);
-}
-
-//void LedAlarm::setActionRestoreMaskText(const QString &text)
-//{
-//  m_actnRestoreMask->setText(text);
-//}
-
-
-LedAlarm::Led::Led(LedAlarm *parent):QPushButton(parent),
-  m_menu(new QMenu(this)),
+LedAlarm::Led::Led(LedAlarm *parent):QWidget(parent),
   m_parent(parent),
   m_passColor(Qt::green),
   m_errorColor(Qt::red),
   m_hasError(false)
 {
-  setMenu(m_menu);
   setMinimumSize(fontWidth(),fontWidth());
   setSizePolicy(QSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding));
 

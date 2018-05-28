@@ -61,3 +61,5 @@ unix {
 FORMS += \
     uiencoder.ui \
     graphencoder129.ui
+
+TRANSLATIONS    += ch_uiencoder.ts en_uiencoder.ts

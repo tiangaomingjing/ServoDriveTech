@@ -11,6 +11,7 @@
 #include "Option"
 #include "advusercheck.h"
 #include "advusercontainer.h"
+#include "sevsearchphasehelper.h"
 
 #include <QTreeWidget>
 #include <QStringList>
@@ -51,6 +52,7 @@ SevDevicePrivate::~SevDevicePrivate()
   GT::deletePtrObject(m_ctrBoard);
   GT::deletePtrObject(m_devConfig);
   GT::deletePtrObject(m_verAttribute);
+  GT::deepClearList(m_searchPhaseHelperList);
 }
 QTreeWidget *SevDevicePrivate::configTree()
 {
@@ -143,6 +145,15 @@ bool SevDevicePrivate::init(const DeviceConfig *dConfig)
   QByteArray byte;
   byte.append(65+m_devConfig->m_devId);
   m_aliasName=QString::fromLatin1(byte);
+
+  for(int i = 0;i<m_devConfig->m_axisNum;i++)
+  {
+    SevSearchPhaseHelper *ipaHelper = new SevSearchPhaseHelper(q_ptr,i,0);
+    m_searchPhaseHelperList.append(ipaHelper);
+    connect(ipaHelper,SIGNAL(ipaDone()),q_ptr,SIGNAL(ipaDone()));
+    connect(ipaHelper,SIGNAL(ipaSearchPhaseInfo(int,QString)),q_ptr,SIGNAL(ipaSearchPhaseInfo(int,QString)));
+    connect(ipaHelper,SIGNAL(ipaWarningMsg(QString)),q_ptr,SIGNAL(ipaWarningMsg(QString)));
+  }
 
   return true;
 }
@@ -706,6 +717,22 @@ void SevDevice::cmdSetPosRef(quint16 axisInx, qint32 value)
   if(d->m_socket->isConnected()==false)
     return ;
   d->m_socket->m_com->setPosRef(axisInx,value);
+}
+
+bool SevDevice::cmdGetSpdFb(quint16 axisInx, double &value)
+{
+  Q_D(SevDevice);
+  if(d->m_socket->isConnected()==false)
+    return false;
+  int ret =0;
+  ret = d->m_socket->m_com->getSpdFb(axisInx,value);
+  return ret ==0;
+}
+
+bool SevDevice::searchPhaseStart(quint16 axisInx, int value)
+{
+  Q_D(SevDevice);
+  return d->m_searchPhaseHelperList.at(axisInx)->searchPhaseStart(value);
 }
 
 bool SevDevice::onReadPageFlash(int axis, QTreeWidget *pageTree)

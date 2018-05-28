@@ -87,7 +87,7 @@ void GraphCurrent130::createPidControllerItem()
   pedit->setButtonSymbols(QAbstractSpinBox::NoButtons);
   vlayoutTest->addWidget(pedit);
 
-  QLabel *igain=new QLabel(tr("I gain(ms)"),wpid);
+  QLabel *igain=new QLabel(tr("I gain(us)"),wpid);
   igain->setObjectName("label_currentIgain");
   vlayoutTest->addWidget(igain);
   QDoubleSpinBox *iedit=new QDoubleSpinBox(wpid);

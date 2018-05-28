@@ -106,6 +106,22 @@ typedef enum {
   SEV_CTL_SRC_GLINK2
 }SevControlSrc;
 
+typedef enum{
+    MODE_IDLE,
+    MODE_ADC,
+    MODE_IPA,
+    MODE_MPI,
+    MODE_COL,
+    MODE_CCL,
+    MODE_VCL,
+    MODE_VPL,
+    MODE_VSL,
+    MODE_FIX,
+    MODE_PT,
+    MODE_DB,
+    MODE_CSC
+}ModeCtlType;
+
 template <typename T>
 static void deepClearList(QList<T*>&list)
 {

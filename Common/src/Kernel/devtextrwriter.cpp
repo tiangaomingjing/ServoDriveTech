@@ -7,6 +7,7 @@
 #include "sdtglobaldef.h"
 
 #include <QTreeWidget>
+#define FILE_DEV_CONFIG "DevConfig.ui"
 
 DevTextRWriter::DevTextRWriter(QObject *parent):IDevReadWriter(parent)
 {
@@ -78,7 +79,47 @@ QList<DeviceConfig *>DevTextRWriter::createConfig(void (*processCallback)(void *
   return list;
 }
 
-bool DevTextRWriter::saveConfig(const DeviceConfig *config)
+bool DevTextRWriter::saveConfig(const QList<DeviceConfig *> &configList)
 {
+  QString fileName = GTUtils::customPath() + FILE_DEV_CONFIG;
+  QTreeWidget *tree = new QTreeWidget;
+  tree->setColumnCount(4);
+  QStringList list;
+  list<<"title"<<"parameter"<<"id"<<"prmEx0";
+  tree->setHeaderLabels(list);
+  DeviceConfig *config = NULL;
+  for(int i = 0;i<configList.size();i++)
+  {
+    config = configList.at(i);
+    QTreeWidgetItem *devItem = new QTreeWidgetItem;
+    devItem->setText(GT::COL_CONFIG_NAME,"Device");
+    devItem->setText(GT::COL_CONFIG_PARAMETER,"NULL");
+    devItem->setText(GT::COL_CONFIG_ID,QString::number(config->m_devId));
+
+    QTreeWidgetItem *comItem = new QTreeWidgetItem(devItem);
+    comItem->setText(GT::COL_CONFIG_NAME,m_comTypeNameMap.value(config->m_comType));
+    comItem->setText(GT::COL_CONFIG_PARAMETER,QString::number(config->m_comType));
+    comItem->setText(GT::COL_CONFIG_ID,QString::number(config->m_devId));
+    comItem->setText(GT::COL_CONFIG_PRMEX,QString::number(config->m_rnStationId));
+
+    QTreeWidgetItem *typeItem = new QTreeWidgetItem(comItem);
+    typeItem->setText(GT::COL_CONFIG_NAME,config->m_typeName);
+    typeItem->setText(GT::COL_CONFIG_PARAMETER,QString::number(config->m_axisNum));
+
+    QTreeWidgetItem *modelItem = new QTreeWidgetItem(typeItem);
+    modelItem->setText(GT::COL_CONFIG_NAME,config->m_modeName);
+    modelItem->setText(GT::COL_CONFIG_PARAMETER,QString::number(config->m_axisNum));
+    modelItem->setText(GT::COL_CONFIG_ID,QString::number(config->m_pwrId));
+
+    QTreeWidgetItem *versionItem = new QTreeWidgetItem(modelItem);
+    versionItem->setText(GT::COL_CONFIG_NAME,config->m_version);
+    versionItem->setText(GT::COL_CONFIG_PARAMETER,"NULL");
+    versionItem->setText(GT::COL_CONFIG_ID,QString::number(config->m_ctrId));
+    tree->addTopLevelItem(devItem);
+  }
+  QtTreeManager::writeTreeWidgetToXmlFile(fileName,tree);
+  tree->clear();
+  delete tree;
+//  tree->show();
   return true;
 }

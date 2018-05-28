@@ -34,6 +34,14 @@ ConfigDialog::ConfigDialog(QList<DeviceConfig *> *devList, QWidget *parent) :
   ui->treeWidget_dst->setColumnCount(4);
   ui->treeWidget_src->setColumnCount(3);
 
+  ui->treeWidget_src->hideColumn(1);
+  ui->treeWidget_src->hideColumn(2);
+  ui->treeWidget_dst->hideColumn(1);
+  ui->treeWidget_dst->hideColumn(2);
+  ui->treeWidget_dst->hideColumn(3);
+  ui->treeWidget_dst->header()->setVisible(false);
+  ui->treeWidget_src->header()->setVisible(false);
+
 }
 
 ConfigDialog::~ConfigDialog()

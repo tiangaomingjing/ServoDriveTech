@@ -18,8 +18,8 @@ public:
   void startUpdateTimer(bool enabled);
 
 protected:
-  virtual void setUiVersionName()Q_DECL_OVERRIDE =0;
-  virtual void setCustomVisitActive(IUiWidget*uiWidget)Q_DECL_OVERRIDE =0;
+  virtual void setUiVersionName() = 0;
+  virtual void setCustomVisitActive(IUiWidget*uiWidget) = 0;
   virtual void setupDataMappings()=0;
 
   virtual qint32 readPos(const QString &key);
@@ -33,9 +33,10 @@ protected:
   virtual void createSupportEncoderItem(){}
 
 protected slots:
-  virtual void onUpdateTimeOut()=0;
+  virtual void onUpdateTimeOut() = 0 ;
 
 signals:
+
 
 public slots:
 protected:

@@ -45,6 +45,25 @@ void IGraphCurrent::syncTreeDataToUiFace()
   d->m_mapping->syncAllItem2BoxText();
 }
 
+bool IGraphCurrent::eventFilter(QObject *obj, QEvent *event)
+{
+  if (event->type()==QEvent::KeyPress)
+  {
+    qDebug()<<"IGraphCurrent::eventFilter";
+    QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
+    if (keyEvent->key() == Qt::Key_Return || keyEvent->key() == Qt::Key_Enter)
+    {
+      Q_D(IGraphCurrent);
+      qDebug()<<"enter clicked"<<"object name"<<obj->objectName()<<"syncBoxText2MultiItem";
+      QDoubleSpinBox* box=dynamic_cast<QDoubleSpinBox*>(obj);
+      d->m_mapping->syncBoxText2MultiItem(box);
+      setEditTextStatus(box,OptFace::EDIT_TEXT_STATUS_READY);
+      return true;
+    }
+  }
+  return InteractiveView::eventFilter(obj,event);
+}
+
 void IGraphCurrent::createPidControllerItem()
 {
   Q_D(IGraphCurrent);
@@ -68,7 +87,7 @@ void IGraphCurrent::createPidControllerItem()
   pedit->setButtonSymbols(QAbstractSpinBox::NoButtons);
   vlayoutTest->addWidget(pedit);
 
-  QLabel *igain=new QLabel(tr("I gain(ms)"),wpid);
+  QLabel *igain=new QLabel(tr("I gain(us)"),wpid);
   igain->setObjectName("label_currentIgain");
   vlayoutTest->addWidget(igain);
   QDoubleSpinBox *iedit=new QDoubleSpinBox(wpid);

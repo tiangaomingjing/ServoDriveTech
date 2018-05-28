@@ -28,21 +28,27 @@ protected:
   void setupDataMappings() Q_DECL_OVERRIDE;
 
 
-  void onUpdateTimeOut() Q_DECL_OVERRIDE;
+
   quint32 getLineNumber()Q_DECL_OVERRIDE;
   void createSupportEncoderItem() Q_DECL_OVERRIDE;
+
+protected slots:
+  void onUpdateTimeOut() Q_DECL_OVERRIDE;
 
 private slots:
   void onBtnEncConfigClicked(bool checked);//打开编码器配置界面
   void onBtnEncConfigSaveClicked();//保存编码器配置
   void onRadioBtnClicked();
   void onBtnSearchPhaseClicked();
+  void onBtnSavePhaseClicked();
 
   void onEncConfigListWidgetRowChanged(int curRow);
 
   void onEncActive();
 
   void onBtnClearEcnAlarmClicked();
+
+
 
 
 private:

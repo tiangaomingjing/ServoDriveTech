@@ -56,7 +56,8 @@ SOURCES += \
     PowerTreeManage/powertreemanage.cpp \
     ../../Common/src/Kernel/deviceconfig.cpp \
     verattribute.cpp \
-    generalcmd.cpp
+    generalcmd.cpp \
+    sevsearchphasehelper.cpp
 
 HEADERS += \
     sdkernel_global.h \
@@ -73,7 +74,8 @@ HEADERS += \
     PowerTreeManage/powertreemanage.h \
     ../../Common/src/Kernel/deviceconfig.h \
     verattribute.h \
-    generalcmd.h
+    generalcmd.h \
+    sevsearchphasehelper.h
 
 unix {
     target.path = /usr/lib

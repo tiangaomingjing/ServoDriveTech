@@ -106,6 +106,7 @@ void IUiWidget::addTreeWidget(QTreeWidget *tree)
   Q_D(IUiWidget);
   d->m_dataTree=tree;
   d->m_vboxLayout->addWidget(tree);
+  tree->resizeColumnToContents(0);
   connect(tree,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(onTreeItemClickedEdit(QTreeWidgetItem*,int)));
 
   setContextAction();

@@ -158,7 +158,6 @@ PlotUnitGraph129::PlotUnitGraph129(const QList<SevDevice *> &sevList, QWidget *p
 
   d->m_curveManager=new CurveManager(this);
 
-
   //曲线表格初始化
   int curveTableWidth = 250;
   int columnCount=4;
@@ -187,7 +186,6 @@ PlotUnitGraph129::PlotUnitGraph129(const QList<SevDevice *> &sevList, QWidget *p
 
   gtPlotInit();
   ctlPanelInit();
-
   OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
   setPlotIcons(face->css());
   createConnections();
@@ -494,13 +492,13 @@ void PlotUnitGraph129::onBtnStartSampleClicked(bool checked)
 
 void PlotUnitGraph129::onBtnOpenCurveClicked(bool checked)
 {
-  QString file = "D:/Smart/ServoMaster/git-project/ServoDriveTech/ServoDriveTech/build/release/custom/plugins/plot/curvehistory.ui";
-  QTreeWidget *tree = QtTreeManager::createTreeWidgetFromXmlFile(file);
-  QTreeWidgetItem *item = tree->topLevelItem(0);
-  if(GTUtils::findItemInItem("Curve1",item,0) == NULL)
-    qDebug()<<"can not find ";
-  else
-    qDebug()<<"find item ";
+//  QString file = "D:/Smart/ServoMaster/git-project/ServoDriveTech/ServoDriveTech/build/release/custom/plugins/plot/curvehistory.ui";
+//  QTreeWidget *tree = QtTreeManager::createTreeWidgetFromXmlFile(file);
+//  QTreeWidgetItem *item = tree->topLevelItem(0);
+//  if(GTUtils::findItemInItem("Curve1",item,0) == NULL)
+//    qDebug()<<"can not find ";
+//  else
+//    qDebug()<<"find item ";
 }
 
 void PlotUnitGraph129::initialCurvesFromXml()
@@ -583,7 +581,7 @@ void PlotUnitGraph129::setUiStatusCurveTableWidgetOnOff(int row, bool on)
 
 void PlotUnitGraph129::onBtnSaveCurveClicked()
 {
-  initialCurvesFromXml();
+
 }
 
 void PlotUnitGraph129::onPlotPosHoverChanged(const QPointF &point)

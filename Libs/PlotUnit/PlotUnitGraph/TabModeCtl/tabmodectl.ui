@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
+    <width>618</width>
     <height>182</height>
    </rect>
   </property>
@@ -42,9 +42,7 @@
    <item>
     <widget class="QStackedWidget" name="stackedWidget_plot_mode">
      <property name="styleSheet">
-      <string notr="true">QStackedWidget{
-border:1px solid gray;
-}</string>
+      <string notr="true"/>
      </property>
      <property name="currentIndex">
       <number>0</number>
