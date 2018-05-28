@@ -1,4 +1,4 @@
-QT += core widgets
+ QT += core widgets
 QT -= gui
 
 TARGET = src
@@ -19,7 +19,8 @@ INCLUDEPATH+=../../Libs/Com/Communication\
               $${PWD}/../../Libs/PlotCurvePluginFramework/ICurve\
               $${PWD}/UiFactory\
               $${PWD}/Kernel\
-              $${PWD}/SdtGlobal
+              $${PWD}/SdtGlobal\
+              $${PWD}/FolderCompressor
 
 CONFIG(debug, debug|release){
     COMMONSRC_OUT_PATH=$${PWD}/../../build/debug/bin

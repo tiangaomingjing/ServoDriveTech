@@ -17,6 +17,7 @@
 #include "advusercheck.h"
 #include "advusermask.h"
 #include "advusercontainer.h"
+#include "advusercompress.h"
 
 #include "gtutils.h"
 
@@ -71,6 +72,8 @@ int main(int argc, char *argv[])
   IAdvUser *adv = new AdvUserCheck("advusercheck", 0);
   advc->addAdvUserItem(adv);
   adv = new AdvUserMask("advusermask", 0);
+  advc->addAdvUserItem(adv);
+  adv = new AdvUserCompress("advusercompress", 0);
   advc->addAdvUserItem(adv);
 
   opt=optc->optItem("optface");

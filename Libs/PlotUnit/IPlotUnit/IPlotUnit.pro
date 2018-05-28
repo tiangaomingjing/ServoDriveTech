@@ -26,8 +26,7 @@ SOURCES += iplotunit.cpp
 
 HEADERS += iplotunit.h\
         iplotunit_global.h \
-    iplotunit_p.h \
-    imotion_p.h
+    iplotunit_p.h
 
 unix {
     target.path = /usr/lib

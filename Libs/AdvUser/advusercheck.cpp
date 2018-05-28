@@ -85,7 +85,6 @@ bool AdvUserCheck::writeAdv()
 {
     Q_D(AdvUserCheck);
     saveDataToFile("advCheck", "isCheck", d->m_isChecked);
-    saveDataToFile("advCheck", "psw", d->m_pw);
     return true;
 }
 

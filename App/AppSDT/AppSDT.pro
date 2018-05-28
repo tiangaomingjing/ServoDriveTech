@@ -14,7 +14,10 @@ INCLUDEPATH+= $${PWD}/DialogOption\
               $${PWD}/StatusMonitor\
               $${PWD}/CombinedWindow\
               $${PWD}/DeviceInfoDialog\
-              $${PWD}/DialogAdvUsr
+              $${PWD}/DialogAdvUsr\
+              $${PWD}/DownloadDialog\
+              $${PWD}/UploadDialog\
+              $${PWD}/ServoFile
 
 QT       += core gui qml sql network
 
@@ -56,6 +59,10 @@ SOURCES += main.cpp\
     CombinedWindow/combinedwindow.cpp\
     DeviceInfoDialog/deviceinfodialog.cpp \
     DialogAdvUsr/dialogadvusr.cpp \
+    DownloadDialog/downloaddialog.cpp \
+    ServoFile/servofile.cpp \
+    UploadDialog/uploaddialog.cpp \
+    FirmwareFlashDialog/firmwareflashdialog.cpp\
     sdttreewidgetnav.cpp
 
 HEADERS  += sdtmainwindow.h \
@@ -89,6 +96,10 @@ HEADERS  += sdtmainwindow.h \
     CombinedWindow/combinedwindow.h\
     DeviceInfoDialog/deviceinfodialog.h \
     DialogAdvUsr/dialogadvusr.h \
+    DownloadDialog/downloaddialog.h \
+    ServoFile/servofile.h \
+    UploadDialog/uploaddialog.h \
+    FirmwareFlashDialog/firmwareflashdialog.h\
     sdttreewidgetnav.h
 
 FORMS    += sdtmainwindow.ui \
@@ -98,7 +109,10 @@ FORMS    += sdtmainwindow.ui \
     ConfigDialog/configdialog.ui \
     CombinedWindow/combinedwindow.ui\
     DeviceInfoDialog/deviceinfodialog.ui \
-    DialogAdvUsr/dialogadvusr.ui
+    DialogAdvUsr/dialogadvusr.ui \
+    DownloadDialog/downloaddialog.ui \
+    UploadDialog/uploaddialog.ui \
+    FirmwareFlashDialog/firmwareflashdialog.ui
 
 TRANSLATIONS    += ch_main.ts en_main.ts
 
