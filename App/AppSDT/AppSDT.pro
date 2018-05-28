@@ -61,7 +61,8 @@ SOURCES += main.cpp\
     DialogAdvUsr/dialogadvusr.cpp \
     DownloadDialog/downloaddialog.cpp \
     ServoFile/servofile.cpp \
-    UploadDialog/uploaddialog.cpp
+    UploadDialog/uploaddialog.cpp \
+    FirmwareFlashDialog/firmwareflashdialog.cpp
 
 HEADERS  += sdtmainwindow.h \
     appiconname.h \
@@ -96,7 +97,8 @@ HEADERS  += sdtmainwindow.h \
     DialogAdvUsr/dialogadvusr.h \
     DownloadDialog/downloaddialog.h \
     ServoFile/servofile.h \
-    UploadDialog/uploaddialog.h
+    UploadDialog/uploaddialog.h \
+    FirmwareFlashDialog/firmwareflashdialog.h
 
 FORMS    += sdtmainwindow.ui \
     DialogOption/dialogoption.ui \
@@ -107,7 +109,8 @@ FORMS    += sdtmainwindow.ui \
     DeviceInfoDialog/deviceinfodialog.ui \
     DialogAdvUsr/dialogadvusr.ui \
     DownloadDialog/downloaddialog.ui \
-    UploadDialog/uploaddialog.ui
+    UploadDialog/uploaddialog.ui \
+    FirmwareFlashDialog/firmwareflashdialog.ui
 
 TRANSLATIONS    += ch_main.ts en_main.ts
 

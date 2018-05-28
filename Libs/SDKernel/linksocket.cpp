@@ -10,6 +10,8 @@
 #include "cmdmanager.h"
 
 #include <QTreeWidgetItem>
+#include <QList>
+#include <QStringList>
 #include <QDebug>
 
 #define STR_MARK_ALL "all"
@@ -766,7 +768,55 @@ qint16 LinkSocket::genReadErrorCode()
 
 bool LinkSocket::containsCmd(const QString &cmdName)
 {
-  return m_genCmd->containsCmd(cmdName);
+    return m_genCmd->containsCmd(cmdName);
+}
+
+bool LinkSocket::readXml(quint8 axis, const QStringList &fileNameList, QList<int> fileTypeList, int file_num, void (*processCallBack)(void *, short *), void *ptrv, short &progress)
+{
+    char** pFileNameList = new char*[file_num];
+    int *pFileTypeList = new int[file_num];
+    for (int i = 0; i < file_num; i++) {
+        pFileTypeList[i] = fileTypeList.at(i);
+        QString str = fileNameList.at(i);
+        int size = str.length();
+        char *p = (char *)malloc(size + 1);
+        memset(p, 0, size + 1);
+        memcpy_s(p, size, str.toStdString().c_str(), size);
+        pFileNameList[i] = p;
+    }
+    errcode_t ret = m_com->readXML(axis, pFileNameList, pFileTypeList, file_num, processCallBack, ptrv, progress);
+    for (int i = 0; i < file_num; i++)
+    {
+        free(pFileNameList[i]);
+    }
+    if (ret != 0) {
+        return false;
+    }
+    return true;
+}
+
+bool LinkSocket::writeXml(quint8 axis, const QStringList &fileNameList, QList<int> fileTypeList, int file_num, void (*processCallBack)(void *, short *), void *ptrv, short &progress)
+{
+    char** pFileNameList = new char*[file_num];
+    int *pFileTypeList = new int[file_num];
+    for (int i = 0; i < file_num; i++) {
+        pFileTypeList[i] = fileTypeList.at(i);
+        QString str = fileNameList.at(i);
+        int size = str.length();
+        char *p = (char *)malloc(size + 1);
+        memset(p, 0, size + 1);
+        memcpy_s(p, size, str.toStdString().c_str(), size);
+        pFileNameList[i] = p;
+    }
+    errcode_t ret = m_com->writeXML(axis, pFileNameList, pFileTypeList, file_num, processCallBack, ptrv, progress);
+    for (int i = 0; i < file_num; i++)
+    {
+        free(pFileNameList[i]);
+    }
+    if (ret != 0) {
+        return false;
+    }
+    return true;
 }
 
 void LinkSocket::setTryWriteCount(quint8 tryWriteCount)
@@ -850,3 +900,5 @@ void LinkSocket::setCurrentTaskServoMode(quint16 axisInx, TaskServoMode mode)
 {
   m_com->setServoTaskMode(axisInx,mode);
 }
+
+

@@ -58,7 +58,7 @@ void UiMotionVelocity::updataUi(int axisInx)
 
 bool UiMotionVelocity::eventFilter(QObject *obj, QEvent *event)
 {
-
+    return true;
 }
 
 void UiMotionVelocity::onCheckBoxCircleSWClicked()

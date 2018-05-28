@@ -8,6 +8,7 @@ include(../Libs.pri)
 INCLUDEPATH+=$${PWD}/../GTUtils\
              $${PWD}/../GTUtils/QtTreeManager\
              $${PWD}/../GTUtils/BitItemHelper\
+             $${PWD}/../GTUtils/FolderCompressor\
              $${PWD}/../SDKernel\
              $${PWD}/../Com\
              $${PWD}/../Com/Communication\
@@ -37,14 +38,16 @@ DESTDIR =$${ADVUSR_OUT_PATH}
 SOURCES += iadvuser.cpp \
     advusercheck.cpp \
     advusercontainer.cpp \
-    advusermask.cpp
+    advusermask.cpp \
+    advusercompress.cpp
 
 HEADERS += iadvuser.h\
         advuser_global.h \
     iadvuser_p.h \
     advusercheck.h \
     advusercontainer.h \
-    advusermask.h
+    advusermask.h \
+    advusercompress.h
 
 unix {
     target.path = /usr/lib
@@ -53,4 +56,5 @@ unix {
 
 FORMS += \
     advusercheck.ui \
-    advusermask.ui
+    advusermask.ui \
+    advusercompress.ui

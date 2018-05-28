@@ -50,6 +50,9 @@ public:
   qint16 genReadErrorCode();
   bool containsCmd(const QString &cmdName);
 
+  bool readXml(quint8 axis, const QStringList &fileNameList, QList<int> fileTypeList, int file_num, void (*processCallBack)(void *, short *), void *ptrv, short &progress);
+  bool writeXml(quint8 axis, const QStringList &fileNameList, QList<int> fileTypeList, int file_num, void (*processCallBack)(void *, short *), void *ptrv, short &progress);
+
   ComDriver::ICom *comObject() const;
 
   bool adjust(void (*processCallBack)(void *argv, short *value), void *uiProcessBar);

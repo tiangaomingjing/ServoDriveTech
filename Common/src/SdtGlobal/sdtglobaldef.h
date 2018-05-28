@@ -69,6 +69,13 @@ typedef enum
   COL_IDMAP_AXISNUM = 4
 } ColIdMap;
 
+typedef enum
+{
+  COL_PRMEXT_NAME = 0,
+  COL_PRMEXT_PARA = 1,
+  COL_PRMEXT_INTRODUCTION = 2
+} ColPrmExtension;
+
 
 typedef enum{
   COL_FLASH_RAM_TREE_NAME,

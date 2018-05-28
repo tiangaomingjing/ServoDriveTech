@@ -2,6 +2,7 @@
 #define SEVDEVICE_H
 
 #include <QObject>
+#include <QList>
 #include "sdkernel_global.h"
 #include "sevpwrboard.h"
 #include "icom.h"
@@ -65,6 +66,9 @@ public:
 
   bool clearAlarm(quint16 axisInx);
   bool checkLoadParameters(QTreeWidget *tree);
+
+  bool writeXml(quint8 axis, const QStringList &fileNameList, QList<int> fileTypeList, int file_num, void (*processCallBack)(void *, short *), void *ptrv, short &progress);
+  bool readXml(quint8 axis, const QStringList &fileNameList, QList<int> fileTypeList, int file_num, void (*processCallBack)(void *, short *), void *ptrv, short &progress);
 
   QString aliasName() const;
   QString typeName() const;
@@ -132,7 +136,6 @@ private:
 
 private:
   SevDevicePrivate *d_ptr;
-  int a;
 };
 
 #endif // SEVDEVICE_H

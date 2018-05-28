@@ -827,6 +827,7 @@ bool SevDevice::checkPageParameters(int axis, QTreeWidget *tree)
   bool isAdmin = user->isAdmin();
   AdvUserCheck *check = dynamic_cast<AdvUserCheck*>(AdvUserContainer::instance()->advItem("advusercheck"));
   bool isChecked = check->isChecked();
+  QTreeWidgetItem *item;
   if (!isAdmin || (isAdmin && isChecked)) {
     for(int i=0;i<tree->topLevelItemCount();i++)
     {
@@ -880,6 +881,18 @@ bool SevDevice::checkLoadParameters(QTreeWidget *tree)
         }
     }
     return isOk;
+}
+
+bool SevDevice::writeXml(quint8 axis, const QStringList &fileNameList, QList<int> fileTypeList, int file_num, void (*processCallBack)(void *, short *), void *ptrv, short &progress)
+{
+    Q_D(SevDevice);
+    return d->m_socket->writeXml(axis, fileNameList, fileTypeList, file_num, processCallBack, ptrv, progress);
+}
+
+bool SevDevice::readXml(quint8 axis, const QStringList &fileNameList, QList<int> fileTypeList, int file_num, void (*processCallBack)(void *, short *), void *ptrv, short &progress)
+{
+    Q_D(SevDevice);
+    return d->m_socket->readXml(axis, fileNameList, fileTypeList, file_num, processCallBack, ptrv, progress);
 }
 
 bool SevDevice::checkLoadItemParameters(int axis, QTreeWidgetItem *item, QTreeWidget *prmTree)

@@ -4,6 +4,7 @@ COMMON_PATH=$${PWD}/../Common
 INCLUDEPATH+=$${LIBS_PATH}/Com/Communication\
             $${LIBS_PATH}/GTUtils\
             $${LIBS_PATH}/GTUtils/QtTreeManager\
+            $${LIBS_PATH}/GTUtils/FolderCompressor\
             $${LIBS_PATH}/GTUtils/DeviceIdHelper\
             $${LIBS_PATH}/GTUtils/SelfBuilder\
             $${LIBS_PATH}/GTUtils/CmdManager\
