@@ -21,7 +21,8 @@ public:
   void updateServoStatus();
 
 signals:
-
+  void motionStart();
+  void motionStop();
 public slots:
 private slots:
   void onTabCurrentChanged(int inx);

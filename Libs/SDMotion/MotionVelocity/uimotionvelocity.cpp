@@ -23,7 +23,7 @@ UiMotionVelocity::UiMotionVelocity(MotionVelocity *mv, QWidget *parent) :
 
   ui->spinBox_seq_amp->setValue(5);
   ui->spinBox_seq_count->setValue(10);
-  ui->spinBox_seq_T->setValue(200);
+  ui->spinBox_seq_T->setValue(500);
   ui->spinBox_step_amp->setValue(5);
   ui->spinBox_step_time->setValue(5);
 

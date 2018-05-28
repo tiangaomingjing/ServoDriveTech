@@ -2,6 +2,8 @@
 #define STATUSMONITOR_H
 
 #include <QObject>
+#include <QMap>
+#include <QVector>
 class SevDevice;
 class QTimer;
 
@@ -14,6 +16,7 @@ public:
   void setMonitorDeviceList(QList<SevDevice*>devList);
   void startMonitor(quint16 ms);
   void stopMonitor();
+  int sysHasAlarmError();
 
 signals:
   void netError(quint16 devId);
@@ -24,6 +27,7 @@ private slots:
 private:
   QList<SevDevice*>m_sevDeviceList;
   QTimer *m_timer;
+  QMap<int,QVector<bool>>m_devErrorStatusMap;
 };
 
 #endif // STATUSMONITOR_H

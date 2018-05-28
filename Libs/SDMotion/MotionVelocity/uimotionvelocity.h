@@ -21,7 +21,7 @@ public:
   UiMotionData():
     m_isCircle(false),
     m_seqAmp(5),
-    m_seqPeriod(200),
+    m_seqPeriod(500),
     m_seqCircleCount(10),
     m_stepAmp(5),
     m_stepTime(5),

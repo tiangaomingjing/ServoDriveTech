@@ -65,6 +65,7 @@ private slots:
   void onListWidgetMotionTypeInxClicked(QListWidgetItem *item);
   void onBtnMotionGoClicked(bool checked);
   void onProgressValueChanged(quint16 axisInx,int value);
+  void onMotionAllDone();
 
 private:
   void setupIcons(const QString &css);

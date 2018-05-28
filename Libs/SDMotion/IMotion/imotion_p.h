@@ -3,6 +3,7 @@
 
 #include "imotion.h"
 #include <QList>
+#include <QVector>
 
 class QWidget;
 class SevDevice;
@@ -27,6 +28,7 @@ protected:
   IMotion::MotionType m_type;
   int m_curAxis;
   QListWidget *m_axisListWidget;
+  QVector<int>m_motionUnFinishVector;
 };
 
 #endif // IMOTION_P

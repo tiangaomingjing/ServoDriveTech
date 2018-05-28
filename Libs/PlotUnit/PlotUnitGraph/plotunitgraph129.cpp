@@ -433,6 +433,17 @@ void PlotUnitGraph129::onBtnStartSampleClicked(bool checked)
 
   if(checked)
   {
+    //清标签
+    if(ui->tbtn_plot_mea_horizontal->isChecked())
+    {
+      onBtnMeaHClicked(false);
+      ui->tbtn_plot_mea_horizontal->setChecked(false);
+    }
+    if(ui->tbtn_plot_mea_vertical->isChecked())
+    {
+      onBtnMeaVClicked(false);
+      ui->tbtn_plot_mea_vertical->setChecked(false);
+    }
 
     clearGraphData();
     //检查曲线参数有效性
@@ -1002,6 +1013,24 @@ void PlotUnitGraph129::onPlotSelectionRectFinish()
   }
 }
 
+void PlotUnitGraph129::onMotionStart()
+{
+  if(!ui->tbtn_plot_startSampling->isChecked())
+  {
+    onBtnStartSampleClicked(true);
+    ui->tbtn_plot_startSampling->setChecked(true);
+  }
+}
+
+void PlotUnitGraph129::onMotionStop()
+{
+  if(ui->tbtn_plot_startSampling->isChecked())
+  {
+    onBtnStartSampleClicked(false);
+    ui->tbtn_plot_startSampling->setChecked(false);
+  }
+}
+
 void PlotUnitGraph129::setPlotIcons(const QString &css)
 {
   QSize iconSize(24,24);
@@ -1078,6 +1107,8 @@ void PlotUnitGraph129::ctlPanelInit()
     d->m_tabCtlUiList.append(panel);
     ui->stackedWidget_tabCtlPanel->addWidget(panel);
     ui->listWidget_plot_device->addItem(d->m_sevList.at(i)->aliasName());
+    connect(panel,SIGNAL(motionStart()),this,SLOT(onMotionStart()));
+    connect(panel,SIGNAL(motionStop()),this,SLOT(onMotionStop()));
   }
   d->m_curSevInx=0;
   ui->listWidget_plot_device->setCurrentRow(d->m_curSevInx);

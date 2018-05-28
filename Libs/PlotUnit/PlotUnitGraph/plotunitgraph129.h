@@ -81,6 +81,9 @@ private slots:
 
   void onPlotSelectionRectFinish();
 
+  void onMotionStart();
+  void onMotionStop();
+
 private:
   void createConnections();
   void setPlotIcons(const QString &css);

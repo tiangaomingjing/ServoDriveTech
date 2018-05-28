@@ -983,7 +983,11 @@ void SDTMainWindow::onStatusBarPageChanged(int pIndex)
 void SDTMainWindow::onDeviceAlarmError(quint16 devId, quint16 axisInx, bool hasError)
 {
   m_statusBar->setAlarmErrorStatus(devId,axisInx,hasError);
-  m_statusBar->setErrorStatus(hasError);
+
+  if(m_statusMonitor->sysHasAlarmError() == -1)
+      m_statusBar->setErrorStatus(false);
+  else
+    m_statusBar->setErrorStatus(true);
 }
 //!
 //! \brief SDTMainWindow::onDeviceNetError

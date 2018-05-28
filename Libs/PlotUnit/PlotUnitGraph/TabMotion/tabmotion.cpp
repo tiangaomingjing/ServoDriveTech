@@ -92,6 +92,7 @@ TabMotion::TabMotion(const QString &name, SevDevice *sev, QWidget *parent) :
   m_motionList.append(motion);
   MotionVelocity *vMotion  = new MotionVelocity(ui->listWidget_plot_tab2_axis,m_sev,tr("Velocity"));
   connect(vMotion,SIGNAL(progressValueChanged(quint16,int)),this,SLOT(onProgressValueChanged(quint16,int)));
+  connect(vMotion,SIGNAL(motionAllDone()),this,SLOT(onMotionAllDone()));
   m_motionList.append(vMotion);
 
   for(int i=0;i<m_motionList.size();i++)
@@ -264,6 +265,7 @@ void TabMotion::onBtnMotionGoClicked(bool checked)
   if(checked)
   {
     quint16 axis =0;
+    emit motionStart();
     for(int row = 0;row<ui->listWidget_plot_tab2_axis->count();row++)
     {
       axis = row;
@@ -272,8 +274,10 @@ void TabMotion::onBtnMotionGoClicked(bool checked)
         m_axisMotionDataList.at(axis)->m_curMotion->movePrepare(axis);
       }
     }
+    qDebug()<<"movePrepare delay";
     OptPlot *plot = dynamic_cast<OptPlot *>(OptContainer::instance()->optItem("optplot"));
     GTUtils::delayms(plot->delayTime());
+    qDebug()<<"begin to move";
 
     for(int row = 0;row<ui->listWidget_plot_tab2_axis->count();row++)
     {
@@ -284,7 +288,7 @@ void TabMotion::onBtnMotionGoClicked(bool checked)
       }
     }
     m_barWidget->setVisible(true);
-    m_barWidget->hideAllBar();
+
     m_barWidget->resetAllBarValue();
   }
   else
@@ -297,11 +301,18 @@ void TabMotion::onBtnMotionGoClicked(bool checked)
       }
     }
     m_barWidget->setVisible(false);
+    m_barWidget->hideAllBar();
   }
 }
 
 void TabMotion::onProgressValueChanged(quint16 axisInx, int value)
 {
   m_barWidget->setBarValue(axisInx,value);
+}
+
+void TabMotion::onMotionAllDone()
+{
+  GTUtils::delayms(10);
+  emit motionStop();
 }
 
