@@ -28,7 +28,7 @@ SevSearchPhaseHelper::~SevSearchPhaseHelper()
 
 bool SevSearchPhaseHelper::searchPhaseStart(int value)
 {
-  qDebug()<<"SevSearchPhaseHelper::searchPhaseStart(int value)"<<m_axisInx;
+  qDebug()<<"SevSearchPhaseHelper::searchPhaseStart(int value) axisInx = "<<m_axisInx;
   m_checkSevOnCountUse = 0 ;
   m_checkFinishCountUse = 0 ;
   m_progressValue = 0;
@@ -53,6 +53,7 @@ bool SevSearchPhaseHelper::searchPhaseStart(int value)
     qDebug()<<"tryCount "<<tryCount;
   }while((src != GT::SEV_CTL_SRC_PC)&&(tryCount<MAX_TRY_SET_CTLSRC_SIZE));
 
+  qDebug()<<"control src = "<<src;
   if(tryCount>=MAX_TRY_SET_CTLSRC_SIZE)
   {
     qDebug()<<"emit ipaWarningMsg  can not get the pc control source ";

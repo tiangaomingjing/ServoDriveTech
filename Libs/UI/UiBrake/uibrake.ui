@@ -34,13 +34,6 @@
      </widget>
     </widget>
    </item>
-   <item>
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>uibrake</string>
-     </property>
-    </widget>
-   </item>
   </layout>
  </widget>
  <resources/>

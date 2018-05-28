@@ -1019,6 +1019,7 @@ void SDTMainWindow::onIpaDone()
 {
   mp_progressBar->setVisible(false);
   ui->statusBar->setToolTip(tr("search phase complete"));
+  m_statusBar->setMsg("",SdtStatusBar::MSG_TYPE_NORMAL);
 }
 SdAssembly *SDTMainWindow::createSdAssembly(DeviceConfig *cfg)
 {

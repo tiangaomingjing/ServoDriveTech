@@ -36,3 +36,5 @@ unix {
 FORMS += \
     uicurrent.ui \
     graphcurrent129.ui
+
+TRANSLATIONS    += ch_uicurrent.ts en_uicurrent.ts

@@ -325,7 +325,8 @@ more-&gt;option-&gt;autolaod-&gt;unchecked clicked apply
     </message>
     <message>
         <location filename="DeviceInfoDialog/deviceinfodialog.cpp" line="132"/>
-        <source>Device Information %1</source>
+        <source>Device Information</source>
+        <oldsource>Device Information %1</oldsource>
         <translation type="unfinished"></translation>
     </message>
 </context>

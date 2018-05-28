@@ -129,7 +129,7 @@ void DeviceInfoDialog::readCurrentDeviceInfo(SevDevice *dev, QTreeWidgetItem *pa
 
 
   QTreeWidgetItem *deviceItem=new QTreeWidgetItem(parentItem);
-  deviceItem->setText(0,tr("Device Information %1").arg(index));
+  deviceItem->setText(0,tr("Device Information"));
 
   QTreeWidgetItem *softItem=new QTreeWidgetItem(deviceItem);
   softItem->setText(0,tr("SoftVersion"));

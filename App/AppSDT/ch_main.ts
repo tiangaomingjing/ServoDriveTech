@@ -316,17 +316,18 @@ more-&gt;option-&gt;autolaod-&gt;unchecked clicked apply
     <message>
         <location filename="DeviceInfoDialog/deviceinfodialog.cpp" line="44"/>
         <source>Config Information %1</source>
-        <translation type="unfinished">配置信息 %1</translation>
+        <translation>配置信息 %1</translation>
     </message>
     <message>
         <location filename="DeviceInfoDialog/deviceinfodialog.cpp" line="47"/>
         <source>SDT Information</source>
-        <translation>SDT 调试软件信息</translation>
+        <translation>SDT软件信息</translation>
     </message>
     <message>
         <location filename="DeviceInfoDialog/deviceinfodialog.cpp" line="132"/>
-        <source>Device Information %1</source>
-        <translation>设备信息 %1</translation>
+        <source>Device Information</source>
+        <oldsource>Device Information %1</oldsource>
+        <translation>设备信息</translation>
     </message>
 </context>
 <context>
@@ -395,7 +396,7 @@ more-&gt;option-&gt;autolaod-&gt;unchecked clicked apply
     <message>
         <location filename="sdtmainwindow.cpp" line="126"/>
         <source>connect to servo:you can manul to load by change:toogle More-&gt;Option-&gt;AutoLoad</source>
-        <translation>连接设备：可以手动改变连接加载方式（菜单-&gt;更多-&gt;选项-&gt;加载方式-&gt;自动）</translation>
+        <translation type="unfinished">连接设备</translation>
     </message>
     <message>
         <location filename="sdtmainwindow.cpp" line="129"/>
@@ -536,7 +537,7 @@ you should reset the system to make it active</source>
     <message>
         <location filename="sdtmainwindow.cpp" line="386"/>
         <source>Motor</source>
-        <translation>电机</translation>
+        <translation>电机参数</translation>
     </message>
     <message>
         <location filename="sdtmainwindow.cpp" line="387"/>
@@ -546,7 +547,7 @@ you should reset the system to make it active</source>
     <message>
         <location filename="sdtmainwindow.cpp" line="388"/>
         <source>Power</source>
-        <translation>功率</translation>
+        <translation>功率参数</translation>
     </message>
     <message>
         <location filename="sdtmainwindow.cpp" line="389"/>

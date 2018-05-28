@@ -49,7 +49,6 @@ void UiPosition::accept(QWidget *w)
 //  d->m_graphPosition->setScene(d->m_scene);
 
   d->m_graphPositionView->visit(this);
-  ui->label->setText(d->m_graphPositionView->objectName());
 }
 
 void UiPosition::setUiActive(bool actived)

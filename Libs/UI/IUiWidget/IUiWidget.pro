@@ -113,3 +113,5 @@ unix {
 }
 
 QML_IMPORT_TRACE=1
+
+TRANSLATIONS    += ch_uiwidget.ts en_uiwidget.ts

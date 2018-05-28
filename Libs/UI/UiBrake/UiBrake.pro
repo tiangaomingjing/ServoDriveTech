@@ -35,3 +35,5 @@ FORMS += \
     graphbrake129.ui
 
 RESOURCES +=
+
+TRANSLATIONS    += ch_uibreak.ts en_uibreak.ts

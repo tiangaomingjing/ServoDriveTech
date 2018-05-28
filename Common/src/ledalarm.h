@@ -19,26 +19,8 @@ public:
   explicit LedAlarm(const QString &name,QWidget *parent = 0, qint16 id=0,LedTextPosition pos = LED_TEXT_LEFT);
   ~LedAlarm();
   void setLedName(const QString &name);
-  void addMenuAction(QAction *action);
-
-  bool menuActive() const;
-  void setMenuActive(bool active);
   void setError(bool error);
   qint16 id() const;
-
-  bool actionConfigMaskIsChecked();
-  bool actionSaveMaskIsChecked();
-  void setActionConfigMaskChecked(bool checked);
-  void setActionSaveMaskChecked(bool checked);
-
-  void setActionConfigMaskText(const QString &text);
-  void setActionSaveMaskText(const QString &text);
-//  void setActionRestoreMaskText(const QString &text);
-
-signals:
-  void actnConfigMaskTrigger();
-  void actnSaveMaskTrigger();
-//  void actnRestoreMaskTrigger();
 
 public slots:
 private:
@@ -46,14 +28,9 @@ private:
   Led *m_led;
   QLabel *m_label;
   qint16 m_id;
-  bool m_menuActive;
-
-  QAction *m_actnConfigMask;
-  QAction *m_actnSaveMask;
-//  QAction *m_actnRestoreMask;
 };
 
-class LedAlarm::Led:public QPushButton
+class LedAlarm::Led:public QWidget
 {
   Q_OBJECT
   Q_PROPERTY(QColor passColor READ passColor WRITE setPassColor NOTIFY passColorChanged)
@@ -82,7 +59,6 @@ signals:
   void errorColorChanged(const QColor &color);
 
 private:
-  QMenu *m_menu;
   LedAlarm *m_parent;
   QColor m_passColor;
   QColor m_errorColor;

@@ -54,7 +54,6 @@ void UiCurrent::accept(QWidget *w)//take ownership of w
   d->m_graphCurrentView=dynamic_cast<IGraphCurrent *>(w);
 
   d->m_graphCurrentView->visit(this);
-  ui->label->setText(d->m_graphCurrentView->objectName());
 }
 
 void UiCurrent::setUiActive(bool actived)

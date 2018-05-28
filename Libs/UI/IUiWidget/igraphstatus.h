@@ -42,13 +42,7 @@ public slots:
 protected slots:
   virtual void onFaceCssChanged(const QString &css);
   virtual void onTimeOut();
-private slots:
-  void onOptUserChanged(bool admin);
-  void onActnSaveMaskClicked();
-  void onActnConfigMaskClicked();
-  void onActnRestoreMaskClicked();
-  void onActnRestoreMaskAllClicked();
-  void onActnSaveMaskAllClicked();
+
 private:
   void addAlarmLedsToWidget(IUiWidget *uiWidget);
   void addLedErrorTitle();

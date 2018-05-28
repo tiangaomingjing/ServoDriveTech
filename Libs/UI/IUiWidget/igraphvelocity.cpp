@@ -453,7 +453,7 @@ void IGraphVelocity::setUpItemPosAnchors()
   d->m_anchorHelper->addAnchor(d->m_USATN,d->m_UOF,AnchorItemHelper::AnchorRight,1.5*d->m_UOF->boundingRect().width());
   d->m_anchorHelper->addAnchor(d->m_USATN,d->m_UOF,AnchorItemHelper::AnchorVerticalCenter);
 
-  d->m_anchorHelper->addAnchor(d->m_UOF,d->m_Tend,AnchorItemHelper::AnchorRight,100);
+  d->m_anchorHelper->addAnchor(d->m_UOF,d->m_Tend,AnchorItemHelper::AnchorRight,140);
   d->m_anchorHelper->addAnchor(d->m_UOF,d->m_Tend,AnchorItemHelper::AnchorVerticalCenter);
 
   d->m_anchorHelper->addAnchor(d->m_UPID,d->m_USUM,AnchorItemHelper::AnchorLeft,-2*d->m_USUM->boundingRect().width());

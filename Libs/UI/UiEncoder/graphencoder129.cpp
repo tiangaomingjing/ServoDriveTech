@@ -196,7 +196,7 @@ void GraphEncoder129::onUpdateTimeOut()
   absType=readErrLost(KEY_NAME_LOST);
 //  qDebug()<<"absType lost"<<absType;
 
-  qDebug()<<"encoder axisSize:"<<d->m_dev->axisNum()<<"current axis"<<d->m_uiWidget->uiIndexs().axisInx<<"update ...";
+//  qDebug()<<"encoder axisSize:"<<d->m_dev->axisNum()<<"current axis"<<d->m_uiWidget->uiIndexs().axisInx<<"update ...";
 //  var strPos=m_cmd.readCommand("gSevDrv.sev_obj.cur.rsv.pos");
 //  pos.text=parseInt(strPos);
   ui->label_encReal->setText(QString::number(pos));
@@ -266,15 +266,17 @@ void GraphEncoder129::onRadioBtnClicked()
 void GraphEncoder129::onBtnSearchPhaseClicked()
 {
   Q_D(GraphEncoder129);
-  static int test = 0;
-//  if(!d->m_dev->isConnecting())
-//    return ;
+
+  if(!d->m_dev->isConnecting())
+    return ;
   qDebug()<<"search phase";
-//  if(d->m_dev->searchPhaseStart(d->m_uiWidget->uiIndexs().axisInx,ui->hSlider_encSearchPercent->value()))
+  if(d->m_dev->searchPhaseStart(d->m_uiWidget->uiIndexs().axisInx,ui->hSlider_encSearchPercent->value()))
     ui->btn_encSavePhase->setEnabled(true);
-    d->m_posOffset = 100 + test;
-    d->m_phaseDir = test;
-    test ++;
+
+//  static int test = 0;
+//    d->m_posOffset = 100 + test;
+//    d->m_phaseDir = test;
+//    test ++;
 }
 
 void GraphEncoder129::onBtnSavePhaseClicked()

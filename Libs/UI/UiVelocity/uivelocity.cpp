@@ -48,7 +48,6 @@ void UiVelocity::accept(QWidget *w)
 
   d->m_graphVelocityView=dynamic_cast<IGraphVelocity *>(w);
   d->m_graphVelocityView->visit(this);
-  ui->label->setText(d->m_graphVelocityView->objectName());
 }
 
 void UiVelocity::setUiActive(bool actived)
