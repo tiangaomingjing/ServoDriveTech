@@ -675,22 +675,23 @@ exception cause maybe:
         <translation></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1000"/>
+        <location filename="sdtmainwindow.cpp" line="1006"/>
         <source>Device:%1 NetError!</source>
         <translation>设备：%1 通信异常 !</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1015"/>
+        <location filename="sdtmainwindow.cpp" line="1021"/>
         <source>Error</source>
         <translation>异常</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1021"/>
+        <location filename="sdtmainwindow.cpp" line="1027"/>
+        <location filename="sdtmainwindow.cpp" line="1028"/>
         <source>search phase complete</source>
-        <translation>寻相完成</translation>
+        <translation type="unfinished">电机寻相结束</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1118"/>
+        <location filename="sdtmainwindow.cpp" line="1127"/>
         <source>Warring</source>
         <translation>警告</translation>
     </message>
@@ -731,7 +732,7 @@ exception cause maybe:
         <translation></translation>
     </message>
     <message>
-        <location filename="SdtStatusBar/sdtstatusbar.cpp" line="27"/>
+        <location filename="SdtStatusBar/sdtstatusbar.cpp" line="34"/>
         <source>Alarm</source>
         <translation>报警</translation>
     </message>

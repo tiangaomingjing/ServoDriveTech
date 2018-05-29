@@ -51,7 +51,7 @@ CONFIG(debug, debug|release){
 
     TARGET = PlotUnitGraph
 }
-LIBS += -lOpenGL32
+#LIBS += -lOpenGL32
 
 DESTDIR =$${PLOT_OUT_PATH}
 

@@ -116,6 +116,10 @@ void TabModeCtl::uiUpdate()
   ui->stackedWidget_plot_mode->setCurrentIndex(ui->modeCtlPanel->mode(curModeAxis));
 
   ui->tbtn_plot_servoOnMode->setChecked(m_sev->axisServoIsOn(curModeAxis));
+  if(ui->tbtn_plot_servoOnMode->isChecked())
+    ui->label_plot_servo_onoff->setText(tr("SEV ON"));
+  else
+    ui->label_plot_servo_onoff->setText(tr("SEV OFF"));
   qDebug()<<"update servo status"<<m_sev->aliasName()<<" cur mode axis = "<<curModeAxis<<" servo on = "<<m_sev->axisServoIsOn(curModeAxis);
 
 }
@@ -183,6 +187,7 @@ bool TabModeCtl::eventFilter(QObject *obj, QEvent *event)
 
         m_sev->cmdSetIdRef(axisInx,modePrms->m_idref);
         m_sev->cmdSetIqRef(axisInx,modePrms->m_idref);
+
         ui->spinBox_mode_idref->setStyleSheet("color:black");
         ui->spinBox_mode_iqref->setStyleSheet("color:black");
       }
@@ -249,6 +254,7 @@ void TabModeCtl::onModeCtlPanelModeChanged(quint16 axis, int mode)
     case GT::MODE_IPA:
     {
       ui->spinBox_mode_ipa->setValue(modePrms->m_ipa);
+      ui->spinBox_mode_ipa->setStyleSheet("color:black");
     }
     break;
     case GT::MODE_MPI:break;
@@ -259,33 +265,46 @@ void TabModeCtl::onModeCtlPanelModeChanged(quint16 axis, int mode)
       ui->spinBox_mode_ucref->setValue(modePrms->m_ucref);
       ui->spinBox_mode_udref->setValue(modePrms->m_udref);
       ui->spinBox_mode_uqref->setValue(modePrms->m_uqref);
+
+      ui->spinBox_mode_uaref->setStyleSheet("color:black");
+      ui->spinBox_mode_ubref->setStyleSheet("color:black");
+      ui->spinBox_mode_ucref->setStyleSheet("color:black");
+      ui->spinBox_mode_udref->setStyleSheet("color:black");
+      ui->spinBox_mode_uqref->setStyleSheet("color:black");
     }
     break;
     case GT::MODE_CCL:
     {
       ui->spinBox_mode_idref->setValue(modePrms->m_idref);
       ui->spinBox_mode_iqref->setValue(modePrms->m_iqref);
+
+      ui->spinBox_mode_idref->setStyleSheet("color:black");
+      ui->spinBox_mode_iqref->setStyleSheet("color:black");
     }
     break;
     case GT::MODE_VCL:
     {
       ui->spinBox_mode_vcl->setValue(modePrms->m_vcl);
+      ui->spinBox_mode_vcl->setStyleSheet("color:black");
     }
     break;
     case GT::MODE_VPL:
     {
       ui->spinBox_mode_vpl->setValue(modePrms->m_vpl);
+      ui->spinBox_mode_vpl->setStyleSheet("color:black");
     }
     break;
     case GT::MODE_VSL:
     {
       ui->spinBox_mode_vsl->setValue(modePrms->m_vsl);
+      ui->spinBox_mode_vsl->setStyleSheet("color:black");
     }
     break;
     case GT::MODE_FIX:break;
     case GT::MODE_PT:
     {
       ui->spinBox_mode_pt->setValue(modePrms->m_pt);
+      ui->spinBox_mode_pt->setStyleSheet("color:black");
     }
     break;
     case GT::MODE_DB:break;
@@ -310,6 +329,7 @@ void TabModeCtl::onModeCtlPanelCheckChanged(quint16 axis, int mode)
     case GT::MODE_IPA:
     {
       ui->spinBox_mode_ipa->setValue(modePrms->m_ipa);
+      ui->spinBox_mode_ipa->setStyleSheet("color:black");
     }
     break;
     case GT::MODE_MPI:break;
@@ -320,33 +340,46 @@ void TabModeCtl::onModeCtlPanelCheckChanged(quint16 axis, int mode)
       ui->spinBox_mode_ucref->setValue(modePrms->m_ucref);
       ui->spinBox_mode_udref->setValue(modePrms->m_udref);
       ui->spinBox_mode_uqref->setValue(modePrms->m_uqref);
+
+      ui->spinBox_mode_uaref->setStyleSheet("color:black");
+      ui->spinBox_mode_ubref->setStyleSheet("color:black");
+      ui->spinBox_mode_ucref->setStyleSheet("color:black");
+      ui->spinBox_mode_udref->setStyleSheet("color:black");
+      ui->spinBox_mode_uqref->setStyleSheet("color:black");
     }
     break;
     case GT::MODE_CCL:
     {
       ui->spinBox_mode_idref->setValue(modePrms->m_idref);
       ui->spinBox_mode_iqref->setValue(modePrms->m_iqref);
+
+      ui->spinBox_mode_idref->setStyleSheet("color:black");
+      ui->spinBox_mode_iqref->setStyleSheet("color:black");
     }
     break;
     case GT::MODE_VCL:
     {
       ui->spinBox_mode_vcl->setValue(modePrms->m_vcl);
+      ui->spinBox_mode_vcl->setStyleSheet("color:black");
     }
     break;
     case GT::MODE_VPL:
     {
       ui->spinBox_mode_vpl->setValue(modePrms->m_vpl);
+      ui->spinBox_mode_vpl->setStyleSheet("color:black");
     }
     break;
     case GT::MODE_VSL:
     {
       ui->spinBox_mode_vsl->setValue(modePrms->m_vsl);
+      ui->spinBox_mode_vsl->setStyleSheet("color:black");
     }
     break;
     case GT::MODE_FIX:break;
     case GT::MODE_PT:
     {
       ui->spinBox_mode_pt->setValue(modePrms->m_pt);
+      ui->spinBox_mode_pt->setStyleSheet("color:black");
     }
     break;
     case GT::MODE_DB:break;
@@ -367,6 +400,7 @@ void TabModeCtl::onBtnServoOnClicked(bool checked)
     if(ui->modeCtlPanel->isChecked(i))
     {
       m_sev->setAxisServoOn(i,checked);
+      ui->label_plot_servo_onoff->setText(tr("SEV ON"));
       qDebug()<<"setServoOn "<<i<<checked;
       qDebug()<<"----------sev axis is on"<<m_sev->axisServoIsOn(i)<<"-----------";
     }

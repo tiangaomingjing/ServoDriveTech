@@ -312,7 +312,9 @@ void TabMotion::onProgressValueChanged(quint16 axisInx, int value)
 
 void TabMotion::onMotionAllDone()
 {
-  GTUtils::delayms(10);
+  qDebug()<<"motion AllDone";
+  GTUtils::delayms(500);
+  qDebug()<<"emit motionStop";
   emit motionStop();
 }
 

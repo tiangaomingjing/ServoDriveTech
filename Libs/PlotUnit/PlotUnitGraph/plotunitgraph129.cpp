@@ -141,6 +141,16 @@ PlotUnitGraph129::PlotUnitGraph129(const QList<SevDevice *> &sevList, QWidget *p
   ui->tbtn_plot_auto->setCheckable(true);
   ui->tbtn_plot_auto->setChecked(false);
 
+  ui->tbtn_plot_startSampling->setToolTip(tr("startSampling"));
+  ui->tbtn_plot_auto->setToolTip(tr("auto fit window"));
+  ui->tbtn_plot_fit->setToolTip(tr("fit window"));
+  ui->tbtn_plot_mea_horizontal->setToolTip(tr("horizontal measure"));
+  ui->tbtn_plot_mea_vertical->setToolTip(tr("vertical measure"));
+  ui->tbtn_plot_open->setToolTip(tr("open hostory curve"));
+  ui->tbtn_plot_save->setToolTip(tr("save all curves"));
+  ui->tbtn_plot_show_all->setToolTip(tr("load all range curves "));
+  ui->tbtn_plot_floatin->setToolTip(tr("full screen switch"));
+
   d->m_timer=new QTimer(this);
   d->m_timer->setInterval(500);
 
@@ -1091,7 +1101,7 @@ void PlotUnitGraph129::gtPlotInit()
   ui->plot->yAxis2->setVisible(false);
   ui->plot->yAxis2->setTickLabels(false);
   ui->plot->setBackground(QBrush(QColor(240,240,240)));
-  ui->plot->setOpenGl(true);
+//  ui->plot->setOpenGl(true);
 }
 
 void PlotUnitGraph129::ctlPanelInit()
@@ -1242,7 +1252,7 @@ void PlotUnitGraph129::addTableRowPrm(ICurve *curve, QCPGraph *graph)
 
     case COL_TABLE_CURVE_AXIS:
     {
-      str=QString::number(curve->axisInx());
+      str=QString::number(curve->axisInx()+1);
     }
     break;
 

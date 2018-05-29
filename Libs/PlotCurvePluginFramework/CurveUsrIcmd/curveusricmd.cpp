@@ -23,7 +23,7 @@ ICurve *CurveUsrIcmd::clone()
 {
   ICurve *c=new CurveUsrIcmd();
   c->prepare();
-  c->setPluginName(dd.m_pluginName);
+//  c->setPluginName(dd.m_pluginName);
   return c;
 }
 
@@ -62,5 +62,10 @@ QString CurveUsrIcmd::name()
 QString CurveUsrIcmd::note()
 {
   return tr("Target Current");
+}
+
+QString CurveUsrIcmd::pluginName()
+{
+  return "CurveUsrIcmd";
 }
 

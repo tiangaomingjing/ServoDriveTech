@@ -21,7 +21,7 @@ ICurve *CurveRaw::clone()
 {
   ICurve *c=new CurveRaw();
   c->prepare();
-  c->setPluginName(dd.m_pluginName);
+//  c->setPluginName(dd.m_pluginName);
   return c;
 }
 
@@ -39,4 +39,9 @@ QString CurveRaw::displayName()
 QString CurveRaw::fullName()
 {
   return QObject::tr("%1").arg(dd.m_name);
+}
+
+QString CurveRaw::pluginName()
+{
+  return "CurveRaw";
 }

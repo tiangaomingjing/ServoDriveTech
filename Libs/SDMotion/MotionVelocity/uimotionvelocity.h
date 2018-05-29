@@ -50,8 +50,8 @@ public:
   quint16 m_stepCircleUse;
   quint16 m_stepCircleCount;
 
-  int m_seqInc;
-  int m_stepInc;
+  float m_seqInc;
+  float m_stepInc;
 
   double m_velrangUp;
   double m_velranglow;

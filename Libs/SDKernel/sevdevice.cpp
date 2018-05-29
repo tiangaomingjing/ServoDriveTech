@@ -545,7 +545,7 @@ bool SevDevice::checkNetStatus()
       quint64 ret=errtest.at(i);
     #elif TEST_CHECKSTATUS==0
       quint64 ret=genCmdRead(CMD_PRO_ALM_FLAG,i,online);
-//      qDebug()<<"read status "<<i<<"value="<<ret<<offline;
+//      qDebug()<<"read status "<<i<<"value="<<ret<<online;
     #endif
 
     if(!online)
@@ -556,6 +556,7 @@ bool SevDevice::checkNetStatus()
       break;
     }
     emit alarmError(d->m_devConfig->m_devId,i,(bool)ret);
+    GTUtils::delayms(5);
   }
 
 

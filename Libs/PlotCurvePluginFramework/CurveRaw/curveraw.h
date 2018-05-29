@@ -23,6 +23,8 @@ public:
 
   QString displayName() Q_DECL_OVERRIDE;
   QString fullName() Q_DECL_OVERRIDE;
+
+  QString pluginName() Q_DECL_OVERRIDE;
 };
 
 #endif // CURVERAW_H

@@ -23,7 +23,7 @@ ICurve *CurveUsrVcmd::clone()
 {
   ICurve *c=new CurveUsrVcmd();
   c->prepare();
-  c->setPluginName(dd.m_pluginName);
+//  c->setPluginName(dd.m_pluginName);
   return c;
 }
 
@@ -61,5 +61,10 @@ QString CurveUsrVcmd::name()
 QString CurveUsrVcmd::note()
 {
   return tr("Target Velocity");
+}
+
+QString CurveUsrVcmd::pluginName()
+{
+  return "CurveUsrVcmd";
 }
 

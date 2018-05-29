@@ -30,7 +30,7 @@ void StatusMonitor::setMonitorDeviceList(QList<SevDevice *> devList)
     for(int i =0;i<dev->axisNum();i++)
       errVec.append(false);
     m_devErrorStatusMap.insert(dev->devId(),errVec);
-    connect(dev,SIGNAL(alarmError(quint16,quint16,bool)),this,SIGNAL(alarmError(quint16,quint16,bool)));
+    connect(dev,SIGNAL(alarmError(quint16,quint16,bool)),this,SLOT(onAlarmError(quint16,quint16,bool)));
   }
 
   if(isOpen)
@@ -61,12 +61,12 @@ int StatusMonitor::sysHasAlarmError()
     it.next();
     for(int i=0;i<it.value().size();i++)
     {
-      if(it.value().at(i) == false)
+      if(it.value().at(i) == true)
       {
         dev = it.key();
         break;
       }
-      qDebug()<<"dev ="<<it.key()<<"axis = "<<i<<"error = "<<it.value().at(i);
+//      qDebug()<<"dev ="<<it.key()<<"axis = "<<i<<"error = "<<it.value().at(i);
     }
   }
   return dev;
@@ -95,6 +95,6 @@ void StatusMonitor::onAlarmError(quint16 devId, quint16 axisInx, bool hasError)
     m_devErrorStatusMap[devId][axisInx] = hasError ;
   }
   emit alarmError(devId,axisInx,hasError);
-  qDebug()<<"StatusMonitor emit alarm error";
+//  qDebug()<<"StatusMonitor emit alarm error";
 }
 

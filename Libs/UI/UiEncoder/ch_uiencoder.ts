@@ -237,7 +237,7 @@
         <translation>位数：</translation>
     </message>
     <message>
-        <location filename="graphencoder129.cpp" line="439"/>
+        <location filename="graphencoder129.cpp" line="441"/>
         <source>Enc Lost</source>
         <translation></translation>
     </message>

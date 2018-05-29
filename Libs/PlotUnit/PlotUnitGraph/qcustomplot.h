@@ -28,7 +28,7 @@
 
 #include <QtCore/qglobal.h>
 
-#define QCUSTOMPLOT_USE_OPENGL
+//#define QCUSTOMPLOT_USE_OPENGL
 
 // some Qt version/configuration dependent macros to include or exclude certain code paths:
 #ifdef QCUSTOMPLOT_USE_OPENGL

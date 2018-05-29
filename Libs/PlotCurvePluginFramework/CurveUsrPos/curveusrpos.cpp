@@ -22,7 +22,7 @@ ICurve *CurveUsrPos::clone()
 {
   ICurve *c=new CurveUsrPos();
   c->prepare();
-  c->setPluginName(dd.m_pluginName);
+//  c->setPluginName(dd.m_pluginName);
   return c;
 }
 
@@ -49,5 +49,10 @@ QString CurveUsrPos::name()
 QString CurveUsrPos::note()
 {
   return tr("Position Feedback");
+}
+
+QString CurveUsrPos::pluginName()
+{
+  return "CurveUsrPos";
 }
 

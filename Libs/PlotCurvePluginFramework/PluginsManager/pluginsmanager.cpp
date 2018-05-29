@@ -1,6 +1,7 @@
 ﻿#include "pluginsmanager.h"
 #include "gtutils.h"
 #include "icurve.h"
+#include "Option"
 
 #include "ctkPluginException.h"
 #include "ctkPluginContext.h"
@@ -15,9 +16,12 @@
 #include <QDebug>
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
+#include <QTranslator>
+#include <QApplication>
 
 #define PLUGINLIST_FILE_NAME        "plugins.txt"
 #define CURVE_HISTORY_FILE_NAME     "curvehistory.ui"
+#define PLUGIN_LANG_FILE_NAME        "ch_plugins.qm"
 
 PluginsManager::PluginsManager(QObject *parent) : QObject(parent),
   m_expertCurve(NULL)
@@ -39,6 +43,7 @@ PluginsManager::~PluginsManager()
 {
   delete m_frameWorkFactory;
   m_frameWorkFactory = NULL;
+  clearTransLanguage();
 }
 
 bool PluginsManager::loadPlugins()
@@ -46,6 +51,7 @@ bool PluginsManager::loadPlugins()
   bool expertOk = installExpertPlugin();
   bool usrOk = installUsrPlugin();
   bool customOk = installCustomPlugin();
+  setTransLanguage();
   return expertOk&&usrOk&&customOk;
 }
 
@@ -117,7 +123,7 @@ bool PluginsManager::installExpertPlugin()
           // 调用服务
           m_expertCurve=service;
           m_expertCurve->setName("gServo.pro.prm.mot");
-          m_expertCurve->setPluginName(pluginName);
+//          m_expertCurve->setPluginName(pluginName);
           qDebug()<<"expert plugin : display name = "<<m_expertCurve->displayName();
           qDebug()<<"expert plugin : full name = "<<m_expertCurve->fullName();
       }
@@ -179,7 +185,7 @@ bool PluginsManager::installUsrPlugin()
           if (service != Q_NULLPTR) {
             // 调用服务
             m_usrCurves.append(service);
-            service->setPluginName(pluginName);
+//            service->setPluginName(pluginName);
             qDebug()<<"usr plugin : display name = "<<service->displayName();
             qDebug()<<"usr plugin : full name = "<<service->fullName();
           }
@@ -232,6 +238,30 @@ ICurve *PluginsManager::createICurveFromContainer(const QString &name)
   }
   return c;
   //还有用户定制的没有考虑
+}
+
+void PluginsManager::setTransLanguage()
+{
+  OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
+  QString langPath=GTUtils::languagePath();
+  QString lang;
+  if(face->language()=="chinese")
+    lang=langPath+"ch/";
+  else
+    lang=langPath+"en/";
+
+  QString file = lang + PLUGINLIST_FILE_NAME;
+  m_trans = new QTranslator;
+  m_trans->load(file);
+  qApp->installTranslator(m_trans);
+
+}
+
+void PluginsManager::clearTransLanguage()
+{
+  qApp->removeTranslator(m_trans);
+  delete m_trans;
+  m_trans = NULL;
 }
 
 QList<QList<ICurve *> > PluginsManager::customCurves() const
