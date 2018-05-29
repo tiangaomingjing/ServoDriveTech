@@ -40,7 +40,7 @@ void VelPlanMotion::movePrepare()
   //计算进度条相关
   if(m_data->m_isCircle)
   {
-    m_data->m_seqInc = 100/(m_data->m_seqCircleCount*2);
+    m_data->m_seqInc = 100.0/(m_data->m_seqCircleCount*2);
     m_timer.setInterval(m_data->m_seqPeriod/2);
   }
   else
@@ -48,7 +48,7 @@ void VelPlanMotion::movePrepare()
     //每200ms更新一次
     quint32 time = m_data->m_stepTime*1000;
     m_data->m_stepCircleCount = time/200;
-    m_data->m_stepInc = 100/m_data->m_stepCircleCount;
+    m_data->m_stepInc = 100.0/m_data->m_stepCircleCount;
     m_timer.setInterval(200);
   }
   qDebug()<<"seqInc"<<m_data->m_seqInc<<"stepInc"<<m_data->m_stepInc<<"stepCircleCount"<<m_data->m_stepCircleCount;

@@ -3,8 +3,8 @@
 #include <ctkPluginContext.h>
 #include <QDebug>
 
-#define VAR_KEYNAME_CTL_IQ   "gSevDrv.sev_obj.cur.ctl.iq"
-#define CON_KEYNAME_MOT_IMAX     "gSevDrv.sev_obj.cur.mot.Imax_1"
+#define VAR_KEYNAME_CTL_IQ              "gSevDrv.sev_obj.cur.ctl.iq"
+#define CON_KEYNAME_MOT_IMAX            "gSevDrv.sev_obj.cur.mot.Imax_1"
 
 CurveUsrIfb::CurveUsrIfb()
 {
@@ -23,7 +23,7 @@ ICurve *CurveUsrIfb::clone()
 {
   ICurve *c=new CurveUsrIfb();
   c->prepare();
-  c->setPluginName(dd.m_pluginName);
+//  c->setPluginName(dd.m_pluginName);
   return c;
 }
 
@@ -47,7 +47,7 @@ void CurveUsrIfb::calculate()
   dd.m_cData.values.clear();
   for(int i = 0;i<dd.m_varInputs.at(0).datas.size();i++)
   {
-    result = (dd.m_varInputs.at(0).datas.at(i)/15000)*imax*0.1;
+    result = (dd.m_varInputs.at(0).datas.at(i)/15000.0)*imax*0.1;
     dd.m_cData.values.append(result);
 //    qDebug()<<QString("vcmd %1 cal: in = %2,out = %3").arg(dd.m_axisInx).arg(dd.m_varInputs.at(0).datas.at(i)).arg(result);
   }
@@ -62,5 +62,10 @@ QString CurveUsrIfb::name()
 QString CurveUsrIfb::note()
 {
   return tr("Current Feedback");
+}
+
+QString CurveUsrIfb::pluginName()
+{
+  return "CurveUsrIfb";
 }
 

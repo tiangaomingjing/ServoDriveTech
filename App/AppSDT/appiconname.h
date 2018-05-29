@@ -23,5 +23,7 @@
 #define ICON_TOPWIDGET_MIN     "topwidget_min.png"
 #define ICON_TOPWIDGET_RESTORE "topwidget_restore.png"
 
+#define ICON_GOOGOL             "googol.png"
+
 #endif // APPICONNAME
 

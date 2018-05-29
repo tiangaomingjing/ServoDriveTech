@@ -23,10 +23,18 @@ SdtStatusBar::SdtStatusBar(QTreeWidget *navTree, QWidget *parent) :
 //  pa.setColor(QPalette::WindowText,Qt::red);
 //  ui->labelMsg->setPalette(pa);
 //  ui->tbtnError->setPopupMode(QToolButton::MenuButtonPopup);
+
+  QSize iconSize(32,32);
+  OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
+  QString path=GTUtils::customPath()+"option/style/"+face->css()+"/icon/"+ICON_STATUS_ERROR;
+
+  ui->tbtnError->setIcon(QIcon(path));
+  ui->tbtnError->setIconSize(iconSize);
   ui->tbtnError->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
   ui->tbtnError->setText(tr("Alarm"));
-  ui->tbtnError->setIconSize(QSize(32,32));
+
   ui->tbtnError->setAutoRaise(true);
+
   connect(ui->tbtnError,SIGNAL(clicked(bool)),this,SLOT(onActnToolClicked()));
 //  connect(ui->tbtnError,SIGNAL(triggered(QAction*)),this,SLOT(onActnToolTrig(QAction*)));
 
@@ -106,14 +114,15 @@ void SdtStatusBar::setConnectStatus(bool connected)
 
 void SdtStatusBar::setErrorStatus(bool hasError)
 {
-  if(hasError)
-  {
-    OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
-    QString path=GTUtils::customPath()+"option/style/"+face->css()+"/icon/"+ICON_STATUS_ERROR;
-    ui->tbtnError->setIcon(QIcon(path));
-//    qDebug()<<"setErrorStatus"<<path;
-  }
+//  if(hasError)
+//  {
+//    OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
+//    QString path=GTUtils::customPath()+"option/style/"+face->css()+"/icon/"+ICON_STATUS_ERROR;
+//    ui->tbtnError->setIcon(QIcon(path));
+////    qDebug()<<"setErrorStatus"<<path;
+//  }
   ui->tbtnError->setVisible(hasError);
+//  qDebug()<<"hasError"<<hasError;
 }
 
 

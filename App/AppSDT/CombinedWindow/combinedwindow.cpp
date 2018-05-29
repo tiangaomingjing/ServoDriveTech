@@ -37,6 +37,9 @@ CombinedWindow::CombinedWindow(QWidget *parent) :
     if(optface!=NULL)
       connect(optface,SIGNAL(faceCssChanged(QString)),this,SLOT(onOptFaceCssChanged(QString)));
 
+    ui->btn_icon->setIconSize(QSize(30,30));
+    ui->btn_icon->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+    ui->btn_icon->setText(tr("GOOGOLTECH"));
     ui->horizontalLayout_3->setSpacing(30);
     ui->label_combinedInfo->setText("");
     ui->label_title->setText(tr("SDT"));
@@ -168,4 +171,6 @@ void CombinedWindow::setWidgetIcon() {
     } else {
         ui->btn_Max->setIcon(QIcon(iconPath + ICON_TOPWIDGET_RESTORE));
     }
+
+    ui->btn_icon->setIcon(QIcon(iconPath + ICON_GOOGOL));
 }

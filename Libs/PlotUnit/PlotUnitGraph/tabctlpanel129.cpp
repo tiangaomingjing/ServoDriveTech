@@ -33,6 +33,8 @@ TabCtlPanel129::TabCtlPanel129(SevDevice *sev, QWidget *parent) : QWidget(parent
   m_tabWidgetList.append(tab);
   tab = new TabMotion(tr("Motion"),m_sev,0);
   m_tabWidgetList.append(tab);
+  connect(tab,SIGNAL(motionStart()),this,SIGNAL(motionStart()));
+  connect(tab,SIGNAL(motionStop()),this,SIGNAL(motionStop()));
 
   for(int i=0;i<m_tabWidgetList.size();i++)
   {

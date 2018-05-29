@@ -21,9 +21,6 @@ public:
   bool stop(quint16 axisInx) Q_DECL_OVERRIDE;
   void updateAxisUi(quint16 axisInx) Q_DECL_OVERRIDE;
 
-signals:
-  void progressValueChanged(quint16 axisInx,int value);
-
 private slots:
   void onMotionFinish(quint16 axisInx);
 

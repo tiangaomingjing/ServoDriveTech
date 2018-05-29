@@ -24,6 +24,8 @@ public:
   virtual void resetUi() = 0;
 
 signals:
+  void motionStart();
+  void motionStop();
 
 public slots:
 

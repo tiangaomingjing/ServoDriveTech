@@ -1,5 +1,6 @@
 include (../ctkplugins.pri)
-INCLUDEPATH +=$$PWD/../../GTUtils
+INCLUDEPATH +=$$PWD/../../GTUtils\
+              $$PWD/../../Option
 QT += core widgets
 QT -= gui
 
@@ -11,11 +12,13 @@ TEMPLATE = app
 
 CONFIG(debug,debug|release){
   BIN_PATH=$$PWD/../../../build/debug/bin
-  LIBS+=$$BIN_PATH/GTUtilsd.lib
+  LIBS+=$$BIN_PATH/GTUtilsd.lib\
+        $$BIN_PATH/Optiond.lib
   TARGET = PluginsManagerd
 }else{
   BIN_PATH=$$PWD/../../../build/release/bin
-  LIBS+=$$BIN_PATH/GTUtils.lib
+  LIBS+=$$BIN_PATH/GTUtils.lib\
+        $$BIN_PATH/Option.lib
   TARGET = PluginsManager
 }
 

@@ -547,7 +547,7 @@ void SevDevice::setVersionAttributeActive()
 bool SevDevice::checkNetStatus()
 {
   Q_D(SevDevice);
-  bool offline=true;
+  bool online=true;
 
 #if TEST_CHECKSTATUS
   QVector<quint8> errtest;
@@ -562,11 +562,11 @@ bool SevDevice::checkNetStatus()
     #if TEST_CHECKSTATUS
       quint64 ret=errtest.at(i);
     #elif TEST_CHECKSTATUS==0
-      quint64 ret=genCmdRead(CMD_PRO_ALM_FLAG,i,offline);
-//      qDebug()<<"read status "<<i<<"value="<<ret<<offline;
+      quint64 ret=genCmdRead(CMD_PRO_ALM_FLAG,i,online);
+//      qDebug()<<"read status "<<i<<"value="<<ret<<online;
     #endif
 
-    if(!offline)
+    if(!online)
     {
       emit connectionChanged(false);
       emit netError(i);
@@ -574,10 +574,11 @@ bool SevDevice::checkNetStatus()
       break;
     }
     emit alarmError(d->m_devConfig->m_devId,i,(bool)ret);
+    GTUtils::delayms(5);
   }
 
 
-  return offline;
+  return online;
 }
 
 QString SevDevice::filePath() const

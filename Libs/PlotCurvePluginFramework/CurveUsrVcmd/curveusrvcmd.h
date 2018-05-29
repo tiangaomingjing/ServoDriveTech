@@ -20,6 +20,7 @@ public:
 
   QString name() Q_DECL_OVERRIDE ;
   QString note() Q_DECL_OVERRIDE ;
+  QString pluginName() Q_DECL_OVERRIDE ;
 
 };
 

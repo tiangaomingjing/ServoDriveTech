@@ -235,69 +235,114 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="157"/>
-        <location filename="plotunitgraph129.cpp" line="794"/>
+        <location filename="plotunitgraph129.cpp" line="144"/>
+        <source>startSampling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="plotunitgraph129.cpp" line="145"/>
+        <source>auto fit window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="plotunitgraph129.cpp" line="146"/>
+        <source>fit window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="plotunitgraph129.cpp" line="147"/>
+        <source>horizontal measure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="plotunitgraph129.cpp" line="148"/>
+        <source>vertical measure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="plotunitgraph129.cpp" line="149"/>
+        <source>open hostory curve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="plotunitgraph129.cpp" line="150"/>
+        <source>save all curves</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="plotunitgraph129.cpp" line="151"/>
+        <source>load all range curves </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="plotunitgraph129.cpp" line="152"/>
+        <source>full screen switch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="plotunitgraph129.cpp" line="167"/>
+        <location filename="plotunitgraph129.cpp" line="815"/>
         <source>error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="157"/>
+        <location filename="plotunitgraph129.cpp" line="167"/>
         <source>load plugin error!
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="175"/>
+        <location filename="plotunitgraph129.cpp" line="185"/>
         <source>checked</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="175"/>
+        <location filename="plotunitgraph129.cpp" line="185"/>
         <source>name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="175"/>
+        <location filename="plotunitgraph129.cpp" line="185"/>
         <source>axis</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="175"/>
+        <location filename="plotunitgraph129.cpp" line="185"/>
         <source>dev</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="570"/>
-        <location filename="plotunitgraph129.cpp" line="885"/>
-        <location filename="plotunitgraph129.cpp" line="1190"/>
+        <location filename="plotunitgraph129.cpp" line="591"/>
+        <location filename="plotunitgraph129.cpp" line="906"/>
+        <location filename="plotunitgraph129.cpp" line="1231"/>
         <source>on</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="576"/>
-        <location filename="plotunitgraph129.cpp" line="879"/>
-        <location filename="plotunitgraph129.cpp" line="1196"/>
+        <location filename="plotunitgraph129.cpp" line="597"/>
+        <location filename="plotunitgraph129.cpp" line="900"/>
+        <location filename="plotunitgraph129.cpp" line="1237"/>
         <source>off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="656"/>
-        <location filename="plotunitgraph129.cpp" line="726"/>
+        <location filename="plotunitgraph129.cpp" line="677"/>
+        <location filename="plotunitgraph129.cpp" line="747"/>
         <source>warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="656"/>
+        <location filename="plotunitgraph129.cpp" line="677"/>
         <source>%1 is BIT</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="726"/>
+        <location filename="plotunitgraph129.cpp" line="747"/>
         <source>The numbers of selected curves is too much</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="794"/>
+        <location filename="plotunitgraph129.cpp" line="815"/>
         <source>The curve = %1 is not in the device</source>
         <translation type="unfinished"></translation>
     </message>
@@ -305,50 +350,50 @@
 <context>
     <name>PluginsManager</name>
     <message>
-        <location filename="../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.cpp" line="69"/>
-        <location filename="../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.cpp" line="89"/>
-        <location filename="../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.cpp" line="126"/>
+        <location filename="../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.cpp" line="75"/>
+        <location filename="../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.cpp" line="95"/>
         <location filename="../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.cpp" line="132"/>
-        <location filename="../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.cpp" line="188"/>
-        <location filename="../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.cpp" line="195"/>
+        <location filename="../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.cpp" line="138"/>
+        <location filename="../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.cpp" line="194"/>
         <location filename="../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.cpp" line="201"/>
+        <location filename="../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.cpp" line="207"/>
         <source>error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.cpp" line="69"/>
+        <location filename="../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.cpp" line="75"/>
         <source>error :read file :%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.cpp" line="89"/>
+        <location filename="../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.cpp" line="95"/>
         <source>load plugin error:
 %1
 %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.cpp" line="126"/>
+        <location filename="../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.cpp" line="132"/>
         <source>get service error:ICurve</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.cpp" line="132"/>
+        <location filename="../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.cpp" line="138"/>
         <source>get reference error:ICurve</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.cpp" line="188"/>
+        <location filename="../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.cpp" line="194"/>
         <source>get service error:m_context-&gt;getService</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.cpp" line="195"/>
+        <location filename="../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.cpp" line="201"/>
         <source>error:m_context-&gt;getServiceReferences is Empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.cpp" line="201"/>
+        <location filename="../../PlotCurvePluginFramework/PluginsManager/pluginsmanager.cpp" line="207"/>
         <source>error:installPlugin = %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -490,7 +535,14 @@
     </message>
     <message>
         <location filename="TabModeCtl/tabmodectl.cpp" line="77"/>
+        <location filename="TabModeCtl/tabmodectl.cpp" line="122"/>
         <source>SEV OFF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="TabModeCtl/tabmodectl.cpp" line="120"/>
+        <location filename="TabModeCtl/tabmodectl.cpp" line="374"/>
+        <source>SEV ON</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

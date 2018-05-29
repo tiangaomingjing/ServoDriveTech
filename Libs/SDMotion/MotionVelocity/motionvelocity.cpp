@@ -16,6 +16,7 @@ public:
   ~MotionVelocityPrivate(){}
 protected:
   QList<VelPlanMotion *>m_velPlanList;
+
 };
 
 MotionVelocity::MotionVelocity(QListWidget *axisListWidget,SevDevice *sev, const QString &name, QObject *parent):
@@ -36,6 +37,7 @@ MotionVelocity::MotionVelocity(QListWidget *axisListWidget,SevDevice *sev, const
     connect(vel,SIGNAL(motionFinish(quint16)),this,SLOT(onMotionFinish(quint16)));
     connect(vel,SIGNAL(progressValueChanged(quint16,int)),this,SIGNAL(progressValueChanged(quint16,int)));
   }
+  d->m_motionUnFinishVector.clear();
 }
 
 MotionVelocity::~MotionVelocity()
@@ -49,6 +51,7 @@ void MotionVelocity::movePrepare(quint16 axisInx)
 {
   Q_D(MotionVelocity);
   d->m_velPlanList.at(axisInx)->movePrepare();
+  d->m_motionUnFinishVector.clear();
   qDebug()<<"axis "<<axisInx<<"prepare to go";
 }
 
@@ -60,6 +63,7 @@ bool MotionVelocity::move(quint16 axisInx)
   if(false == d->m_sev->axisServoIsOn(axisInx))
     return false ;
 
+  d->m_motionUnFinishVector.append(axisInx);
   d->m_ui->setEnabled(false);//Ui不能编辑
   d->m_velPlanList.at(axisInx)->move();
 
@@ -93,5 +97,11 @@ void MotionVelocity::onMotionFinish(quint16 axisInx)
   Q_D(MotionVelocity);
   if(d->m_axisListWidget->currentRow() == axisInx)
      d->m_ui->setEnabled(true);
+
+  emit motionFinish(axisInx);
+
+  d->m_motionUnFinishVector.removeOne(axisInx);
+  if(d->m_motionUnFinishVector.isEmpty())
+    emit motionAllDone();
 }
 

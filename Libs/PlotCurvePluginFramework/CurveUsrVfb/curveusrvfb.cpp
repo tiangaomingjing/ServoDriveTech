@@ -23,7 +23,7 @@ ICurve *CurveUsrVfb::clone()
 {
   ICurve *c=new CurveUsrVfb();
   c->prepare();
-  c->setPluginName(dd.m_pluginName);
+//  c->setPluginName(dd.m_pluginName);
   return c;
 }
 
@@ -61,5 +61,10 @@ QString CurveUsrVfb::name()
 QString CurveUsrVfb::note()
 {
   return tr("Velocity Feedback");
+}
+
+QString CurveUsrVfb::pluginName()
+{
+  return "CurveUsrVfb";
 }
 

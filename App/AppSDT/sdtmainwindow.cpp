@@ -1154,7 +1154,14 @@ void SDTMainWindow::onStatusBarPageChanged(int pIndex)
 void SDTMainWindow::onDeviceAlarmError(quint16 devId, quint16 axisInx, bool hasError)
 {
   m_statusBar->setAlarmErrorStatus(devId,axisInx,hasError);
-  m_statusBar->setErrorStatus(hasError);
+
+  int errDev = -1 ;
+  errDev =  m_statusMonitor->sysHasAlarmError();
+//  qDebug()<<"error dev "<<errDev;
+  if( errDev == -1)
+      m_statusBar->setErrorStatus(false);
+  else
+    m_statusBar->setErrorStatus(true);
 }
 //!
 //! \brief SDTMainWindow::onDeviceNetError
@@ -1190,6 +1197,8 @@ void SDTMainWindow::onIpaDone()
 {
   mp_progressBar->setVisible(false);
   ui->statusBar->setToolTip(tr("search phase complete"));
+  m_statusBar->setMsg(tr("search phase complete"),SdtStatusBar::MSG_TYPE_NORMAL);
+  GTUtils::delayms(4000);
   m_statusBar->setMsg("",SdtStatusBar::MSG_TYPE_NORMAL);
 }
 SdAssembly *SDTMainWindow::createSdAssembly(DeviceConfig *cfg)

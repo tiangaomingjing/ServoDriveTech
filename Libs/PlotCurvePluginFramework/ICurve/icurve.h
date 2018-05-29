@@ -34,6 +34,7 @@ public:
   virtual QString note() = 0;
 
   virtual ICurve *clone() = 0;
+  virtual QString pluginName() = 0;
 
   void setName(const QString &name);
   void setNote(const QString &note);
@@ -96,8 +97,8 @@ public:
 
   void savePrepare();
 
-  QString pluginName() const;
-  void setPluginName(const QString &name);
+
+//  void setPluginName(const QString &name);
 
 protected:
   virtual void calculate() = 0;

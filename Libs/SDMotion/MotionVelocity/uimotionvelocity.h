@@ -21,7 +21,7 @@ public:
   UiMotionData():
     m_isCircle(false),
     m_seqAmp(5),
-    m_seqPeriod(200),
+    m_seqPeriod(500),
     m_seqCircleCount(10),
     m_stepAmp(5),
     m_stepTime(5),
@@ -50,8 +50,8 @@ public:
   quint16 m_stepCircleUse;
   quint16 m_stepCircleCount;
 
-  int m_seqInc;
-  int m_stepInc;
+  float m_seqInc;
+  float m_stepInc;
 
   double m_velrangUp;
   double m_velranglow;

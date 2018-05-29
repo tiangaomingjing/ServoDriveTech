@@ -9,6 +9,7 @@
 class ICurve;
 class ctkPluginContext;
 class ctkPluginFrameworkFactory;
+class QTranslator;
 
 class PluginsManager : public QObject
 {
@@ -39,6 +40,9 @@ private:
 
   ICurve *createICurveFromContainer(const QString &name);
 
+  void setTransLanguage();
+  void clearTransLanguage();
+
 signals:
 
 public slots:
@@ -51,6 +55,7 @@ private:
   QList<ICurve *>m_usrCurves;
   ICurve *m_expertCurve;
   QList<QList<ICurve *>>m_customCurves;
+  QTranslator *m_trans;
 
 };
 

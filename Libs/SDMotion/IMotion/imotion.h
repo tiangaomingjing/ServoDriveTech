@@ -32,7 +32,10 @@ public:
 
   MotionType motionType();
   OptPlot *optPlot();
-
+signals:
+  void progressValueChanged(quint16 axisInx,int value);
+  void motionFinish(quint16 axisInx);
+  void motionAllDone();
 protected:
   IMotion(IMotionPrivate&dd,QObject *parent=0);
   IMotionPrivate *d_ptr;

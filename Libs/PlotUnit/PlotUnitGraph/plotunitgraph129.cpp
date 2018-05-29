@@ -141,6 +141,16 @@ PlotUnitGraph129::PlotUnitGraph129(const QList<SevDevice *> &sevList, QWidget *p
   ui->tbtn_plot_auto->setCheckable(true);
   ui->tbtn_plot_auto->setChecked(false);
 
+  ui->tbtn_plot_startSampling->setToolTip(tr("startSampling"));
+  ui->tbtn_plot_auto->setToolTip(tr("auto fit window"));
+  ui->tbtn_plot_fit->setToolTip(tr("fit window"));
+  ui->tbtn_plot_mea_horizontal->setToolTip(tr("horizontal measure"));
+  ui->tbtn_plot_mea_vertical->setToolTip(tr("vertical measure"));
+  ui->tbtn_plot_open->setToolTip(tr("open hostory curve"));
+  ui->tbtn_plot_save->setToolTip(tr("save all curves"));
+  ui->tbtn_plot_show_all->setToolTip(tr("load all range curves "));
+  ui->tbtn_plot_floatin->setToolTip(tr("full screen switch"));
+
   d->m_timer=new QTimer(this);
   d->m_timer->setInterval(500);
 
@@ -433,6 +443,17 @@ void PlotUnitGraph129::onBtnStartSampleClicked(bool checked)
 
   if(checked)
   {
+    //清标签
+    if(ui->tbtn_plot_mea_horizontal->isChecked())
+    {
+      onBtnMeaHClicked(false);
+      ui->tbtn_plot_mea_horizontal->setChecked(false);
+    }
+    if(ui->tbtn_plot_mea_vertical->isChecked())
+    {
+      onBtnMeaVClicked(false);
+      ui->tbtn_plot_mea_vertical->setChecked(false);
+    }
 
     clearGraphData();
     //检查曲线参数有效性
@@ -1002,6 +1023,24 @@ void PlotUnitGraph129::onPlotSelectionRectFinish()
   }
 }
 
+void PlotUnitGraph129::onMotionStart()
+{
+  if(!ui->tbtn_plot_startSampling->isChecked())
+  {
+    onBtnStartSampleClicked(true);
+    ui->tbtn_plot_startSampling->setChecked(true);
+  }
+}
+
+void PlotUnitGraph129::onMotionStop()
+{
+  if(ui->tbtn_plot_startSampling->isChecked())
+  {
+    onBtnStartSampleClicked(false);
+    ui->tbtn_plot_startSampling->setChecked(false);
+  }
+}
+
 void PlotUnitGraph129::setPlotIcons(const QString &css)
 {
   QSize iconSize(24,24);
@@ -1062,7 +1101,11 @@ void PlotUnitGraph129::gtPlotInit()
   ui->plot->yAxis2->setVisible(false);
   ui->plot->yAxis2->setTickLabels(false);
   ui->plot->setBackground(QBrush(QColor(240,240,240)));
+<<<<<<< HEAD
   ui->plot->setOpenGl(false);
+=======
+//  ui->plot->setOpenGl(true);
+>>>>>>> upstream/jiang
 }
 
 void PlotUnitGraph129::ctlPanelInit()
@@ -1078,6 +1121,8 @@ void PlotUnitGraph129::ctlPanelInit()
     d->m_tabCtlUiList.append(panel);
     ui->stackedWidget_tabCtlPanel->addWidget(panel);
     ui->listWidget_plot_device->addItem(d->m_sevList.at(i)->aliasName());
+    connect(panel,SIGNAL(motionStart()),this,SLOT(onMotionStart()));
+    connect(panel,SIGNAL(motionStop()),this,SLOT(onMotionStop()));
   }
   d->m_curSevInx=0;
   ui->listWidget_plot_device->setCurrentRow(d->m_curSevInx);
@@ -1211,7 +1256,7 @@ void PlotUnitGraph129::addTableRowPrm(ICurve *curve, QCPGraph *graph)
 
     case COL_TABLE_CURVE_AXIS:
     {
-      str=QString::number(curve->axisInx());
+      str=QString::number(curve->axisInx()+1);
     }
     break;
 

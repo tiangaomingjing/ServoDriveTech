@@ -37,6 +37,7 @@ void ICurve::prepare()
   setName(name());
   setNote(note());
   init();
+  dd.m_pluginName = pluginName();
   qDebug()<<name()<<"prepare";
 }
 
@@ -552,15 +553,15 @@ void ICurve::savePrepare()
   }
 }
 
-QString ICurve::pluginName() const
-{
-  return dd.m_pluginName;
-}
+//QString ICurve::pluginName() const
+//{
+//  return dd.m_pluginName;
+//}
 
-void ICurve::setPluginName(const QString &name)
-{
-  dd.m_pluginName = name;
-}
+//void ICurve::setPluginName(const QString &name)
+//{
+//  dd.m_pluginName = name;
+//}
 
 QStringList ICurve::constInputKeys()
 {
