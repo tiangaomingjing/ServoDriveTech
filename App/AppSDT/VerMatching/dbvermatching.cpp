@@ -34,14 +34,14 @@ bool DbVerMatching::open()
     QTextStream in(&file);
     QString line = in.readLine();
     m_typeList = line.split("-");
-    return true;
+  return true;
 }
 
 bool DbVerMatching::close()
 {
   //关闭数据库
     db.close();
-    return true;
+  return true;
 }
 
 void DbVerMatching::fillVerLinkLists(QStringList &list)

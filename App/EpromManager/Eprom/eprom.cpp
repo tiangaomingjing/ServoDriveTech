@@ -108,7 +108,7 @@ bool EPROM::writeSingle(QTreeWidgetItem *item) {
             ofst = 1023;
         }
         Uint16 num = 0;
-        if (item->text(TREE_TYPE) == "Uint8" || item->text(TREE_TYPE) == "int8") {
+        if (item->text(TREE_TYPE) == "Uint8" || item->text(TREE_TYPE) == "int8" || item->text(TREE_TYPE) == "Case") {
             //value[0] = v;
             num = 1;
         } else if (item->text(TREE_TYPE) == "Uint16" || item->text(TREE_TYPE) == "int16") {
@@ -233,7 +233,7 @@ bool EPROM::readSingle(QTreeWidgetItem* readTreeItem, QTreeWidgetItem* uiTreeIte
         bool ok;
         Uint16 ofst = readTreeItem->text(TREE_ADDRESS).toInt(&ok, 16) + m_baseAdd;
         Uint16 num = 0;
-        if (readTreeItem->text(TREE_TYPE) == "Uint8" || readTreeItem->text(TREE_TYPE) == "int8") {
+        if (readTreeItem->text(TREE_TYPE) == "Uint8" || readTreeItem->text(TREE_TYPE) == "int8" || readTreeItem->text(TREE_TYPE) == "Case") {
             num = 1;
         }
         else if (readTreeItem->text(TREE_TYPE) == "Uint16" || readTreeItem->text(TREE_TYPE) == "int16") {

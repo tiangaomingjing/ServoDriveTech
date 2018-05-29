@@ -1062,7 +1062,7 @@ void PlotUnitGraph129::gtPlotInit()
   ui->plot->yAxis2->setVisible(false);
   ui->plot->yAxis2->setTickLabels(false);
   ui->plot->setBackground(QBrush(QColor(240,240,240)));
-  ui->plot->setOpenGl(true);
+  ui->plot->setOpenGl(false);
 }
 
 void PlotUnitGraph129::ctlPanelInit()

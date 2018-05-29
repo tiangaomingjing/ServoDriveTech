@@ -105,6 +105,7 @@ private slots:
   void onActnProduceClicked();
   void onActnAdvUserClicked();
   void onActnCompareClicked();
+  void onActnUpdateClicked();
   void onStartMsgReceived();
   void onCloseMsgReceived();
   void onDownloadMsgReceived(int index, const QString &filePath);

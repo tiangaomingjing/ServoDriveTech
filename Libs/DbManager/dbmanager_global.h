@@ -1,0 +1,12 @@
+#ifndef DBMANAGER_GLOBAL_H
+#define DBMANAGER_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(DBMANAGER_LIBRARY)
+#  define DBMANAGERSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define DBMANAGERSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // DBMANAGER_GLOBAL_H

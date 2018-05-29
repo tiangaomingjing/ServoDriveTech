@@ -27,15 +27,20 @@ private:
     bool downloadRpdFile();
     bool downloadXmlFiles();
     static void processCallBack(void *argv, short *value);
+protected:
+    void closeEvent(QCloseEvent *event);
 private:
     Ui::FirmwareFlashDialog *ui;
     QString m_filePath;
     QString m_decompressPath;
     QString m_desPath;
-    QList<SevDevice*> *m_devList;
+    QList<SevDevice*> m_devList;
+    QString m_dspVersion;
+    QString m_fpgVersion;
 private slots:
     void onActnToolbtnClicked();
     void onActnFlashBtnClicked();
+    void onActnComboBoxIndexChanged(int index);
 };
 
 #endif // FIRMWAREFLASHDIALOG_H

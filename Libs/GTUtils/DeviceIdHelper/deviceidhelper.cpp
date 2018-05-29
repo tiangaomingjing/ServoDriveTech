@@ -57,6 +57,7 @@ quint32 DeviceIdHelper::readPwrId(bool &isOk)
 //  quint32 id=21000509;//test for SD42
 //  m_com->readEEPROM();//从硬件读取ID
   //m_pwrId=21000541;//test for SD61
+        isOk = true;
     QString boardPath = GTUtils::databasePath() + "Board/PB/";
     QString indexPath = boardPath + INDEX_POWER_FILENAME;
     QTreeWidget* indexTree = QtTreeManager::createTreeWidgetFromXmlFile(indexPath);
@@ -71,6 +72,7 @@ quint32 DeviceIdHelper::readPwrId(bool &isOk)
   uint8_t cs = 0;
   errcode_t err=0;
   err=m_com->readEEPROM(ofst, value, num, cs);
+  qDebug()<<"err"<<err;
 
   if(err!=0)
   {
@@ -124,13 +126,13 @@ quint32 DeviceIdHelper::readPwrId(bool &isOk)
 //  }
 //  delete idMapTree;
 
-
   return m_pwrId;
 }
 
 quint32 DeviceIdHelper::readCtrId(bool &isOk)
 {
   //需要从硬件读取
+    isOk = true;
     QString boardPath = GTUtils::databasePath() + "Board/CB/";
     QString indexPath = boardPath + INDEX_CONTROL_FILENAME;
     QTreeWidget* indexTree = QtTreeManager::createTreeWidgetFromXmlFile(indexPath);
@@ -171,6 +173,7 @@ quint32 DeviceIdHelper::readCtrId(bool &isOk)
 quint32 DeviceIdHelper::readFpgaId(bool &isOk)
 {
   //需要从硬件读取
+    isOk = true;
   uint8_t fpgaInx = 0;
   uint16_t version;
   errcode_t err=0;
@@ -201,6 +204,7 @@ QString DeviceIdHelper::readVersion(bool &isOk)
     return "V0";
 #endif
   //需要从硬件读取
+    isOk = true;
     uint8_t dspInx = 0;
     uint16_t version;
     errcode_t err=0;

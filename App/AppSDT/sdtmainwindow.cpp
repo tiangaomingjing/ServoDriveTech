@@ -45,6 +45,8 @@
 #include "downloaddialog.h"
 #include "uploaddialog.h"
 #include "servofile.h"
+#include "firmwareflashdialog.h"
+#include "comparisondialog.h"
 
 #include <QToolButton>
 #include <QDebug>
@@ -60,6 +62,8 @@
 #define UI_TREE_SHOW_COLUMN 0
 #define OPT_START_INI "opt.ini"
 #define ADVUSR_INI "advusr.ini"
+#define FLASH_NAME "FLASH"
+#define RAM_NAME "RAM"
 
 
 using namespace GT;
@@ -285,8 +289,10 @@ void SDTMainWindow::createConnections()
   connect(m_actnProduce, SIGNAL(triggered()), this, SLOT(onActnProduceClicked()));
   connect(m_actnAdvUser, SIGNAL(triggered()), this, SLOT(onActnAdvUserClicked()));
   connect(m_actnCompare,SIGNAL(triggered(bool)),this,SLOT(onActnCompareClicked()));
+  connect(m_actnUpdateFlash, SIGNAL(triggered()), this, SLOT(onActnUpdateClicked()));
   connect(m_actnDownload, SIGNAL(triggered(bool)), this, SLOT(onActnDownloadClicked()));
   connect(m_actnUpload, SIGNAL(triggered(bool)), this, SLOT(onActnUploadClicked()));
+
 
   OptAutoLoad *optAuto=dynamic_cast<OptAutoLoad *>(OptContainer::instance()->optItem("optautoload"));
   if(optAuto!=NULL)
@@ -301,6 +307,7 @@ void SDTMainWindow::createConnections()
   OptUser *optuser = dynamic_cast<OptUser *>(OptContainer::instance()->optItem("optuser"));
   if (optuser != NULL) {
       connect(optuser, SIGNAL(usrChange(bool)), this, SLOT(onOptUserChanged(bool)));
+      onOptUserChanged(optuser->isAdmin());
   }
 
   OptPath *optpath = dynamic_cast<OptPath *>(OptContainer::instance()->optItem("optpath"));
@@ -677,11 +684,14 @@ void SDTMainWindow::onActnAdvUserClicked()
 
 void SDTMainWindow::onActnCompareClicked()
 {
-  for(int i=0;i<ui->mainStackedWidget->count();i++)
-  {
-    IUiWidget *uiw=dynamic_cast<IUiWidget *>(ui->mainStackedWidget->widget(i));
-    qDebug()<<"class name"<<uiw->objectName();
-  }
+    ComparisonDialog compareDialog;
+    compareDialog.exec();
+}
+
+void SDTMainWindow::onActnUpdateClicked()
+{
+    FirmwareFlashDialog flashDialog(sevList(), 0);
+    flashDialog.exec();
 }
 
 void SDTMainWindow::startListen() {
@@ -1031,8 +1041,32 @@ void SDTMainWindow::onOptUserChanged(bool isAdmin)
 {
     if (isAdmin) {
         m_actnAdvUser->setVisible(true);
+        for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++) {
+            for (int j = 0; j < ui->treeWidget->topLevelItem(i)->childCount(); j++) {
+                QTreeWidgetItem *flashItem = GTUtils::findItemInItem(FLASH_NAME, ui->treeWidget->topLevelItem(i)->child(j), 0);
+                if (flashItem != NULL) {
+                    flashItem->setHidden(false);
+                }
+                QTreeWidgetItem *ramItem = GTUtils::findItemInItem(RAM_NAME, ui->treeWidget->topLevelItem(i)->child(j), 0);
+                if (ramItem != NULL) {
+                    ramItem->setHidden(false);
+                }
+            }
+        }
     } else {
         m_actnAdvUser->setVisible(false);
+        for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++) {
+            for (int j = 0; j < ui->treeWidget->topLevelItem(i)->childCount(); j++) {
+                QTreeWidgetItem *flashItem = GTUtils::findItemInItem(FLASH_NAME, ui->treeWidget->topLevelItem(i)->child(j), 0);
+                if (flashItem != NULL) {
+                    flashItem->setHidden(true);
+                }
+                QTreeWidgetItem *ramItem = GTUtils::findItemInItem(RAM_NAME, ui->treeWidget->topLevelItem(i)->child(j), 0);
+                if (ramItem != NULL) {
+                    ramItem->setHidden(true);
+                }
+            }
+        }
     }
 }
 

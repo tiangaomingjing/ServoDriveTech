@@ -3,6 +3,8 @@
 #include "iadvuser_p.h"
 #include "FolderCompressor.h"
 #include "qttreemanager.h"
+#include "dbmanager.h"
+#include "gtutils.h"
 
 #include <QDir>
 #include <QFileDialog>
@@ -10,7 +12,9 @@
 #include <QFile>
 #include <QTextStream>
 #include <QDate>
+#include <QMessageBox>
 #include <QTreeWidget>
+#include <QDebug>
 
 #define FILENAME_XML_FLASHPRM "FlashPrm_AllAxis.xml"
 #define FILENAME_XML_RAMPRM0 "PrmRAMAxis0.xml"
@@ -61,7 +65,17 @@ bool AdvUserCompress::advUserActive()
     QString hexVersion = ui->lineEdit_advHexVersion->text();
     QString rpdVersion = ui->lineEdit_advRpdVersion->text();
     if (hexVersion.compare("") == 0 || rpdVersion.compare("") == 0) {
+        QMessageBox::information(0, tr("Compress"), tr("Please enter version information"));
         return false;
+    }
+    DBManager *dbManager = new DBManager(GTUtils::databasePath() + "Version/", "root", "");
+    bool ok = dbManager->checkCoupleValid(hexVersion, rpdVersion, 1, 2);
+    delete dbManager;
+    if (!ok) {
+        int ret = QMessageBox::question(0, tr("Compress"), tr("Version do not match. Are you sure to continue?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+        if (ret == 0) {
+            return false;
+        }
     }
     QString xmlPath = d->m_compressPath + "/" + FILENAME_XML_FLASHPRM;
     QTreeWidget *tree = QtTreeManager::createTreeWidgetFromXmlFile(xmlPath);
@@ -69,21 +83,18 @@ bool AdvUserCompress::advUserActive()
         QtTreeManager::writeTreeWidgetToXmlFile(xmlPath, tree);
         delete tree;
     }
-
     xmlPath = d->m_compressPath + "/" + FILENAME_XML_RAMPRM0;
     tree = QtTreeManager::createTreeWidgetFromXmlFile(xmlPath);
     if (tree != NULL) {
         QtTreeManager::writeTreeWidgetToXmlFile(xmlPath, tree);
         delete tree;
     }
-
     xmlPath = d->m_compressPath + "/" + FILENAME_XML_RAMPRM1;
     tree = QtTreeManager::createTreeWidgetFromXmlFile(xmlPath);
     if (tree != NULL) {
         QtTreeManager::writeTreeWidgetToXmlFile(xmlPath, tree);
         delete tree;
     }
-
     QString infoFilePath = d->m_compressPath + "/infoFile.ini";
     QFile file(infoFilePath);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
@@ -100,8 +111,15 @@ bool AdvUserCompress::advUserActive()
     QDir compDir(d->m_compressPath);
     compDir.cdUp();
     QString desStr = compDir.absolutePath() + "/" + desFileName;
-    folderComp->compressFolder(d->m_compressPath, desStr);
+    ok = folderComp->compressFolder(d->m_compressPath, desStr);
+    if (!ok) {
+        QMessageBox::information(0, tr("Compress"), tr("Compressing fails!"));
+        delete folderComp;
+        return false;
+    }
     delete folderComp;
+    QDir infoDir(d->m_compressPath);
+    infoDir.remove("infoFile.ini");
     return true;
 }
 
