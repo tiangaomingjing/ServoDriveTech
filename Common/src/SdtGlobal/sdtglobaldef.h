@@ -75,7 +75,10 @@ typedef enum
   COL_PRMEXT_PARA = 1,
   COL_PRMEXT_INTRODUCTION = 2
 } ColPrmExtension;
-
+typedef enum {
+  ROW_PRMEXT_DEVICE_DSP,
+  ROW_PRMEXT_DEVICE_FPGA
+}RowPrmExtDevice;
 
 typedef enum{
   COL_FLASH_RAM_TREE_NAME,

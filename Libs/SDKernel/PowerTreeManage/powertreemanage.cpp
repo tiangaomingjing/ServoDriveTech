@@ -22,45 +22,45 @@ typedef enum{
   DETINFO_ROW_INX_AXISNUM
 }DetailInfoRowInx;
 
-SamplingDataInfo::SamplingDataInfo()
-{
+//SamplingDataInfo::SamplingDataInfo()
+//{
 
-}
-SamplingDataInfo::~SamplingDataInfo()
-{
+//}
+//SamplingDataInfo::~SamplingDataInfo()
+//{
 
-}
+//}
 
 
-QVector<double> SamplingDataInfo::values() const
-{
-  return m_values;
-}
+//QVector<double> SamplingDataInfo::values() const
+//{
+//  return m_values;
+//}
 
-void SamplingDataInfo::setValues(const QVector<double> &values)
-{
-  m_values = values;
-}
+//void SamplingDataInfo::setValues(const QVector<double> &values)
+//{
+//  m_values = values;
+//}
 
-QVector<quint8> SamplingDataInfo::types() const
-{
-  return m_types;
-}
+//QVector<quint8> SamplingDataInfo::types() const
+//{
+//  return m_types;
+//}
 
-void SamplingDataInfo::setTypes(const QVector<quint8> &types)
-{
-  m_types = types;
-}
+//void SamplingDataInfo::setTypes(const QVector<quint8> &types)
+//{
+//  m_types = types;
+//}
 
-QStringList SamplingDataInfo::mathExp() const
-{
-  return m_mathExp;
-}
+//QStringList SamplingDataInfo::mathExp() const
+//{
+//  return m_mathExp;
+//}
 
-void SamplingDataInfo::setMathExp(const QStringList &mathExp)
-{
-  m_mathExp = mathExp;
-}
+//void SamplingDataInfo::setMathExp(const QStringList &mathExp)
+//{
+//  m_mathExp = mathExp;
+//}
 
 
 PowerTreeManage::PowerTreeManage(DeviceConfig *config, QObject *parent) : QObject(parent)
@@ -197,35 +197,40 @@ bool PowerTreeManage::updatePowerLimitMapList(QList<QMap<QString, PowerBoardLimi
   return true;
 }
 
-SamplingDataInfo PowerTreeManage::samplingDataInfo(bool *isOK)
+SamplingDataList PowerTreeManage::samplingDataList(bool *isOK)
 {
-  SamplingDataInfo samplingInfo;
+  SamplingDataList dataList;
+  dataList.clear();
   *isOK=true;
   if(mp_pwrTarget==NULL)
   {
       *isOK=false;
-      return samplingInfo;
+      return dataList;
   }
-qDebug()<<*isOK;
+
+  qDebug()<<*isOK;
   QTreeWidgetItem *detailItem = detailInfoTreeItem(mp_pwrTarget);
   int axisNum;
   axisNum=detailItem->child(DETINFO_ROW_INX_AXISNUM)->childCount();
-  QVector<quint8> types;
-  QVector<double> values;
+
   for(int i=0;i<axisNum;i++)
   {
+    quint8 type = 1;
+    double value = 5;
+    SamplingData data ;
+
     QTreeWidgetItem *axisItem=detailItem->child(DETINFO_ROW_INX_AXISNUM)->child(i);
     QTreeWidgetItem *typeItem=NULL;
-    typeItem=findItemByName(axisItem,QString(INX_CURRENT_SAMPLING_TYPE_NAME));
-    quint8 type=0;
-    double value=0;
+    typeItem=findUniqueItemByName(axisItem,QString(INX_CURRENT_SAMPLING_TYPE_NAME));
+
     if(typeItem!=NULL)
     {
 //      qDebug()<<typeItem->text(0);
-      type=typeItem->text(GT::COL_BOARDTREE_VALUE).toUInt();
-      if(type==1)//电阻采样
+      type = typeItem->text(GT::COL_BOARDTREE_VALUE).toUInt();
+
+      if(type == 1)//电阻采样
       {
-        QTreeWidgetItem *dataItem=findItemByName(typeItem,QString(INX_CURRENT_SAMPLING_RES_VALUE));
+        QTreeWidgetItem *dataItem=findUniqueItemByName(typeItem,QString(INX_CURRENT_SAMPLING_RES_VALUE));
         if(dataItem!=NULL)
         {
           value=dataItem->text(GT::COL_BOARDTREE_VALUE).toDouble();
@@ -246,12 +251,13 @@ qDebug()<<*isOK;
       QMessageBox::information(0,tr("error"),tr("cannot find Sampling type item"));
       *isOK=false;
     }
-    types.append(type);
-    values.append(value);
+    data.m_type = type;
+    data.m_value = value ;
+
+    dataList.append(data);
+
   }
-  samplingInfo.setTypes(types);
-  samplingInfo.setValues(values);
-  return samplingInfo;
+  return dataList;
 }
 
 void PowerTreeManage::insertLimit(QTreeWidgetItem *item, QMap<QString ,PowerBoardLimit> &limitMap)
@@ -285,7 +291,7 @@ void PowerTreeManage::insertLimitRecursion(QTreeWidgetItem *item, QMap<QString, 
   }
 }
 
-QTreeWidgetItem *PowerTreeManage::findItemByName(QTreeWidgetItem *item,QString &targetName)
+QTreeWidgetItem *PowerTreeManage::findUniqueItemByName(QTreeWidgetItem *item,QString &targetName)
 {
 
   QTreeWidgetItem *targetItem=NULL;
@@ -296,12 +302,12 @@ QTreeWidgetItem *PowerTreeManage::findItemByName(QTreeWidgetItem *item,QString &
   }
   else
   {
-    targetItem=findItemByNameRecursion(item,targetName);
+    targetItem=findUniqueItemByNameRecursion(item,targetName);
   }
   return targetItem;
 }
 
-QTreeWidgetItem *PowerTreeManage::findItemByNameRecursion(QTreeWidgetItem *item,QString &targetName)
+QTreeWidgetItem *PowerTreeManage::findUniqueItemByNameRecursion(QTreeWidgetItem *item,QString &targetName)
 {
   static int level;
   QTreeWidgetItem *child;
@@ -318,7 +324,7 @@ QTreeWidgetItem *PowerTreeManage::findItemByNameRecursion(QTreeWidgetItem *item,
       target=child;
       break;
     }
-    target=findItemByNameRecursion(child,targetName);
+    target=findUniqueItemByNameRecursion(child,targetName);
     if(target!=NULL)
       break;
   }

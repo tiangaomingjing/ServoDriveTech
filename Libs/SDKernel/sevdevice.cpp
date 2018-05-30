@@ -10,6 +10,7 @@
 #include "verattribute.h"
 #include "Option"
 #include "sevsearchphasehelper.h"
+#include "imaxprmassociationhelper.h"
 
 #include <QTreeWidget>
 #include <QStringList>
@@ -35,7 +36,8 @@ SevDevicePrivate::SevDevicePrivate(SevDevice *sev, QObject *parent):QObject(pare
   m_verAttribute(NULL),
   m_devConfig(new DeviceConfig),
   m_connected(false),
-  m_barCount(0)
+  m_barCount(0),
+  m_imaxPrmAssociationHelper(NULL)
 {
 
 }
@@ -51,6 +53,7 @@ SevDevicePrivate::~SevDevicePrivate()
   GT::deletePtrObject(m_devConfig);
   GT::deletePtrObject(m_verAttribute);
   GT::deepClearList(m_searchPhaseHelperList);
+  delete m_imaxPrmAssociationHelper;
 }
 QTreeWidget *SevDevicePrivate::configTree()
 {
@@ -152,6 +155,8 @@ bool SevDevicePrivate::init(const DeviceConfig *dConfig)
     connect(ipaHelper,SIGNAL(ipaSearchPhaseInfo(int,QString)),q_ptr,SIGNAL(ipaSearchPhaseInfo(int,QString)));
     connect(ipaHelper,SIGNAL(ipaWarningMsg(QString)),q_ptr,SIGNAL(ipaWarningMsg(QString)));
   }
+
+  m_imaxPrmAssociationHelper = new ImaxPrmAssociationHelper(q_ptr);
 
   return true;
 }
@@ -732,6 +737,17 @@ bool SevDevice::searchPhaseStart(quint16 axisInx, int value)
 {
   Q_D(SevDevice);
   return d->m_searchPhaseHelperList.at(axisInx)->searchPhaseStart(value);
+}
+
+bool SevDevice::imaxPrmAssociationActive(quint16 axisInx)
+{
+  //gain =shunt (64424512)*dspversionfactor (2)/电阻值rValue
+  //k = gain / imaxValue ;
+  //shunt dspversionfactor 的数据来自PrmFuncExtention.xml Motor  每个版本中dspversionfactor可能不一样
+  //rValue 的数据来自刘超文功率板的PB.xml采样电阻值
+  //最后计算的ka kb kc 要写到PrmFuncExtention.xml记录中 ia ib ic
+  Q_D(SevDevice);
+  return d->m_imaxPrmAssociationHelper->active(axisInx);
 }
 
 bool SevDevice::onReadPageFlash(int axis, QTreeWidget *pageTree)

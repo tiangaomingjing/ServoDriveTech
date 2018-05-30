@@ -13,7 +13,7 @@ public:
   virtual ~IPwrBoard();
 
   virtual QList<QMap<QString, PowerBoardLimit> > *pwrLimitMapList()=0;
-  virtual SamplingDataInfo pwrSamplingDataInfo()=0;
+  virtual SamplingData pwrSamplingDataAt(quint16 axisInx)=0;
 
 signals:
 
@@ -22,7 +22,7 @@ public slots:
 protected:
   SevDevicePrivate *q_ptr;
   QList<QMap<QString ,PowerBoardLimit>>m_powerLimitMapList;
-  SamplingDataInfo m_samplingDataInfo;
+  SamplingDataList m_samplingDataList;
 };
 
 #endif // IPWRBOARD_H

@@ -1196,8 +1196,8 @@ void SDTMainWindow::onIpaWarningMsg(const QString &msg)
 void SDTMainWindow::onIpaDone()
 {
   mp_progressBar->setVisible(false);
-  ui->statusBar->setToolTip(tr("search phase complete"));
-  m_statusBar->setMsg(tr("search phase complete"),SdtStatusBar::MSG_TYPE_NORMAL);
+  ui->statusBar->setToolTip(tr("search phase complete !"));
+  m_statusBar->setMsg(tr("search phase complete !"),SdtStatusBar::MSG_TYPE_NORMAL);
   GTUtils::delayms(4000);
   m_statusBar->setMsg("",SdtStatusBar::MSG_TYPE_NORMAL);
 }

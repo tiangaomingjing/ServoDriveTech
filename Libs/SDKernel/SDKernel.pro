@@ -57,7 +57,8 @@ SOURCES += \
     ../../Common/src/Kernel/deviceconfig.cpp \
     verattribute.cpp \
     generalcmd.cpp \
-    sevsearchphasehelper.cpp
+    sevsearchphasehelper.cpp \
+    imaxprmassociationhelper.cpp
 
 HEADERS += \
     sdkernel_global.h \
@@ -75,7 +76,8 @@ HEADERS += \
     ../../Common/src/Kernel/deviceconfig.h \
     verattribute.h \
     generalcmd.h \
-    sevsearchphasehelper.h
+    sevsearchphasehelper.h \
+    imaxprmassociationhelper.h
 
 unix {
     target.path = /usr/lib

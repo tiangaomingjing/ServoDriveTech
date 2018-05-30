@@ -1,4 +1,4 @@
-#include "firmwareflashdialog.h"
+﻿#include "firmwareflashdialog.h"
 #include "ui_firmwareflashdialog.h"
 #include "FolderCompressor.h"
 #include "sevdevice.h"
@@ -20,7 +20,7 @@
 #define FILENAME_XML_RAMPRM1 "PrmRAMAxis1.xml"
 #define FPGA_NAME "fpga"
 #define DSP_NAME "dsp"
-#define FILENAME_XML_FUNCEXTENSION "PrmFuncExtension.xml"
+#define FILENAME_XML_FUNCEXTENSION "PrmFirmwareUpdate.xml"
 
 FirmwareFlashDialog::FirmwareFlashDialog(QList<SevDevice *> &devList, QWidget *parent) :
     QDialog(parent),
@@ -282,7 +282,7 @@ bool FirmwareFlashDialog::downloadHexFile()
     QStringList hexList = getFilesFromExt("hex", m_desPath, 1);
     QString hexPath = hexList.at(0);
     SevDevice* dev = m_devList.at(ui->comboBox_firm->currentIndex());
-    bool co = dev->isConnecting();
+
     if (!dev->isConnecting()) {
         QMessageBox::information(0, tr("Warning"), tr("please open the com first !"));
         return false;

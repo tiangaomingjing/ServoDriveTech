@@ -72,6 +72,7 @@ bool UiMotor::writePageFLASH()
     d->m_graphMotor->syncTreeDataToUiFace();
     //还要加入关联参数处理
     //-to add
+    d->m_device->imaxPrmAssociationActive(d->m_index.axisInx);
   }
   return true;
 }

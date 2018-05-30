@@ -11,7 +11,8 @@ public:
   explicit SevPwrBoard(SevDevicePrivate *sev,QObject *parent = 0);
   ~ SevPwrBoard();
   QList<QMap<QString, PowerBoardLimit> > *pwrLimitMapList()Q_DECL_OVERRIDE;
-  SamplingDataInfo pwrSamplingDataInfo()Q_DECL_OVERRIDE;
+  SamplingData pwrSamplingDataAt(quint16 axisInx) Q_DECL_OVERRIDE ;
+
 private:
 
 };
