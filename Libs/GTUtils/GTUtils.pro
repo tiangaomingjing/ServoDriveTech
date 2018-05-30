@@ -44,7 +44,8 @@ SOURCES += \
     SelfBuilder/selfbuilder.cpp \
     BitItemHelper/bititemhelper.cpp \
     CmdManager/cmdmanager.cpp \
-    ../../Common/src/Kernel/sdterror.cpp
+    ../../Common/src/Kernel/sdterror.cpp \
+    FolderCompressor/FolderCompressor.cpp
 
 HEADERS +=\
     QtTreeManager/qttreemanager.h \
@@ -54,7 +55,8 @@ HEADERS +=\
     SelfBuilder/selfbuilder.h \
     BitItemHelper/bititemhelper.h \
     CmdManager/cmdmanager.h \
-    ../../Common/src/Kernel/sdterror.h
+    ../../Common/src/Kernel/sdterror.h \
+    FolderCompressor/FolderCompressor.h
 
 unix {
     target.path = /usr/lib

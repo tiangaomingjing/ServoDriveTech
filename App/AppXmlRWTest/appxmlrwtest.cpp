@@ -27,32 +27,6 @@ AppXmlRWTest::AppXmlRWTest(QWidget *parent) :
     connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(onActionReadClicked()));
     int16 com_type = GTSD_COM_TYPE_RNNET;
     short ret0 = GTSD_CMD_Open(updateProgessBar, (void*)&aa, com_type);
-    short a = 752;
-
-    QList<int> list1;
-    list1<<0<<1<<2<<3<<4<<5<<6<<7;
-    QList<int> list2;
-    list2<<1<<1<<1<<1<<1<<1<<1<<9;
-    quint32 temp = 0;
-    for (int i = 0; i < list1.length(); i++) {
-        int start = list1.at(i);
-        int length = list2.at(i);
-        quint32 opera = getOperationValue(start, length);
-        temp = a & opera;
-        temp >>= start;
-        qDebug()<<i<<QString::number(temp);
-    }
-    QList<int> list3;
-    list3<<0<<0<<0<<0<<1<<1<<1<<5;
-    quint32 result = 0;
-    for (int i = 0; i < list3.length(); i++) {
-        int start = list1.at(i);
-        int length = list2.at(i);
-        quint32 opera = getOperationValue(start, length);
-        //result = result + ((~opera) & list3.at(i) | (list3.at(i) << start));
-        result = result + ((list3.at(i) << start) & opera);
-    }
-    qDebug()<<"result"<<result;
 }
 
 quint32 AppXmlRWTest::getOperationValue(int start, int length)
@@ -87,8 +61,8 @@ void AppXmlRWTest::onActionToolButtonClicked()
     openFile();
     ui->lineEdit->setText(m_fileInfo.fileName());
     m_path1 = m_fileInfo.filePath();
-    //m_path11 = m_fileInfo.absolutePath() + "/new/" + m_fileInfo.fileName();
-    m_path11 = m_path1;
+    m_path11 = m_fileInfo.absolutePath() + "/new/" + m_fileInfo.fileName();
+    //m_path11 = m_path1;
 }
 
 void AppXmlRWTest::onActionToolButtonClicked_2()
@@ -96,8 +70,8 @@ void AppXmlRWTest::onActionToolButtonClicked_2()
     openFile();
     ui->lineEdit_2->setText(m_fileInfo.fileName());
     m_path2 = m_fileInfo.filePath();
-    //m_path22 = m_fileInfo.absolutePath() + "/new/" + m_fileInfo.fileName();
-    m_path22 = m_path2;
+    m_path22 = m_fileInfo.absolutePath() + "/new/" + m_fileInfo.fileName();
+    //m_path22 = m_path2;
 }
 
 void AppXmlRWTest::onActionToolButtonClicked_3()
@@ -105,8 +79,8 @@ void AppXmlRWTest::onActionToolButtonClicked_3()
     openFile();
     ui->lineEdit_3->setText(m_fileInfo.fileName());
     m_path3 = m_fileInfo.filePath();
-    m_path33 = m_path3;
-    //m_path33 = m_fileInfo.absolutePath() + "/new/" + m_fileInfo.fileName();
+    //m_path33 = m_path3;
+    m_path33 = m_fileInfo.absolutePath() + "/new/" + m_fileInfo.fileName();
 }
 
 void AppXmlRWTest::onActionWriteClicked()
@@ -178,6 +152,9 @@ void AppXmlRWTest::onActionReadClicked()
     memset(p, '\0', size + 1);
     memcpy_s(p, size, m_path33.toStdString().c_str(), size);
     pFileNameList[2] = p;
+    qDebug()<<"1"<<pFileNameList[0];
+    qDebug()<<"2"<<pFileNameList[1];
+    qDebug()<<"3"<<pFileNameList[2];
     pFileTypeList[0] = 0;
     pFileTypeList[1] = 0;
     pFileTypeList[2] = 0;

@@ -88,10 +88,40 @@ void OptPath::uiInit()
     qDebug()<< "path ui Init";
 }
 
+QString OptPath::servo2FilePath()
+{
+    Q_D(OptPath);
+    return d->m_pathList.at(0);
+}
+
+QString OptPath::file2ServoPath()
+{
+    Q_D(OptPath);
+    return d->m_pathList.at(1);
+}
+
+QString OptPath::flashFilePath()
+{
+    Q_D(OptPath);
+    return d->m_pathList.at(2);
+}
+
+QString OptPath::oldFilePath()
+{
+    Q_D(OptPath);
+    return d->m_pathList.at(3);
+}
+
+QString OptPath::newFilePath()
+{
+    Q_D(OptPath);
+    return d->m_pathList.at(4);
+}
+
 bool OptPath::optActive()
 {
     Q_D(OptPath);
-  qDebug()<<"opt plot execute active ";
+  qDebug()<<"opt path execute active ";
   for (int i = 0; i < d->m_pathList.count(); i++) {
       QWidget *lineWidget = ui->verticalLayout->itemAt(i)->layout()->itemAt(1)->layout()->itemAt(0)->widget();
       QLineEdit *lineEdit = static_cast<QLineEdit*>(lineWidget);

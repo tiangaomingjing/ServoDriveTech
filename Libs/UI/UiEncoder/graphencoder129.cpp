@@ -284,8 +284,8 @@ void GraphEncoder129::onBtnSavePhaseClicked()
   Q_D(GraphEncoder129);
   d->m_treeWidget->topLevelItem(PRM_POS_OFFSET_INX)->setText(GT::COL_PAGE_TREE_VALUE,QString::number(d->m_posOffset));
   d->m_treeWidget->topLevelItem(PRM_SEQ_DIR_INX)->setText(GT::COL_PAGE_TREE_VALUE,QString::number(d->m_phaseDir));
-  d->m_dev->writeItemFlash(d->m_uiWidget->uiIndexs().axisInx,d->m_treeWidget->topLevelItem(PRM_POS_OFFSET_INX));
-  d->m_dev->writeItemFlash(d->m_uiWidget->uiIndexs().axisInx,d->m_treeWidget->topLevelItem(PRM_SEQ_DIR_INX));
+  d->m_dev->writePageItemFlash(d->m_uiWidget->uiIndexs().axisInx,d->m_treeWidget->topLevelItem(PRM_POS_OFFSET_INX));
+  d->m_dev->writePageItemFlash(d->m_uiWidget->uiIndexs().axisInx,d->m_treeWidget->topLevelItem(PRM_SEQ_DIR_INX));
 }
 void GraphEncoder129::onEncConfigListWidgetRowChanged(int curRow)
 {

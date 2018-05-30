@@ -79,42 +79,14 @@ QListView::item:selected:!active {
 	background: gray;
 }
 
-QTreeView,QListView {
-	show-decoration-selected: 1;
-	border:none; 
-  }
-QTreeView::item,QListView::item {
-      border: 1px solid #d9d9d9;
-      border-left-color: transparent;
-      border-top-color: transparent;
-	  min-height:20px;
-  }
-QTreeView::item:hover,QListView::item:hover {
-      background: #D0D0D0;
-      border: 1px solid #B0B0B0;
-  }
-QTreeView::item:selected,QListView::item:selected {
-	  background: #A0A0A0;
-      border: 1px solid #A0A0A0;
-  }
-QTreeView::item:selected:active,QListView::item:selected:active{
-      background: #A0A0A0;
-  }
-QTreeView::item:selected:!active,QListView::item:selected:!active {
-      background: #A0A0A0;
-  }
-
 QCheckBox{
     margin:0px 0px 0px 0px;
 }
 QCheckBox::indicator::unchecked{
     image:url(../custom/option/style/black/icon/checkbox_unchecked.png);
 }
-/*QCheckBox::indicator:unchecked:hover{
-    image:url(../custom/option/style/black/icon/checkbox_unchecked_hover.png);
-}*/
 QCheckBox::indicator:unchecked:hover{
-    image:url(../custom/option/style/black/icon/checkbox_checked_hover.png);
+    image:url(../custom/option/style/black/icon/checkbox_unchecked_hover.png);
 }
 QCheckBox::indicator::checked {
     image:url(../custom/option/style/black/icon/checkbox_checked.png);
@@ -123,46 +95,6 @@ QCheckBox::indicator::checked {
     image:url(../custom/option/style/black/icon/checkbox_checked_hover.png);
 }*/
 
-/*QPushButton#btn_statusClearAlarm{
-	min-height:50px;
-	min-width:100px;
-	border:2px solid #BBB9B9;
-	background-color:transparent;
-	border-radius:10px;
-}
-QPushButton#btn_statusClearAlarm:hover{
-	background-color:gray;
-	font-weight:bold;
-}
-QPushButton#btn_statusClearAlarm:hover:pressed{
-	background-color:#404040;
-	font-weight:normal;
-}*/
-
-QPushButton{
-border:1px solid #D0D0D0;
-border-radius:5px;
-background-color:transparent;
-min-height:30px;
-min-width:80px;
-color:black;
-font-weight:normal;
-}
-QPushButton:hover:!pressed{
-border:1px solid gray;
-background-color:#D0D0D0;
-font-weight:bold;
-}
-QPushButton:hover:pressed{
-border:none;
-background-color:gray;
-}
-QPushButton:checked{
-border:1px solid black;
-background-color:gray;
-color:white;
-}
-
 /*==========================main treeWidget 导航栏=====================*/
 QDockWidget  QTreeView {
 	border:1px solid lightgray;
@@ -170,7 +102,39 @@ QDockWidget  QTreeView {
 	border-top-color:transparent;
 }
 
-
+﻿QPushButton{
+  border-style: none;
+  border: 0px;
+  color: #F0F0F0;
+  padding: 5px;
+  margin:1px;
+  min-height: 24px;
+  min-width: 40px;
+  border-radius:5px;
+  background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #4D4D4D, stop:1 #292929);
+}
+QPushButton:hover:!pressed{
+  border-style: none;
+  border: 0px;
+  color: #F0F0F0;
+  padding: 5px;
+  margin:1px;
+  min-height: 24px;
+  min-width: 40px;
+  border-radius:5px;
+  background: lightblue;
+}
+QPushButton:hover:pressed{
+  border-style: none;
+  border: 0px;
+  color: #F0F0F0;
+  padding: 5px;
+  margin:1px;
+  min-height: 30px;
+  min-width: 40px;
+  border-radius:5px;
+  background: gray;
+}
 
 QWidget#dockWidgetContents_2{
 background-color: rgb(161, 161, 161);
@@ -696,7 +660,6 @@ QPushButton#btn_statusClearAlarm{
 	border:2px solid #BBB9B9;
 	background-color:transparent;
 	border-radius:10px;
-	color:black;
 }
 QPushButton#btn_statusClearAlarm:hover{
 	background-color:gray;
@@ -854,20 +817,10 @@ QToolButton#tbtn_plot_ctlsrc_pc,QToolButton#tbtn_plot_ctlsrc_glink2{
 	color:black;
 }
 
+
 QTableWidget{
 	border:none;
 	background-color:#E8E8E8;
 }
 
-TabMotion QProgressBar::chunk {
-	background-color: gray;
-	height: 2px;
-	margin: 0px;
-	width:5px;
-}
-TabMotion QProgressBar {
-	border: 1px solid gray;
-	border-radius: 0px;
-	text-align: center;
-}
 	
