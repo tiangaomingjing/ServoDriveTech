@@ -63,13 +63,13 @@ void SamplingDataInfo::setMathExp(const QStringList &mathExp)
 }
 
 
-PowerTreeManage::PowerTreeManage(DeviceConfig *sev, QObject *parent) : QObject(parent)
+PowerTreeManage::PowerTreeManage(DeviceConfig *config, QObject *parent) : QObject(parent)
 //  m_powerTree(powerTree),
 //  mp_pwrTarget(NULL)
 {
     m_powerTree = NULL;
     mp_pwrTarget = NULL;
-    m_sevConfig = sev;
+    m_sevConfig = config;
     QString idStr = QString::number(m_sevConfig->m_pwrId, 10);
     qDebug()<<idStr;
     QString path = GTUtils::databasePath() + "Board/PB/";

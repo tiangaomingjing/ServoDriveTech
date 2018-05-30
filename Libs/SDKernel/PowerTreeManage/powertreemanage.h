@@ -45,7 +45,7 @@ class PowerTreeManage : public QObject
 public:
 
   //explicit PowerTreeManage(QTreeWidget *powerTree,QObject *parent = 0);
-  explicit PowerTreeManage(DeviceConfig *dev, QObject *parent = 0);
+  explicit PowerTreeManage(DeviceConfig *config, QObject *parent = 0);
   ~PowerTreeManage();
   bool updatePowerLimitMapList(QList<QMap<QString ,PowerBoardLimit>>&powerLimitMapList);
   SamplingDataInfo samplingDataInfo(bool *isOK);

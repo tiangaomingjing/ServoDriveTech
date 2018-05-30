@@ -61,30 +61,30 @@
                             </property>
                             <item>
                                 <property name="text">
-                                    <string>SD6x</string>
+                                    <string>SD4x</string>
                                 </property>
                                 <property name="text">
-                                    <string>6</string>
+                                    <string>4</string>
                                 </property>
                                 <item>
                                     <property name="text">
-                                        <string>SD61_PLUS</string>
+                                        <string>SD42</string>
                                     </property>
                                     <property name="text">
-                                        <string>6</string>
+                                        <string>4</string>
                                     </property>
                                     <property name="text">
-                                        <string>21000541</string>
+                                        <string>21000509</string>
                                     </property>
                                     <item>
                                         <property name="text">
-                                            <string>V130</string>
+                                            <string>V129</string>
                                         </property>
                                         <property name="text">
                                             <string>NULL</string>
                                         </property>
                                         <property name="text">
-                                            <string>21000543</string>
+                                            <string>0</string>
                                         </property>
                                     </item>
                                 </item>
