@@ -13,6 +13,11 @@ struct PowerBoardLimit{
   double max;
   double min;
 };
+struct SamplingData{
+  quint8 m_type;
+  double m_value;
+};
+
 class SamplingDataInfo{
 public:
   SamplingDataInfo();
@@ -30,6 +35,7 @@ public:
 private:
   QVector<quint8> m_types;//储存每一个轴对应的采样类型
   QVector<double>m_values;//储存每一个轴对应类型下的采样值
+  QList<SamplingData> m_data;
   QStringList m_mathExp;
 };
 
