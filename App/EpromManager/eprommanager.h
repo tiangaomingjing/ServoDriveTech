@@ -60,7 +60,7 @@ private:
     QString m_typeName;
     QString m_modeName;
     TcpConnect *m_tcpClient;
-    bool m_tcpSuccess;
+    bool m_tcpSuccess;    
 
 private slots:
     void onWriteClicked();

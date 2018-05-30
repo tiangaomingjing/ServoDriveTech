@@ -3,9 +3,12 @@ COMMON_PATH=$${PWD}/../Common
 
 INCLUDEPATH+=$${LIBS_PATH}/Com/Communication\
             $${LIBS_PATH}/GTUtils\
+            $${LIBS_PATH}/DbManager\
             $${LIBS_PATH}/GTUtils/QtTreeManager\
+            $${LIBS_PATH}/GTUtils/FolderCompressor\
             $${LIBS_PATH}/GTUtils/DeviceIdHelper\
             $${LIBS_PATH}/GTUtils/SelfBuilder\
+            $${LIBS_PATH}/GTUtils/CmdManager\
             $${LIBS_PATH}/SDKernel\
             $${LIBS_PATH}/AdvUser\
             $${LIBS_PATH}/UI\
@@ -26,6 +29,7 @@ CONFIG(debug, debug|release){
     LIBPATH=$${APPTEST_OUT_PATH}
     LIBS +=-lCommunicationd\
           -lGTUtilsd\
+          -lDbManagerd\
           -lIUiWidgetd\
           -lUiBraked\
           -lUiCurrentd\
@@ -50,6 +54,7 @@ CONFIG(debug, debug|release){
 #    LIBS +=$${APPTEST_OUT_PATH}\Communication.lib\
 #           $${APPTEST_OUT_PATH}\GTUtils.lib
     LIBS +=-lCommunication\
+          -lDbManager\
           -lGTUtils\
           -lIUiWidget\
           -lUiBrake\

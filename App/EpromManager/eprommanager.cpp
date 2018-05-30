@@ -18,6 +18,7 @@ EpromManager::EpromManager(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->progressBar->hide();
+    ui->widget_Check->hide();
     m_tcpClient = new TcpConnect();
     connect(m_tcpClient, SIGNAL(receiveConfig(QStringList)), this, SLOT(receiveConfig(QStringList)));
     m_tcpClient->connectToServer();
@@ -418,13 +419,14 @@ void EpromManager::setComConnectStatus(bool isConnected)
 
 /****************************** flash *************************************/
 void EpromManager::selectHex() {
-    QString path = QFileDialog::getOpenFileName(this, tr("Open"), m_filePath, tr("Hex Files( *.hex)"));
+    QString path = QFileDialog::getOpenFileName(this, tr("Open"), m_filePath, tr("Sdt Files( *.sdt)"));
     if(path.isNull())
         return;
     QFileInfo fileInfo;
     fileInfo.setFile(path);
     m_filePath = fileInfo.filePath() + "/";
     ui->hexLine->setText(fileInfo.fileName());
+    ui->widget_Check->setVisible(true);
     m_hexPath = path;
     if (!m_hexPath.isNull() && !m_xmlPath.isNull()) {
         ui->flashButton->setEnabled(true);
@@ -457,7 +459,7 @@ void EpromManager::onActionFlashClicked() {
         ui->progressBar->setVisible(true);
         ui->warnLabel->setEnabled(true);
         ui->progressBar->setValue(2);
-        flashManager->flash(getComType(), m_hexPath, m_xmlPath, m_dspNum, ui->progressBar);
+        flashManager->flash(getComType(), m_hexPath, m_xmlPath, m_dspNum, ui->checkBox_Hex->isChecked(), ui->checkBox_Rpd->isChecked(), ui->checkBox_Xml->isChecked(), ui->progressBar);
         ui->progressBar->setVisible(false);
         delete flashManager;
     } else {
@@ -495,7 +497,6 @@ void EpromManager::scrollTree_2(QTreeWidgetItem *item) {
 
 void EpromManager::closeEvent(QCloseEvent *event)
 {
-    //m_tcpClient = new TcpConnect();
     m_tcpClient->connectToServer();
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
@@ -529,5 +530,4 @@ void EpromManager::receiveConfig(const QStringList &list) {
     ui->comLabel->setText(m_comText);
     this->setWindowTitle(this->windowTitle() + "-" + m_modeName);
     m_tcpClient->stopConnection();
-    //delete m_tcpClient;
 }

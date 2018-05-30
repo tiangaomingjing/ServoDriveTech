@@ -37,7 +37,8 @@ CONFIG(debug, debug|release){
            $${PLOT_OUT_PATH}/GTUtilsd.lib\
            $${PLOT_OUT_PATH}/Optiond.lib\
            $${PLOT_OUT_PATH}/SDKerneld.lib\
-           $${PLOT_OUT_PATH}/IPlotUnitd.lib
+           $${PLOT_OUT_PATH}/IPlotUnitd.lib\
+           $${PLOT_OUT_PATH}/MotionVelocityd.lib
 
     TARGET = PlotUnitGraphd
 } else{
@@ -47,7 +48,8 @@ CONFIG(debug, debug|release){
            $${PLOT_OUT_PATH}/GTUtils.lib\
            $${PLOT_OUT_PATH}/Option.lib\
            $${PLOT_OUT_PATH}/SDKernel.lib\
-           $${PLOT_OUT_PATH}/IPlotUnit.lib
+           $${PLOT_OUT_PATH}/IPlotUnit.lib\
+           $${PLOT_OUT_PATH}/MotionVelocity.lib
 
     TARGET = PlotUnitGraph
 }

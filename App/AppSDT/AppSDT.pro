@@ -14,7 +14,12 @@ INCLUDEPATH+= $${PWD}/DialogOption\
               $${PWD}/StatusMonitor\
               $${PWD}/CombinedWindow\
               $${PWD}/DeviceInfoDialog\
-              $${PWD}/DialogAdvUsr
+              $${PWD}/DialogAdvUsr\
+              $${PWD}/DownloadDialog\
+              $${PWD}/UploadDialog\
+              $${PWD}/ServoFile\
+              $${PWD}/FirmwareFlashDialog\
+              $${PWD}/ComparisonDialog\
 
 QT       += core gui qml sql network
 
@@ -56,7 +61,13 @@ SOURCES += main.cpp\
     CombinedWindow/combinedwindow.cpp\
     DeviceInfoDialog/deviceinfodialog.cpp \
     DialogAdvUsr/dialogadvusr.cpp \
-    sdttreewidgetnav.cpp
+    DownloadDialog/downloaddialog.cpp \
+    ServoFile/servofile.cpp \
+    UploadDialog/uploaddialog.cpp \
+    FirmwareFlashDialog/firmwareflashdialog.cpp\
+    sdttreewidgetnav.cpp \
+    ComparisonDialog/comparisondialog.cpp \
+    ComparisonDialog/updatedtreewidget.cpp
 
 HEADERS  += sdtmainwindow.h \
     appiconname.h \
@@ -89,7 +100,13 @@ HEADERS  += sdtmainwindow.h \
     CombinedWindow/combinedwindow.h\
     DeviceInfoDialog/deviceinfodialog.h \
     DialogAdvUsr/dialogadvusr.h \
-    sdttreewidgetnav.h
+    DownloadDialog/downloaddialog.h \
+    ServoFile/servofile.h \
+    UploadDialog/uploaddialog.h \
+    FirmwareFlashDialog/firmwareflashdialog.h\
+    sdttreewidgetnav.h \
+    ComparisonDialog/comparisondialog.h \
+    ComparisonDialog/updatedtreewidget.h
 
 FORMS    += sdtmainwindow.ui \
     DialogOption/dialogoption.ui \
@@ -98,7 +115,11 @@ FORMS    += sdtmainwindow.ui \
     ConfigDialog/configdialog.ui \
     CombinedWindow/combinedwindow.ui\
     DeviceInfoDialog/deviceinfodialog.ui \
-    DialogAdvUsr/dialogadvusr.ui
+    DialogAdvUsr/dialogadvusr.ui \
+    DownloadDialog/downloaddialog.ui \
+    UploadDialog/uploaddialog.ui \
+    FirmwareFlashDialog/firmwareflashdialog.ui \
+    ComparisonDialog/comparisondialog.ui
 
 TRANSLATIONS    += ch_main.ts en_main.ts
 
