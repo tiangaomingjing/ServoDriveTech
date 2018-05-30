@@ -3,6 +3,10 @@
 #include "qttreemanager.h"
 #include "gtutils.h"
 #include "sdtglobaldef.h"
+#include "advusercheck.h"
+#include "optuser.h"
+#include "optcontainer.h"
+#include "advusercontainer.h"
 
 #include <QMessageBox>
 #include <QApplication>
@@ -71,7 +75,14 @@ void ServoFile::downLoadFile(void (*processCallback)(void *pbar,short *value), v
         return;
     }
     connect(dev, SIGNAL(initProgressInfo(int,QString)), this, SIGNAL(sendProgressbarMsg(int,QString)));
-    bool isOk = dev->checkLoadParameters(downloadTree);
+    OptUser *user = dynamic_cast<OptUser *>(OptContainer::instance()->optItem("optuser"));
+    AdvUserCheck *usrCheck = dynamic_cast<AdvUserCheck *>(AdvUserContainer::instance()->advItem("advusercheck"));
+    bool isAdmin = user->isAdmin();
+    bool isChecked = usrCheck->isChecked();
+    bool isOk;
+    if (!isAdmin || (isAdmin && isChecked)) {
+        isOk = dev->checkLoadParameters(downloadTree);
+    }
     disconnect(dev, SIGNAL(initProgressInfo(int,QString)), this, SIGNAL(sendProgressbarMsg(int,QString)));
     if (!isOk) {
         delete downloadTree;

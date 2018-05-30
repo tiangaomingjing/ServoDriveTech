@@ -1101,11 +1101,7 @@ void PlotUnitGraph129::gtPlotInit()
   ui->plot->yAxis2->setVisible(false);
   ui->plot->yAxis2->setTickLabels(false);
   ui->plot->setBackground(QBrush(QColor(240,240,240)));
-<<<<<<< HEAD
   ui->plot->setOpenGl(false);
-=======
-//  ui->plot->setOpenGl(true);
->>>>>>> upstream/jiang
 }
 
 void PlotUnitGraph129::ctlPanelInit()

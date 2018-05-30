@@ -9,8 +9,6 @@
 #include "sevctrboard.h"
 #include "verattribute.h"
 #include "Option"
-#include "advusercheck.h"
-#include "advusercontainer.h"
 #include "sevsearchphasehelper.h"
 
 #include <QTreeWidget>
@@ -851,12 +849,7 @@ bool SevDevice::checkPowerBoardParameters(QTreeWidgetItem *item, const QMap<QStr
 bool SevDevice::checkPageParameters(int axis, QTreeWidget *tree)
 {
   bool isOk=true;
-  OptUser *user = dynamic_cast<OptUser *>(OptContainer::instance()->optItem("optuser"));
-  bool isAdmin = user->isAdmin();
-  AdvUserCheck *check = dynamic_cast<AdvUserCheck*>(AdvUserContainer::instance()->advItem("advusercheck"));
-  bool isChecked = check->isChecked();
   QTreeWidgetItem *item;
-  if (!isAdmin || (isAdmin && isChecked)) {
     for(int i=0;i<tree->topLevelItemCount();i++)
     {
         //1 检查输入值是否在约束范围内
@@ -884,7 +877,6 @@ bool SevDevice::checkPageParameters(int axis, QTreeWidget *tree)
             }
         }
     }
-  }
   return isOk;
 }
 
@@ -893,11 +885,6 @@ bool SevDevice::checkLoadParameters(QTreeWidget *tree)
     Q_D(SevDevice);
     d->m_barCount = 0;
     bool isOk=true;
-    OptUser *user = dynamic_cast<OptUser *>(OptContainer::instance()->optItem("optuser"));
-    bool isAdmin = user->isAdmin();
-    AdvUserCheck *check = dynamic_cast<AdvUserCheck*>(AdvUserContainer::instance()->advItem("advusercheck"));
-    bool isChecked = check->isChecked();
-    if (!isAdmin || (isAdmin && isChecked)) {
         qDebug()<<"check";
         QString prmPtyPath = GTUtils::sysPath() + typeName() + "/" + modelName() + "/" + versionName() + "/" + FILENAME_PRM_PTY_TREE;
         QTreeWidget* prmPtyTree = QtTreeManager::createTreeWidgetFromXmlFile(prmPtyPath);
@@ -907,7 +894,6 @@ bool SevDevice::checkLoadParameters(QTreeWidget *tree)
                 return isOk;
             }
         }
-    }
     return isOk;
 }
 

@@ -162,7 +162,7 @@
         <string>xmlBaseAddress</string>
        </property>
        <property name="text">
-        <string>64</string>
+        <string>128</string>
        </property>
        <property name="text">
         <string/>
@@ -270,7 +270,7 @@
         </property>
         <item>
          <property name="text">
-          <string>series 1</string>
+          <string>series1</string>
          </property>
          <property name="text">
           <string>1</string>
@@ -298,7 +298,7 @@
          </property>
          <item>
           <property name="text">
-           <string>21000509</string>
+           <string>SD42</string>
           </property>
           <property name="text">
            <string>21000509</string>

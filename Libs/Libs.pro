@@ -6,8 +6,8 @@ SUBDIRS += \
     GTUtils \
     DbManager \
     Option\
-    AdvUser\
     SDKernel\
+    AdvUser\
     PlotUnit/IPlotUnit\
     UI \
     PlotCurvePluginFramework\
