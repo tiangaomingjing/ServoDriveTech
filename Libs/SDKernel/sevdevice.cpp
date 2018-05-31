@@ -880,7 +880,7 @@ bool SevDevice::checkPageParameters(int axis, QTreeWidget *tree)
   return isOk;
 }
 
-bool SevDevice::checkLoadParameters(QTreeWidget *tree)
+bool SevDevice::checkLoadParameters(QTreeWidget *tree, int itemNum)
 {
     Q_D(SevDevice);
     d->m_barCount = 0;
@@ -889,7 +889,7 @@ bool SevDevice::checkLoadParameters(QTreeWidget *tree)
         QString prmPtyPath = GTUtils::sysPath() + typeName() + "/" + modelName() + "/" + versionName() + "/" + FILENAME_PRM_PTY_TREE;
         QTreeWidget* prmPtyTree = QtTreeManager::createTreeWidgetFromXmlFile(prmPtyPath);
         for (int i = 0; i < tree->topLevelItemCount(); i++) {
-            isOk = checkLoadItemParameters(i, tree->topLevelItem(i), prmPtyTree);
+            isOk = checkLoadItemParameters(i, tree->topLevelItem(i), prmPtyTree, itemNum);
             if (!isOk) {
                 return isOk;
             }
@@ -909,11 +909,11 @@ bool SevDevice::readXml(quint8 axis, const QStringList &fileNameList, QList<int>
     return d->m_socket->readXml(axis, fileNameList, fileTypeList, file_num, processCallBack, ptrv, progress);
 }
 
-bool SevDevice::checkLoadItemParameters(int axis, QTreeWidgetItem *item, QTreeWidget *prmTree)
+bool SevDevice::checkLoadItemParameters(int axis, QTreeWidgetItem *item, QTreeWidget *prmTree, int itemNum)
 {
     Q_D(SevDevice);
     if (d->m_barCount % 10 == 0) {
-        emit initProgressInfo(d->m_barCount % 100, tr("Checking axis%1").arg(QString::number(axis + 1)) + item->text(GT::COL_FLASH_ALLAXIS_NAME));
+        emit initProgressInfo(d->m_barCount * 100 / itemNum, tr("Checking axis%1").arg(QString::number(axis + 1)) + item->text(GT::COL_FLASH_ALLAXIS_NAME));
         qApp->processEvents();
     }
     d->m_barCount++;
@@ -932,7 +932,7 @@ bool SevDevice::checkLoadItemParameters(int axis, QTreeWidgetItem *item, QTreeWi
         }
     }
     for (int i = 0; i < item->childCount(); i++) {
-        isOk = checkLoadItemParameters(axis, item->child(i), prmTree);
+        isOk = checkLoadItemParameters(axis, item->child(i), prmTree, itemNum);
         if (!isOk) {
             return isOk;
         }

@@ -199,8 +199,8 @@ void FirmwareFlashDialog::onActnFlashBtnClicked()
     ok = dbManager->checkValid(verList);
     delete dbManager;
     if (!ok) {
-        int ret = QMessageBox::question(0, tr("Warning"), tr("Version do not match. Are you sure to continue?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
-        if (ret == 0) {
+        QMessageBox::StandardButton rb = QMessageBox::question(0, tr("Warning"), tr("Version do not match. Are you sure to continue?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+        if (!(rb == QMessageBox::Yes)) {
             return;
         }
     }
@@ -282,7 +282,6 @@ bool FirmwareFlashDialog::downloadHexFile()
     QStringList hexList = getFilesFromExt("hex", m_desPath, 1);
     QString hexPath = hexList.at(0);
     SevDevice* dev = m_devList.at(ui->comboBox_firm->currentIndex());
-    bool co = dev->isConnecting();
     if (!dev->isConnecting()) {
         QMessageBox::information(0, tr("Warning"), tr("please open the com first !"));
         return false;

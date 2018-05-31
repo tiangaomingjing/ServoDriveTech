@@ -541,7 +541,7 @@
     </message>
     <message>
         <location filename="TabModeCtl/tabmodectl.cpp" line="120"/>
-        <location filename="TabModeCtl/tabmodectl.cpp" line="374"/>
+        <location filename="TabModeCtl/tabmodectl.cpp" line="403"/>
         <source>SEV ON</source>
         <translation type="unfinished"></translation>
     </message>

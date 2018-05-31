@@ -108,8 +108,6 @@ private slots:
   void onActnUpdateClicked();
   void onStartMsgReceived();
   void onCloseMsgReceived();
-  void onDownloadMsgReceived(int index, const QString &filePath);
-  void onUploadMsgReceived(int index, const QString &filePath);
 
   //响应option选项slots
   void onOptAutoLoadChanged(bool changed);
@@ -179,11 +177,7 @@ private:
   StatusMonitor *m_statusMonitor;
 
   QString m_downloadPath;
-  QString m_downloadFileName;
-  int m_downloadIndex;
   QString m_uploadPath;
-  QString m_uploadFileName;
-  int m_uploadIndex;
 };
 
 #endif // SDTMAINWINDOW_H

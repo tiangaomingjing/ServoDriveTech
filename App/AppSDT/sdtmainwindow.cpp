@@ -108,6 +108,11 @@ bool SDTMainWindow::init()
   connect(m_statusMonitor,SIGNAL(alarmError(quint16,quint16,bool)),this,SLOT(onDeviceAlarmError(quint16,quint16,bool)));
   connect(m_statusMonitor,SIGNAL(netError(quint16)),this,SLOT(onDeviceNetError(quint16)));
 
+  OptUser *optuser = dynamic_cast<OptUser *>(OptContainer::instance()->optItem("optuser"));
+  if (optuser != NULL) {
+      qDebug()<<"isAdmin"<<optuser->isAdmin();
+      onOptUserChanged(optuser->isAdmin());
+  }
   return true;
 }
 QTreeWidget *SDTMainWindow::navTreeWidget() const
@@ -219,7 +224,6 @@ void SDTMainWindow::createActions()
   m_actnProduce=new QAction(tr("produce"),m_tbtnMore);
 
   m_actnAdvUser = new QAction(tr("Advanced User"), m_tbtnMore);
-  m_actnAdvUser->setVisible(false);
 
 //  m_tbtnMore->addAction(m_actnOnMode);
 //  m_tbtnMore->addAction(m_actnOffMode);
@@ -307,7 +311,6 @@ void SDTMainWindow::createConnections()
   OptUser *optuser = dynamic_cast<OptUser *>(OptContainer::instance()->optItem("optuser"));
   if (optuser != NULL) {
       connect(optuser, SIGNAL(usrChange(bool)), this, SLOT(onOptUserChanged(bool)));
-      onOptUserChanged(optuser->isAdmin());
   }
 
   OptPath *optpath = dynamic_cast<OptPath *>(OptContainer::instance()->optItem("optpath"));
@@ -737,18 +740,6 @@ void SDTMainWindow::onCloseMsgReceived() {
     delete m_server;
 }
 
-void SDTMainWindow::onDownloadMsgReceived(int index, const QString &filePath)
-{
-    m_downloadFileName = filePath;
-    m_downloadIndex = index;
-}
-
-void SDTMainWindow::onUploadMsgReceived(int index, const QString &filePath)
-{
-    m_uploadFileName = filePath;
-    m_uploadIndex = index;
-}
-
 void SDTMainWindow::onActnTbtnMoreClicked()
 {
   m_tbtnMore->showMenu();
@@ -949,33 +940,34 @@ void SDTMainWindow::onActnDownloadClicked()
         QMessageBox::information(0, tr("Warning"), tr("Please open com first!"));
         return;
     }
-    m_downloadFileName = QString::null;
-    m_downloadIndex = -1;
+    QString downloadFileName = QString::null;
+    int downloadIndex = -1;
     QList<SevDevice *> devList = sevList();
-    if (devList.count() == 1) {
-        m_downloadIndex = 0;
-        m_downloadFileName = QFileDialog::getOpenFileName(this, tr("Open XML File"), m_downloadPath, tr("XML Files(*.xml)"));
-    } else {
+//    if (devList.count() == 1) {
+//        downloadIndex = 0;
+//        downloadFileName = QFileDialog::getOpenFileName(this, tr("Open XML File"), m_downloadPath, tr("XML Files(*.xml)"));
+//    } else {
         DownloadDialog downloadDialog;
-        downloadDialog.uiInit(devList, m_downloadPath);
-        connect(&downloadDialog, SIGNAL(sendDevAndPath(int, QString)), this, SLOT(onDownloadMsgReceived(int, QString)));
+        downloadDialog.uiInit(devList, m_downloadPath, downloadFileName, downloadIndex);
         downloadDialog.exec();
-    }
+        qDebug()<<"downloadfilename"<<downloadFileName;
+        qDebug()<<"downloadIndex"<<downloadIndex;
+//    }
     qDebug()<<"1";
     //fileName = QFileDialog::getOpenFileName(this, tr("Open XML File"), m_downloadPath, tr("XML Files(*.xml)"));
-    if (m_downloadFileName.isNull() || m_downloadIndex == -1) {
+    if (downloadFileName.isNull() || downloadIndex == -1) {
         return;
     }
     qDebug()<<"2";
     QFileInfo fileInfo;
-    fileInfo.setFile(m_downloadFileName);
+    fileInfo.setFile(downloadFileName);
     m_downloadPath = fileInfo.filePath() + "/";
     m_statusBar->statusProgressBar()->setVisible(true);
     m_statusBar->statusProgressBar()->setValue(0);
     ServoFile *servoFile = new ServoFile(0);
     connect(servoFile, SIGNAL(sendProgressbarMsg(int,QString)), this, SLOT(onProgressInfo(int,QString)));
     qDebug()<<"3";
-    servoFile->downLoadFile(processCallBack, (void *)(mp_progressBar), m_downloadFileName, devList.at(m_downloadIndex));
+    servoFile->downLoadFile(processCallBack, (void *)(mp_progressBar), downloadFileName, devList.at(downloadIndex));
     disconnect(servoFile, SIGNAL(sendProgressbarMsg(int,QString)), this, SLOT(onProgressInfo(int,QString)));
     qDebug()<<"4";
     delete servoFile;
@@ -990,35 +982,36 @@ void SDTMainWindow::onActnUploadClicked()
         return;
     }
 
-    m_uploadFileName = QString::null;
-    m_uploadIndex = -1;
+    QString uploadFileName = QString::null;
+    int uploadIndex = -1;
     QList<SevDevice *> devList = sevList();
-    if (devList.count() == 1) {
-        m_uploadIndex = 0;
-        QDate curDate = QDate::currentDate();
-        QString defaultName = devList.at(0)->modelName() + "_" + devList.at(0)->versionName() + "_" + QString::number(curDate.year()) + QString::number(curDate.month()) + QString::number(curDate.day());
-        m_uploadFileName = QFileDialog::getSaveFileName(this, tr("Open XML File"), m_uploadPath + "/" + defaultName + ".xml", tr("XML Files(*.xml)"));
-    } else {
+//    if (devList.count() == 1) {
+//        uploadIndex = 0;
+//        QDate curDate = QDate::currentDate();
+//        QString defaultName = devList.at(0)->modelName() + "_" + devList.at(0)->versionName() + "_" + QString::number(curDate.year()) + QString::number(curDate.month()) + QString::number(curDate.day());
+//        uploadFileName = QFileDialog::getSaveFileName(this, tr("Open XML File"), m_uploadPath + "/" + defaultName + ".xml", tr("XML Files(*.xml)"));
+//    } else {
         UploadDialog uploadDialog;
-        uploadDialog.uiInit(devList, m_uploadPath);
-        connect(&uploadDialog, SIGNAL(sendDevAndPath(int, QString)), this, SLOT(onUploadMsgReceived(int, QString)));
+        uploadDialog.uiInit(devList, m_uploadPath, uploadFileName, uploadIndex);
         uploadDialog.exec();
-    }
+        qDebug()<<"uploadfilename"<<uploadFileName;
+        qDebug()<<"uploadindex"<<uploadIndex;
+//    }
     qDebug()<<"1";
     //fileName = QFileDialog::getOpenFileName(this, tr("Open XML File"), m_downloadPath, tr("XML Files(*.xml)"));
-    if (m_uploadFileName.isNull() || m_uploadIndex == -1) {
+    if (uploadFileName.isNull() || uploadIndex == -1) {
         return;
     }
     qDebug()<<"2";
     QFileInfo fileInfo;
-    fileInfo.setFile(m_uploadFileName);
+    fileInfo.setFile(uploadFileName);
     m_uploadPath = fileInfo.filePath() + "/";
     m_statusBar->statusProgressBar()->setVisible(true);
     m_statusBar->statusProgressBar()->setValue(0);
     ServoFile *servoFile = new ServoFile(0);
     connect(servoFile, SIGNAL(sendProgressbarMsg(int,QString)), this, SLOT(onProgressInfo(int,QString)));
     qDebug()<<"3";
-    servoFile->upLoadFile(processCallBack, (void *)(mp_progressBar), m_uploadFileName, devList.at(m_uploadIndex));
+    servoFile->upLoadFile(processCallBack, (void *)(mp_progressBar), uploadFileName, devList.at(uploadIndex));
     disconnect(servoFile, SIGNAL(sendProgressbarMsg(int,QString)), this, SLOT(onProgressInfo(int,QString)));
     qDebug()<<"4";
     delete servoFile;
@@ -1079,15 +1072,15 @@ void SDTMainWindow::onOptPathChanged(const QStringList &list)
 void SDTMainWindow::onProgressInfo(int barValue, const QString &msg)
 {
   //qDebug()<<"value"<<barValue<<"msg"<<msg;
-  static int styleTest=0;
+//  static int styleTest=0;
   if(this->isVisible())
   {
     mp_progressBar->setValue(barValue);
-    m_statusBar->setMsg(msg,(SdtStatusBar::MsgType)styleTest);
+    m_statusBar->setMsg(msg);
 //    qDebug()<<"visible processbar value="<<barValue;
-    styleTest++;
-    if(styleTest>2)
-      styleTest=0;
+//    styleTest++;
+//    if(styleTest>2)
+//      styleTest=0;
   }
   emit initProgressInfo(barValue,msg);
 }
@@ -1296,7 +1289,7 @@ bool SDTMainWindow::isAutoLoad()
 }
 bool SDTMainWindow::MessageBoxAsk(const QString &msg)
 {
-  QMessageBox::StandardButton rb = QMessageBox::question(this, tr("Warring"), msg, QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+  QMessageBox::StandardButton rb = QMessageBox::question(this, tr("Warning"), msg, QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
   if (rb == QMessageBox::Yes)
     return true;
   else

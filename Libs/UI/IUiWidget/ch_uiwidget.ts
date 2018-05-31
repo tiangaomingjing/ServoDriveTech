@@ -230,12 +230,12 @@
         <translation>当前轴：%1</translation>
     </message>
     <message>
-        <location filename="igraphstatus.cpp" line="209"/>
+        <location filename="igraphstatus.cpp" line="208"/>
         <source>col=%1 row=%2 rsv=%3</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="igraphstatus.cpp" line="220"/>
+        <location filename="igraphstatus.cpp" line="219"/>
         <source>Cause:
 %1
 Solution:
@@ -246,7 +246,7 @@ Solution:
 %2</translation>
     </message>
     <message>
-        <location filename="igraphstatus.cpp" line="237"/>
+        <location filename="igraphstatus.cpp" line="236"/>
         <source>reserve</source>
         <translation>保留</translation>
     </message>
