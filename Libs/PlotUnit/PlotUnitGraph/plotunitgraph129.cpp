@@ -122,6 +122,9 @@ PlotUnitGraph129::PlotUnitGraph129(const QList<SevDevice *> &sevList, QWidget *p
 {
   Q_D(PlotUnitGraph129);
   d->m_sevList=sevList;
+  foreach (SevDevice *sev, sevList) {
+    connect(sev,SIGNAL(dspReset()),this,SLOT(onDspReset()));
+  }
 
   ui->setupUi(this);
   QStyledItemDelegate* itemDelegate = new QStyledItemDelegate(ui->comboBox_plot_sampling);
@@ -287,6 +290,9 @@ void PlotUnitGraph129::onSevDeviceListChanged(const QList<SevDevice *> &sevlist)
   Q_D(PlotUnitGraph129);
 
   d->m_sevList=sevlist;
+  foreach (SevDevice *sev, sevlist) {
+    connect(sev,SIGNAL(dspReset()),this,SLOT(onDspReset()));
+  }
   ctlPanelInit();
   resizeSectionCurveTableWidget(sevlist);
   checkCurveValid();
@@ -983,7 +989,7 @@ void PlotUnitGraph129::onPlotDataIn(PlotData data)
 //    QCPRange plottableRange(low - dsize,upper + dsize);
 //    ui->plot->yAxis->setRange(plottableRange);
   }
-  if(count%3 == 0)
+  if(count%2 == 0)
   {
 //    qDebug()<<"lastKey "<<lastkeyValue;
     if(lastkeyValue > 0 )
@@ -1039,6 +1045,19 @@ void PlotUnitGraph129::onMotionStop()
     onBtnStartSampleClicked(false);
     ui->tbtn_plot_startSampling->setChecked(false);
   }
+}
+
+void PlotUnitGraph129::onDspReset()
+{
+  Q_D(PlotUnitGraph129);
+
+  if(ui->tbtn_plot_startSampling->isChecked())
+  {
+    ui->tbtn_plot_startSampling->setChecked(false);
+    onBtnStartSampleClicked(false);
+  }
+  d->m_timer->stop();
+
 }
 
 void PlotUnitGraph129::setPlotIcons(const QString &css)

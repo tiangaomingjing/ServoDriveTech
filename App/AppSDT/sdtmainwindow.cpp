@@ -47,6 +47,7 @@
 #include "servofile.h"
 #include "firmwareflashdialog.h"
 #include "comparisondialog.h"
+#include "resetdspselectdialog.h"
 
 #include <QToolButton>
 #include <QDebug>
@@ -65,6 +66,8 @@
 #define FLASH_NAME "FLASH"
 #define RAM_NAME "RAM"
 
+#define ICON_SDT_LOGO_NAME            "sdtlogo.png"
+#define SDT_VERSION                   "2.0.0"
 
 using namespace GT;
 
@@ -283,6 +286,7 @@ void SDTMainWindow::createConnections()
   connect(m_actnDisNet,SIGNAL(triggered(bool)),this,SLOT(onActnDisConnectClicked(bool)));
   connect(m_tbtnHelp,SIGNAL(clicked(bool)),this,SLOT(onActnHelpDeviceInfoClicked()));
   connect(m_actnAboutHardware,SIGNAL(triggered(bool)),this,SLOT(onActnHelpDeviceInfoClicked()));
+  connect(m_actnAboutSoftware,SIGNAL(triggered(bool)),this,SLOT(onActnHelpSoftInfoClicked()));
   connect(m_actnNewConfig,SIGNAL(triggered(bool)),this,SLOT(onActnNewConfigClicked()));
   connect(m_actnSave,SIGNAL(triggered(bool)),this,SLOT(onActnSaveClicked()));
   connect(m_actnConfig,SIGNAL(triggered(bool)),this,SLOT(onActnConfigClicked()));
@@ -292,6 +296,7 @@ void SDTMainWindow::createConnections()
   connect(m_actnUpdateFlash, SIGNAL(triggered()), this, SLOT(onActnUpdateClicked()));
   connect(m_actnDownload, SIGNAL(triggered(bool)), this, SLOT(onActnDownloadClicked()));
   connect(m_actnUpload, SIGNAL(triggered(bool)), this, SLOT(onActnUploadClicked()));
+  connect(m_actnReset,SIGNAL(triggered(bool)),this,SLOT(onActnResetDspClicked()));
 
 
   OptAutoLoad *optAuto=dynamic_cast<OptAutoLoad *>(OptContainer::instance()->optItem("optautoload"));
@@ -694,6 +699,64 @@ void SDTMainWindow::onActnUpdateClicked()
     flashDialog.exec();
 }
 
+void SDTMainWindow::onActnResetDspClicked()
+{
+  QList<SevDevice *>rstSevList;
+
+  if(sevList().size()>1)
+  {
+    //弹出窗口选择
+    ResetDspSelectDialog sDialog(&rstSevList,sevList(),0);
+    sDialog.exec();
+    for(int i = 0;i<rstSevList.size();i++)
+    {
+      qDebug()<<"device name ="<<rstSevList.at(i)->modelName();
+    }
+    if(rstSevList.isEmpty())
+      return ;
+  }
+  else
+  {
+    rstSevList.append(sevList().at(0));
+  }
+
+  //查询是否正在上伺服
+  SevDevice *sev = NULL;
+  for(int i = 0;i<rstSevList.size();i++)
+  {
+    sev = rstSevList.at(i);
+    for(int axis = 0;axis<sev->axisNum();axis++)
+    {
+      if(sev->axisServoIsOn(axis))
+      {
+        QMessageBox::warning(0,tr("error"),tr("refuse to reset dsp :\ndevice :%1 axis =%2 servo is on \n ").arg(sev->modelName()).arg(axis+1));
+        return ;
+      }
+    }
+  }
+
+  setUiAllEnable(false);
+  m_statusMonitor->stopMonitor();
+
+  for(int i = 0;i<rstSevList.size();i++)
+  {
+    bool ok = true;
+    sev = rstSevList.at(i);
+    ok = sev->resetDSP();
+    if(!ok)
+      QMessageBox::warning(0,tr("error"),tr("reset device = %1 dsp fail:\n ").arg(sev->modelName()));
+    else
+      m_statusBar->setMsg(tr("reset dsp successfully"));
+  }
+
+  GTUtils::delayms(1000);
+  m_statusMonitor->startMonitor();
+  m_statusBar->setMsg("");
+  activeCurrentUi();
+  setUiAllEnable(true);
+
+}
+
 void SDTMainWindow::startListen() {
     m_server = new MessageServer;
     if(!m_server->listen(QHostAddress::Any, 6178)) {
@@ -905,6 +968,19 @@ void SDTMainWindow::onActnHelpDeviceInfoClicked()
   devInfo.readInfo(devList);
   devInfo.exec();
 }
+
+void SDTMainWindow::onActnHelpSoftInfoClicked()
+{
+  QMessageBox mess;
+  mess.setIcon(QMessageBox::NoIcon);
+  QString info;
+  info=tr("Version:%1\n\nget more help from:"
+          "\nhttp://www.googoltech.com").arg(SDT_VERSION);
+  mess.setText(info);
+  QString iconPath = GTUtils::iconPath()+ICON_SDT_LOGO_NAME;
+  mess.setIconPixmap(QPixmap(iconPath));
+  mess.exec();
+}
 void SDTMainWindow::onActnNewConfigClicked()
 {
   setUiAllEnable(false);
@@ -1079,15 +1155,16 @@ void SDTMainWindow::onOptPathChanged(const QStringList &list)
 void SDTMainWindow::onProgressInfo(int barValue, const QString &msg)
 {
   //qDebug()<<"value"<<barValue<<"msg"<<msg;
-  static int styleTest=0;
+//  static int styleTest=0;
   if(this->isVisible())
   {
     mp_progressBar->setValue(barValue);
-    m_statusBar->setMsg(msg,(SdtStatusBar::MsgType)styleTest);
+    m_statusBar->setMsg(msg);
+//    m_statusBar->setMsg(msg,(SdtStatusBar::MsgType)styleTest);
 //    qDebug()<<"visible processbar value="<<barValue;
-    styleTest++;
-    if(styleTest>2)
-      styleTest=0;
+//    styleTest++;
+//    if(styleTest>2)
+//      styleTest=0;
   }
   emit initProgressInfo(barValue,msg);
 }

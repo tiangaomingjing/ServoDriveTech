@@ -61,6 +61,11 @@ bool UiStatus::hasSaveFunc()
   return false;
 }
 
+void UiStatus::onDspReset()
+{
+  setUiActive(false);
+}
+
 void UiStatus::setContextAction()
 {
   createActionSwitchView();

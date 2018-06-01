@@ -14,7 +14,7 @@ public:
   explicit StatusMonitor(QObject *parent = 0);
   ~StatusMonitor();
   void setMonitorDeviceList(QList<SevDevice*>devList);
-  void startMonitor(quint16 ms);
+  void startMonitor(quint16 ms = 1000);
   void stopMonitor();
   int sysHasAlarmError();
 

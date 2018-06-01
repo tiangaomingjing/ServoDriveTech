@@ -64,9 +64,9 @@ bool MotionVelocity::move(quint16 axisInx)
     return false ;
 
   d->m_motionUnFinishVector.append(axisInx);
-  d->m_ui->setEnabled(false);//Ui不能编辑
-  d->m_velPlanList.at(axisInx)->move();
 
+  d->m_velPlanList.at(axisInx)->move();
+  d->m_ui->setEnabled(false);//Ui不能编辑
   return true;
 }
 

@@ -80,6 +80,11 @@ void UiEncoder::setContextAction()
   createActionSwitchView();
 }
 
+void UiEncoder::onDspReset()
+{
+  setUiActive(false);
+}
+
 QStackedWidget *UiEncoder::getUiStackedWidget(void)
 {
   return ui->stackedWidget;

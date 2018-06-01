@@ -1004,7 +1004,7 @@ exception cause maybe:
         <location filename="sdtmainwindow.cpp" line="1200"/>
         <source>search phase complete !</source>
         <oldsource>search phase complete</oldsource>
-        <translation type="unfinished">电机寻相结束 !</translation>
+        <translation>电机寻相结束 !</translation>
     </message>
     <message>
         <location filename="sdtmainwindow.cpp" line="1299"/>

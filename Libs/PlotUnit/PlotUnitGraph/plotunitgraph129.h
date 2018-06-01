@@ -84,6 +84,8 @@ private slots:
   void onMotionStart();
   void onMotionStop();
 
+  void onDspReset() Q_DECL_OVERRIDE;
+
 private:
   void createConnections();
   void setPlotIcons(const QString &css);

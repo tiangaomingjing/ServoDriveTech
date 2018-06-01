@@ -267,14 +267,17 @@ void TabMotion::onBtnMotionGoClicked(bool checked)
   {
     quint16 axis =0;
     emit motionStart();
+    GTUtils::delayms(500);
     for(int row = 0;row<ui->listWidget_plot_tab2_axis->count();row++)
     {
       axis = row;
       if(ui->listWidget_plot_tab2_axis->item(row)->isSelected())
       {
         m_axisMotionDataList.at(axis)->m_curMotion->movePrepare(axis);
+        GTUtils::delayms(5);
       }
     }
+    m_barWidget->resetAllBarValue();
     qDebug()<<"movePrepare delay";
     OptPlot *plot = dynamic_cast<OptPlot *>(OptContainer::instance()->optItem("optplot"));
     GTUtils::delayms(plot->delayTime());
@@ -282,7 +285,7 @@ void TabMotion::onBtnMotionGoClicked(bool checked)
 
 //    m_barWidget->setVisible(true);
 
-    m_barWidget->resetAllBarValue();
+
 
     for(int row = 0;row<ui->listWidget_plot_tab2_axis->count();row++)
     {

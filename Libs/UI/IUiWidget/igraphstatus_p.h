@@ -26,7 +26,7 @@ protected:
   QStringList m_sevStatusText;
   QStringList m_sevModeText;
   QStringList m_sevUsrModeText;
-  QTreeWidgetItem *m_alarmInfoItem;
+//  QTreeWidgetItem *m_alarmInfoItem;
 };
 
 #endif // IGRAPHBRAKE_P_H
