@@ -235,114 +235,114 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="144"/>
+        <location filename="plotunitgraph129.cpp" line="147"/>
         <source>startSampling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="145"/>
+        <location filename="plotunitgraph129.cpp" line="148"/>
         <source>auto fit window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="146"/>
+        <location filename="plotunitgraph129.cpp" line="149"/>
         <source>fit window</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="147"/>
+        <location filename="plotunitgraph129.cpp" line="150"/>
         <source>horizontal measure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="148"/>
+        <location filename="plotunitgraph129.cpp" line="151"/>
         <source>vertical measure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="149"/>
+        <location filename="plotunitgraph129.cpp" line="152"/>
         <source>open hostory curve</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="150"/>
+        <location filename="plotunitgraph129.cpp" line="153"/>
         <source>save all curves</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="151"/>
+        <location filename="plotunitgraph129.cpp" line="154"/>
         <source>load all range curves </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="152"/>
+        <location filename="plotunitgraph129.cpp" line="155"/>
         <source>full screen switch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="167"/>
-        <location filename="plotunitgraph129.cpp" line="815"/>
+        <location filename="plotunitgraph129.cpp" line="170"/>
+        <location filename="plotunitgraph129.cpp" line="821"/>
         <source>error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="167"/>
+        <location filename="plotunitgraph129.cpp" line="170"/>
         <source>load plugin error!
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="185"/>
+        <location filename="plotunitgraph129.cpp" line="188"/>
         <source>checked</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="185"/>
+        <location filename="plotunitgraph129.cpp" line="188"/>
         <source>name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="185"/>
+        <location filename="plotunitgraph129.cpp" line="188"/>
         <source>axis</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="185"/>
+        <location filename="plotunitgraph129.cpp" line="188"/>
         <source>dev</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="591"/>
-        <location filename="plotunitgraph129.cpp" line="906"/>
-        <location filename="plotunitgraph129.cpp" line="1231"/>
+        <location filename="plotunitgraph129.cpp" line="597"/>
+        <location filename="plotunitgraph129.cpp" line="912"/>
+        <location filename="plotunitgraph129.cpp" line="1250"/>
         <source>on</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="597"/>
-        <location filename="plotunitgraph129.cpp" line="900"/>
-        <location filename="plotunitgraph129.cpp" line="1237"/>
+        <location filename="plotunitgraph129.cpp" line="603"/>
+        <location filename="plotunitgraph129.cpp" line="906"/>
+        <location filename="plotunitgraph129.cpp" line="1256"/>
         <source>off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="677"/>
-        <location filename="plotunitgraph129.cpp" line="747"/>
+        <location filename="plotunitgraph129.cpp" line="683"/>
+        <location filename="plotunitgraph129.cpp" line="753"/>
         <source>warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="677"/>
+        <location filename="plotunitgraph129.cpp" line="683"/>
         <source>%1 is BIT</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="747"/>
+        <location filename="plotunitgraph129.cpp" line="753"/>
         <source>The numbers of selected curves is too much</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="815"/>
+        <location filename="plotunitgraph129.cpp" line="821"/>
         <source>The curve = %1 is not in the device</source>
         <translation type="unfinished"></translation>
     </message>

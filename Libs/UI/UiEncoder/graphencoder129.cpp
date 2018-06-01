@@ -57,7 +57,7 @@ GraphEncoder129::GraphEncoder129(QWidget *parent) :
   ui->spinBox_encLine->setVisible(true);
   ui->comboBox_encBitNum->setVisible(false);
   QStringList comList;
-  comList<<"11"<<"13"<<"17"<<"20"<<"21"<<"22"<<"23";
+  comList<<"11"<<"13"<<"17"<<"20"<<"21"<<"22"<<"23"<<"24";
   ui->comboBox_encBitNum->addItems(comList);
   ui->label_encLineNum->setText(tr("encoder lineNumber:"));
   ui->btn_encClearErr->setText(tr("clearAlarm"));

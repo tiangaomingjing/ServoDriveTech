@@ -80,6 +80,11 @@ typedef enum {
   ROW_PRMEXT_DEVICE_FPGA
 }RowPrmExtDevice;
 
+typedef enum {
+  ROW_PRM_FIRM_UPDATE_DEVICE_DSP,
+  ROW_PRM_FIRM_UPDATE_DEVICE_FPGA
+}RowPrmFirmwareUpdateDevice;
+
 typedef enum{
   COL_FLASH_RAM_TREE_NAME,
   COL_FLASH_RAM_TREE_VALUE,

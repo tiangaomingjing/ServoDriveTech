@@ -31,13 +31,6 @@
      </widget>
     </widget>
    </item>
-   <item>
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>UiFLASH</string>
-     </property>
-    </widget>
-   </item>
   </layout>
  </widget>
  <resources/>

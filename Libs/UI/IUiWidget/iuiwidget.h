@@ -67,6 +67,7 @@ protected slots:
   void onSwitchView(bool isList);
   virtual void onActionReadRAM();
   virtual void onActionReadFLASH();
+  virtual void onDspReset();
 protected:
   IUiWidget(IUiWidgetPrivate&dd, QWidget *parent=0);
   IUiWidgetPrivate *d_ptr;

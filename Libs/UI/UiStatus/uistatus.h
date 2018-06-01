@@ -24,6 +24,9 @@ public:
   bool hasConfigFunc()Q_DECL_OVERRIDE;
   bool hasSaveFunc()Q_DECL_OVERRIDE;
 
+private slots:
+  void onDspReset() Q_DECL_OVERRIDE;
+
 protected:
   void setContextAction() Q_DECL_OVERRIDE;
 

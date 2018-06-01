@@ -106,8 +106,8 @@ bool OptUser::readOpt()
 bool OptUser::writeOpt()
 {
     Q_D(OptUser);
-  saveData("usr","admin",d->m_isAdmin);
-  saveData("usr","psw",d->m_pw);
+//  saveData("usr","admin",d->m_isAdmin);
+//  saveData("usr","psw",d->m_pw);
   return true;
 }
 

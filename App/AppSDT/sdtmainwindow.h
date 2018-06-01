@@ -98,6 +98,7 @@ private slots:
   void onActnDisConnectClicked(bool checked);
   void onActnHelpDeviceInfoClicked();
   void onActnVersionInfoClicked();
+  void onActnHelpSoftInfoClicked();
   void onActnNewConfigClicked();
   void onActnSaveClicked();
   void onActnConfigClicked();
@@ -107,6 +108,7 @@ private slots:
   void onActnAdvUserClicked();
   void onActnCompareClicked();
   void onActnUpdateClicked();
+  void onActnResetDspClicked();
   void onStartMsgReceived();
   void onCloseMsgReceived();
 

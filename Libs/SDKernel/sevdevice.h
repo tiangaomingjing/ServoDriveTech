@@ -122,6 +122,7 @@ public:
   bool searchPhaseStart(quint16 axisInx,int value);
 
   bool imaxPrmAssociationActive(quint16 axisInx);
+  bool resetDSP();
 
 signals:
   void initProgressInfo(int value,QString msg);
@@ -134,6 +135,8 @@ signals:
   void ipaSearchPhaseInfo(int barValue, const QString &msg);
   void ipaWarningMsg(const QString &msg);
   void ipaDone();
+
+  void dspReset();
 
 public slots:
   bool onReadPageFlash(int axis,QTreeWidget *pageTree);

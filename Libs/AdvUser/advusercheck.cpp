@@ -1,4 +1,4 @@
-#include "advusercheck.h"
+﻿#include "advusercheck.h"
 #include "ui_advusercheck.h"
 #include "iadvuser_p.h"
 #include "gtutils.h"
@@ -84,7 +84,7 @@ bool AdvUserCheck::readAdv()
 bool AdvUserCheck::writeAdv()
 {
     Q_D(AdvUserCheck);
-    saveDataToFile("advCheck", "isCheck", d->m_isChecked);
+//    saveDataToFile("advCheck", "isCheck", d->m_isChecked);
     return true;
 }
 

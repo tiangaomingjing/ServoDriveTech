@@ -35,7 +35,7 @@ IGraphStatus::~IGraphStatus()
     d->m_timer->stop();
     delete d->m_timer;
   }
-  delete d->m_alarmInfoItem;
+//  delete d->m_alarmInfoItem;
 }
 
 void IGraphStatus::visit(IUiWidget *uiWidget)
@@ -117,17 +117,17 @@ void IGraphStatus::syncTreeDataToUiFace()
   d->m_ledFlag->setError(hasError());
   updateUiLabelText();
 
-  //读编码器屏蔽寄存器信息
-  d->m_dev->readPageItemFlash(d->m_uiWidget->uiIndexs().axisInx,d->m_alarmInfoItem);
-  //将屏蔽寄存器信息更新到第一个led上面
-  quint32 maskCode=d->m_alarmInfoItem->text(GT::COL_PAGE_TREE_VALUE).toUInt();
-  for(int i=0;i<d->m_ledAlarmList.count();i++)
-  {
-    quint32 op=0x00000001;
-    op<<=i;
-    op=op&maskCode;
-    led=d->m_ledAlarmList.at(i);
-  }
+//  //读编码器屏蔽寄存器信息
+//  d->m_dev->readPageItemFlash(d->m_uiWidget->uiIndexs().axisInx,d->m_alarmInfoItem);
+//  //将屏蔽寄存器信息更新到第一个led上面
+//  quint32 maskCode=d->m_alarmInfoItem->text(GT::COL_PAGE_TREE_VALUE).toUInt();
+//  for(int i=0;i<d->m_ledAlarmList.count();i++)
+//  {
+//    quint32 op=0x00000001;
+//    op<<=i;
+//    op=op&maskCode;
+//    led=d->m_ledAlarmList.at(i);
+//  }
 
 }
 
@@ -180,7 +180,6 @@ void IGraphStatus::addAlarmLedsToWidget(IUiWidget *uiWidget)
 {
   Q_D(IGraphStatus);
 
-  Q_UNUSED(uiWidget);
   QWidget *widget=alarmBackgroundWidget();
   if(!widget)
     return;
@@ -188,11 +187,9 @@ void IGraphStatus::addAlarmLedsToWidget(IUiWidget *uiWidget)
   QGridLayout *gridLayout=new QGridLayout(widget);
   gridLayout->setMargin(35);
 
-  QString fileName=ALM_DETAIL_FILE_NAME+QString::number(uiWidget->uiIndexs().axisInx%2)+".xml";
-  QTreeWidget *tree=QtTreeManager::createTreeWidgetFromXmlFile(d->m_dev->filePath()+"page/"+fileName);
-  QTreeWidgetItem *alarmItem=tree->topLevelItem(0);
+  QTreeWidgetItem *alarmItem=d->m_treeWidget->topLevelItem(3);
 
-  d->m_alarmInfoItem=tree->topLevelItem(1)->clone();
+//  d->m_alarmInfoItem=tree->topLevelItem(1)->clone();
 
   int count=alarmItem->childCount();
 
@@ -238,7 +235,6 @@ void IGraphStatus::addAlarmLedsToWidget(IUiWidget *uiWidget)
     rowInx++;
   }
   widget->setLayout(gridLayout);
-  delete tree;
 }
 
 IGraphStatus::IGraphStatus(IGraphStatusPrivate &dd, QWidget *parent):IGraph(dd,parent)

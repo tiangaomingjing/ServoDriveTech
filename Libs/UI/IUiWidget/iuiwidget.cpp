@@ -31,12 +31,16 @@ IUiWidget::IUiWidget(IUiWidgetPrivate &dd,QWidget *parent):QWidget(parent),d_ptr
 {
   d_ptr->q_ptr=this;
 }
+//特例说明，UiPlot中init(NULL)
+//其它的都是传入对应的设备
 bool IUiWidget::init(SevDevice *device)
 {
   Q_D(IUiWidget);
   d->m_uiStackedWidget=getUiStackedWidget();
   d->m_vboxLayout=getVBoxLayout();
   d->m_device=device;
+  if(device !=NULL)
+    connect(device,SIGNAL(dspReset()),this,SLOT(onDspReset()));
 
   setDefaultUi();
 
@@ -209,4 +213,9 @@ void IUiWidget::onActionReadRAM()
 void IUiWidget::onActionReadFLASH()
 {
   qDebug()<<"read flash";
+}
+
+void IUiWidget::onDspReset()
+{
+
 }

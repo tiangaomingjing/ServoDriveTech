@@ -14,6 +14,7 @@
 #include <QDragEnterEvent>
 #include <QDropEvent>
 
+#define XML_INFO_NAME "XmlFileInformation"
 enum TREE{
     TREE_NAME = 0,
     TREE_VALUE = 1,
@@ -223,7 +224,7 @@ void ComparisonDialog::onActionUpdateClicked()
 //        qDebug()<<"old text"<<m_oldItemList.at(i)->text(1);
 //        qDebug()<<"new text"<<m_newItemList.at(i)->text(1);
         ui->progressBar_comp->setValue(100 * i / m_oldItemList.count());
-        for (int j = 1; j < qMin(m_newItemList.count(), m_oldItemList.count()); j++) {
+        for (int j = 1; j < qMin(m_newItemList.at(i)->columnCount(), m_oldItemList.at(i)->columnCount()); j++) {
             m_newItemList.at(i)->setText(j, m_oldItemList.at(i)->text(j));
             ui->treeWidget_compNewPart->topLevelItem(i)->setText(j, m_oldItemList.at(i)->text(j));
         }
@@ -240,19 +241,19 @@ void ComparisonDialog::onActionSaveClicked()
         QMessageBox::information(NULL, tr("Path"), tr("You selected ") + path);
         m_newFileInfo.setFile(path);
         m_newFilePath = m_newFileInfo.filePath() + "/";
-//        QTreeWidget *tree = new QTreeWidget;
-//        QTreeWidgetItem *item;
-//        for(int i = 0; i < ui->treeWidget_compNew->topLevelItemCount(); i++)
-//        {
-//            item = ui->treeWidget_compNew->topLevelItem(i)->clone();
-//            tree->addTopLevelItem(item);
-//        }
-//        item = ui->treeWidget_compNew->headerItem()->clone();
-//        tree->setHeaderItem(item);
-//        eliminateEmptyItem(tree);
-//        QtTreeManager::writeTreeWidgetToXmlFile(path, tree);
-//        delete tree;
-        QtTreeManager::writeTreeWidgetToXmlFile(path, ui->treeWidget_compNew);
+        QTreeWidget *tree = new QTreeWidget;
+        QTreeWidgetItem *item;
+        for(int i = 0; i < ui->treeWidget_compNew->topLevelItemCount(); i++)
+        {
+            item = ui->treeWidget_compNew->topLevelItem(i)->clone();
+            tree->addTopLevelItem(item);
+        }
+        item = ui->treeWidget_compNew->headerItem()->clone();
+        tree->setHeaderItem(item);
+        eliminateEmptyItem(tree);
+        QtTreeManager::writeTreeWidgetToXmlFile(path, tree);
+        delete tree;
+        //QtTreeManager::writeTreeWidgetToXmlFile(path, ui->treeWidget_compNew);
     }
 }
 
@@ -351,6 +352,9 @@ void ComparisonDialog::compareNode(QTreeWidgetItem *oldNode, QTreeWidgetItem *ne
     if (m_barCount % 10 == 0) {
         ui->progressBar_comp->setValue(m_barCount % 100);
     }
+    if (oldNode->text(TREE_NAME).compare(XML_INFO_NAME) == 0 || newNode->text(TREE_NAME).compare(XML_INFO_NAME) == 0) {
+        return;
+    }
     int sameIndex = -1;
     for (int i = 0; i < newNode->childCount(); i++) {
         bool exist = false;
@@ -397,6 +401,8 @@ void ComparisonDialog::compareNode(QTreeWidgetItem *oldNode, QTreeWidgetItem *ne
             fillSpaceNode(newNode->child(i), oldNode->child(sameIndex), itemList);
             oldNode->child(sameIndex)->setExpanded(true);
             //newNode->child(i)->setExpanded(false);
+        } else if (newNodeName.compare("") == 0) {
+            sameIndex++;
         }
     }
     sameIndex = -1;
@@ -426,6 +432,8 @@ void ComparisonDialog::compareNode(QTreeWidgetItem *oldNode, QTreeWidgetItem *ne
             fillSpaceNode(oldNode->child(i), newNode->child(sameIndex), itemList);
             newNode->child(sameIndex)->setExpanded(true);
             //oldNode->child(i)->setExpanded(false);
+        } else if (oldNodeName.compare("") == 0) {
+            sameIndex++;
         }
     }
 }
@@ -441,6 +449,7 @@ void ComparisonDialog::clearEmptyItem(QTreeWidgetItem *item)
         QTreeWidgetItem *childItem = item->child(i);
         if (childItem->text(TREE_NAME).compare("") == 0) {
             item->removeChild(childItem);
+            delete childItem;
         } else {
             clearEmptyItem(childItem);
         }

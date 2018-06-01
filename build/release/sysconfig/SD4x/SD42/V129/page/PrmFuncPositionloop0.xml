@@ -38,12 +38,12 @@
      </column>
      <column>
       <property name="text">
-       <string>downlimit</string>
+       <string>downLimit</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>uplimit</string>
+       <string>upLimit</string>
       </property>
      </column>
      <column>
@@ -58,7 +58,7 @@
      </column>
      <column>
       <property name="text">
-       <string>scale</string>
+       <string>Scale</string>
       </property>
      </column>
      <item>
@@ -233,6 +233,35 @@
       </property>
       <property name="text">
        <string>40.96</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>gSevDrv.sev_obj.pos.ctl.prm.fn_sec_6</string>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="text">
+       <string>int16</string>
+      </property>
+      <property name="text">
+       <string>NULL</string>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="text">
+       <string>32767</string>
+      </property>
+      <property name="text">
+       <string>NULL</string>
+      </property>
+      <property name="text">
+       <string>13390</string>
+      </property>
+      <property name="text">
+       <string>10</string>
       </property>
      </item>
     </widget>

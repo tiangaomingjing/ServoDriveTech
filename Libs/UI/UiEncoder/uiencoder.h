@@ -26,6 +26,9 @@ public:
 protected:
   void setContextAction() Q_DECL_OVERRIDE;
 
+protected slots:
+  void onDspReset() Q_DECL_OVERRIDE;
+
 signals:
   void encActive();
 private:

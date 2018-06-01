@@ -24,6 +24,8 @@
 #define FILENAME_PRM_PTY_TREE "PrmPrtyTree.xml"
 #define CMD_SRC_SEL_NAME "gSevDrv.sev_obj.pos.seq.prm.cmd_src_sel"
 
+#define PRM_FIRMWARE_UPDATE_FILE_NAME         "PrmFirmwareUpdate.xml"
+
 #define TEST_CHECKSTATUS 0
 
 SevDevicePrivate::SevDevicePrivate(SevDevice *sev, QObject *parent):QObject(parent),
@@ -743,11 +745,62 @@ bool SevDevice::imaxPrmAssociationActive(quint16 axisInx)
 {
   //gain =shunt (64424512)*dspversionfactor (2)/电阻值rValue
   //k = gain / imaxValue ;
-  //shunt dspversionfactor 的数据来自PrmFuncExtention.xml Motor  每个版本中dspversionfactor可能不一样
+  //shunt dspversionfactor 的数据来自 PrmImaxAssosiation.xml Motor  每个版本中dspversionfactor可能不一样
   //rValue 的数据来自刘超文功率板的PB.xml采样电阻值
-  //最后计算的ka kb kc 要写到PrmFuncExtention.xml记录中 ia ib ic
+  //最后计算的ka kb kc 要写到 PrmImaxAssosiation.xml记录中 ia ib ic
   Q_D(SevDevice);
   return d->m_imaxPrmAssociationHelper->active(axisInx);
+}
+
+bool SevDevice::resetDSP()
+{
+  Q_D(SevDevice);
+  bool ret = true;
+  emit dspReset();
+  GTUtils::delayms(200);
+
+  //到PrmFirmwareUpdate 找 dspNumber
+  int dspNum = 1;
+  QTreeWidget *tree = QtTreeManager::createTreeWidgetFromXmlFile(d->m_filePath + PRM_FIRMWARE_UPDATE_FILE_NAME);
+  if(tree != NULL)
+    dspNum = tree->topLevelItem(0)->child(ROW_PRM_FIRM_UPDATE_DEVICE_DSP)->text(1).toInt();
+  delete tree;
+
+  int tryCount = 500;
+  for(int i=0;i<dspNum;i++)
+  {
+    ComDriver::errcode_t err = d->m_socket->comObject()->resetDSP(i);
+    if(err != 0)
+    {
+      err = d->m_socket->comObject()->resetDSP(i);
+      if(err !=0)
+      {
+        ret = false;
+        break;
+      }
+    }
+    initProgressInfo(0,tr("reset dsp =%1").arg(i+1));
+
+    int tryUse = 0;
+    bool finish = false;
+    double inc = 100.0/tryCount;
+    do
+    {
+      finish = d->m_socket->comObject()->checkResetFinish(i,err);
+      initProgressInfo(tryUse*inc,tr("dsp =%1 Reset Flag_Finish checking......").arg(i+1));
+      GTUtils::delayms(20);
+      tryUse ++;
+      qDebug()<<"DSP = "<<i<<"tryUse = "<<tryUse<<"finish = "<<finish;
+    }while((tryUse<tryCount)&&(finish == false));
+
+    if(tryUse>=tryCount)
+    {
+      ret = false;
+      break;
+    }
+  }
+
+  return ret ;
 }
 
 bool SevDevice::onReadPageFlash(int axis, QTreeWidget *pageTree)
