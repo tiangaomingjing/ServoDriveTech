@@ -13,6 +13,8 @@ InfoDialog::InfoDialog(QWidget *parent) :
     ui(new Ui::InfoDialog)
 {
     ui->setupUi(this);
+    ui->table_Info->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->table_Info->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 }
 
 InfoDialog::~InfoDialog()
@@ -75,5 +77,4 @@ void InfoDialog::uiInit(const QList<SevDevice*> &devList)
             ui->table_Info->setItem(i, COL_MATCH, new QTableWidgetItem(tr("Invalid")));
         }
     }
-    ui->table_Info->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 }
