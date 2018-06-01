@@ -65,7 +65,7 @@ public:
   bool getPlotData(const ComDriver::PlotControlPrm &ctrPrm,ComDriver::CurveList &curveList);
 
   bool clearAlarm(quint16 axisInx);
-  bool checkLoadParameters(QTreeWidget *tree);
+  bool checkLoadParameters(QTreeWidget *tree, int itemNum);
 
   bool writeXml(quint8 axis, const QStringList &fileNameList, QList<int> fileTypeList, int file_num, void (*processCallBack)(void *, short *), void *ptrv, short &progress);
   bool readXml(quint8 axis, const QStringList &fileNameList, QList<int> fileTypeList, int file_num, void (*processCallBack)(void *, short *), void *ptrv, short &progress);
@@ -146,7 +146,7 @@ private:
   bool checkPagePropertyParameters(QTreeWidgetItem *item);
   bool checkPowerBoardParameters(QTreeWidgetItem *item,const QMap<QString ,PowerBoardLimit> *limit);
   bool checkPageParameters(int axis,QTreeWidget *tree);
-  bool checkLoadItemParameters(int axis, QTreeWidgetItem *item, QTreeWidget *prmTree);
+  bool checkLoadItemParameters(int axis, QTreeWidgetItem *item, QTreeWidget *prmTree, int itemNum);
   bool checkLoadPropertyParameters(QTreeWidgetItem *item, QTreeWidget *prmTree);
 
 private:

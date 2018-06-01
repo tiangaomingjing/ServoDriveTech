@@ -56,7 +56,15 @@ AdvUserCompress::~AdvUserCompress()
 
 void AdvUserCompress::uiInit()
 {
+    ui->lineEdit_advFolderPath->clear();
+    ui->lineEdit_advHexVersion->clear();
+    ui->lineEdit_advRpdVersion->clear();
+    setModify(false);
+}
 
+QString AdvUserCompress::nickName()
+{
+    return tr("Compress");
 }
 
 bool AdvUserCompress::advUserActive()
@@ -72,8 +80,8 @@ bool AdvUserCompress::advUserActive()
     bool ok = dbManager->checkCoupleValid(hexVersion, rpdVersion, 1, 2);
     delete dbManager;
     if (!ok) {
-        int ret = QMessageBox::question(0, tr("Compress"), tr("Version do not match. Are you sure to continue?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
-        if (ret == 0) {
+        QMessageBox::StandardButton rb = QMessageBox::question(0, tr("Compress"), tr("Version do not match. Are you sure to continue?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+        if (!(rb == QMessageBox::Yes)) {
             return false;
         }
     }

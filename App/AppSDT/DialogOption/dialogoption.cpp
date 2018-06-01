@@ -30,7 +30,7 @@ DialogOption::DialogOption(QWidget *parent) :
   QListWidgetItem *item;
   foreach (IOpt *iopt, m_optContainer->optItems()) {
     ui->stackedWidget->addWidget(iopt);
-    item=new QListWidgetItem(iopt->name(),ui->listWidget);
+    item=new QListWidgetItem(iopt->nickName(),ui->listWidget);
 //    item->setIcon();
     ui->listWidget->addItem(item);
     qDebug()<<"opt name :"<<iopt->name();

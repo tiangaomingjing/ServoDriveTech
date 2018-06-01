@@ -373,3 +373,7 @@ void OptFace::updateEditTextStyleSheetList()
   d->m_editTextStyleSheetList.append(str);
   qDebug()<<"error style"<<str<<"\n=========================\n";
 }
+
+QString OptFace::nickName() {
+    return tr("Face");
+}

@@ -81,6 +81,7 @@ AdvUserMask::~AdvUserMask()
 void AdvUserMask::uiInit()
 {
     Q_D(AdvUserMask);
+    setModify(false);
     ui->tree_advMask->clear();
     QList<QTreeWidgetItem*> topItemList;
     for (int i = 0; i < d->m_devList.count(); i++) {
@@ -125,6 +126,11 @@ void AdvUserMask::setFlashNodeColor(const QColor &nodeColor)
     }
 }
 
+QString AdvUserMask::nickName()
+{
+    return tr("Mask");
+}
+
 void AdvUserMask::setSevList(const QList<SevDevice *> &list)
 {
     Q_D(AdvUserMask);
@@ -135,7 +141,9 @@ bool AdvUserMask::advUserActive()
 {
     Q_D(AdvUserMask);
     bool ok;
+    qDebug()<<"count"<<d->m_changedItemList.count();
     for (int i = 0; i < d->m_changedItemList.count(); i++) {
+        qDebug()<<"name"<<d->m_changedItemList.at(i)->text(0);
         int devIndex = findDevIndex(d->m_changedItemList.at(i));
         int axisIndex = findAxisIndex(d->m_changedItemList.at(i));
         ok = d->m_devList.at(devIndex)->writeAdvFlash(axisIndex, d->m_changedItemList.at(i));
@@ -143,11 +151,13 @@ bool AdvUserMask::advUserActive()
             respondErrorExecute();
             return false;
         }
+        qDebug()<<"devIndex"<<devIndex;
         ok = d->m_devList.at(devIndex)->readAdvFlash(axisIndex, d->m_changedItemList.at(i));
         if (!ok) {
             respondErrorExecute();
             return false;
         }
+        qDebug()<<"axisIndex"<<axisIndex;
     }
     return true;
 }
@@ -313,6 +323,7 @@ void AdvUserMask::calculateItem(QTreeWidgetItem *item)
         item->setText(GT::COL_FLASH_RAM_TREE_VALUE, QString::number(value));
     }
     if (!d->m_changedItemList.contains(item)) {
+        d->m_isModify = true;
         d->m_changedItemList.append(item);
     }
 }

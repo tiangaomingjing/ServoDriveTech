@@ -27,8 +27,11 @@ private:
     bool readXmlFromDsp(void (*processCallback)(void *pbar,short *value), void *processbar, const QString &path, SevDevice *dev);
     bool deleteDir(const QString &path);
     bool isFileExist(const QString &fileName);
+    int getItemNum(QTreeWidget *tree);
 private:
     int m_barCount;
+    int m_downloadItemNum;
+    int m_uploadItemNum;
 };
 
 #endif // SERVOFILE_H

@@ -18,6 +18,7 @@ public:
     virtual ~IAdvUser();
 
     QString name();
+    virtual QString nickName() = 0;
     bool execute();
     bool saveSettings();
     virtual void uiInit() = 0;
