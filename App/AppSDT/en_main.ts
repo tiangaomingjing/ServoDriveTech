@@ -42,7 +42,8 @@
     <name>ComparisonDialog</name>
     <message>
         <location filename="ComparisonDialog/comparisondialog.ui" line="14"/>
-        <source>Comparison</source>
+        <source>ComparisonDialog</source>
+        <oldsource>Comparison</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -98,44 +99,44 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="105"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="106"/>
         <source>Open Old File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="105"/>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="136"/>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="236"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="106"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="137"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="237"/>
         <source>Files(*.xml)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="107"/>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="138"/>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="238"/>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="240"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="108"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="139"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="239"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="241"/>
         <source>Path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="107"/>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="138"/>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="238"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="108"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="139"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="239"/>
         <source>You did not select any files.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="136"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="137"/>
         <source>Open New File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="236"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="237"/>
         <source>Save File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="240"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="241"/>
         <source>You selected </source>
         <translation type="unfinished"></translation>
     </message>

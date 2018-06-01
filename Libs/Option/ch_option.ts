@@ -13,6 +13,11 @@
         <source>autoload</source>
         <translation>自动匹配</translation>
     </message>
+    <message>
+        <location filename="optautoload.cpp" line="93"/>
+        <source>Autoload</source>
+        <translation>自动匹配</translation>
+    </message>
 </context>
 <context>
     <name>OptFace</name>
@@ -46,6 +51,11 @@
         <source>font size:</source>
         <translation>字号：</translation>
     </message>
+    <message>
+        <location filename="optface.cpp" line="378"/>
+        <source>Face</source>
+        <translation>界面</translation>
+    </message>
 </context>
 <context>
     <name>OptPath</name>
@@ -55,7 +65,12 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="optpath.cpp" line="166"/>
+        <location filename="optpath.cpp" line="123"/>
+        <source>Path</source>
+        <translation>路径</translation>
+    </message>
+    <message>
+        <location filename="optpath.cpp" line="171"/>
         <source>Open Directory</source>
         <translation>选择路径</translation>
     </message>
@@ -112,6 +127,11 @@
         <source>X Display Time (s):</source>
         <translation>X轴时长(s)：</translation>
     </message>
+    <message>
+        <location filename="optplot.cpp" line="72"/>
+        <source>Plot</source>
+        <translation>画图</translation>
+    </message>
 </context>
 <context>
     <name>OptUser</name>
@@ -139,6 +159,11 @@
         <location filename="optuser.cpp" line="117"/>
         <source>Warning</source>
         <translation>警告</translation>
+    </message>
+    <message>
+        <location filename="optuser.cpp" line="128"/>
+        <source>User</source>
+        <translation>用户</translation>
     </message>
 </context>
 </TS>

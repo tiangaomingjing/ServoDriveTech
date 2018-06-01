@@ -81,6 +81,7 @@ AdvUserMask::~AdvUserMask()
 void AdvUserMask::uiInit()
 {
     Q_D(AdvUserMask);
+    setModify(false);
     ui->tree_advMask->clear();
     QList<QTreeWidgetItem*> topItemList;
     for (int i = 0; i < d->m_devList.count(); i++) {
@@ -123,6 +124,11 @@ void AdvUserMask::setFlashNodeColor(const QColor &nodeColor)
         d->m_nodeColor = nodeColor;
         emit flashNodeColorChanged(d->m_nodeColor);
     }
+}
+
+QString AdvUserMask::nickName()
+{
+    return tr("Mask");
 }
 
 void AdvUserMask::setSevList(const QList<SevDevice *> &list)

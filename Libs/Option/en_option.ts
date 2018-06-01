@@ -13,6 +13,11 @@
         <source>autoload</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="optautoload.cpp" line="93"/>
+        <source>Autoload</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OptFace</name>
@@ -46,6 +51,11 @@
         <source>font size:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="optface.cpp" line="378"/>
+        <source>Face</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OptPath</name>
@@ -55,7 +65,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optpath.cpp" line="166"/>
+        <location filename="optpath.cpp" line="123"/>
+        <source>Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="optpath.cpp" line="171"/>
         <source>Open Directory</source>
         <translation type="unfinished"></translation>
     </message>
@@ -112,6 +127,11 @@
         <source>X Display Time (s):</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="optplot.cpp" line="72"/>
+        <source>Plot</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OptUser</name>
@@ -138,6 +158,11 @@
     <message>
         <location filename="optuser.cpp" line="117"/>
         <source>Warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="optuser.cpp" line="128"/>
+        <source>User</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

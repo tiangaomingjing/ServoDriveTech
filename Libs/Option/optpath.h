@@ -23,6 +23,7 @@ public:
     QString flashFilePath();
     QString oldFilePath();
     QString newFilePath();
+    QString nickName()Q_DECL_OVERRIDE;
 signals:
     void pathesChanged(QStringList);
 private:

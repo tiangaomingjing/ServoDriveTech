@@ -88,3 +88,7 @@ void OptAutoLoad::onRespondErrorExe()
   QMessageBox::warning(0,"error","error");
   qDebug()<<"error test";
 }
+
+QString OptAutoLoad::nickName() {
+    return tr("Autoload");
+}

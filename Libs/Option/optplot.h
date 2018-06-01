@@ -17,6 +17,7 @@ public:
   explicit OptPlot(const QString &optName, QWidget *parent = 0);
   ~OptPlot();
   void uiInit()Q_DECL_OVERRIDE;
+  QString nickName()Q_DECL_OVERRIDE;
 
   quint16 delayTime();
   double xStoreTime();

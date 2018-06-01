@@ -19,12 +19,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercheck.cpp" line="70"/>
+        <location filename="advusercheck.cpp" line="63"/>
+        <source>Check</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="advusercheck.cpp" line="75"/>
         <source>Wrong Password!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercheck.cpp" line="94"/>
+        <location filename="advusercheck.cpp" line="99"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
@@ -57,29 +62,30 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercompress.cpp" line="68"/>
-        <location filename="advusercompress.cpp" line="75"/>
-        <location filename="advusercompress.cpp" line="116"/>
+        <location filename="advusercompress.cpp" line="67"/>
+        <location filename="advusercompress.cpp" line="76"/>
+        <location filename="advusercompress.cpp" line="83"/>
+        <location filename="advusercompress.cpp" line="124"/>
         <source>Compress</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercompress.cpp" line="68"/>
+        <location filename="advusercompress.cpp" line="76"/>
         <source>Please enter version information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercompress.cpp" line="75"/>
+        <location filename="advusercompress.cpp" line="83"/>
         <source>Version do not match. Are you sure to continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercompress.cpp" line="116"/>
+        <location filename="advusercompress.cpp" line="124"/>
         <source>Compressing fails!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercompress.cpp" line="153"/>
+        <location filename="advusercompress.cpp" line="161"/>
         <source>Open Directory</source>
         <translation type="unfinished"></translation>
     </message>
@@ -102,44 +108,49 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusermask.cpp" line="195"/>
+        <location filename="advusermask.cpp" line="131"/>
+        <source>Mask</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="advusermask.cpp" line="201"/>
         <source>Copy to Axis%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusermask.cpp" line="207"/>
+        <location filename="advusermask.cpp" line="213"/>
         <source>Copy to all Axis</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusermask.cpp" line="220"/>
+        <location filename="advusermask.cpp" line="226"/>
         <source>Clear alarm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusermask.cpp" line="231"/>
+        <location filename="advusermask.cpp" line="237"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusermask.cpp" line="357"/>
-        <location filename="advusermask.cpp" line="377"/>
-        <location filename="advusermask.cpp" line="410"/>
-        <location filename="advusermask.cpp" line="446"/>
-        <location filename="advusermask.cpp" line="467"/>
+        <location filename="advusermask.cpp" line="363"/>
+        <location filename="advusermask.cpp" line="383"/>
+        <location filename="advusermask.cpp" line="416"/>
+        <location filename="advusermask.cpp" line="452"/>
+        <location filename="advusermask.cpp" line="473"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusermask.cpp" line="357"/>
+        <location filename="advusermask.cpp" line="363"/>
         <source>Write warning message error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusermask.cpp" line="377"/>
-        <location filename="advusermask.cpp" line="410"/>
-        <location filename="advusermask.cpp" line="446"/>
-        <location filename="advusermask.cpp" line="467"/>
+        <location filename="advusermask.cpp" line="383"/>
+        <location filename="advusermask.cpp" line="416"/>
+        <location filename="advusermask.cpp" line="452"/>
+        <location filename="advusermask.cpp" line="473"/>
         <source>Not Connected!</source>
         <translation type="unfinished"></translation>
     </message>

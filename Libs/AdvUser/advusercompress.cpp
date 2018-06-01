@@ -56,7 +56,15 @@ AdvUserCompress::~AdvUserCompress()
 
 void AdvUserCompress::uiInit()
 {
+    ui->lineEdit_advFolderPath->clear();
+    ui->lineEdit_advHexVersion->clear();
+    ui->lineEdit_advRpdVersion->clear();
+    setModify(false);
+}
 
+QString AdvUserCompress::nickName()
+{
+    return tr("Compress");
 }
 
 bool AdvUserCompress::advUserActive()

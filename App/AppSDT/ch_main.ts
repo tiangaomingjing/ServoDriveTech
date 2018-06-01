@@ -42,7 +42,8 @@
     <name>ComparisonDialog</name>
     <message>
         <location filename="ComparisonDialog/comparisondialog.ui" line="14"/>
-        <source>Comparison</source>
+        <source>ComparisonDialog</source>
+        <oldsource>Comparison</oldsource>
         <translation>设备文件升级工具</translation>
     </message>
     <message>
@@ -98,44 +99,44 @@
         <translation>保存</translation>
     </message>
     <message>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="105"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="106"/>
         <source>Open Old File</source>
         <translation>打开旧版本文件</translation>
     </message>
     <message>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="105"/>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="136"/>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="236"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="106"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="137"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="237"/>
         <source>Files(*.xml)</source>
         <translation>Xml文件(*.xml)</translation>
     </message>
     <message>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="107"/>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="138"/>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="238"/>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="240"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="108"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="139"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="239"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="241"/>
         <source>Path</source>
         <translation>路径</translation>
     </message>
     <message>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="107"/>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="138"/>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="238"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="108"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="139"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="239"/>
         <source>You did not select any files.</source>
         <translation>没有选择路径。</translation>
     </message>
     <message>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="136"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="137"/>
         <source>Open New File</source>
         <translation>打开新版本文件</translation>
     </message>
     <message>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="236"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="237"/>
         <source>Save File</source>
         <translation>保存文件</translation>
     </message>
     <message>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="240"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="241"/>
         <source>You selected </source>
         <translation>选择</translation>
     </message>

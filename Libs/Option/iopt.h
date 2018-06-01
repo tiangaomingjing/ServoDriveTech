@@ -13,6 +13,7 @@ public:
   explicit IOpt(const QString &optName, QWidget *parent = 0);
   virtual ~IOpt();
   QString name() const;
+  virtual QString nickName() = 0;
 
   bool execute();
 
