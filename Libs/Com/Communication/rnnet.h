@@ -102,7 +102,7 @@ public:
 
   errcode_t setRnStation(uint16_t rnstation);
   uint16_t currentRnStation() const;
-  std::vector<uint8_t> broadcast();
+  std::vector<int16_t> broadcast();
 };
 
 COM_NAMESPACE_END

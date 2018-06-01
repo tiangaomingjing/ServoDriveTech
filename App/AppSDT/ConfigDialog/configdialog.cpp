@@ -16,7 +16,7 @@ ConfigDialog::ConfigDialog(QList<DeviceConfig *> *devList, QWidget *parent) :
   QDialog(parent),
   ui(new Ui::ConfigDialog),
   m_devListPtr(devList),
-  m_curSd("SD61"),
+  m_curSd("SD42"),
   m_curSelectSta(SELECT_STATUS_RNNET),
   m_curDstTreeSta(DST_TREE_STATUS_EMPTY)
 {

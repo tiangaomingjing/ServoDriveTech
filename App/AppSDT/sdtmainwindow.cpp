@@ -918,11 +918,13 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
         m_statusBar->statusProgressBar()->setValue(100);
         activeCurrentUi();
         m_statusMonitor->startMonitor(1000);
+        m_actnNewConfig->setEnabled(false);
       }
       else
       {
         m_connecting=false;
         setConnect(false);
+        m_actnNewConfig->setEnabled(true);
       }
 
     }
@@ -952,6 +954,7 @@ void SDTMainWindow::onActnDisConnectClicked(bool checked)
   m_statusMonitor->stopMonitor();
   disactiveAllUi();
   setConnect(false);
+  m_actnNewConfig->setEnabled(true);
 
   qDebug()<<"checked"<<checked;
 }
@@ -1454,6 +1457,7 @@ QList<SevDevice *> SDTMainWindow::sevList()
 
 void SDTMainWindow::updateSDTMainUiByConfigList(const QList<DeviceConfig *> &configList)
 {
+  ui->mainStackedWidget->hide();
   createSdAssemblyListByDevConfig(configList);
   removeAllStackedWidget();
   clearNavigationTree();
@@ -1466,6 +1470,7 @@ void SDTMainWindow::updateSDTMainUiByConfigList(const QList<DeviceConfig *> &con
 
   updateStatusMonitorDevice(sevList());
   m_gUiControl->setSevDeviceList(sevList());
+  ui->mainStackedWidget->show();
 
 }
 

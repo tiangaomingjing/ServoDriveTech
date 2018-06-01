@@ -60,24 +60,24 @@ QList<DeviceConfig *>DevComRWriter::createConfig(void (*processCallback)(void *p
   if(com->iComType()==ICOM_TYPE_RNNET)
   {
     RnNet *rnNet=dynamic_cast<RnNet *>(com);
-    std::vector<uint8_t> vtr=rnNet->broadcast();
+    std::vector<int16_t> vtr=rnNet->broadcast();
     qDebug()<<"size"<<vtr.size();
 
-    std::vector<uint8_t>::iterator it=vtr.begin();
+    std::vector<int16_t>::iterator it=vtr.begin();
     while(it!=vtr.end())
     {
       qDebug()<<"station ="<<(*it);
       ++it;
     }
-    QVector<uint8_t> v;
-    v=QVector<uint8_t>::fromStdVector(vtr);
+    QVector<int16_t> v;
+    v=QVector<int16_t>::fromStdVector(vtr);
     if(v.isEmpty())
     {
       isOk=false;
       SdtError::instance()->errorStringList()->append(tr("  1 RnNet broadcast return null station error"));
     }
     int i=0;
-    foreach (uint8_t station, v)
+    foreach (uint16_t station, v)
     {
       rnNet->setRnStation(station);
       config=buildConfigFromCom(processCallback,processbar,i,station,rnNet);
