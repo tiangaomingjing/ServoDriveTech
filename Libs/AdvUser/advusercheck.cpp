@@ -58,6 +58,11 @@ bool AdvUserCheck::isChecked()
     return d->m_isChecked;
 }
 
+QString AdvUserCheck::nickName()
+{
+    return tr("Check");
+}
+
 bool AdvUserCheck::advUserActive()
 {
     Q_D(AdvUserCheck);

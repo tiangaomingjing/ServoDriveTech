@@ -62,6 +62,7 @@ public:
   StyleWidget *customStyleWidget();
   void setEditTextStatus(QDoubleSpinBox *box,EditTextStatus sta);
 
+  QString nickName()Q_DECL_OVERRIDE;
 protected:
   bool optActive()Q_DECL_OVERRIDE;
   bool readOpt()Q_DECL_OVERRIDE;

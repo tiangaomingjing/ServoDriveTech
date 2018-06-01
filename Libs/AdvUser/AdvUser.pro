@@ -61,3 +61,5 @@ FORMS += \
     advusercheck.ui \
     advusermask.ui \
     advusercompress.ui
+
+TRANSLATIONS    += ch_advuser.ts en_advuser.ts

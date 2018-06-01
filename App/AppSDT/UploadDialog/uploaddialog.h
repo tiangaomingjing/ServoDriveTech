@@ -16,16 +16,16 @@ class UploadDialog : public QDialog
 public:
     explicit UploadDialog(QWidget *parent = 0);
     ~UploadDialog();
-    void uiInit(QList<SevDevice *> &devList, const QString uploadPath);
+    void uiInit(QList<SevDevice *> &devList, const QString &uploadPath, QString &filePath, int &index);
 signals:
-    void sendDevAndPath(int, QString);
 private slots:
     void onToolButtonClicked();
     void onOkButtonClicked();
 private:
-    QString m_filePath;
+    QString* m_filePath;
     QString m_uploadPath;
-    QList<SevDevice *>* m_devList;
+    int* m_index;
+    QList<SevDevice *> m_devList;
     Ui::UploadDialog *ui;
 };
 

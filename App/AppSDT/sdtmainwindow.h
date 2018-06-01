@@ -97,6 +97,7 @@ private slots:
   void onActnConnectClicked(bool checked);
   void onActnDisConnectClicked(bool checked);
   void onActnHelpDeviceInfoClicked();
+  void onActnVersionInfoClicked();
   void onActnHelpSoftInfoClicked();
   void onActnNewConfigClicked();
   void onActnSaveClicked();
@@ -110,8 +111,6 @@ private slots:
   void onActnResetDspClicked();
   void onStartMsgReceived();
   void onCloseMsgReceived();
-  void onDownloadMsgReceived(int index, const QString &filePath);
-  void onUploadMsgReceived(int index, const QString &filePath);
 
   //响应option选项slots
   void onOptAutoLoadChanged(bool changed);
@@ -153,6 +152,7 @@ private:
   QToolButton *m_tbtnHelp;
   QAction *m_actnAboutHardware;
   QAction *m_actnAboutSoftware;
+  QAction *m_actnAboutVersion;
   QAction *m_actnReset;
   QAction *m_actnUpdateFlash;
   QAction *m_actnOption;
@@ -181,11 +181,7 @@ private:
   StatusMonitor *m_statusMonitor;
 
   QString m_downloadPath;
-  QString m_downloadFileName;
-  int m_downloadIndex;
   QString m_uploadPath;
-  QString m_uploadFileName;
-  int m_uploadIndex;
 };
 
 #endif // SDTMAINWINDOW_H

@@ -44,6 +44,8 @@ public:
   virtual void write(QTreeWidgetItem *treeItem);
   virtual bool read(QTreeWidgetItem *treeItem);
 
+//  virtual void write(ISave *save) {save->exec(this);}
+
   void addConstInputByName(const QString &name);
   void addVarInputByName(const QString &name);
 

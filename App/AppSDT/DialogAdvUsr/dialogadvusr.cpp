@@ -25,7 +25,7 @@ DialogAdvUsr::DialogAdvUsr(QWidget *parent) :
     QList<IAdvUser*> advList = m_advContainer->advItems();
     for (int i = 0; i < advList.count(); i++) {
         ui->stackedWidget->addWidget(advList.at(i));
-        item = new QListWidgetItem(advList.at(i)->name(), ui->listWidget);
+        item = new QListWidgetItem(advList.at(i)->nickName(), ui->listWidget);
         ui->listWidget->addItem(item);
     }
     ui->listWidget->setCurrentRow(0);

@@ -118,6 +118,11 @@ QString OptPath::newFilePath()
     return d->m_pathList.at(4);
 }
 
+QString OptPath::nickName()
+{
+    return tr("Path");
+}
+
 bool OptPath::optActive()
 {
     Q_D(OptPath);

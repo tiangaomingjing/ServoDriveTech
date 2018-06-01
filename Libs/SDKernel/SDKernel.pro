@@ -83,3 +83,4 @@ unix {
     target.path = /usr/lib
     INSTALLS += target
 }
+TRANSLATIONS    += ch_sdkernel.ts en_sdkernel.ts

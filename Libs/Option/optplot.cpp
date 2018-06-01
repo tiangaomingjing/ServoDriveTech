@@ -18,6 +18,7 @@ public:
   double m_storedTime;
   quint16 m_pointNum;
   QString m_color;
+
 };
 OptPlotPrivate::OptPlotPrivate()
 {
@@ -64,6 +65,11 @@ void OptPlot::uiInit()
     ui->doubleSpinBox_plotStore->setValue(d->m_storedTime);
     ui->spinBox_plotPoint->setValue(d->m_pointNum);
     ui->comboBox_plotColor->setCurrentText(d->m_color);
+}
+
+QString OptPlot::nickName()
+{
+    return tr("Plot");
 }
 
 quint16 OptPlot::delayTime()

@@ -28,6 +28,7 @@ public:
 
     QColor flashNodeColor();
     void setFlashNodeColor(const QColor &nodeColor);
+    QString nickName()Q_DECL_OVERRIDE;
 signals:
     void flashNodeColorChanged(QColor &clr);
 protected:

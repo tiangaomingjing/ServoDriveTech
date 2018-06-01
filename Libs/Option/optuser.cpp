@@ -120,7 +120,12 @@ void OptUser::respondErrorExecute()
 bool OptUser::isAdmin() const
 {
   Q_D(const OptUser);
-  return d->m_isAdmin;
+    return d->m_isAdmin;
+}
+
+QString OptUser::nickName()
+{
+    return tr("User");
 }
 
 void OptUser::onActionBtnChecked() {

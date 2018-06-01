@@ -17,9 +17,11 @@ DownloadDialog::~DownloadDialog()
     delete ui;
 }
 
-void DownloadDialog::uiInit(const QList<SevDevice *> &devList, const QString downloadPath)
+void DownloadDialog::uiInit(const QList<SevDevice *> &devList, const QString &downloadPath, QString &filePath, int &index)
 {
     m_downloadPath = downloadPath;
+    m_filePath = &filePath;
+    m_index = &index;
     for (int i = 0; i < devList.count(); i++) {
         ui->comboBox_devDownload->addItem(devList.at(i)->modelName());
     }
@@ -30,15 +32,14 @@ void DownloadDialog::uiInit(const QList<SevDevice *> &devList, const QString dow
 
 void DownloadDialog::onToolButtonClicked()
 {
-    m_filePath = QFileDialog::getOpenFileName(this, tr("Open XML File"), m_downloadPath, tr("XML Files(*.xml)"));
+    *m_filePath = QFileDialog::getOpenFileName(this, tr("Open XML File"), m_downloadPath, tr("XML Files(*.xml)"));
     QFileInfo fileInfo;
-    fileInfo.setFile(m_filePath);
+    fileInfo.setFile(*m_filePath);
     ui->lineEdit_fileDownload->setText(fileInfo.fileName());
 }
 
 void DownloadDialog::onOkButtonClicked()
 {
-    int index = ui->comboBox_devDownload->currentIndex();
-    emit sendDevAndPath(index, m_filePath);
+    *m_index = ui->comboBox_devDownload->currentIndex();
     this->close();
 }
