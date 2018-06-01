@@ -12,6 +12,7 @@ class DeviceConfig;
 class VerAttribute;
 class GeneralCmd;
 class SevSearchPhaseHelper;
+class ImaxPrmAssociationHelper;
 
 class SevDevicePrivate:public QObject
 {
@@ -44,6 +45,7 @@ public :
   int m_barCount;
 
   QList<SevSearchPhaseHelper *>m_searchPhaseHelperList;
+  ImaxPrmAssociationHelper * m_imaxPrmAssociationHelper;
 
 signals:
   void initProgressInfo(int value,QString msg);

@@ -95,8 +95,10 @@ public:
 
   Q_INVOKABLE void qmlTest();
 
+  //writePrm readPrm读写的是指所有个轴的驱动器参数文件
   bool writePrmItemFlash(quint16 axisInx, QTreeWidgetItem *item);
   bool readPrmItemFlash(quint16 axisInx, QTreeWidgetItem *item);
+
   bool axisServoIsOn(quint16 axisInx);
   void setAxisServoOn(quint16 axisInx, bool enable);
 
@@ -118,6 +120,8 @@ public:
   bool cmdGetSpdFb(quint16 axisInx,double &value);
 
   bool searchPhaseStart(quint16 axisInx,int value);
+
+  bool imaxPrmAssociationActive(quint16 axisInx);
 
 signals:
   void initProgressInfo(int value,QString msg);
@@ -144,6 +148,7 @@ private:
 
 private:
   SevDevicePrivate *d_ptr;
+  friend class ImaxPrmAssociationHelper;
 };
 
 #endif // SEVDEVICE_H

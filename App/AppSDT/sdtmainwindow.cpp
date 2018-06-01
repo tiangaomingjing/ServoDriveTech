@@ -47,6 +47,7 @@
 #include "servofile.h"
 #include "firmwareflashdialog.h"
 #include "comparisondialog.h"
+#include "infodialog.h"
 
 #include <QToolButton>
 #include <QDebug>
@@ -189,9 +190,12 @@ void SDTMainWindow::createActions()
   m_tbtnHelp->setStatusTip(tr("query the hardware and software infomation"));
   m_actnAboutHardware=new QAction(this);
   m_actnAboutHardware->setText(tr("hinfo"));
+  m_actnAboutVersion = new QAction(this);
+  m_actnAboutVersion->setText(tr("vinfo"));
   m_actnAboutSoftware=new QAction(this);
   m_actnAboutSoftware->setText(tr("sinfo"));
   m_tbtnHelp->addAction(m_actnAboutHardware);
+  m_tbtnHelp->addAction(m_actnAboutVersion);
   m_tbtnHelp->addAction(m_actnAboutSoftware);
 
 
@@ -287,6 +291,7 @@ void SDTMainWindow::createConnections()
   connect(m_actnDisNet,SIGNAL(triggered(bool)),this,SLOT(onActnDisConnectClicked(bool)));
   connect(m_tbtnHelp,SIGNAL(clicked(bool)),this,SLOT(onActnHelpDeviceInfoClicked()));
   connect(m_actnAboutHardware,SIGNAL(triggered(bool)),this,SLOT(onActnHelpDeviceInfoClicked()));
+  connect(m_actnAboutVersion, SIGNAL(triggered()), this, SLOT(onActnVersionInfoClicked()));
   connect(m_actnNewConfig,SIGNAL(triggered(bool)),this,SLOT(onActnNewConfigClicked()));
   connect(m_actnSave,SIGNAL(triggered(bool)),this,SLOT(onActnSaveClicked()));
   connect(m_actnConfig,SIGNAL(triggered(bool)),this,SLOT(onActnConfigClicked()));
@@ -896,6 +901,14 @@ void SDTMainWindow::onActnHelpDeviceInfoClicked()
   devInfo.readInfo(devList);
   devInfo.exec();
 }
+
+void SDTMainWindow::onActnVersionInfoClicked()
+{
+    InfoDialog infoDialog;
+    infoDialog.uiInit(sevList());
+    infoDialog.exec();
+}
+
 void SDTMainWindow::onActnNewConfigClicked()
 {
   setUiAllEnable(false);
@@ -1189,8 +1202,8 @@ void SDTMainWindow::onIpaWarningMsg(const QString &msg)
 void SDTMainWindow::onIpaDone()
 {
   mp_progressBar->setVisible(false);
-  ui->statusBar->setToolTip(tr("search phase complete"));
-  m_statusBar->setMsg(tr("search phase complete"),SdtStatusBar::MSG_TYPE_NORMAL);
+  ui->statusBar->setToolTip(tr("search phase complete !"));
+  m_statusBar->setMsg(tr("search phase complete !"),SdtStatusBar::MSG_TYPE_NORMAL);
   GTUtils::delayms(4000);
   m_statusBar->setMsg("",SdtStatusBar::MSG_TYPE_NORMAL);
 }

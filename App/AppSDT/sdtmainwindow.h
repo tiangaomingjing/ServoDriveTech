@@ -97,6 +97,7 @@ private slots:
   void onActnConnectClicked(bool checked);
   void onActnDisConnectClicked(bool checked);
   void onActnHelpDeviceInfoClicked();
+  void onActnVersionInfoClicked();
   void onActnNewConfigClicked();
   void onActnSaveClicked();
   void onActnConfigClicked();
@@ -149,6 +150,7 @@ private:
   QToolButton *m_tbtnHelp;
   QAction *m_actnAboutHardware;
   QAction *m_actnAboutSoftware;
+  QAction *m_actnAboutVersion;
   QAction *m_actnReset;
   QAction *m_actnUpdateFlash;
   QAction *m_actnOption;

@@ -109,7 +109,8 @@ TabMotion::TabMotion(const QString &name, SevDevice *sev, QWidget *parent) :
 
   m_barWidget = new MotionProgressBar(sev->axisNum(),this);
   ui->verticalLayout_go->insertWidget(0,m_barWidget);
-  m_barWidget->setVisible(false);
+  m_barWidget->setVisible(true);
+  m_barWidget->resetAllBarValue();
 
   connect(ui->listWidget_plot_tab2_axis,SIGNAL(currentRowChanged(int)),this,SLOT(onMotionAxisRowChanged(int)));
   connect(ui->tbtn_plot_ctlsrc_pc,SIGNAL(clicked(bool)),this,SLOT(onBtnCtlSrcPcClicked()));
@@ -279,6 +280,10 @@ void TabMotion::onBtnMotionGoClicked(bool checked)
     GTUtils::delayms(plot->delayTime());
     qDebug()<<"begin to move";
 
+//    m_barWidget->setVisible(true);
+
+    m_barWidget->resetAllBarValue();
+
     for(int row = 0;row<ui->listWidget_plot_tab2_axis->count();row++)
     {
       axis = row;
@@ -287,9 +292,7 @@ void TabMotion::onBtnMotionGoClicked(bool checked)
         m_axisMotionDataList.at(axis)->m_curMotion->move(axis);
       }
     }
-    m_barWidget->setVisible(true);
 
-    m_barWidget->resetAllBarValue();
   }
   else
   {
@@ -300,8 +303,8 @@ void TabMotion::onBtnMotionGoClicked(bool checked)
         m_axisMotionDataList.at(row)->m_curMotion->stop(row);
       }
     }
-    m_barWidget->setVisible(false);
-    m_barWidget->hideAllBar();
+//    m_barWidget->setVisible(false);
+//    m_barWidget->hideAllBar();
   }
 }
 

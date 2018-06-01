@@ -21,7 +21,7 @@ SevPwrBoard::SevPwrBoard(SevDevicePrivate *sev, QObject *parent):IPwrBoard(sev,p
     bool isOk;
     PowerTreeManage *pwrTreeManager = new PowerTreeManage(sev->m_devConfig);
     pwrTreeManager->updatePowerLimitMapList(m_powerLimitMapList);
-    m_samplingDataInfo = pwrTreeManager->samplingDataInfo(&isOk);
+    m_samplingDataList = pwrTreeManager->samplingDataList(&isOk);
     delete pwrTreeManager;
 }
 
@@ -34,7 +34,7 @@ QList<QMap<QString ,PowerBoardLimit>>* SevPwrBoard::pwrLimitMapList()
   return &m_powerLimitMapList;
 }
 
-SamplingDataInfo SevPwrBoard::pwrSamplingDataInfo()
+SamplingData SevPwrBoard::pwrSamplingDataAt(quint16 axisInx)
 {
-  return m_samplingDataInfo;
+  return m_samplingDataList.at(axisInx);
 }

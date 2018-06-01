@@ -20,6 +20,7 @@ INCLUDEPATH+= $${PWD}/DialogOption\
               $${PWD}/ServoFile\
               $${PWD}/FirmwareFlashDialog\
               $${PWD}/ComparisonDialog\
+              $${PWD}/InfoDialog\
 
 QT       += core gui qml sql network
 
@@ -67,7 +68,8 @@ SOURCES += main.cpp\
     FirmwareFlashDialog/firmwareflashdialog.cpp\
     sdttreewidgetnav.cpp \
     ComparisonDialog/comparisondialog.cpp \
-    ComparisonDialog/updatedtreewidget.cpp
+    ComparisonDialog/updatedtreewidget.cpp \
+    InfoDialog/infodialog.cpp
 
 HEADERS  += sdtmainwindow.h \
     appiconname.h \
@@ -106,7 +108,8 @@ HEADERS  += sdtmainwindow.h \
     FirmwareFlashDialog/firmwareflashdialog.h\
     sdttreewidgetnav.h \
     ComparisonDialog/comparisondialog.h \
-    ComparisonDialog/updatedtreewidget.h
+    ComparisonDialog/updatedtreewidget.h \
+    InfoDialog/infodialog.h
 
 FORMS    += sdtmainwindow.ui \
     DialogOption/dialogoption.ui \
@@ -119,7 +122,8 @@ FORMS    += sdtmainwindow.ui \
     DownloadDialog/downloaddialog.ui \
     UploadDialog/uploaddialog.ui \
     FirmwareFlashDialog/firmwareflashdialog.ui \
-    ComparisonDialog/comparisondialog.ui
+    ComparisonDialog/comparisondialog.ui \
+    InfoDialog/infodialog.ui
 
 TRANSLATIONS    += ch_main.ts en_main.ts
 

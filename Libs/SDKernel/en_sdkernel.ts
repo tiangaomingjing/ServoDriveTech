@@ -11,26 +11,39 @@
     </message>
 </context>
 <context>
+    <name>ImaxPrmAssociationHelper</name>
+    <message>
+        <location filename="imaxprmassociationhelper.cpp" line="156"/>
+        <source>warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="imaxprmassociationhelper.cpp" line="156"/>
+        <source>Imax is too small !</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PowerTreeManage</name>
     <message>
-        <location filename="PowerTreeManage/powertreemanage.cpp" line="236"/>
-        <location filename="PowerTreeManage/powertreemanage.cpp" line="246"/>
+        <location filename="PowerTreeManage/powertreemanage.cpp" line="241"/>
+        <location filename="PowerTreeManage/powertreemanage.cpp" line="251"/>
         <source>error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="PowerTreeManage/powertreemanage.cpp" line="236"/>
-        <location filename="PowerTreeManage/powertreemanage.cpp" line="246"/>
+        <location filename="PowerTreeManage/powertreemanage.cpp" line="241"/>
+        <location filename="PowerTreeManage/powertreemanage.cpp" line="251"/>
         <source>cannot find Sampling type item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="PowerTreeManage/powertreemanage.cpp" line="241"/>
+        <location filename="PowerTreeManage/powertreemanage.cpp" line="246"/>
         <source>warnning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="PowerTreeManage/powertreemanage.cpp" line="241"/>
+        <location filename="PowerTreeManage/powertreemanage.cpp" line="246"/>
         <source>hall sampling</source>
         <translation type="unfinished"></translation>
     </message>
@@ -38,50 +51,50 @@
 <context>
     <name>SevDevice</name>
     <message>
-        <location filename="sevdevice.cpp" line="171"/>
+        <location filename="sevdevice.cpp" line="176"/>
         <source>SevDevice init</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sevdevice.cpp" line="365"/>
-        <location filename="sevdevice.cpp" line="788"/>
+        <location filename="sevdevice.cpp" line="370"/>
+        <location filename="sevdevice.cpp" line="804"/>
         <source>Write Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sevdevice.cpp" line="365"/>
+        <location filename="sevdevice.cpp" line="370"/>
         <source>Write Config Parameter Error:%1 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sevdevice.cpp" line="788"/>
+        <location filename="sevdevice.cpp" line="804"/>
         <source>Write Flash Parameter Error:%1 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sevdevice.cpp" line="817"/>
-        <location filename="sevdevice.cpp" line="969"/>
+        <location filename="sevdevice.cpp" line="833"/>
+        <location filename="sevdevice.cpp" line="985"/>
         <source>CheckPrm Error
 :%1 %2 is out of range %3 -- %4
 paramater save fail!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sevdevice.cpp" line="822"/>
-        <location filename="sevdevice.cpp" line="843"/>
-        <location filename="sevdevice.cpp" line="974"/>
+        <location filename="sevdevice.cpp" line="838"/>
+        <location filename="sevdevice.cpp" line="859"/>
+        <location filename="sevdevice.cpp" line="990"/>
         <source>Prm Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sevdevice.cpp" line="843"/>
+        <location filename="sevdevice.cpp" line="859"/>
         <source>PowerBoard CheckPrm Error
 :%1 is out of range
 paramater save fail!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sevdevice.cpp" line="916"/>
+        <location filename="sevdevice.cpp" line="932"/>
         <source>Checking axis%1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -89,22 +102,22 @@ paramater save fail!</source>
 <context>
     <name>SevDevicePrivate</name>
     <message>
-        <location filename="sevdevice.cpp" line="122"/>
+        <location filename="sevdevice.cpp" line="125"/>
         <source>init Config</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sevdevice.cpp" line="127"/>
+        <location filename="sevdevice.cpp" line="130"/>
         <source>findTargetTree</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sevdevice.cpp" line="132"/>
+        <location filename="sevdevice.cpp" line="135"/>
         <source>New SevDspMap</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sevdevice.cpp" line="137"/>
+        <location filename="sevdevice.cpp" line="140"/>
         <source>New SevPwrBoard</source>
         <translation type="unfinished"></translation>
     </message>
