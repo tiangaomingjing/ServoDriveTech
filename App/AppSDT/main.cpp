@@ -3,6 +3,7 @@
 #include <QApplication>
 #include <QTranslator>
 #include <QDesktopWidget>
+#include <QSettings>
 #include <QDebug>
 
 #include "optautoload.h"
@@ -51,9 +52,29 @@
 //  }
 //}
 
+QVariant data(const QString &group, const QString &key, const QVariant &defaultValue)
+{
+  QString path = GTUtils::customPath() + "option/" + "opt.ini";
+  QSettings settings(path, QSettings::IniFormat);
+  QVariant vd;
+  settings.beginGroup(group);
+  vd = settings.value(key,defaultValue);
+  settings.endGroup();
+  return vd;
+}
+
 int main(int argc, char *argv[])
 {
   QApplication a(argc, argv);
+
+  QString langPath=GTUtils::languagePath();
+  QString lang;
+  QString currentLang = data("face", "language", "").toString();
+  if(currentLang == "chinese")
+    lang=langPath+"ch/";
+  else
+    lang=langPath+"en/";
+  GTUtils::setupTranslators(lang);
 
   OptContainer *optc=OptContainer::instance();
 
@@ -81,14 +102,6 @@ int main(int argc, char *argv[])
   QString pixPath=GTUtils::customPath()+"option/style/"+optFace->css()+"/icon/"+START_UP_PIXMAP;
   qDebug()<<"pixPath"<<pixPath;
   ScreenStartup *startup=new ScreenStartup(QPixmap(pixPath));
-
-  QString langPath=GTUtils::languagePath();
-  QString lang;
-  if(optFace->language()=="chinese")
-    lang=langPath+"ch/";
-  else
-    lang=langPath+"en/";
-  GTUtils::setupTranslators(lang);
 
   optFace->setFaceStyle(optFace->css());
   optFace->setFaceFontSize(optFace->fontSize());

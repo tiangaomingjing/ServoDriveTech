@@ -62,3 +62,5 @@ FORMS += \
     optplot.ui \
     optautoload.ui \
     optpath.ui
+
+TRANSLATIONS    += ch_option.ts en_option.ts

@@ -25,6 +25,7 @@ ServoFile::ServoFile(QObject *parent) :  QObject(parent)
 void ServoFile::downLoadFile(void (*processCallback)(void *pbar,short *value), void *processbar, const QString &xmlPath, SevDevice *dev)
 {
     QTreeWidget* downloadTree = QtTreeManager::createTreeWidgetFromXmlFile(xmlPath);
+    m_downloadItemNum = getItemNum(downloadTree);
     if (downloadTree == NULL) {
         QMessageBox::information(0, tr("Warning"), tr("Xml file error!"));
         return;
@@ -81,7 +82,7 @@ void ServoFile::downLoadFile(void (*processCallback)(void *pbar,short *value), v
     bool isChecked = usrCheck->isChecked();
     bool isOk;
     if (!isAdmin || (isAdmin && isChecked)) {
-        isOk = dev->checkLoadParameters(downloadTree);
+        isOk = dev->checkLoadParameters(downloadTree, m_downloadItemNum);
     }
     disconnect(dev, SIGNAL(initProgressInfo(int,QString)), this, SIGNAL(sendProgressbarMsg(int,QString)));
     if (!isOk) {
@@ -150,6 +151,7 @@ void ServoFile::upLoadFile(void (*processCallback)(void *pbar,short *value), voi
     QString dspFilePath = dspPath + FLASH_ALL_PRM_NAME;
     QTreeWidget* dspTree = QtTreeManager::createTreeWidgetFromXmlFile(dspFilePath);
     QString xmlNodeName = dspTree->topLevelItem(XMLFILE_ROW_INDEX)->text(GT::COL_FLASH_RAM_TREE_NAME);
+    m_uploadItemNum = getItemNum(dspTree);
     QTreeWidgetItem* versionNodeItem = NULL;
     if (xmlNodeName.compare(XMLFILE_NODE_NAME) == 0) {
         versionNodeItem = dspTree->takeTopLevelItem(XMLFILE_ROW_INDEX);
@@ -185,7 +187,7 @@ void ServoFile::updatePrmTreeItem(QTreeWidgetItem *downloadItem, QTreeWidgetItem
     m_barCount++;
     if (m_barCount % 10 == 0) {
         qApp->processEvents();
-        emit sendProgressbarMsg(m_barCount % 100, tr("Updating parameters"));
+        emit sendProgressbarMsg(m_barCount * 100 / m_downloadItemNum, tr("Updating parameters"));
     }
     int sameIndex = -1;
     for (int i = 0; i < dspItem->childCount(); i++) {
@@ -211,7 +213,7 @@ bool ServoFile::downloadItem(SevDevice *dev, int axisIndex, QTreeWidgetItem *ite
     m_barCount++;
     if (m_barCount % 10 == 0) {
         qApp->processEvents();
-        emit sendProgressbarMsg(m_barCount % 100, tr("Downloading axis%1").arg(QString::number(axisIndex + 1)) + item->text(GT::COL_FLASH_ALLAXIS_NAME));
+        emit sendProgressbarMsg(m_barCount * 100 / m_downloadItemNum, tr("Downloading axis%1").arg(QString::number(axisIndex + 1)) + item->text(GT::COL_FLASH_ALLAXIS_NAME));
     }
     if (item->text(GT::COL_FLASH_ALLAXIS_ADDR).compare("-1") != 0) {
         bool ok = dev->writePrmItemFlash(axisIndex, item);
@@ -233,7 +235,7 @@ bool ServoFile::uploadItem(SevDevice *dev, int axisIndex, QTreeWidgetItem *item)
 {
     m_barCount++;
     if (m_barCount % 10 == 0) {
-        emit sendProgressbarMsg(m_barCount % 100, tr("Uploading axis%1").arg(QString::number(axisIndex + 1)) + item->text(GT::COL_FLASH_ALLAXIS_NAME));
+        emit sendProgressbarMsg(m_barCount * 100 / m_uploadItemNum, tr("Uploading axis%1").arg(QString::number(axisIndex + 1)) + item->text(GT::COL_FLASH_ALLAXIS_NAME));
         qApp->processEvents();
     }
     if (item->text(GT::COL_FLASH_ALLAXIS_ADDR).compare("-1") != 0) {
@@ -329,4 +331,15 @@ bool ServoFile::isFileExist(const QString &fileName)
         return true;
     }
     return false;
+}
+
+int ServoFile::getItemNum(QTreeWidget* tree)
+{
+    int count = 0;
+    QTreeWidgetItemIterator it(tree);
+    while (*it) {
+        count++;
+        ++it;
+    }
+    return count;
 }

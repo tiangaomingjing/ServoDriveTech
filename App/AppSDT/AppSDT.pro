@@ -20,6 +20,7 @@ INCLUDEPATH+= $${PWD}/DialogOption\
               $${PWD}/ServoFile\
               $${PWD}/FirmwareFlashDialog\
               $${PWD}/ComparisonDialog\
+              $${PWD}/InfoDialog\
               $${PWD}/ResetDspSelectDialog
 
 QT       += core gui qml sql network
@@ -69,6 +70,7 @@ SOURCES += main.cpp\
     sdttreewidgetnav.cpp \
     ComparisonDialog/comparisondialog.cpp \
     ComparisonDialog/updatedtreewidget.cpp \
+    InfoDialog/infodialog.cpp\
     ResetDspSelectDialog/resetdspselectdialog.cpp
 
 HEADERS  += sdtmainwindow.h \
@@ -109,6 +111,7 @@ HEADERS  += sdtmainwindow.h \
     sdttreewidgetnav.h \
     ComparisonDialog/comparisondialog.h \
     ComparisonDialog/updatedtreewidget.h \
+    InfoDialog/infodialog.h\
     ResetDspSelectDialog/resetdspselectdialog.h
 
 FORMS    += sdtmainwindow.ui \
@@ -123,6 +126,7 @@ FORMS    += sdtmainwindow.ui \
     UploadDialog/uploaddialog.ui \
     FirmwareFlashDialog/firmwareflashdialog.ui \
     ComparisonDialog/comparisondialog.ui \
+    InfoDialog/infodialog.ui\
     ResetDspSelectDialog/resetdspselectdialog.ui
 
 TRANSLATIONS    += ch_main.ts en_main.ts

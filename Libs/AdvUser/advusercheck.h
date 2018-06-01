@@ -27,6 +27,7 @@ public:
 
     void uiInit() Q_DECL_OVERRIDE;
     bool isChecked();
+    QString nickName()Q_DECL_OVERRIDE;
 protected:
     bool advUserActive() Q_DECL_OVERRIDE;
     bool readAdv() Q_DECL_OVERRIDE;

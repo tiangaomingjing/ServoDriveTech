@@ -230,12 +230,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphstatus.cpp" line="208"/>
+        <location filename="igraphstatus.cpp" line="205"/>
         <source>col=%1 row=%2 rsv=%3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphstatus.cpp" line="219"/>
+        <location filename="igraphstatus.cpp" line="216"/>
         <source>Cause:
 %1
 Solution:
@@ -243,7 +243,7 @@ Solution:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphstatus.cpp" line="236"/>
+        <location filename="igraphstatus.cpp" line="233"/>
         <source>reserve</source>
         <translation type="unfinished"></translation>
     </message>
