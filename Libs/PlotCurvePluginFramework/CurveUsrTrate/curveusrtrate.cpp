@@ -24,6 +24,22 @@ ICurve *CurveUsrTrate::clone()
 {
   ICurve *c=new CurveUsrTrate();
   c->prepare();
+  c->setUnit(dd.m_unitName);
+  c->setAxisInx(dd.m_axisInx);
+  c->setAxisCount(dd.m_axisCount);
+  c->setDevInx(dd.m_devInx);
+  c->setColor(dd.m_color);
+  c->setIsDraw(dd.m_isDraw);
+
+  for(int i = 0;i<c->constInputKeys().size();i++)
+  {
+    c->fillConstInputsPrm(i,dd.m_constInputs.at(i).prm);
+  }
+
+  for(int i = 0;i<c->varInputsKeys().size();i++)
+  {
+    c->fillVarInputsPrm(i,dd.m_varInputs.at(i).prm);
+  }
   return c;
 }
 

@@ -52,7 +52,7 @@
 <context>
     <name>MotionProgressBar</name>
     <message>
-        <location filename="TabMotion/tabmotion.cpp" line="27"/>
+        <location filename="TabMotion/tabmotion.cpp" line="30"/>
         <source>%1</source>
         <translation></translation>
     </message>
@@ -581,17 +581,17 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="TabMotion/tabmotion.cpp" line="77"/>
+        <location filename="TabMotion/tabmotion.cpp" line="82"/>
         <source>Axis_%1</source>
         <translation>轴_%1</translation>
     </message>
     <message>
-        <location filename="TabMotion/tabmotion.cpp" line="87"/>
+        <location filename="TabMotion/tabmotion.cpp" line="92"/>
         <source>None</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="TabMotion/tabmotion.cpp" line="93"/>
+        <location filename="TabMotion/tabmotion.cpp" line="98"/>
         <source>Velocity</source>
         <translation>速度模式</translation>
     </message>

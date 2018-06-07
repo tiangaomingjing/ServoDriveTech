@@ -86,6 +86,9 @@ private slots:
 
   void onDspReset() Q_DECL_OVERRIDE;
 
+  void onPopupMenuAxisClicked();
+  void onPlotCurveTablePopupMenuRequested(const QPoint &point);
+
 private:
   void createConnections();
   void setPlotIcons(const QString &css);
@@ -111,6 +114,8 @@ private:
 
   void setUiStatusSampling(bool en);
   void setUiStatusCurveTableWidgetOnOff(int row,bool on);
+
+  void addPopupMenuActionAxis(quint8 axisMaxCount);
 
 private:
   Ui::PlotUnitGraph129 *ui;

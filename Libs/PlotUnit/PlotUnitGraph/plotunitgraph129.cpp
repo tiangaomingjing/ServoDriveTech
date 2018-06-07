@@ -24,6 +24,7 @@
 #include <QEvent>
 #include <QTreeWidgetItem>
 #include <QMultiHash>
+#include <QMenu>
 
 #define TEST_DEBUG 1
 
@@ -91,7 +92,8 @@ public:
     m_xDisplayTime(5),
     m_xStoreTime(10),
     m_isShowAll(false),
-    m_isShowDetail(false)
+    m_isShowDetail(false),
+    m_popupMenuAxis(NULL)
   {
 
   }
@@ -114,6 +116,8 @@ protected:
   double m_lastKeyTime;
   bool m_isShowAll;
   bool m_isShowDetail;
+  double m_prevMaxKeyValue;
+  QMenu *m_popupMenuAxis;
 };
 
 PlotUnitGraph129::PlotUnitGraph129(const QList<SevDevice *> &sevList, QWidget *parent) :
@@ -181,29 +185,39 @@ PlotUnitGraph129::PlotUnitGraph129(const QList<SevDevice *> &sevList, QWidget *p
   ui->tableWidget_plot_curve->setEditTriggers(QAbstractItemView::NoEditTriggers);//编辑触发模式
   ui->tableWidget_plot_curve->setAlternatingRowColors(true);
   ui->tableWidget_plot_curve->setContextMenuPolicy(Qt::CustomContextMenu);//设置其右键弹出菜单方法
-//  connect(ui->tableWidget,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(onTablePopMenu(QPoint)));
-//  m_popuMenuTable=new QMenu(this);
-//  addTableMenuAction(mp_userConfig->model.axisCount);//初始化m_popuMenuTable 右键弹出QAction
+  connect(ui->tableWidget_plot_curve,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(onPlotCurveTablePopupMenuRequested(QPoint)));
+  resizeSectionCurveTableWidget(sevList);
+
+  d->m_popupMenuAxis = new QMenu(this);
+  int maxAxis = 1;
+  foreach (SevDevice *sev, sevList) {
+    if(sev->axisNum() >maxAxis)
+      maxAxis = sev->axisNum();
+  }
+  addPopupMenuActionAxis(maxAxis);
+
   QStringList headerList;
   headerList<<tr("checked")<<tr("name")<<tr("axis")<<tr("dev");
   ui->tableWidget_plot_curve->setHorizontalHeaderLabels(headerList);
 //  ui->tableWidget_plot_curve->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 //  ui->tableWidget_plot_curve->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
   ui->tableWidget_plot_curve->setMouseTracking(true);
-  resizeSectionCurveTableWidget(sevList);
+
 
   ui->label_plot_detailName->setMaximumWidth(250);
   ui->label_plot_detailName->setWordWrap(true);
   ui->label_plot_detailName->setAlignment(Qt::AlignTop|Qt::AlignLeft);
 
-
+  //画图控件初始化
   gtPlotInit();
+  //控制区初始化
   ctlPanelInit();
   OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
   setPlotIcons(face->css());
   createConnections();
 
-  initialCurvesFromXml();
+  if(loadPluginOk)
+    initialCurvesFromXml();
 }
 
 PlotUnitGraph129::~PlotUnitGraph129()
@@ -276,13 +290,33 @@ void PlotUnitGraph129::onBeforeSevDeviceChanged()
 
 void PlotUnitGraph129::resizeSectionCurveTableWidget(const QList<SevDevice *> &sevlist)
 {
-  int columnWidth;
+  double columnWidth;
+
+  double nameSize ;
+  double otherSize ;
+  double size = 100;
+
   if(sevlist.size()>1)
-    columnWidth=(ui->tableWidget_plot_curve->minimumWidth()-10)/4;
+  {
+    columnWidth=ui->tableWidget_plot_curve->minimumWidth()-20;
+    nameSize = columnWidth *2 /5;
+    otherSize = columnWidth *1/5;
+
+  }
   else
-    columnWidth=(ui->tableWidget_plot_curve->minimumWidth()-10)/3;
+  {
+    columnWidth=ui->tableWidget_plot_curve->minimumWidth()-20;
+    nameSize = columnWidth *1 /2;
+    otherSize = columnWidth *1/4;
+  }
   for(int i=0;i<4;i++)
-    ui->tableWidget_plot_curve->horizontalHeader()->resizeSection(i,columnWidth);
+  {
+    if(i == 1)
+      size = nameSize;
+    else
+      size = otherSize;
+    ui->tableWidget_plot_curve->horizontalHeader()->resizeSection(i,size);
+  }
 }
 
 void PlotUnitGraph129::onSevDeviceListChanged(const QList<SevDevice *> &sevlist)
@@ -290,9 +324,16 @@ void PlotUnitGraph129::onSevDeviceListChanged(const QList<SevDevice *> &sevlist)
   Q_D(PlotUnitGraph129);
 
   d->m_sevList=sevlist;
+  int maxAxis = 1;
+
   foreach (SevDevice *sev, sevlist) {
+    if(sev->axisNum() > maxAxis)
+      maxAxis = sev->axisNum();
     connect(sev,SIGNAL(dspReset()),this,SLOT(onDspReset()));
   }
+
+  addPopupMenuActionAxis(maxAxis);
+
   ctlPanelInit();
   resizeSectionCurveTableWidget(sevlist);
   checkCurveValid();
@@ -446,6 +487,8 @@ void PlotUnitGraph129::onBtnStartSampleClicked(bool checked)
   setUiStatusSampling(checked);
   d->m_isShowAll = false;
   d->m_isShowDetail = false;
+  d->m_prevMaxKeyValue = 0;
+  d->m_popupMenuAxis->setEnabled(!checked);
 
   if(checked)
   {
@@ -606,6 +649,31 @@ void PlotUnitGraph129::setUiStatusCurveTableWidgetOnOff(int row, bool on)
   }
 }
 
+void PlotUnitGraph129::addPopupMenuActionAxis(quint8 axisMaxCount)
+{
+  Q_D(PlotUnitGraph129);
+  QAction *act = NULL;
+  foreach (act, d->m_popupMenuAxis->actions()) {
+    delete act;
+  }
+  d->m_popupMenuAxis->actions().clear();
+
+  for(int i=0;i<axisMaxCount;i++)
+  {
+    act=new QAction(tr("Axis_%1").arg(i+1),d->m_popupMenuAxis);
+    act->setData(i);
+    connect(act,SIGNAL(triggered(bool)),this,SLOT(onPopupMenuAxisClicked()));
+    d->m_popupMenuAxis->addAction(act);
+  }
+  int copy = -1;
+  d->m_popupMenuAxis->addSeparator();
+  act=new QAction(tr("Copy"),d->m_popupMenuAxis);
+  act->setData(copy);
+  connect(act,SIGNAL(triggered(bool)),this,SLOT(onPopupMenuAxisClicked()));
+  d->m_popupMenuAxis->addAction(act);
+
+}
+
 void PlotUnitGraph129::onBtnSaveCurveClicked()
 {
 
@@ -654,6 +722,11 @@ void PlotUnitGraph129::onListWidgetDeviceCurrentRowChanged(int row)
 void PlotUnitGraph129::onBtnCurveAddClicked()
 {
   Q_D(PlotUnitGraph129);
+  if(!d->m_pluginManager->loadOk())
+  {
+    QMessageBox::warning(0,tr("warning"),tr("plugin load error"));
+    return;
+  }
   SevDevice *dev=d->m_sevList.at(d->m_curSevInx);
   DialogPickCurve *dia=new DialogPickCurve(dev);
 
@@ -772,18 +845,17 @@ void PlotUnitGraph129::onExpertTreeWidgetDoubleClicked(QTableWidget *table,QTree
     axisInx=varPrmList.at(i).axis;
     curveTotalSize=curveCount+i;
     //生成曲线对象
-    curve=d->m_pluginManager->expertCurve()->clone();
-//    curve->prepare();
+    curve = d->m_pluginManager->expertCurve()->clone();
+    curve->reset();
     curve->setAxisInx(axisInx);
     curve->setDevInx(d->m_curSevInx);
     curve->setName(name);
     curve->setNote("");
-//    curve->setSamplInterval(62.5);//这里还要从Option-plot里读取
-//    curve->setStorePointCount(10/62.5*1000000);//这里还要从Option-plot里读取
     curve->setColor(d->m_curveManager->color(curveTotalSize));
     curve->addVarInputByName(name);
     curve->fillVarInputsPrm(0,varPrmList.at(i).varPrm);
     curve->setAxisCount(currentSevDevice()->axisNum());
+
     d->m_curveManager->addCurve(curve);
 
 
@@ -813,12 +885,16 @@ void PlotUnitGraph129::onAddUsrCurveRequested(ICurve *c)
 
   bool isOverSize = d->m_curveManager->isOverMaxCurveSizeWhenAdd(c);
   if(isOverSize)
+  {
+    delete c;
     return ;
+  }
   SevDevice *dev = currentSevDevice();
   bool hasCurve = d->m_curveManager->checkCurveInSevDevice(dev,c);
   if(!hasCurve)
   {
     QMessageBox::information(0,tr("error"),tr("The curve = %1 is not in the device").arg(c->name()));
+    delete c;
     return ;
   }
   c->setColor(d->m_curveManager->color(d->m_curveManager->curveList().size()));
@@ -974,6 +1050,11 @@ void PlotUnitGraph129::onPlotDataIn(PlotData data)
       ui->plot->graph(row)->addData(data.m_dataHash.value(c).keys,data.m_dataHash.value(c).values);
       ui->plot->graph(row)->data()->removeBefore(data.m_dataHash.value(c).keys.last() - xStoreTimeS);
       lastkeyValue=data.m_dataHash.value(c).keys.last();
+      if(lastkeyValue <d->m_prevMaxKeyValue)
+        lastkeyValue = d->m_prevMaxKeyValue;
+      else
+        d->m_prevMaxKeyValue = lastkeyValue;
+
 //      qDebug()<<"i = "<<i<<" last key = "<<lastkeyValue;
     }
   }
@@ -998,6 +1079,7 @@ void PlotUnitGraph129::onPlotDataIn(PlotData data)
       ui->plot->replot(QCustomPlot::rpQueuedReplot);
     }
   }
+
 
 }
 
@@ -1057,6 +1139,96 @@ void PlotUnitGraph129::onDspReset()
     onBtnStartSampleClicked(false);
   }
   d->m_timer->stop();
+
+}
+
+void PlotUnitGraph129::onPopupMenuAxisClicked()
+{
+  Q_D(PlotUnitGraph129);
+
+  QAction *act=static_cast<QAction *>(sender());
+  int data = act->data().toInt();
+  qDebug()<<"act data = "<<data;
+  if(data == -1)//copy action
+  {
+    for(int row = 0;row<ui->tableWidget_plot_curve->rowCount();row++)
+    {
+      QTableWidgetItem *item = ui->tableWidget_plot_curve->item(row,COL_TABLE_CURVE_AXIS);
+      if(item->isSelected())
+      {
+        ICurve *curve=item->data(ROLE_TABLE_CURVE_ICURVE_PTR).value<ICurve *>();
+        bool isOverSize = d->m_curveManager->isOverMaxCurveSizeWhenAdd(curve);
+        if(isOverSize)
+          return ;
+        ICurve *c = curve->clone();
+        d->m_curveManager->addCurve(c);
+        ui->plot->addGraph();
+        ui->plot->graph(ui->plot->graphCount() -1 )->setPen(QPen(c->color()));
+        addTableRowPrm(c,ui->plot->graph(ui->plot->graphCount() -1));
+      }
+    }
+  }
+  else
+  {
+    int targetAxis = data;
+    for(int row = 0;row<ui->tableWidget_plot_curve->rowCount();row++)
+    {
+      QTableWidgetItem *item = ui->tableWidget_plot_curve->item(row,COL_TABLE_CURVE_AXIS);
+      if(item->isSelected())
+      {
+        ICurve *curve=item->data(ROLE_TABLE_CURVE_ICURVE_PTR).value<ICurve *>();
+        bool isOverSize = d->m_curveManager->isOverMaxCurveSizeWhenAdd(curve);
+        if(isOverSize)
+          return ;
+        if(curve->axisCount()>targetAxis)
+        {
+          SevDevice *dev = d->m_sevList.at(curve->devInx());
+          int preAxisInx = curve->axisInx();
+          curve->setAxisInx(targetAxis);
+
+          bool hasCurve = d->m_curveManager->checkCurveInSevDevice(dev,curve);
+          if(!hasCurve)
+          {
+            curve->setAxisInx(preAxisInx);
+            QMessageBox::information(0,tr("error"),tr("The curve = %1 is not in the device").arg(curve->name()));
+          }
+          else
+          {
+            d->m_curveManager->updateCurveCtlPrmsFromDevice(dev,curve);
+            ui->tableWidget_plot_curve->item(row,COL_TABLE_CURVE_AXIS)->setText(QString::number(curve->axisInx() + 1));
+          }
+
+        }
+
+      }
+    }
+  }
+
+}
+
+void PlotUnitGraph129::onPlotCurveTablePopupMenuRequested(const QPoint &point)
+{
+  Q_D(PlotUnitGraph129);
+
+  QTableWidgetItem *item = NULL;
+  item = ui->tableWidget_plot_curve->itemAt(point);
+  if(item != NULL)
+  {
+    int column = item->column();
+    switch (column)
+    {
+    case COL_TABLE_CURVE_AXIS:
+      d->m_popupMenuAxis->exec(QCursor::pos());
+      break;
+
+    case COL_TABLE_CURVE_DEV:
+
+      break;
+
+    default:
+      break;
+    }
+  }
 
 }
 
@@ -1562,7 +1734,7 @@ void PlotUnitGraph129::checkCurveValid()
     QTableWidgetItem * item = ui->tableWidget_plot_curve->item(row,COL_TABLE_CURVE_NAME);
     ICurve *c = item->data(ROLE_TABLE_CURVE_ICURVE_PTR).value<ICurve *>();
     ui->tableWidget_plot_curve->item(row,COL_TABLE_CURVE_DEV)->setText(c->devName());
-    ui->tableWidget_plot_curve->item(row,COL_TABLE_CURVE_AXIS)->setText(QString::number(c->axisInx()));
+    ui->tableWidget_plot_curve->item(row,COL_TABLE_CURVE_AXIS)->setText(QString::number(c->axisInx() + 1));
   }
 }
 

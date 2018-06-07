@@ -36,6 +36,8 @@ public:
   virtual ICurve *clone() = 0;
   virtual QString pluginName() = 0;
 
+  virtual void reset() = 0;
+
   void setName(const QString &name);
   void setNote(const QString &note);
   virtual QString displayName();

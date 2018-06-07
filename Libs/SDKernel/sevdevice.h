@@ -117,7 +117,7 @@ public:
   void cmdSetIqRef(quint16 axisInx,double value);
   void cmdSetSpdRef(quint16 axisInx,double value);
   void cmdSetPosRef(quint16 axisInx,qint32 value);
-  bool cmdGetSpdFb(quint16 axisInx,double &value);
+  bool cmdGetSpdFbPercent(quint16 axisInx,double &value);
 
   bool searchPhaseStart(quint16 axisInx,int value);
 

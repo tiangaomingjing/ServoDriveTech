@@ -46,7 +46,8 @@ void VelPlanMotion::movePrepare()
   m_data->m_seqCircleUse = 0;
   m_data->m_stepCircleUse = 0;
   m_data->m_breakByHand = false;
-  m_data->m_runSta = UiMotionData::RUN_STA_RUNNING;
+  m_data->m_switch = false;
+  m_data->m_runSta = UiMotionData::RUN_STA_INIT;
 
   //计算进度条相关
   if(m_data->m_isCircle)
@@ -68,22 +69,16 @@ void VelPlanMotion::movePrepare()
 
 void VelPlanMotion::move()
 {
-  if(m_data->m_isCircle)
-  {
-    m_sev->cmdSetSpdRef(m_axisInx,m_data->m_seqAmp);
-  }
-  else
-  {
-    m_sev->cmdSetSpdRef(m_axisInx,m_data->m_stepAmp);
-  }
-  int tryCount = 5;
-  int tryUse = 0;
-  do
-  {
-    m_timer.start();
-    tryUse ++;
-  }while((m_timer.isActive() == false)&&(tryUse < tryCount));
-  qDebug()<<"axis = "<<m_axisInx<<"move timer start"<<"tryUse = "<<tryUse;
+  m_timer.start();
+//  if(m_data->m_isCircle)
+//  {
+//    m_sev->cmdSetSpdRef(m_axisInx,m_data->m_seqAmp);
+//  }
+//  else
+//  {
+//    m_sev->cmdSetSpdRef(m_axisInx,m_data->m_stepAmp);
+//  }
+
 }
 
 void VelPlanMotion::stop()
@@ -94,11 +89,16 @@ void VelPlanMotion::stop()
 
 void VelPlanMotion::onTimerOut()
 {
+//  static int testCount = 0;
+//  testCount ++;
   if(m_data->m_isCircle)
   {
     m_data->m_seqCircleUse ++;
     if((m_data->m_seqCircleUse >= m_data->m_seqCircleCount*2)||(m_data->m_breakByHand == true))
+    {
+      m_sev->cmdSetSpdRef(m_axisInx,0);
       m_data->m_runSta = UiMotionData::RUN_STA_STOPING;
+    }
   }
   else
   {
@@ -106,12 +106,20 @@ void VelPlanMotion::onTimerOut()
     emit progressValueChanged(m_axisInx,m_data->m_stepInc*m_data->m_stepCircleUse);
     if((m_data->m_stepCircleUse >= m_data->m_stepCircleCount)||(m_data->m_breakByHand == true))
     {
+      m_sev->cmdSetSpdRef(m_axisInx,0);
       m_data->m_runSta = UiMotionData::RUN_STA_STOPING;
     }
   }
 
   switch (m_data->m_runSta)
   {
+  case UiMotionData::RUN_STA_INIT:
+    if(!m_data->m_isCircle)
+    {
+      m_sev->cmdSetSpdRef(m_axisInx,m_data->m_stepAmp);
+    }
+//    qDebug()<<"run sta = "<<" RUN_STA_INIT";
+    m_data->m_runSta = UiMotionData::RUN_STA_RUNNING;
   case UiMotionData::RUN_STA_RUNNING:
     if(m_data->m_isCircle)
     {
@@ -121,7 +129,7 @@ void VelPlanMotion::onTimerOut()
       else
         m_sev->cmdSetSpdRef(m_axisInx,-1*m_data->m_seqAmp);
 
-      qDebug()<<"circle timer out"<<"RUN_STA_RUNNING"<<"switch "<<m_data->m_switch;
+//      qDebug()<<"circle timer out"<<"RUN_STA_RUNNING"<<"switch = "<<m_data->m_switch;
     }
     break;
 
@@ -129,19 +137,29 @@ void VelPlanMotion::onTimerOut()
   {
     double value = 0;
     m_sev->cmdSetSpdRef(m_axisInx,0);
-    value = m_sev->cmdGetSpdFb(m_axisInx,value);
+    m_sev->cmdGetSpdFbPercent(m_axisInx,value);
     m_data->m_curTimeout ++;
+//    qDebug()<<"RUN_STA_STOPING"<<"m_curTimeout "<<m_data->m_curTimeout<<"value = "<<value;
+
     if(((value>m_data->m_velranglow)&&(value<m_data->m_velrangUp))||(m_data->m_curTimeout>m_data->m_timeoutMaxCount))
     {
-      m_sev->setAxisServoOn(m_axisInx,false);
+      m_sev->cmdSetSpdRef(m_axisInx,0);
+      qDebug()<<"circle timer stop !!!!!!!!!!!!!!!!!!!!"<<" value = "<<value;
       m_timer.stop();
+      GTUtils::delayms(10);
+      m_sev->setAxisServoOn(m_axisInx,false);
       emit motionFinish(m_axisInx);
-      qDebug()<<"circle timer stop !!!!!!!!!!!!!!!!!!!!";
+
     }
-    qDebug()<<"circle timer out"<<"RUN_STA_STOPING"<<"m_curTimeout "<<m_data->m_curTimeout<<"value = "<<value;
+
   }
     break;
   }
+
+//  double value = 0;
+//  m_sev->cmdGetSpdFbPercent(m_axisInx,value);
+//  qDebug()<<"spd value = "<<value<<" testCount = "<<testCount;
+
   int pvalue = 0;
   if(m_data->m_isCircle)
     pvalue = m_data->m_seqInc*m_data->m_seqCircleUse;

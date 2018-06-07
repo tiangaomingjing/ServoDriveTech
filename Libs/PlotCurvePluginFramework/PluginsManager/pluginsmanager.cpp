@@ -24,7 +24,8 @@
 #define PLUGIN_LANG_FILE_NAME        "ch_plugins.qm"
 
 PluginsManager::PluginsManager(QObject *parent) : QObject(parent),
-  m_expertCurve(NULL)
+  m_expertCurve(NULL),
+  m_loadOk(true)
 {
   m_frameWorkFactory = new ctkPluginFrameworkFactory;
   QSharedPointer<ctkPluginFramework> framework = m_frameWorkFactory->getFramework();
@@ -48,11 +49,14 @@ PluginsManager::~PluginsManager()
 
 bool PluginsManager::loadPlugins()
 {
+  setTransLanguage();
+
   bool expertOk = installExpertPlugin();
   bool usrOk = installUsrPlugin();
   bool customOk = installCustomPlugin();
-  setTransLanguage();
-  return expertOk&&usrOk&&customOk;
+
+  m_loadOk = expertOk&&usrOk&&customOk;
+  return m_loadOk;
 }
 
 QStringList PluginsManager::pluginsFromReadTxt(const QString &fileName)
@@ -122,7 +126,8 @@ bool PluginsManager::installExpertPlugin()
       if (service != Q_NULLPTR) {
           // 调用服务
           m_expertCurve=service;
-          m_expertCurve->setName("gServo.pro.prm.mot");
+          m_expertCurve->prepare();
+
 //          m_expertCurve->setPluginName(pluginName);
           qDebug()<<"expert plugin : display name = "<<m_expertCurve->displayName();
           qDebug()<<"expert plugin : full name = "<<m_expertCurve->fullName();
@@ -184,6 +189,7 @@ bool PluginsManager::installUsrPlugin()
           ICurve* service = m_context->getService<ICurve>(reference);
           if (service != Q_NULLPTR) {
             // 调用服务
+            service->prepare();
             m_usrCurves.append(service);
 //            service->setPluginName(pluginName);
             qDebug()<<"usr plugin : display name = "<<service->displayName();
@@ -262,6 +268,11 @@ void PluginsManager::clearTransLanguage()
   qApp->removeTranslator(m_trans);
   delete m_trans;
   m_trans = NULL;
+}
+
+bool PluginsManager::loadOk() const
+{
+  return m_loadOk;
 }
 
 QList<QList<ICurve *> > PluginsManager::customCurves() const

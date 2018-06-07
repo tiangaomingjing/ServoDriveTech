@@ -4,7 +4,7 @@
 <context>
     <name>MotionNone</name>
     <message>
-        <location filename="IMotion/imotion.cpp" line="86"/>
+        <location filename="IMotion/imotion.cpp" line="87"/>
         <source>please select motion</source>
         <translation>请选择运动模式</translation>
     </message>

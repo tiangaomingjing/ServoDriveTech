@@ -5,6 +5,7 @@
 #include <QVector>
 #include <QDebug>
 #include <QTreeWidgetItem>
+#include <QDebug>
 
 #define XML_NODE_CURVE            "Curve"
 #define XML_NODE_DEVINX           "DevIndex"
@@ -26,7 +27,7 @@ public:
 
 ICurve::~ICurve()
 {
-
+  qDebug()<<"ICurve destruct -->";
 }
 /**
  * @brief ICurve::prepare

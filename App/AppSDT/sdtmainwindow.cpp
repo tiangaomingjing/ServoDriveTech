@@ -112,11 +112,6 @@ bool SDTMainWindow::init()
   connect(m_statusMonitor,SIGNAL(alarmError(quint16,quint16,bool)),this,SLOT(onDeviceAlarmError(quint16,quint16,bool)));
   connect(m_statusMonitor,SIGNAL(netError(quint16)),this,SLOT(onDeviceNetError(quint16)));
 
-  OptUser *optuser = dynamic_cast<OptUser *>(OptContainer::instance()->optItem("optuser"));
-  if (optuser != NULL) {
-      qDebug()<<"isAdmin"<<optuser->isAdmin();
-      onOptUserChanged(optuser->isAdmin());
-  }
   return true;
 }
 QTreeWidget *SDTMainWindow::navTreeWidget() const
@@ -531,6 +526,12 @@ void SDTMainWindow::navigationTreeInit()
 
   m_statusBar->updateDeviceNavTreeWhenChanged(ui->treeWidget);
 
+  OptUser *optuser = dynamic_cast<OptUser *>(OptContainer::instance()->optItem("optuser"));
+  if (optuser != NULL) {
+      qDebug()<<"isAdmin"<<optuser->isAdmin();
+      onOptUserChanged(optuser->isAdmin());
+  }
+
 }
 
 void SDTMainWindow::clearNavigationTree()
@@ -743,6 +744,12 @@ void SDTMainWindow::onActnResetDspClicked()
     }
   }
 
+  QMessageBox::StandardButton rb=QMessageBox::question(this,"Warring",tr("Do you want to reset device ?"),QMessageBox::Yes|QMessageBox::No,QMessageBox::No);
+  if (rb==QMessageBox::No)
+  {
+    return;
+  }
+
   setUiAllEnable(false);
   m_statusMonitor->stopMonitor();
 
@@ -757,7 +764,7 @@ void SDTMainWindow::onActnResetDspClicked()
       m_statusBar->setMsg(tr("reset dsp successfully"));
   }
 
-  GTUtils::delayms(1000);
+  GTUtils::delayms(3000);
   m_statusMonitor->startMonitor();
   m_statusBar->setMsg("");
   activeCurrentUi();
@@ -1060,11 +1067,21 @@ void SDTMainWindow::onActnDownloadClicked()
     ServoFile *servoFile = new ServoFile(0);
     connect(servoFile, SIGNAL(sendProgressbarMsg(int,QString)), this, SLOT(onProgressInfo(int,QString)));
     qDebug()<<"3";
-    servoFile->downLoadFile(processCallBack, (void *)(mp_progressBar), downloadFileName, devList.at(downloadIndex));
+    bool downOk = false;
+    downOk = servoFile->downLoadFile(processCallBack, (void *)(mp_progressBar), downloadFileName, devList.at(downloadIndex));
     disconnect(servoFile, SIGNAL(sendProgressbarMsg(int,QString)), this, SLOT(onProgressInfo(int,QString)));
     qDebug()<<"4";
     delete servoFile;
     m_statusBar->statusProgressBar()->setVisible(false);
+    if(downOk)
+    {
+      m_statusBar->setMsg(tr("Download xml file OK !"));
+    }
+    else
+    {
+      m_statusBar->setMsg(tr("Error: Download xml file fails !"));
+    }
+    GTUtils::delayms(2000);
     m_statusBar->setMsg("");
 }
 
@@ -1104,11 +1121,21 @@ void SDTMainWindow::onActnUploadClicked()
     ServoFile *servoFile = new ServoFile(0);
     connect(servoFile, SIGNAL(sendProgressbarMsg(int,QString)), this, SLOT(onProgressInfo(int,QString)));
     qDebug()<<"3";
-    servoFile->upLoadFile(processCallBack, (void *)(mp_progressBar), uploadFileName, devList.at(uploadIndex));
+    bool upOK = false;
+    upOK = servoFile->upLoadFile(processCallBack, (void *)(mp_progressBar), uploadFileName, devList.at(uploadIndex));
     disconnect(servoFile, SIGNAL(sendProgressbarMsg(int,QString)), this, SLOT(onProgressInfo(int,QString)));
     qDebug()<<"4";
     delete servoFile;
     m_statusBar->statusProgressBar()->setVisible(false);
+    if(upOK)
+    {
+      m_statusBar->setMsg(tr("Upload xml file OK !"));
+    }
+    else
+    {
+      m_statusBar->setMsg(tr("Error: Upload xml file fails !"));
+    }
+    GTUtils::delayms(2000);
     m_statusBar->setMsg("");
 }
 

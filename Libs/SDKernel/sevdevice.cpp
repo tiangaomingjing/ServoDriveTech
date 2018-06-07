@@ -725,7 +725,7 @@ void SevDevice::cmdSetPosRef(quint16 axisInx, qint32 value)
   d->m_socket->m_com->setPosRef(axisInx,value);
 }
 
-bool SevDevice::cmdGetSpdFb(quint16 axisInx, double &value)
+bool SevDevice::cmdGetSpdFbPercent(quint16 axisInx, double &value)
 {
   Q_D(SevDevice);
   if(d->m_socket->isConnected()==false)
@@ -766,7 +766,7 @@ bool SevDevice::resetDSP()
     dspNum = tree->topLevelItem(0)->child(ROW_PRM_FIRM_UPDATE_DEVICE_DSP)->text(1).toInt();
   delete tree;
 
-  int tryCount = 500;
+  int tryCount = 1000;
   for(int i=0;i<dspNum;i++)
   {
     ComDriver::errcode_t err = d->m_socket->comObject()->resetDSP(i);

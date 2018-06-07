@@ -54,7 +54,7 @@
     <message>
         <location filename="optface.cpp" line="378"/>
         <source>Face</source>
-        <translation>界面</translation>
+        <translation>界面风格</translation>
     </message>
 </context>
 <context>
@@ -67,7 +67,7 @@
     <message>
         <location filename="optpath.cpp" line="123"/>
         <source>Path</source>
-        <translation>路径</translation>
+        <translation>路径设置</translation>
     </message>
     <message>
         <location filename="optpath.cpp" line="171"/>
@@ -130,7 +130,7 @@
     <message>
         <location filename="optplot.cpp" line="72"/>
         <source>Plot</source>
-        <translation>画图</translation>
+        <translation>画图选项</translation>
     </message>
 </context>
 <context>
@@ -163,7 +163,7 @@
     <message>
         <location filename="optuser.cpp" line="128"/>
         <source>User</source>
-        <translation>用户</translation>
+        <translation>用户切换</translation>
     </message>
 </context>
 </TS>
