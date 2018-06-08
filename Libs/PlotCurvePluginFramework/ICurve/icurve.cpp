@@ -367,6 +367,54 @@ bool ICurve::read(QTreeWidgetItem *treeItem)
   return true;
 }
 
+void ICurve::saveCurve(QDataStream data)
+{
+    data<<dd.m_pluginName;
+    data<<dd.m_devInx;
+    data<<dd.m_axisInx;
+    data<<dd.m_axisCount;
+    data<<dd.m_name;
+    data<<dd.m_note;
+    data<<dd.m_color.red();
+    data<<dd.m_color.green();
+    data<<dd.m_color.blue();
+    data<<dd.m_isDraw;
+    data<<dd.m_unitName;
+
+    data<<dd.m_unitNameList.size();
+    for (int i = 0; i < dd.m_unitNameList.size(); i++) {
+        data<<dd.m_unitNameList.at(i);
+        if (dd.m_unitsHash.contains(dd.m_unitNameList.at(i))) {
+            data<<dd.m_unitsHash.value(dd.m_unitNameList.at(i));
+        } else {
+            double count = 0;
+            data<<count;
+        }
+    }
+
+    data<<dd.m_constInputs.size();
+    for (int i = 0; i < dd.m_constInputs; i++) {
+        data<<dd.m_constInputs.at(i).keyName;
+        data<<dd.m_constInputs.at(i).prm.baseAddr;
+        data<<dd.m_constInputs.at(i).prm.offtAddr;
+        data<<dd.m_constInputs.at(i).prm.bytes;
+    }
+
+    data<<dd.m_varInputs.size();
+    for (int i = 0; i < dd.m_varInputs; i++) {
+        data<<dd.m_varInputs.at(i).keyName;
+        data<<dd.m_varInputs.at(i).prm.baseAddr;
+        data<<dd.m_varInputs.at(i).prm.offtAddr;
+        data<<dd.m_varInputs.at(i).prm.bytes;
+    }
+
+    data<<dd.m_sData.keys.size();
+    for (int i = 0; i < dd.m_sData.keys.size(); i++) {
+        data<<dd.m_sData.keys.at(i);
+        data<<dd.m_sData.values.at(i);
+    }
+}
+
 
 void ICurve::fillConstInputsPrm(int inx, const CurvePrm &prm)
 {

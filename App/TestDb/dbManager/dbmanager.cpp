@@ -16,7 +16,7 @@ DBManager::DBManager(QString dbPath, QString userName, QString psw)
         qDebug()<<"Fail!";
         return;
     }
-    QFile file(dbPath + "Types.txt");
+    QFile file(dbPath + "Types.ini");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         qDebug()<<"File Open Error!";
         return;

@@ -554,132 +554,143 @@ more-&gt;option-&gt;autolaod-&gt;unchecked clicked apply
         <translation>DSP固件</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="94"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="111"/>
         <source>Rpd</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="101"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="118"/>
         <source>FPGA Firmware; Don&apos;t shut off power if flashing fails</source>
         <translation>FPGA固件; 如烧写失败，请勿关闭设备电源</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="108"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="94"/>
         <source>Xml</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="118"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="104"/>
         <source>Configuration Files</source>
         <translation>配置文件</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="126"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="131"/>
         <source>Open File</source>
         <translation>打开文件</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="126"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="131"/>
         <source>SDT Files(*.sdt)</source>
         <translation>SDT文件(*.sdt)</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="139"/>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="151"/>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="202"/>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="286"/>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="314"/>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="347"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="144"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="156"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="207"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="292"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="320"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="353"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="139"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="144"/>
         <source>Decompressing fails!</source>
-        <translation>正在解压文件！</translation>
+        <translation>解压文件失败！</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="151"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="156"/>
         <source>File open fails!</source>
         <translation>文件打开失败！</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="174"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="179"/>
         <source>1.Checking version!
 </source>
-        <translation>1. 正在检查版本!</translation>
+        <translation>1. 正在检查版本!
+</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="181"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="186"/>
         <source>Reading powerboard Id fails!
 </source>
-        <translation>读取功率板ID错误!</translation>
+        <translation>读取功率板ID错误!
+</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="189"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="194"/>
         <source>Reading controlboard Id fails!
 </source>
-        <translation>读取控制板ID错误!</translation>
+        <translation>读取控制板ID错误!
+</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="202"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="207"/>
         <source>Version do not match. Are you sure to continue?</source>
         <translation>版本不匹配，确定继续吗？</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="211"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="217"/>
         <source>Downloading hex file fails!
 </source>
-        <translation>导入Hex文件错误!</translation>
+        <translation>导入Hex文件错误!
+</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="220"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="235"/>
         <source>Downloading rpd file fails!
 </source>
-        <translation>导入Rpd文件错误！</translation>
+        <translation>导入Rpd文件错误！
+</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="229"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="226"/>
         <source>Downloading xml files fail!
 </source>
-        <translation>导入Xml文件错误！</translation>
+        <translation>导入Xml文件错误！
+</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="234"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="240"/>
         <source>Downloading succeeds!
 </source>
-        <translation>导入成功!</translation>
+        <translation>导入成功!
+</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="281"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="287"/>
         <source>2.Downloading hex file!
 </source>
-        <translation>2. 正在导入Hex文件!</translation>
+        <translation>2. 正在导入Hex文件!
+</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="286"/>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="314"/>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="347"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="292"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="320"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="353"/>
         <source>please open the com first !</source>
         <translation>请先连接设备！</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="301"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="307"/>
         <source>Downloading DSP %1.
 </source>
-        <translation>正在导入DSP %1。</translation>
+        <translation>正在导入DSP %1。
+</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="317"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="323"/>
         <source>3.Downloading rpd file!
 </source>
-        <translation>正在导入Rpd文件！</translation>
+        <translation>4. 正在导入Rpd文件！
+</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="350"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="356"/>
         <source>4.Downloading xml files!
 </source>
-        <translation>正在导入Xml文件！</translation>
+        <translation>3. 正在导入Xml文件！
+</translation>
     </message>
 </context>
 <context>

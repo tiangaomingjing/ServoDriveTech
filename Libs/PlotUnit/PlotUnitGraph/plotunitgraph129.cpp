@@ -608,7 +608,7 @@ void PlotUnitGraph129::setUiStatusCurveTableWidgetOnOff(int row, bool on)
 
 void PlotUnitGraph129::onBtnSaveCurveClicked()
 {
-
+    QString filePath = QFileDialog::getOpenFileName(0, tr("Open Curve"), "");
 }
 
 void PlotUnitGraph129::onPlotPosHoverChanged(const QPointF &point)

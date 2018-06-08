@@ -9,6 +9,7 @@
 #include <QLayout>
 #include <QSignalMapper>
 #include <QFileDialog>
+#include <QMap>
 
 class OptPathPrivate: public IOptPrivate {
     Q_DECLARE_PUBLIC(OptPath)
@@ -17,6 +18,7 @@ class OptPathPrivate: public IOptPrivate {
       ~OptPathPrivate();
       QStringList m_pathList;
       QStringList m_nameList;
+      QMap<QString, QString> m_map;
 };
 
 OptPathPrivate::OptPathPrivate()
@@ -34,6 +36,7 @@ OptPath::OptPath(const QString &optName, QWidget *parent) : IOpt(optName,*new Op
 {
     Q_D(OptPath);
     ui->setupUi(this);
+    initMap();
     readOpt();
     QString fileName = d->m_optPath + "path/path.ini";
     QFile file(fileName);
@@ -43,7 +46,6 @@ OptPath::OptPath(const QString &optName, QWidget *parent) : IOpt(optName,*new Op
       QString s;
       while (!in.atEnd()) {
         s=in.readLine();
-        qDebug()<<s;
         d->m_nameList.append(s);
       }
       d->m_nameList.removeAll("");
@@ -56,7 +58,7 @@ OptPath::OptPath(const QString &optName, QWidget *parent) : IOpt(optName,*new Op
     for (int i = 0; i < d->m_nameList.count(); i++) {
         QVBoxLayout *vBox = new QVBoxLayout;
         QHBoxLayout *hBox = new QHBoxLayout;
-        QLabel* label = new QLabel(d->m_nameList.at(i));
+        QLabel* label = new QLabel(d->m_map.value(d->m_nameList.at(i)));
         QToolButton* toolButton = new QToolButton;
         QLineEdit* lineEdit = new QLineEdit;
         lineEdit->setReadOnly(true);
@@ -118,6 +120,12 @@ QString OptPath::newFilePath()
     return d->m_pathList.at(4);
 }
 
+QString OptPath::curvePath()
+{
+    Q_D(OptPath);
+    return d->m_pathList.at(5);
+}
+
 QString OptPath::nickName()
 {
     return tr("Path");
@@ -149,6 +157,8 @@ bool OptPath::readOpt()
     d->m_pathList.append(tempPath);
     tempPath = data("path", "newfilepath", "").toString();
     d->m_pathList.append(tempPath);
+    tempPath = data("path", "curvepath", "").toString();
+    d->m_pathList.append(tempPath);
   return true;
 }
 bool OptPath::writeOpt()
@@ -159,11 +169,23 @@ bool OptPath::writeOpt()
     saveData("path", "flashfilepath", d->m_pathList.at(2));
     saveData("path", "oldfilepath", d->m_pathList.at(3));
     saveData("path", "newfilepath", d->m_pathList.at(4));
+    saveData("path", "curvepath", d->m_pathList.at(5));
   return true;
 }
 void OptPath::respondErrorExecute()
 {
 
+}
+
+void OptPath::initMap()
+{
+    Q_D(OptPath);
+    d->m_map.insert("Servo to File:", tr("Upload path:"));
+    d->m_map.insert("File to Servo:", tr("Download path:"));
+    d->m_map.insert("Flash File Path:", tr("Flash file path:"));
+    d->m_map.insert("Old File Path:", tr("Old Version path:"));
+    d->m_map.insert("New File Path:", tr("New Version path:"));
+    d->m_map.insert("Curve Path:", tr("Curve Path:"));
 }
 
 void OptPath::onActionToolButtonClicked(int index) {

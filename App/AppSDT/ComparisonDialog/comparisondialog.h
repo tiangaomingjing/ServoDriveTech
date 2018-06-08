@@ -60,6 +60,7 @@ private slots:
     void onActionSyncBoxChanged();
     void onActionDiffBoxChanged();
     void onTreeItemChanged(QTreeWidgetItem*item, int col);
+    void onWholeTreeItemChanged(QTreeWidgetItem*item, int col);
     void clickOldBtn(const QString &path);
     void clickNewBtn(const QString &path);
 };

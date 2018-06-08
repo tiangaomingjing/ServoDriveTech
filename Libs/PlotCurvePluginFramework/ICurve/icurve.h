@@ -8,6 +8,8 @@
 #include <QHash>
 #include <QColor>
 #include <QList>
+#include <QTextStream>
+#include <QDataStream>
 
 #define SAMPLING_INTERVAL_US 62.5
 
@@ -44,7 +46,9 @@ public:
   virtual void write(QTreeWidgetItem *treeItem);
   virtual bool read(QTreeWidgetItem *treeItem);
 
-//  virtual void write(ISave *save) {save->exec(this);}
+  virtual void saveCurve(QTextStream text);
+  virtual void saveCurve(QDataStream data);
+
 
   void addConstInputByName(const QString &name);
   void addVarInputByName(const QString &name);

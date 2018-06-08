@@ -6,10 +6,12 @@
 #include <QFileInfo>
 #include <QCloseEvent>
 #include <QDataStream>
+#include <QTranslator>
 #include "flashclass.h"
 #include "tcpconnect.h"
 #include "gtutils.h"
-
+#include "optpath.h"
+#include "optcontainer.h"
 
 
 EpromManager::EpromManager(QWidget *parent) :
@@ -36,7 +38,9 @@ EpromManager::EpromManager(QWidget *parent) :
     m_tcpClient->stopConnection();
     initializeTree();
 
-    m_filePath = ".";
+    QString path = GTUtils::customPath() + "option/opt.ini";
+    m_filePath = GTUtils::data(path, "path", "flashfilepath", ".").toString();
+
     setWindowFlags(windowFlags() | Qt::WindowMaximizeButtonHint | Qt::WindowMinimizeButtonHint);
     ui->list->item(0)->setIcon(QIcon(GTUtils::iconPath() + "Select.png"));
     ui->list->item(1)->setIcon(QIcon(GTUtils::iconPath() + "menu_restoresetting.png"));
@@ -80,6 +84,16 @@ EpromManager::EpromManager(QWidget *parent) :
     connect(ui->hexButton, SIGNAL(clicked()), this, SLOT(selectHex()));
     connect(ui->xmlButton, SIGNAL(clicked()), this, SLOT(selectXml()));
     connect(ui->flashButton, SIGNAL(clicked()), this, SLOT(onActionFlashClicked()));
+
+    QTranslator *trans = NULL;
+    QString langPath = GTUtils::languagePath() + "ch/ch_eeprom.qm";
+    QString lang = GTUtils::data(path, "face", "language", "").toString();
+    if (lang.compare("chinese") == 0) {
+        trans=new QTranslator;
+        qDebug()<<langPath;
+        trans->load(langPath);
+        qApp->installTranslator(trans);
+    }
 }
 
 EpromManager::~EpromManager()

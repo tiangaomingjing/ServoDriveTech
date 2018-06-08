@@ -545,130 +545,130 @@ more-&gt;option-&gt;autolaod-&gt;unchecked clicked apply
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="94"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="111"/>
         <source>Rpd</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="101"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="118"/>
         <source>FPGA Firmware; Don&apos;t shut off power if flashing fails</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="108"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="94"/>
         <source>Xml</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="118"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="104"/>
         <source>Configuration Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="126"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="132"/>
         <source>Open File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="126"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="132"/>
         <source>SDT Files(*.sdt)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="139"/>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="151"/>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="202"/>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="286"/>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="314"/>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="347"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="145"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="157"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="221"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="306"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="334"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="367"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="139"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="145"/>
         <source>Decompressing fails!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="151"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="157"/>
         <source>File open fails!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="174"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="193"/>
         <source>1.Checking version!
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="181"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="200"/>
         <source>Reading powerboard Id fails!
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="189"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="208"/>
         <source>Reading controlboard Id fails!
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="202"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="221"/>
         <source>Version do not match. Are you sure to continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="211"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="231"/>
         <source>Downloading hex file fails!
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="220"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="249"/>
         <source>Downloading rpd file fails!
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="229"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="337"/>
+        <source>4.Downloading rpd file!
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="370"/>
+        <source>3.Downloading xml files!
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="240"/>
         <source>Downloading xml files fail!
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="234"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="254"/>
         <source>Downloading succeeds!
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="281"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="301"/>
         <source>2.Downloading hex file!
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="286"/>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="314"/>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="347"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="306"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="334"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="367"/>
         <source>please open the com first !</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="301"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="321"/>
         <source>Downloading DSP %1.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="317"/>
-        <source>3.Downloading rpd file!
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="350"/>
-        <source>4.Downloading xml files!
 </source>
         <translation type="unfinished"></translation>
     </message>

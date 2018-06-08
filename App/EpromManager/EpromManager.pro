@@ -19,19 +19,22 @@ INCLUDEPATH += $${PWD}/ControlServo\
                $${PWD}/../../Libs/Com/ServoDriverComDll/DllCom\
                $${PWD}/../../Libs/Com/ServoDriverComDll/NetCom/include\
                $${PWD}/../../Libs/GTUtils\
+               $${PWD}/../../Libs/Option\
 
 CONFIG(debug, debug|release){
     TARGET = EpromManager_d
     LIB_PATH = $${PWD}/../../build/debug/Bin
     OUT_ROOT = $${PWD}/../../build/debug
     LIBS += $${LIB_PATH}/ServoDriverComDlld.lib\
-            $${LIB_PATH}/GTUtilsd.lib
+            $${LIB_PATH}/GTUtilsd.lib\
+            $${LIB_PATH}/Optiond.lib
 } else{
     TARGET = EpromManager
     LIB_PATH = $${PWD}/../../build/release/Bin
     OUT_ROOT = $${PWD}/../../build/release
     LIBS += $${LIB_PATH}/ServoDriverComDll.lib\
-            $${LIB_PATH}/GTUtils.lib
+            $${LIB_PATH}/GTUtils.lib\
+            $${LIB_PATH}/Option.lib
 }
 
 DESTDIR =$${OUT_ROOT}/Bin
@@ -60,3 +63,5 @@ HEADERS  += eprommanager.h \
     TcpConnect/tcpconnect.h
 
 FORMS    += eprommanager.ui
+
+TRANSLATIONS    += ch_eeprom.ts en_eeprom.ts
