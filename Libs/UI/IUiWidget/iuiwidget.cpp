@@ -4,6 +4,8 @@
 #include "gtutils.h"
 
 #include "Option"
+#include "advusercheck.h"
+#include "advusercontainer.h"
 
 #include <QTreeWidget>
 #include <QStackedWidget>
@@ -134,20 +136,44 @@ bool IUiWidget::readPageFLASH()
   qDebug()<<this->objectName()<<"read flash";
 //  emit sglReadPageFlash(d->axisInx,d->m_dataTree);
   bool rOk;
-  rOk=d->m_device->onReadPageFlash(d->m_index.axisInx,d->m_dataTree);
+  rOk=d->m_device->readPageFlash(d->m_index.axisInx,d->m_dataTree);
   return rOk;
 }
 
 //!
 //! \brief IUiWidget::writePageFLASH 委托设备去写FLASH
 //!
+bool IUiWidget::parametersNeedChecked()
+{
+  bool needChecked = false;
+  OptUser *user = dynamic_cast<OptUser *>(OptContainer::instance()->optItem("optuser"));
+  AdvUserCheck *usrCheck = dynamic_cast<AdvUserCheck *>(AdvUserContainer::instance()->advItem("advusercheck"));
+  bool isAdmin = user->isAdmin();
+  bool isChecked = usrCheck->isChecked();
+  if (!isAdmin || (isAdmin && isChecked)) {
+      //check
+    needChecked = true;
+  }
+  return needChecked;
+}
+
 bool IUiWidget::writePageFLASH()
 {
   Q_D(IUiWidget);
   qDebug()<<this->objectName()<<"write page flash";
-//  emit sglWritePageFlash(d->axisInx,d->m_dataTree);
   bool wOk=true;
-  wOk=d->m_device->onWritePageFlash(d->m_index.axisInx,d->m_dataTree);
+  //检查参数
+  bool needChecked = parametersNeedChecked();
+  bool checkOk = true;
+  qDebug()<<"needChecked = "<<needChecked;
+  if(needChecked)
+    checkOk = d->m_device->checkPageParameters(d->m_index.axisInx,d->m_dataTree);
+
+  if(checkOk)
+    wOk=d->m_device->writePageFlash(d->m_index.axisInx,d->m_dataTree);
+  else
+    wOk = false;
+
   return wOk;
 }
 
@@ -164,7 +190,17 @@ bool IUiWidget::writeGenPageRAM()
   Q_D(IUiWidget);
   bool wOk=true;
   if(hasConfigFunc())
-    wOk=d->m_device->writeGenPageRAM(d->m_index.axisInx,d->m_dataTree);
+  {
+    bool needChecked = parametersNeedChecked();
+    bool checkOk = true;
+    if(needChecked)
+      checkOk = d->m_device->checkPageParameters(d->m_index.axisInx,d->m_dataTree);
+
+    if(checkOk)
+      wOk=d->m_device->writeGenPageRAM(d->m_index.axisInx,d->m_dataTree);
+    else
+      wOk = false;
+  }
   return wOk;
 }
 void IUiWidget::setUiActive(bool actived)

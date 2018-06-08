@@ -297,7 +297,7 @@ void SDTMainWindow::createConnections()
   connect(m_actnProduce, SIGNAL(triggered()), this, SLOT(onActnProduceClicked()));
   connect(m_actnAdvUser, SIGNAL(triggered()), this, SLOT(onActnAdvUserClicked()));
   connect(m_actnCompare,SIGNAL(triggered(bool)),this,SLOT(onActnCompareClicked()));
-  connect(m_actnUpdateFlash, SIGNAL(triggered()), this, SLOT(onActnUpdateClicked()));
+  connect(m_actnUpdateFlash, SIGNAL(triggered()), this, SLOT(onActnUpdateFirmwareClicked()));
   connect(m_actnDownload, SIGNAL(triggered(bool)), this, SLOT(onActnDownloadClicked()));
   connect(m_actnUpload, SIGNAL(triggered(bool)), this, SLOT(onActnUploadClicked()));
   connect(m_actnReset,SIGNAL(triggered(bool)),this,SLOT(onActnResetDspClicked()));
@@ -702,7 +702,7 @@ void SDTMainWindow::onActnCompareClicked()
     compareDialog.exec();
 }
 
-void SDTMainWindow::onActnUpdateClicked()
+void SDTMainWindow::onActnUpdateFirmwareClicked()
 {
     FirmwareFlashDialog flashDialog(sevList(), 0);
     flashDialog.exec();

@@ -210,9 +210,9 @@ void ConfigDialog::loadSrcTreeWidget()
     ui->treeWidget_src->addTopLevelItem(item);
   }
   ui->treeWidget_src->expandToDepth(1);
-  QTreeWidgetItem *itemSelectSD61=ui->treeWidget_src->topLevelItem(1)->child(1)->child(0);
-  ui->treeWidget_src->expandItem(itemSelectSD61);
-  QTreeWidgetItem *itemSelect=itemSelectSD61->child(0);
+  QTreeWidgetItem *itemSelectSD42=ui->treeWidget_src->topLevelItem(1)->child(2)->child(0);
+  ui->treeWidget_src->expandItem(itemSelectSD42);
+  QTreeWidgetItem *itemSelect=itemSelectSD42->child(0);
   itemSelect->setSelected(true);
   ui->treeWidget_src->setCurrentItem(itemSelect);
 

@@ -349,10 +349,10 @@ bool SevDevice::writeGenPageRAM(quint16 axisInx, QTreeWidget *pageTree)
   if(d->m_socket->isConnected()==false)
     return false;
 
-  bool checkOk=true;
-  checkOk=checkPageParameters(axisInx,pageTree);
-  if(!checkOk)
-    return false;
+//  bool checkOk=true;
+//  checkOk=checkPageParameters(axisInx,pageTree);
+//  if(!checkOk)
+//    return false;
 
 
   QTreeWidgetItemIterator it(pageTree);
@@ -803,7 +803,7 @@ bool SevDevice::resetDSP()
   return ret ;
 }
 
-bool SevDevice::onReadPageFlash(int axis, QTreeWidget *pageTree)
+bool SevDevice::readPageFlash(int axis, QTreeWidget *pageTree)
 {
   Q_D(SevDevice);
   if(d->m_socket->isConnected()==false)
@@ -825,16 +825,16 @@ bool SevDevice::onReadPageFlash(int axis, QTreeWidget *pageTree)
   }
   return rOk;
 }
-bool SevDevice::onWritePageFlash(int axis, QTreeWidget *pageTree)
+bool SevDevice::writePageFlash(int axis, QTreeWidget *pageTree)
 {
   Q_D(SevDevice);
   if(d->m_socket->isConnected()==false)
     return false;
 
-  bool checkOk=true;
-  checkOk=checkPageParameters(axis,pageTree);
-  if(!checkOk)
-    return false;
+//  bool checkOk=true;
+//  checkOk=checkPageParameters(axis,pageTree);
+//  if(!checkOk)
+//    return false;
 
 
   QTreeWidgetItemIterator it(pageTree);
@@ -849,8 +849,10 @@ bool SevDevice::onWritePageFlash(int axis, QTreeWidget *pageTree)
     qDebug()<<"writeOk"<<writeOk;
     if(writeOk)
     {
+      qDebug()<<"read 1";
       d->m_socket->readPageItemFlash(axis,item);
       emit itemRangeValid(item,(int)OptFace::EDIT_TEXT_STATUS_DEFAULT);
+      qDebug()<<"read 2";
     }
     else
     {
@@ -915,37 +917,45 @@ bool SevDevice::checkPowerBoardParameters(QTreeWidgetItem *item, const QMap<QStr
   return checked;
 }
 
+/**
+ * @brief SevDevice::checkPageParameters
+ * @param axis
+ * @param tree
+ * @return  返回值 true :通过检查  false：没有通过检查
+ */
 bool SevDevice::checkPageParameters(int axis, QTreeWidget *tree)
 {
   bool isOk=true;
   QTreeWidgetItem *item;
-    for(int i=0;i<tree->topLevelItemCount();i++)
-    {
-        //1 检查输入值是否在约束范围内
-        item=tree->topLevelItem(i);
-        isOk=checkPagePropertyParameters(item);
-        qDebug()<<"TEST_OUT"<<"checkPagePropertyParameters(item) ok="<<isOk;
-        if(!isOk)
+  for(int i=0;i<tree->topLevelItemCount();i++)
+  {
+      //1 检查输入值是否在约束范围内
+      item=tree->topLevelItem(i);
+      isOk=checkPagePropertyParameters(item);
+      if(!isOk)
+      {
+        qCritical()<<"check error "<<item->text(0);
         break;
-    }
-    if(isOk)
-    {
-        //2 检查输入值是否在powerboard的约束
-        Q_D(SevDevice);
-        QMap<QString ,PowerBoardLimit> limit;
-        if(!(d->m_pwrBoard->pwrLimitMapList()->isEmpty()))
-        {
-            limit=d->m_pwrBoard->pwrLimitMapList()->at(axis);
+      }
+  }
+  if(isOk)
+  {
+      //2 检查输入值是否在powerboard的约束
+      Q_D(SevDevice);
+      QMap<QString ,PowerBoardLimit> limit;
+      if(!(d->m_pwrBoard->pwrLimitMapList()->isEmpty()))
+      {
+          limit=d->m_pwrBoard->pwrLimitMapList()->at(axis);
 
-            for(int i=0;i<tree->topLevelItemCount();i++)
-            {
-                item=tree->topLevelItem(i);
-                isOk=checkPowerBoardParameters(item,&limit);
-                if(!isOk)
-                 break;
-            }
-        }
-    }
+          for(int i=0;i<tree->topLevelItemCount();i++)
+          {
+              item=tree->topLevelItem(i);
+              isOk=checkPowerBoardParameters(item,&limit);
+              if(!isOk)
+               break;
+          }
+      }
+  }
   return isOk;
 }
 

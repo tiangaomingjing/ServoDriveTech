@@ -1164,6 +1164,7 @@ void PlotUnitGraph129::onPopupMenuAxisClicked()
         d->m_curveManager->addCurve(c);
         ui->plot->addGraph();
         ui->plot->graph(ui->plot->graphCount() -1 )->setPen(QPen(c->color()));
+        ui->plot->graph(ui->plot->graphCount() -1 )->setVisible(c->isDraw());
         addTableRowPrm(c,ui->plot->graph(ui->plot->graphCount() -1));
       }
     }
@@ -1177,9 +1178,6 @@ void PlotUnitGraph129::onPopupMenuAxisClicked()
       if(item->isSelected())
       {
         ICurve *curve=item->data(ROLE_TABLE_CURVE_ICURVE_PTR).value<ICurve *>();
-        bool isOverSize = d->m_curveManager->isOverMaxCurveSizeWhenAdd(curve);
-        if(isOverSize)
-          return ;
         if(curve->axisCount()>targetAxis)
         {
           SevDevice *dev = d->m_sevList.at(curve->devInx());
