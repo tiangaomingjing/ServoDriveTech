@@ -113,6 +113,8 @@ void GraphCurrent130::createPidControllerItem()
   d->m_UPID=new WidgetItem;
   d->m_UPID->setWidget(wpid,true);
   d->m_scene->addItem(d->m_UPID);//take ownership
+
+  d->m_widgetItemList.append(d->m_UPID);
 }
 
 

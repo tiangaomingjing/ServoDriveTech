@@ -1,14 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
-    <class>Form</class>
-    <widget class="QWidget" name="Form">
-        <property name="geometry">
-            <rect>
-                <x>0</x>
-                <y>0</y>
-                <width>400</width>
-                <height>400</height>
-            </rect>
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>438</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTreeWidget" name="treeWidget">
+     <column>
+      <property name="text">
+       <string>memberName</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>value</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>memberType</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>addressOffset</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>isBits</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>bitStart</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>bitWidth</string>
+      </property>
+     </column>
+     <item>
+      <property name="text">
+       <string>SevDrvRoot</string>
+      </property>
+      <property name="text">
+       <string>NULL</string>
+      </property>
+      <property name="text">
+       <string>int16</string>
+      </property>
+      <property name="text">
+       <string>-1</string>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="text">
+       <string>-1</string>
+      </property>
+      <property name="text">
+       <string>-1</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>gSevDrv</string>
+       </property>
+       <property name="text">
+        <string>NULL</string>
+       </property>
+       <property name="text">
+        <string>SERVO_DRV</string>
+       </property>
+       <property name="text">
+        <string>-1</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="text">
+        <string>-1</string>
+       </property>
+       <property name="text">
+        <string>-1</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>gSevDrv.sev_chd</string>
         </property>
         <property name="windowTitle">
             <string>Form</string>
