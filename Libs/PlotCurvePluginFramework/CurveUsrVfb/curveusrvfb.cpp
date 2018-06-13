@@ -48,7 +48,7 @@ void CurveUsrVfb::init()
   //增加变量曲线，常量曲线读取 keyName
   addUnit("rpm",1);
   addUnit("rps",0.0167);
-  addUnit("rad/s",0.1047);
+  addUnit("rad.s",0.1047);
   addVarInputByName(VAR_KEYNAME_CTL_SPD_FB); //对应输入通道 dd.m_varInputs.at(0).datas
   addConstInputByName(CON_KEYNAME_MOT_NOS);//对应输入值 dd.m_constInputs.at(0).constK
 }

@@ -65,12 +65,37 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="optpath.cpp" line="123"/>
+        <location filename="optpath.cpp" line="125"/>
         <source>Path</source>
         <translation>路径设置</translation>
     </message>
     <message>
-        <location filename="optpath.cpp" line="171"/>
+        <location filename="optpath.cpp" line="174"/>
+        <source>Upload path:</source>
+        <translation>导出参数路径：</translation>
+    </message>
+    <message>
+        <location filename="optpath.cpp" line="175"/>
+        <source>Download path:</source>
+        <translation>导入参数路径：</translation>
+    </message>
+    <message>
+        <location filename="optpath.cpp" line="176"/>
+        <source>Flash file path:</source>
+        <translation>烧写文件路径：</translation>
+    </message>
+    <message>
+        <location filename="optpath.cpp" line="177"/>
+        <source>Old Version path:</source>
+        <translation>旧版本参数文件路径：</translation>
+    </message>
+    <message>
+        <location filename="optpath.cpp" line="178"/>
+        <source>New Version path:</source>
+        <translation>新版本参数文件路径：</translation>
+    </message>
+    <message>
+        <location filename="optpath.cpp" line="183"/>
         <source>Open Directory</source>
         <translation>选择路径</translation>
     </message>

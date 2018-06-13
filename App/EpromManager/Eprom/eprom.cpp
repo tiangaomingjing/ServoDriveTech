@@ -77,8 +77,8 @@ bool EPROM::writeEEprom(QTreeWidgetItem *item) {
 
 bool EPROM::writeSingle(QTreeWidgetItem *item) {
     if (item->text(TREE_ADDRESS) != "-1" && item->text(TREE_ADDRESS) != "") {
-        emit sendWarnMsg(item->text(TREE_NAME));
-        qDebug()<<item->text(0)<<item->text(TREE_ADDRESS);
+        emit sendWarnMsg(tr("Writing: ") + item->text(TREE_NAME));
+        //qDebug()<<item->text(0)<<item->text(TREE_ADDRESS);
         bool ok;
         double v;
         Uint8 value[4];
@@ -103,7 +103,7 @@ bool EPROM::writeSingle(QTreeWidgetItem *item) {
         int16 axis = 0;
         int count = 0;        
         Uint16 ofst = item->text(TREE_ADDRESS).toUShort(&ok, 16) + m_baseAdd;
-        qDebug()<<"ofst"<<ofst;
+        //qDebug()<<"ofst"<<ofst;
         if (ofst < 0 || ofst > 1023) {
             ofst = 1023;
         }
@@ -228,6 +228,7 @@ bool EPROM::readEEpromItem(QTreeWidgetItem* readTreeItem, QTreeWidgetItem* uiTre
 
 bool EPROM::readSingle(QTreeWidgetItem* readTreeItem, QTreeWidgetItem* uiTreeItem) {
     if (readTreeItem->text(TREE_ADDRESS) != "-1" && readTreeItem->text(TREE_ADDRESS) != "") {
+        emit sendWarnMsg(tr("Reading: ") + readTreeItem->text(TREE_NAME));
         Uint8 result[4];
         int16 axis = 0;
         bool ok;
@@ -281,8 +282,10 @@ bool EPROM::readSingle(QTreeWidgetItem* readTreeItem, QTreeWidgetItem* uiTreeIte
 }
 
 void EPROM::compare(QTreeWidget *tree) {
-    QTreeWidgetItem *oldNode = tree->topLevelItem(0);
-    QTreeWidgetItem *newNode = m_readTree->topLevelItem(1);
+//    QTreeWidgetItem *oldNode = tree->topLevelItem(0);
+//    QTreeWidgetItem *newNode = m_readTree->topLevelItem(1);
+    QTreeWidgetItem *oldNode = tree->invisibleRootItem();
+    QTreeWidgetItem *newNode = m_readTree->invisibleRootItem();
     m_exist = false;
     compareNode(oldNode, newNode, tree);
     if (!m_exist) {
@@ -301,7 +304,8 @@ void EPROM::compareNode(QTreeWidgetItem *oldNode, QTreeWidgetItem *newNode, QTre
         QString newNodeName = newNode->child(i)->text(TREE_NAME);
         for (int j = 0; j < oldNode->childCount(); j++) {
             QString oldNodeName = oldNode->child(j)->text(TREE_NAME);
-            if (newNodeName.compare(oldNodeName) == 0) {                
+            if (newNodeName.compare(oldNodeName) == 0) {
+                emit sendWarnMsg(tr("Comparing: ") + newNodeName);
                 for (int k = 1; k < oldNode->columnCount(); k++) {
                     if (newNode->child(i)->text(k).toDouble() != oldNode->child(j)->text(k).toDouble()) {
                         change = true;

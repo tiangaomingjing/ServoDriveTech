@@ -188,7 +188,6 @@ void OptFace::uiInit()
     ui->rbtn_en->setChecked(true);
   else
     ui->rbtn_ch->setChecked(true);
-
   for(int i=0;i<ui->comboBox->count();i++)
   {
     if(ui->comboBox->itemData(i)==d->m_fontSize)

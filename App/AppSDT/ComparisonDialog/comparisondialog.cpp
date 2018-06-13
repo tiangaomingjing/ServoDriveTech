@@ -53,6 +53,7 @@ ComparisonDialog::ComparisonDialog(QWidget *parent) :
     connect(ui->checkBox_compSync, SIGNAL(stateChanged(int)), this, SLOT(onActionSyncBoxChanged()));
     connect(ui->checkBox_compDiff, SIGNAL(stateChanged(int)), this, SLOT(onActionDiffBoxChanged()));
     connect(ui->treeWidget_compNewPart, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(onTreeItemChanged(QTreeWidgetItem*,int)));
+    connect(ui->treeWidget_compNew, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(onWholeTreeItemChanged(QTreeWidgetItem*,int)));
     onActionSyncBoxChanged();
 }
 
@@ -184,6 +185,7 @@ bool ComparisonDialog::loadTree(const QString &path, QTreeWidget *treeWidget)
 }
 
 void ComparisonDialog::onActionCompareClicked() {
+    disconnect(ui->treeWidget_compNew, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(onWholeTreeItemChanged(QTreeWidgetItem*,int)));
     eliminateEmptyItem(ui->treeWidget_compNew);
     eliminateEmptyItem(ui->treeWidget_compOld);
     ui->treeWidget_compNew->expandAll();
@@ -198,6 +200,7 @@ void ComparisonDialog::onActionCompareClicked() {
     m_oldItemList.clear();
     m_newItemList.clear();
     compareNode(oldNode, newNode);
+    connect(ui->treeWidget_compNew, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(onWholeTreeItemChanged(QTreeWidgetItem*,int)));
     ui->progressBar_comp->hide();
     //QMessageBox::information(this, "Compare", "Finish!", QMessageBox::Ok);
     if (m_oldItemList.count() != 0 && m_newItemList.count() != 0) {
@@ -218,6 +221,7 @@ void ComparisonDialog::onActionCompareClicked() {
 
 void ComparisonDialog::onActionUpdateClicked()
 {
+    disconnect(ui->treeWidget_compNew, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(onWholeTreeItemChanged(QTreeWidgetItem*,int)));
     ui->progressBar_comp->show();
     ui->progressBar_comp->setValue(0);
     for (int i = 0; i < m_oldItemList.count(); i++) {
@@ -230,6 +234,7 @@ void ComparisonDialog::onActionUpdateClicked()
         }
     }
     ui->progressBar_comp->hide();
+    connect(ui->treeWidget_compNew, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(onWholeTreeItemChanged(QTreeWidgetItem*,int)));
 }
 
 void ComparisonDialog::onActionSaveClicked()
@@ -345,6 +350,12 @@ void ComparisonDialog::onTreeItemChanged(QTreeWidgetItem *item, int col)
 {
     int index = ui->treeWidget_compNewPart->indexOfTopLevelItem(item);
     m_newItemList.at(index)->setText(col, item->text(col));
+}
+
+void ComparisonDialog::onWholeTreeItemChanged(QTreeWidgetItem *item, int col)
+{
+    int index = m_newItemList.indexOf(item);
+    ui->treeWidget_compNewPart->topLevelItem(index)->setText(col, item->text(col));
 }
 
 void ComparisonDialog::compareNode(QTreeWidgetItem *oldNode, QTreeWidgetItem *newNode) {

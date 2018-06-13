@@ -65,12 +65,37 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optpath.cpp" line="123"/>
+        <location filename="optpath.cpp" line="125"/>
         <source>Path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optpath.cpp" line="171"/>
+        <location filename="optpath.cpp" line="174"/>
+        <source>Upload path:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="optpath.cpp" line="175"/>
+        <source>Download path:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="optpath.cpp" line="176"/>
+        <source>Flash file path:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="optpath.cpp" line="177"/>
+        <source>Old Version path:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="optpath.cpp" line="178"/>
+        <source>New Version path:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="optpath.cpp" line="183"/>
         <source>Open Directory</source>
         <translation type="unfinished"></translation>
     </message>

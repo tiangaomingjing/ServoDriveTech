@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    dbTestManager = new DBManager("../../../build/testdatabase/", "root", "");
+    dbTestManager = new DBManager("E:/Working/New/build/debug/resource/database/Version/", "root", "");
 
     connect(ui->logButton, SIGNAL(clicked()), this, SLOT(onActionLogButtonClicked()));
 }

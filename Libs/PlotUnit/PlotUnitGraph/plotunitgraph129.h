@@ -113,6 +113,7 @@ private:
   void initialCurvesFromXml();
 
   void setUiStatusSampling(bool en);
+  void setUiOpenChanged(bool checked);
   void setUiStatusCurveTableWidgetOnOff(int row,bool on);
 
   void addPopupMenuActionAxis(quint8 axisMaxCount);

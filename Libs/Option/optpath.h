@@ -24,6 +24,7 @@ public:
     QString oldFilePath();
     QString newFilePath();
     QString nickName()Q_DECL_OVERRIDE;
+    QString curvePath();
 signals:
     void pathesChanged(QStringList);
 private:
@@ -33,6 +34,7 @@ protected:
     bool readOpt() Q_DECL_OVERRIDE;
     bool writeOpt() Q_DECL_OVERRIDE;
     void respondErrorExecute() Q_DECL_OVERRIDE;
+    void initMap();
 private slots:
     void onActionToolButtonClicked(int index);
 };

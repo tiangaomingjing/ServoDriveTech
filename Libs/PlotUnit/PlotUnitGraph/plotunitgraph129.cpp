@@ -25,6 +25,10 @@
 #include <QTreeWidgetItem>
 #include <QMultiHash>
 #include <QMenu>
+#include <QFileInfo>
+#include <QFile>
+#include <QTextStream>
+#include <QDataStream>
 
 #define TEST_DEBUG 1
 
@@ -157,6 +161,7 @@ PlotUnitGraph129::PlotUnitGraph129(const QList<SevDevice *> &sevList, QWidget *p
   ui->tbtn_plot_save->setToolTip(tr("save all curves"));
   ui->tbtn_plot_show_all->setToolTip(tr("load all range curves "));
   ui->tbtn_plot_floatin->setToolTip(tr("full screen switch"));
+  ui->tbtn_plot_open->setCheckable(true);
 
   d->m_timer=new QTimer(this);
   d->m_timer->setInterval(500);
@@ -562,13 +567,77 @@ void PlotUnitGraph129::onBtnStartSampleClicked(bool checked)
 
 void PlotUnitGraph129::onBtnOpenCurveClicked(bool checked)
 {
-//  QString file = "D:/Smart/ServoMaster/git-project/ServoDriveTech/ServoDriveTech/build/release/custom/plugins/plot/curvehistory.ui";
-//  QTreeWidget *tree = QtTreeManager::createTreeWidgetFromXmlFile(file);
-//  QTreeWidgetItem *item = tree->topLevelItem(0);
-//  if(GTUtils::findItemInItem("Curve1",item,0) == NULL)
-//    qDebug()<<"can not find ";
-//  else
-//    qDebug()<<"find item ";
+    Q_D(PlotUnitGraph129);
+    static QList<bool> isDrawnList;
+    if (checked) {
+        QString fileName;
+        QString iniPath = GTUtils::data(GTUtils::customPath() + "option/opt.ini", "path", "curvepath", ".").toString();
+        fileName = QFileDialog::getOpenFileName(this, tr("Open File"), iniPath, tr("curve Files(*.src)"));
+        if (fileName.compare("") == 0) {
+            ui->tbtn_plot_open->setChecked(false);
+            return;
+        }
+        qDebug()<<"fileName"<<fileName;
+
+        QFile file;
+        file.setFileName(fileName);
+        if (!file.open(QIODevice::ReadOnly)) {
+            QMessageBox::information(0,tr("file error"),tr("can not open file :\n%1").arg(fileName));
+            ui->tbtn_plot_open->setChecked(false);
+            return;
+        }
+        qDebug()<<"curveCount1"<<d->m_curveManager->curveList().count();
+        for (int i = 0; i < d->m_curveManager->curveList().count(); i++) {
+            isDrawnList.append(d->m_curveManager->curveList().at(i)->isDraw());
+        }
+        qDebug()<<"1";
+        for (int i = 0; i < ui->tableWidget_plot_curve->rowCount(); i++) {
+//            d->m_curveManager->curveList().at(i)->setIsDraw(false);
+            ui->tableWidget_plot_curve->hideRow(i);
+            ui->plot->graph(i)->setVisible(false);
+//            setUiStatusCurveTableWidgetOnOff(i, false);
+        }
+        QDataStream in(&file);
+        int curveCount;
+        quint16 streamVersion;
+        in>>streamVersion>>curveCount;
+        in.setVersion(streamVersion);
+        qDebug()<<"curveCount2"<<curveCount;
+        QList<ICurve *> curveList = d->m_pluginManager->buildCurvesFromSrc(in, curveCount);
+        qDebug()<<"2";
+        for (int i = 0; i < curveCount; i++) {
+            qDebug()<<"i = "<<i;
+            ICurve* curve = curveList.at(i);
+            d->m_curveManager->addCurve(curve);
+            ui->plot->addGraph();
+            ui->plot->graph(ui->plot->graphCount() - 1)->setPen(QPen(curve->color()));
+            ui->plot->graph(ui->plot->graphCount() - 1)->setVisible(curve->isDraw());
+            qDebug()<<"keys count"<<curve->sData()->keys.count();
+            ui->plot->graph(ui->plot->graphCount() - 1)->addData(curve->sData()->keys,curve->sData()->values);
+            addTableRowPrm(curve, ui->plot->graph(ui->plot->graphCount() - 1));
+        }
+    } else {
+        int totalRowCount = ui->tableWidget_plot_curve->rowCount();
+        int prevRowCount = isDrawnList.count();
+        int addRowCount = totalRowCount - prevRowCount;
+        bool isDraw = false;
+
+        for (int i = 0; i < addRowCount; i++) {
+            d->m_curveManager->removeCurve(prevRowCount);
+            ui->plot->removeGraph(prevRowCount);
+            ui->tableWidget_plot_curve->removeRow(prevRowCount);
+        }
+
+        for (int i = 0; i < prevRowCount; i++) {
+            isDraw = isDrawnList.at(i);
+//            d->m_curveManager->curveList().at(i)->setIsDraw(isDraw);
+//            setUiStatusCurveTableWidgetOnOff(i, isDraw);
+            ui->plot->graph(i)->setVisible(isDraw);
+            ui->tableWidget_plot_curve->showRow(i);
+        }
+        ui->plot->replot();
+    }
+    setUiOpenChanged(!checked);
 }
 
 void PlotUnitGraph129::initialCurvesFromXml()
@@ -633,6 +702,18 @@ void PlotUnitGraph129::setUiStatusSampling(bool en)
   ui->tbtn_plot_show_all->setEnabled(v);
 }
 
+void PlotUnitGraph129::setUiOpenChanged(bool checked)
+{
+    Q_D(PlotUnitGraph129);
+    ui->tbtn_plot_save->setEnabled(checked);
+    ui->tbtn_plot_curveAdd->setEnabled(checked);
+    ui->tbtn_plot_curveRemove->setEnabled(checked);
+    ui->tbtn_plot_curveClear->setEnabled(checked);
+    d->m_popupMenuAxis->setEnabled(checked);
+    ui->tbtn_plot_curveAll->setEnabled(checked);
+    ui->comboBox_plot_sampling->setEnabled(checked);
+}
+
 void PlotUnitGraph129::setUiStatusCurveTableWidgetOnOff(int row, bool on)
 {
   if(on)
@@ -676,6 +757,32 @@ void PlotUnitGraph129::addPopupMenuActionAxis(quint8 axisMaxCount)
 
 void PlotUnitGraph129::onBtnSaveCurveClicked()
 {
+    Q_D(PlotUnitGraph129);
+    QString iniPath = GTUtils::data(GTUtils::customPath() + "option/opt.ini", "path", "curvepath", ".").toString();
+    iniPath = iniPath + "/curveData_" + QDate::currentDate().toString("yyyyMMdd") + "_" + QTime::currentTime().toString("hhmmss");
+    QString filePath = QFileDialog::getSaveFileName(0, tr("Open Curve"), iniPath , tr("Curve File(*.src)"));
+    if (filePath.compare("") == 0) {
+        return;
+    }
+    QFile fdata(filePath);
+    QFileInfo info(filePath);
+    if (fdata.open(QFile::WriteOnly | QFile::Truncate | QIODevice::Text))
+    {
+        if (info.suffix().compare("txt") == 0) {
+            QTextStream out(&fdata);
+            for (int i = 0; i < d->m_curveManager->curveList().size(); i++) {
+                d->m_curveManager->curveList().at(i)->saveCurve(out);
+            }
+        } else if (info.suffix().compare("src") == 0) {
+            QDataStream out(&fdata);
+            out.setVersion(QDataStream::Qt_5_5);
+            out<<quint16(out.version())<<d->m_curveManager->curveList().size();
+            for (int i = 0; i < d->m_curveManager->curveList().size(); i++) {
+                d->m_curveManager->curveList().at(i)->saveCurve(out);
+            }
+        }
+        fdata.close();
+    }
 
 }
 

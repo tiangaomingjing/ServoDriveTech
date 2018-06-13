@@ -3,6 +3,7 @@
 
 #include "gtutils_global.h"
 #include <QStringList>
+#include <QVariant>
 
 //对应目录下相关文件名
 #define SYSCONFIGTREE_NAME            "SysConfigTree.ui"
@@ -48,6 +49,7 @@ public:
 
   static int byteNumbers(const QString &str);
 
+  static QVariant data(const QString &path, const QString &group, const QString &key, const QVariant &defaultValue);
 private:
   inline static QString sdtPath();
 };
