@@ -25,6 +25,7 @@ class IUIWIDGETSHARED_EXPORT IUiWidget:public QWidget
 {
   Q_OBJECT
   Q_DECLARE_PRIVATE(IUiWidget)
+
 public:
 //  explicit IUiWidget(QWidget *parent = 0);
   virtual ~IUiWidget();
@@ -53,6 +54,7 @@ protected:
   virtual void setContextAction();
 
   void createActionSwitchView();
+  bool parametersNeedChecked();
 
 signals:
   void sglMainErrorInfo(int axis,QString msg);

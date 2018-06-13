@@ -15,6 +15,7 @@ public:
 
   ICurve *clone() Q_DECL_OVERRIDE ;
   void init() Q_DECL_OVERRIDE ;
+  void reset() {}
 
   void calculate() Q_DECL_OVERRIDE ;
 

@@ -112,11 +112,6 @@ bool SDTMainWindow::init()
   connect(m_statusMonitor,SIGNAL(alarmError(quint16,quint16,bool)),this,SLOT(onDeviceAlarmError(quint16,quint16,bool)));
   connect(m_statusMonitor,SIGNAL(netError(quint16)),this,SLOT(onDeviceNetError(quint16)));
 
-  OptUser *optuser = dynamic_cast<OptUser *>(OptContainer::instance()->optItem("optuser"));
-  if (optuser != NULL) {
-      qDebug()<<"isAdmin"<<optuser->isAdmin();
-      onOptUserChanged(optuser->isAdmin());
-  }
   return true;
 }
 QTreeWidget *SDTMainWindow::navTreeWidget() const
@@ -302,7 +297,7 @@ void SDTMainWindow::createConnections()
   connect(m_actnProduce, SIGNAL(triggered()), this, SLOT(onActnProduceClicked()));
   connect(m_actnAdvUser, SIGNAL(triggered()), this, SLOT(onActnAdvUserClicked()));
   connect(m_actnCompare,SIGNAL(triggered(bool)),this,SLOT(onActnCompareClicked()));
-  connect(m_actnUpdateFlash, SIGNAL(triggered()), this, SLOT(onActnUpdateClicked()));
+  connect(m_actnUpdateFlash, SIGNAL(triggered()), this, SLOT(onActnUpdateFirmwareClicked()));
   connect(m_actnDownload, SIGNAL(triggered(bool)), this, SLOT(onActnDownloadClicked()));
   connect(m_actnUpload, SIGNAL(triggered(bool)), this, SLOT(onActnUploadClicked()));
   connect(m_actnReset,SIGNAL(triggered(bool)),this,SLOT(onActnResetDspClicked()));
@@ -531,6 +526,12 @@ void SDTMainWindow::navigationTreeInit()
 
   m_statusBar->updateDeviceNavTreeWhenChanged(ui->treeWidget);
 
+  OptUser *optuser = dynamic_cast<OptUser *>(OptContainer::instance()->optItem("optuser"));
+  if (optuser != NULL) {
+      qDebug()<<"isAdmin"<<optuser->isAdmin();
+      onOptUserChanged(optuser->isAdmin());
+  }
+
 }
 
 void SDTMainWindow::clearNavigationTree()
@@ -701,7 +702,7 @@ void SDTMainWindow::onActnCompareClicked()
     compareDialog.exec();
 }
 
-void SDTMainWindow::onActnUpdateClicked()
+void SDTMainWindow::onActnUpdateFirmwareClicked()
 {
     FirmwareFlashDialog flashDialog(sevList(), 0);
     flashDialog.exec();
@@ -743,6 +744,12 @@ void SDTMainWindow::onActnResetDspClicked()
     }
   }
 
+  QMessageBox::StandardButton rb=QMessageBox::question(this,"Warring",tr("Do you want to reset device ?"),QMessageBox::Yes|QMessageBox::No,QMessageBox::No);
+  if (rb==QMessageBox::No)
+  {
+    return;
+  }
+
   setUiAllEnable(false);
   m_statusMonitor->stopMonitor();
 
@@ -757,7 +764,7 @@ void SDTMainWindow::onActnResetDspClicked()
       m_statusBar->setMsg(tr("reset dsp successfully"));
   }
 
-  GTUtils::delayms(1000);
+  GTUtils::delayms(3000);
   m_statusMonitor->startMonitor();
   m_statusBar->setMsg("");
   activeCurrentUi();
@@ -914,11 +921,13 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
         m_statusBar->statusProgressBar()->setValue(100);
         activeCurrentUi();
         m_statusMonitor->startMonitor(1000);
+        m_actnNewConfig->setEnabled(false);
       }
       else
       {
         m_connecting=false;
         setConnect(false);
+        m_actnNewConfig->setEnabled(true);
       }
 
     }
@@ -948,6 +957,7 @@ void SDTMainWindow::onActnDisConnectClicked(bool checked)
   m_statusMonitor->stopMonitor();
   disactiveAllUi();
   setConnect(false);
+  m_actnNewConfig->setEnabled(true);
 
   qDebug()<<"checked"<<checked;
 }
@@ -1033,16 +1043,16 @@ void SDTMainWindow::onActnDownloadClicked()
     QString downloadFileName = QString::null;
     int downloadIndex = -1;
     QList<SevDevice *> devList = sevList();
-//    if (devList.count() == 1) {
-//        downloadIndex = 0;
-//        downloadFileName = QFileDialog::getOpenFileName(this, tr("Open XML File"), m_downloadPath, tr("XML Files(*.xml)"));
-//    } else {
+    if (devList.count() == 1) {
+        downloadIndex = 0;
+        downloadFileName = QFileDialog::getOpenFileName(this, tr("Open XML File"), m_downloadPath, tr("XML Files(*.xml)"));
+    } else {
         DownloadDialog downloadDialog;
         downloadDialog.uiInit(devList, m_downloadPath, downloadFileName, downloadIndex);
         downloadDialog.exec();
         qDebug()<<"downloadfilename"<<downloadFileName;
         qDebug()<<"downloadIndex"<<downloadIndex;
-//    }
+    }
     qDebug()<<"1";
     //fileName = QFileDialog::getOpenFileName(this, tr("Open XML File"), m_downloadPath, tr("XML Files(*.xml)"));
     if (downloadFileName.isNull() || downloadIndex == -1) {
@@ -1057,11 +1067,21 @@ void SDTMainWindow::onActnDownloadClicked()
     ServoFile *servoFile = new ServoFile(0);
     connect(servoFile, SIGNAL(sendProgressbarMsg(int,QString)), this, SLOT(onProgressInfo(int,QString)));
     qDebug()<<"3";
-    servoFile->downLoadFile(processCallBack, (void *)(mp_progressBar), downloadFileName, devList.at(downloadIndex));
+    bool downOk = false;
+    downOk = servoFile->downLoadFile(processCallBack, (void *)(mp_progressBar), downloadFileName, devList.at(downloadIndex));
     disconnect(servoFile, SIGNAL(sendProgressbarMsg(int,QString)), this, SLOT(onProgressInfo(int,QString)));
     qDebug()<<"4";
     delete servoFile;
     m_statusBar->statusProgressBar()->setVisible(false);
+    if(downOk)
+    {
+      m_statusBar->setMsg(tr("Download xml file OK !"));
+    }
+    else
+    {
+      m_statusBar->setMsg(tr("Error: Download xml file fails !"));
+    }
+    GTUtils::delayms(2000);
     m_statusBar->setMsg("");
 }
 
@@ -1075,18 +1095,18 @@ void SDTMainWindow::onActnUploadClicked()
     QString uploadFileName = QString::null;
     int uploadIndex = -1;
     QList<SevDevice *> devList = sevList();
-//    if (devList.count() == 1) {
-//        uploadIndex = 0;
-//        QDate curDate = QDate::currentDate();
-//        QString defaultName = devList.at(0)->modelName() + "_" + devList.at(0)->versionName() + "_" + QString::number(curDate.year()) + QString::number(curDate.month()) + QString::number(curDate.day());
-//        uploadFileName = QFileDialog::getSaveFileName(this, tr("Open XML File"), m_uploadPath + "/" + defaultName + ".xml", tr("XML Files(*.xml)"));
-//    } else {
+    if (devList.count() == 1) {
+        uploadIndex = 0;
+        QDate curDate = QDate::currentDate();
+        QString defaultName = devList.at(0)->modelName() + "_" + devList.at(0)->versionName() + "_" + QString::number(curDate.year()) + QString::number(curDate.month()) + QString::number(curDate.day());
+        uploadFileName = QFileDialog::getSaveFileName(this, tr("Open XML File"), m_uploadPath + "/" + defaultName + ".xml", tr("XML Files(*.xml)"));
+    } else {
         UploadDialog uploadDialog;
         uploadDialog.uiInit(devList, m_uploadPath, uploadFileName, uploadIndex);
         uploadDialog.exec();
         qDebug()<<"uploadfilename"<<uploadFileName;
         qDebug()<<"uploadindex"<<uploadIndex;
-//    }
+    }
     qDebug()<<"1";
     //fileName = QFileDialog::getOpenFileName(this, tr("Open XML File"), m_downloadPath, tr("XML Files(*.xml)"));
     if (uploadFileName.isNull() || uploadIndex == -1) {
@@ -1101,11 +1121,21 @@ void SDTMainWindow::onActnUploadClicked()
     ServoFile *servoFile = new ServoFile(0);
     connect(servoFile, SIGNAL(sendProgressbarMsg(int,QString)), this, SLOT(onProgressInfo(int,QString)));
     qDebug()<<"3";
-    servoFile->upLoadFile(processCallBack, (void *)(mp_progressBar), uploadFileName, devList.at(uploadIndex));
+    bool upOK = false;
+    upOK = servoFile->upLoadFile(processCallBack, (void *)(mp_progressBar), uploadFileName, devList.at(uploadIndex));
     disconnect(servoFile, SIGNAL(sendProgressbarMsg(int,QString)), this, SLOT(onProgressInfo(int,QString)));
     qDebug()<<"4";
     delete servoFile;
     m_statusBar->statusProgressBar()->setVisible(false);
+    if(upOK)
+    {
+      m_statusBar->setMsg(tr("Upload xml file OK !"));
+    }
+    else
+    {
+      m_statusBar->setMsg(tr("Error: Upload xml file fails !"));
+    }
+    GTUtils::delayms(2000);
     m_statusBar->setMsg("");
 }
 
@@ -1461,6 +1491,7 @@ QList<SevDevice *> SDTMainWindow::sevList()
 
 void SDTMainWindow::updateSDTMainUiByConfigList(const QList<DeviceConfig *> &configList)
 {
+  ui->mainStackedWidget->hide();
   createSdAssemblyListByDevConfig(configList);
   removeAllStackedWidget();
   clearNavigationTree();
@@ -1473,6 +1504,7 @@ void SDTMainWindow::updateSDTMainUiByConfigList(const QList<DeviceConfig *> &con
 
   updateStatusMonitorDevice(sevList());
   m_gUiControl->setSevDeviceList(sevList());
+  ui->mainStackedWidget->show();
 
 }
 

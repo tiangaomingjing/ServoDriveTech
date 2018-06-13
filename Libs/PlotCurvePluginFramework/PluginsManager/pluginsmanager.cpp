@@ -24,7 +24,8 @@
 #define PLUGIN_LANG_FILE_NAME        "ch_plugins.qm"
 
 PluginsManager::PluginsManager(QObject *parent) : QObject(parent),
-  m_expertCurve(NULL)
+  m_expertCurve(NULL),
+  m_loadOk(true)
 {
   m_frameWorkFactory = new ctkPluginFrameworkFactory;
   QSharedPointer<ctkPluginFramework> framework = m_frameWorkFactory->getFramework();
@@ -48,11 +49,14 @@ PluginsManager::~PluginsManager()
 
 bool PluginsManager::loadPlugins()
 {
+  setTransLanguage();
+
   bool expertOk = installExpertPlugin();
   bool usrOk = installUsrPlugin();
   bool customOk = installCustomPlugin();
-  setTransLanguage();
-  return expertOk&&usrOk&&customOk;
+
+  m_loadOk = expertOk&&usrOk&&customOk;
+  return m_loadOk;
 }
 
 QStringList PluginsManager::pluginsFromReadTxt(const QString &fileName)
@@ -85,9 +89,14 @@ bool PluginsManager::installPlugin(const QString &name, const QString &path)
       // 安装插件
       QSharedPointer<ctkPlugin> plugin = m_context->installPlugin(QUrl::fromLocalFile(path));
       // 启动插件
-      plugin->start(ctkPlugin::START_TRANSIENT);
-      m_plugins.insert(name,plugin);
-      qDebug() << QString("Plugin = %1  start ...").arg(path);
+      if(plugin != NULL)
+      {
+        plugin->start(ctkPlugin::START_TRANSIENT);
+        m_plugins.insert(name,plugin);
+        qDebug() << QString("Plugin = %1  start ...").arg(path);
+      }
+      else
+        return false ;
   }
   catch (const ctkPluginException &e)
   {
@@ -122,7 +131,8 @@ bool PluginsManager::installExpertPlugin()
       if (service != Q_NULLPTR) {
           // 调用服务
           m_expertCurve=service;
-          m_expertCurve->setName("gServo.pro.prm.mot");
+//          m_expertCurve->prepare();
+
 //          m_expertCurve->setPluginName(pluginName);
           qDebug()<<"expert plugin : display name = "<<m_expertCurve->displayName();
           qDebug()<<"expert plugin : full name = "<<m_expertCurve->fullName();
@@ -184,6 +194,7 @@ bool PluginsManager::installUsrPlugin()
           ICurve* service = m_context->getService<ICurve>(reference);
           if (service != Q_NULLPTR) {
             // 调用服务
+//            service->prepare();
             m_usrCurves.append(service);
 //            service->setPluginName(pluginName);
             qDebug()<<"usr plugin : display name = "<<service->displayName();
@@ -223,16 +234,22 @@ bool PluginsManager::installCustomPlugin()
 ICurve *PluginsManager::createICurveFromContainer(const QString &name)
 {
   ICurve * c = NULL;
+  qDebug()<<"s";
   if(name == m_expertCurve->pluginName())
   {
+      qDebug()<<"s1";
     c = m_expertCurve->clone();
+    qDebug()<<"s2";
     return c;
   }
   for(int i = 0;i<m_usrCurves.size();i++)
   {
+      qDebug()<<"i"<<i;
     if(name == m_usrCurves.at(i)->pluginName())
     {
+        qDebug()<<"s3";
       c = m_usrCurves.at(i)->clone();
+      qDebug()<<"s4";
       return c;
     }
   }
@@ -262,6 +279,11 @@ void PluginsManager::clearTransLanguage()
   qApp->removeTranslator(m_trans);
   delete m_trans;
   m_trans = NULL;
+}
+
+bool PluginsManager::loadOk() const
+{
+  return m_loadOk;
 }
 
 QList<QList<ICurve *> > PluginsManager::customCurves() const
@@ -294,6 +316,10 @@ QList<ICurve *> PluginsManager::buildCurvesFromXml()
   QList<ICurve *> list;
   QString file = plotPluginsPath()+CURVE_HISTORY_FILE_NAME;
   QTreeWidget *tree = QtTreeManager::createTreeWidgetFromXmlFile(file);
+  if(tree == NULL)
+  {
+    return list;
+  }
   QTreeWidgetItem *item = NULL;
 
   for(int i = 0 ;i<tree->topLevelItemCount();i++)
@@ -314,6 +340,25 @@ QList<ICurve *> PluginsManager::buildCurvesFromXml()
 
   delete tree;
   return list;
+}
+
+QList<ICurve *> PluginsManager::buildCurvesFromSrc(QDataStream &data, int count)
+{
+    QList<ICurve*> list;
+    for (int i = 0; i < count; i++) {
+        QString pluginName;
+        data>>pluginName;
+        qDebug()<<"pluginName"<<pluginName;
+        ICurve* curve = createICurveFromContainer(pluginName);
+        if (curve == NULL) {
+            continue;
+        }
+        qDebug()<<"axisCount"<<curve->axisCount();
+        curve->readCurve(data);
+        qDebug()<<"sss";
+        list.append(curve);
+    }
+    return list;
 }
 
 QList<ICurve *> PluginsManager::usrCurves() const

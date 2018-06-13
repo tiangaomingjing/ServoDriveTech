@@ -7,6 +7,7 @@
 #include <QTranslator>
 #include <QSettings>
 
+
 //这些路径都是相对debug/release目录下
 #define DIR_COMMON "common/"
 #define DIR_CUSTOM "custom/"

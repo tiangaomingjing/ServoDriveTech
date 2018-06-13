@@ -1,4 +1,4 @@
-#include "servofile.h"
+﻿#include "servofile.h"
 #include "sevdevice.h"
 #include "qttreemanager.h"
 #include "gtutils.h"
@@ -22,20 +22,20 @@ ServoFile::ServoFile(QObject *parent) :  QObject(parent)
 }
 
 
-void ServoFile::downLoadFile(void (*processCallback)(void *pbar,short *value), void *processbar, const QString &xmlPath, SevDevice *dev)
+bool ServoFile::downLoadFile(void (*processCallback)(void *pbar,short *value), void *processbar, const QString &xmlPath, SevDevice *dev)
 {
     QTreeWidget* downloadTree = QtTreeManager::createTreeWidgetFromXmlFile(xmlPath);
     m_downloadItemNum = getItemNum(downloadTree);
     if (downloadTree == NULL) {
         QMessageBox::information(0, tr("Warning"), tr("Xml file error!"));
-        return;
+        return false;
     }
     quint16 dspVersion;
     qint16 err = dev->socketCom()->readDSPVersion(0, dspVersion);
     if (err != 0) {
         QMessageBox::information(0, tr("Error"), tr("Read dsp version error!"));
         delete downloadTree;
-        return;
+        return false;
     }
     qDebug()<<"dsp version"<<dspVersion;
     QString dspPath = GTUtils::sysPath() + dev->typeName() + "/" + dev->modelName() + "/V" + QString::number(dspVersion) + "/";
@@ -53,7 +53,7 @@ void ServoFile::downLoadFile(void (*processCallback)(void *pbar,short *value), v
             QMessageBox::information(0, tr("Error"), tr("Read xml file Error!"));
             bool delOk = deleteDir(prmPath);
             qDebug()<<"delOk"<<delOk;
-            return;
+            return false;
         }
         dspPath = prmPath;
     }
@@ -73,7 +73,7 @@ void ServoFile::downLoadFile(void (*processCallback)(void *pbar,short *value), v
         QMessageBox::information(0, tr("Warning"), msg);
         downloadTree->clear();
         delete downloadTree;
-        return;
+        return false;
     }
     connect(dev, SIGNAL(initProgressInfo(int,QString)), this, SIGNAL(sendProgressbarMsg(int,QString)));
     OptUser *user = dynamic_cast<OptUser *>(OptContainer::instance()->optItem("optuser"));
@@ -87,14 +87,14 @@ void ServoFile::downLoadFile(void (*processCallback)(void *pbar,short *value), v
     disconnect(dev, SIGNAL(initProgressInfo(int,QString)), this, SIGNAL(sendProgressbarMsg(int,QString)));
     if (!isOk) {
         delete downloadTree;
-        return;
+        return false;
     }
     if (xmlVersion != dspVersion) {
         QString dspFilePath = dspPath + FLASH_ALL_PRM_NAME;
         QTreeWidget* dspTree = QtTreeManager::createTreeWidgetFromXmlFile(dspFilePath);
         m_barCount = 0;
         updatePrmTreeItem(downloadTree->invisibleRootItem(), dspTree->invisibleRootItem());
-        if (dspTree->topLevelItem(XMLFILE_ROW_INDEX)->text(GT::GT::COL_FLASH_ALLAXIS_NAME).compare(XMLFILE_NODE_NAME) == 0) {
+        if (dspTree->topLevelItem(XMLFILE_ROW_INDEX)->text(GT::COL_FLASH_ALLAXIS_NAME).compare(XMLFILE_NODE_NAME) == 0) {
             QTreeWidgetItem *versionNodeItem;
             versionNodeItem = dspTree->takeTopLevelItem(XMLFILE_ROW_INDEX);
             delete versionNodeItem;
@@ -103,7 +103,7 @@ void ServoFile::downLoadFile(void (*processCallback)(void *pbar,short *value), v
         for (int i = 0; i < dspTree->topLevelItemCount(); i++) {
             bool ok = downloadItem(dev, i, dspTree->topLevelItem(i));
             if (!ok) {
-                return;
+                return false;
             }
         }
         delete dspTree;
@@ -112,21 +112,22 @@ void ServoFile::downLoadFile(void (*processCallback)(void *pbar,short *value), v
         for (int i = 0; i < downloadTree->topLevelItemCount(); i++) {
             bool ok = downloadItem(dev, i, downloadTree->topLevelItem(i));
             if (!ok) {
-                return;
+                return false;
             }
         }
     }
     delete downloadTree;
+    return true;
 }
 
-void ServoFile::upLoadFile(void (*processCallback)(void *pbar,short *value), void *processbar, const QString &xmlPath, SevDevice *dev)
+bool ServoFile::upLoadFile(void (*processCallback)(void *pbar,short *value), void *processbar, const QString &xmlPath, SevDevice *dev)
 {
     m_barCount = 0;
     quint16 dspVersion;
     qint16 err = dev->socketCom()->readDSPVersion(0, dspVersion);
     if (err != 0) {
         QMessageBox::information(0, tr("Error"), tr("Read dsp version error!"));
-        return;
+        return false;
     }
     qDebug()<<"dsp version"<<dspVersion;
     QString dspPath = GTUtils::sysPath() + dev->typeName() + "/" + dev->modelName() + "/V" + QString::number(dspVersion) + "/";
@@ -143,7 +144,7 @@ void ServoFile::upLoadFile(void (*processCallback)(void *pbar,short *value), voi
            QMessageBox::information(0, tr("Error"), tr("Read xml file Error!"));
            bool delOk = deleteDir(prmPath);
            qDebug()<<"delOk"<<delOk;
-           return;
+           return false;
         }
         dspPath = prmPath;
     }
@@ -160,7 +161,7 @@ void ServoFile::upLoadFile(void (*processCallback)(void *pbar,short *value), voi
     for (int i = 0; i < dspTree->topLevelItemCount(); i++) {
         bool ok = uploadItem(dev, i, dspTree->topLevelItem(i));
         if (!ok) {
-            return;
+            return false;
         }
     }
     qDebug()<<"a";
@@ -172,6 +173,7 @@ void ServoFile::upLoadFile(void (*processCallback)(void *pbar,short *value), voi
     QtTreeManager::writeTreeWidgetToXmlFile(xmlPath, dspTree);
     qDebug()<<"c";
     delete dspTree;
+    return true;
 }
 
 //void ServoFile::updatePrmTree(QTreeWidget *downloadTree, QTreeWidget *dspTree)

@@ -70,8 +70,8 @@ int CurveManager::varCurveTotalCount()
   ICurve *curve;
   for(int i=0;i<m_curveList.count();i++)
   {
-    curve=m_curveList.at(i);
-    num+=curve->varInputsKeys().size();
+    curve = m_curveList.at(i);
+    num += curve->varInputsKeys().size();
   }
   return num;
 }
@@ -89,6 +89,7 @@ QList<DevSamplePrm> CurveManager::samplPrms() const
 bool CurveManager::isOverMaxCurveSizeWhenAdd(ICurve *c)
 {
   int size = varCurveTotalCount() + c->varInputsKeys().size();
+  qDebug()<<"isOverMaxCurveSizeWhenAdd size = "<<size;
   return (size - CURVE_MAX_NUM) > 0;
 }
 

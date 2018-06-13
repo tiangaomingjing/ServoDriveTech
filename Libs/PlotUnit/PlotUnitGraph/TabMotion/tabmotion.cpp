@@ -19,6 +19,9 @@ MotionProgressBar::MotionProgressBar(int axisCount, QWidget *parent):QWidget(par
   m_axisCount(axisCount)
 {
   QHBoxLayout *hlayout = new QHBoxLayout(this);
+  QSpacerItem *spacer;
+  spacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+  hlayout->addItem(spacer);
   for(int i = 0;i<axisCount;i++)
   {
     QProgressBar *bar = new QProgressBar(this);
@@ -34,6 +37,8 @@ MotionProgressBar::MotionProgressBar(int axisCount, QWidget *parent):QWidget(par
     bar->setValue(0);
     bar->setVisible(false);
   }
+  spacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+  hlayout->addItem(spacer);
   hlayout->setSpacing(2);
   hlayout->setContentsMargins(0,0,0,0);
 }
@@ -122,8 +127,8 @@ TabMotion::TabMotion(const QString &name, SevDevice *sev, QWidget *parent) :
 TabMotion::~TabMotion()
 {
   qDebug()<<"TabMotion TabMotion TabMotion TabMotion destruct ------->";
-//  GT::deepClearList(m_motionList);
-//  GT::deepClearList(m_axisMotionDataList);
+  GT::deepClearList(m_motionList);
+  GT::deepClearList(m_axisMotionDataList);
   delete ui;
 }
 

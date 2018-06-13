@@ -15,7 +15,44 @@
 
 #define ICurve_iid "gt.plot.curve.icurve"
 
+class ICurvePrivate
+{
+public:
+  ICurvePrivate();
+
+  int m_axisInx;
+  int m_dspInx;
+  int m_devInx;
+
+  bool m_isDraw;
+  QColor m_color;
+  QString m_name;
+  QString m_note;
+  QString m_unitName;
+
+  double m_k;
+  double m_samplInterval;//s
+  double m_currentTime;//s
+  quint32 m_storePointCount;
+
+  QList<CurveConst>m_constInputs;
+  QList<CurveVar>m_varInputs;
+
+  QHash<QString,double> m_unitsHash;
+  QStringList m_unitNameList;
+
+  CurveData m_cData;
+  CurveData m_sData;
+
+  QString m_pluginName;
+  int m_axisCount;
+};
+
+QDataStream &operator<<(QDataStream &out, const ICurvePrivate &par);
+QDataStream &operator>>(QDataStream &in, ICurvePrivate &par);
+
 class QTreeWidgetItem;
+
 class ICURVESHARED_EXPORT ICurve
 {
 public:
@@ -38,6 +75,8 @@ public:
   virtual ICurve *clone() = 0;
   virtual QString pluginName() = 0;
 
+  virtual void reset() = 0;
+
   void setName(const QString &name);
   void setNote(const QString &note);
   virtual QString displayName();
@@ -46,8 +85,10 @@ public:
   virtual void write(QTreeWidgetItem *treeItem);
   virtual bool read(QTreeWidgetItem *treeItem);
 
-  virtual void saveCurve(QTextStream text);
-  virtual void saveCurve(QDataStream data);
+  virtual void saveCurve(QTextStream &text);
+  virtual void saveCurve(QDataStream &data);
+
+  virtual void readCurve(QDataStream &data);
 
 
   void addConstInputByName(const QString &name);
@@ -112,43 +153,9 @@ protected:
   void updateCurrentTime();
 
 protected:
-
-  class ICurvePrivate
-  {
-  public:
-    ICurvePrivate();
-
-    int m_axisInx;
-    int m_dspInx;
-    int m_devInx;
-
-    bool m_isDraw;
-    QColor m_color;
-    QString m_name;
-    QString m_note;
-    QString m_unitName;
-
-    double m_k;
-    double m_samplInterval;//s
-    double m_currentTime;//s
-    quint32 m_storePointCount;
-
-    QList<CurveConst>m_constInputs;
-    QList<CurveVar>m_varInputs;
-
-    QHash<QString,double> m_unitsHash;
-    QStringList m_unitNameList;
-
-    CurveData m_cData;
-    CurveData m_sData;
-
-    QString m_pluginName;
-    int m_axisCount;
-  };
-
   ICurvePrivate dd;
-
 };
+
 
 Q_DECLARE_INTERFACE(ICurve,ICurve_iid)
 

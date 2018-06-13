@@ -45,6 +45,9 @@ public:
   quint64 genCmdRead(const QString &cmdReadName,qint16 axisIndex,bool &isOk);
   bool genCmdWrite(const QString &cmdWriteName,quint64 value,qint16 axisIndex);
 
+  bool readPageFlash(int axis,QTreeWidget *pageTree);
+  bool writePageFlash(int axis,QTreeWidget *pageTree);
+
   bool readGenItemRAM(quint16 axisInx,QTreeWidgetItem *item);
   bool writeGenItemRAM(quint16 axisInx,QTreeWidgetItem *item);
   bool readGenPageRAM(quint16 axisInx,QTreeWidget *pageTree);
@@ -117,12 +120,14 @@ public:
   void cmdSetIqRef(quint16 axisInx,double value);
   void cmdSetSpdRef(quint16 axisInx,double value);
   void cmdSetPosRef(quint16 axisInx,qint32 value);
-  bool cmdGetSpdFb(quint16 axisInx,double &value);
+  bool cmdGetSpdFbPercent(quint16 axisInx,double &value);
 
   bool searchPhaseStart(quint16 axisInx,int value);
 
   bool imaxPrmAssociationActive(quint16 axisInx);
   bool resetDSP();
+
+  bool checkPageParameters(int axis,QTreeWidget *tree);
 
 signals:
   void initProgressInfo(int value,QString msg);
@@ -139,13 +144,12 @@ signals:
   void dspReset();
 
 public slots:
-  bool onReadPageFlash(int axis,QTreeWidget *pageTree);
-  bool onWritePageFlash(int axis,QTreeWidget *pageTree);
+
 
 private:
   bool checkPagePropertyParameters(QTreeWidgetItem *item);
   bool checkPowerBoardParameters(QTreeWidgetItem *item,const QMap<QString ,PowerBoardLimit> *limit);
-  bool checkPageParameters(int axis,QTreeWidget *tree);
+
   bool checkLoadItemParameters(int axis, QTreeWidgetItem *item, QTreeWidget *prmTree, int itemNum);
   bool checkLoadPropertyParameters(QTreeWidgetItem *item, QTreeWidget *prmTree);
 

@@ -723,10 +723,19 @@ uint16_t RnNet::currentRnStation() const
   Q_D(const RnNet);
   return d->m_rnStation;
 }
-std::vector<uint8_t> RnNet::broadcast()
+std::vector<int16_t> RnNet::broadcast()
 {
-  std::vector<uint8_t> vtr;
-  vtr.push_back(0xf0);
-//  vtr.push_back(0xf1);//测试得到多个站信息
-  return vtr;
+//  std::vector<uint8_t> vtr;
+//  vtr.push_back(0xf0);
+////  vtr.push_back(0xf1);//测试得到多个站信息
+//  return vtr;
+
+  Q_D(RnNet);
+  std::vector<qint16> v;
+  v.clear();
+  qint16 ret=GTSD_CMD_GetStationIdList(v, d->m_comType);
+//  qDebug()<<"GTSD_CMD_GetStationIdList ret="<<ret;
+  if(ret!=0)
+    v.clear();
+  return v;
 }

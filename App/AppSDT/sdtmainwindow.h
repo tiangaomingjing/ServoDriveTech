@@ -107,7 +107,7 @@ private slots:
   void onActnProduceClicked();
   void onActnAdvUserClicked();
   void onActnCompareClicked();
-  void onActnUpdateClicked();
+  void onActnUpdateFirmwareClicked();
   void onActnResetDspClicked();
   void onStartMsgReceived();
   void onCloseMsgReceived();

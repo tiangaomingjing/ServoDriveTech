@@ -10,6 +10,7 @@ INCLUDEPATH+=$${PWD}/../../SDKernel\
               $${PWD}/../../Com/Communication\
               $${PWD}/../../GTUtils/QtTreeManager\
               $${PWD}/../../Option\
+              $${PWD}/../../AdvUser\
               $${PWD}/SDTGraphicsItems\
               $${PWD}/DataBinding
 
@@ -27,13 +28,15 @@ CONFIG(debug, debug|release){
     UI_OUT_PATH = $${APP_BUILD_PATH}/debug/bin
     LIBS+=$${UI_OUT_PATH}/SDKerneld.lib\
           $${UI_OUT_PATH}/GTUtilsd.lib\
-          $${UI_OUT_PATH}/Optiond.lib
+          $${UI_OUT_PATH}/Optiond.lib\
+          $${UI_OUT_PATH}/AdvUserd.lib
     TARGET = IUiWidgetd
 } else{
     UI_OUT_PATH = $${APP_BUILD_PATH}/release/bin
     LIBS+=$${UI_OUT_PATH}/SDKernel.lib\
           $${UI_OUT_PATH}/GTUtils.lib\
-          $${UI_OUT_PATH}/Option.lib
+          $${UI_OUT_PATH}/Option.lib\
+          $${UI_OUT_PATH}/AdvUser.lib
     TARGET = IUiWidget
 }
 

@@ -1050,17 +1050,17 @@ do you want to continue?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="930"/>
+        <location filename="sdtmainwindow.cpp" line="932"/>
         <source>your connect com is wrong</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="931"/>
+        <location filename="sdtmainwindow.cpp" line="933"/>
         <source>your select com type is wrong</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="933"/>
+        <location filename="sdtmainwindow.cpp" line="935"/>
         <source>Net Error
 
 exception cause maybe:
@@ -1069,7 +1069,7 @@ exception cause maybe:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="981"/>
+        <location filename="sdtmainwindow.cpp" line="984"/>
         <source>Version:%1
 
 get more help from:
@@ -1077,42 +1077,62 @@ http://www.googoltech.com</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1030"/>
-        <location filename="sdtmainwindow.cpp" line="1071"/>
-        <location filename="sdtmainwindow.cpp" line="1383"/>
+        <location filename="sdtmainwindow.cpp" line="1033"/>
+        <location filename="sdtmainwindow.cpp" line="1084"/>
+        <location filename="sdtmainwindow.cpp" line="1406"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1030"/>
-        <location filename="sdtmainwindow.cpp" line="1071"/>
+        <location filename="sdtmainwindow.cpp" line="1033"/>
+        <location filename="sdtmainwindow.cpp" line="1084"/>
         <source>Please open com first!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1215"/>
+        <location filename="sdtmainwindow.cpp" line="1071"/>
+        <source>Download xml file OK !</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sdtmainwindow.cpp" line="1075"/>
+        <source>Error: Download xml file fails !</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sdtmainwindow.cpp" line="1125"/>
+        <source>Upload xml file OK !</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sdtmainwindow.cpp" line="1129"/>
+        <source>Error: Upload xml file fails !</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sdtmainwindow.cpp" line="1238"/>
         <source>dev:%1,axis:%2,page:%3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1262"/>
+        <location filename="sdtmainwindow.cpp" line="1285"/>
         <source>Device:%1 NetError!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1277"/>
+        <location filename="sdtmainwindow.cpp" line="1300"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1283"/>
-        <location filename="sdtmainwindow.cpp" line="1284"/>
+        <location filename="sdtmainwindow.cpp" line="1306"/>
+        <location filename="sdtmainwindow.cpp" line="1307"/>
         <source>search phase complete !</source>
         <oldsource>search phase complete</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="933"/>
+        <location filename="sdtmainwindow.cpp" line="935"/>
         <source>connect error</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1169,28 +1189,28 @@ http://www.googoltech.com</source>
     <message>
         <location filename="ServoFile/servofile.cpp" line="36"/>
         <location filename="ServoFile/servofile.cpp" line="53"/>
-        <location filename="ServoFile/servofile.cpp" line="128"/>
-        <location filename="ServoFile/servofile.cpp" line="143"/>
-        <location filename="ServoFile/servofile.cpp" line="221"/>
-        <location filename="ServoFile/servofile.cpp" line="244"/>
+        <location filename="ServoFile/servofile.cpp" line="129"/>
+        <location filename="ServoFile/servofile.cpp" line="144"/>
+        <location filename="ServoFile/servofile.cpp" line="223"/>
+        <location filename="ServoFile/servofile.cpp" line="246"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="ServoFile/servofile.cpp" line="36"/>
-        <location filename="ServoFile/servofile.cpp" line="128"/>
+        <location filename="ServoFile/servofile.cpp" line="129"/>
         <source>Read dsp version error!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="ServoFile/servofile.cpp" line="50"/>
-        <location filename="ServoFile/servofile.cpp" line="140"/>
+        <location filename="ServoFile/servofile.cpp" line="141"/>
         <source>Reading Xml Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="ServoFile/servofile.cpp" line="53"/>
-        <location filename="ServoFile/servofile.cpp" line="143"/>
+        <location filename="ServoFile/servofile.cpp" line="144"/>
         <source>Read xml file Error!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1200,27 +1220,27 @@ http://www.googoltech.com</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ServoFile/servofile.cpp" line="190"/>
+        <location filename="ServoFile/servofile.cpp" line="192"/>
         <source>Updating parameters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ServoFile/servofile.cpp" line="216"/>
+        <location filename="ServoFile/servofile.cpp" line="218"/>
         <source>Downloading axis%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ServoFile/servofile.cpp" line="221"/>
+        <location filename="ServoFile/servofile.cpp" line="223"/>
         <source>Download Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ServoFile/servofile.cpp" line="238"/>
+        <location filename="ServoFile/servofile.cpp" line="240"/>
         <source>Uploading axis%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ServoFile/servofile.cpp" line="244"/>
+        <location filename="ServoFile/servofile.cpp" line="246"/>
         <source>Upload Error</source>
         <translation type="unfinished"></translation>
     </message>

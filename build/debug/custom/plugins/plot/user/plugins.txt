@@ -1,3 +1,13 @@
 CurveUsrPos
 CurveUsrPerr
+CurveUsrVffd
 CurveUsrVcmd
+CurveUsrVfb
+CurveUsrVel
+CurveUsrIcmd
+CurveUsrIfb
+CurveUsrIu
+CurveUsrIv
+CurveUsrIw
+CurveUsrTq
+CurveUsrTrate

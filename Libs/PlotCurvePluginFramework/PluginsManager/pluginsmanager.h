@@ -28,6 +28,9 @@ public:
 
   void saveCurvesToXml(const QList<ICurve *> &clist);
   QList<ICurve *> buildCurvesFromXml();
+  QList<ICurve *> buildCurvesFromSrc(QDataStream &data, int count);
+
+  bool loadOk() const;
 
 private:
   QStringList pluginsFromReadTxt(const QString &fileName);
@@ -56,6 +59,7 @@ private:
   ICurve *m_expertCurve;
   QList<QList<ICurve *>>m_customCurves;
   QTranslator *m_trans;
+  bool m_loadOk;
 
 };
 

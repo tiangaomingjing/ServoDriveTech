@@ -60,8 +60,8 @@ void GraphCurrent130::setupDataMappings()
   d->m_mapping->insertBox2Item(d->m_pEdit,d->m_treeWidget->topLevelItem(FNQ_INX));
   d->m_mapping->insertBox2Item(d->m_iEdit,d->m_treeWidget->topLevelItem(TIQ_INX));
 
-  d->m_mapping->insertItem2Box(d->m_treeWidget->topLevelItem(TIQ_INX),d->m_iEdit);
-  d->m_mapping->insertItem2Box(d->m_treeWidget->topLevelItem(FNQ_INX),d->m_pEdit);
+  d->m_mapping->insertItem2Box(d->m_treeWidget->topLevelItem(TID_INX),d->m_iEdit);
+  d->m_mapping->insertItem2Box(d->m_treeWidget->topLevelItem(FND_INX),d->m_pEdit);
 }
 
 void GraphCurrent130::createPidControllerItem()

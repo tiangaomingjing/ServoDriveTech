@@ -955,12 +955,13 @@ int16 CServoDriverCom::GTSD_CMD_GetSpdRef(int16 axis, SPD_STATE* spd_ref)
 	}
 	else
 	{
-		spd_ref->chd_spd_tmp = ((double)(((dspdata[0] & 0x0000ffff) | ((dspdata[1] << 16) & 0xffff0000)))) / ((double)MAX_SPD_SCALE)*100.0;
-		spd_ref->tsk_spd_ref = ((double)(((dspdata[2] & 0x0000ffff) | ((dspdata[3] << 16) & 0xffff0000)))) / ((double)MAX_SPD_SCALE)*100.0;
-		spd_ref->ctl_spd_ref = ((double)(((dspdata[4] & 0x0000ffff) | ((dspdata[5] << 16) & 0xffff0000)))) / ((double)MAX_SPD_SCALE)*100.0;
-		spd_ref->ctl_spd_fd = ((double)(((dspdata[6] & 0x0000ffff) | ((dspdata[7] << 16) & 0xffff0000)))) / ((double)MAX_SPD_SCALE)*100.0;
-		spd_ref->rsv_mot_spd = ((double)(((dspdata[8] & 0x0000ffff) | ((dspdata[9] << 16) & 0xffff0000)))) / ((double)MAX_SPD_SCALE)*100.0;
-		return RTN_SUCCESS;
+    spd_ref->chd_spd_tmp = ((int32)(((dspdata[0] & 0x0000ffff) | ((dspdata[1] << 16) & 0xffff0000)))) / ((double)MAX_SPD_SCALE)*100.0;
+    spd_ref->tsk_spd_ref = ((int32)(((dspdata[2] & 0x0000ffff) | ((dspdata[3] << 16) & 0xffff0000)))) / ((double)MAX_SPD_SCALE)*100.0;
+    spd_ref->ctl_spd_ref = ((int32)(((dspdata[4] & 0x0000ffff) | ((dspdata[5] << 16) & 0xffff0000)))) / ((double)MAX_SPD_SCALE)*100.0;
+    spd_ref->ctl_spd_fd = ((int32)(((dspdata[6] & 0x0000ffff) | ((dspdata[7] << 16) & 0xffff0000)))) / ((double)MAX_SPD_SCALE)*100.0;
+//		spd_ref->rsv_mot_spd = ((double)(((dspdata[8] & 0x0000ffff) | ((dspdata[9] << 16) & 0xffff0000)))) / ((double)MAX_SPD_SCALE)*100.0;
+    spd_ref->rsv_mot_spd = ((int32)(((dspdata[8] & 0x0000ffff) | ((dspdata[9] << 16) & 0xffff0000)))) / ((double)MAX_SPD_SCALE)*100.0;
+    return RTN_SUCCESS;
 	}
 }
 //////////////////////////////////////////////////////////////////////////

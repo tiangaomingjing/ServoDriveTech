@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>670</width>
-    <height>413</height>
+    <width>771</width>
+    <height>403</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -46,6 +46,23 @@
        <string>note</string>
       </property>
      </column>
+     <item>
+      <property name="text">
+       <string>21000506</string>
+      </property>
+      <property name="text">
+       <string>SD1x</string>
+      </property>
+      <property name="text">
+       <string>SD1</string>
+      </property>
+      <property name="text">
+       <string>SD1</string>
+      </property>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </item>
      <item>
       <property name="text">
        <string>21000507</string>

@@ -5,6 +5,7 @@
 #include <QVector>
 #include <QDebug>
 #include <QTreeWidgetItem>
+#include <QDebug>
 
 #define XML_NODE_CURVE            "Curve"
 #define XML_NODE_DEVINX           "DevIndex"
@@ -26,7 +27,7 @@ public:
 
 ICurve::~ICurve()
 {
-
+  qDebug()<<"ICurve destruct -->";
 }
 /**
  * @brief ICurve::prepare
@@ -367,52 +368,61 @@ bool ICurve::read(QTreeWidgetItem *treeItem)
   return true;
 }
 
-void ICurve::saveCurve(QDataStream data)
+void ICurve::saveCurve(QTextStream &text)
 {
-    data<<dd.m_pluginName;
-    data<<dd.m_devInx;
-    data<<dd.m_axisInx;
-    data<<dd.m_axisCount;
-    data<<dd.m_name;
-    data<<dd.m_note;
-    data<<dd.m_color.red();
-    data<<dd.m_color.green();
-    data<<dd.m_color.blue();
-    data<<dd.m_isDraw;
-    data<<dd.m_unitName;
+    savePrepare();
+    text<<"Plugin Name: "<<dd.m_pluginName;
+    text<<"Device Index: "<<dd.m_devInx;
+    text<<"Axis Index: "<<dd.m_axisInx;
+    text<<"Axis Count: "<<dd.m_axisCount;
+    text<<"Curve Name: "<<dd.m_name;
+    text<<"Note: "<<dd.m_note;
+    text<<"Color: ";
+    text<<"Red: "<<dd.m_color.red();
+    text<<"Green: "<<dd.m_color.green();
+    text<<"Blue: "<<dd.m_color.blue();
+    text<<"IsDraw: "<<dd.m_isDraw;
+    text<<"Unit Name: "<<dd.m_unitName;
 
-    data<<dd.m_unitNameList.size();
     for (int i = 0; i < dd.m_unitNameList.size(); i++) {
-        data<<dd.m_unitNameList.at(i);
         if (dd.m_unitsHash.contains(dd.m_unitNameList.at(i))) {
-            data<<dd.m_unitsHash.value(dd.m_unitNameList.at(i));
+            text<<dd.m_unitNameList.at(i)<<dd.m_unitsHash.value(dd.m_unitNameList.at(i));
         } else {
-            double count = 0;
-            data<<count;
+            text<<dd.m_unitNameList.at(i)<<0;
         }
     }
 
-    data<<dd.m_constInputs.size();
-    for (int i = 0; i < dd.m_constInputs; i++) {
-        data<<dd.m_constInputs.at(i).keyName;
-        data<<dd.m_constInputs.at(i).prm.baseAddr;
-        data<<dd.m_constInputs.at(i).prm.offtAddr;
-        data<<dd.m_constInputs.at(i).prm.bytes;
+    text<<"Const Inputs:";
+    for (int i = 0; i < dd.m_constInputs.size(); i++) {
+        text<<"KeyName: "<<dd.m_constInputs.at(i).keyName;
+        text<<"Base Address: "<<dd.m_constInputs.at(i).prm.baseAddr;
+        text<<"Offset Address: "<<dd.m_constInputs.at(i).prm.offtAddr;
+        text<<"Bytes: "<<dd.m_constInputs.at(i).prm.bytes;
     }
 
-    data<<dd.m_varInputs.size();
-    for (int i = 0; i < dd.m_varInputs; i++) {
-        data<<dd.m_varInputs.at(i).keyName;
-        data<<dd.m_varInputs.at(i).prm.baseAddr;
-        data<<dd.m_varInputs.at(i).prm.offtAddr;
-        data<<dd.m_varInputs.at(i).prm.bytes;
+    text<<"Various Inputs:";
+    for (int i = 0; i < dd.m_varInputs.size(); i++) {
+        text<<"KeyName: "<<dd.m_varInputs.at(i).keyName;
+        text<<"Base Address: "<<dd.m_varInputs.at(i).prm.baseAddr;
+        text<<"Offset Address: "<<dd.m_varInputs.at(i).prm.offtAddr;
+        text<<"Bytes: "<<dd.m_varInputs.at(i).prm.bytes;
     }
 
-    data<<dd.m_sData.keys.size();
+    text<<"Curve Data:";
     for (int i = 0; i < dd.m_sData.keys.size(); i++) {
-        data<<dd.m_sData.keys.at(i);
-        data<<dd.m_sData.values.at(i);
+        text<<dd.m_sData.keys.at(i)<<dd.m_sData.values.at(i);
     }
+}
+
+void ICurve::saveCurve(QDataStream &data)
+{
+    savePrepare();
+    data<<dd;
+}
+
+void ICurve::readCurve(QDataStream &data)
+{
+    data>>dd;
 }
 
 
@@ -681,7 +691,7 @@ QStringList ICurve::unitNames()
   return dd.m_unitNameList;
 }
 
-ICurve::ICurvePrivate::ICurvePrivate()
+ICurvePrivate::ICurvePrivate()
 {
   m_sData.keys.append(0);
   m_sData.values.append(0);
@@ -693,4 +703,144 @@ ICurve::ICurvePrivate::ICurvePrivate()
   m_storePointCount=10*1000000/62.5;
   m_axisCount = 4;
   m_unitName = "NULL";
+}
+
+QDataStream &operator<<(QDataStream &out, const ICurvePrivate &dd)
+{
+    out<<dd.m_pluginName;
+    qDebug()<<"pluginName"<<dd.m_pluginName;
+    out<<dd.m_devInx;
+    qDebug()<<"devInx"<<dd.m_devInx;
+    out<<dd.m_axisInx;
+    qDebug()<<"axisInx"<<dd.m_axisInx;
+    out<<dd.m_axisCount;
+    qDebug()<<"axisCount"<<dd.m_axisCount;
+    out<<dd.m_name;
+    qDebug()<<"name"<<dd.m_name;
+    out<<dd.m_note;
+    qDebug()<<"note"<<dd.m_note;
+    out<<dd.m_color;
+    out<<dd.m_isDraw;
+    qDebug()<<"isDraw"<<dd.m_isDraw;
+    out<<dd.m_unitName;
+    qDebug()<<"unitName"<<dd.m_unitName;
+
+    out<<dd.m_unitNameList;
+    //out<<dd.m_unitNameList.at(0)<<dd.m_unitNameList.at(1);
+    qDebug()<<"unitname size"<<dd.m_unitNameList.size();
+
+//    out<<dd.m_unitsHash;
+//    qDebug()<<"unithash size"<<dd.m_unitsHash.keys().size();
+
+    for (int i = 0; i < dd.m_unitNameList.size(); i++) {
+    //for (int i = 0; i < 2; i++) {
+        qDebug()<<"unitName"<<dd.m_unitNameList.at(i);
+        qDebug()<<"unitValue"<<dd.m_unitsHash.value(dd.m_unitNameList.at(i), 1);
+        out<<dd.m_unitsHash.value(dd.m_unitNameList.at(i), 1);
+    }
+
+    out<<dd.m_constInputs.size();
+    qDebug()<<"constSize"<<dd.m_constInputs.size();
+    for (int i = 0; i < dd.m_constInputs.size(); i++) {
+        out<<dd.m_constInputs.at(i).keyName;
+        qDebug()<<"key"<<dd.m_constInputs.at(i).keyName;
+        out<<dd.m_constInputs.at(i).prm.baseAddr;
+        qDebug()<<"baseAdd"<<dd.m_constInputs.at(i).prm.baseAddr;
+        out<<dd.m_constInputs.at(i).prm.offtAddr;
+        qDebug()<<"offAdd"<<dd.m_constInputs.at(i).prm.offtAddr;
+        out<<dd.m_constInputs.at(i).prm.bytes;
+        qDebug()<<"bytes"<<dd.m_constInputs.at(i).prm.bytes;
+    }
+
+    out<<dd.m_varInputs.size();
+    qDebug()<<"varSize"<<dd.m_varInputs.size();
+    for (int i = 0; i < dd.m_varInputs.size(); i++) {
+        out<<dd.m_varInputs.at(i).keyName;
+        qDebug()<<"key"<<dd.m_varInputs.at(i).keyName;
+        out<<dd.m_varInputs.at(i).prm.baseAddr;
+        qDebug()<<"baseAdd"<<dd.m_varInputs.at(i).prm.baseAddr;
+        out<<dd.m_varInputs.at(i).prm.offtAddr;
+        qDebug()<<"offAdd"<<dd.m_varInputs.at(i).prm.offtAddr;
+        out<<dd.m_varInputs.at(i).prm.bytes;
+        qDebug()<<"bytes"<<dd.m_varInputs.at(i).prm.bytes;
+    }
+
+    out<<dd.m_sData.keys;
+    qDebug()<<"key count"<<dd.m_sData.keys.count();
+    out<<dd.m_sData.values;
+    qDebug()<<"value count"<<dd.m_sData.values.count();
+  return out;
+}
+
+QDataStream &operator>>(QDataStream &in, ICurvePrivate &dd)
+{
+    in>>dd.m_devInx>>dd.m_axisInx>>dd.m_axisCount;
+    qDebug()<<"dev Index"<<dd.m_devInx;
+    qDebug()<<"axis Index"<<dd.m_axisInx;
+    qDebug()<<"axis Count"<<dd.m_axisCount;
+    in>>dd.m_name>>dd.m_note;
+    qDebug()<<"name"<<dd.m_name;
+    qDebug()<<"note"<<dd.m_note;
+    in>>dd.m_color;
+    in>>dd.m_isDraw>>dd.m_unitName;
+    qDebug()<<"isDraw"<<dd.m_isDraw;
+    qDebug()<<"unitname"<<dd.m_unitName;
+
+    in>>dd.m_unitNameList;
+//    QString unit1;
+//    QString unit2;
+//    in>>unit1>>unit2;
+
+//    dd.m_unitNameList.append(unit1);
+//    dd.m_unitNameList.append(unit2);
+    qDebug()<<"unitname size"<<dd.m_unitNameList.size();
+//    in>>dd.m_unitsHash;
+//    qDebug()<<"unithash size"<<dd.m_unitsHash.keys().size();
+
+    for (int i = 0; i < dd.m_unitNameList.size(); i++) {
+    //for (int i = 0; i < 2; i++) {
+        qDebug()<<"unitName"<<dd.m_unitNameList.at(i);
+        double temp;
+        in>>temp;
+        qDebug()<<"unit value"<<temp;
+        dd.m_unitsHash.insert(dd.m_unitNameList.at(i), temp);
+    }
+
+    int constInputSize;
+    in>>constInputSize;
+    qDebug()<<"constInputSize"<<constInputSize;
+    for (int i = 0; i < constInputSize; i++) {
+        CurveConst curConst;
+        in>>curConst.keyName;
+        qDebug()<<"keyName"<<curConst.keyName;
+        in>>curConst.prm.baseAddr;
+        qDebug()<<"baseAdd"<<curConst.prm.baseAddr;
+        in>>curConst.prm.offtAddr;
+        qDebug()<<"offtAdd"<<curConst.prm.offtAddr;
+        in>>curConst.prm.bytes;
+        qDebug()<<"bytes"<<curConst.prm.bytes;
+        dd.m_constInputs.append(curConst);
+    }
+
+    int varInputSize;
+    in>>varInputSize;
+    qDebug()<<"varInputSize"<<varInputSize;
+    for (int i = 0; i < varInputSize; i++) {
+        CurveVar curVar;
+        in>>curVar.keyName;
+        qDebug()<<"keyName"<<curVar.keyName;
+        in>>curVar.prm.baseAddr;
+        qDebug()<<"baseAdd"<<curVar.prm.baseAddr;
+        in>>curVar.prm.offtAddr;
+        qDebug()<<"offtAdd"<<curVar.prm.offtAddr;
+        in>>curVar.prm.bytes;
+        qDebug()<<"bytes"<<curVar.prm.bytes;
+        dd.m_varInputs.append(curVar);
+    }
+
+    in>>dd.m_sData.keys;
+    qDebug()<<"key count"<<dd.m_sData.keys.count();
+    in>>dd.m_sData.values;
+    qDebug()<<"value count"<<dd.m_sData.values.count();
+  return in;
 }

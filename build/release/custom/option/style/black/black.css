@@ -163,6 +163,29 @@ background-color:gray;
 color:white;
 }
 
+
+QMenu {
+    background-color: #E0DDDD; /* sets background of the menu */
+    border-left:1px solid #BBB9B9;
+	border-bottom:1px solid #BBB9B9;
+	border-right:1px solid #BBB9B9;
+}
+
+QMenu::item {
+    /* sets background of menu item. set this to something non-transparent
+        if you want menu color and menu item color to be different */
+    background-color: #E0DDDD;
+	font-weight:normal;
+	min-height:24px;
+}
+
+QMenu::item:selected { /* when user selects item using mouse or keyboard */
+    background-color: #D0D0D0;
+	color:black;
+	font-weight:bold;
+}
+
+
 /*==========================main treeWidget 导航栏=====================*/
 QDockWidget  QTreeView {
 	border:1px solid lightgray;
@@ -240,11 +263,16 @@ QToolButton:hover:checked {
 
 /* the subcontrols below are used only in the MenuButtonPopup mode */
 QToolButton::menu-button {
-    border: 2px solid gray;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 6px;
+    /*border:2px solid white;*/
+	
     /* 16px width + 4px for border = 20px allocated above */
-    width: 16px;
+    width: 20px;
+}
+QToolButton::menu-button:hover:!checked {
+    border:1px solid white;
+	border-radius:2px;
+    /* 16px width + 4px for border = 20px allocated above */
+    width: 20px;
 }
 
 QToolButton::menu-arrow {
@@ -254,6 +282,8 @@ QToolButton::menu-arrow {
 QToolButton::menu-arrow:open {
     top: 1px; left: 1px; /* shift it a bit */
 }
+
+
 QWidget#statusBar{
 background-color: #F0F0F0;
 }

@@ -597,7 +597,7 @@
       <item>
        <widget class="QLabel" name="label_14">
         <property name="text">
-         <string>anti electromotive(mVpeak/rpm)</string>
+         <string>moment coefficietn(N.m/A)</string>
         </property>
        </widget>
       </item>

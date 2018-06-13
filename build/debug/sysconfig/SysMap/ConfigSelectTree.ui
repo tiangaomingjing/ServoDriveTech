@@ -64,48 +64,6 @@
        </property>
        <item>
         <property name="text">
-         <string>SD41</string>
-        </property>
-        <property name="text">
-         <string>4</string>
-        </property>
-        <property name="text">
-         <string>21000508</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <item>
-         <property name="text">
-          <string>V122</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-         <property name="text">
-          <string>0</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>V123</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-         <property name="text">
-          <string>0</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </item>
-       </item>
-       <item>
-        <property name="text">
          <string>SD42</string>
         </property>
         <property name="text">
@@ -117,34 +75,6 @@
         <property name="text">
          <string/>
         </property>
-        <item>
-         <property name="text">
-          <string>V123</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-         <property name="text">
-          <string>0</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>V126</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-         <property name="text">
-          <string>0</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </item>
         <item>
          <property name="text">
           <string>V129</string>
@@ -186,6 +116,44 @@
       <property name="text">
        <string>240</string>
       </property>
+      <item>
+       <property name="text">
+        <string>SD1x</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>SD1</string>
+        </property>
+        <property name="text">
+         <string>1</string>
+        </property>
+        <property name="text">
+         <string>21000506</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>V129</string>
+         </property>
+         <property name="text">
+          <string>NULL</string>
+         </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>V130</string>
+         </property>
+         <property name="text">
+          <string>NULL</string>
+         </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+        </item>
+       </item>
+      </item>
       <item>
        <property name="text">
         <string>SD2x</string>
@@ -255,34 +223,6 @@
         </property>
         <item>
          <property name="text">
-          <string>V123</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-         <property name="text">
-          <string>0</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>V126</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-         <property name="text">
-          <string>0</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </item>
-        <item>
-         <property name="text">
           <string>V129</string>
          </property>
          <property name="text">
@@ -336,20 +276,6 @@
         </property>
         <item>
          <property name="text">
-          <string>V128</string>
-         </property>
-         <property name="text">
-          <string>NULL</string>
-         </property>
-         <property name="text">
-          <string>0</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </item>
-        <item>
-         <property name="text">
           <string>V129</string>
          </property>
          <property name="text">
@@ -392,7 +318,7 @@
         </property>
         <item>
          <property name="text">
-          <string>V128</string>
+          <string>V129</string>
          </property>
          <property name="text">
           <string>NULL</string>
@@ -406,16 +332,13 @@
         </item>
         <item>
          <property name="text">
-          <string>V129</string>
+          <string>V130</string>
          </property>
          <property name="text">
           <string>NULL</string>
          </property>
          <property name="text">
           <string>0</string>
-         </property>
-         <property name="text">
-          <string/>
          </property>
         </item>
        </item>

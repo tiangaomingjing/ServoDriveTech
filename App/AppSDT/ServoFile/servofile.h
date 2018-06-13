@@ -1,4 +1,4 @@
-#ifndef SERVOFILE_H
+﻿#ifndef SERVOFILE_H
 #define SERVOFILE_H
 
 #include <QObject>
@@ -13,8 +13,8 @@ class ServoFile : public QObject
     Q_OBJECT
 public:
     explicit ServoFile(QObject *parent = 0);
-    void downLoadFile(void (*processCallback)(void *pbar,short *value), void *processbar, const QString &xmlPath, SevDevice *dev);
-    void upLoadFile(void (*processCallback)(void *pbar,short *value), void *processbar, const QString &xmlPath, SevDevice *dev);
+    bool downLoadFile(void (*processCallback)(void *pbar,short *value), void *processbar, const QString &xmlPath, SevDevice *dev);
+    bool upLoadFile(void (*processCallback)(void *pbar,short *value), void *processbar, const QString &xmlPath, SevDevice *dev);
 
 signals:
     void sendProgressbarMsg(int, QString);

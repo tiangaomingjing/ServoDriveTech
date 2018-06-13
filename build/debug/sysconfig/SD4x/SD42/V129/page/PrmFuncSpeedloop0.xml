@@ -38,12 +38,12 @@
      </column>
      <column>
       <property name="text">
-       <string>downlimit</string>
+       <string>downLimit</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>uplimit</string>
+       <string>upLimit</string>
       </property>
      </column>
      <column>
@@ -58,7 +58,7 @@
      </column>
      <column>
       <property name="text">
-       <string>scale</string>
+       <string>Scale</string>
       </property>
      </column>
      <item>
@@ -107,7 +107,7 @@
        <string>1</string>
       </property>
       <property name="text">
-       <string>65535</string>
+       <string>32767</string>
       </property>
       <property name="text">
        <string>NULL</string>
@@ -204,6 +204,64 @@
       </property>
       <property name="text">
        <string>40.96</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>gSevDrv.sev_obj.vel.ctl.prm.fn_sec_5</string>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="text">
+       <string>int16</string>
+      </property>
+      <property name="text">
+       <string>NULL</string>
+      </property>
+      <property name="text">
+       <string>1</string>
+      </property>
+      <property name="text">
+       <string>32767</string>
+      </property>
+      <property name="text">
+       <string>NULL</string>
+      </property>
+      <property name="text">
+       <string>5199</string>
+      </property>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>gSevDrv.sev_obj.vel.ctl.prm.ti_sec_5</string>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+      <property name="text">
+       <string>Uint16</string>
+      </property>
+      <property name="text">
+       <string>NULL</string>
+      </property>
+      <property name="text">
+       <string>1</string>
+      </property>
+      <property name="text">
+       <string>32767</string>
+      </property>
+      <property name="text">
+       <string>NULL</string>
+      </property>
+      <property name="text">
+       <string>5200</string>
+      </property>
+      <property name="text">
+       <string>100</string>
       </property>
      </item>
     </widget>

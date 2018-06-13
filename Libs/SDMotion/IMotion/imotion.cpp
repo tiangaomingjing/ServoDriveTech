@@ -8,6 +8,7 @@
 IMotion::~IMotion()
 {
   delete d_ptr;
+  qDebug()<<"IMotion destruct -->";
 }
 
 QWidget *IMotion::ui()
