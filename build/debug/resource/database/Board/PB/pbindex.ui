@@ -74,6 +74,24 @@
        </property>
        <item>
         <property name="text">
+         <string>M1</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>series1</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>SD1</string>
+          </property>
+          <property name="text">
+           <string>21000506</string>
+          </property>
+         </item>
+        </item>
+       </item>
+       <item>
+        <property name="text">
          <string>M2</string>
         </property>
         <item>

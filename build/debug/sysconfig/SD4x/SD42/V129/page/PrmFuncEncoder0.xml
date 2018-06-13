@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>635</width>
-    <height>494</height>
+    <width>400</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,12 +38,12 @@
      </column>
      <column>
       <property name="text">
-       <string>downlimit</string>
+       <string>downLimit</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>uplimit</string>
+       <string>upLimit</string>
       </property>
      </column>
      <column>
@@ -58,7 +58,7 @@
      </column>
      <column>
       <property name="text">
-       <string>scale</string>
+       <string>Scale</string>
       </property>
      </column>
      <item>
@@ -191,10 +191,10 @@
        <string>NULL</string>
       </property>
       <property name="text">
-       <string>-32767</string>
+       <string>0</string>
       </property>
       <property name="text">
-       <string>32768</string>
+       <string>10000</string>
       </property>
       <property name="text">
        <string>相序</string>

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>830</width>
-    <height>480</height>
+    <width>656</width>
+    <height>498</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -294,6 +294,64 @@
       </item>
       <item>
        <property name="text">
+        <string>gSevDrv.sev_obj.vel.ctl.prm.fn_sec_5</string>
+       </property>
+       <property name="text">
+        <string>int16</string>
+       </property>
+       <property name="text">
+        <string>Hz</string>
+       </property>
+       <property name="text">
+        <string>48</string>
+       </property>
+       <property name="text">
+        <string>4</string>
+       </property>
+       <property name="text">
+        <string>3</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="text">
+        <string>1</string>
+       </property>
+       <property name="text">
+        <string>-1</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.vel.ctl.prm.ti_sec_5</string>
+       </property>
+       <property name="text">
+        <string>Uint16</string>
+       </property>
+       <property name="text">
+        <string>Ms</string>
+       </property>
+       <property name="text">
+        <string>49</string>
+       </property>
+       <property name="text">
+        <string>4</string>
+       </property>
+       <property name="text">
+        <string>3</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="text">
+        <string>100</string>
+       </property>
+       <property name="text">
+        <string>-1</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
         <string>gSevDrv.sev_obj.vel.ctl.prm.abs_rat_5</string>
        </property>
        <property name="text">
@@ -420,6 +478,35 @@
        </property>
        <property name="text">
         <string>26</string>
+       </property>
+       <property name="text">
+        <string>4</string>
+       </property>
+       <property name="text">
+        <string>3</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="text">
+        <string>10</string>
+       </property>
+       <property name="text">
+        <string>-1</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.pos.ctl.prm.fn_sec_6</string>
+       </property>
+       <property name="text">
+        <string>int16</string>
+       </property>
+       <property name="text">
+        <string>Hz</string>
+       </property>
+       <property name="text">
+        <string>50</string>
        </property>
        <property name="text">
         <string>4</string>

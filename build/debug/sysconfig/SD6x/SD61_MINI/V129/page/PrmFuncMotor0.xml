@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>784</width>
-    <height>567</height>
+    <width>400</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,12 +38,12 @@
      </column>
      <column>
       <property name="text">
-       <string>downlimit</string>
+       <string>downLimit</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>uplimit</string>
+       <string>upLimit</string>
       </property>
      </column>
      <column>
@@ -58,7 +58,7 @@
      </column>
      <column>
       <property name="text">
-       <string>scale</string>
+       <string>Scale</string>
       </property>
      </column>
      <item>
@@ -81,7 +81,7 @@
        <string>32767</string>
       </property>
       <property name="text">
-       <string>额定电流</string>
+       <string>NULL</string>
       </property>
       <property name="text">
        <string>100</string>
@@ -110,7 +110,7 @@
        <string>32767</string>
       </property>
       <property name="text">
-       <string>峰值电流</string>
+       <string>NULL</string>
       </property>
       <property name="text">
        <string>101</string>
@@ -139,7 +139,7 @@
        <string>32767</string>
       </property>
       <property name="text">
-       <string>额定转速</string>
+       <string>NULL</string>
       </property>
       <property name="text">
        <string>102</string>
@@ -168,7 +168,7 @@
        <string>32767</string>
       </property>
       <property name="text">
-       <string>过速百分比 </string>
+       <string>NULL</string>
       </property>
       <property name="text">
        <string>103</string>
@@ -197,7 +197,7 @@
        <string>32767</string>
       </property>
       <property name="text">
-       <string>最大转速</string>
+       <string>NULL</string>
       </property>
       <property name="text">
        <string>104</string>
@@ -226,7 +226,7 @@
        <string>32767</string>
       </property>
       <property name="text">
-       <string>额定转矩</string>
+       <string>NULL</string>
       </property>
       <property name="text">
        <string>105</string>
@@ -255,7 +255,7 @@
        <string>32767</string>
       </property>
       <property name="text">
-       <string>极对数</string>
+       <string>NULL</string>
       </property>
       <property name="text">
        <string>106</string>
@@ -284,7 +284,7 @@
        <string>32767</string>
       </property>
       <property name="text">
-       <string>最大电压</string>
+       <string>NULL</string>
       </property>
       <property name="text">
        <string>107</string>
@@ -313,13 +313,13 @@
        <string>32767</string>
       </property>
       <property name="text">
-       <string>反电动势系数</string>
+       <string>NULL</string>
       </property>
       <property name="text">
        <string>108</string>
       </property>
       <property name="text">
-       <string>10</string>
+       <string>493</string>
       </property>
      </item>
      <item>
@@ -342,7 +342,7 @@
        <string>32767</string>
       </property>
       <property name="text">
-       <string>d轴电感</string>
+       <string>NULL</string>
       </property>
       <property name="text">
        <string>110</string>
@@ -371,7 +371,7 @@
        <string>32767</string>
       </property>
       <property name="text">
-       <string>q轴电感</string>
+       <string>NULL</string>
       </property>
       <property name="text">
        <string>111</string>
@@ -400,7 +400,7 @@
        <string>32767</string>
       </property>
       <property name="text">
-       <string>绕线电阻</string>
+       <string>NULL</string>
       </property>
       <property name="text">
        <string>112</string>
@@ -429,7 +429,7 @@
        <string>2147483647</string>
       </property>
       <property name="text">
-       <string>转动惯量</string>
+       <string>NULL</string>
       </property>
       <property name="text">
        <string>114</string>
@@ -458,7 +458,7 @@
        <string>32767</string>
       </property>
       <property name="text">
-       <string>惯量比</string>
+       <string>NULL</string>
       </property>
       <property name="text">
        <string>116</string>
@@ -487,7 +487,7 @@
        <string>32767</string>
       </property>
       <property name="text">
-       <string>摩擦系数</string>
+       <string>NULL</string>
       </property>
       <property name="text">
        <string>117</string>

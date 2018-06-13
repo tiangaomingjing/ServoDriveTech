@@ -1,0 +1,1034 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>820</width>
+    <height>557</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTreeWidget" name="treeWidget">
+     <column>
+      <property name="text">
+       <string>memberName</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>value</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>memberType</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>unit</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>downlimit</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>uplimit</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>introduction</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>framAddr</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>scale</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>cause</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>solution</string>
+      </property>
+     </column>
+     <item>
+      <property name="text">
+       <string>gSevDrv.sev_obj.cur.pro.alm_code.all</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>NULL</string>
+      </property>
+      <property name="text">
+       <string>NULL</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.cur.pro.alm_code.bit.OC</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>过流</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>1．负载过大
+2．驱动器输出侧发生短路、接地 
+3．电机额定电流参数设置错误
+</string>
+       </property>
+       <property name="text">
+        <string>1.减小系统负载
+2.检查驱动器输出接线是否有短路、接地
+3.检查电机额定参数是否满足系统要求
+</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.cur.pro.alm_code.bit.OV</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>过压</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>1．输入电源电压过高
+2．电机减速时间太短，再生能量过大
+3．刹车电阻容量不足
+</string>
+       </property>
+       <property name="text">
+        <string>1．检查输入电源是否正常
+2．减小速度指令斜坡
+3．检查刹车电阻是否正常连接，电阻阻值、容量是否合适
+</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.cur.pro.alm_code.bit.UV</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>欠压</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>1．输入电源电压过低
+2．瞬时负载过重
+3．驱动器输入侧连线有误
+</string>
+       </property>
+       <property name="text">
+        <string>1．检查三相AC电源输入电压是否正常
+2．检测驱动器输入侧连线是否完好
+</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.cur.pro.alm_code.bit.BrkPh</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>RST输入缺相</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>1．驱动器输入侧电源接线松动
+2．AC电源输入缺相或电压波动过大
+3．AC电源断开
+
+</string>
+       </property>
+       <property name="text">
+        <string>1．检查驱动器AC电源输入侧接线是否完好
+2．检测AC电源电压是否正常
+3．系统配电是否正常
+</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.cur.pro.alm_code.bit.ResErr</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>编码器故障</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>1．编码器信号接线松动
+2．编码器屏蔽接地线未连接
+3．编码器信号处理电路异常
+4. 绝对值编码器电池电压过低
+</string>
+       </property>
+       <property name="text">
+        <string>1．检查编码器信号接线是否完好
+2．检查编码器接地线是否完好
+3．检查系统布局、布线，减少线路耦合干扰信号的引入
+</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.cur.pro.alm_code.bit.OL</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>过载</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>1．系统负载过大
+2．驱动器输出侧发生短路、接地
+3．电机额定电流参数设置错误
+
+</string>
+       </property>
+       <property name="text">
+        <string>1．减小系统负载
+2．检查驱动器输出接线是否有短路、接地
+3．检查电机额定参数是否满足系统要求
+</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.cur.pro.alm_code.bit.OT</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>过温</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>1．驱动器IGBT过热
+2．电机过热
+3．驱动器整流桥过热
+</string>
+       </property>
+       <property name="text">
+        <string>1．检查系统负载是否过大
+2．检查驱动器、电机容量是否足够
+3．检查系统散热环境、风扇工作是否正常
+</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.cur.pro.alm_code.bit.IO_err</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>IO故障</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>驱动器IO异常</string>
+       </property>
+       <property name="text">
+        <string>检查IO接线和电源是否完好</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.cur.pro.alm_code.bit.REG</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>寄存器故障</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>驱动器内部寄存器故障</string>
+       </property>
+       <property name="text">
+        <string>联系技术支持</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.cur.pro.alm_code.bit.PS</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>功率模块故障</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>1．电机损坏或电机测接线短路
+2．驱动器功率模块瞬时电流过大
+3. 功率模块损坏
+</string>
+       </property>
+       <property name="text">
+        <string>1．检查电机接线是否正常
+2．检查电机是否损坏
+3．联系技术支持
+</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.cur.pro.alm_code.bit.OS</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>过速</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>1．电机速度过高
+2．编码器信号异常
+3．电机额定转速参数设置错误
+4．速度响应超调过大
+5．电机转子初始位置校正不准确
+</string>
+       </property>
+       <property name="text">
+        <string>1．检查旋转编码器接线是否完好
+2．检查系统参数和速度指令设置是否合适
+3．检查电机额定转速参数是否满足系统要求
+</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.cur.pro.alm_code.bit.OPRE</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>保留</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.cur.pro.alm_code.bit.DIR</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>方向错误</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>电机旋转方向错误</string>
+       </property>
+       <property name="text">
+        <string>检查驱动器位置、速度指令或编码器反馈方向参数设置是否正确</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.cur.pro.alm_code.bit.SOC</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>瞬时过流</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>1．系统瞬时负载过大
+2．驱动器输出侧发生短路、接地
+3．电机电流参数设置错误
+</string>
+       </property>
+       <property name="text">
+        <string>1．检查系统负载是否正常
+2．检查驱动器输出侧连线是否完好
+3．检查驱动器电机参数设置是否正确
+</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.cur.pro.alm_code.bit.OBPH</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>UVW输出缺相</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>1.驱动器输出侧连线异常
+2.驱动器电机参数设置错误
+3.电机编码器信号异常
+</string>
+       </property>
+       <property name="text">
+        <string>1.检查驱动器输出侧接线是否完好
+2.检查电机参数设置是否正确
+3.检查电机编码器反馈是否正常
+</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.cur.pro.alm_code.bit.OT_MOT</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>电机过温</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>1.电机长时间过载运行
+2.电机散热不好
+3.电机堵转
+</string>
+       </property>
+       <property name="text">
+        <string>1.检查电机散热机构是否良好
+2.电机是否堵转
+3.电机是否超长时间过载运行
+</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.cur.pro.alm_code.bit.PTE</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>位置跟踪误差超限</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>1.控制器规划加速度过大
+2.驱动器控制参数设置不合适
+3.驱动器与电机间接线异常
+</string>
+       </property>
+       <property name="text">
+        <string>1.减小规划加速度
+2.检查驱动器参数设置是否合理
+3.检查驱动器与电机间的接线是否正确
+</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.cur.pro.alm_code.bit.STO</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>STO报警</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>STO急停按钮拍下</string>
+       </property>
+       <property name="text">
+        <string>检查STO急停按钮是否松开</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.cur.pro.alm_code.bit.OB_ERR</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>电机抱闸故障</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>驱动器抱闸电路异常</string>
+       </property>
+       <property name="text">
+        <string>检查驱动器抱闸输出电路与接线是否正常</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.cur.pro.alm_code.bit.FAN</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>风扇故障</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>1.风扇损坏
+2.风扇电源异常
+3.风扇驱动器信号异常
+</string>
+       </property>
+       <property name="text">
+        <string>联系技术支持</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.cur.pro.alm_code.bit.SRF</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>安全继电器故障</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>驱动器安全继电器异常</string>
+       </property>
+       <property name="text">
+        <string>检查安全继电器电路与接线是否完好</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.cur.pro.alm_code.bit.OBP</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>电机抱闸电源故障</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>驱动器抱闸电源故障</string>
+       </property>
+       <property name="text">
+        <string>检查驱动器抱闸电源是否正常工作</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.cur.pro.alm_code.bit.rsvd</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>Glink2通信异常</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string>Glink2通信线缆接触不良</string>
+       </property>
+       <property name="text">
+        <string>检查通信线缆连接是否正常</string>
+       </property>
+      </item>
+     </item>
+     <item>
+      <property name="text">
+       <string>gSevDrv.sev_obj.cur.pro.prm.alm_mask_flag.all</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>Uint32</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>33268</string>
+      </property>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
