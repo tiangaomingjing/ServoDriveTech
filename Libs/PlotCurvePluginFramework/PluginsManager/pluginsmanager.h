@@ -28,6 +28,7 @@ public:
 
   void saveCurvesToXml(const QList<ICurve *> &clist);
   QList<ICurve *> buildCurvesFromXml();
+  QList<ICurve *> buildCurvesFromSrc(QDataStream &data, int count);
 
   bool loadOk() const;
 

@@ -1043,16 +1043,16 @@ void SDTMainWindow::onActnDownloadClicked()
     QString downloadFileName = QString::null;
     int downloadIndex = -1;
     QList<SevDevice *> devList = sevList();
-//    if (devList.count() == 1) {
-//        downloadIndex = 0;
-//        downloadFileName = QFileDialog::getOpenFileName(this, tr("Open XML File"), m_downloadPath, tr("XML Files(*.xml)"));
-//    } else {
+    if (devList.count() == 1) {
+        downloadIndex = 0;
+        downloadFileName = QFileDialog::getOpenFileName(this, tr("Open XML File"), m_downloadPath, tr("XML Files(*.xml)"));
+    } else {
         DownloadDialog downloadDialog;
         downloadDialog.uiInit(devList, m_downloadPath, downloadFileName, downloadIndex);
         downloadDialog.exec();
         qDebug()<<"downloadfilename"<<downloadFileName;
         qDebug()<<"downloadIndex"<<downloadIndex;
-//    }
+    }
     qDebug()<<"1";
     //fileName = QFileDialog::getOpenFileName(this, tr("Open XML File"), m_downloadPath, tr("XML Files(*.xml)"));
     if (downloadFileName.isNull() || downloadIndex == -1) {
@@ -1095,18 +1095,18 @@ void SDTMainWindow::onActnUploadClicked()
     QString uploadFileName = QString::null;
     int uploadIndex = -1;
     QList<SevDevice *> devList = sevList();
-//    if (devList.count() == 1) {
-//        uploadIndex = 0;
-//        QDate curDate = QDate::currentDate();
-//        QString defaultName = devList.at(0)->modelName() + "_" + devList.at(0)->versionName() + "_" + QString::number(curDate.year()) + QString::number(curDate.month()) + QString::number(curDate.day());
-//        uploadFileName = QFileDialog::getSaveFileName(this, tr("Open XML File"), m_uploadPath + "/" + defaultName + ".xml", tr("XML Files(*.xml)"));
-//    } else {
+    if (devList.count() == 1) {
+        uploadIndex = 0;
+        QDate curDate = QDate::currentDate();
+        QString defaultName = devList.at(0)->modelName() + "_" + devList.at(0)->versionName() + "_" + QString::number(curDate.year()) + QString::number(curDate.month()) + QString::number(curDate.day());
+        uploadFileName = QFileDialog::getSaveFileName(this, tr("Open XML File"), m_uploadPath + "/" + defaultName + ".xml", tr("XML Files(*.xml)"));
+    } else {
         UploadDialog uploadDialog;
         uploadDialog.uiInit(devList, m_uploadPath, uploadFileName, uploadIndex);
         uploadDialog.exec();
         qDebug()<<"uploadfilename"<<uploadFileName;
         qDebug()<<"uploadindex"<<uploadIndex;
-//    }
+    }
     qDebug()<<"1";
     //fileName = QFileDialog::getOpenFileName(this, tr("Open XML File"), m_downloadPath, tr("XML Files(*.xml)"));
     if (uploadFileName.isNull() || uploadIndex == -1) {

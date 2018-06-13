@@ -52,40 +52,51 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="advusercompress.ui" line="60"/>
+        <location filename="advusercompress.ui" line="64"/>
+        <location filename="advusercompress.ui" line="94"/>
+        <source>Note:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="advusercompress.ui" line="76"/>
         <source>Hex Version:</source>
         <translation>Hex文件版本：</translation>
     </message>
     <message>
-        <location filename="advusercompress.ui" line="97"/>
+        <location filename="advusercompress.ui" line="84"/>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="advusercompress.ui" line="47"/>
         <source>RPD Version:</source>
         <translation>RPD文件版本：</translation>
     </message>
     <message>
-        <location filename="advusercompress.cpp" line="67"/>
         <location filename="advusercompress.cpp" line="76"/>
-        <location filename="advusercompress.cpp" line="83"/>
-        <location filename="advusercompress.cpp" line="124"/>
+        <location filename="advusercompress.cpp" line="92"/>
+        <location filename="advusercompress.cpp" line="99"/>
+        <location filename="advusercompress.cpp" line="151"/>
         <source>Compress</source>
         <translation>打包</translation>
     </message>
     <message>
-        <location filename="advusercompress.cpp" line="76"/>
+        <location filename="advusercompress.cpp" line="92"/>
         <source>Please enter version information</source>
         <translation>请输入文件版本信息</translation>
     </message>
     <message>
-        <location filename="advusercompress.cpp" line="83"/>
+        <location filename="advusercompress.cpp" line="99"/>
         <source>Version do not match. Are you sure to continue?</source>
         <translation>文件版本不匹配，确定要继续吗？</translation>
     </message>
     <message>
-        <location filename="advusercompress.cpp" line="124"/>
+        <location filename="advusercompress.cpp" line="151"/>
         <source>Compressing fails!</source>
         <translation>打包失败！</translation>
     </message>
     <message>
-        <location filename="advusercompress.cpp" line="161"/>
+        <location filename="advusercompress.cpp" line="191"/>
         <source>Open Directory</source>
         <translation>打开路径</translation>
     </message>

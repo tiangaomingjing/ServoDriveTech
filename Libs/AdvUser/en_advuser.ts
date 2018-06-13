@@ -52,40 +52,51 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercompress.ui" line="60"/>
+        <location filename="advusercompress.ui" line="64"/>
+        <location filename="advusercompress.ui" line="94"/>
+        <source>Note:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="advusercompress.ui" line="76"/>
         <source>Hex Version:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercompress.ui" line="97"/>
+        <location filename="advusercompress.ui" line="84"/>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="advusercompress.ui" line="47"/>
         <source>RPD Version:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercompress.cpp" line="67"/>
         <location filename="advusercompress.cpp" line="76"/>
-        <location filename="advusercompress.cpp" line="83"/>
-        <location filename="advusercompress.cpp" line="124"/>
+        <location filename="advusercompress.cpp" line="92"/>
+        <location filename="advusercompress.cpp" line="99"/>
+        <location filename="advusercompress.cpp" line="151"/>
         <source>Compress</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercompress.cpp" line="76"/>
+        <location filename="advusercompress.cpp" line="92"/>
         <source>Please enter version information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercompress.cpp" line="83"/>
+        <location filename="advusercompress.cpp" line="99"/>
         <source>Version do not match. Are you sure to continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercompress.cpp" line="124"/>
+        <location filename="advusercompress.cpp" line="151"/>
         <source>Compressing fails!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercompress.cpp" line="161"/>
+        <location filename="advusercompress.cpp" line="191"/>
         <source>Open Directory</source>
         <translation type="unfinished"></translation>
     </message>

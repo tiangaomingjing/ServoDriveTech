@@ -94,7 +94,7 @@ bool ServoFile::downLoadFile(void (*processCallback)(void *pbar,short *value), v
         QTreeWidget* dspTree = QtTreeManager::createTreeWidgetFromXmlFile(dspFilePath);
         m_barCount = 0;
         updatePrmTreeItem(downloadTree->invisibleRootItem(), dspTree->invisibleRootItem());
-        if (dspVersion >= 128) {
+        if (dspTree->topLevelItem(XMLFILE_ROW_INDEX)->text(GT::COL_FLASH_ALLAXIS_NAME).compare(XMLFILE_NODE_NAME) == 0) {
             QTreeWidgetItem *versionNodeItem;
             versionNodeItem = dspTree->takeTopLevelItem(XMLFILE_ROW_INDEX);
             delete versionNodeItem;

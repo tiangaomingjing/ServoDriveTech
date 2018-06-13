@@ -5,6 +5,7 @@
 #include <QTreeWidget>
 #include <QDebug>
 #include <QTranslator>
+#include <QSettings>
 
 
 //这些路径都是相对debug/release目录下
@@ -186,6 +187,16 @@ QString GTUtils::sdtPath()
   dir.cdUp();
   path=dir.absolutePath()+"/";
   return path;
+}
+
+QVariant GTUtils::data(const QString &path, const QString &group, const QString &key, const QVariant &defaultValue)
+{
+  QSettings settings(path,QSettings::IniFormat);
+  QVariant vd;
+  settings.beginGroup(group);
+  vd=settings.value(key,defaultValue);
+  settings.endGroup();
+  return vd;
 }
 
 
