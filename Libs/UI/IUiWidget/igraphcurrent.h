@@ -55,6 +55,7 @@ protected:
 
 signals:
 
+
 protected:
   IGraphCurrent(IGraphCurrentPrivate&dd, QWidget *parent=0);
 };

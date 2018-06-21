@@ -126,17 +126,10 @@
         </property>
         <property name="text">
          <string>1</string>
-<<<<<<< HEAD
         </property>
         <property name="text">
          <string>21000506</string>
         </property>
-=======
-        </property>
-        <property name="text">
-         <string>21000506</string>
-        </property>
->>>>>>> upstream/jiang
         <item>
          <property name="text">
           <string>V129</string>
@@ -253,6 +246,17 @@
           <string>0</string>
          </property>
         </item>
+        <item>
+         <property name="text">
+          <string>V133</string>
+         </property>
+         <property name="text">
+          <string>NULL</string>
+         </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+        </item>
        </item>
       </item>
       <item>
@@ -284,8 +288,6 @@
         <item>
          <property name="text">
           <string>V129</string>
-<<<<<<< HEAD
-=======
          </property>
          <property name="text">
           <string>NULL</string>
@@ -300,7 +302,6 @@
         <item>
          <property name="text">
           <string>V130</string>
->>>>>>> upstream/jiang
          </property>
          <property name="text">
           <string>NULL</string>

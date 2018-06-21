@@ -24,6 +24,8 @@
 #include "UiVelocity/graphvelocity129.h"
 
 #include "UiCurrent/graphcurrent130.h"
+#include "UiCurrent/graphcurrent133.h"
+#include "UiPosition/graphposition133.h"
 
 namespace RegisterFunction {
 void registerUiClass(){
@@ -50,7 +52,8 @@ void registerUiClass(){
   UiFactory::registerClass<GraphVelocity129>();
 
   UiFactory::registerClass<GraphCurrent130>();
-//  UiFactory::registerClass<PlotUnitGraph129>();
+  UiFactory::registerClass<GraphCurrent133>();
+  UiFactory::registerClass<GraphPosition133>();
 }
 
 }

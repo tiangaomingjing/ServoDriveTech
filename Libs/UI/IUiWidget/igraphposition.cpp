@@ -113,6 +113,7 @@ void IGraphPosition::createInputFilterItem()
   LabelItemWidget *label=new LabelItemWidget(tr("InputFilter"));
   label->setObjectName("label_posInputFilter");
   label->setAlignment(Qt::AlignCenter);
+  connect(label,SIGNAL(clicked()),this,SLOT(onUIFItemClicked()));
   d->m_UIF=new WidgetItem;
   d->m_UIF->setWidget(label,true);
   d->m_scene->addItem(d->m_UIF);

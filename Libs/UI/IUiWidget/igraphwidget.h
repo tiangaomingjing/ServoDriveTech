@@ -54,6 +54,7 @@ protected slots:
   virtual void onItemBoxEditTextError(QTreeWidgetItem *item,int status);
   virtual void onFaceCssChanged(const QString &css);
   virtual void onDoubleSpinBoxFocusOut();
+  virtual void onUIFItemClicked() {}
 
 protected:
   IGraphWidget(IGraphWidgetPrivate &dd,QWidget *parent=0);

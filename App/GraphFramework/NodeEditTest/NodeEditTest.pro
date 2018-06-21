@@ -14,15 +14,23 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        nodeeditmainwindow.cpp \
-    nodeitem/qneblock.cpp \
-    nodeitem/qneconnection.cpp \
-    nodeitem/qneport.cpp
+    nodeeditmainwindow.cpp \
+    nodeitem/nodeblock.cpp \
+    nodeitem/nodeline.cpp \
+    nodeitem/nodeport.cpp \
+    nodeitem/inodeconnection.cpp \
+    nodeitem/nodecornerline.cpp \
+    nodeitem/nodequadline.cpp \
+    nodeitem/nodeswitch.cpp
 
 HEADERS  += nodeeditmainwindow.h \
-    nodeitem/qneblock.h \
-    nodeitem/qneconnection.h \
-    nodeitem/qneport.h \
-    nodeitem/nodeitemglobaldef.h
+    nodeitem/nodeitemglobaldef.h \
+    nodeitem/nodeblock.h \
+    nodeitem/nodeline.h \
+    nodeitem/nodeport.h \
+    nodeitem/inodeconnection.h \
+    nodeitem/nodecornerline.h \
+    nodeitem/nodequadline.h \
+    nodeitem/nodeswitch.h
 
 FORMS    += nodeeditmainwindow.ui

@@ -37,8 +37,32 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionTest"/>
+   <addaction name="actionTestDelPort2"/>
+   <addaction name="actionTestMove"/>
+   <addaction name="actionSetFontTest"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionTest">
+   <property name="text">
+    <string>testDeletePort1</string>
+   </property>
+  </action>
+  <action name="actionTestMove">
+   <property name="text">
+    <string>testMove</string>
+   </property>
+  </action>
+  <action name="actionSetFontTest">
+   <property name="text">
+    <string>setFontTest</string>
+   </property>
+  </action>
+  <action name="actionTestDelPort2">
+   <property name="text">
+    <string>testDelPort2</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

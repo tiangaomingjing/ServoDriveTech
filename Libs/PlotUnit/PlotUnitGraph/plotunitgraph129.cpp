@@ -766,23 +766,36 @@ void PlotUnitGraph129::onBtnSaveCurveClicked()
     }
     QFile fdata(filePath);
     QFileInfo info(filePath);
-    if (fdata.open(QFile::WriteOnly | QFile::Truncate | QIODevice::Text))
+
+    if (info.suffix().compare("txt") == 0)
     {
-        if (info.suffix().compare("txt") == 0) {
-            QTextStream out(&fdata);
-            for (int i = 0; i < d->m_curveManager->curveList().size(); i++) {
-                d->m_curveManager->curveList().at(i)->saveCurve(out);
-            }
-        } else if (info.suffix().compare("src") == 0) {
-            QDataStream out(&fdata);
-            out.setVersion(QDataStream::Qt_5_5);
-            out<<quint16(out.version())<<d->m_curveManager->curveList().size();
-            for (int i = 0; i < d->m_curveManager->curveList().size(); i++) {
-                d->m_curveManager->curveList().at(i)->saveCurve(out);
-            }
+      if (fdata.open(QFile::WriteOnly | QFile::Truncate | QIODevice::Text))
+      {
+        QTextStream out(&fdata);
+        for (int i = 0; i < d->m_curveManager->curveList().size(); i++)
+        {
+            d->m_curveManager->curveList().at(i)->saveCurve(out);
         }
         fdata.close();
+      }
+
     }
+    else if (info.suffix().compare("src") == 0)
+    {
+      if (fdata.open(QFile::WriteOnly))
+      {
+        QDataStream out(&fdata);
+        out.setVersion(QDataStream::Qt_5_5);
+        int size = d->m_curveManager->curveList().size();
+        out<<quint16(out.version())<< size;
+        for (int i = 0; i < d->m_curveManager->curveList().size(); i++)
+        {
+            d->m_curveManager->curveList().at(i)->saveCurve(out);
+        }
+        fdata.close();
+      }
+    }
+
 
 }
 

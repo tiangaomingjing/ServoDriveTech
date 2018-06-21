@@ -99,6 +99,7 @@ TabMotion::TabMotion(const QString &name, SevDevice *sev, QWidget *parent) :
   connect(vMotion,SIGNAL(progressValueChanged(quint16,int)),this,SLOT(onProgressValueChanged(quint16,int)));
   connect(vMotion,SIGNAL(motionAllDone()),this,SLOT(onMotionAllDone()));
   m_motionList.append(vMotion);
+  //add new motion
 
   for(int i=0;i<m_motionList.size();i++)
   {

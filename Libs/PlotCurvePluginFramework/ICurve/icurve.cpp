@@ -702,7 +702,7 @@ ICurvePrivate::ICurvePrivate()
   m_samplInterval=62.5*0.000001;
   m_storePointCount=10*1000000/62.5;
   m_axisCount = 4;
-  m_unitName = "NULL";
+  m_unitName = "Undefine";
 }
 
 QDataStream &operator<<(QDataStream &out, const ICurvePrivate &dd)

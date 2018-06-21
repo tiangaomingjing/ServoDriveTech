@@ -113,6 +113,7 @@ void IGraphCurrent::createInputFilterItem()
 {
   Q_D(IGraphCurrent);
   LabelItemWidget *label=new LabelItemWidget(tr("InputFilter"));
+  connect(label,SIGNAL(clicked()),this,SLOT(onUIFItemClicked()));
   label->setObjectName("label_currentInputFilter");
   label->setAlignment(Qt::AlignCenter);
   d->m_UIF=new WidgetItem;

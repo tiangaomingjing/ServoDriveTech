@@ -27,15 +27,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 #define QNEBLOCK_H
 
 #include <QGraphicsPathItem>
+#include "nodeitemglobaldef.h"
 
 class QNEPort;
 
 class QNEBlock : public QGraphicsPathItem
 {
 public:
-	enum { Type = QGraphicsItem::UserType + 3 };
+  enum { Type = NodeItem::NODE_BLOCK};
 
-    QNEBlock(QGraphicsItem *parent = 0);
+  QNEBlock(QGraphicsItem *parent = 0);
 
 	QNEPort* addPort(const QString &name, bool isOutput, int flags = 0, int ptr = 0);
 	void addInputPort(const QString &name);

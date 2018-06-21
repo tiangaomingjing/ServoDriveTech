@@ -6,7 +6,7 @@ checked:gray ,color:white
 */
 QDoubleSpinBox{
 	min-height:30px;
-	min-width:150px;
+	min-width:100px;
 	border-radius:5px;
 	padding-left:5px;
 	border:1px solid #BBB9B9;
@@ -183,6 +183,24 @@ QMenu::item:selected { /* when user selects item using mouse or keyboard */
     background-color: #D0D0D0;
 	color:black;
 	font-weight:bold;
+}
+
+QWidget#iirfilter,QWidget#posFirfilter{
+	background-color: #E0DDDD;
+	border-radius:5px;
+	border:2px solid #BBB9B9;
+}
+QGraphicsView#graphicsview_iirfilter,QGraphicsView#graphicsview_posfilter{
+	background-color: #F0F0F0;
+	border:none;
+}
+
+QLabel#irrfilter_title,QLabel#posFirfilter_title{
+	border:1px solid #BBB9B9;
+	border-top:none;
+	border-left:none;
+	border-right:none;
+	padding-bottom: 10px;
 }
 
 
@@ -559,6 +577,11 @@ QLabel#label_currentInputFilter{
 	min-height:50px;
 	padding:10px;
 }
+QLabel#label_currentInputFilter:hover{
+	background-color:#A0A0A0;
+	border:2px solid gray;
+	border-radius:10px;
+}
 QLabel#label_currentFeedback{
 	background-color: #E0DDDD;
 	border:2px solid #BBB9B9;
@@ -584,8 +607,8 @@ QWidget#widget_velSaturation{
 	border:none;
 } 
 QWidget#widget_velSaturation:hover{
-	background-color:#E0DDDD;
-	border:2px solid red;
+	background-color:gray;
+	border:2px solid gray;
 	border-radius:5px;
 }
 
@@ -641,6 +664,11 @@ QWidget#widget_posFFvel{
 	border:2px solid #BBB9B9;
 	border-radius:10px;
 }
+QWidget#widget_posDir{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
 QWidget#widget_posFFacc{
 	background-color: #E0DDDD;
 	border:2px solid #BBB9B9;
@@ -651,12 +679,12 @@ QWidget#widget_posSaturation{
 	border:none;
 } 
 QWidget#widget_posSaturation:hover{
-	background-color:#E0DDDD;
-	border:2px solid red;
+	background-color:gray;
+	border:2px solid gray;
 	border-radius:5px;
 }
 
-QLabel#label_posPidTitle{
+QLabel#label_posPidTitle ,QLabel#label_posDirControl{
 	padding-bottom:10px;
 	margin-bottom:5px;
 	color:black;
@@ -671,6 +699,11 @@ QLabel#label_posInputFilter{
 	border-radius:10px;
 	min-height:50px;
 	padding:5px;
+}
+QLabel#label_posInputFilter:hover{
+	background-color:#A0A0A0;
+	border:2px solid gray;
+	border-radius:10px;
 }
 QLabel#label_posPosFeedback{
 	background-color: #E0DDDD;

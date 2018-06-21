@@ -2323,6 +2323,43 @@
        </property>
       </item>
      </item>
+     <item>
+      <property name="text">
+       <string>gSevDrv.sev_obj.io</string>
+      </property>
+      <property name="text">
+       <string>-1</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.cur.pwr.act_res_ob_flag</string>
+       </property>
+       <property name="text">
+        <string>int16</string>
+       </property>
+       <property name="text">
+        <string>NULL</string>
+       </property>
+       <property name="text">
+        <string>51</string>
+       </property>
+       <property name="text">
+        <string>4</string>
+       </property>
+       <property name="text">
+        <string>3</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="text">
+        <string>1</string>
+       </property>
+       <property name="text">
+        <string>-1</string>
+       </property>
+      </item>
+     </item>
     </widget>
    </item>
   </layout>
