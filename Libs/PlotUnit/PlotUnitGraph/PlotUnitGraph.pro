@@ -27,6 +27,7 @@ INCLUDEPATH +=$${MYLIB_PATH}/UI/IUiWidget\
               $${PWD}/DialogPickCurve\
               $${PWD}/CurveManager\
               $${PWD}/Thread\
+              $${PWD}/ExistedCurveManager\
               $${PWD}/../../Com/Communication
 
 CONFIG(debug, debug|release){
@@ -76,7 +77,8 @@ SOURCES += \
     TabModeCtl/tabmodectl.cpp \
     TabMotion/tabmotion.cpp \
     itabwidget.cpp \
-    TabModeCtl/modectlpanel.cpp
+    TabModeCtl/modectlpanel.cpp \
+    ExistedCurveManager/existedcurvemanager.cpp
 
 HEADERS += \
         plotunitgraph_global.h \
@@ -100,7 +102,8 @@ HEADERS += \
     TabModeCtl/tabmodectl.h \
     TabMotion/tabmotion.h \
     itabwidget.h \
-    TabModeCtl/modectlpanel.h
+    TabModeCtl/modectlpanel.h \
+    ExistedCurveManager/existedcurvemanager.h
 
 unix {
     target.path = /usr/lib

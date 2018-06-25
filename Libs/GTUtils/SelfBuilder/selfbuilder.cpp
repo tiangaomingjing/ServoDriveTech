@@ -77,48 +77,48 @@ SelfBuilder::RtnSelf SelfBuilder::buildPower(void (*processCallback)(void *pbar,
     emit sendProcessInfo(5, tr("Checking axis number"));
     if (!axisNumExisted(QString::number(dd->m_axisNum), pwrMapPath)) {
         qDebug()<<"no such product";
-        //SdtError::instance()->errorStringList()->append(tr("No such product. Please update the software."));
+        SdtError::instance()->errorStringList()->append(tr("No such product. Please update the software."));
         return RTN_SELF_NOPRODUCT;
     }
     if (!idExisted(dd->m_powerID, pwrMapPath)) {
         //pwrID nonexist
-//        emit sendProcessInfo(10, tr("Updating IdMap"));
-//        rtn = addModeToIdMap(dd->m_powerID, pwrMapPath);
-//        if (rtn != RTN_SELF_SUCCESS) {
-//            return rtn;
-//        }
-//        emit sendProcessInfo(12, tr("Updating database"));
-//        rtn = addNewDatabase(dd->m_powerID, boardPath, indexPath);
-//        if (rtn != RTN_SELF_SUCCESS) {
-//            return rtn;
-//        }
-//        emit sendProcessInfo(25, tr("Updating index tree"));
-//        rtn = addIndexTree(indexPath, dd->m_powerID);
-//        if (rtn != RTN_SELF_SUCCESS) {
-//            return rtn;
-//        }
-//        emit sendProcessInfo(30, tr("Updating select tree"));
-//        rtn = addSelectTree(selectPath, dd->m_powerID);
-//        if (rtn != RTN_SELF_SUCCESS) {
-//            return rtn;
-//        }
-//        emit sendProcessInfo(35, tr("Updating select tree"));
-//        rtn = addDatabaseSelectTree(databaseSelPath);
-//        if (rtn != RTN_SELF_SUCCESS) {
-//            return rtn;
-//        }
-//        emit sendProcessInfo(40, tr("Updating system config"));
-//        rtn = addSysConfig(processCallback, processbar);
-//        if (rtn != RTN_SELF_SUCCESS) {
-//            return rtn;
-//        }
-//        emit sendProcessInfo(50, tr("Updating system map"));
-//        rtn = addSystemMap();
-//        if (rtn != RTN_SELF_SUCCESS) {
-//            return rtn;
-//        }
+        emit sendProcessInfo(10, tr("Updating IdMap"));
+        rtn = addModeToIdMap(dd->m_powerID, pwrMapPath);
+        if (rtn != RTN_SELF_SUCCESS) {
+            return rtn;
+        }
+        emit sendProcessInfo(12, tr("Updating database"));
+        rtn = addNewDatabase(dd->m_powerID, boardPath, indexPath);
+        if (rtn != RTN_SELF_SUCCESS) {
+            return rtn;
+        }
+        emit sendProcessInfo(25, tr("Updating index tree"));
+        rtn = addIndexTree(indexPath, dd->m_powerID);
+        if (rtn != RTN_SELF_SUCCESS) {
+            return rtn;
+        }
+        emit sendProcessInfo(30, tr("Updating select tree"));
+        rtn = addSelectTree(selectPath, dd->m_powerID);
+        if (rtn != RTN_SELF_SUCCESS) {
+            return rtn;
+        }
+        emit sendProcessInfo(35, tr("Updating select tree"));
+        rtn = addDatabaseSelectTree(databaseSelPath);
+        if (rtn != RTN_SELF_SUCCESS) {
+            return rtn;
+        }
+        emit sendProcessInfo(40, tr("Updating system config"));
+        rtn = addSysConfig(processCallback, processbar);
+        if (rtn != RTN_SELF_SUCCESS) {
+            return rtn;
+        }
+        emit sendProcessInfo(50, tr("Updating system map"));
+        rtn = addSystemMap();
+        if (rtn != RTN_SELF_SUCCESS) {
+            return rtn;
+        }
         qDebug()<<"no power id";
-        //SdtError::instance()->errorStringList()->append(tr("your software is too old ,not support the current device\nplease update from\n\nhttp://www.googoltech.com.cn\n"));
+        SdtError::instance()->errorStringList()->append(tr("your software is too old ,not support the current device\nplease update from\n\nhttp://www.googoltech.com.cn\n"));
         return RTN_SELF_IDNONEXIST;
     } else if (!versionExisted(dd->m_version, selectPath)) {
         //pwrID exist while version nonexist
@@ -158,28 +158,28 @@ SelfBuilder::RtnSelf SelfBuilder::buildControl()
     emit sendProcessInfo(55, tr("Checking axis number"));
     if (!axisNumExisted(QString::number(dd->m_axisNum), ctrMapPath)) {
         qDebug()<<"no such product";
-        //SdtError::instance()->errorStringList()->append(tr("No such product. Please update the software."));
+        SdtError::instance()->errorStringList()->append(tr("No such product. Please update the software."));
         return RTN_SELF_NOPRODUCT;
     }
     if (!idExisted(dd->m_controlID, ctrMapPath)) {
         //pwrID nonexist
-//        emit sendProcessInfo(60, tr("Updating Id Map"));
-//        rtn = addModeToIdMap(dd->m_controlID, ctrMapPath);
-//        if (rtn != RTN_SELF_SUCCESS) {
-//            return rtn;
-//        }
-//        emit sendProcessInfo(70, tr("Updating database"));
-//        rtn = addNewCtrDatabase(dd->m_controlID, boardPath, indexPath);
-//        if (rtn != RTN_SELF_SUCCESS) {
-//            return rtn;
-//        }
-//        emit sendProcessInfo(95, tr("Updating index tree"));
-//        rtn = addIndexTree(indexPath, dd->m_controlID);
-//        if (rtn != RTN_SELF_SUCCESS) {
-//            return rtn;
-//        }
+        emit sendProcessInfo(60, tr("Updating Id Map"));
+        rtn = addModeToIdMap(dd->m_controlID, ctrMapPath);
+        if (rtn != RTN_SELF_SUCCESS) {
+            return rtn;
+        }
+        emit sendProcessInfo(70, tr("Updating database"));
+        rtn = addNewCtrDatabase(dd->m_controlID, boardPath, indexPath);
+        if (rtn != RTN_SELF_SUCCESS) {
+            return rtn;
+        }
+        emit sendProcessInfo(95, tr("Updating index tree"));
+        rtn = addIndexTree(indexPath, dd->m_controlID);
+        if (rtn != RTN_SELF_SUCCESS) {
+            return rtn;
+        }
         qDebug()<<"no control id";
-        //SdtError::instance()->errorStringList()->append(tr("your software is too old ,not support the current device\nplease update from\n\nhttp://www.googoltech.com.cn\n"));
+        SdtError::instance()->errorStringList()->append(tr("your software is too old ,not support the current device\nplease update from\n\nhttp://www.googoltech.com.cn\n"));
         return RTN_SELF_IDNONEXIST;
     }
     return RTN_SELF_SUCCESS;

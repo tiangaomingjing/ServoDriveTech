@@ -19,6 +19,7 @@ signals:
   void sevDeviceListChanged(const QList<SevDevice *> &sevList);
   void appClosed();
   void beforeSevDeviceChanged();
+  void sendSaveMsgToMain(int value, const QString &msg, bool isStart);
 
 public slots:
 private:

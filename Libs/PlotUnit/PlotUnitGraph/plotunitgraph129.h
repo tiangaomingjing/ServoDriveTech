@@ -41,7 +41,8 @@ public:
   void setCurveHideColor(const QColor &color);
   QColor curveBackHideColor() const;
   void setCurveBackHideColor(const QColor &color);
-
+signals:
+  void sendSaveMsg(int value, const QString &msg, bool isStart);
 public slots:
   void onBeforeSevDeviceChanged() Q_DECL_OVERRIDE;
   void onSevDeviceListChanged(const QList<SevDevice *> &sevlist) Q_DECL_OVERRIDE;

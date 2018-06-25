@@ -162,23 +162,23 @@ void FirmwareFlashDialog::onActnToolbtnClicked()
     QString line = in.readLine();
     QStringList lineList = line.split(":");
     m_dspVersion = lineList.last();
-    ui->infoDisplay_firm->insertPlainText("DSP Version: " + m_dspVersion + "\n");
+    ui->infoDisplay_firm->insertPlainText(tr("DSP Version: ") + m_dspVersion + "\n");
 
     line = in.readLine();
     lineList = line.split(":");
     QString hexNote = lineList.last();
-    ui->infoDisplay_firm->insertPlainText("DSP Note: " + hexNote + "\n");
+    ui->infoDisplay_firm->insertPlainText(tr("DSP Note: ") + hexNote + "\n");
 
 
     line = in.readLine();
     lineList = line.split(":");
     m_fpgVersion = lineList.last();
-    ui->infoDisplay_firm->insertPlainText("FPGA Version: " + m_fpgVersion + "\n");
+    ui->infoDisplay_firm->insertPlainText(tr("FPGA Version: ") + m_fpgVersion + "\n");
 
     line = in.readLine();
     lineList = line.split(":");
     QString fpgaNote = lineList.last();
-    ui->infoDisplay_firm->insertPlainText("FPGA Note: " + fpgaNote + "\n");
+    ui->infoDisplay_firm->insertPlainText(tr("FPGA Note: ") + fpgaNote + "\n");
 
     onActnComboBoxIndexChanged(ui->comboBox_firm->currentIndex());
 }
@@ -211,20 +211,28 @@ void FirmwareFlashDialog::onActnFlashBtnClicked()
     quint32 pwrId = idHelper->readPwrId(ok);
     if (!ok) {
         ui->infoDisplay_firm->insertPlainText(tr("Reading powerboard Id fails!\n"));
-        delete idHelper;
-        return;
+        QMessageBox::StandardButton rb = QMessageBox::question(0, tr("Warning"), tr("Reading powerboard Id fails! Are you sure to continue?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+        if (!(rb == QMessageBox::Yes)) {
+            delete idHelper;
+            return;
+        }
     }
     QString pwrStr = QString::number(pwrId);
 
+    ok = true;
     quint32 ctrId = idHelper->readCtrId(ok);
     if (!ok) {
         ui->infoDisplay_firm->insertPlainText(tr("Reading controlboard Id fails!\n"));
-        delete idHelper;
-        return;
+        QMessageBox::StandardButton rb = QMessageBox::question(0, tr("Warning"), tr("Reading controlboard Id fails! Are you sure to continue?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+        if (!(rb == QMessageBox::Yes)) {
+            delete idHelper;
+            return;
+        }
     }
     QString ctrStr = QString::number(ctrId);
     delete idHelper;
 
+    ok = true;
     DBManager *dbManager = new DBManager(GTUtils::databasePath() + "Version/", "root", "");
     QStringList verList;
     verList<<ctrStr<<m_dspVersion<<m_fpgVersion<<pwrStr;

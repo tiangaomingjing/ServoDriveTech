@@ -316,11 +316,9 @@ bool ServoFile::deleteDir(const QString &path)
         QFileInfo file = fileList.at(i);
         ok = file.dir().remove(file.fileName());
         if (!ok) {
-            qDebug()<<"i"<<i;
             return ok;
         }
     }
-    qDebug()<<"ab Path"<<dir.absolutePath();
     ok = dir.rmdir(dir.absolutePath());
     return ok;
 }

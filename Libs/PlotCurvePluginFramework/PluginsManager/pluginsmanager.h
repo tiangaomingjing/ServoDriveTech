@@ -47,7 +47,7 @@ private:
   void clearTransLanguage();
 
 signals:
-
+    void sendOpenMsg(int value, const QString &msg, bool isStart);
 public slots:
 private:
   ctkPluginFrameworkFactory *m_frameWorkFactory;

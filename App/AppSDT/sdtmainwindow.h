@@ -133,6 +133,8 @@ private slots:
   void onIpaWarningMsg(const QString &msg);
   void onIpaDone();
 
+  void onSaveMsgReceived(int value, const QString &msg, bool isStart);
+
 
 private:
 
