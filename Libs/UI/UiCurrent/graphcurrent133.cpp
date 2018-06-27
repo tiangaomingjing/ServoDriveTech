@@ -14,6 +14,9 @@
 #include <QTreeWidget>
 #include <QDoubleSpinBox>
 
+#define PID_POS_X -50
+#define PID_POS_Y -100
+
 #define TID_INX 0
 #define TIQ_INX 1
 #define FND_INX 2
@@ -154,15 +157,6 @@ void GraphCurrent133::createPidControllerItem()
   iedit->setButtonSymbols(QAbstractSpinBox::NoButtons);
   vlayoutTest->addWidget(iedit);
 
-//  QLabel *dgain=new QLabel(tr("D gain(ms)"),wpid);
-//  dgain->setObjectName("label_currentDgain");
-//  vlayoutTest->addWidget(dgain);
-//  QDoubleSpinBox *dedit=new QDoubleSpinBox(wpid);
-//  dedit->setObjectName("dspinBox_currentDedit");
-//  dedit->setMinimum(0);
-//  dedit->setMaximum(65535);
-//  dedit->setButtonSymbols(QAbstractSpinBox::NoButtons);
-//  vlayoutTest->addWidget(dedit);
 
   wpid->setLayout(vlayoutTest);
 
@@ -197,6 +191,9 @@ void GraphCurrent133::onIIRFilterSaveClicked()
   d->m_uiWidget->writePageFLASH();
 }
 
-
+QPointF GraphCurrent133::pidInitPos()
+{
+  return QPointF(PID_POS_X,PID_POS_Y);
+}
 
 

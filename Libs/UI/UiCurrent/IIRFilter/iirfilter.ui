@@ -90,7 +90,7 @@
       <item row="2" column="0">
        <widget class="QLabel" name="label_qx2">
         <property name="text">
-         <string>qx2(HZ)</string>
+         <string>qx2(0.001)</string>
         </property>
        </widget>
       </item>
@@ -148,7 +148,7 @@
       <item row="4" column="0">
        <widget class="QLabel" name="label_qx_nch">
         <property name="text">
-         <string>qx_nch(HZ)</string>
+         <string>qx_nch(0.001)</string>
         </property>
        </widget>
       </item>
@@ -177,7 +177,7 @@
       <item row="5" column="0">
        <widget class="QLabel" name="label_kn_nch">
         <property name="text">
-         <string>kn_nch(HZ)</string>
+         <string>kn_nch(0.001)</string>
         </property>
        </widget>
       </item>

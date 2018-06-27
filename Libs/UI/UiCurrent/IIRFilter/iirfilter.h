@@ -2,7 +2,6 @@
 #define IIRFILTER_H
 
 #include <QWidget>
-#include "sdtgraphicsitems_global.h"
 
 namespace Ui {
 class IIRFilter;
@@ -14,7 +13,7 @@ class INodeConnection;
 class QComboBox;
 class QDoubleSpinBox;
 
-class SDTGRAPHICSITEMSSHARED_EXPORT IIRFilter : public QWidget
+class IIRFilter : public QWidget
 {
   Q_OBJECT
 

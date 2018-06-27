@@ -1,4 +1,4 @@
-#include "comparisondialog.h"
+﻿#include "comparisondialog.h"
 #include "ui_comparisondialog.h"
 #include "gtutils.h"
 #include "qttreemanager.h"

@@ -44,7 +44,9 @@ protected:
   virtual void createArrowItems();
   virtual void createSaturationConfigItems();
   void createAnchorItemHelper();
+  virtual QPointF pidInitPos() = 0;
   virtual void setUpItemPosAnchors();
+
 
   virtual bool eventFilter(QObject *obj, QEvent *event);
 

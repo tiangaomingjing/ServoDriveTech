@@ -22,6 +22,7 @@
 #include "UiPower/graphpower129.h"
 #include "UiStatus/graphstatus129.h"
 #include "UiVelocity/graphvelocity129.h"
+#include "UiVelocity/graphvelocity133.h"
 
 #include "UiCurrent/graphcurrent130.h"
 #include "UiCurrent/graphcurrent133.h"
@@ -50,6 +51,7 @@ void registerUiClass(){
   UiFactory::registerClass<GraphPower129>();
   UiFactory::registerClass<GraphStatus129>();
   UiFactory::registerClass<GraphVelocity129>();
+  UiFactory::registerClass<GraphVelocity133>();
 
   UiFactory::registerClass<GraphCurrent130>();
   UiFactory::registerClass<GraphCurrent133>();

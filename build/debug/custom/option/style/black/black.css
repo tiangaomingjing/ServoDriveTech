@@ -6,7 +6,7 @@ checked:gray ,color:white
 */
 QDoubleSpinBox{
 	min-height:30px;
-	min-width:100px;
+	min-width:80px;
 	border-radius:5px;
 	padding-left:5px;
 	border:1px solid #BBB9B9;
@@ -653,12 +653,15 @@ QLabel#label_velTextPositiveMaxTq,QLabel#label_velTextNegativeMaxTq{
 }
 
 /*====================Position 位置控制器页面===================*/
-
+QFrame#line,QFrame#line_2,QFrame#line_3{
+	background-color: #BBB9B9;
+}
 QWidget#widget_posPid{
 	background-color: #E0DDDD;
 	border:2px solid #BBB9B9;
 	border-radius:10px;
 }
+
 QWidget#widget_posFFvel{
 	background-color: #E0DDDD;
 	border:2px solid #BBB9B9;

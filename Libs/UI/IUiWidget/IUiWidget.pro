@@ -76,8 +76,7 @@ SOURCES += iuiwidget.cpp \
     nodeitem/nodeline.cpp \
     nodeitem/nodeport.cpp \
     nodeitem/nodequadline.cpp \
-    nodeitem/nodeswitch.cpp \
-    IIRFilter/iirfilter.cpp
+    nodeitem/nodeswitch.cpp
 
 HEADERS += iuiwidget.h\
         iuiwidget_global.h \
@@ -126,8 +125,7 @@ HEADERS += iuiwidget.h\
     nodeitem/nodeport.h \
     nodeitem/nodequadline.h \
     nodeitem/nodeswitch.h\
-    nodeitem/NodeItems.h \
-    IIRFilter/iirfilter.h
+    nodeitem/NodeItems.h
 
 unix {
     target.path = /usr/lib
@@ -138,7 +136,5 @@ QML_IMPORT_TRACE=1
 
 TRANSLATIONS    += ch_uiwidget.ts en_uiwidget.ts
 
-FORMS += \
-    IIRFilter/iirfilter.ui
 
 

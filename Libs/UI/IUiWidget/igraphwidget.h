@@ -46,6 +46,8 @@ protected:
 
   void setCommonConnections();
 
+  virtual QPointF pidInitPos() = 0;
+
 signals:
   void backGroundColorChanged(const QColor &color);
   void arrowColorChanged(const QColor &color );

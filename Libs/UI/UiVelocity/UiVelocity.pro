@@ -20,11 +20,15 @@ CONFIG(debug, debug|release){
 }
 
 SOURCES += uivelocity.cpp \
-    graphvelocity129.cpp
+    graphvelocity129.cpp \
+    graphvelocity133.cpp \
+    velpid133.cpp
 
 HEADERS += uivelocity.h\
         uivelocity_global.h \
-    graphvelocity129.h
+    graphvelocity129.h \
+    graphvelocity133.h \
+    velpid133.h
 
 unix {
     target.path = /usr/lib
@@ -33,4 +37,5 @@ unix {
 
 FORMS += \
     uivelocity.ui \
-    graphvelocity129.ui
+    graphvelocity129.ui \
+    velpid133.ui

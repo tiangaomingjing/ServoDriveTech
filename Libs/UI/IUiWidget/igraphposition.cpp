@@ -12,9 +12,6 @@
 #include <QGraphicsSimpleTextItem>
 #include <QTreeWidgetItem>
 
-#define PID_POS_X -220
-#define PID_POS_Y -50
-
 IGraphPosition::~IGraphPosition()
 {
   Q_D(IGraphPosition);
@@ -568,7 +565,7 @@ void IGraphPosition::createAnchorItemHelper()
 void IGraphPosition::setUpItemPosAnchors()
 {
   Q_D(IGraphPosition);
-  d->m_UPID->setPos(PID_POS_X,PID_POS_Y);
+  d->m_UPID->setPos(pidInitPos());
   d->m_anchorHelper->addAnchor(d->m_UPID,d->m_USUM0,AnchorItemHelper::AnchorLeft,-1.5*d->m_USUM0->boundingRect().width());
   d->m_anchorHelper->addAnchor(d->m_UPID,d->m_USUM0,AnchorItemHelper::AnchorVerticalCenter);
 

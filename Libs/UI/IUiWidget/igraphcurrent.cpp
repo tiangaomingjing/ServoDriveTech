@@ -180,7 +180,7 @@ void IGraphCurrent::createSumItem()
 void IGraphCurrent::setUpItemPosAnchors()
 {
   Q_D(IGraphCurrent);
-  d->m_UPID->setPos(PID_POS_X,PID_POS_Y);
+  d->m_UPID->setPos(pidInitPos());
   d->m_anchorHelper->addAnchor(d->m_UPID,d->m_USUM,AnchorItemHelper::AnchorLeft,-3*d->m_USUM->boundingRect().width());
   d->m_anchorHelper->addAnchor(d->m_UPID,d->m_USUM,AnchorItemHelper::AnchorVerticalCenter);
 

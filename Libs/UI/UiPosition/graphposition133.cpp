@@ -9,6 +9,7 @@
 #include "arrowitem.h"
 #include "anchoritemhelper.h"
 #include "frameitemwidget.h"
+#include "pospid133.h"
 
 #include <QTreeWidgetItem>
 #include <QDebug>
@@ -16,9 +17,13 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QRadioButton>
+#include <QDoubleSpinBox>
 
-#define PID_POS_X -120
-#define PID_POS_Y -50
+#define MOT_NOS_KEY_NAME "gSevDrv.sev_obj.cur.mot.Nos_1"
+#define POW2_24 16777216
+
+#define PID_POS_X -180
+#define PID_POS_Y -100
 
 #define FN_FST_6_INX      0
 #define ABS_RAT_6_INX     1
@@ -37,6 +42,10 @@
 #define PRM_QX_NCH_INX    14
 #define PRM_KN_NCH_INX    15
 #define POSR_DIR_INX      16
+#define KP_SW_EN_INX      17
+#define KP_SW_TIM_INX     18
+#define KP_SW_SPDU_INX    19
+#define KP_SW_SPDL_INX    20
 
 class GraphPosition133Private:public IGraphPositionPrivate
 {
@@ -46,12 +55,13 @@ public:
   ~GraphPosition133Private(){qDebug()<<"GraphPosition133Private destruct-->";}
 
 protected:
-  PosInputFilter *m_posInfilter;
+  PosInputFilter *m_posInfilter;//输入滤波器对话框
 
   WidgetItem *m_UPOSDIR;
   QRadioButton *m_cwRBtn;
   QRadioButton *m_ccwRBtn;
   ArrowItem *m_A16;
+  PosPID133 *m_pid133;
 };
 
 GraphPosition133::GraphPosition133(QWidget *parent) :
@@ -115,12 +125,55 @@ void GraphPosition133::setupDataMappings()
   d->m_mapping->insertItem2Box(d->m_treeWidget->topLevelItem(PRM_KN_NCH_INX),d->m_posInfilter->boxKnNch());
   d->m_mapping->insertItem2Box(d->m_treeWidget->topLevelItem(MAF_NUM_INX),d->m_posInfilter->boxMafNum());
 
+  //segment pid
+  d->m_mapping->insertBox2Item(d->m_pid133->boxSecondFn(),d->m_treeWidget->topLevelItem(FN_SEC_6_INX));
+  d->m_mapping->insertBox2Item(d->m_pid133->boxTransTime(),d->m_treeWidget->topLevelItem(KP_SW_TIM_INX));
+  d->m_mapping->insertBox2Item(d->m_pid133->boxSpdUp(),d->m_treeWidget->topLevelItem(KP_SW_SPDU_INX));
+  d->m_mapping->insertBox2Item(d->m_pid133->boxSpdLow(),d->m_treeWidget->topLevelItem(KP_SW_SPDL_INX));
+
+  d->m_mapping->insertItem2Box(d->m_treeWidget->topLevelItem(FN_SEC_6_INX),d->m_pid133->boxSecondFn());
+  d->m_mapping->insertItem2Box(d->m_treeWidget->topLevelItem(KP_SW_TIM_INX),d->m_pid133->boxTransTime());
+  d->m_mapping->insertItem2Box(d->m_treeWidget->topLevelItem(KP_SW_SPDU_INX),d->m_pid133->boxSpdUp());
+  d->m_mapping->insertItem2Box(d->m_treeWidget->topLevelItem(KP_SW_SPDL_INX),d->m_pid133->boxSpdLow());
+
 }
 void GraphPosition133::setUiVersionName()
 {
   Q_D(GraphPosition133);
   d->m_versionName="V133";
   setObjectName("GraphPosition133");
+}
+
+void GraphPosition133::createPidItem()
+{
+  Q_D(GraphPosition133);
+
+  QWidget *wout = new QWidget;
+  QVBoxLayout *voutLayout = new QVBoxLayout(wout);
+  QSpacerItem *verticalSpacer1 = new QSpacerItem(20, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+  QSpacerItem *verticalSpacer2 = new QSpacerItem(20, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+  QWidget *w = new QWidget;
+  w->setObjectName("widget_posPid");
+  QVBoxLayout *vlayout = new QVBoxLayout(w);
+
+  d->m_pid133 = new PosPID133(w);
+  connect(d->m_pid133,SIGNAL(comboBoxIndexChanged(int)),this,SLOT(onPidComboBoxKpSWIndexChanged(int)));
+  vlayout->addWidget(d->m_pid133);
+  w->setLayout(vlayout);
+
+  voutLayout->addSpacerItem(verticalSpacer1);
+  voutLayout->addWidget(w);
+  voutLayout->addSpacerItem(verticalSpacer2);
+  voutLayout->setContentsMargins(0,0,0,0);
+  wout->setLayout(voutLayout);
+
+  d->m_pEdit = d->m_pid133->boxFirstFn();
+  d->m_UPID=new WidgetItem;
+  d->m_UPID->setWidget(wout,true);
+  d->m_scene->addItem(d->m_UPID);//take ownership
+
+  d->m_widgetItemList.append(d->m_UPID);
 }
 
 void GraphPosition133::createItems()
@@ -142,7 +195,7 @@ void GraphPosition133::createItems()
   createStartTextItem();
   createEndTextItem();
 
-  createPosDirItem();
+  createPosDirItem();//add
 
   createArrowItems();
   createAnchorItemHelper();
@@ -217,6 +270,13 @@ void GraphPosition133::onRadioBtnClicked()
 
 }
 
+void GraphPosition133::onPidComboBoxKpSWIndexChanged(int index)
+{
+  Q_D(GraphPosition133);
+
+  d->m_treeWidget->topLevelItem(KP_SW_EN_INX)->setText(GT::COL_PAGE_TREE_VALUE,QString::number(index));
+}
+
 void GraphPosition133::createPosDirItem()
 {
   Q_D(GraphPosition133);
@@ -225,6 +285,7 @@ void GraphPosition133::createPosDirItem()
   posWidget->setObjectName("widget_posDir");
   QVBoxLayout *vlayout = new QVBoxLayout(posWidget);
   QLabel *label = new QLabel(tr("DirCtl"),posWidget);
+  label->setAlignment(Qt::AlignCenter);
   label->setObjectName("label_posDirControl");
   QHBoxLayout *hlayout = new QHBoxLayout;
   d->m_cwRBtn = new QRadioButton(posWidget);
@@ -309,17 +370,17 @@ void GraphPosition133::setUpItemPosAnchors()
   d->m_anchorHelper->addAnchor(d->m_UPID,d->m_USUM0,AnchorItemHelper::AnchorLeft,-1.5*d->m_USUM0->boundingRect().width());
   d->m_anchorHelper->addAnchor(d->m_UPID,d->m_USUM0,AnchorItemHelper::AnchorVerticalCenter);
 
-  d->m_anchorHelper->addAnchor(d->m_USUM0,d->m_TM0,AnchorItemHelper::AnchorLeft,-1*d->m_USUM0->boundingRect().width());
+  d->m_anchorHelper->addAnchor(d->m_USUM0,d->m_TM0,AnchorItemHelper::AnchorLeft,-0.8*d->m_USUM0->boundingRect().width());
   d->m_anchorHelper->addAnchor(d->m_USUM0,d->m_TM0,AnchorItemHelper::AnchorVerticalCenter);
 
   d->m_anchorHelper->addAnchor(d->m_TM0,d->m_UIF,AnchorItemHelper::AnchorLeft,-1.2*d->m_UIF->boundingRect().width());
   d->m_anchorHelper->addAnchor(d->m_TM0,d->m_UIF,AnchorItemHelper::AnchorVerticalCenter);
 
   //add dir
-  d->m_anchorHelper->addAnchor(d->m_UIF,d->m_UPOSDIR,AnchorItemHelper::AnchorLeft,-1.5*d->m_UPOSDIR->boundingRect().width());
+  d->m_anchorHelper->addAnchor(d->m_UIF,d->m_UPOSDIR,AnchorItemHelper::AnchorLeft,-1.2*d->m_UPOSDIR->boundingRect().width());
   d->m_anchorHelper->addAnchor(d->m_UIF,d->m_UPOSDIR,AnchorItemHelper::AnchorVerticalCenter);
 
-  d->m_anchorHelper->addAnchor(d->m_UPOSDIR,d->m_Tstart,AnchorItemHelper::AnchorLeft,-1*d->m_UPOSDIR->boundingRect().width());
+  d->m_anchorHelper->addAnchor(d->m_UPOSDIR,d->m_Tstart,AnchorItemHelper::AnchorLeft,-0.8*d->m_UPOSDIR->boundingRect().width());
   d->m_anchorHelper->addAnchor(d->m_UPOSDIR,d->m_Tstart,AnchorItemHelper::AnchorVerticalCenter);
 
   d->m_anchorHelper->addAnchor(d->m_UPID,d->m_USATN,AnchorItemHelper::AnchorRight,1.5*d->m_USATN->boundingRect().width());
@@ -341,13 +402,13 @@ void GraphPosition133::setUpItemPosAnchors()
   d->m_anchorHelper->addAnchor(d->m_UCCTL,d->m_Tend,AnchorItemHelper::AnchorVerticalCenter);
 
   d->m_anchorHelper->addAnchor(d->m_UPID,d->m_UFVB,AnchorItemHelper::AnchorHorizontalCenter);
-  d->m_anchorHelper->addAnchor(d->m_UPID,d->m_UFVB,AnchorItemHelper::AnchorTop,-1.5*d->m_UFVB->boundingRect().height());
+  d->m_anchorHelper->addAnchor(d->m_UPID,d->m_UFVB,AnchorItemHelper::AnchorTop,-1.2*d->m_UFVB->boundingRect().height());
 
   d->m_anchorHelper->addAnchor(d->m_UFVB,d->m_UFAB,AnchorItemHelper::AnchorHorizontalCenter);
-  d->m_anchorHelper->addAnchor(d->m_UFVB,d->m_UFAB,AnchorItemHelper::AnchorTop,-1.5*d->m_UFAB->boundingRect().height());
+  d->m_anchorHelper->addAnchor(d->m_UFVB,d->m_UFAB,AnchorItemHelper::AnchorTop,-1.6*d->m_UFAB->boundingRect().height());
 
   d->m_anchorHelper->addAnchor(d->m_UPID,d->m_UPB,AnchorItemHelper::AnchorHorizontalCenter);
-  d->m_anchorHelper->addAnchor(d->m_UPID,d->m_UPB,AnchorItemHelper::AnchorBottom,2*d->m_UPB->boundingRect().height());
+  d->m_anchorHelper->addAnchor(d->m_UPID,d->m_UPB,AnchorItemHelper::AnchorBottom,1.2*d->m_UPB->boundingRect().height());
 
   d->m_anchorHelper->addAnchor(d->m_UPB,d->m_T0,AnchorItemHelper::AnchorRight,2*d->m_UPB->boundingRect().width());
   d->m_anchorHelper->addAnchor(d->m_UPB,d->m_T0,AnchorItemHelper::AnchorVerticalCenter);
@@ -390,14 +451,67 @@ void GraphPosition133::setUpItemPosAnchors()
   d->m_anchorHelper->addAnchor(d->m_T3,d->m_TextMaxVelNegative,AnchorItemHelper::AnchorVerticalCenter);
 }
 
+quint16 GraphPosition133::readNos(const QString &key)
+{
+  Q_D(GraphPosition133);
+  bool isOk=true;
+  quint16 nos=0;
+  nos=d->m_dev->genCmdRead(key,d->m_uiWidget->uiIndexs().axisInx,isOk);
+  return nos;
+}
+
 void GraphPosition133::syncTreeDataToUiFace()
 {
-  IGraphPosition::syncTreeDataToUiFace();
   Q_D(GraphPosition133);
+
+  //读变量，修改动态增益
+  quint16 nos = readNos(MOT_NOS_KEY_NAME);
+  if(nos == 0)
+    nos = 1;
+  double n = nos;
+  double k = POW2_24/n;
+  d->m_treeWidget->topLevelItem(KP_SW_SPDL_INX)->setText(GT::COL_PAGE_TREE_SCALE,QString::number(k,'f',3));
+  d->m_treeWidget->topLevelItem(KP_SW_SPDU_INX)->setText(GT::COL_PAGE_TREE_SCALE,QString::number(k,'f',3));
+
+
+  IGraphPosition::syncTreeDataToUiFace();
+
+  quint16 sw_en = d->m_treeWidget->topLevelItem(KP_SW_EN_INX)->text(GT::COL_PAGE_TREE_VALUE).toUShort();
+  d->m_pid133->setCurrentPidSegment(sw_en);
+
+  qDebug()<<"sw_en = "<<sw_en;
+
   qint16 dir = 0;
   dir = d->m_treeWidget->topLevelItem(POSR_DIR_INX)->text(GT::COL_PAGE_TREE_VALUE).toShort();
   if(dir == 0)
     d->m_cwRBtn->setChecked(true);
   else
     d->m_ccwRBtn->setChecked(true);
+}
+
+void GraphPosition133::installDoubleSpinBoxEventFilter()
+{
+  Q_D(GraphPosition133);
+  IGraphPosition::installDoubleSpinBoxEventFilter();
+
+  d->m_pid133->boxSecondFn()->installEventFilter(this);
+  d->m_pid133->boxTransTime()->installEventFilter(this);
+  d->m_pid133->boxSpdLow()->installEventFilter(this);
+  d->m_pid133->boxSpdUp()->installEventFilter(this);
+}
+
+void GraphPosition133::setDoubleSpinBoxConnections()
+{
+  Q_D(GraphPosition133);
+  IGraphPosition::setDoubleSpinBoxConnections();
+//  connect(d->m_pEdit,SIGNAL(editingFinished()),this,SLOT(onDoubleSpinBoxFocusOut()));
+  connect(d->m_pid133->boxSecondFn(),SIGNAL(editingFinished()),this,SLOT(onDoubleSpinBoxFocusOut()));
+  connect(d->m_pid133->boxTransTime(),SIGNAL(editingFinished()),this,SLOT(onDoubleSpinBoxFocusOut()));
+  connect(d->m_pid133->boxSpdLow(),SIGNAL(editingFinished()),this,SLOT(onDoubleSpinBoxFocusOut()));
+  connect(d->m_pid133->boxSpdUp(),SIGNAL(editingFinished()),this,SLOT(onDoubleSpinBoxFocusOut()));
+}
+
+QPointF GraphPosition133::pidInitPos()
+{
+  return QPointF(PID_POS_X,PID_POS_Y);
 }

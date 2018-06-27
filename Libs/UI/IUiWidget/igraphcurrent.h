@@ -52,6 +52,8 @@ protected:
   void createAnchorItemHelper();
   virtual void setUpItemPosAnchors();
 
+  virtual QPointF pidInitPos() = 0;
+
 
 signals:
 

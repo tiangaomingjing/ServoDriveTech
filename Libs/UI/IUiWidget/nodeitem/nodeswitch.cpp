@@ -11,7 +11,7 @@ NodeSwitch::NodeSwitch(QGraphicsItem *parent):
   QGraphicsPathItem(parent),
   m_penColor(Qt::gray),
   m_brushColor(Qt::lightGray),
-  m_brushSelectedColor(Qt::lightGray)
+  m_brushSelectedColor(QColor(Qt::lightGray).lighter(100))
 {
   setFlag(QGraphicsItem::ItemIsMovable);
   setFlag(QGraphicsItem::ItemIsSelectable);

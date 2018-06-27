@@ -13,9 +13,6 @@
 #include <QGraphicsSimpleTextItem>
 #include <QTreeWidgetItem>
 
-#define PID_POS_X -60
-#define PID_POS_Y -85
-
 IGraphVelocity::~IGraphVelocity()
 {
   Q_D(IGraphVelocity);
@@ -446,7 +443,7 @@ void IGraphVelocity::createAnchorItemHelper()
 void IGraphVelocity::setUpItemPosAnchors()
 {
   Q_D(IGraphVelocity);
-  d->m_UPID->setPos(PID_POS_X,PID_POS_Y);
+  d->m_UPID->setPos(pidInitPos());
   d->m_anchorHelper->addAnchor(d->m_UPID,d->m_USATN,AnchorItemHelper::AnchorRight,1.5*d->m_USATN->boundingRect().width());
   d->m_anchorHelper->addAnchor(d->m_UPID,d->m_USATN,AnchorItemHelper::AnchorVerticalCenter);
 

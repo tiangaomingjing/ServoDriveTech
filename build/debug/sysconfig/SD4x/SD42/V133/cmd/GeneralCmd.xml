@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>542</width>
-    <height>509</height>
+    <width>737</width>
+    <height>532</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -640,6 +640,122 @@
         <string>-1</string>
        </property>
       </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.vel.ctl.prm.kvi_sw_en</string>
+       </property>
+       <property name="text">
+        <string>int16</string>
+       </property>
+       <property name="text">
+        <string>NULL</string>
+       </property>
+       <property name="text">
+        <string>52</string>
+       </property>
+       <property name="text">
+        <string>4</string>
+       </property>
+       <property name="text">
+        <string>3</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="text">
+        <string>1</string>
+       </property>
+       <property name="text">
+        <string>-1</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.vel.ctl.prm.kvi_sw_tim</string>
+       </property>
+       <property name="text">
+        <string>int16</string>
+       </property>
+       <property name="text">
+        <string>Ts</string>
+       </property>
+       <property name="text">
+        <string>53</string>
+       </property>
+       <property name="text">
+        <string>4</string>
+       </property>
+       <property name="text">
+        <string>3</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="text">
+        <string>1</string>
+       </property>
+       <property name="text">
+        <string>-1</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.vel.ctl.prm.kvi_sw_spd_ulim</string>
+       </property>
+       <property name="text">
+        <string>int32</string>
+       </property>
+       <property name="text">
+        <string>RPM</string>
+       </property>
+       <property name="text">
+        <string>54</string>
+       </property>
+       <property name="text">
+        <string>5</string>
+       </property>
+       <property name="text">
+        <string>3</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="text">
+        <string>1</string>
+       </property>
+       <property name="text">
+        <string>-1</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.vel.ctl.prm.kvi_sw_spd_llim</string>
+       </property>
+       <property name="text">
+        <string>int32</string>
+       </property>
+       <property name="text">
+        <string>RPM</string>
+       </property>
+       <property name="text">
+        <string>55</string>
+       </property>
+       <property name="text">
+        <string>5</string>
+       </property>
+       <property name="text">
+        <string>3</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="text">
+        <string>1</string>
+       </property>
+       <property name="text">
+        <string>-1</string>
+       </property>
+      </item>
      </item>
      <item>
       <property name="text">
@@ -1148,6 +1264,122 @@
        </property>
        <property name="text">
         <string>4</string>
+       </property>
+       <property name="text">
+        <string>3</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="text">
+        <string>1</string>
+       </property>
+       <property name="text">
+        <string>-1</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.pos.ctl.prm.kp_sw_en</string>
+       </property>
+       <property name="text">
+        <string>int16</string>
+       </property>
+       <property name="text">
+        <string>NULL</string>
+       </property>
+       <property name="text">
+        <string>56</string>
+       </property>
+       <property name="text">
+        <string>4</string>
+       </property>
+       <property name="text">
+        <string>3</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="text">
+        <string>1</string>
+       </property>
+       <property name="text">
+        <string>-1</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.pos.ctl.prm.kp_sw_tim</string>
+       </property>
+       <property name="text">
+        <string>int16</string>
+       </property>
+       <property name="text">
+        <string>125US</string>
+       </property>
+       <property name="text">
+        <string>57</string>
+       </property>
+       <property name="text">
+        <string>4</string>
+       </property>
+       <property name="text">
+        <string>3</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="text">
+        <string>1</string>
+       </property>
+       <property name="text">
+        <string>-1</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.pos.ctl.prm.kp_sw_spd_ulim</string>
+       </property>
+       <property name="text">
+        <string>int32</string>
+       </property>
+       <property name="text">
+        <string>RPM</string>
+       </property>
+       <property name="text">
+        <string>58</string>
+       </property>
+       <property name="text">
+        <string>5</string>
+       </property>
+       <property name="text">
+        <string>3</string>
+       </property>
+       <property name="text">
+        <string>0</string>
+       </property>
+       <property name="text">
+        <string>1</string>
+       </property>
+       <property name="text">
+        <string>-1</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gSevDrv.sev_obj.pos.ctl.prm.kp_sw_spd_llim</string>
+       </property>
+       <property name="text">
+        <string>int32</string>
+       </property>
+       <property name="text">
+        <string>RPM</string>
+       </property>
+       <property name="text">
+        <string>59</string>
+       </property>
+       <property name="text">
+        <string>5</string>
        </property>
        <property name="text">
         <string>3</string>
