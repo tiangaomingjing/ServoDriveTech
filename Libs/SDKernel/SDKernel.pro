@@ -13,7 +13,6 @@ INCLUDEPATH+=$${PWD}/../GTUtils\
             $${PWD}/../GTUtils/DeviceIdHelper\
             $${PWD}/../GTUtils/IFRamManager\
             $${PWD}/../GTUtils/CmdManager\
-            $${PWD}/../AdvUser\
             $${PWD}/../Option\
             $${PWD}/../Com/Communication\
             $${PWD}/../../Common/src\
@@ -28,16 +27,14 @@ CONFIG(debug, debug|release){
     SDKERNEL_OUT_PATH = $${APP_BUILD_PATH}/debug/bin
     LIBS+=$${SDKERNEL_OUT_PATH}/Communicationd.lib\
           $${SDKERNEL_OUT_PATH}/GTUtilsd.lib\
-          $${SDKERNEL_OUT_PATH}/Optiond.lib\
-          $${SDKERNEL_OUT_PATH}/AdvUserd.lib
+          $${SDKERNEL_OUT_PATH}/Optiond.lib
 
     TARGET = SDKerneld
 } else{
     SDKERNEL_OUT_PATH = $${APP_BUILD_PATH}/release/bin
     LIBS+=$${SDKERNEL_OUT_PATH}/Communication.lib\
           $${SDKERNEL_OUT_PATH}/GTUtils.lib\
-          $${SDKERNEL_OUT_PATH}/Option.lib\
-          $${SDKERNEL_OUT_PATH}/AdvUser.lib
+          $${SDKERNEL_OUT_PATH}/Option.lib
 
     TARGET = SDKernel
 }

@@ -10,6 +10,7 @@
 #include "anchoritemhelper.h"
 #include "frameitemwidget.h"
 #include "pospid133.h"
+#include "NodeItems.h"
 
 #include <QTreeWidgetItem>
 #include <QDebug>
@@ -18,6 +19,7 @@
 #include <QLabel>
 #include <QRadioButton>
 #include <QDoubleSpinBox>
+#include <QListWidget>
 
 #define MOT_NOS_KEY_NAME "gSevDrv.sev_obj.cur.mot.Nos_1"
 #define POW2_24 16777216
@@ -62,6 +64,8 @@ protected:
   QRadioButton *m_ccwRBtn;
   ArrowItem *m_A16;
   PosPID133 *m_pid133;
+
+  QListWidget *m_listWidgetCtlerSel;
 };
 
 GraphPosition133::GraphPosition133(QWidget *parent) :
@@ -70,6 +74,16 @@ GraphPosition133::GraphPosition133(QWidget *parent) :
 {
   Q_D(GraphPosition133);
   d->m_posInfilter = new PosInputFilter;
+
+  d->m_listWidgetCtlerSel = new QListWidget;
+  QStringList list;
+  list<<tr("PID Controller")<<tr("Nolinear Controller");
+  d->m_listWidgetCtlerSel->addItems(list);
+
+  QGraphicsProxyWidget *proxyWidget = d->m_scene->addWidget(d->m_listWidgetCtlerSel);
+  QPointF p = mapToScene(0,0);
+  proxyWidget->setPos(p);
+
   connect(d->m_posInfilter,SIGNAL(configClicked()),this,SLOT(onFilterConfigClicked()));
   connect(d->m_posInfilter,SIGNAL(saveClicked()),this,SLOT(onFilterSaveClicked()));
 }
@@ -223,6 +237,9 @@ void GraphPosition133::onUIFItemClicked()
 
   int index = d->m_treeWidget->topLevelItem(FIT_SEL_INX)->text(GT::COL_PAGE_TREE_VALUE).toUShort();
   d->m_posInfilter->setIIRFilterIndex(index);
+
+  d->m_UPID->setPos(d->m_UPID->x()+10,d->m_UPID->y()+10);
+  adjustPosition();
 }
 
 void GraphPosition133::onFilterConfigClicked()

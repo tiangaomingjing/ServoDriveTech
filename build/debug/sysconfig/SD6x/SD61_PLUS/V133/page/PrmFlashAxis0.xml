@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>489</width>
-    <height>380</height>
+    <width>400</width>
+    <height>438</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -506,7 +506,7 @@
             </item>
             <item>
              <property name="text">
-              <string>gSevDrv.sev_obj.cur.prm.mask_flag.bit.rsvd</string>
+              <string>gSevDrv.sev_obj.cur.prm.mask_flag.bit.IQRC</string>
              </property>
              <property name="text">
               <string>NULL</string>
@@ -524,7 +524,30 @@
               <string>7</string>
              </property>
              <property name="text">
-              <string>9</string>
+              <string>1</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>gSevDrv.sev_obj.cur.prm.mask_flag.bit.rsvd</string>
+             </property>
+             <property name="text">
+              <string>NULL</string>
+             </property>
+             <property name="text">
+              <string>Uint16</string>
+             </property>
+             <property name="text">
+              <string>-1</string>
+             </property>
+             <property name="text">
+              <string>1</string>
+             </property>
+             <property name="text">
+              <string>8</string>
+             </property>
+             <property name="text">
+              <string>8</string>
              </property>
             </item>
            </item>
@@ -3967,6 +3990,29 @@
             </property>
             <property name="text">
              <string>542</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.cur.pro.prm.uv_delay_tim</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int16</string>
+            </property>
+            <property name="text">
+             <string>543</string>
             </property>
             <property name="text">
              <string>0</string>
@@ -11087,6 +11133,1294 @@
            </item>
           </item>
          </item>
+         <item>
+          <property name="text">
+           <string>gSevDrv.sev_obj.vel.nlc</string>
+          </property>
+          <property name="text">
+           <string>NULL</string>
+          </property>
+          <property name="text">
+           <string>NOL_CTL</string>
+          </property>
+          <property name="text">
+           <string>-1</string>
+          </property>
+          <property name="text">
+           <string>0</string>
+          </property>
+          <property name="text">
+           <string>-1</string>
+          </property>
+          <property name="text">
+           <string>-1</string>
+          </property>
+          <item>
+           <property name="text">
+            <string>gSevDrv.sev_obj.vel.nlc.prm</string>
+           </property>
+           <property name="text">
+            <string>NULL</string>
+           </property>
+           <property name="text">
+            <string>NOL_CTL_PRM</string>
+           </property>
+           <property name="text">
+            <string>-1</string>
+           </property>
+           <property name="text">
+            <string>0</string>
+           </property>
+           <property name="text">
+            <string>-1</string>
+           </property>
+           <property name="text">
+            <string>-1</string>
+           </property>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.fgd</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>Uint16</string>
+            </property>
+            <property name="text">
+             <string>6396</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.fgn</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>Uint16</string>
+            </property>
+            <property name="text">
+             <string>6397</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.fgp</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>Uint16</string>
+            </property>
+            <property name="text">
+             <string>6398</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.fgi</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>Uint16</string>
+            </property>
+            <property name="text">
+             <string>6399</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.mask_flag</string>
+            </property>
+            <property name="text">
+             <string>NULL</string>
+            </property>
+            <property name="text">
+             <string>tNlcMaskFlag</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <item>
+             <property name="text">
+              <string>gSevDrv.sev_obj.vel.nlc.prm.mask_flag.all</string>
+             </property>
+             <property name="text">
+              <string>0</string>
+             </property>
+             <property name="text">
+              <string>Uint16</string>
+             </property>
+             <property name="text">
+              <string>6400</string>
+             </property>
+             <property name="text">
+              <string>0</string>
+             </property>
+             <property name="text">
+              <string>-1</string>
+             </property>
+             <property name="text">
+              <string>-1</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>gSevDrv.sev_obj.vel.nlc.prm.mask_flag.bit</string>
+             </property>
+             <property name="text">
+              <string>NULL</string>
+             </property>
+             <property name="text">
+              <string>NLC_MASK_BITS</string>
+             </property>
+             <property name="text">
+              <string>-1</string>
+             </property>
+             <property name="text">
+              <string>0</string>
+             </property>
+             <property name="text">
+              <string>-1</string>
+             </property>
+             <property name="text">
+              <string>-1</string>
+             </property>
+             <item>
+              <property name="text">
+               <string>gSevDrv.sev_obj.vel.nlc.prm.mask_flag.bit.ANTV</string>
+              </property>
+              <property name="text">
+               <string>NULL</string>
+              </property>
+              <property name="text">
+               <string>Uint16</string>
+              </property>
+              <property name="text">
+               <string>-1</string>
+              </property>
+              <property name="text">
+               <string>1</string>
+              </property>
+              <property name="text">
+               <string>0</string>
+              </property>
+              <property name="text">
+               <string>1</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>gSevDrv.sev_obj.vel.nlc.prm.mask_flag.bit.rsvd</string>
+              </property>
+              <property name="text">
+               <string>NULL</string>
+              </property>
+              <property name="text">
+               <string>Uint16</string>
+              </property>
+              <property name="text">
+               <string>-1</string>
+              </property>
+              <property name="text">
+               <string>1</string>
+              </property>
+              <property name="text">
+               <string>1</string>
+              </property>
+              <property name="text">
+               <string>15</string>
+              </property>
+             </item>
+            </item>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.ts</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>Uint16</string>
+            </property>
+            <property name="text">
+             <string>6401</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.abs_rat</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int16</string>
+            </property>
+            <property name="text">
+             <string>6402</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.pos_rat</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int16</string>
+            </property>
+            <property name="text">
+             <string>6403</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.neg_rat</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int16</string>
+            </property>
+            <property name="text">
+             <string>6404</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.ku_fst</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int32</string>
+            </property>
+            <property name="text">
+             <string>6406</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.ku_sec</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int32</string>
+            </property>
+            <property name="text">
+             <string>6408</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.kd</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int32</string>
+            </property>
+            <property name="text">
+             <string>6410</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.kn</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int32</string>
+            </property>
+            <property name="text">
+             <string>6412</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.kp</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int32</string>
+            </property>
+            <property name="text">
+             <string>6414</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.ki</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int32</string>
+            </property>
+            <property name="text">
+             <string>6416</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.xo_ulim</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int32</string>
+            </property>
+            <property name="text">
+             <string>6418</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.xo_llim</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int32</string>
+            </property>
+            <property name="text">
+             <string>6420</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.xi_ulim</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int32</string>
+            </property>
+            <property name="text">
+             <string>6422</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.xi_llim</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int32</string>
+            </property>
+            <property name="text">
+             <string>6424</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.ku_sw_mode</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>tCtlPrmSwMode</string>
+            </property>
+            <property name="text">
+             <string>6426</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.ku_sw_tim</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int16</string>
+            </property>
+            <property name="text">
+             <string>6427</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.ku_sw_spd_ulim</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int32</string>
+            </property>
+            <property name="text">
+             <string>6428</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.ku_sw_spd_llim</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int32</string>
+            </property>
+            <property name="text">
+             <string>6430</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.kdpe_to_ve</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int32</string>
+            </property>
+            <property name="text">
+             <string>6432</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.fn_bp</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int32</string>
+            </property>
+            <property name="text">
+             <string>6434</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.qx_bp</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int32</string>
+            </property>
+            <property name="text">
+             <string>6436</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.kn_bp</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int32</string>
+            </property>
+            <property name="text">
+             <string>6438</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.kav_to_perr</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int32</string>
+            </property>
+            <property name="text">
+             <string>6440</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.nlc.prm.un_sel</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int16</string>
+            </property>
+            <property name="text">
+             <string>6442</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+          </item>
+         </item>
+         <item>
+          <property name="text">
+           <string>gSevDrv.sev_obj.vel.atn</string>
+          </property>
+          <property name="text">
+           <string>NULL</string>
+          </property>
+          <property name="text">
+           <string>AUTO_TNG</string>
+          </property>
+          <property name="text">
+           <string>-1</string>
+          </property>
+          <property name="text">
+           <string>0</string>
+          </property>
+          <property name="text">
+           <string>-1</string>
+          </property>
+          <property name="text">
+           <string>-1</string>
+          </property>
+          <item>
+           <property name="text">
+            <string>gSevDrv.sev_obj.vel.atn.prm</string>
+           </property>
+           <property name="text">
+            <string>NULL</string>
+           </property>
+           <property name="text">
+            <string>AUTO_TNG_PRM</string>
+           </property>
+           <property name="text">
+            <string>-1</string>
+           </property>
+           <property name="text">
+            <string>0</string>
+           </property>
+           <property name="text">
+            <string>-1</string>
+           </property>
+           <property name="text">
+            <string>-1</string>
+           </property>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.atn.prm.start_delay_tim</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int16</string>
+            </property>
+            <property name="text">
+             <string>6496</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.atn.prm.rest_tim</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int16</string>
+            </property>
+            <property name="text">
+             <string>6497</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.atn.prm.deter_tim</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int16</string>
+            </property>
+            <property name="text">
+             <string>6498</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.atn.prm.fgd_stp</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>Uint16</string>
+            </property>
+            <property name="text">
+             <string>6499</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.atn.prm.fgn_stp</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>Uint16</string>
+            </property>
+            <property name="text">
+             <string>6500</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.atn.prm.fgp_stp</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>Uint16</string>
+            </property>
+            <property name="text">
+             <string>6501</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.atn.prm.fgi_stp</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>Uint16</string>
+            </property>
+            <property name="text">
+             <string>6502</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.atn.prm.fgd_ulim</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>Uint16</string>
+            </property>
+            <property name="text">
+             <string>6503</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.atn.prm.fgn_ulim</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>Uint16</string>
+            </property>
+            <property name="text">
+             <string>6504</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.atn.prm.fgp_ulim</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>Uint16</string>
+            </property>
+            <property name="text">
+             <string>6505</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.atn.prm.fgi_ulim</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>Uint16</string>
+            </property>
+            <property name="text">
+             <string>6506</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.atn.prm.adj_rate</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>Uint16</string>
+            </property>
+            <property name="text">
+             <string>6507</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.atn.prm.stab_rate</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>Uint16</string>
+            </property>
+            <property name="text">
+             <string>6508</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.atn.prm.ts</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>Uint16</string>
+            </property>
+            <property name="text">
+             <string>6509</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.atn.prm.un_sel</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int16</string>
+            </property>
+            <property name="text">
+             <string>6510</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.atn.prm.fn2</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int32</string>
+            </property>
+            <property name="text">
+             <string>6512</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.atn.prm.qx2</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int32</string>
+            </property>
+            <property name="text">
+             <string>6514</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.atn.prm.std_iq_amp_lim</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int16</string>
+            </property>
+            <property name="text">
+             <string>6516</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>gSevDrv.sev_obj.vel.atn.prm.dyn_iq_amp_lim</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>int16</string>
+            </property>
+            <property name="text">
+             <string>6517</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+            <property name="text">
+             <string>-1</string>
+            </property>
+           </item>
+          </item>
+         </item>
         </item>
         <item>
          <property name="text">
@@ -14765,7 +16099,7 @@
              </item>
              <item>
               <property name="text">
-               <string>gSevDrv.sev_obj.pos.seq.prm.mask_flag.bit.rsvd</string>
+               <string>gSevDrv.sev_obj.pos.seq.prm.mask_flag.bit.LINC</string>
               </property>
               <property name="text">
                <string>NULL</string>
@@ -14783,7 +16117,30 @@
                <string>5</string>
               </property>
               <property name="text">
-               <string>11</string>
+               <string>1</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>gSevDrv.sev_obj.pos.seq.prm.mask_flag.bit.rsvd</string>
+              </property>
+              <property name="text">
+               <string>NULL</string>
+              </property>
+              <property name="text">
+               <string>Uint16</string>
+              </property>
+              <property name="text">
+               <string>-1</string>
+              </property>
+              <property name="text">
+               <string>1</string>
+              </property>
+              <property name="text">
+               <string>6</string>
+              </property>
+              <property name="text">
+               <string>10</string>
               </property>
              </item>
             </item>

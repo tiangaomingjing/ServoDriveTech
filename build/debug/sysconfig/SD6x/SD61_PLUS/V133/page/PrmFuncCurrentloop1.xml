@@ -290,7 +290,7 @@
        <string>38072</string>
       </property>
       <property name="text">
-       <string>10</string>
+       <string>1</string>
       </property>
      </item>
      <item>
@@ -348,7 +348,7 @@
        <string>38076</string>
       </property>
       <property name="text">
-       <string>10</string>
+       <string>1</string>
       </property>
      </item>
      <item>
@@ -377,7 +377,7 @@
        <string>38078</string>
       </property>
       <property name="text">
-       <string>10</string>
+       <string>1</string>
       </property>
      </item>
     </widget>
