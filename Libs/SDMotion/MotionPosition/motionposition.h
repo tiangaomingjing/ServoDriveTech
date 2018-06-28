@@ -4,6 +4,8 @@
 #include "motionposition_global.h"
 #include "imotion.h"
 
+#include <QTimer>
+
 class MotionPositionPrivate;
 class UiMotionPosition;
 
@@ -25,6 +27,7 @@ private slots:
 
 private:
     UiMotionPosition * UiMotion();
+private:
 };
 
 #endif // MOTIONPOSITION_H

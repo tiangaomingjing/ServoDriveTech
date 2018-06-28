@@ -739,3 +739,13 @@ std::vector<int16_t> RnNet::broadcast()
     v.clear();
   return v;
 }
+
+int16_t RnNet::getCurrentAxisNumByReadFPGA()
+{
+    Q_D(RnNet);
+    int16_t num = -1;
+    GTSD_CMD_GetStationAxisNum(&num, d->m_comType, d->m_rnStation);
+    return num;
+}
+
+

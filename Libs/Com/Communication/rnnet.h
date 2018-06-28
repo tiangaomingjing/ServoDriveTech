@@ -103,6 +103,8 @@ public:
   errcode_t setRnStation(uint16_t rnstation);
   uint16_t currentRnStation() const;
   std::vector<int16_t> broadcast();
+
+  int16_t getCurrentAxisNumByReadFPGA();
 };
 
 COM_NAMESPACE_END

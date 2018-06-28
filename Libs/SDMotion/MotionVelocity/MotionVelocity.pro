@@ -18,7 +18,8 @@ CONFIG(debug, debug|release){
 DEFINES += MOTIONVELOCITY_LIBRARY
 
 SOURCES += motionvelocity.cpp \
-    uimotionvelocity.cpp
+    uimotionvelocity.cpp \
+    velplanmotion.cpp
 #    vmotionthread.cpp \
 
 HEADERS += motionvelocity.h\

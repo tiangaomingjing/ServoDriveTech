@@ -43,8 +43,9 @@
     </message>
     <message>
         <location filename="advusercompress.ui" line="20"/>
-        <source>Select Compress File Folder:</source>
-        <translation>选择压缩文件夹：</translation>
+        <source>Select File Folder (Including Rpd and Hex file):</source>
+        <oldsource>Select Compress File Folder:</oldsource>
+        <translation>选择压缩文件夹(文件夹中应包含Rpd和Hex文件)：</translation>
     </message>
     <message>
         <location filename="advusercompress.ui" line="36"/>
@@ -52,51 +53,69 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="advusercompress.ui" line="64"/>
-        <location filename="advusercompress.ui" line="94"/>
-        <source>Note:</source>
-        <translation type="unfinished"></translation>
+        <location filename="advusercompress.ui" line="45"/>
+        <source>RPD</source>
+        <translation></translation>
     </message>
     <message>
-        <location filename="advusercompress.ui" line="76"/>
-        <source>Hex Version:</source>
+        <location filename="advusercompress.ui" line="51"/>
+        <source>Version (Format Example: 20180406):</source>
+        <translation>Rpd文件版本(参考格式：20180406)：</translation>
+    </message>
+    <message>
+        <location filename="advusercompress.ui" line="68"/>
+        <location filename="advusercompress.ui" line="103"/>
+        <source>Note:</source>
+        <translation>注释：</translation>
+    </message>
+    <message>
+        <location filename="advusercompress.ui" line="81"/>
+        <source>Hex</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="advusercompress.ui" line="87"/>
+        <source>Version:</source>
         <translation>Hex文件版本：</translation>
     </message>
     <message>
-        <location filename="advusercompress.ui" line="84"/>
+        <source>Hex Version:</source>
+        <translation type="vanished">Hex文件版本：</translation>
+    </message>
+    <message>
+        <location filename="advusercompress.ui" line="95"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="advusercompress.ui" line="47"/>
         <source>RPD Version:</source>
-        <translation>RPD文件版本：</translation>
+        <translation type="vanished">RPD文件版本：</translation>
     </message>
     <message>
-        <location filename="advusercompress.cpp" line="76"/>
-        <location filename="advusercompress.cpp" line="92"/>
-        <location filename="advusercompress.cpp" line="99"/>
-        <location filename="advusercompress.cpp" line="151"/>
+        <location filename="advusercompress.cpp" line="77"/>
+        <location filename="advusercompress.cpp" line="93"/>
+        <location filename="advusercompress.cpp" line="101"/>
+        <location filename="advusercompress.cpp" line="159"/>
         <source>Compress</source>
         <translation>打包</translation>
     </message>
     <message>
-        <location filename="advusercompress.cpp" line="92"/>
+        <location filename="advusercompress.cpp" line="93"/>
         <source>Please enter version information</source>
         <translation>请输入文件版本信息</translation>
     </message>
     <message>
-        <location filename="advusercompress.cpp" line="99"/>
+        <location filename="advusercompress.cpp" line="101"/>
         <source>Version do not match. Are you sure to continue?</source>
         <translation>文件版本不匹配，确定要继续吗？</translation>
     </message>
     <message>
-        <location filename="advusercompress.cpp" line="151"/>
+        <location filename="advusercompress.cpp" line="159"/>
         <source>Compressing fails!</source>
         <translation>打包失败！</translation>
     </message>
     <message>
-        <location filename="advusercompress.cpp" line="191"/>
+        <location filename="advusercompress.cpp" line="202"/>
         <source>Open Directory</source>
         <translation>打开路径</translation>
     </message>

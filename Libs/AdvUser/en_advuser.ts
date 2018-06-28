@@ -43,7 +43,8 @@
     </message>
     <message>
         <location filename="advusercompress.ui" line="20"/>
-        <source>Select Compress File Folder:</source>
+        <source>Select File Folder (Including Rpd and Hex file):</source>
+        <oldsource>Select Compress File Folder:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -52,51 +53,61 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercompress.ui" line="64"/>
-        <location filename="advusercompress.ui" line="94"/>
+        <location filename="advusercompress.ui" line="45"/>
+        <source>RPD</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="advusercompress.ui" line="51"/>
+        <source>Version (Format Example: 20180406):</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="advusercompress.ui" line="68"/>
+        <location filename="advusercompress.ui" line="103"/>
         <source>Note:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercompress.ui" line="76"/>
-        <source>Hex Version:</source>
+        <location filename="advusercompress.ui" line="81"/>
+        <source>Hex</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercompress.ui" line="84"/>
+        <location filename="advusercompress.ui" line="87"/>
+        <source>Version:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="advusercompress.ui" line="95"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercompress.ui" line="47"/>
-        <source>RPD Version:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="advusercompress.cpp" line="76"/>
-        <location filename="advusercompress.cpp" line="92"/>
-        <location filename="advusercompress.cpp" line="99"/>
-        <location filename="advusercompress.cpp" line="151"/>
+        <location filename="advusercompress.cpp" line="77"/>
+        <location filename="advusercompress.cpp" line="93"/>
+        <location filename="advusercompress.cpp" line="101"/>
+        <location filename="advusercompress.cpp" line="159"/>
         <source>Compress</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercompress.cpp" line="92"/>
+        <location filename="advusercompress.cpp" line="93"/>
         <source>Please enter version information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercompress.cpp" line="99"/>
+        <location filename="advusercompress.cpp" line="101"/>
         <source>Version do not match. Are you sure to continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercompress.cpp" line="151"/>
+        <location filename="advusercompress.cpp" line="159"/>
         <source>Compressing fails!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercompress.cpp" line="191"/>
+        <location filename="advusercompress.cpp" line="202"/>
         <source>Open Directory</source>
         <translation type="unfinished"></translation>
     </message>

@@ -6,6 +6,8 @@
 #include "gtutils.h"
 
 #include <QListWidget>
+#include <QKeyEvent>
+#include <QDebug>
 
 #define PIC_NAME_VPOINT          "plot_vPoint.png"
 #define PIC_NAME_VRECI           "plot_vReci.png"
@@ -29,6 +31,9 @@ UiMotionPosition::UiMotionPosition(MotionPosition *mp, QWidget *parent) :
     ui->doubleSpinBox_ReciMaxVel->setValue(0);
     ui->spinBox_ReciPulse->setValue(0);
     ui->spinBox_ReciTimes->setValue(0);
+
+    ui->comboBox_pointAcc->addItem("°/s^2");
+    ui->comboBox_pointAcc->addItem("r/s^2");
 
     for (int i = 0; i < m_axisCount; i++) {
         UiPosMotionData* data = new UiPosMotionData;

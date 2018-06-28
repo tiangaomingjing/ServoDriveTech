@@ -1228,7 +1228,7 @@
         <string>int16</string>
        </property>
        <property name="text">
-        <string>Ts</string>
+        <string>ms</string>
        </property>
        <property name="text">
         <string>53</string>
@@ -1243,7 +1243,7 @@
         <string>0</string>
        </property>
        <property name="text">
-        <string>1</string>
+        <string>8</string>
        </property>
        <property name="text">
         <string>-1</string>
@@ -2098,7 +2098,7 @@
         <string>int32</string>
        </property>
        <property name="text">
-        <string>Ts</string>
+        <string>ms</string>
        </property>
        <property name="text">
         <string>75</string>
@@ -2113,7 +2113,7 @@
         <string>0</string>
        </property>
        <property name="text">
-        <string>1</string>
+        <string>8</string>
        </property>
        <property name="text">
         <string>-1</string>
@@ -2243,7 +2243,7 @@
         <string>int32</string>
        </property>
        <property name="text">
-        <string>Ts</string>
+        <string>ms</string>
        </property>
        <property name="text">
         <string>80</string>
@@ -2258,7 +2258,7 @@
         <string>0</string>
        </property>
        <property name="text">
-        <string>1</string>
+        <string>8</string>
        </property>
        <property name="text">
         <string>-1</string>

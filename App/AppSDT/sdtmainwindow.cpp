@@ -745,7 +745,7 @@ void SDTMainWindow::onActnResetDspClicked()
     }
   }
 
-  QMessageBox::StandardButton rb=QMessageBox::question(this,"Warring",tr("Do you want to reset device ?"),QMessageBox::Yes|QMessageBox::No,QMessageBox::No);
+  QMessageBox::StandardButton rb=QMessageBox::question(this,tr("Warning"),tr("Do you want to reset device ?"),QMessageBox::Yes|QMessageBox::No,QMessageBox::No);
   if (rb==QMessageBox::No)
   {
     return;

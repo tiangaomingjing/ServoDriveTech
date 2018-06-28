@@ -52,7 +52,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optface.cpp" line="378"/>
+        <location filename="optface.cpp" line="377"/>
         <source>Face</source>
         <translation type="unfinished"></translation>
     </message>
@@ -65,37 +65,42 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optpath.cpp" line="125"/>
+        <location filename="optpath.cpp" line="131"/>
         <source>Path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optpath.cpp" line="174"/>
+        <location filename="optpath.cpp" line="183"/>
         <source>Upload path:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optpath.cpp" line="175"/>
+        <location filename="optpath.cpp" line="184"/>
         <source>Download path:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optpath.cpp" line="176"/>
+        <location filename="optpath.cpp" line="185"/>
         <source>Flash file path:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optpath.cpp" line="177"/>
+        <location filename="optpath.cpp" line="186"/>
         <source>Old Version path:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optpath.cpp" line="178"/>
+        <location filename="optpath.cpp" line="187"/>
         <source>New Version path:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optpath.cpp" line="183"/>
+        <location filename="optpath.cpp" line="188"/>
+        <source>Curve Path:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="optpath.cpp" line="193"/>
         <source>Open Directory</source>
         <translation type="unfinished"></translation>
     </message>

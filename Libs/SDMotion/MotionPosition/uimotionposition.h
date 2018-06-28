@@ -8,6 +8,7 @@ class UiMotionPosition;
 }
 
 class MotionPosition;
+class SevDevice;
 
 class UiPosMotionData
 {

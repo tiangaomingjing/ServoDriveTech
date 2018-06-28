@@ -99,44 +99,44 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="106"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="107"/>
         <source>Open Old File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="106"/>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="137"/>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="237"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="107"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="138"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="242"/>
         <source>Files(*.xml)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="108"/>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="139"/>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="239"/>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="241"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="109"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="140"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="244"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="246"/>
         <source>Path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="108"/>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="139"/>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="239"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="109"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="140"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="244"/>
         <source>You did not select any files.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="137"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="138"/>
         <source>Open New File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="237"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="242"/>
         <source>Save File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="241"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="246"/>
         <source>You selected </source>
         <translation type="unfinished"></translation>
     </message>
@@ -525,42 +525,47 @@ more-&gt;option-&gt;autolaod-&gt;unchecked clicked apply
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="52"/>
-        <source>...</source>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="22"/>
+        <source>Select Device:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="59"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="66"/>
         <source>Flash</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="74"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="81"/>
         <source>Hex</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="87"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="94"/>
         <source>DSP Firmware</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="111"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="118"/>
         <source>Rpd</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="118"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="125"/>
         <source>FPGA Firmware; Don&apos;t shut off power if flashing fails</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="94"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="101"/>
         <source>Xml</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="104"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="111"/>
         <source>Configuration Files</source>
         <translation type="unfinished"></translation>
     </message>
@@ -577,10 +582,12 @@ more-&gt;option-&gt;autolaod-&gt;unchecked clicked apply
     <message>
         <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="145"/>
         <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="157"/>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="221"/>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="306"/>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="334"/>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="367"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="215"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="228"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="245"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="331"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="359"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="392"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
@@ -595,81 +602,107 @@ more-&gt;option-&gt;autolaod-&gt;unchecked clicked apply
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="165"/>
+        <source>DSP Version: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="170"/>
+        <source>DSP Note: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="176"/>
+        <source>FPGA Version: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="181"/>
+        <source>FPGA Note: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="193"/>
-        <source>1.Checking version!
-</source>
+        <source>1.Checking version!</source>
+        <oldsource>1.Checking version!
+</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="200"/>
-        <source>Reading powerboard Id fails!
-</source>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="207"/>
+        <source>Axis%1 is on servo!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="208"/>
-        <source>Reading controlboard Id fails!
-</source>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="214"/>
+        <source>Reading powerboard Id fails!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="221"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="215"/>
+        <source>Reading powerboard Id fails! Are you sure to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="227"/>
+        <source>Reading controlboard Id fails!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="228"/>
+        <source>Reading controlboard Id fails! Are you sure to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="256"/>
+        <source>Downloading hex file fails!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="265"/>
+        <source>Downloading xml files fail!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="274"/>
+        <source>Downloading rpd file fails!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="279"/>
+        <source>Downloading succeeds!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="326"/>
+        <source>2.Downloading hex file!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="346"/>
+        <source>Downloading DSP %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="362"/>
+        <source>4.Downloading rpd file!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="395"/>
+        <source>3.Downloading xml files!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="245"/>
         <source>Version do not match. Are you sure to continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="231"/>
-        <source>Downloading hex file fails!
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="249"/>
-        <source>Downloading rpd file fails!
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="337"/>
-        <source>4.Downloading rpd file!
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="370"/>
-        <source>3.Downloading xml files!
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="240"/>
-        <source>Downloading xml files fail!
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="254"/>
-        <source>Downloading succeeds!
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="301"/>
-        <source>2.Downloading hex file!
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="306"/>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="334"/>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="367"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="331"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="359"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="392"/>
         <source>please open the com first !</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="321"/>
-        <source>Downloading DSP %1.
-</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -763,267 +796,272 @@ more-&gt;option-&gt;autolaod-&gt;unchecked clicked apply
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="148"/>
+        <location filename="sdtmainwindow.cpp" line="143"/>
         <source>connet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="149"/>
+        <location filename="sdtmainwindow.cpp" line="144"/>
         <source>connect to servo:you can manul to load by change:toogle More-&gt;Option-&gt;AutoLoad</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="152"/>
+        <location filename="sdtmainwindow.cpp" line="147"/>
         <source>disnet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="162"/>
+        <location filename="sdtmainwindow.cpp" line="157"/>
         <source>new</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="163"/>
+        <location filename="sdtmainwindow.cpp" line="158"/>
         <source>select your correct system</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="166"/>
+        <location filename="sdtmainwindow.cpp" line="161"/>
         <source>dwnload</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="167"/>
+        <location filename="sdtmainwindow.cpp" line="162"/>
         <source>download the  parameters to device</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="170"/>
+        <location filename="sdtmainwindow.cpp" line="165"/>
         <source>upload</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="171"/>
+        <location filename="sdtmainwindow.cpp" line="166"/>
         <source>save the device parameters to xml files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="174"/>
+        <location filename="sdtmainwindow.cpp" line="169"/>
         <source>compare</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="175"/>
+        <location filename="sdtmainwindow.cpp" line="170"/>
         <source>compare the old xml with new xml files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="178"/>
+        <location filename="sdtmainwindow.cpp" line="173"/>
         <source>config</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="180"/>
+        <location filename="sdtmainwindow.cpp" line="175"/>
         <source>download the parameters to device and immediately active</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="183"/>
+        <location filename="sdtmainwindow.cpp" line="178"/>
         <source>save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="184"/>
+        <location filename="sdtmainwindow.cpp" line="179"/>
         <source>permanently save the parameters to device
 you should reset the system to make it active</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="192"/>
+        <location filename="sdtmainwindow.cpp" line="187"/>
         <source>help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="193"/>
+        <location filename="sdtmainwindow.cpp" line="188"/>
         <source>query the hardware and software infomation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="195"/>
+        <location filename="sdtmainwindow.cpp" line="190"/>
         <source>hinfo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="197"/>
+        <location filename="sdtmainwindow.cpp" line="192"/>
         <source>vinfo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="199"/>
+        <location filename="sdtmainwindow.cpp" line="194"/>
         <source>sinfo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="207"/>
+        <location filename="sdtmainwindow.cpp" line="202"/>
         <source>more</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="214"/>
+        <location filename="sdtmainwindow.cpp" line="209"/>
         <source>online</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="218"/>
+        <location filename="sdtmainwindow.cpp" line="213"/>
         <source>offline</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="226"/>
+        <location filename="sdtmainwindow.cpp" line="221"/>
         <source>update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="227"/>
+        <location filename="sdtmainwindow.cpp" line="222"/>
         <source>rstdsp</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="229"/>
+        <location filename="sdtmainwindow.cpp" line="224"/>
         <source>option</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="231"/>
+        <location filename="sdtmainwindow.cpp" line="226"/>
         <source>produce</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="233"/>
+        <location filename="sdtmainwindow.cpp" line="228"/>
         <source>Advanced User</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="244"/>
+        <location filename="sdtmainwindow.cpp" line="239"/>
         <source>UpdateFirmware</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="245"/>
+        <location filename="sdtmainwindow.cpp" line="240"/>
         <source>softmode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="437"/>
+        <location filename="sdtmainwindow.cpp" line="432"/>
         <source>Motor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="438"/>
+        <location filename="sdtmainwindow.cpp" line="433"/>
         <source>Encoder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="439"/>
+        <location filename="sdtmainwindow.cpp" line="434"/>
         <source>Power</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="440"/>
+        <location filename="sdtmainwindow.cpp" line="435"/>
         <source>Current</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="441"/>
+        <location filename="sdtmainwindow.cpp" line="436"/>
         <source>Velocity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="442"/>
+        <location filename="sdtmainwindow.cpp" line="437"/>
         <source>Position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="443"/>
+        <location filename="sdtmainwindow.cpp" line="438"/>
         <source>Brake</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="444"/>
+        <location filename="sdtmainwindow.cpp" line="439"/>
         <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="445"/>
+        <location filename="sdtmainwindow.cpp" line="440"/>
         <source>RAM</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="446"/>
+        <location filename="sdtmainwindow.cpp" line="441"/>
         <source>FLASH</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="447"/>
+        <location filename="sdtmainwindow.cpp" line="442"/>
         <source>IO</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="456"/>
+        <location filename="sdtmainwindow.cpp" line="451"/>
         <source>[%1] </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="465"/>
+        <location filename="sdtmainwindow.cpp" line="460"/>
         <source>Axis_%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="495"/>
+        <location filename="sdtmainwindow.cpp" line="490"/>
         <source>Plot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="496"/>
+        <location filename="sdtmainwindow.cpp" line="491"/>
         <source>-1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="740"/>
-        <location filename="sdtmainwindow.cpp" line="755"/>
+        <location filename="sdtmainwindow.cpp" line="742"/>
+        <location filename="sdtmainwindow.cpp" line="763"/>
         <source>error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="740"/>
+        <location filename="sdtmainwindow.cpp" line="742"/>
         <source>refuse to reset dsp :
 device :%1 axis =%2 servo is on 
  </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="755"/>
+        <location filename="sdtmainwindow.cpp" line="748"/>
+        <source>Do you want to reset device ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sdtmainwindow.cpp" line="763"/>
         <source>reset device = %1 dsp fail:
  </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="757"/>
+        <location filename="sdtmainwindow.cpp" line="765"/>
         <source>reset dsp successfully</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="789"/>
+        <location filename="sdtmainwindow.cpp" line="797"/>
         <source>PcDebug</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="791"/>
+        <location filename="sdtmainwindow.cpp" line="799"/>
         <source>RnNet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="857"/>
+        <location filename="sdtmainwindow.cpp" line="869"/>
         <source>current SDT version = %1
 device version = %2
 not match !
@@ -1032,7 +1070,7 @@ do you want to force to continue?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="892"/>
+        <location filename="sdtmainwindow.cpp" line="906"/>
         <source>device&apos;s componoent C%1-V%2-F%3-P%4 is not supported
 it maybe cause some error!
 do you want to continue?
@@ -1040,7 +1078,7 @@ do you want to continue?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="894"/>
+        <location filename="sdtmainwindow.cpp" line="908"/>
         <source>device&apos;s componoent C%1-V%2-F%3-P%4 can not find in your soft database
 you should update your software from
 http://www.googoltech.com.cn
@@ -1050,17 +1088,17 @@ do you want to continue?
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="932"/>
+        <location filename="sdtmainwindow.cpp" line="948"/>
         <source>your connect com is wrong</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="933"/>
+        <location filename="sdtmainwindow.cpp" line="949"/>
         <source>your select com type is wrong</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="935"/>
+        <location filename="sdtmainwindow.cpp" line="951"/>
         <source>Net Error
 
 exception cause maybe:
@@ -1069,7 +1107,7 @@ exception cause maybe:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="984"/>
+        <location filename="sdtmainwindow.cpp" line="1000"/>
         <source>Version:%1
 
 get more help from:
@@ -1077,62 +1115,75 @@ http://www.googoltech.com</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1033"/>
-        <location filename="sdtmainwindow.cpp" line="1084"/>
-        <location filename="sdtmainwindow.cpp" line="1406"/>
+        <location filename="sdtmainwindow.cpp" line="748"/>
+        <location filename="sdtmainwindow.cpp" line="1049"/>
+        <location filename="sdtmainwindow.cpp" line="1100"/>
+        <location filename="sdtmainwindow.cpp" line="1435"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1033"/>
-        <location filename="sdtmainwindow.cpp" line="1084"/>
+        <location filename="sdtmainwindow.cpp" line="1049"/>
+        <location filename="sdtmainwindow.cpp" line="1100"/>
         <source>Please open com first!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1071"/>
+        <location filename="sdtmainwindow.cpp" line="1057"/>
+        <location filename="sdtmainwindow.cpp" line="1111"/>
+        <source>Open XML File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sdtmainwindow.cpp" line="1057"/>
+        <location filename="sdtmainwindow.cpp" line="1111"/>
+        <source>XML Files(*.xml)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="sdtmainwindow.cpp" line="1087"/>
         <source>Download xml file OK !</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1075"/>
+        <location filename="sdtmainwindow.cpp" line="1091"/>
         <source>Error: Download xml file fails !</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1125"/>
+        <location filename="sdtmainwindow.cpp" line="1141"/>
         <source>Upload xml file OK !</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1129"/>
+        <location filename="sdtmainwindow.cpp" line="1145"/>
         <source>Error: Upload xml file fails !</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1238"/>
+        <location filename="sdtmainwindow.cpp" line="1254"/>
         <source>dev:%1,axis:%2,page:%3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1285"/>
+        <location filename="sdtmainwindow.cpp" line="1301"/>
         <source>Device:%1 NetError!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1300"/>
+        <location filename="sdtmainwindow.cpp" line="1316"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1306"/>
-        <location filename="sdtmainwindow.cpp" line="1307"/>
+        <location filename="sdtmainwindow.cpp" line="1322"/>
+        <location filename="sdtmainwindow.cpp" line="1323"/>
         <source>search phase complete !</source>
         <oldsource>search phase complete</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="935"/>
+        <location filename="sdtmainwindow.cpp" line="951"/>
         <source>connect error</source>
         <translation type="unfinished"></translation>
     </message>

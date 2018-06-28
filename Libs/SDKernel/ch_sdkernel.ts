@@ -57,7 +57,7 @@
     </message>
     <message>
         <location filename="sevdevice.cpp" line="372"/>
-        <location filename="sevdevice.cpp" line="857"/>
+        <location filename="sevdevice.cpp" line="859"/>
         <source>Write Error</source>
         <translation>写入错误</translation>
     </message>
@@ -77,13 +77,13 @@
         <translation>正在检查DSP%1的复位完成标志位......</translation>
     </message>
     <message>
-        <location filename="sevdevice.cpp" line="857"/>
+        <location filename="sevdevice.cpp" line="859"/>
         <source>Write Flash Parameter Error:%1 </source>
         <translation>写入Flash参数错误：%1</translation>
     </message>
     <message>
-        <location filename="sevdevice.cpp" line="886"/>
-        <location filename="sevdevice.cpp" line="1038"/>
+        <location filename="sevdevice.cpp" line="888"/>
+        <location filename="sevdevice.cpp" line="1048"/>
         <source>CheckPrm Error
 :%1 %2 is out of range %3 -- %4
 paramater save fail!</source>
@@ -92,14 +92,14 @@ paramater save fail!</source>
 参数保存失败！</translation>
     </message>
     <message>
-        <location filename="sevdevice.cpp" line="891"/>
-        <location filename="sevdevice.cpp" line="912"/>
-        <location filename="sevdevice.cpp" line="1043"/>
+        <location filename="sevdevice.cpp" line="893"/>
+        <location filename="sevdevice.cpp" line="914"/>
+        <location filename="sevdevice.cpp" line="1053"/>
         <source>Prm Error</source>
         <translation>参数错误</translation>
     </message>
     <message>
-        <location filename="sevdevice.cpp" line="912"/>
+        <location filename="sevdevice.cpp" line="914"/>
         <source>PowerBoard CheckPrm Error
 :%1 is out of range
 paramater save fail!</source>
@@ -108,7 +108,7 @@ paramater save fail!</source>
 参数保存错误！</translation>
     </message>
     <message>
-        <location filename="sevdevice.cpp" line="985"/>
+        <location filename="sevdevice.cpp" line="995"/>
         <source>Checking axis%1</source>
         <translation>正在检查轴%1</translation>
     </message>

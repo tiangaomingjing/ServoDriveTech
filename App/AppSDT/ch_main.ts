@@ -99,44 +99,44 @@
         <translation>保存</translation>
     </message>
     <message>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="106"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="107"/>
         <source>Open Old File</source>
         <translation>打开旧版本文件</translation>
     </message>
     <message>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="106"/>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="137"/>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="237"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="107"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="138"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="242"/>
         <source>Files(*.xml)</source>
         <translation>Xml文件(*.xml)</translation>
     </message>
     <message>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="108"/>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="139"/>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="239"/>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="241"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="109"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="140"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="244"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="246"/>
         <source>Path</source>
         <translation>路径</translation>
     </message>
     <message>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="108"/>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="139"/>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="239"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="109"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="140"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="244"/>
         <source>You did not select any files.</source>
         <translation>没有选择路径。</translation>
     </message>
     <message>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="137"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="138"/>
         <source>Open New File</source>
         <translation>打开新版本文件</translation>
     </message>
     <message>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="237"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="242"/>
         <source>Save File</source>
         <translation>保存文件</translation>
     </message>
     <message>
-        <location filename="ComparisonDialog/comparisondialog.cpp" line="241"/>
+        <location filename="ComparisonDialog/comparisondialog.cpp" line="246"/>
         <source>You selected </source>
         <translation>选择</translation>
     </message>
@@ -534,162 +534,248 @@ more-&gt;option-&gt;autolaod-&gt;unchecked clicked apply
         <translation>固件烧写</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="52"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="22"/>
+        <source>Select Device:</source>
+        <translation>选择设备：</translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="59"/>
         <source>...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="59"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="66"/>
         <source>Flash</source>
         <translation>烧写</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="74"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="81"/>
         <source>Hex</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="87"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="94"/>
         <source>DSP Firmware</source>
         <translation>DSP固件</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="111"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="118"/>
         <source>Rpd</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="118"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="125"/>
         <source>FPGA Firmware; Don&apos;t shut off power if flashing fails</source>
         <translation>FPGA固件; 如烧写失败，请勿关闭设备电源</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="94"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="101"/>
         <source>Xml</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="104"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.ui" line="111"/>
         <source>Configuration Files</source>
         <translation>配置文件</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="131"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="132"/>
         <source>Open File</source>
         <translation>打开文件</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="131"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="132"/>
         <source>SDT Files(*.sdt)</source>
         <translation>SDT文件(*.sdt)</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="144"/>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="156"/>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="207"/>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="292"/>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="320"/>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="353"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="145"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="157"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="215"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="228"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="245"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="331"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="359"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="392"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="144"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="145"/>
         <source>Decompressing fails!</source>
         <translation>解压文件失败！</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="156"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="157"/>
         <source>File open fails!</source>
         <translation>文件打开失败！</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="179"/>
-        <source>1.Checking version!
-</source>
-        <translation>1. 正在检查版本!
-</translation>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="165"/>
+        <source>DSP Version: </source>
+        <translation>DSP版本：</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="186"/>
-        <source>Reading powerboard Id fails!
-</source>
-        <translation>读取功率板ID错误!
-</translation>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="170"/>
+        <source>DSP Note: </source>
+        <translation>DSP备注：</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="194"/>
-        <source>Reading controlboard Id fails!
-</source>
-        <translation>读取控制板ID错误!
-</translation>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="176"/>
+        <source>FPGA Version: </source>
+        <translation>FPGA版本：</translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="181"/>
+        <source>FPGA Note: </source>
+        <translation>FPGA备注：</translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="193"/>
+        <source>1.Checking version!</source>
+        <translation>1. 正在检查版本！</translation>
     </message>
     <message>
         <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="207"/>
+        <source>Axis%1 is on servo!</source>
+        <translation>轴%1处于上伺服状态！</translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="214"/>
+        <source>Reading powerboard Id fails!</source>
+        <translation>读取功率板ID错误！</translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="215"/>
+        <source>Reading powerboard Id fails! Are you sure to continue?</source>
+        <translation>读取功率板ID错误！您确定要继续吗？</translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="227"/>
+        <source>Reading controlboard Id fails!</source>
+        <translation>读取控制板ID错误！</translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="228"/>
+        <source>Reading controlboard Id fails! Are you sure to continue?</source>
+        <translation>读取控制板ID错误！您确定要继续吗？</translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="256"/>
+        <source>Downloading hex file fails!</source>
+        <translation>烧写Hex文件失败！</translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="265"/>
+        <source>Downloading xml files fail!</source>
+        <translation>烧写Xml文件失败！</translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="274"/>
+        <source>Downloading rpd file fails!</source>
+        <translation>烧写Rpd文件失败！</translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="279"/>
+        <source>Downloading succeeds!</source>
+        <translation>烧写成功！</translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="326"/>
+        <source>2.Downloading hex file!</source>
+        <translation>2. 正在烧写Hex文件！</translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="346"/>
+        <source>Downloading DSP %1.</source>
+        <translation>正在烧写轴%1.</translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="362"/>
+        <source>4.Downloading rpd file!</source>
+        <translation>4.正在烧写Rpd文件！</translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="395"/>
+        <source>3.Downloading xml files!</source>
+        <translation>3.正在烧写Xml文件！</translation>
+    </message>
+    <message>
+        <source>1.Checking version!
+</source>
+        <translation type="vanished">1. 正在检查版本!
+</translation>
+    </message>
+    <message>
+        <source>Reading powerboard Id fails!
+</source>
+        <translation type="vanished">读取功率板ID错误!
+</translation>
+    </message>
+    <message>
+        <source>Reading controlboard Id fails!
+</source>
+        <translation type="vanished">读取控制板ID错误!
+</translation>
+    </message>
+    <message>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="245"/>
         <source>Version do not match. Are you sure to continue?</source>
         <translation>版本不匹配，确定继续吗？</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="217"/>
         <source>Downloading hex file fails!
 </source>
-        <translation>导入Hex文件错误!
+        <translation type="vanished">导入Hex文件错误!
 </translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="235"/>
         <source>Downloading rpd file fails!
 </source>
-        <translation>导入Rpd文件错误！
+        <translation type="vanished">导入Rpd文件错误！
 </translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="226"/>
         <source>Downloading xml files fail!
 </source>
-        <translation>导入Xml文件错误！
+        <translation type="vanished">导入Xml文件错误！
 </translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="240"/>
         <source>Downloading succeeds!
 </source>
-        <translation>导入成功!
+        <translation type="vanished">导入成功!
 </translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="287"/>
         <source>2.Downloading hex file!
 </source>
-        <translation>2. 正在导入Hex文件!
+        <translation type="vanished">2. 正在导入Hex文件!
 </translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="292"/>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="320"/>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="353"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="331"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="359"/>
+        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="392"/>
         <source>please open the com first !</source>
         <translation>请先连接设备！</translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="307"/>
         <source>Downloading DSP %1.
 </source>
-        <translation>正在导入DSP %1。
+        <translation type="vanished">正在导入DSP %1。
 </translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="323"/>
         <source>3.Downloading rpd file!
 </source>
-        <translation>4. 正在导入Rpd文件！
+        <translation type="vanished">4. 正在导入Rpd文件！
 </translation>
     </message>
     <message>
-        <location filename="FirmwareFlashDialog/firmwareflashdialog.cpp" line="356"/>
         <source>4.Downloading xml files!
 </source>
-        <translation>3. 正在导入Xml文件！
+        <translation type="vanished">3. 正在导入Xml文件！
 </translation>
     </message>
 </context>
@@ -783,267 +869,272 @@ more-&gt;option-&gt;autolaod-&gt;unchecked clicked apply
         <translation></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="148"/>
+        <location filename="sdtmainwindow.cpp" line="143"/>
         <source>connet</source>
         <translation>连接</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="149"/>
+        <location filename="sdtmainwindow.cpp" line="144"/>
         <source>connect to servo:you can manul to load by change:toogle More-&gt;Option-&gt;AutoLoad</source>
         <translation>连接设备：可以通过点击更多-&gt;选项-&gt;自动匹配，取消勾选来进行手动连接</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="152"/>
+        <location filename="sdtmainwindow.cpp" line="147"/>
         <source>disnet</source>
         <translation>断开</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="162"/>
+        <location filename="sdtmainwindow.cpp" line="157"/>
         <source>new</source>
         <translation>新建</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="163"/>
+        <location filename="sdtmainwindow.cpp" line="158"/>
         <source>select your correct system</source>
         <translation>配置正确的设备版本</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="166"/>
+        <location filename="sdtmainwindow.cpp" line="161"/>
         <source>dwnload</source>
         <translation>导入</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="167"/>
+        <location filename="sdtmainwindow.cpp" line="162"/>
         <source>download the  parameters to device</source>
         <translation>导入参数到设备，重启生效</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="170"/>
+        <location filename="sdtmainwindow.cpp" line="165"/>
         <source>upload</source>
         <translation>导出</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="171"/>
+        <location filename="sdtmainwindow.cpp" line="166"/>
         <source>save the device parameters to xml files</source>
         <translation>保存当前设备参数到xml文件</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="174"/>
+        <location filename="sdtmainwindow.cpp" line="169"/>
         <source>compare</source>
         <translation>比较</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="175"/>
+        <location filename="sdtmainwindow.cpp" line="170"/>
         <source>compare the old xml with new xml files</source>
         <translation>对比不同的参数文件</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="178"/>
+        <location filename="sdtmainwindow.cpp" line="173"/>
         <source>config</source>
         <translation>配置</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="180"/>
+        <location filename="sdtmainwindow.cpp" line="175"/>
         <source>download the parameters to device and immediately active</source>
         <translation>暂存参数到设备中（参数立即生效）</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="183"/>
+        <location filename="sdtmainwindow.cpp" line="178"/>
         <source>save</source>
         <translation>保存</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="184"/>
+        <location filename="sdtmainwindow.cpp" line="179"/>
         <source>permanently save the parameters to device
 you should reset the system to make it active</source>
         <translation>参数永久保存到设备中，重启设备生效</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="192"/>
+        <location filename="sdtmainwindow.cpp" line="187"/>
         <source>help</source>
         <translation>帮助</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="193"/>
+        <location filename="sdtmainwindow.cpp" line="188"/>
         <source>query the hardware and software infomation</source>
         <translation>查询设备详细信息</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="195"/>
+        <location filename="sdtmainwindow.cpp" line="190"/>
         <source>hinfo</source>
         <translation>硬件信息</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="197"/>
+        <location filename="sdtmainwindow.cpp" line="192"/>
         <source>vinfo</source>
         <translation>匹配信息</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="199"/>
+        <location filename="sdtmainwindow.cpp" line="194"/>
         <source>sinfo</source>
         <translation>关于软件</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="207"/>
+        <location filename="sdtmainwindow.cpp" line="202"/>
         <source>more</source>
         <translation>更多</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="214"/>
+        <location filename="sdtmainwindow.cpp" line="209"/>
         <source>online</source>
         <translation>在线模式</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="218"/>
+        <location filename="sdtmainwindow.cpp" line="213"/>
         <source>offline</source>
         <translation>离线模式</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="226"/>
+        <location filename="sdtmainwindow.cpp" line="221"/>
         <source>update</source>
         <translation>固件更新</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="227"/>
+        <location filename="sdtmainwindow.cpp" line="222"/>
         <source>rstdsp</source>
         <translation>复位DSP</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="229"/>
+        <location filename="sdtmainwindow.cpp" line="224"/>
         <source>option</source>
         <translation>选项</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="231"/>
+        <location filename="sdtmainwindow.cpp" line="226"/>
         <source>produce</source>
         <translation>出厂设置</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="233"/>
+        <location filename="sdtmainwindow.cpp" line="228"/>
         <source>Advanced User</source>
         <translation>高级用户选项</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="244"/>
+        <location filename="sdtmainwindow.cpp" line="239"/>
         <source>UpdateFirmware</source>
         <translation>固件管理</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="245"/>
+        <location filename="sdtmainwindow.cpp" line="240"/>
         <source>softmode</source>
         <translation>软件运行模式</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="437"/>
+        <location filename="sdtmainwindow.cpp" line="432"/>
         <source>Motor</source>
         <translation>电机参数</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="438"/>
+        <location filename="sdtmainwindow.cpp" line="433"/>
         <source>Encoder</source>
         <translation>编码器</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="439"/>
+        <location filename="sdtmainwindow.cpp" line="434"/>
         <source>Power</source>
         <translation>功率参数</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="440"/>
+        <location filename="sdtmainwindow.cpp" line="435"/>
         <source>Current</source>
         <translation>电流控制器</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="441"/>
+        <location filename="sdtmainwindow.cpp" line="436"/>
         <source>Velocity</source>
         <translation>速度控制器</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="442"/>
+        <location filename="sdtmainwindow.cpp" line="437"/>
         <source>Position</source>
         <translation>位置控制器</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="443"/>
+        <location filename="sdtmainwindow.cpp" line="438"/>
         <source>Brake</source>
         <translation>制动</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="444"/>
+        <location filename="sdtmainwindow.cpp" line="439"/>
         <source>Status</source>
         <translation>设备状态</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="445"/>
+        <location filename="sdtmainwindow.cpp" line="440"/>
         <source>RAM</source>
         <translation>RAM</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="446"/>
+        <location filename="sdtmainwindow.cpp" line="441"/>
         <source>FLASH</source>
         <translation>FLASH</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="447"/>
+        <location filename="sdtmainwindow.cpp" line="442"/>
         <source>IO</source>
         <translation>IO</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="456"/>
+        <location filename="sdtmainwindow.cpp" line="451"/>
         <source>[%1] </source>
         <translation></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="465"/>
+        <location filename="sdtmainwindow.cpp" line="460"/>
         <source>Axis_%1</source>
         <translation>轴_%1</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="495"/>
+        <location filename="sdtmainwindow.cpp" line="490"/>
         <source>Plot</source>
         <translation>示波器</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="496"/>
+        <location filename="sdtmainwindow.cpp" line="491"/>
         <source>-1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="740"/>
-        <location filename="sdtmainwindow.cpp" line="755"/>
+        <location filename="sdtmainwindow.cpp" line="742"/>
+        <location filename="sdtmainwindow.cpp" line="763"/>
         <source>error</source>
         <translation>异常</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="740"/>
+        <location filename="sdtmainwindow.cpp" line="742"/>
         <source>refuse to reset dsp :
 device :%1 axis =%2 servo is on 
  </source>
         <translation>无法复位DSP：设备%1的轴%2已经上伺服</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="755"/>
+        <location filename="sdtmainwindow.cpp" line="748"/>
+        <source>Do you want to reset device ?</source>
+        <translation>您想要重置设备吗？</translation>
+    </message>
+    <message>
+        <location filename="sdtmainwindow.cpp" line="763"/>
         <source>reset device = %1 dsp fail:
  </source>
         <translation>复位DSP%1失败：</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="757"/>
+        <location filename="sdtmainwindow.cpp" line="765"/>
         <source>reset dsp successfully</source>
         <translation>复位DSP成功</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="789"/>
+        <location filename="sdtmainwindow.cpp" line="797"/>
         <source>PcDebug</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="791"/>
+        <location filename="sdtmainwindow.cpp" line="799"/>
         <source>RnNet</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="857"/>
+        <location filename="sdtmainwindow.cpp" line="869"/>
         <source>current SDT version = %1
 device version = %2
 not match !
@@ -1055,7 +1146,7 @@ do you want to force to continue?
 确定要强制继续吗？</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="892"/>
+        <location filename="sdtmainwindow.cpp" line="906"/>
         <source>device&apos;s componoent C%1-V%2-F%3-P%4 is not supported
 it maybe cause some error!
 do you want to continue?
@@ -1065,7 +1156,7 @@ do you want to continue?
 确定要继续吗？</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="894"/>
+        <location filename="sdtmainwindow.cpp" line="908"/>
         <source>device&apos;s componoent C%1-V%2-F%3-P%4 can not find in your soft database
 you should update your software from
 http://www.googoltech.com.cn
@@ -1079,17 +1170,17 @@ http://www.googoltech.com.cn
 确定要继续吗？</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="932"/>
+        <location filename="sdtmainwindow.cpp" line="948"/>
         <source>your connect com is wrong</source>
         <translation>通信错误</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="933"/>
+        <location filename="sdtmainwindow.cpp" line="949"/>
         <source>your select com type is wrong</source>
         <translation>你当前选择的通信端口错误</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="935"/>
+        <location filename="sdtmainwindow.cpp" line="951"/>
         <source>Net Error
 
 exception cause maybe:
@@ -1102,7 +1193,7 @@ exception cause maybe:
 </translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="984"/>
+        <location filename="sdtmainwindow.cpp" line="1000"/>
         <source>Version:%1
 
 get more help from:
@@ -1113,62 +1204,75 @@ http://www.googoltech.com</source>
 http://www.googoltech.com</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1033"/>
-        <location filename="sdtmainwindow.cpp" line="1084"/>
-        <location filename="sdtmainwindow.cpp" line="1406"/>
+        <location filename="sdtmainwindow.cpp" line="748"/>
+        <location filename="sdtmainwindow.cpp" line="1049"/>
+        <location filename="sdtmainwindow.cpp" line="1100"/>
+        <location filename="sdtmainwindow.cpp" line="1435"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1033"/>
-        <location filename="sdtmainwindow.cpp" line="1084"/>
+        <location filename="sdtmainwindow.cpp" line="1049"/>
+        <location filename="sdtmainwindow.cpp" line="1100"/>
         <source>Please open com first!</source>
         <translation>请先连接设备！</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1071"/>
+        <location filename="sdtmainwindow.cpp" line="1057"/>
+        <location filename="sdtmainwindow.cpp" line="1111"/>
+        <source>Open XML File</source>
+        <translation>打开Xml文件</translation>
+    </message>
+    <message>
+        <location filename="sdtmainwindow.cpp" line="1057"/>
+        <location filename="sdtmainwindow.cpp" line="1111"/>
+        <source>XML Files(*.xml)</source>
+        <translation>Xml文件(*.xml)</translation>
+    </message>
+    <message>
+        <location filename="sdtmainwindow.cpp" line="1087"/>
         <source>Download xml file OK !</source>
         <translation>烧写参数文件成功 !</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1075"/>
+        <location filename="sdtmainwindow.cpp" line="1091"/>
         <source>Error: Download xml file fails !</source>
         <translation>异常：烧写参数文件失败 ！</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1125"/>
+        <location filename="sdtmainwindow.cpp" line="1141"/>
         <source>Upload xml file OK !</source>
         <translation>导出参数文件成功 ！</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1129"/>
+        <location filename="sdtmainwindow.cpp" line="1145"/>
         <source>Error: Upload xml file fails !</source>
         <translation>异常：导出参数文件失败 ！</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1238"/>
+        <location filename="sdtmainwindow.cpp" line="1254"/>
         <source>dev:%1,axis:%2,page:%3</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1285"/>
+        <location filename="sdtmainwindow.cpp" line="1301"/>
         <source>Device:%1 NetError!</source>
         <translation>设备：%1 通信异常 !</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1300"/>
+        <location filename="sdtmainwindow.cpp" line="1316"/>
         <source>Error</source>
         <translation>异常</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="1306"/>
-        <location filename="sdtmainwindow.cpp" line="1307"/>
+        <location filename="sdtmainwindow.cpp" line="1322"/>
+        <location filename="sdtmainwindow.cpp" line="1323"/>
         <source>search phase complete !</source>
         <oldsource>search phase complete</oldsource>
         <translation>电机寻相结束！</translation>
     </message>
     <message>
-        <location filename="sdtmainwindow.cpp" line="935"/>
+        <location filename="sdtmainwindow.cpp" line="951"/>
         <source>connect error</source>
         <translation>通信错误</translation>
     </message>

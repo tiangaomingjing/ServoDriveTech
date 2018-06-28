@@ -10,7 +10,7 @@ QT       -= gui
 
 TEMPLATE = lib
 CONFIG(debug, debug|release){
-    TARGET = MotionPosidtiond
+    TARGET = MotionPositiond
 } else{
     TARGET = MotionPosition
 }
@@ -18,13 +18,11 @@ CONFIG(debug, debug|release){
 DEFINES += MOTIONPOSITION_LIBRARY
 
 SOURCES += motionposition.cpp \
-    uimotionposition.cpp \
-    posplanmotion.cpp
+    uimotionposition.cpp
 
 HEADERS += motionposition.h\
         motionposition_global.h \
-    uimotionposition.h \
-    posplanmotion.h
+    uimotionposition.h
 
 unix {
     target.path = /usr/lib

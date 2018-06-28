@@ -57,6 +57,7 @@ AdvUserCompress::~AdvUserCompress()
 
 void AdvUserCompress::uiInit()
 {
+    ui->progressBar->setVisible(false);
     ui->lineEdit_advFolderPath->clear();
     ui->lineEdit_advRpdVersion->clear();
     ui->lineEdit_advHexNote->clear();
@@ -92,6 +93,7 @@ bool AdvUserCompress::advUserActive()
         QMessageBox::information(0, tr("Compress"), tr("Please enter version information"));
         return false;
     }
+    ui->progressBar->setVisible(true);
     DBManager *dbManager = new DBManager(GTUtils::databasePath() + "Version/", "root", "");
     bool ok = dbManager->checkCoupleValid(hexVersion, rpdVersion, 1, 2);
     delete dbManager;
@@ -101,6 +103,7 @@ bool AdvUserCompress::advUserActive()
             return false;
         }
     }
+    ui->progressBar->setValue(10);
     QTreeWidgetItem *currentItem = ui->treeWidget->currentItem();
     QString xmlbasePath = currentItem->text(GT::COL_CONFIG_NAME);
     int count = 0;
@@ -115,18 +118,21 @@ bool AdvUserCompress::advUserActive()
         QtTreeManager::writeTreeWidgetToXmlFile(d->m_compressPath + "/" + FILENAME_XML_FLASHPRM, tree);
         delete tree;
     }
+    ui->progressBar->setValue(30);
     xmlPath = GTUtils::sysPath() + xmlbasePath + "/page/" + FILENAME_XML_RAMPRM0;
     tree = QtTreeManager::createTreeWidgetFromXmlFile(xmlPath);
     if (tree != NULL) {
         QtTreeManager::writeTreeWidgetToXmlFile(d->m_compressPath + "/" + FILENAME_XML_RAMPRM0, tree);
         delete tree;
     }
+    ui->progressBar->setValue(50);
     xmlPath = GTUtils::sysPath() + xmlbasePath + "/page/" + FILENAME_XML_RAMPRM1;
     tree = QtTreeManager::createTreeWidgetFromXmlFile(xmlPath);
     if (tree != NULL) {
         QtTreeManager::writeTreeWidgetToXmlFile(d->m_compressPath + "/" + FILENAME_XML_RAMPRM1, tree);
         delete tree;
     }
+    ui->progressBar->setValue(70);
     QString infoFilePath = d->m_compressPath + "/infoFile.ini";
     QFile file(infoFilePath);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
@@ -139,6 +145,7 @@ bool AdvUserCompress::advUserActive()
     QString rpdNoteStr = "RpdNode:" + rpdNote;
     in<<hexStr<<"\n"<<hexNoteStr<<"\n"<<rpdStr<<"\n"<<rpdNoteStr;
     file.close();
+    ui->progressBar->setValue(80);
     FolderCompressor *folderComp = new FolderCompressor(0);
     QString dateStr = QDate::currentDate().toString("yyyyMMdd");
     QString modelName = ui->treeWidget->currentItem()->parent()->text(GT::COL_CONFIG_NAME);
@@ -147,9 +154,11 @@ bool AdvUserCompress::advUserActive()
     compDir.cdUp();
     QString desStr = compDir.absolutePath() + "/" + desFileName;
     ok = folderComp->compressFolder(d->m_compressPath, desStr);
+    ui->progressBar->setValue(90);
     if (!ok) {
         QMessageBox::information(0, tr("Compress"), tr("Compressing fails!"));
         delete folderComp;
+        ui->progressBar->setVisible(false);
         return false;
     }
     delete folderComp;
@@ -158,6 +167,8 @@ bool AdvUserCompress::advUserActive()
     infoDir.remove(FILENAME_XML_FLASHPRM);
     infoDir.remove(FILENAME_XML_RAMPRM0);
     infoDir.remove(FILENAME_XML_RAMPRM1);
+    ui->progressBar->setValue(100);
+    ui->progressBar->setVisible(false);
     return true;
 }
 

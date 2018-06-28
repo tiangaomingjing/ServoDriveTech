@@ -10,6 +10,59 @@
     </message>
 </context>
 <context>
+    <name>UiMotionPosition</name>
+    <message>
+        <location filename="MotionPosition/uimotionposition.ui" line="14"/>
+        <source>Form</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="MotionPosition/uimotionposition.ui" line="44"/>
+        <source>Reciprocating Motion</source>
+        <translation>往复运动</translation>
+    </message>
+    <message>
+        <location filename="MotionPosition/uimotionposition.ui" line="60"/>
+        <location filename="MotionPosition/uimotionposition.ui" line="111"/>
+        <source>TextLabel</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="MotionPosition/uimotionposition.ui" line="67"/>
+        <location filename="MotionPosition/uimotionposition.ui" line="118"/>
+        <source>Acceleration:</source>
+        <translation>加速度：</translation>
+    </message>
+    <message>
+        <location filename="MotionPosition/uimotionposition.ui" line="77"/>
+        <location filename="MotionPosition/uimotionposition.ui" line="128"/>
+        <source>Deceleration:</source>
+        <translation>减速度：</translation>
+    </message>
+    <message>
+        <location filename="MotionPosition/uimotionposition.ui" line="87"/>
+        <location filename="MotionPosition/uimotionposition.ui" line="148"/>
+        <source>Max Velocity:</source>
+        <translation>最大速度：</translation>
+    </message>
+    <message>
+        <location filename="MotionPosition/uimotionposition.ui" line="97"/>
+        <location filename="MotionPosition/uimotionposition.ui" line="158"/>
+        <source>Pulse:</source>
+        <translation>脉冲数：</translation>
+    </message>
+    <message>
+        <location filename="MotionPosition/uimotionposition.ui" line="138"/>
+        <source>Interval:</source>
+        <translation>时间间隔：</translation>
+    </message>
+    <message>
+        <location filename="MotionPosition/uimotionposition.ui" line="168"/>
+        <source>Times:</source>
+        <translation>往复次数：</translation>
+    </message>
+</context>
+<context>
     <name>UiMotionVelocity</name>
     <message>
         <location filename="MotionVelocity/uimotionvelocity.ui" line="14"/>
