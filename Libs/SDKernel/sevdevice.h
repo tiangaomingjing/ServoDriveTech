@@ -129,6 +129,18 @@ public:
 
   bool checkPageParameters(int axis,QTreeWidget *tree);
 
+  quint64 genCmdReadNos(int axisInx,bool &isOk);
+  quint64 genCmdReadAutoTurnningFgd(int axisInx,bool &isOk);//103
+  quint64 genCmdReadAutoTurnningFgp(int axisInx,bool &isOk);//104
+  quint64 genCmdReadAutoTurnningFgi(int axisInx,bool &isOk);//105
+  quint64 genCmdReadAutoTurnningFgn(int axisInx,bool &isOk);//106
+  bool genCmdAutoTurnningFinishFlag(int axisInx,bool &isOk);//107
+
+  bool genCmdWritePlanSpdMax(int axisInx,quint64 value);//77
+  bool genCmdWritePlanSpdAcc(int axisInx,quint64 value);//78
+  bool genCmdWritePlanSpdDec(int axisInx,quint64 value);//79
+
+
 signals:
   void initProgressInfo(int value,QString msg);
   void itemRangeValid(QTreeWidgetItem *item,int status);

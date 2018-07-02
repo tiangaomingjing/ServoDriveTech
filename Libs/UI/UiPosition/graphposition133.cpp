@@ -11,6 +11,7 @@
 #include "frameitemwidget.h"
 #include "pospid133.h"
 #include "NodeItems.h"
+#include "nolinearcontroller133.h"
 
 #include <QTreeWidgetItem>
 #include <QDebug>
@@ -26,6 +27,8 @@
 
 #define PID_POS_X -180
 #define PID_POS_Y -100
+#define NOLINEAR_POS_X -600
+#define NOLINEAR_POS_Y  -70
 
 #define FN_FST_6_INX      0
 #define ABS_RAT_6_INX     1
@@ -66,6 +69,8 @@ protected:
   PosPID133 *m_pid133;
 
   QListWidget *m_listWidgetCtlerSel;
+
+  NolinearController133 *m_nolinearCtler;
 };
 
 GraphPosition133::GraphPosition133(QWidget *parent) :
@@ -75,17 +80,28 @@ GraphPosition133::GraphPosition133(QWidget *parent) :
   Q_D(GraphPosition133);
   d->m_posInfilter = new PosInputFilter;
 
-  d->m_listWidgetCtlerSel = new QListWidget;
+  QWidget *wselect = new QWidget;
+  QVBoxLayout *vlayout = new QVBoxLayout(wselect);
+  QLabel *labelSel = new QLabel(tr("select controller:"),wselect);
+  d->m_listWidgetCtlerSel = new QListWidget(wselect);
   QStringList list;
   list<<tr("PID Controller")<<tr("Nolinear Controller");
   d->m_listWidgetCtlerSel->addItems(list);
+  d->m_listWidgetCtlerSel->setCurrentRow(0);
+  vlayout->addWidget(labelSel);
+  vlayout->addWidget(d->m_listWidgetCtlerSel);
+  wselect->setLayout(vlayout);
+  wselect->setMaximumSize(180,100);
 
-  QGraphicsProxyWidget *proxyWidget = d->m_scene->addWidget(d->m_listWidgetCtlerSel);
-  QPointF p = mapToScene(0,0);
-  proxyWidget->setPos(p);
+  QGraphicsProxyWidget *proxyWidget = d->m_scene->addWidget(wselect);
+  proxyWidget->setPos(-573,-300);
+
+  d->m_nolinearCtler = new NolinearController133(this);
+  d->m_nolinearCtler->setPos(QPointF(NOLINEAR_POS_X+2000,NOLINEAR_POS_Y));
 
   connect(d->m_posInfilter,SIGNAL(configClicked()),this,SLOT(onFilterConfigClicked()));
   connect(d->m_posInfilter,SIGNAL(saveClicked()),this,SLOT(onFilterSaveClicked()));
+  connect(d->m_listWidgetCtlerSel,SIGNAL(currentRowChanged(int)),this,SLOT(onListWidgetSelectIndexChanged(int)));
 }
 
 GraphPosition133::~GraphPosition133()
@@ -95,6 +111,7 @@ GraphPosition133::~GraphPosition133()
   Q_D(GraphPosition133);
 
   delete d->m_posInfilter;
+  delete d->m_nolinearCtler;
 
 }
 void GraphPosition133::setCustomVisitActive(IUiWidget *uiWidget)
@@ -238,8 +255,6 @@ void GraphPosition133::onUIFItemClicked()
   int index = d->m_treeWidget->topLevelItem(FIT_SEL_INX)->text(GT::COL_PAGE_TREE_VALUE).toUShort();
   d->m_posInfilter->setIIRFilterIndex(index);
 
-  d->m_UPID->setPos(d->m_UPID->x()+10,d->m_UPID->y()+10);
-  adjustPosition();
 }
 
 void GraphPosition133::onFilterConfigClicked()
@@ -292,6 +307,26 @@ void GraphPosition133::onPidComboBoxKpSWIndexChanged(int index)
   Q_D(GraphPosition133);
 
   d->m_treeWidget->topLevelItem(KP_SW_EN_INX)->setText(GT::COL_PAGE_TREE_VALUE,QString::number(index));
+}
+
+void GraphPosition133::onListWidgetSelectIndexChanged(int index)
+{
+  Q_D(GraphPosition133);
+  switch (index) {
+  case 0:
+    d->m_UPID->setPos(pidInitPos());
+    adjustPosition();
+    d->m_nolinearCtler->setPos(QPointF(NOLINEAR_POS_X,NOLINEAR_POS_Y)+QPointF(2000,0));
+    break;
+  case 1:
+    d->m_UPID->setPos(pidInitPos()+QPointF(-2000,0));
+    adjustPosition();
+    d->m_nolinearCtler->setPos(NOLINEAR_POS_X,NOLINEAR_POS_Y);
+    break;
+
+  default:
+    break;
+  }
 }
 
 void GraphPosition133::createPosDirItem()
@@ -504,6 +539,8 @@ void GraphPosition133::syncTreeDataToUiFace()
     d->m_cwRBtn->setChecked(true);
   else
     d->m_ccwRBtn->setChecked(true);
+
+  qDebug()<<"start pos = "<<d->m_Tstart->pos();
 }
 
 void GraphPosition133::installDoubleSpinBoxEventFilter()

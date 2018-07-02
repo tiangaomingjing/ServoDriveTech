@@ -32,6 +32,7 @@ protected slots:
   void onFilterSaveClicked();
   void onRadioBtnClicked();
   void onPidComboBoxKpSWIndexChanged(int index);
+  void onListWidgetSelectIndexChanged(int index);
 
 private:
   void createPosDirItem();

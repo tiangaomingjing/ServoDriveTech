@@ -749,6 +749,19 @@ QLabel#label_posTextPositiveMaxV,QLabel#label_posTextNegativeMaxV{
 	background-color: transparent;
 	border:none;
 }
+/**********nolinear controller****************/
+QWidget#widget_posKp,QWidget#widget_posKi,QWidget#widget_posKn,QWidget#widget_posKd,QWidget#widget_posANVSFreq,QWidget#widget_posANVSGain{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+QLabel#label_posFB
+{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:40px;
+}
 
 /*=====================Status状态界面===========================*/
 QWidget#widget_statusAlarm,QWidget#widget_statusInfo{
