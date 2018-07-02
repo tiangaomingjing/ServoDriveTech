@@ -49,7 +49,7 @@
    <item row="7" column="0">
     <widget class="QLabel" name="label_spdu">
      <property name="text">
-      <string>spd_u</string>
+      <string>spd_u(rpm)</string>
      </property>
     </widget>
    </item>
@@ -83,7 +83,7 @@
    <item row="8" column="0">
     <widget class="QLabel" name="label_spdl">
      <property name="text">
-      <string>spd_l</string>
+      <string>spd_l(rpm)</string>
      </property>
     </widget>
    </item>
@@ -120,7 +120,7 @@
    <item row="6" column="0">
     <widget class="QLabel" name="label_ts">
      <property name="text">
-      <string>ts (x125us)</string>
+      <string>ts (ms)</string>
      </property>
     </widget>
    </item>
