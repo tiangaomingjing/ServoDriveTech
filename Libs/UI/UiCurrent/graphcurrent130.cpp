@@ -11,6 +11,9 @@
 #include <QTreeWidget>
 #include <QDoubleSpinBox>
 
+#define PID_POS_X -50
+#define PID_POS_Y -100
+
 #define TID_INX 0
 #define TIQ_INX 1
 #define FND_INX 2
@@ -115,6 +118,10 @@ void GraphCurrent130::createPidControllerItem()
   d->m_scene->addItem(d->m_UPID);//take ownership
 
   d->m_widgetItemList.append(d->m_UPID);
+}
+QPointF GraphCurrent130::pidInitPos()
+{
+  return QPointF(PID_POS_X,PID_POS_Y);
 }
 
 

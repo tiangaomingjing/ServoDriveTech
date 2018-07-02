@@ -20,11 +20,17 @@ CONFIG(debug, debug|release){
 }
 
 SOURCES += uiposition.cpp \
-    graphposition129.cpp
+    graphposition129.cpp\
+    graphposition133.cpp \
+    posinputfilter.cpp \
+    pospid133.cpp
 
 HEADERS += uiposition.h\
         uiposition_global.h \
-    graphposition129.h
+    graphposition129.h\
+    graphposition133.h \
+    posinputfilter.h \
+    pospid133.h
 
 unix {
     target.path = /usr/lib
@@ -33,4 +39,6 @@ unix {
 
 FORMS += \
     uiposition.ui \
-    graphposition129.ui
+    graphposition129.ui \
+    posinputfilter.ui \
+    pospid133.ui

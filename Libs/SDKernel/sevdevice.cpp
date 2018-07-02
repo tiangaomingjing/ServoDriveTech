@@ -270,6 +270,7 @@ bool SevDevice::readGenItemRAM(quint16 axisInx, QTreeWidgetItem *item)
     else if(type=="int16")
     {
       qint16 value=rv;
+//      qDebug()<<"int16 value = "<<value;
       item->setText(COL_PAGE_TREE_VALUE,QString::number(value));
     }
     else if(type=="Uint32")

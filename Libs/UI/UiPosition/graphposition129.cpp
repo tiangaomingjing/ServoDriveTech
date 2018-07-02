@@ -6,6 +6,9 @@
 #include <QTreeWidgetItem>
 #include <QDebug>
 
+#define PID_POS_X -220
+#define PID_POS_Y -50
+
 #define FN_FST_6_INX 0
 #define ABS_RAT_6_INX 1
 #define POS_RAT_6_INX 2
@@ -65,4 +68,8 @@ void GraphPosition129::setUiVersionName()
   Q_D(GraphPosition129);
   d->m_versionName="V129";
   setObjectName("GraphPosition129");
+}
+QPointF GraphPosition129::pidInitPos()
+{
+  return QPointF(PID_POS_X,PID_POS_Y);
 }

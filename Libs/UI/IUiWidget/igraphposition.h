@@ -49,6 +49,8 @@ protected:
   void createAnchorItemHelper();
   virtual void setUpItemPosAnchors();
 
+  virtual QPointF pidInitPos() = 0;
+
   virtual bool eventFilter(QObject *obj, QEvent *event);
 
 protected slots:

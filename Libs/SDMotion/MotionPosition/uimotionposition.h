@@ -58,6 +58,7 @@ private slots:
     void onCssChanged(const QString &css);
     void onSpinBoxValueChanged(int value);
     void onDoubleSpinBoxValueChanged(double value);
+    //void onTimerTimeOut();
 
 private:
     void setupIcons(const QString &css);
@@ -66,6 +67,7 @@ private:
     int m_axisCount;
     QList<UiPosMotionData*> m_uiDataList;
     MotionPosition *q_ptr;
+    //QTimer* m_timer;
 };
 
 #endif // UIMOTIONPOSITION_H

@@ -185,6 +185,19 @@ QMenu::item:selected { /* when user selects item using mouse or keyboard */
 	font-weight:bold;
 }
 
+QWidget#iirfilter{
+	background-color: #E0DDDD;
+	border-radius:5px;
+	border:2px solid #BBB9B9;
+}
+QLabel#irrfilter_title{
+	border:1px solid #BBB9B9;
+	border-top:none;
+	border-left:none;
+	border-right:none;
+	padding-bottom: 10px;
+}
+
 
 /*==========================main treeWidget 导航栏=====================*/
 QDockWidget  QTreeView {

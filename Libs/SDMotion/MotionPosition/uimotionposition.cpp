@@ -14,7 +14,9 @@
 
 UiMotionPosition::UiMotionPosition(MotionPosition *mp, QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::UiMotionPosition)
+    ui(new Ui::UiMotionPosition),
+    q_ptr(mp)
+    //m_timer(new QTimer(this))
 {
     ui->setupUi(this);
     ui->stackedWidget_Point->setCurrentIndex(0);
@@ -32,8 +34,17 @@ UiMotionPosition::UiMotionPosition(MotionPosition *mp, QWidget *parent) :
     ui->spinBox_ReciPulse->setValue(0);
     ui->spinBox_ReciTimes->setValue(0);
 
-    ui->comboBox_pointAcc->addItem("°/s^2");
-    ui->comboBox_pointAcc->addItem("r/s^2");
+    ui->comboBox_pointAcc->addItem("pulse/ms^2");
+    ui->comboBox_pointDec->addItem("pulse/ms^2");
+    ui->comboBox_pointMaxVel->addItem("rpm");
+    ui->comboBox_pointPulse->addItem("pulse");
+
+    ui->comboBox_reciAcc->addItem("pulse/ms^2");
+    ui->comboBox_reciDec->addItem("pulse/ms^2");
+    ui->comboBox_reciMaxVel->addItem("rpm");
+    ui->comboBox_reciPulse->addItem("pulse");
+    ui->comboBox_reciInterval->addItem("ms");
+    //ui->comboBox_reciTimes->addItem("");
 
     for (int i = 0; i < m_axisCount; i++) {
         UiPosMotionData* data = new UiPosMotionData;
@@ -56,16 +67,17 @@ UiMotionPosition::UiMotionPosition(MotionPosition *mp, QWidget *parent) :
     connect(face, SIGNAL(faceCssChanged(QString)), this, SLOT(onCssChanged(QString)));
     setupIcons(face->css());
     connect(ui->checkBox_PositionMotion, SIGNAL(clicked(bool)), this, SLOT(onCheckBoxReciClicked(bool)));
-    connect(ui->doubleSpinBox_PointAcc,SIGNAL(valueChanged(int)),this,SLOT(onDoubleSpinBoxValueChanged(int)));
-    connect(ui->doubleSpinBox_PointDec,SIGNAL(valueChanged(int)),this,SLOT(onDoubleSpinBoxValueChanged(int)));
-    connect(ui->doubleSpinBox_PointMaxVel,SIGNAL(valueChanged(int)),this,SLOT(onDoubleSpinBoxValueChanged(int)));
+    connect(ui->doubleSpinBox_PointAcc,SIGNAL(valueChanged(double)),this,SLOT(onDoubleSpinBoxValueChanged(double)));
+    connect(ui->doubleSpinBox_PointDec,SIGNAL(valueChanged(double)),this,SLOT(onDoubleSpinBoxValueChanged(double)));
+    connect(ui->doubleSpinBox_PointMaxVel,SIGNAL(valueChanged(double)),this,SLOT(onDoubleSpinBoxValueChanged(double)));
     connect(ui->spinBox_PointPulse,SIGNAL(valueChanged(int)),this,SLOT(onSpinBoxValueChanged(int)));
-    connect(ui->doubleSpinBox_ReciAcc,SIGNAL(valueChanged(int)),this,SLOT(onDoubleSpinBoxValueChanged(int)));
-    connect(ui->doubleSpinBox_ReciDec,SIGNAL(valueChanged(int)),this,SLOT(onDoubleSpinBoxValueChanged(int)));
-    connect(ui->doubleSpinBox_ReciInterval,SIGNAL(valueChanged(int)),this,SLOT(onDoubleSpinBoxValueChanged(int)));
-    connect(ui->doubleSpinBox_ReciMaxVel,SIGNAL(valueChanged(int)),this,SLOT(onDoubleSpinBoxValueChanged(int)));
+    connect(ui->doubleSpinBox_ReciAcc,SIGNAL(valueChanged(double)),this,SLOT(onDoubleSpinBoxValueChanged(double)));
+    connect(ui->doubleSpinBox_ReciDec,SIGNAL(valueChanged(double)),this,SLOT(onDoubleSpinBoxValueChanged(double)));
+    connect(ui->doubleSpinBox_ReciInterval,SIGNAL(valueChanged(double)),this,SLOT(onDoubleSpinBoxValueChanged(double)));
+    connect(ui->doubleSpinBox_ReciMaxVel,SIGNAL(valueChanged(double)),this,SLOT(onDoubleSpinBoxValueChanged(double)));
     connect(ui->spinBox_ReciPulse,SIGNAL(valueChanged(int)),this,SLOT(onSpinBoxValueChanged(int)));
     connect(ui->spinBox_ReciTimes,SIGNAL(valueChanged(int)),this,SLOT(onSpinBoxValueChanged(int)));
+    //connect(m_timer, SIGNAL(timeout()), this, SLOT(onTimerTimeOut()));
 }
 
 UiMotionPosition::~UiMotionPosition()
@@ -131,10 +143,16 @@ void UiMotionPosition::onDoubleSpinBoxValueChanged(double value)
     box->setStyleSheet("color:red");
 }
 
+//void UiMotionPosition::onTimerTimeOut()
+//{
+
+//}
+
 bool UiMotionPosition::eventFilter(QObject *obj, QEvent *event)
 {
     if(event->type() == QEvent::KeyPress) {
         QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
+        qDebug()<<"key"<<keyEvent->key();
         if (keyEvent->key() == Qt::Key_Return || keyEvent->key() == Qt::Key_Enter) {
             QSpinBox *sbox = dynamic_cast<QSpinBox *>(obj);
             qDebug()<<"value "<<sbox->value();
@@ -179,11 +197,12 @@ bool UiMotionPosition::eventFilter(QObject *obj, QEvent *event)
 
 void UiMotionPosition::onCheckBoxReciClicked(bool checked)
 {
-    if(checked)
+    if(checked) {
         ui->stackedWidget_Point->setCurrentIndex(1);
-    else
+    } else {
         ui->stackedWidget_Point->setCurrentIndex(0);
-
+    }
+    qDebug()<<q_ptr->axisListWidget()->count();
     for (int i = 0; i < q_ptr->axisListWidget()->count(); i++) {
         if (q_ptr->axisListWidget()->item(i)->isSelected()) {
             m_uiDataList.at(i)->m_isReci = checked ;

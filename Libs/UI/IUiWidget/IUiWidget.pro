@@ -12,7 +12,8 @@ INCLUDEPATH+=$${PWD}/../../SDKernel\
               $${PWD}/../../Option\
               $${PWD}/../../AdvUser\
               $${PWD}/SDTGraphicsItems\
-              $${PWD}/DataBinding
+              $${PWD}/DataBinding\
+              $${PWD}/nodeitem
 
 QT       += widgets quickwidgets qml
 
@@ -68,7 +69,14 @@ SOURCES += iuiwidget.cpp \
     ../../../Common/src/ledalarm.cpp \
     DataBinding/idatabinding.cpp \
     DataBinding/labelbinding.cpp \
-    DataBinding/boxitemmapping.cpp
+    DataBinding/boxitemmapping.cpp \
+    nodeitem/inodeconnection.cpp \
+    nodeitem/nodeblock.cpp \
+    nodeitem/nodecornerline.cpp \
+    nodeitem/nodeline.cpp \
+    nodeitem/nodeport.cpp \
+    nodeitem/nodequadline.cpp \
+    nodeitem/nodeswitch.cpp
 
 HEADERS += iuiwidget.h\
         iuiwidget_global.h \
@@ -108,7 +116,16 @@ HEADERS += iuiwidget.h\
     ../../../Common/src/ledalarm.h \
     DataBinding/idatabinding.h \
     DataBinding/labelbinding.h \
-    DataBinding/boxitemmapping.h
+    DataBinding/boxitemmapping.h \
+    nodeitem/inodeconnection.h \
+    nodeitem/nodeblock.h \
+    nodeitem/nodecornerline.h \
+    nodeitem/nodeitemglobaldef.h \
+    nodeitem/nodeline.h \
+    nodeitem/nodeport.h \
+    nodeitem/nodequadline.h \
+    nodeitem/nodeswitch.h\
+    nodeitem/NodeItems.h
 
 unix {
     target.path = /usr/lib
@@ -118,3 +135,6 @@ unix {
 QML_IMPORT_TRACE=1
 
 TRANSLATIONS    += ch_uiwidget.ts en_uiwidget.ts
+
+
+

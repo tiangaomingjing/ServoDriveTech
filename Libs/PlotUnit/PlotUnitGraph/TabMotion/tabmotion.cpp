@@ -77,6 +77,7 @@ TabMotion::TabMotion(const QString &name, SevDevice *sev, QWidget *parent) :
   ui->tbtn_plot_ctlsrc_glink2->setCheckable(true);
   ui->tbtn_plot_ctlsrc_pc->setCheckable(true);
   ui->tbtn_plot_servoGoMotion->setCheckable(true);
+  ui->tbtn_plot_servoBtn->setCheckable(true);
   QStringList axisList;
   for(int i = 0;i<sev->axisNum();i++)
   {
@@ -100,10 +101,11 @@ TabMotion::TabMotion(const QString &name, SevDevice *sev, QWidget *parent) :
   connect(vMotion,SIGNAL(progressValueChanged(quint16,int)),this,SLOT(onProgressValueChanged(quint16,int)));
   connect(vMotion,SIGNAL(motionAllDone()),this,SLOT(onMotionAllDone()));
   m_motionList.append(vMotion);
+  //add new motion
 
   MotionPosition *pMotion = new MotionPosition(ui->listWidget_plot_tab2_axis, m_sev, tr("Position"));
-  connect(pMotion,SIGNAL(progressValueChanged(quint16,int)),this,SLOT(onProgressValueChanged(quint16,int)));
-  connect(pMotion,SIGNAL(motionAllDone()),this,SLOT(onMotionAllDone()));
+  //connect(pMotion,SIGNAL(progressValueChanged(quint16,int)),this,SLOT(onProgressValueChanged(quint16,int)));
+  //connect(pMotion,SIGNAL(motionAllDone()),this,SLOT(onMotionAllDone()));
   m_motionList.append(pMotion);
 
   for(int i=0;i<m_motionList.size();i++)
@@ -128,6 +130,7 @@ TabMotion::TabMotion(const QString &name, SevDevice *sev, QWidget *parent) :
   connect(ui->tbtn_plot_ctlsrc_glink2,SIGNAL(clicked(bool)),this,SLOT(onBtnCtlSrcGLink2Clicked()));
   connect(ui->listWidget_plot_motion_type_inx,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(onListWidgetMotionTypeInxClicked(QListWidgetItem*)));
   connect(ui->tbtn_plot_servoGoMotion,SIGNAL(clicked(bool)),this,SLOT(onBtnMotionGoClicked(bool)));
+  connect(ui->tbtn_plot_servoBtn, SIGNAL(clicked(bool)), this, SLOT(onBtnServoOnClicked(bool)));
 }
 
 TabMotion::~TabMotion()
@@ -143,7 +146,8 @@ void TabMotion::uiUpdate()
   GT::SevControlSrc src = m_sev->controlSrc(m_currentAxis);
 //  qDebug()<<"motion axis = "<<m_currentAxis<<"control src "<<(int)src;
   setUiCurrentCtlSrc(src);
-  ui->tbtn_plot_servoGoMotion->setChecked(m_sev->axisServoIsOn(m_currentAxis));
+  //ui->tbtn_plot_servoGoMotion->setChecked(m_sev->axisServoIsOn(m_currentAxis));
+  ui->tbtn_plot_servoBtn->setChecked(m_sev->axisServoIsOn(m_currentAxis));
 }
 
 void TabMotion::resetUi()
@@ -168,6 +172,9 @@ void TabMotion::setupIcons(const QString &css)
   servoOnIcon.addPixmap(QPixmap(iconPath+ICON_NAME_SERVO_ON),QIcon::Selected,QIcon::On);
   ui->tbtn_plot_servoGoMotion->setIcon(servoOnIcon);
   ui->tbtn_plot_servoGoMotion->setIconSize(iconSize);
+
+  ui->tbtn_plot_servoBtn->setIcon(servoOnIcon);
+  ui->tbtn_plot_servoBtn->setIconSize(iconSize);
 
 //  ui->label_vplan_seq->setScaledContents(true);
 //  ui->label_vplan_step->setScaledContents(true);
@@ -281,7 +288,8 @@ void TabMotion::onBtnServoOnClicked(bool checked)
         for (int row = 0; row<ui->listWidget_plot_tab2_axis->count(); row++) {
             axis = row;
             if (ui->listWidget_plot_tab2_axis->item(row)->isSelected()) {
-                m_axisMotionDataList.at(axis)->m_curMotion->movePrepare(axis);
+                m_axisMotionDataList.at(axis)->m_curMotion->sevDevice()->setAxisServoOn(row, true);
+                m_axisMotionDataList.at(row)->m_curMotion->stop(row);
                 GTUtils::delayms(5);
             }
         }
@@ -298,41 +306,58 @@ void TabMotion::onBtnServoOnClicked(bool checked)
 
 void TabMotion::onBtnMotionGoClicked(bool checked)
 {
-    if (!m_sev->isConnecting()) {
+    if(!m_sev->isConnecting() || !ui->tbtn_plot_servoBtn->isChecked())
+      {
         ui->tbtn_plot_servoGoMotion->setChecked(false);
-        return;
-    }
+        return ;
+      }
 
-    if (checked) {
-        if (!ui->tbtn_plot_servoBtn->isChecked()) {
-            QMessageBox::information(0, tr("Warning"), tr("Servo is not on!"), QMessageBox::Ok);
-            return;
-        }
+      if(checked)
+      {
         quint16 axis =0;
         emit motionStart();
         GTUtils::delayms(500);
+        for(int row = 0;row<ui->listWidget_plot_tab2_axis->count();row++)
+        {
+          axis = row;
+          if(ui->listWidget_plot_tab2_axis->item(row)->isSelected())
+          {
+            m_axisMotionDataList.at(axis)->m_curMotion->movePrepare(axis);
+            GTUtils::delayms(5);
+          }
+        }
+        m_barWidget->resetAllBarValue();
         qDebug()<<"movePrepare delay";
         OptPlot *plot = dynamic_cast<OptPlot *>(OptContainer::instance()->optItem("optplot"));
         GTUtils::delayms(plot->delayTime());
         qDebug()<<"begin to move";
 
-//    m_barWidget->setVisible(true);
+    //    m_barWidget->setVisible(true);
 
-        for (int row = 0; row < ui->listWidget_plot_tab2_axis->count(); row++) {
-            axis = row;
-            if (ui->listWidget_plot_tab2_axis->item(row)->isSelected()) {
-                m_axisMotionDataList.at(axis)->m_curMotion->move(axis);
-            }
+
+
+        for(int row = 0;row<ui->listWidget_plot_tab2_axis->count();row++)
+        {
+          axis = row;
+          if(ui->listWidget_plot_tab2_axis->item(row)->isSelected())
+          {
+            m_axisMotionDataList.at(axis)->m_curMotion->move(axis);
+          }
         }
-    } else {
-        for (int row = 0; row < ui->listWidget_plot_tab2_axis->count(); row++) {
-            if(ui->listWidget_plot_tab2_axis->item(row)->isSelected()) {
-                m_axisMotionDataList.at(row)->m_curMotion->stop(row);
-            }
+
+      }
+      else
+      {
+        for(int row = 0;row<ui->listWidget_plot_tab2_axis->count();row++)
+        {
+          if(ui->listWidget_plot_tab2_axis->item(row)->isSelected())
+          {
+            m_axisMotionDataList.at(row)->m_curMotion->stop(row);
+          }
         }
-//    m_barWidget->setVisible(false);
-//    m_barWidget->hideAllBar();
-  }
+    //    m_barWidget->setVisible(false);
+    //    m_barWidget->hideAllBar();
+      }
 }
 
 void TabMotion::onProgressValueChanged(quint16 axisInx, int value)

@@ -161,6 +161,9 @@ bool IUiWidget::writePageFLASH()
 {
   Q_D(IUiWidget);
   qDebug()<<this->objectName()<<"write page flash";
+  if(d->m_device->isConnecting() == false)
+    return true;
+
   bool wOk=true;
   //检查参数
   bool needChecked = parametersNeedChecked();
@@ -188,6 +191,9 @@ bool IUiWidget::readGenPageRAM()
 bool IUiWidget::writeGenPageRAM()
 {
   Q_D(IUiWidget);
+  if(d->m_device->isConnecting() == false)
+    return true;
+
   bool wOk=true;
   if(hasConfigFunc())
   {

@@ -22,6 +22,7 @@ protected:
   void setCustomVisitActive(IUiWidget *uiWidget) Q_DECL_OVERRIDE;
   void setUiVersionName() Q_DECL_OVERRIDE;
   void setupDataMappings() Q_DECL_OVERRIDE;
+  QPointF pidInitPos() Q_DECL_OVERRIDE;
 
 private:
 //  Ui::GraphVelocity129 *ui;

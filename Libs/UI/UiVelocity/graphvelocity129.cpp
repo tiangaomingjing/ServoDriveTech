@@ -6,6 +6,9 @@
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 
+#define PID_POS_X -60
+#define PID_POS_Y -85
+
 #define FN_FST_5_INX 0
 #define TI_FST_5_INX 1
 #define ABS_RAT_5_INX 2
@@ -37,7 +40,7 @@ GraphVelocity129::~GraphVelocity129()
 }
 void GraphVelocity129::setCustomVisitActive(IUiWidget *uiWidget)
 {
-
+  Q_UNUSED(uiWidget);
 }
 void GraphVelocity129::setUiVersionName()
 {
@@ -65,4 +68,9 @@ void GraphVelocity129::setupDataMappings()
   d->m_mapping->insertItem2Box(d->m_treeWidget->topLevelItem(POS_RAT_5_INX),d->m_maxTqEdit_P);
   d->m_mapping->insertItem2Box(d->m_treeWidget->topLevelItem(NEG_RAT_5_INX),d->m_maxTqEdit_N);
 
+}
+
+QPointF GraphVelocity129::pidInitPos()
+{
+  return QPointF(PID_POS_X,PID_POS_Y);
 }

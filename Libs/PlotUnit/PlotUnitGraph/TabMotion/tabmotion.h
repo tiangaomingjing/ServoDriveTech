@@ -68,6 +68,8 @@ private slots:
   void onProgressValueChanged(quint16 axisInx,int value);
   void onMotionAllDone();
 
+signals:
+
 private:
   void setupIcons(const QString &css);
   void setUiCurrentCtlSrc(int src);

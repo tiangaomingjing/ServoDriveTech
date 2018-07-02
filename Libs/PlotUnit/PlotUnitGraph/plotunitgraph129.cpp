@@ -837,7 +837,21 @@ void PlotUnitGraph129::onBtnSaveCurveClicked()
             emit sendSaveMsg(0, tr("Saving Finish!"), false);
             fdata.close();
         }
+    } else if (info.suffix().compare("src") == 0) {
+      if (fdata.open(QFile::WriteOnly))
+      {
+        QDataStream out(&fdata);
+        out.setVersion(QDataStream::Qt_5_5);
+        int size = d->m_curveManager->curveList().size();
+        out<<quint16(out.version())<< size;
+        for (int i = 0; i < d->m_curveManager->curveList().size(); i++)
+        {
+            d->m_curveManager->curveList().at(i)->saveCurve(out);
+        }
+        fdata.close();
+      }
     }
+
 
 
 }

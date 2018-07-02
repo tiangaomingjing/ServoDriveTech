@@ -52,8 +52,11 @@ protected:
   void createAnchorItemHelper();
   virtual void setUpItemPosAnchors();
 
+  virtual QPointF pidInitPos() = 0;
+
 
 signals:
+
 
 protected:
   IGraphCurrent(IGraphCurrentPrivate&dd, QWidget *parent=0);

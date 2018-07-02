@@ -21,6 +21,7 @@ protected:
   void setupDataMappings() Q_DECL_OVERRIDE;
 
   void createPidControllerItem() Q_DECL_OVERRIDE;
+  QPointF pidInitPos() Q_DECL_OVERRIDE;
 };
 
 #endif // GRAPHCURRENT129_H
