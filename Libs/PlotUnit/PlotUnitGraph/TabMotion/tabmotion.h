@@ -63,9 +63,12 @@ private slots:
   void onBtnCtlSrcPcClicked();
   void onBtnCtlSrcGLink2Clicked();
   void onListWidgetMotionTypeInxClicked(QListWidgetItem *item);
+  void onBtnServoOnClicked(bool checked);
   void onBtnMotionGoClicked(bool checked);
   void onProgressValueChanged(quint16 axisInx,int value);
   void onMotionAllDone();
+
+signals:
 
 private:
   void setupIcons(const QString &css);

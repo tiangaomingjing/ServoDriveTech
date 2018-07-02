@@ -322,23 +322,23 @@ Solution:
 <context>
     <name>IUiWidget</name>
     <message>
-        <location filename="iuiwidget.cpp" line="61"/>
-        <location filename="iuiwidget.cpp" line="204"/>
+        <location filename="iuiwidget.cpp" line="63"/>
+        <location filename="iuiwidget.cpp" line="240"/>
         <source>switch to list view</source>
         <translation>列表视图</translation>
     </message>
     <message>
-        <location filename="iuiwidget.cpp" line="78"/>
+        <location filename="iuiwidget.cpp" line="80"/>
         <source>RAM value</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="iuiwidget.cpp" line="83"/>
+        <location filename="iuiwidget.cpp" line="85"/>
         <source>FLASH value</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="iuiwidget.cpp" line="198"/>
+        <location filename="iuiwidget.cpp" line="234"/>
         <source>switch to graph view</source>
         <translation>图形视图</translation>
     </message>

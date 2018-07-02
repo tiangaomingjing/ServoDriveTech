@@ -39,6 +39,29 @@
     </message>
 </context>
 <context>
+    <name>GraphCurrent133</name>
+    <message>
+        <location filename="graphcurrent133.cpp" line="74"/>
+        <source>PID controller</source>
+        <translation type="unfinished">PID调节器</translation>
+    </message>
+    <message>
+        <location filename="graphcurrent133.cpp" line="79"/>
+        <source>P gain(HZ)</source>
+        <translation type="unfinished">增益系数(HZ)</translation>
+    </message>
+    <message>
+        <location filename="graphcurrent133.cpp" line="90"/>
+        <source>I gain(us)</source>
+        <translation type="unfinished">积分常数(us)</translation>
+    </message>
+    <message>
+        <location filename="graphcurrent133.cpp" line="101"/>
+        <source>D gain(ms)</source>
+        <translation type="unfinished">微分常数(ms)</translation>
+    </message>
+</context>
+<context>
     <name>UiCurrent</name>
     <message>
         <location filename="uicurrent.ui" line="17"/>

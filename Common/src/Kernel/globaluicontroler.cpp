@@ -30,6 +30,7 @@ void GlobalUiControler::createUis()
   connect(this,SIGNAL(beforeSevDeviceChanged()),iplot,SLOT(onBeforeSevDeviceChanged()));
   connect(this,SIGNAL(sevDeviceListChanged(QList<SevDevice*>)),iplot,SLOT(onSevDeviceListChanged(QList<SevDevice*>)));
   connect(this,SIGNAL(appClosed()),iplot,SLOT(onAppClosed()));
+  connect(iplot, SIGNAL(sendSaveMsg(int, QString, bool)), this, SIGNAL(sendSaveMsgToMain(int,QString,bool)));
   m_uiLists.append(uiPlot);
 }
 

@@ -27,6 +27,7 @@ INCLUDEPATH +=$${MYLIB_PATH}/UI/IUiWidget\
               $${PWD}/DialogPickCurve\
               $${PWD}/CurveManager\
               $${PWD}/Thread\
+              $${PWD}/ExistedCurveManager\
               $${PWD}/../../Com/Communication
 
 CONFIG(debug, debug|release){
@@ -38,7 +39,8 @@ CONFIG(debug, debug|release){
            $${PLOT_OUT_PATH}/Optiond.lib\
            $${PLOT_OUT_PATH}/SDKerneld.lib\
            $${PLOT_OUT_PATH}/IPlotUnitd.lib\
-           $${PLOT_OUT_PATH}/MotionVelocityd.lib
+           $${PLOT_OUT_PATH}/MotionVelocityd.lib\
+           $${PLOT_OUT_PATH}/MotionPositiond.lib
 
     TARGET = PlotUnitGraphd
 } else{
@@ -49,7 +51,8 @@ CONFIG(debug, debug|release){
            $${PLOT_OUT_PATH}/Option.lib\
            $${PLOT_OUT_PATH}/SDKernel.lib\
            $${PLOT_OUT_PATH}/IPlotUnit.lib\
-           $${PLOT_OUT_PATH}/MotionVelocity.lib
+           $${PLOT_OUT_PATH}/MotionVelocity.lib\
+           $${PLOT_OUT_PATH}/MotionPosition.lib
 
     TARGET = PlotUnitGraph
 }
@@ -76,7 +79,8 @@ SOURCES += \
     TabModeCtl/tabmodectl.cpp \
     TabMotion/tabmotion.cpp \
     itabwidget.cpp \
-    TabModeCtl/modectlpanel.cpp
+    TabModeCtl/modectlpanel.cpp \
+    ExistedCurveManager/existedcurvemanager.cpp
 
 HEADERS += \
         plotunitgraph_global.h \
@@ -100,7 +104,8 @@ HEADERS += \
     TabModeCtl/tabmodectl.h \
     TabMotion/tabmotion.h \
     itabwidget.h \
-    TabModeCtl/modectlpanel.h
+    TabModeCtl/modectlpanel.h \
+    ExistedCurveManager/existedcurvemanager.h
 
 unix {
     target.path = /usr/lib

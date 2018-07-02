@@ -547,6 +547,7 @@ void SDTMainWindow::globalUiPageInit()
   m_gUiControl=new GlobalUiControler(sevList);
   connect(this,SIGNAL(appClosed()),m_gUiControl,SIGNAL(appClosed()),Qt::QueuedConnection);
   connect(this,SIGNAL(beforeSevDeviceChanged()),m_gUiControl,SIGNAL(beforeSevDeviceChanged()));
+  connect(m_gUiControl, SIGNAL(sendSaveMsgToMain(int,QString,bool)), this, SLOT(onSaveMsgReceived(int,QString,bool)));
   m_gUiControl->createUis();
 }
 void SDTMainWindow::stackedWidgetInit()
@@ -744,7 +745,7 @@ void SDTMainWindow::onActnResetDspClicked()
     }
   }
 
-  QMessageBox::StandardButton rb=QMessageBox::question(this,"Warring",tr("Do you want to reset device ?"),QMessageBox::Yes|QMessageBox::No,QMessageBox::No);
+  QMessageBox::StandardButton rb=QMessageBox::question(this,tr("Warning"),tr("Do you want to reset device ?"),QMessageBox::Yes|QMessageBox::No,QMessageBox::No);
   if (rb==QMessageBox::No)
   {
     return;
@@ -827,9 +828,12 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
     bool isContinue=true;
     SdtError::instance()->errorStringList()->clear();
     m_statusBar->statusProgressBar()->setVisible(true);
+    qDebug()<<"a";
     setUiAllEnable(false);
+    qDebug()<<"b";
     m_statusBar->statusProgressBar()->setValue(5);
     bool isOpen=setConnect(true);
+    qDebug()<<"c";
     if(isOpen)
     {
       /*if(isAutoLoad())
@@ -848,6 +852,7 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
       IVerMatching *dbMatch=new DbVerMatching;
       IVerMatching::CheckStatus checkStatus=IVerMatching::CHECK_STA_OK;
       dbMatch->open();
+      qDebug()<<"d";
       foreach (SdAssembly*sd, m_sdAssemblyList)
       {
         ComDriver::ICom *com=sd->sevDevice()->socketCom();
@@ -869,7 +874,7 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
             }
           }
         }
-
+        qDebug()<<"e";
         //------组合版本匹配-------
         quint32 p,c,v,f;
         p=c=v=f=0;
@@ -889,7 +894,9 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
           verInfo.p=p;
           verInfo.v=v;
           //checkStatus=vMatch->check(verInfo);
+          qDebug()<<"f";
           checkStatus = dbMatch->check(verInfo);
+          qDebug()<<"g";
         }
 
         if(checkStatus!=IVerMatching::CHECK_STA_OK)
@@ -908,7 +915,7 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
         }
 
         sd->sevDevice()->setVersionAttributeActive();
-
+        qDebug()<<"h";
       }
 //      vMatch->close();
 //      delete vMatch;
@@ -919,7 +926,9 @@ void SDTMainWindow::onActnConnectClicked(bool checked)
       {
         m_connecting=true;
         m_statusBar->statusProgressBar()->setValue(100);
+        qDebug()<<"i";
         activeCurrentUi();
+        qDebug()<<"j";
         m_statusMonitor->startMonitor(1000);
         m_actnNewConfig->setEnabled(false);
       }
@@ -1314,6 +1323,19 @@ void SDTMainWindow::onIpaDone()
   m_statusBar->setMsg(tr("search phase complete !"),SdtStatusBar::MSG_TYPE_NORMAL);
   GTUtils::delayms(4000);
   m_statusBar->setMsg("",SdtStatusBar::MSG_TYPE_NORMAL);
+}
+
+void SDTMainWindow::onSaveMsgReceived(int value, const QString &msg, bool isStart)
+{
+    if (isStart) {
+        mp_progressBar->show();
+        onProgressInfo(value, msg);
+        setUiAllEnable(false);
+    } else {
+        onProgressInfo(value, msg);
+        mp_progressBar->hide();
+        setUiAllEnable(true);
+    }
 }
 SdAssembly *SDTMainWindow::createSdAssembly(DeviceConfig *cfg)
 {

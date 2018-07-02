@@ -234,22 +234,16 @@ bool PluginsManager::installCustomPlugin()
 ICurve *PluginsManager::createICurveFromContainer(const QString &name)
 {
   ICurve * c = NULL;
-  qDebug()<<"s";
   if(name == m_expertCurve->pluginName())
   {
-      qDebug()<<"s1";
     c = m_expertCurve->clone();
-    qDebug()<<"s2";
     return c;
   }
   for(int i = 0;i<m_usrCurves.size();i++)
   {
-      qDebug()<<"i"<<i;
     if(name == m_usrCurves.at(i)->pluginName())
     {
-        qDebug()<<"s3";
       c = m_usrCurves.at(i)->clone();
-      qDebug()<<"s4";
       return c;
     }
   }
@@ -346,18 +340,20 @@ QList<ICurve *> PluginsManager::buildCurvesFromSrc(QDataStream &data, int count)
 {
     QList<ICurve*> list;
     for (int i = 0; i < count; i++) {
+        emit sendOpenMsg((i + 1) * 100 / count, tr("Reading Curve %1").arg(i + 1), true);
         QString pluginName;
         data>>pluginName;
-        qDebug()<<"pluginName"<<pluginName;
+        //qDebug()<<"pluginName"<<pluginName;
         ICurve* curve = createICurveFromContainer(pluginName);
         if (curve == NULL) {
             continue;
         }
-        qDebug()<<"axisCount"<<curve->axisCount();
+        //qDebug()<<"axisCount"<<curve->axisCount();
         curve->readCurve(data);
-        qDebug()<<"sss";
+        //qDebug()<<"sss";
         list.append(curve);
     }
+    emit sendOpenMsg(0, tr("Reading Curve Finish!"), false);
     return list;
 }
 

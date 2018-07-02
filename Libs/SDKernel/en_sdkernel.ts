@@ -57,7 +57,7 @@
     </message>
     <message>
         <location filename="sevdevice.cpp" line="372"/>
-        <location filename="sevdevice.cpp" line="857"/>
+        <location filename="sevdevice.cpp" line="859"/>
         <source>Write Error</source>
         <translation type="unfinished"></translation>
     </message>
@@ -77,34 +77,34 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sevdevice.cpp" line="857"/>
+        <location filename="sevdevice.cpp" line="859"/>
         <source>Write Flash Parameter Error:%1 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sevdevice.cpp" line="886"/>
-        <location filename="sevdevice.cpp" line="1038"/>
+        <location filename="sevdevice.cpp" line="888"/>
+        <location filename="sevdevice.cpp" line="1048"/>
         <source>CheckPrm Error
 :%1 %2 is out of range %3 -- %4
 paramater save fail!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sevdevice.cpp" line="891"/>
-        <location filename="sevdevice.cpp" line="912"/>
-        <location filename="sevdevice.cpp" line="1043"/>
+        <location filename="sevdevice.cpp" line="893"/>
+        <location filename="sevdevice.cpp" line="914"/>
+        <location filename="sevdevice.cpp" line="1053"/>
         <source>Prm Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sevdevice.cpp" line="912"/>
+        <location filename="sevdevice.cpp" line="914"/>
         <source>PowerBoard CheckPrm Error
 :%1 is out of range
 paramater save fail!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="sevdevice.cpp" line="985"/>
+        <location filename="sevdevice.cpp" line="995"/>
         <source>Checking axis%1</source>
         <translation type="unfinished"></translation>
     </message>

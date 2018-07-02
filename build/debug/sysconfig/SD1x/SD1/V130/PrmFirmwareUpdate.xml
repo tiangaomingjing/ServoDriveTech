@@ -56,7 +56,7 @@
          <string>dspAxis</string>
         </property>
         <property name="text">
-         <string>2</string>
+         <string>1</string>
         </property>
         <property name="text">
          <string>每一个DSP管理两个轴</string>
@@ -78,7 +78,7 @@
          <string>fpgaAxis</string>
         </property>
         <property name="text">
-         <string>2</string>
+         <string>1</string>
         </property>
         <property name="text">
          <string>第个fpga管理4个轴</string>

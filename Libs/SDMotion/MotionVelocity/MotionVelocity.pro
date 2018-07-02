@@ -19,8 +19,8 @@ DEFINES += MOTIONVELOCITY_LIBRARY
 
 SOURCES += motionvelocity.cpp \
     uimotionvelocity.cpp \
-#    vmotionthread.cpp \
     velplanmotion.cpp
+#    vmotionthread.cpp \
 
 HEADERS += motionvelocity.h\
         motionvelocity_global.h \

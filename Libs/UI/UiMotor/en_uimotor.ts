@@ -106,7 +106,7 @@
     </message>
     <message>
         <location filename="graphmotor129.ui" line="600"/>
-        <source>anti electromotive(mVpeak/rpm)</source>
+        <source>moment coefficietn(N.m/A)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

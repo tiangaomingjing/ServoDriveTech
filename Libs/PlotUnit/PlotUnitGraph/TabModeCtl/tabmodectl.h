@@ -23,12 +23,15 @@ public:
 
 protected:
   bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
+signals:
+
 private slots:
   void onCssChanged(const QString &css);
   void onModeSpinBoxValueChanged(int value);
+  void onModeDoubleSpinBoxValueChanged(double value);
   void onModeCtlPanelModeChanged(quint16 axis, int mode);
   void onModeCtlPanelCheckChanged(quint16 axis, int mode);
-  void onBtnServoOnClicked(bool checked);
+  void onBtnServoOnClicked(bool checked); 
 
 private:
   void setupIcons(const QString &css);

@@ -38,7 +38,8 @@ UiCheckCombo::UiCheckCombo(quint16 axis,QWidget *parent):QWidget(parent),
      <<tr("9FIX")\
      <<tr("10PT")\
      <<tr("11DB")\
-     <<tr("12CSC");
+     <<tr("12CSC")\
+     <<tr("13AUT");
   m_comboBox->addItems(list);
   hlayout->addWidget(m_checkBox);
   hlayout->addWidget(m_comboBox);
