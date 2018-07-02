@@ -127,7 +127,8 @@ typedef enum{
     MODE_FIX,
     MODE_PT,
     MODE_DB,
-    MODE_CSC
+    MODE_CSC,
+    MODE_AUT
 }ModeCtlType;
 
 template <typename T>

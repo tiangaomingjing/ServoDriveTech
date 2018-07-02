@@ -28,6 +28,7 @@ signals:
 private slots:
   void onCssChanged(const QString &css);
   void onModeSpinBoxValueChanged(int value);
+  void onModeDoubleSpinBoxValueChanged(double value);
   void onModeCtlPanelModeChanged(quint16 axis, int mode);
   void onModeCtlPanelCheckChanged(quint16 axis, int mode);
   void onBtnServoOnClicked(bool checked); 
