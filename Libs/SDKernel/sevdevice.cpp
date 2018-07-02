@@ -28,6 +28,16 @@
 
 #define TEST_CHECKSTATUS 0
 
+#define CMD_MOT_NOS_KEY_NAME                  "gSevDrv.sev_obj.cur.mot.Nos_1"
+#define CMD_POS_MKR_PRM_MAXSPD_NAME           "gSevDrv.sev_obj.pos.mkr.prm.maxspd"
+#define CMD_POS_MKR_PRM_ACC_NAME              "gSevDrv.sev_obj.pos.mkr.prm.accrate"
+#define CMD_POS_MKR_PRM_DEC_NAME              "gSevDrv.sev_obj.pos.mkr.prm.decrate"
+#define CMD_VEL_ATN_FGD_NAME                  "gSevDrv.sev_obj.vel.atn.prm.fgd_stp"
+#define CMD_VEL_ATN_FGP_NAME                  "gSevDrv.sev_obj.vel.atn.prm.fgp_stp"
+#define CMD_VEL_ATN_FGI_NAME                  "gSevDrv.sev_obj.vel.atn.prm.fgi_stp"
+#define CMD_VEL_ATN_FGN_NAME                  "gSevDrv.sev_obj.vel.atn.prm.fgn_stp"
+#define CMD_VEL_ATN_FINISH_NAME               "gSevDrv.sev_obj.vel.atn.finish_flag"
+
 SevDevicePrivate::SevDevicePrivate(SevDevice *sev, QObject *parent):QObject(parent),
   q_ptr(sev),
   m_configTree(NULL),
@@ -958,6 +968,52 @@ bool SevDevice::checkPageParameters(int axis, QTreeWidget *tree)
       }
   }
   return isOk;
+}
+
+quint64 SevDevice::genCmdReadNos(int axisInx, bool &isOk)
+{
+  quint64 v=genCmdRead(CMD_MOT_NOS_KEY_NAME,axisInx,isOk);
+  return v;
+}
+
+quint64 SevDevice::genCmdReadAutoTurnningFgd(int axisInx, bool &isOk)
+{
+  return genCmdRead(CMD_VEL_ATN_FGD_NAME,axisInx,isOk);
+}
+
+quint64 SevDevice::genCmdReadAutoTurnningFgi(int axisInx, bool &isOk)
+{
+  return genCmdRead(CMD_VEL_ATN_FGI_NAME,axisInx,isOk);
+}
+
+quint64 SevDevice::genCmdReadAutoTurnningFgp(int axisInx, bool &isOk)
+{
+  return genCmdRead(CMD_VEL_ATN_FGP_NAME,axisInx,isOk);
+}
+
+quint64 SevDevice::genCmdReadAutoTurnningFgn(int axisInx, bool &isOk)
+{
+  return genCmdRead(CMD_VEL_ATN_FGN_NAME,axisInx,isOk);
+}
+
+bool SevDevice::genCmdAutoTurnningFinishFlag(int axisInx, bool &isOk)
+{
+  return genCmdRead(CMD_VEL_ATN_FINISH_NAME,axisInx,isOk);
+}
+
+bool SevDevice::genCmdWritePlanSpdMax(int axisInx, quint64 value)
+{
+  return genCmdWrite(CMD_POS_MKR_PRM_MAXSPD_NAME,value,axisInx);
+}
+
+bool SevDevice::genCmdWritePlanSpdAcc(int axisInx, quint64 value)
+{
+  return genCmdWrite(CMD_POS_MKR_PRM_ACC_NAME,value,axisInx);
+}
+
+bool SevDevice::genCmdWritePlanSpdDec(int axisInx, quint64 value)
+{
+  return genCmdWrite(CMD_POS_MKR_PRM_DEC_NAME,value,axisInx);
 }
 
 bool SevDevice::checkLoadParameters(QTreeWidget *tree, int itemNum)
