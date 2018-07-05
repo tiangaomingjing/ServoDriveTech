@@ -25,21 +25,28 @@ protected:
   void installDoubleSpinBoxEventFilter() Q_DECL_OVERRIDE;
   void setDoubleSpinBoxConnections() Q_DECL_OVERRIDE;
   QPointF pidInitPos() Q_DECL_OVERRIDE;
+  bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
+  void setEditTextStatusDefaultAll() Q_DECL_OVERRIDE;
 
 protected slots:
+  void onItemBoxEditTextError(QTreeWidgetItem *item, int status) Q_DECL_OVERRIDE;
+  void onDoubleSpinBoxFocusOut() Q_DECL_OVERRIDE;
   void onUIFItemClicked();
   void onFilterConfigClicked();
   void onFilterSaveClicked();
   void onRadioBtnClicked();
   void onPidComboBoxKpSWIndexChanged(int index);
   void onListWidgetSelectIndexChanged(int index);
+  void onNlcDirChanged(int dir);
+  void onNlcKuChanged(int index);
+  void onNlcSWChanged(bool isOn);
+  void onBtnAutoStartClicked(bool checked);
+  void onAutoTurningProgressValueChanged(int value);
 
 private:
   void createPosDirItem();
   quint16 readNos(const QString &key);
-
-
-
+  void setControllerUi(int index);
 
 };
 

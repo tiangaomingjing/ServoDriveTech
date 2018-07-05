@@ -32,7 +32,7 @@ void BoxItemMapping::insertBox2MultiItem(QDoubleSpinBox *box, QTreeWidgetItem *i
 
 void BoxItemMapping::syncBoxText2Item(QDoubleSpinBox *obj)
 {
-  qDebug()<<"sync boxtext to itme"<<obj->objectName();
+  qDebug()<<"sync boxtext to item "<<obj->objectName();
   if(m_box2ItemHash.contains(obj))
   {
     QTreeWidgetItem *item=m_box2ItemHash.value(obj);

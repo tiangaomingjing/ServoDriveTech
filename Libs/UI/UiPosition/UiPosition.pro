@@ -26,7 +26,8 @@ SOURCES += uiposition.cpp \
     posinputfilter.cpp \
     pospid133.cpp \
     NolinearController/nolinearcontroller133.cpp \
-    NolinearController/kuselectwidget133.cpp
+    NolinearController/kuselectwidget133.cpp \
+    NolinearController/nolinearautoturning.cpp
 
 HEADERS += uiposition.h\
         uiposition_global.h \
@@ -35,7 +36,8 @@ HEADERS += uiposition.h\
     posinputfilter.h \
     pospid133.h \
     NolinearController/nolinearcontroller133.h \
-    NolinearController/kuselectwidget133.h
+    NolinearController/kuselectwidget133.h \
+    NolinearController/nolinearautoturning.h
 
 unix {
     target.path = /usr/lib

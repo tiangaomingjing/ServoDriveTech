@@ -119,7 +119,7 @@ void IGraph::onItemBoxEditTextError(QTreeWidgetItem *item, int status)
   if(box!=NULL)
   {
     setEditTextStatus(box,OptFace::EditTextStatus(status));
-    qDebug()<<"error box value = "<<box->value();
+    qDebug()<<"set edit status = "<<status<<"value = "<<box->value();
   }
 }
 

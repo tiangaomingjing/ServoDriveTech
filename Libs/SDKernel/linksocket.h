@@ -64,8 +64,8 @@ public:
   bool axisServoIsOn(quint16 axisInx);
   void setAxisServoOn(quint16 axisInx,bool enable);
 
-  ComDriver::TaskServoMode currentTaskServoMode(quint16 axisInx);
-  void setCurrentTaskServoMode(quint16 axisInx,ComDriver::TaskServoMode mode);
+  int currentTaskServoMode(quint16 axisInx);
+  void setCurrentTaskServoMode(quint16 axisInx, int mode);
 protected:
 
 private:

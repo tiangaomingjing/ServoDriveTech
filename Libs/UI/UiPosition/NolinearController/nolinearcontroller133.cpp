@@ -4,6 +4,8 @@
 #include "saturationitemwidget.h"
 #include "kuselectwidget133.h"
 #include "sumitemwidget.h"
+#include "boxitemmapping.h"
+#include "frameitemwidget.h"
 
 #include <QGraphicsView>
 #include <QDebug>
@@ -12,6 +14,9 @@
 #include <QDoubleSpinBox>
 #include <QHBoxLayout>
 #include <QFormLayout>
+#include <QGraphicsSimpleTextItem>
+#include <QPushButton>
+#include <QProgressBar>
 
 NolinearController133::NolinearController133(QGraphicsView *view, QObject *parent) : QObject(parent),
   m_view(view)
@@ -34,15 +39,21 @@ NolinearController133::NolinearController133(QGraphicsView *view, QObject *paren
   createANVSFreqItem();
   createANVSGainItem();
   createFeedBackItem();
+  createSaturationConfigItem();
+  createAutoTurningItem();
 
   createArrowsItem();
   resetAllItemParent();
   adjustPostion();
+
+  onSaturationClicked(false);
+
+  m_boxItemMapping = new BoxItemMapping;
 }
 
 NolinearController133::~NolinearController133()
 {
-
+  delete m_boxItemMapping;
 }
 
 void NolinearController133::adjustPostion()
@@ -73,16 +84,140 @@ void NolinearController133::adjustPostion()
   m_midPortNULL->setPos(m_anvsFreqItem->boundingRect().width()/2-m_midPortNULL->rect().width()/2,m_anvsFreqItem->boundingRect().height()+m_midPortNULL->rect().height()+10);
   m_posFBItem->setPos(0,m_midPortNULL->rect().height()+20);
   m_midPortFB->setPos(m_posFBItem->boundingRect().width()+100,-(m_midPortFB->boundingRect().height()-m_posFBItem->boundingRect().height())/2);
+
+  m_autoTnItem->setPos(-(m_autoTnItem->boundingRect().width()-m_dirItem->boundingRect().width())/2,m_dirItem->boundingRect().height()+100);
 }
 
 void NolinearController133::setPos(const QPointF &p)
 {
   m_startPort->setPos(p);
+  QPointF saturationP = m_saturationItem->scenePos();
+  m_satnFrame->setPos(saturationP+QPointF(-(m_satnFrame->boundingRect().width()-m_saturationItem->boundingRect().width())/2,m_saturationItem->boundingRect().height()+5));
 }
 
 void NolinearController133::setPos(qreal x, qreal y)
 {
   m_startPort->setPos(x,y);
+  QPointF saturationP = m_saturationItem->scenePos();
+  m_satnFrame->setPos(saturationP+QPointF(-(m_satnFrame->boundingRect().width()-m_saturationItem->boundingRect().width())/2,m_saturationItem->boundingRect().height()+5));
+}
+
+QDoubleSpinBox *NolinearController133::boxAcc()
+{
+  return m_boxAcc;
+}
+
+QDoubleSpinBox *NolinearController133::boxKd()
+{
+  return m_boxKd;
+}
+
+QDoubleSpinBox *NolinearController133::boxKi()
+{
+  return m_boxKi;
+}
+
+QDoubleSpinBox *NolinearController133::boxKp()
+{
+  return m_boxKp;
+}
+
+QDoubleSpinBox *NolinearController133::boxKn()
+{
+  return m_boxKn;
+}
+
+QDoubleSpinBox *NolinearController133::boxFn()
+{
+  return m_boxANVSFn;
+}
+
+QDoubleSpinBox *NolinearController133::boxQx()
+{
+  return m_boxANVSQx;
+}
+
+QDoubleSpinBox *NolinearController133::boxKavToPeer()
+{
+  return m_boxANVSKg;
+}
+
+QDoubleSpinBox *NolinearController133::boxKu1()
+{
+  return m_kuSelectWidget->boxKu1();
+}
+
+QDoubleSpinBox *NolinearController133::boxKu2()
+{
+  return m_kuSelectWidget->boxKu2();
+}
+
+QDoubleSpinBox *NolinearController133::boxTs()
+{
+  return m_kuSelectWidget->boxTs();
+}
+
+QDoubleSpinBox *NolinearController133::boxSpdu()
+{
+  return m_kuSelectWidget->boxSpdu();
+}
+
+QDoubleSpinBox *NolinearController133::boxSpdl()
+{
+  return m_kuSelectWidget->boxSpdl();
+}
+
+QDoubleSpinBox *NolinearController133::boxSatnAbs()
+{
+  return m_boxSatnAbs;
+}
+
+QDoubleSpinBox *NolinearController133::boxSatnPos()
+{
+  return m_boxSatnPos;
+}
+
+QDoubleSpinBox *NolinearController133::boxSatnNeg()
+{
+  return m_boxSatnNeg;
+}
+
+QDoubleSpinBox *NolinearController133::boxMotionAcc()
+{
+  return m_boxAutoTnAcc;
+}
+
+QDoubleSpinBox *NolinearController133::boxMotionDec()
+{
+  return m_boxAutoTnDec;
+}
+
+QDoubleSpinBox *NolinearController133::boxMotionMaxSpd()
+{
+  return m_boxAutoTnMaxVel;
+}
+
+QDoubleSpinBox *NolinearController133::boxMotionPos()
+{
+  return m_boxAutoTnPulseNum;
+}
+
+void NolinearController133::setDir(int dir)
+{
+  if(dir == 0)
+    m_cwRBtn->setChecked(true);
+  else
+    m_cwRBtn->setChecked(false);
+}
+
+void NolinearController133::setCurrentKuMode(int mode)
+{
+  m_kuSelectWidget->setKuModeUi(mode);
+}
+
+void NolinearController133::setSwON(bool on)
+{
+  m_swItem->setIsOn(on);
 }
 
 void NolinearController133::onRadioBtnClicked()
@@ -98,7 +233,27 @@ void NolinearController133::onRadioBtnClicked()
 
 void NolinearController133::onSaturationClicked(bool checked)
 {
+  qDebug()<<"on saturation clicked";
+  m_satnFrame->setVisible(checked);
+  foreach (INodeConnection *cnn, m_nodeConnectionList) {
+    cnn->setVisible(checked);
+  }
 
+}
+
+void NolinearController133::onBtnAutoStartClicked(bool checked)
+{
+  if(checked)
+  {
+    m_btnAutoStart->setText(tr("auto turning stop"));
+    m_bar->setVisible(true);
+  }
+  else
+  {
+    m_btnAutoStart->setText(tr("auto turning start"));
+    m_bar->setVisible(false);
+  }
+  emit btnAutoStartClicked(checked);
 }
 void NolinearController133::createDirItem()
 {
@@ -166,7 +321,7 @@ void NolinearController133::createAccItem()
   m_boxAcc=new QDoubleSpinBox(w);
   m_boxAcc->setMinimum(0);
   m_boxAcc->setMaximum(32767);
-  m_boxAcc->setObjectName("dspinBox_posFFacc");
+  m_boxAcc->setObjectName("dspinBox_posFFacc2");
   m_boxAcc->setButtonSymbols(QAbstractSpinBox::NoButtons);
   vlayoutTest->addWidget(m_boxAcc);
   w->setLayout(vlayoutTest);
@@ -193,6 +348,187 @@ void NolinearController133::createSaturationItem()
   m_saturationItem->setCenterWidget(w,true);
 
   addItem(m_saturationItem);
+}
+
+void NolinearController133::createSaturationConfigItem()
+{
+  m_satnFrame = new NodeBlock;
+  FrameItemWidget *frame=new FrameItemWidget;
+  frame->setWPercent(0.1);
+  frame->setMinimumSize(600,250);
+  frame->setObjectName("frameItemWidget_posFrameVel");
+  m_satnFrame->setCenterWidget(frame);
+
+
+  //max vel %
+  m_satnAbs = new NodeBlock;
+  QWidget *w=new QWidget;
+  w->setObjectName("widget_posMaxVel");
+  QVBoxLayout *hlayout=new QVBoxLayout(w);
+  QLabel *label=new QLabel(tr("max v(%)"),w);
+  label->setObjectName("label_posMaxVelPercent");
+  hlayout->addWidget(label);
+  QDoubleSpinBox *box=new QDoubleSpinBox(w);
+  m_boxSatnAbs=box;
+  box->setMinimum(0);
+  box->setMaximum(32767);
+  box->setMaximumWidth(150);
+  box->setButtonSymbols(QAbstractSpinBox::NoButtons);
+  hlayout->addWidget(box);
+  w->setLayout(hlayout);
+  m_satnAbs->setCenterWidget(w);
+
+  //max vel_p %
+  m_satnPos = new NodeBlock;
+  w=new QWidget;
+  w->setObjectName("widget_posMaxVelPositive");
+  hlayout=new QVBoxLayout(w);
+  label=new QLabel(tr("positive v(%)"),w);
+  label->setObjectName("label_posMaxVelPercentPositive");
+  hlayout->addWidget(label);
+  box=new QDoubleSpinBox(w);
+  m_boxSatnPos=box;
+  box->setMinimum(0);
+  box->setMaximum(32767);
+  box->setMaximumWidth(150);
+  box->setButtonSymbols(QAbstractSpinBox::NoButtons);
+  hlayout->addWidget(box);
+  w->setLayout(hlayout);
+  m_satnPos->setCenterWidget(w);
+
+
+  //max vel_n %
+  m_satnNeg = new NodeBlock;
+  w=new QWidget;
+  w->setObjectName("widget_posMaxVelNegative");
+  hlayout=new QVBoxLayout(w);
+  label=new QLabel(tr("negative v(%)"),w);
+  label->setObjectName("label_posMaxVelPercentNegative");
+  hlayout->addWidget(label);
+  box=new QDoubleSpinBox(w);
+  m_boxSatnNeg=box;
+  box->setMinimum(0);
+  box->setMaximum(32767);
+  box->setMaximumWidth(150);
+  box->setButtonSymbols(QAbstractSpinBox::NoButtons);
+  hlayout->addWidget(box);
+  w->setLayout(hlayout);
+  m_satnNeg->setCenterWidget(w);
+
+
+  NodePort *pMid = new NodePort;
+  NodePort *pPos = new NodePort;
+  NodePort *pNeg = new NodePort;
+
+
+  m_satnNeg->setParentItem(m_satnFrame);
+  m_satnAbs->setParentItem(m_satnFrame);
+  m_satnPos->setParentItem(m_satnNeg);
+  pMid->setParentItem(m_satnAbs);
+  pPos->setParentItem(m_satnPos);
+  pNeg->setParentItem(m_satnNeg);
+
+  m_satnAbs->setPos(40,-(m_satnAbs->boundingRect().height()-m_satnFrame->boundingRect().height())/2+40);
+  m_satnNeg->setPos(m_satnFrame->boundingRect().width()-(m_satnPos->boundingRect().width()+230),m_satnFrame->boundingRect().height()-m_satnNeg->boundingRect().height()-10);
+  m_satnPos->setPos(0,-m_satnPos->boundingRect().height()-10);
+
+  pMid->setPos(m_satnAbs->boundingRect().width()+20,-(pMid->boundingRect().height()-m_satnAbs->boundingRect().height())/2);
+  pPos->setPos(m_satnPos->boundingRect().width()+20,-(pPos->boundingRect().height()-m_satnPos->boundingRect().height())/2);
+  pNeg->setPos(m_satnNeg->boundingRect().width()+20,-(pNeg->boundingRect().height()-m_satnNeg->boundingRect().height())/2);
+
+  QGraphicsSimpleTextItem *text1 = new QGraphicsSimpleTextItem(pPos);
+  QGraphicsSimpleTextItem *text2 = new QGraphicsSimpleTextItem(pNeg);
+  text1->setText(tr("pos max"));
+  text2->setText(tr("neg max"));
+  text1->setPos(5,-(text1->boundingRect().height()-pPos->boundingRect().height())/2);
+  text2->setPos(5,-(text2->boundingRect().height()-pNeg->boundingRect().height())/2);
+
+  NodeLine *L1 = new NodeLine(m_satnAbs->rightPort(),pMid,INodeConnection::DIR_DOWN,false);
+  NodeCornerLine *L2 = new NodeCornerLine(pMid,m_satnPos->leftPort(),INodeConnection::DIR_UP);
+  NodeCornerLine *L3 = new NodeCornerLine(pMid,m_satnNeg->leftPort(),INodeConnection::DIR_DOWN);
+  NodeLine *L4 = new NodeLine(m_satnPos->rightPort(),pPos);
+  NodeLine *L5 = new NodeLine(m_satnNeg->rightPort(),pNeg);
+
+
+  m_satnFrame->setZValue(101);
+  m_satnAbs->setZValue(101);
+  m_satnNeg->setZValue(101);
+  m_satnPos->setZValue(101);
+  pMid->setZValue(101);
+  pPos->setZValue(101);
+  pNeg->setZValue(101);
+  text1->setZValue(101);
+  text2->setZValue(101);
+  L1->setZValue(101);
+  L2->setZValue(101);
+  L3->setZValue(101);
+  L4->setZValue(101);
+  L5->setZValue(101);
+  m_nodeConnectionList<<L1<<L2<<L3<<L4<<L5;
+
+  addItem(m_satnFrame);
+  addItem(m_satnAbs);
+  addItem(m_satnPos);
+  addItem(m_satnNeg);
+  addItem(pMid);
+  addItem(pPos);
+  addItem(pNeg);
+  addItem(L1);
+  addItem(L2);
+  addItem(L3);
+  addItem(L4);
+  addItem(L5);
+  addItem(text1);
+  addItem(text2);
+
+}
+
+void NolinearController133::createAutoTurningItem()
+{
+  m_autoTnItem = new NodeBlock;
+  QWidget *w = new QWidget;
+  w->setObjectName("widget_nolinearCtl_autoTurning");
+  QVBoxLayout *vlayout = new QVBoxLayout(w);
+  QFormLayout *flayout = new QFormLayout(w);
+  QLabel *label = new QLabel(tr("AutoTurning"),w);
+  label->setAlignment(Qt::AlignCenter);
+  label->setObjectName("label_nolinearCtl_autoTurning");
+  m_boxAutoTnAcc = new QDoubleSpinBox(w);
+  m_boxAutoTnAcc->setMinimum(0);
+  m_boxAutoTnAcc->setMaximum(32767);
+  m_boxAutoTnAcc->setButtonSymbols(QAbstractSpinBox::NoButtons);
+  m_boxAutoTnDec = new QDoubleSpinBox(w);
+  m_boxAutoTnDec->setMinimum(0);
+  m_boxAutoTnDec->setMaximum(32767);
+  m_boxAutoTnDec->setButtonSymbols(QAbstractSpinBox::NoButtons);
+  m_boxAutoTnMaxVel = new QDoubleSpinBox(w);
+  m_boxAutoTnMaxVel->setMinimum(0);
+  m_boxAutoTnMaxVel->setMaximum(32767);
+  m_boxAutoTnMaxVel->setButtonSymbols(QAbstractSpinBox::NoButtons);
+  m_boxAutoTnPulseNum = new QDoubleSpinBox(w);
+  m_boxAutoTnPulseNum->setMinimum(0);
+  m_boxAutoTnPulseNum->setMaximum(32767);
+  m_boxAutoTnPulseNum->setButtonSymbols(QAbstractSpinBox::NoButtons);
+  m_bar = new QProgressBar(w);
+  m_bar->setValue(0);
+  m_bar->setMaximum(100);
+  m_bar->setVisible(false);
+  m_btnAutoStart = new QPushButton(w);
+  connect(m_btnAutoStart,SIGNAL(clicked(bool)),this,SLOT(onBtnAutoStartClicked(bool)));
+  m_btnAutoStart->setCheckable(true);
+  m_btnAutoStart->setText(tr("auto turning start"));
+  m_btnAutoStart->setObjectName("btn_nolinearCtl_autoStart");
+  flayout->addRow(tr("acc(deg/ms^2)"),m_boxAutoTnAcc);
+  flayout->addRow(tr("dec(deg/ms^2)"),m_boxAutoTnDec);
+  flayout->addRow(tr("vel(rpm)"),m_boxAutoTnMaxVel);
+  flayout->addRow(tr("pos(r)"),m_boxAutoTnPulseNum);
+  vlayout->addWidget(label);
+  vlayout->addLayout(flayout);
+  vlayout->addWidget(m_bar);
+  vlayout->addWidget(m_btnAutoStart);
+  w->setLayout(vlayout);
+  m_autoTnItem->setCenterWidget(w,true);
+  addItem(m_autoTnItem);
 }
 
 void NolinearController133::createKdItem()
@@ -280,8 +616,6 @@ void NolinearController133::createKuSelItem()
 {
   m_kuSelectItem = new NodeBlock;
 
-
-
   QWidget *wout = new QWidget;
   QPalette p;
   p.setBrush(QPalette::Window,QBrush(Qt::transparent));
@@ -295,6 +629,7 @@ void NolinearController133::createKuSelItem()
   QVBoxLayout *vlayout = new QVBoxLayout(w);
 
   m_kuSelectWidget = new KuSelectWidget133;
+  connect(m_kuSelectWidget,SIGNAL(kuSwChanged(int)),this,SIGNAL(kuSelectChanged(int)));
   vlayout->addWidget(m_kuSelectWidget);
   w->setLayout(vlayout);
 
@@ -360,6 +695,7 @@ void NolinearController133::createMidPortItem()
 void NolinearController133::createSwitchItem()
 {
   m_swItem = new NodeSwitch;
+  connect(m_swItem,SIGNAL(clicked(bool)),this,SIGNAL(swChanged(bool)));
   addItem(m_swItem);
 }
 
@@ -517,10 +853,32 @@ void NolinearController133::resetAllItemParent()
   m_midPortNULL->setParentItem(m_anvsFreqItem);
   m_posFBItem->setParentItem(m_midPortNULL);
   m_midPortFB->setParentItem(m_posFBItem);
+
+  m_autoTnItem->setParentItem(m_dirItem);
 }
 
 void NolinearController133::addItem(QGraphicsItem *item)
 {
   m_view->scene()->addItem(item);
+}
+
+BoxItemMapping *NolinearController133::boxItemMapping() const
+{
+  return m_boxItemMapping;
+}
+
+void NolinearController133::setBtnAutoTurningUiOn(bool on)
+{
+  m_btnAutoStart->setChecked(on);
+}
+
+void NolinearController133::setAutoTurningProgressBarValue(int v)
+{
+  m_bar->setValue(v);
+}
+
+void NolinearController133::setProgressBarVisible(bool visible)
+{
+  m_bar->setVisible(visible);
 }
 

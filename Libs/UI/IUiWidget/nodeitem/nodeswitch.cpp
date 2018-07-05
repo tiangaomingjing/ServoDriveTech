@@ -4,6 +4,7 @@
 #include <QPen>
 #include <QBrush>
 #include <QPainter>
+#include <QDebug>
 
 #define PORT_RADIUS 10
 
@@ -138,6 +139,7 @@ void NodeSwitch::mousePressEvent(QGraphicsSceneMouseEvent *event)
   Q_UNUSED(event);
   m_isOn =!m_isOn;
   update(boundingRect());
+  qDebug()<<"sw on = "<<m_isOn;
   emit clicked(m_isOn);
 }
 

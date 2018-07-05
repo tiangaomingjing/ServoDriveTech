@@ -22,6 +22,8 @@ public:
   QDoubleSpinBox *boxSpdu();
   QDoubleSpinBox *boxSpdl();
 
+  void setKuModeUi(int index);
+
 signals:
   void kuSwChanged(int index);
 
@@ -30,6 +32,7 @@ private slots:
 
 private:
   Ui::KuSelectWidget133 *ui;
+
 };
 
 #endif // KUSELECTWIDGET133_H
