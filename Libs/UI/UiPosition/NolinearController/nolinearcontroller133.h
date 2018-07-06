@@ -54,6 +54,7 @@ public:
 
   void setBtnAutoTurningUiOn(bool on);
   void setAutoTurningProgressBarValue(int v);
+  void setProgressBarVisible(bool visible);
 
 
 signals:

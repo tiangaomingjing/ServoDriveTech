@@ -517,7 +517,6 @@ void GraphPosition133::onBtnAutoStartClicked(bool checked)
     {
       d->m_nolinearAutoTurning->stop();
       QMessageBox::warning(0,tr("Error"),tr("set servo on error !"));
-      d->m_nolinearCtler->setBtnAutoTurningUiOn(false);
     }
   }
   else
@@ -540,11 +539,21 @@ void GraphPosition133::onAutoTurningFinish(bool finish)
     d->m_nolinearCtler->setBtnAutoTurningUiOn(false);
     d->m_nolinearCtler->setProgressBarVisible(false);
     //更新值到kp kn ki kd
+    int axisInx = d->m_uiWidget->uiIndexs().axisInx;
+    qreal kd = (qreal)d->m_nolinearAutoTurning->autoTnFgd(axisInx);
+    qreal kp = (qreal)d->m_nolinearAutoTurning->autoTnFgp(axisInx);
+    qreal ki = (qreal)d->m_nolinearAutoTurning->autoTnFgi(axisInx);
+    qreal kn = (qreal)d->m_nolinearAutoTurning->autoTnFgn(axisInx);
+
+    setBoxValue(d->m_nolinearCtler->boxKd(),kd);
+    setBoxValue(d->m_nolinearCtler->boxKp(),kp);
+    setBoxValue(d->m_nolinearCtler->boxKi(),ki);
+    setBoxValue(d->m_nolinearCtler->boxKn(),kn);
+
   }
   else
   {
-    d->m_nolinearCtler->setBtnAutoTurningUiOn(false);
-    QMessageBox::warning(0,tr("Error"),tr("auto turning fail !"));
+    QMessageBox::warning(0,tr("Error"),tr("auto turning fail !\nyou need to stop autoturning and try again!"));
   }
 }
 
@@ -746,6 +755,16 @@ void GraphPosition133::setControllerUi(int index)
     d->m_nolinearCtler->setPos(NOLINEAR_POS_X,NOLINEAR_POS_Y);
     break;
   }
+}
+
+void GraphPosition133::setBoxValue(QDoubleSpinBox *box, qreal value)
+{
+  Q_D(GraphPosition133);
+  box->setValue(value);
+
+  d->m_nolinearCtler->boxItemMapping()->syncBoxText2Item(box);
+  OptFace *face = dynamic_cast<OptFace*>(OptContainer::instance()->optItem("optface"));
+  face->setEditTextStatus(box,OptFace::EDIT_TEXT_STATUS_READY);
 }
 
 void GraphPosition133::syncTreeDataToUiFace()

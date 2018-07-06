@@ -42,11 +42,13 @@ protected slots:
   void onNlcSWChanged(bool isOn);
   void onBtnAutoStartClicked(bool checked);
   void onAutoTurningProgressValueChanged(int value);
+  void onAutoTurningFinish(bool finish);
 
 private:
   void createPosDirItem();
   quint16 readNos(const QString &key);
   void setControllerUi(int index);
+  void setBoxValue(QDoubleSpinBox *box,qreal value);
 
 };
 
