@@ -503,6 +503,816 @@
                             </item>
                         </item>
                     </item>
+                    <item>
+                        <property name="text">
+                            <string>Curve</string>
+                        </property>
+                        <property name="text">
+                            <string>CurveRaw</string>
+                        </property>
+                        <item>
+                            <property name="text">
+                                <string>DevIndex</string>
+                            </property>
+                            <property name="text">
+                                <string>0</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>AxisIndex</string>
+                            </property>
+                            <property name="text">
+                                <string>0</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>AxisCount</string>
+                            </property>
+                            <property name="text">
+                                <string>6</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Name</string>
+                            </property>
+                            <property name="text">
+                                <string>gSevDrv.sev_task.pos_ref</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Note</string>
+                            </property>
+                            <property name="text">
+                                <string></string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Color</string>
+                            </property>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>0</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>0</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>0</string>
+                                </property>
+                            </item>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>IsDraw</string>
+                            </property>
+                            <property name="text">
+                                <string>1</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Unit</string>
+                            </property>
+                            <property name="text">
+                                <string>-1</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>ConstInputs</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>VarInputs</string>
+                            </property>
+                            <item>
+                                <property name="text">
+                                    <string>Var</string>
+                                </property>
+                                <property name="text">
+                                    <string>gSevDrv.sev_task.pos_ref</string>
+                                </property>
+                                <item>
+                                    <property name="text">
+                                        <string>BaseAddr</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>0</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>OffsetAddr</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>128</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>Bytes</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>4</string>
+                                    </property>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>Curve</string>
+                        </property>
+                        <property name="text">
+                            <string>CurveRaw</string>
+                        </property>
+                        <item>
+                            <property name="text">
+                                <string>DevIndex</string>
+                            </property>
+                            <property name="text">
+                                <string>0</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>AxisIndex</string>
+                            </property>
+                            <property name="text">
+                                <string>0</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>AxisCount</string>
+                            </property>
+                            <property name="text">
+                                <string>6</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Name</string>
+                            </property>
+                            <property name="text">
+                                <string>gSevDrv.sev_task.ud_ref</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Note</string>
+                            </property>
+                            <property name="text">
+                                <string></string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Color</string>
+                            </property>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>255</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>0</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>255</string>
+                                </property>
+                            </item>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>IsDraw</string>
+                            </property>
+                            <property name="text">
+                                <string>1</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Unit</string>
+                            </property>
+                            <property name="text">
+                                <string>-1</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>ConstInputs</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>VarInputs</string>
+                            </property>
+                            <item>
+                                <property name="text">
+                                    <string>Var</string>
+                                </property>
+                                <property name="text">
+                                    <string>gSevDrv.sev_task.ud_ref</string>
+                                </property>
+                                <item>
+                                    <property name="text">
+                                        <string>BaseAddr</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>0</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>OffsetAddr</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>132</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>Bytes</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>2</string>
+                                    </property>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>Curve</string>
+                        </property>
+                        <property name="text">
+                            <string>CurveRaw</string>
+                        </property>
+                        <item>
+                            <property name="text">
+                                <string>DevIndex</string>
+                            </property>
+                            <property name="text">
+                                <string>0</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>AxisIndex</string>
+                            </property>
+                            <property name="text">
+                                <string>0</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>AxisCount</string>
+                            </property>
+                            <property name="text">
+                                <string>6</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Name</string>
+                            </property>
+                            <property name="text">
+                                <string>gSevDrv.sev_task.ud_ref</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Note</string>
+                            </property>
+                            <property name="text">
+                                <string></string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Color</string>
+                            </property>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>0</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>170</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>0</string>
+                                </property>
+                            </item>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>IsDraw</string>
+                            </property>
+                            <property name="text">
+                                <string>1</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Unit</string>
+                            </property>
+                            <property name="text">
+                                <string>-1</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>ConstInputs</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>VarInputs</string>
+                            </property>
+                            <item>
+                                <property name="text">
+                                    <string>Var</string>
+                                </property>
+                                <property name="text">
+                                    <string>gSevDrv.sev_task.ud_ref</string>
+                                </property>
+                                <item>
+                                    <property name="text">
+                                        <string>BaseAddr</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>0</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>OffsetAddr</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>132</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>Bytes</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>2</string>
+                                    </property>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>Curve</string>
+                        </property>
+                        <property name="text">
+                            <string>CurveRaw</string>
+                        </property>
+                        <item>
+                            <property name="text">
+                                <string>DevIndex</string>
+                            </property>
+                            <property name="text">
+                                <string>0</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>AxisIndex</string>
+                            </property>
+                            <property name="text">
+                                <string>0</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>AxisCount</string>
+                            </property>
+                            <property name="text">
+                                <string>6</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Name</string>
+                            </property>
+                            <property name="text">
+                                <string>gSevDrv.sev_task.uq_ref</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Note</string>
+                            </property>
+                            <property name="text">
+                                <string></string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Color</string>
+                            </property>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>0</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>170</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>255</string>
+                                </property>
+                            </item>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>IsDraw</string>
+                            </property>
+                            <property name="text">
+                                <string>1</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Unit</string>
+                            </property>
+                            <property name="text">
+                                <string>-1</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>ConstInputs</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>VarInputs</string>
+                            </property>
+                            <item>
+                                <property name="text">
+                                    <string>Var</string>
+                                </property>
+                                <property name="text">
+                                    <string>gSevDrv.sev_task.uq_ref</string>
+                                </property>
+                                <item>
+                                    <property name="text">
+                                        <string>BaseAddr</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>0</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>OffsetAddr</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>134</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>Bytes</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>2</string>
+                                    </property>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>Curve</string>
+                        </property>
+                        <property name="text">
+                            <string>CurveRaw</string>
+                        </property>
+                        <item>
+                            <property name="text">
+                                <string>DevIndex</string>
+                            </property>
+                            <property name="text">
+                                <string>0</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>AxisIndex</string>
+                            </property>
+                            <property name="text">
+                                <string>0</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>AxisCount</string>
+                            </property>
+                            <property name="text">
+                                <string>6</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Name</string>
+                            </property>
+                            <property name="text">
+                                <string>gSevDrv.sev_task.ua_ref</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Note</string>
+                            </property>
+                            <property name="text">
+                                <string></string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Color</string>
+                            </property>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>170</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>0</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>255</string>
+                                </property>
+                            </item>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>IsDraw</string>
+                            </property>
+                            <property name="text">
+                                <string>1</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Unit</string>
+                            </property>
+                            <property name="text">
+                                <string>-1</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>ConstInputs</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>VarInputs</string>
+                            </property>
+                            <item>
+                                <property name="text">
+                                    <string>Var</string>
+                                </property>
+                                <property name="text">
+                                    <string>gSevDrv.sev_task.ua_ref</string>
+                                </property>
+                                <item>
+                                    <property name="text">
+                                        <string>BaseAddr</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>0</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>OffsetAddr</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>136</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>Bytes</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>2</string>
+                                    </property>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                    <item>
+                        <property name="text">
+                            <string>Curve</string>
+                        </property>
+                        <property name="text">
+                            <string>CurveRaw</string>
+                        </property>
+                        <item>
+                            <property name="text">
+                                <string>DevIndex</string>
+                            </property>
+                            <property name="text">
+                                <string>0</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>AxisIndex</string>
+                            </property>
+                            <property name="text">
+                                <string>0</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>AxisCount</string>
+                            </property>
+                            <property name="text">
+                                <string>6</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Name</string>
+                            </property>
+                            <property name="text">
+                                <string>gSevDrv.sev_task.uc_ref</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Note</string>
+                            </property>
+                            <property name="text">
+                                <string></string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Color</string>
+                            </property>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>170</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>0</string>
+                                </property>
+                            </item>
+                            <item>
+                                <property name="text">
+                                    <string>ColorR</string>
+                                </property>
+                                <property name="text">
+                                    <string>0</string>
+                                </property>
+                            </item>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>IsDraw</string>
+                            </property>
+                            <property name="text">
+                                <string>1</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Unit</string>
+                            </property>
+                            <property name="text">
+                                <string>-1</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>ConstInputs</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>VarInputs</string>
+                            </property>
+                            <item>
+                                <property name="text">
+                                    <string>Var</string>
+                                </property>
+                                <property name="text">
+                                    <string>gSevDrv.sev_task.uc_ref</string>
+                                </property>
+                                <item>
+                                    <property name="text">
+                                        <string>BaseAddr</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>0</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>OffsetAddr</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>140</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>Bytes</string>
+                                    </property>
+                                    <property name="text">
+                                        <string>2</string>
+                                    </property>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
                 </widget>
             </item>
         </layout>

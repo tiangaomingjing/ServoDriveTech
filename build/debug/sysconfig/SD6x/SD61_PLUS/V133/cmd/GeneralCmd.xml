@@ -1251,35 +1251,6 @@
       </item>
       <item>
        <property name="text">
-        <string>gSevDrv.sev_obj.vel.atn.prm.fgd_stp</string>
-       </property>
-       <property name="text">
-        <string>Uint16</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-       <property name="text">
-        <string>103</string>
-       </property>
-       <property name="text">
-        <string>4</string>
-       </property>
-       <property name="text">
-        <string>3</string>
-       </property>
-       <property name="text">
-        <string>0</string>
-       </property>
-       <property name="text">
-        <string>1</string>
-       </property>
-       <property name="text">
-        <string>-1</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
         <string>gSevDrv.sev_obj.vel.atn.fgd</string>
        </property>
        <property name="text">
@@ -1290,35 +1261,6 @@
        </property>
        <property name="text">
         <string>103</string>
-       </property>
-       <property name="text">
-        <string>4</string>
-       </property>
-       <property name="text">
-        <string>3</string>
-       </property>
-       <property name="text">
-        <string>0</string>
-       </property>
-       <property name="text">
-        <string>1</string>
-       </property>
-       <property name="text">
-        <string>-1</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>gSevDrv.sev_obj.vel.atn.prm.fgp_stp</string>
-       </property>
-       <property name="text">
-        <string>Uint16</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-       <property name="text">
-        <string>104</string>
        </property>
        <property name="text">
         <string>4</string>
@@ -1367,35 +1309,6 @@
       </item>
       <item>
        <property name="text">
-        <string>gSevDrv.sev_obj.vel.atn.prm.fgi_stp</string>
-       </property>
-       <property name="text">
-        <string>Uint16</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-       <property name="text">
-        <string>105</string>
-       </property>
-       <property name="text">
-        <string>4</string>
-       </property>
-       <property name="text">
-        <string>3</string>
-       </property>
-       <property name="text">
-        <string>0</string>
-       </property>
-       <property name="text">
-        <string>1</string>
-       </property>
-       <property name="text">
-        <string>-1</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
         <string>gSevDrv.sev_obj.vel.atn.fgi</string>
        </property>
        <property name="text">
@@ -1406,35 +1319,6 @@
        </property>
        <property name="text">
         <string>105</string>
-       </property>
-       <property name="text">
-        <string>4</string>
-       </property>
-       <property name="text">
-        <string>3</string>
-       </property>
-       <property name="text">
-        <string>0</string>
-       </property>
-       <property name="text">
-        <string>1</string>
-       </property>
-       <property name="text">
-        <string>-1</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>gSevDrv.sev_obj.vel.atn.prm.fgn_stp</string>
-       </property>
-       <property name="text">
-        <string>Uint16</string>
-       </property>
-       <property name="text">
-        <string>NULL</string>
-       </property>
-       <property name="text">
-        <string>106</string>
        </property>
        <property name="text">
         <string>4</string>

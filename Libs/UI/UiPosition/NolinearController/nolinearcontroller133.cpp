@@ -489,7 +489,7 @@ void NolinearController133::createAutoTurningItem()
   QWidget *w = new QWidget;
   w->setObjectName("widget_nolinearCtl_autoTurning");
   QVBoxLayout *vlayout = new QVBoxLayout(w);
-  QFormLayout *flayout = new QFormLayout(w);
+  QFormLayout *flayout = new QFormLayout();
   QLabel *label = new QLabel(tr("AutoTurning"),w);
   label->setAlignment(Qt::AlignCenter);
   label->setObjectName("label_nolinearCtl_autoTurning");

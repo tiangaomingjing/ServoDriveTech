@@ -354,7 +354,8 @@ bool ICurve::read(QTreeWidgetItem *treeItem)
   {
     addUnit(unitList.at(i).key,unitList.at(i).value);
   }
-  setUnit(unitList.at(unitInx).key);
+  if(!unitList.isEmpty())
+    setUnit(unitList.at(unitInx).key);
 
   dd.m_constInputs.clear();
   dd.m_constInputs = curveConstInputList;
