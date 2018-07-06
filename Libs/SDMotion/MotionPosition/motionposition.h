@@ -24,10 +24,13 @@ public:
     void updateAxisUi(quint16 axisInx) Q_DECL_OVERRIDE;
 private slots:
     void onMotionFinish(quint16 axisInx);
+    void onTimerOut();
 
 private:
     UiMotionPosition * UiMotion();
 private:
+    QTimer m_timer;
+    int m_count;
 };
 
 #endif // MOTIONPOSITION_H

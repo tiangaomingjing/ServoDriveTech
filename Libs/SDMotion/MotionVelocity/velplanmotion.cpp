@@ -84,6 +84,8 @@ void VelPlanMotion::move()
 void VelPlanMotion::stop()
 {
   qDebug()<<"VelPlanMotion stop";
+  m_sev->cmdSetSpdRef(m_axisInx,0);
+  m_sev->cmdSetSpdRef(m_axisInx,0);
   m_data->m_breakByHand = true;
 }
 
@@ -147,7 +149,7 @@ void VelPlanMotion::onTimerOut()
       qDebug()<<"circle timer stop !!!!!!!!!!!!!!!!!!!!"<<" value = "<<value;
       m_timer.stop();
       GTUtils::delayms(10);
-      m_sev->setAxisServoOn(m_axisInx,false);
+      //m_sev->setAxisServoOn(m_axisInx,false);
       emit motionFinish(m_axisInx);
 
     }

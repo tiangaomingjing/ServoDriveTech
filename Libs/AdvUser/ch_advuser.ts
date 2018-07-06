@@ -42,39 +42,39 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="advusercompress.ui" line="20"/>
+        <location filename="advusercompress.ui" line="23"/>
         <source>Select File Folder (Including Rpd and Hex file):</source>
         <oldsource>Select Compress File Folder:</oldsource>
         <translation>选择压缩文件夹(文件夹中应包含Rpd和Hex文件)：</translation>
     </message>
     <message>
-        <location filename="advusercompress.ui" line="36"/>
+        <location filename="advusercompress.ui" line="39"/>
         <source>...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="advusercompress.ui" line="45"/>
+        <location filename="advusercompress.ui" line="48"/>
         <source>RPD</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="advusercompress.ui" line="51"/>
+        <location filename="advusercompress.ui" line="57"/>
         <source>Version (Format Example: 20180406):</source>
         <translation>Rpd文件版本(参考格式：20180406)：</translation>
     </message>
     <message>
-        <location filename="advusercompress.ui" line="68"/>
-        <location filename="advusercompress.ui" line="103"/>
+        <location filename="advusercompress.ui" line="74"/>
+        <location filename="advusercompress.ui" line="112"/>
         <source>Note:</source>
         <translation>注释：</translation>
     </message>
     <message>
-        <location filename="advusercompress.ui" line="81"/>
+        <location filename="advusercompress.ui" line="87"/>
         <source>Hex</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="advusercompress.ui" line="87"/>
+        <location filename="advusercompress.ui" line="96"/>
         <source>Version:</source>
         <translation>Hex文件版本：</translation>
     </message>
@@ -83,7 +83,7 @@
         <translation type="vanished">Hex文件版本：</translation>
     </message>
     <message>
-        <location filename="advusercompress.ui" line="95"/>
+        <location filename="advusercompress.ui" line="104"/>
         <source>Name</source>
         <translation></translation>
     </message>

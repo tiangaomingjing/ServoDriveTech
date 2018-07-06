@@ -3,11 +3,13 @@
 #include "deviceconfig.h"
 #include "gtutils.h"
 #include "qttreemanager.h"
+#include "comglobal.h"
 
 #include <QDebug>
 #include <QFile>
 #include <QTextStream>
 #include <QTextCodec>
+#include <QMessageBox>
 
 #define CONFIG_SELECT_FILE_PATH "SysMap/ConfigSelectTree.ui"
 
@@ -42,6 +44,8 @@ ConfigDialog::ConfigDialog(QList<DeviceConfig *> *devList, QWidget *parent) :
   ui->treeWidget_dst->header()->setVisible(false);
   ui->treeWidget_src->header()->setVisible(false);
 
+  ui->progressBar->setVisible(false);
+
 }
 
 ConfigDialog::~ConfigDialog()
@@ -57,6 +61,7 @@ void ConfigDialog::createConnections()
   connect(ui->btn_remove,SIGNAL(clicked(bool)),this,SLOT(onBtnRemoveClicked()));
   connect(ui->btn_apply,SIGNAL(clicked(bool)),this,SLOT(onBtnApplyClicked()));
   connect(ui->btn_cancel,SIGNAL(clicked(bool)),this,SLOT(onBtnCancelClicked()));
+  connect(ui->btn_query, SIGNAL(clicked(bool)), this, SLOT(onBtnQueryClicked()));
 }
 void ConfigDialog::onSrcTreeItemClicked(QTreeWidgetItem *item, int column)
 {
@@ -172,6 +177,37 @@ void ConfigDialog::onBtnApplyClicked()
   accept();
 }
 
+void ConfigDialog::onBtnQueryClicked()
+{
+    if (m_curSelectSta == SELECT_STATUS_RNNET) {
+        ui->progressBar->setVisible(true);
+        ComDriver::RnNet *rnCom = new ComDriver::RnNet("RnNet");
+        ComDriver::errcode_t err = rnCom->open(processCallBack, ui->progressBar);
+        if (err != 0) {
+            QMessageBox::information(0, tr("Warning"), tr("Unable to open com."), QMessageBox::Ok);
+            rnCom->close();
+            delete rnCom;
+            ui->progressBar->setVisible(false);
+            return;
+        }
+        std::vector<ComDriver::int16_t> stnList = rnCom->broadcast();
+        QString staInfo = "";
+        for (uint i = 0; i < stnList.size(); i++) {
+            ComDriver::int16_t rnSta = stnList.at(i);
+            rnCom->setRnStation(rnSta);
+            ComDriver::int16_t axisNum = rnCom->getCurrentAxisNumByReadFPGA();
+            ComDriver::uint16_t version = 0;
+            rnCom->readDSPVersion(0, version);
+            staInfo = staInfo + tr("Station Index: ") + QString::number(rnSta) + "\n"\
+                    + tr("Axis Number: ") + QString::number(axisNum) + "\n"\
+                    + tr("DSP Version: ") + QString::number(version) + "\n";
+        }
+        ui->label_queryList->setText(staInfo);
+        rnCom->close();
+        delete rnCom;
+    }
+}
+
 QString ConfigDialog::readDeviceDescription(const QString &sdinfoPath)
 {
   QFile file(sdinfoPath);
@@ -273,4 +309,12 @@ void ConfigDialog::resetDeviceId()
     item=ui->treeWidget_dst->topLevelItem(i);
     item->setText(COL_ID,QString::number(i));
   }
+}
+
+void ConfigDialog::processCallBack(void *argv, short *value)
+{
+    QProgressBar *pBar = static_cast<QProgressBar *>(argv);
+    pBar->setValue(*value);
+    //qDebug()<<"progress value ="<<*value;
+    qApp->processEvents();
 }

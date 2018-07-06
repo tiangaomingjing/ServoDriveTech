@@ -901,11 +901,11 @@ QWidget#widget_plotGraph_right QToolButton{
 } 
 
 
-QToolButton#tbtn_plot_servoOnMode,QToolButton#tbtn_plot_servoGoMotion{
+QToolButton#tbtn_plot_servoOnMode,QToolButton#tbtn_plot_servoGoMotion,QToolButton#tbtn_plot_servoBtn{
 	background-color:transparent;
 	
 }
-QToolButton#tbtn_plot_servoOnMode:hover,QToolButton#tbtn_plot_servoGoMotion:hover{
+QToolButton#tbtn_plot_servoOnMode:hover,QToolButton#tbtn_plot_servoGoMotion:hover,QToolButton#tbtn_plot_servoBtn:hover{
 	border:1px solid gray;
 	border-radius:50px;
 	

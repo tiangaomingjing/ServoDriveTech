@@ -2,9 +2,14 @@
 #define CONFIGDIALOG_H
 
 #include <QDialog>
+#include "rnnet.h"
 
 namespace Ui {
 class ConfigDialog;
+}
+
+namespace ComDriver {
+    class RnNet;
 }
 class DeviceConfig;
 class QTreeWidgetItem;
@@ -38,6 +43,7 @@ private slots:
   void onBtnRemoveClicked();
   void onBtnCancelClicked();
   void onBtnApplyClicked();
+  void onBtnQueryClicked();
 
 private:
   QString readDeviceDescription(const QString &sdinfoPath);
@@ -48,6 +54,7 @@ private:
   void createDstDevice(QTreeWidgetItem*curItem);
   QTreeWidgetItem* addChildItem(QTreeWidgetItem*child,QTreeWidgetItem*parent);
   void resetDeviceId();
+  static void processCallBack(void *argv, short *value);
 
 private:
   Ui::ConfigDialog *ui;
@@ -56,8 +63,6 @@ private:
   QString m_curSd;
   SelectStatus m_curSelectSta;
   DstTreeStatus m_curDstTreeSta;
-
-
 };
 
 #endif // CONFIGDIALOG_H

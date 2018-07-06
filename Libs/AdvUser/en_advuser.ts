@@ -42,44 +42,44 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercompress.ui" line="20"/>
+        <location filename="advusercompress.ui" line="23"/>
         <source>Select File Folder (Including Rpd and Hex file):</source>
         <oldsource>Select Compress File Folder:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercompress.ui" line="36"/>
+        <location filename="advusercompress.ui" line="39"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercompress.ui" line="45"/>
+        <location filename="advusercompress.ui" line="48"/>
         <source>RPD</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercompress.ui" line="51"/>
+        <location filename="advusercompress.ui" line="57"/>
         <source>Version (Format Example: 20180406):</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercompress.ui" line="68"/>
-        <location filename="advusercompress.ui" line="103"/>
+        <location filename="advusercompress.ui" line="74"/>
+        <location filename="advusercompress.ui" line="112"/>
         <source>Note:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercompress.ui" line="81"/>
+        <location filename="advusercompress.ui" line="87"/>
         <source>Hex</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercompress.ui" line="87"/>
+        <location filename="advusercompress.ui" line="96"/>
         <source>Version:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="advusercompress.ui" line="95"/>
+        <location filename="advusercompress.ui" line="104"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>

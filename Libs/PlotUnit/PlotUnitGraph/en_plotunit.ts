@@ -313,8 +313,8 @@
     </message>
     <message>
         <location filename="plotunitgraph129.cpp" line="183"/>
-        <location filename="plotunitgraph129.cpp" line="1059"/>
-        <location filename="plotunitgraph129.cpp" line="1354"/>
+        <location filename="plotunitgraph129.cpp" line="1073"/>
+        <location filename="plotunitgraph129.cpp" line="1368"/>
         <source>error</source>
         <translation type="unfinished"></translation>
     </message>
@@ -367,15 +367,15 @@
     </message>
     <message>
         <location filename="plotunitgraph129.cpp" line="770"/>
-        <location filename="plotunitgraph129.cpp" line="1151"/>
-        <location filename="plotunitgraph129.cpp" line="1584"/>
+        <location filename="plotunitgraph129.cpp" line="1165"/>
+        <location filename="plotunitgraph129.cpp" line="1598"/>
         <source>on</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="plotunitgraph129.cpp" line="776"/>
-        <location filename="plotunitgraph129.cpp" line="1145"/>
-        <location filename="plotunitgraph129.cpp" line="1590"/>
+        <location filename="plotunitgraph129.cpp" line="1159"/>
+        <location filename="plotunitgraph129.cpp" line="1604"/>
         <source>off</source>
         <translation type="unfinished"></translation>
     </message>
@@ -412,30 +412,30 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="890"/>
-        <location filename="plotunitgraph129.cpp" line="919"/>
-        <location filename="plotunitgraph129.cpp" line="989"/>
+        <location filename="plotunitgraph129.cpp" line="904"/>
+        <location filename="plotunitgraph129.cpp" line="933"/>
+        <location filename="plotunitgraph129.cpp" line="1003"/>
         <source>warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="890"/>
+        <location filename="plotunitgraph129.cpp" line="904"/>
         <source>plugin load error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="919"/>
+        <location filename="plotunitgraph129.cpp" line="933"/>
         <source>%1 is BIT</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="989"/>
+        <location filename="plotunitgraph129.cpp" line="1003"/>
         <source>The numbers of selected curves is too much</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plotunitgraph129.cpp" line="1059"/>
-        <location filename="plotunitgraph129.cpp" line="1354"/>
+        <location filename="plotunitgraph129.cpp" line="1073"/>
+        <location filename="plotunitgraph129.cpp" line="1368"/>
         <source>The curve = %1 is not in the device</source>
         <translation type="unfinished"></translation>
     </message>
@@ -627,24 +627,79 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="TabModeCtl/tabmodectl.ui" line="484"/>
+        <location filename="TabModeCtl/tabmodectl.ui" line="482"/>
+        <source>fgn:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="TabModeCtl/tabmodectl.ui" line="515"/>
+        <source>Max Velocity:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="TabModeCtl/tabmodectl.ui" line="535"/>
+        <source>Acceleration:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="TabModeCtl/tabmodectl.ui" line="558"/>
+        <source>Mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="TabModeCtl/tabmodectl.ui" line="565"/>
+        <source>fgp:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="TabModeCtl/tabmodectl.ui" line="572"/>
+        <source>fgd:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="TabModeCtl/tabmodectl.ui" line="605"/>
+        <source>fgi:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="TabModeCtl/tabmodectl.ui" line="612"/>
+        <source>Pulse:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="TabModeCtl/tabmodectl.ui" line="619"/>
+        <source>Deceleration:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="TabModeCtl/tabmodectl.ui" line="655"/>
         <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="TabModeCtl/tabmodectl.ui" line="506"/>
+        <location filename="TabModeCtl/tabmodectl.ui" line="677"/>
         <source>Servo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="TabModeCtl/tabmodectl.cpp" line="77"/>
-        <location filename="TabModeCtl/tabmodectl.cpp" line="122"/>
+        <location filename="TabModeCtl/tabmodectl.cpp" line="96"/>
+        <location filename="TabModeCtl/tabmodectl.cpp" line="148"/>
         <source>SEV OFF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="TabModeCtl/tabmodectl.cpp" line="120"/>
-        <location filename="TabModeCtl/tabmodectl.cpp" line="403"/>
+        <location filename="TabModeCtl/tabmodectl.cpp" line="98"/>
+        <source>Point Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="TabModeCtl/tabmodectl.cpp" line="99"/>
+        <source>Reci Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="TabModeCtl/tabmodectl.cpp" line="146"/>
+        <location filename="TabModeCtl/tabmodectl.cpp" line="509"/>
         <source>SEV ON</source>
         <translation type="unfinished"></translation>
     </message>
@@ -673,31 +728,37 @@
     </message>
     <message>
         <location filename="TabMotion/tabmotion.ui" line="151"/>
+        <location filename="TabMotion/tabmotion.ui" line="181"/>
+        <source>Servo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="TabMotion/tabmotion.ui" line="196"/>
         <source>Move</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="TabMotion/tabmotion.ui" line="194"/>
+        <location filename="TabMotion/tabmotion.ui" line="239"/>
         <source>GO</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="TabMotion/tabmotion.cpp" line="83"/>
+        <location filename="TabMotion/tabmotion.cpp" line="84"/>
         <source>Axis_%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="TabMotion/tabmotion.cpp" line="93"/>
+        <location filename="TabMotion/tabmotion.cpp" line="94"/>
         <source>None</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="TabMotion/tabmotion.cpp" line="99"/>
+        <location filename="TabMotion/tabmotion.cpp" line="100"/>
         <source>Velocity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="TabMotion/tabmotion.cpp" line="104"/>
+        <location filename="TabMotion/tabmotion.cpp" line="106"/>
         <source>Position</source>
         <translation type="unfinished"></translation>
     </message>
@@ -772,6 +833,11 @@
     <message>
         <location filename="TabModeCtl/modectlpanel.cpp" line="41"/>
         <source>12CSC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="TabModeCtl/modectlpanel.cpp" line="42"/>
+        <source>13AUT</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -7,6 +7,7 @@
 
 #include <QDebug>
 #include <QKeyEvent>
+#include <QStyledItemDelegate>
 
 
 #define ICON_NAME_SERVO_ON      "plot_son.png"
@@ -90,13 +91,16 @@ TabModeCtl::TabModeCtl(const QString &name, SevDevice *sev, QWidget *parent) :
   ui->doubleSpinBox_mode_autAcc->installEventFilter(this);
   ui->doubleSpinBox_mode_autDec->installEventFilter(this);
   ui->doubleSpinBox_mode_autMaxVel->installEventFilter(this);
-  ui->spinBox_mode_aut_pulse->installEventFilter(this);
+  ui->doubleSpinBox_mode_aut_pulse->installEventFilter(this);
 
   ui->tbtn_plot_servoOnMode->setCheckable(true);
   ui->label_plot_servo_onoff->setText(tr("SEV OFF"));
 
   ui->comboBox_mode_auc_mode->addItem(tr("Point Mode"));
   ui->comboBox_mode_auc_mode->addItem(tr("Reci Mode"));
+
+  QStyledItemDelegate* itemDelegate = new QStyledItemDelegate(ui->comboBox_mode_auc_mode);
+  ui->comboBox_mode_auc_mode->setItemDelegate(itemDelegate);
 
   OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
   connect(face,SIGNAL(faceCssChanged(QString)),this,SLOT(onCssChanged(QString)));
@@ -116,7 +120,7 @@ TabModeCtl::TabModeCtl(const QString &name, SevDevice *sev, QWidget *parent) :
   connect(ui->spinBox_mode_vpl,SIGNAL(valueChanged(int)),this,SLOT(onModeSpinBoxValueChanged(int)));
   connect(ui->spinBox_mode_vsl,SIGNAL(valueChanged(int)),this,SLOT(onModeSpinBoxValueChanged(int)));
   connect(ui->spinBox_mode_pt,SIGNAL(valueChanged(int)),this,SLOT(onModeSpinBoxValueChanged(int)));
-  connect(ui->spinBox_mode_aut_pulse, SIGNAL(valueChanged(int)), this, SLOT(onModeSpinBoxValueChanged(int)));
+  connect(ui->doubleSpinBox_mode_aut_pulse, SIGNAL(valueChanged(double)), this, SLOT(onModeDoubleSpinBoxValueChanged(double)));
   connect(ui->doubleSpinBox_mode_autAcc, SIGNAL(valueChanged(double)), this, SLOT(onModeDoubleSpinBoxValueChanged(double)));
   connect(ui->doubleSpinBox_mode_autDec, SIGNAL(valueChanged(double)), this, SLOT(onModeDoubleSpinBoxValueChanged(double)));
   connect(ui->doubleSpinBox_mode_autMaxVel, SIGNAL(valueChanged(double)), this, SLOT(onModeDoubleSpinBoxValueChanged(double)));
@@ -175,9 +179,10 @@ bool TabModeCtl::eventFilter(QObject *obj, QEvent *event)
     {
       //tab mode
       ModeCtlPrms* modePrms=m_dataList.at(m_currenAxis);
-      QSpinBox *box=qobject_cast<QSpinBox *>(obj);
+
+      //QSpinBox *box=qobject_cast<QSpinBox *>(obj);
       quint16 axisInx = m_currenAxis;
-      qDebug()<<"spinBox value"<<box->value();
+      //qDebug()<<"spinBox value"<<box->value();
       if(obj==ui->spinBox_mode_ipa)//3 初始化相位
       {
         modePrms->m_ipa=ui->spinBox_mode_ipa->value();
@@ -212,7 +217,7 @@ bool TabModeCtl::eventFilter(QObject *obj, QEvent *event)
         modePrms->m_iqref=ui->spinBox_mode_iqref->value();
 
         m_sev->cmdSetIdRef(axisInx,modePrms->m_idref);
-        m_sev->cmdSetIqRef(axisInx,modePrms->m_idref);
+        m_sev->cmdSetIqRef(axisInx,modePrms->m_iqref);
 
         ui->spinBox_mode_idref->setStyleSheet("color:black");
         ui->spinBox_mode_iqref->setStyleSheet("color:black");
@@ -253,7 +258,7 @@ bool TabModeCtl::eventFilter(QObject *obj, QEvent *event)
           modePrms->m_autDec = ui->doubleSpinBox_mode_autDec->value();
           modePrms->m_autVel = ui->doubleSpinBox_mode_autMaxVel->value() / scale;
           modePrms->m_autMode = ui->comboBox_mode_auc_mode->currentIndex();
-          modePrms->m_autPulse = ui->spinBox_mode_aut_pulse->value();
+          modePrms->m_autPulse = ui->doubleSpinBox_mode_aut_pulse->value() * 65536;
           m_sev->genCmdWritePlanSpdAcc(axisInx, modePrms->m_autAcc);
           m_sev->genCmdWritePlanSpdDec(axisInx, modePrms->m_autDec);
           m_sev->genCmdWritePlanSpdMax(axisInx, modePrms->m_autVel);
@@ -261,18 +266,18 @@ bool TabModeCtl::eventFilter(QObject *obj, QEvent *event)
           m_sev->cmdSetPosRef(axisInx, modePrms->m_autPulse);
 
           modePrms->m_autfgd = m_sev->genCmdReadAutoTurnningFgd(axisInx, ok);
-          ui->spinBox_mode_aut_fgd->setValue(modePrms->m_autfgd);
+          ui->label_mode_aut_fgd->setText(QString::number(modePrms->m_autfgd));
           modePrms->m_autfgp = m_sev->genCmdReadAutoTurnningFgp(axisInx, ok);
-          ui->spinBox_mode_aut_fgp->setValue(modePrms->m_autfgp);
+          ui->label_mode_aut_fgp->setText(QString::number(modePrms->m_autfgp));
           modePrms->m_autfgi = m_sev->genCmdReadAutoTurnningFgi(axisInx, ok);
-          ui->spinBox_mode_aut_fgi->setValue(modePrms->m_autfgi);
+          ui->label_mode_aut_fgi->setText(QString::number(modePrms->m_autfgi));
           modePrms->m_autfgn = m_sev->genCmdReadAutoTurnningFgn(axisInx, ok);
-          ui->spinBox_mode_aut_fgn->setValue(modePrms->m_autfgn);
+          ui->label_mode_aut_fgn->setText(QString::number(modePrms->m_autfgn));
 
           ui->doubleSpinBox_mode_autAcc->setStyleSheet("color:black");
           ui->doubleSpinBox_mode_autDec->setStyleSheet("color:black");
           ui->doubleSpinBox_mode_autMaxVel->setStyleSheet("color:black");
-          ui->spinBox_mode_aut_pulse->setStyleSheet("color:black");
+          ui->doubleSpinBox_mode_aut_pulse->setStyleSheet("color:black");
       }
       return true;
     }
@@ -373,21 +378,21 @@ void TabModeCtl::onModeCtlPanelModeChanged(quint16 axis, int mode)
     case GT::MODE_CSC:break;
     case GT::MODE_AUT:
     {
-        ui->spinBox_mode_aut_pulse->setValue(modePrms->m_autPulse);
-        ui->spinBox_mode_aut_fgd->setValue(modePrms->m_autfgd);
-        ui->spinBox_mode_aut_fgi->setValue(modePrms->m_autfgi);
-        ui->spinBox_mode_aut_fgn->setValue(modePrms->m_autfgn);
-        ui->spinBox_mode_aut_fgp->setValue(modePrms->m_autfgp);
+        ui->doubleSpinBox_mode_aut_pulse->setValue(modePrms->m_autPulse);
+        ui->label_mode_aut_fgd->setText(QString::number(modePrms->m_autfgd));
+        ui->label_mode_aut_fgp->setText(QString::number(modePrms->m_autfgp));
+        ui->label_mode_aut_fgi->setText(QString::number(modePrms->m_autfgi));
+        ui->label_mode_aut_fgn->setText(QString::number(modePrms->m_autfgn));
         ui->comboBox_mode_auc_mode->setCurrentIndex(modePrms->m_autMode);
         ui->doubleSpinBox_mode_autAcc->setValue(modePrms->m_autAcc);
         ui->doubleSpinBox_mode_autDec->setValue(modePrms->m_autDec);
         ui->doubleSpinBox_mode_autMaxVel->setValue(modePrms->m_autVel);
 
-        ui->spinBox_mode_aut_pulse->setStyleSheet("color:black");
-        ui->spinBox_mode_aut_fgd->setStyleSheet("color:black");
-        ui->spinBox_mode_aut_fgi->setStyleSheet("color:black");
-        ui->spinBox_mode_aut_fgn->setStyleSheet("color:black");
-        ui->spinBox_mode_aut_fgp->setStyleSheet("color:black");
+        ui->doubleSpinBox_mode_aut_pulse->setStyleSheet("color:black");
+        ui->label_mode_aut_fgd->setStyleSheet("color:black");
+        ui->label_mode_aut_fgi->setStyleSheet("color:black");
+        ui->label_mode_aut_fgn->setStyleSheet("color:black");
+        ui->label_mode_aut_fgp->setStyleSheet("color:black");
         ui->doubleSpinBox_mode_autAcc->setStyleSheet("color:black");
         ui->doubleSpinBox_mode_autDec->setStyleSheet("color:black");
         ui->doubleSpinBox_mode_autMaxVel->setStyleSheet("color:black");
@@ -470,21 +475,21 @@ void TabModeCtl::onModeCtlPanelCheckChanged(quint16 axis, int mode)
     case GT::MODE_CSC:break;
     case GT::MODE_AUT:
     {
-        ui->spinBox_mode_aut_pulse->setValue(modePrms->m_autPulse);
-        ui->spinBox_mode_aut_fgd->setValue(modePrms->m_autfgd);
-        ui->spinBox_mode_aut_fgi->setValue(modePrms->m_autfgi);
-        ui->spinBox_mode_aut_fgn->setValue(modePrms->m_autfgn);
-        ui->spinBox_mode_aut_fgp->setValue(modePrms->m_autfgp);
+        ui->doubleSpinBox_mode_aut_pulse->setValue(modePrms->m_autPulse);
+        ui->label_mode_aut_fgd->setText(QString::number(modePrms->m_autfgd));
+        ui->label_mode_aut_fgp->setText(QString::number(modePrms->m_autfgp));
+        ui->label_mode_aut_fgi->setText(QString::number(modePrms->m_autfgi));
+        ui->label_mode_aut_fgn->setText(QString::number(modePrms->m_autfgn));
         ui->comboBox_mode_auc_mode->setCurrentIndex(modePrms->m_autMode);
         ui->doubleSpinBox_mode_autAcc->setValue(modePrms->m_autAcc);
         ui->doubleSpinBox_mode_autDec->setValue(modePrms->m_autDec);
         ui->doubleSpinBox_mode_autMaxVel->setValue(modePrms->m_autVel);
 
-        ui->spinBox_mode_aut_pulse->setStyleSheet("color:black");
-        ui->spinBox_mode_aut_fgd->setStyleSheet("color:black");
-        ui->spinBox_mode_aut_fgi->setStyleSheet("color:black");
-        ui->spinBox_mode_aut_fgn->setStyleSheet("color:black");
-        ui->spinBox_mode_aut_fgp->setStyleSheet("color:black");
+        ui->doubleSpinBox_mode_aut_pulse->setStyleSheet("color:black");
+        ui->label_mode_aut_fgd->setStyleSheet("color:black");
+        ui->label_mode_aut_fgi->setStyleSheet("color:black");
+        ui->label_mode_aut_fgn->setStyleSheet("color:black");
+        ui->label_mode_aut_fgp->setStyleSheet("color:black");
         ui->doubleSpinBox_mode_autAcc->setStyleSheet("color:black");
         ui->doubleSpinBox_mode_autDec->setStyleSheet("color:black");
         ui->doubleSpinBox_mode_autMaxVel->setStyleSheet("color:black");

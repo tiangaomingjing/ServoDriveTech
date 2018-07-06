@@ -95,7 +95,8 @@ void IGraphStatus::setCustomVisitActive(IUiWidget *uiWidget)
                   <<tr("9 Stop")\
                   <<tr("10 Sync Position")\
                   <<tr("11 Plan Stop")\
-                  <<tr("12 Sync Current");
+                  <<tr("12 Sync Current")\
+                  <<tr("13 Auto Turnning");
   d->m_sevStatusText<<tr("0 OFF")<<tr("1 INIT")<<tr("2 ON");
 }
 

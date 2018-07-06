@@ -149,66 +149,90 @@
         <translation>新建配置对话框</translation>
     </message>
     <message>
-        <location filename="ConfigDialog/configdialog.ui" line="29"/>
-        <location filename="ConfigDialog/configdialog.ui" line="45"/>
-        <location filename="ConfigDialog/configdialog.ui" line="130"/>
+        <location filename="ConfigDialog/configdialog.ui" line="60"/>
+        <location filename="ConfigDialog/configdialog.ui" line="76"/>
         <source>TextLabel</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="ConfigDialog/configdialog.ui" line="38"/>
+        <location filename="ConfigDialog/configdialog.ui" line="69"/>
         <source>device info</source>
         <translation>设备信息</translation>
     </message>
     <message>
-        <location filename="ConfigDialog/configdialog.ui" line="63"/>
+        <location filename="ConfigDialog/configdialog.ui" line="94"/>
         <source>select device</source>
         <translation>选择设备</translation>
     </message>
     <message>
-        <location filename="ConfigDialog/configdialog.ui" line="77"/>
+        <location filename="ConfigDialog/configdialog.ui" line="108"/>
         <source>1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="ConfigDialog/configdialog.ui" line="106"/>
+        <location filename="ConfigDialog/configdialog.ui" line="137"/>
         <source>input rnnet station:</source>
         <translation>输入等环网站号:</translation>
     </message>
     <message>
-        <location filename="ConfigDialog/configdialog.ui" line="123"/>
+        <location filename="ConfigDialog/configdialog.ui" line="154"/>
         <source>station info:</source>
         <translation>等环网络信息:</translation>
     </message>
     <message>
-        <location filename="ConfigDialog/configdialog.ui" line="140"/>
+        <location filename="ConfigDialog/configdialog.ui" line="171"/>
         <source>query</source>
         <translation>查询网络</translation>
     </message>
     <message>
-        <location filename="ConfigDialog/configdialog.ui" line="150"/>
+        <location filename="ConfigDialog/configdialog.ui" line="181"/>
         <source>add</source>
         <translation>增加配置</translation>
     </message>
     <message>
-        <location filename="ConfigDialog/configdialog.ui" line="163"/>
+        <location filename="ConfigDialog/configdialog.ui" line="194"/>
         <source>current select:</source>
         <translation>当前增加项:</translation>
     </message>
     <message>
-        <location filename="ConfigDialog/configdialog.ui" line="185"/>
+        <location filename="ConfigDialog/configdialog.ui" line="216"/>
         <source>remove</source>
         <translation>移除</translation>
     </message>
     <message>
-        <location filename="ConfigDialog/configdialog.ui" line="210"/>
+        <location filename="ConfigDialog/configdialog.ui" line="35"/>
         <source>apply</source>
         <translation>应用</translation>
     </message>
     <message>
-        <location filename="ConfigDialog/configdialog.ui" line="217"/>
+        <location filename="ConfigDialog/configdialog.ui" line="42"/>
         <source>cancel</source>
         <translation>取消</translation>
+    </message>
+    <message>
+        <location filename="ConfigDialog/configdialog.cpp" line="187"/>
+        <source>Warning</source>
+        <translation>警告</translation>
+    </message>
+    <message>
+        <location filename="ConfigDialog/configdialog.cpp" line="187"/>
+        <source>Unable to open com.</source>
+        <translation>连接失败。</translation>
+    </message>
+    <message>
+        <location filename="ConfigDialog/configdialog.cpp" line="201"/>
+        <source>Station Index: </source>
+        <translation>站号：</translation>
+    </message>
+    <message>
+        <location filename="ConfigDialog/configdialog.cpp" line="202"/>
+        <source>Axis Number: </source>
+        <translation>轴数：</translation>
+    </message>
+    <message>
+        <location filename="ConfigDialog/configdialog.cpp" line="203"/>
+        <source>DSP Version: </source>
+        <translation>DSP版本：</translation>
     </message>
 </context>
 <context>
@@ -506,12 +530,22 @@ more-&gt;option-&gt;autolaod-&gt;unchecked clicked apply
         <translation>导入参数</translation>
     </message>
     <message>
-        <location filename="DownloadDialog/downloaddialog.ui" line="47"/>
+        <location filename="DownloadDialog/downloaddialog.ui" line="24"/>
+        <source>Select Device</source>
+        <translation>选择设备</translation>
+    </message>
+    <message>
+        <location filename="DownloadDialog/downloaddialog.ui" line="51"/>
+        <source>Target File:</source>
+        <translation>参数文件：</translation>
+    </message>
+    <message>
+        <location filename="DownloadDialog/downloaddialog.ui" line="61"/>
         <source>...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="DownloadDialog/downloaddialog.ui" line="84"/>
+        <location filename="DownloadDialog/downloaddialog.ui" line="87"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
