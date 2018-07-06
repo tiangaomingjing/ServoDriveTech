@@ -1,5 +1,6 @@
 ﻿#include "kuselectwidget133.h"
 #include "ui_kuselectwidget133.h"
+#include <QStyledItemDelegate>
 
 
 
@@ -8,6 +9,8 @@ KuSelectWidget133::KuSelectWidget133(QWidget *parent) :
   ui(new Ui::KuSelectWidget133)
 {
   ui->setupUi(this);
+  QStyledItemDelegate* itemDelegate = new QStyledItemDelegate(ui->comboBox);
+  ui->comboBox->setItemDelegate(itemDelegate);
 
   connect(ui->comboBox,SIGNAL(currentIndexChanged(int)),this,SLOT(onComboBoxIndexChanged(int)));
 }
@@ -42,10 +45,8 @@ QDoubleSpinBox *KuSelectWidget133::boxSpdl()
   return ui->doubleSpinBox_spdl;
 }
 
-void KuSelectWidget133::onComboBoxIndexChanged(int index)
+void KuSelectWidget133::setKuModeUi(int index)
 {
-  if(index == -1)
-    return ;
   switch (index) {
   case 0:
     ui->line->setVisible(false);
@@ -82,5 +83,13 @@ void KuSelectWidget133::onComboBoxIndexChanged(int index)
     ui->doubleSpinBox_ts->setVisible(false);
     break;
   }
+  ui->comboBox->setCurrentIndex(index);
+}
+
+void KuSelectWidget133::onComboBoxIndexChanged(int index)
+{
+  if(index == -1)
+    return ;
+  setKuModeUi(index);
   emit kuSwChanged(index);
 }

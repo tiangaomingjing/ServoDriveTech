@@ -10,6 +10,10 @@ class QDoubleSpinBox;
 class KuSelectWidget133;
 class NodePort;
 class NodeSwitch;
+class BoxItemMapping;
+class INodeConnection;
+class QPushButton;
+class QProgressBar;
 
 class NolinearController133 : public QObject
 {
@@ -22,19 +26,53 @@ public:
   void setPos(const QPointF &p);
   void setPos(qreal x,qreal y);
 
+  QDoubleSpinBox *boxAcc();
+  QDoubleSpinBox *boxKd();
+  QDoubleSpinBox *boxKi();
+  QDoubleSpinBox *boxKp();
+  QDoubleSpinBox *boxKn();
+  QDoubleSpinBox *boxFn();
+  QDoubleSpinBox *boxQx();
+  QDoubleSpinBox *boxKavToPeer();
+  QDoubleSpinBox *boxKu1();
+  QDoubleSpinBox *boxKu2();
+  QDoubleSpinBox *boxTs();
+  QDoubleSpinBox *boxSpdu();
+  QDoubleSpinBox *boxSpdl();
+  QDoubleSpinBox *boxSatnAbs();
+  QDoubleSpinBox *boxSatnPos();
+  QDoubleSpinBox *boxSatnNeg();
+  QDoubleSpinBox *boxMotionAcc();
+  QDoubleSpinBox *boxMotionDec();
+  QDoubleSpinBox *boxMotionMaxSpd();
+  QDoubleSpinBox *boxMotionPos();
+
+  void setDir(int dir);
+  void setCurrentKuMode(int mode);
+  void setSwON(bool on);
+  BoxItemMapping *boxItemMapping() const;
+
+  void setBtnAutoTurningUiOn(bool on);
+  void setAutoTurningProgressBarValue(int v);
+  void setProgressBarVisible(bool visible);
+
+
 signals:
   void dirChanged(int dir);
   void inputFilterItemClicked();
+  void kuSelectChanged(int index);
+  void swChanged(bool isOn);
+  void btnAutoStartClicked(bool checked);
 
 private slots:
   void onRadioBtnClicked();
   void onSaturationClicked(bool checked);
+  void onBtnAutoStartClicked(bool checked);
 private:
   void createDirItem();
   void createInputFilterItem();
   void createCurrentItem();
   void createAccItem();
-  void createSaturationItem();
   void createKdItem();
   void createKpItem();
   void createKiItem();
@@ -48,6 +86,9 @@ private:
   void createANVSFreqItem();
   void createANVSGainItem();
   void createFeedBackItem();
+  void createSaturationItem();
+  void createSaturationConfigItem();
+  void createAutoTurningItem();
 
   void createArrowsItem();
 
@@ -104,6 +145,26 @@ private:
   QDoubleSpinBox *m_boxANVSQx;
 
   NodeBlock *m_posFBItem;
+
+  //饱和框
+  NodeBlock *m_satnFrame;
+  NodeBlock *m_satnAbs;
+  NodeBlock *m_satnPos;
+  NodeBlock *m_satnNeg;
+  QDoubleSpinBox *m_boxSatnAbs;
+  QDoubleSpinBox *m_boxSatnPos;
+  QDoubleSpinBox *m_boxSatnNeg;
+  QList<INodeConnection *>m_nodeConnectionList;
+
+  BoxItemMapping *m_boxItemMapping;
+
+  NodeBlock      *m_autoTnItem;
+  QDoubleSpinBox *m_boxAutoTnAcc;
+  QDoubleSpinBox *m_boxAutoTnDec;
+  QDoubleSpinBox *m_boxAutoTnMaxVel;
+  QDoubleSpinBox *m_boxAutoTnPulseNum;
+  QPushButton    *m_btnAutoStart;
+  QProgressBar   *m_bar;
 
 };
 

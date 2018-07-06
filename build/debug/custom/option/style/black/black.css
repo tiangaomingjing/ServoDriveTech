@@ -4,17 +4,17 @@ hover :#D0D0D0 ,color :black
 checked:gray ,color:white
 
 */
-QDoubleSpinBox{
-	min-height:30px;
+QDoubleSpinBox,QSpinBox{
+	min-height:24px;
 	min-width:80px;
 	border-radius:5px;
 	padding-left:5px;
 	border:1px solid #BBB9B9;
 }
-QDoubleSpinBox:focus{
+QDoubleSpinBox:focus,QSpinBox:focus{
 	border:1px solid black;
 }
-QDoubleSpinBox:!enabled{
+QDoubleSpinBox:!enabled,QSpinBox:!enabled{
 	border:none;
 	color:gray;
 	background-color:gray;
@@ -661,6 +661,11 @@ QWidget#widget_posPid{
 	border:2px solid #BBB9B9;
 	border-radius:10px;
 }
+QWidget#widget_nolinearCtl_autoTurning{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
 
 QWidget#widget_posFFvel{
 	background-color: #E0DDDD;
@@ -687,7 +692,7 @@ QWidget#widget_posSaturation:hover{
 	border-radius:5px;
 }
 
-QLabel#label_posPidTitle ,QLabel#label_posDirControl{
+QLabel#label_posPidTitle ,QLabel#label_posDirControl,QLabel#label_nolinearCtl_autoTurning {
 	padding-bottom:10px;
 	margin-bottom:5px;
 	color:black;
@@ -761,6 +766,12 @@ QLabel#label_posFB
 	border:2px solid #BBB9B9;
 	border-radius:10px;
 	min-height:40px;
+}
+
+QPushButton#btn_nolinearCtl_autoStart:checked{
+border:1px solid red;
+background-color:red;
+color:white;
 }
 
 /*=====================Status状态界面===========================*/

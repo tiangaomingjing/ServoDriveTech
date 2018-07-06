@@ -640,7 +640,7 @@ void SevDevice::setCurrentTaskServoMode(quint16 axisInx, int mode)
   if(d->m_socket->isConnected()==false)
     return ;
 
-  d->m_socket->setCurrentTaskServoMode(axisInx,(ComDriver::TaskServoMode)mode);
+  d->m_socket->setCurrentTaskServoMode(axisInx,mode);
 }
 
 void SevDevice::setControlSrc(quint16 axisInx, GT::SevControlSrc ctlSrc)

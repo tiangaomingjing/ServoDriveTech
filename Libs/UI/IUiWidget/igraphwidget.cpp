@@ -161,7 +161,7 @@ void IGraphWidget::onItemBoxEditTextError(QTreeWidgetItem *item, int status)
   Q_D(IGraphWidget);
   QDoubleSpinBox *box=d->m_mapping->box(item);
   if(box !=NULL)
-    qDebug()<<"error box value = "<<box->value();
+    qDebug()<<"set edit status = "<<status<<"value = "<<box->value();
 
   if(box!=NULL)
     setEditTextStatus(box,OptFace::EditTextStatus(status));

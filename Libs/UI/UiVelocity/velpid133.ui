@@ -150,7 +150,7 @@
    <item row="9" column="0">
     <widget class="QLabel" name="label_ts">
      <property name="text">
-      <string>ts(x125us)</string>
+      <string>ts(ms)</string>
      </property>
     </widget>
    </item>

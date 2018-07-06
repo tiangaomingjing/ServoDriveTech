@@ -678,7 +678,7 @@ errcode_t RnNet::clearAlarm(uint8_t axis)
     return ret;
 }
 
-TaskServoMode RnNet::currentServoTaskMode(uint8_t axis, errcode_t &errcode)
+int16_t RnNet::currentServoTaskMode(uint8_t axis, errcode_t &errcode)
 {
     Q_D(RnNet);
     SERVO_MODE mode;
@@ -686,14 +686,14 @@ TaskServoMode RnNet::currentServoTaskMode(uint8_t axis, errcode_t &errcode)
     ret=GTSD_CMD_GetServoTaskMode(axis,&mode,d->m_comType, d->m_rnStation);
     errcode=ret;
 
-    return TaskServoMode(mode.usr_mode);
+    return int16_t(mode.usr_mode);
 }
 
-errcode_t RnNet::setServoTaskMode(uint8_t axis, TaskServoMode mode)
+errcode_t RnNet::setServoTaskMode(uint8_t axis, int16_t mode)
 {
     Q_D(RnNet);
 
-    int16_t ret=GTSD_CMD_SetServoTaskMode(axis,(TaskServoMode)mode ,d->m_comType, d->m_rnStation);
+    int16_t ret=GTSD_CMD_SetServoTaskMode(axis,mode ,d->m_comType, d->m_rnStation);
     return ret;
 }
 

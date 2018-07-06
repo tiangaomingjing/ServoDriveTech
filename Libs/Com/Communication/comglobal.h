@@ -96,7 +96,7 @@ typedef enum{
   TASK_MODE_POS_FOL,
   TASK_MODE_DB,
   TASK_MODE_CUR_FOL,
-  TASK_MODE_AUTO_TUNNING
+  TASK_MODE_AUTN
 }TaskServoMode;
 typedef enum{
   NET_1000M,

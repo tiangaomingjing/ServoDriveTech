@@ -66,15 +66,15 @@ errcode_t PcDebug::clearAlarm(uint8_t axis)
   return ret;
 }
 
-errcode_t PcDebug::setServoTaskMode(uint8_t axis,TaskServoMode mode)
+errcode_t PcDebug::setServoTaskMode(uint8_t axis,int16_t mode)
 {
   Q_D(PcDebug);
 
-  int16_t ret=GTSD_CMD_SetServoTaskMode(axis,(TaskServoMode)mode ,d->m_comType);
+  int16_t ret=GTSD_CMD_SetServoTaskMode(axis,mode ,d->m_comType);
   return ret;
 }
 
-TaskServoMode PcDebug::currentServoTaskMode(uint8_t axis,errcode_t &errcode)
+int16_t PcDebug::currentServoTaskMode(uint8_t axis,errcode_t &errcode)
 {
   Q_D(PcDebug);
   SERVO_MODE mode;
@@ -82,7 +82,7 @@ TaskServoMode PcDebug::currentServoTaskMode(uint8_t axis,errcode_t &errcode)
   ret=GTSD_CMD_GetServoTaskMode(axis,&mode,d->m_comType);
   errcode=ret;
 
-  return TaskServoMode(mode.usr_mode);
+  return int16_t(mode.usr_mode);
 }
 
 errcode_t PcDebug::setIdRef(uint8_t axis ,double idRef)

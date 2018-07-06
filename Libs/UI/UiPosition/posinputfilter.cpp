@@ -41,7 +41,7 @@ PosInputFilter::PosInputFilter(QWidget *parent) :
   label1->setObjectName("posFirfilter_title");
   QHBoxLayout *hlayout1 = new QHBoxLayout;
   QLabel *label_maf = new QLabel(tr("maf_num"),w1);
-  QLabel *label_unit = new QLabel(tr("x125us"),w1);
+  QLabel *label_unit = new QLabel("(ms)",w1);
   m_mafNum = new QDoubleSpinBox(w1);
   m_mafNum->setButtonSymbols(QAbstractSpinBox::NoButtons);
   m_mafNum->setMaximumWidth(30);

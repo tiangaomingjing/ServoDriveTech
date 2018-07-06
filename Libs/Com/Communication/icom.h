@@ -24,8 +24,8 @@ public:
   virtual errcode_t setServoEnable(uint8_t axis,bool on)=0;
   virtual errcode_t checkServoIsEnable(uint8_t axis,bool &enable)=0;
 
-  virtual errcode_t setServoTaskMode(uint8_t axis,TaskServoMode mode)=0;
-  virtual TaskServoMode currentServoTaskMode(uint8_t axis,errcode_t &errCode)=0;
+  virtual errcode_t setServoTaskMode(uint8_t axis,int16_t mode)=0;
+  virtual int16_t currentServoTaskMode(uint8_t axis,errcode_t &errCode)=0;
 
   virtual errcode_t clearAlarm(uint8_t axis)=0;
 
