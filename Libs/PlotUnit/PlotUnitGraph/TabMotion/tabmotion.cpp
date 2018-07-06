@@ -375,8 +375,8 @@ void TabMotion::onBtnMotionGoClicked(bool checked)
               onMotionAllDone();
           }
         }
-        m_barWidget->setVisible(false);
-        m_barWidget->hideAllBar();
+        //m_barWidget->setVisible(false);
+        //m_barWidget->hideAllBar();
       }
 }
 
@@ -387,10 +387,13 @@ void TabMotion::onProgressValueChanged(quint16 axisInx, int value)
 
 void TabMotion::onMotionAllDone()
 {
+    ui->tbtn_plot_servoGoMotion->setCheckable(false);
   qDebug()<<"motion AllDone";
-  ui->tbtn_plot_servoGoMotion->setChecked(false);
-  GTUtils::delayms(500);
+  GTUtils::delayms(1000);
   qDebug()<<"emit motionStop";
   emit motionStop();
+  GTUtils::delayms(500);
+  ui->tbtn_plot_servoGoMotion->setCheckable(true);
+  ui->tbtn_plot_servoGoMotion->setChecked(false);
 }
 
