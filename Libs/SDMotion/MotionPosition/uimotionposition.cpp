@@ -46,7 +46,7 @@ UiMotionPosition::UiMotionPosition(MotionPosition *mp, QWidget *parent) :
 
     ui->doubleSpinBox_ReciAcc->setValue(1300);
     ui->doubleSpinBox_ReciDec->setValue(1300);
-    ui->doubleSpinBox_ReciInterval->setValue(200);
+    ui->doubleSpinBox_ReciInterval->setValue(1000);
     ui->doubleSpinBox_ReciMaxVel->setValue(1000);
     ui->doubleSpinBox_ReciPulse->setValue(327680);
     ui->spinBox_ReciTimes->setValue(0);
@@ -139,7 +139,7 @@ void UiMotionPosition::onSpinBoxValueChanged(int value)
 void UiMotionPosition::onDoubleSpinBoxValueChanged(double value)
 {
     Q_UNUSED(value);
-    QSpinBox *box = qobject_cast<QSpinBox *>(sender());
+    QDoubleSpinBox *box = qobject_cast<QDoubleSpinBox *>(sender());
     box->setStyleSheet("color:red");
 }
 

@@ -233,7 +233,7 @@
                                     <string>ColorR</string>
                                 </property>
                                 <property name="text">
-                                    <string>255</string>g
+                                    <string>255</string>
                                 </property>
                             </item>
                             <item>
@@ -250,7 +250,7 @@
                                 <string>IsDraw</string>
                             </property>
                             <property name="text">
-                                <string>1</string>
+                                <string>0</string>
                             </property>
                         </item>
                         <item>
@@ -317,7 +317,7 @@
                             <string>Curve</string>
                         </property>
                         <property name="text">
-                            <string>CurveUsrVffd</string>
+                            <string>CurveUsrVel</string>
                         </property>
                         <item>
                             <property name="text">
@@ -348,7 +348,7 @@
                                 <string>Name</string>
                             </property>
                             <property name="text">
-                                <string>Vffd</string>
+                                <string>Vel</string>
                             </property>
                         </item>
                         <item>
@@ -356,7 +356,7 @@
                                 <string>Note</string>
                             </property>
                             <property name="text">
-                                <string>位置速度指令</string>
+                                <string>测量速度</string>
                             </property>
                         </item>
                         <item>
@@ -474,7 +474,7 @@
                                     <string>Var</string>
                                 </property>
                                 <property name="text">
-                                    <string>gSevDrv.sev_obj.pos.ffd.spdr</string>
+                                    <string>gSevDrv.sev_obj.cur.rsv.spd</string>
                                 </property>
                                 <item>
                                     <property name="text">
@@ -489,7 +489,7 @@
                                         <string>OffsetAddr</string>
                                     </property>
                                     <property name="text">
-                                        <string>7528</string>
+                                        <string>718</string>
                                     </property>
                                 </item>
                                 <item>
@@ -497,7 +497,7 @@
                                         <string>Bytes</string>
                                     </property>
                                     <property name="text">
-                                        <string>4</string>
+                                        <string>2</string>
                                     </property>
                                 </item>
                             </item>

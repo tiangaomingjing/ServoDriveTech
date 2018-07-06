@@ -150,7 +150,7 @@ void TabModeCtl::uiUpdate()
     ui->label_plot_servo_onoff->setText(tr("SEV ON"));
   else
     ui->label_plot_servo_onoff->setText(tr("SEV OFF"));
-  qDebug()<<"update servo status"<<m_sev->aliasName()<<" cur mode axis = "<<curModeAxis<<" servo on = "<<m_sev->axisServoIsOn(curModeAxis);
+  //qDebug()<<"update servo status"<<m_sev->aliasName()<<" cur mode axis = "<<curModeAxis<<" servo on = "<<m_sev->axisServoIsOn(curModeAxis);
 
 }
 
