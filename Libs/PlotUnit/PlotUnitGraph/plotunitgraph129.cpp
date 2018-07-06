@@ -689,7 +689,9 @@ void PlotUnitGraph129::initialCurvesFromXml()
 {
   Q_D(PlotUnitGraph129);
   //反序列化测试
+  qDebug()<<"build curve form xml ----------------------------0";
   QList<ICurve *>curveList = d->m_pluginManager->buildCurvesFromXml();
+  qDebug()<<"build curve form xml ----------------------------1";
   foreach (ICurve *c, curveList) {
     qDebug()<<"Curve = "<<c->pluginName();
     qDebug()<<"DevIndex = "<<c->devInx();

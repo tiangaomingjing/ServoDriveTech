@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>837</width>
-    <height>513</height>
+    <width>884</width>
+    <height>567</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -319,7 +319,7 @@
        <string>13292</string>
       </property>
       <property name="text">
-       <string>1</string>
+       <string>8</string>
       </property>
      </item>
      <item>
@@ -1194,13 +1194,13 @@
      </item>
      <item>
       <property name="text">
-       <string>gSevDrv.sev_obj.vel.atn.prm.fgd_stp</string>
+       <string>gSevDrv.sev_obj.pos.mkr.prm.accrate</string>
       </property>
       <property name="text">
        <string>0</string>
       </property>
       <property name="text">
-       <string>int16</string>
+       <string>int32</string>
       </property>
       <property name="text">
        <string>NULL</string>
@@ -1209,27 +1209,27 @@
        <string>0</string>
       </property>
       <property name="text">
-       <string>32767</string>
+       <string>2147483647</string>
       </property>
       <property name="text">
        <string>NULL</string>
       </property>
       <property name="text">
-       <string>6499</string>
+       <string>13696</string>
       </property>
       <property name="text">
-       <string>1</string>
+       <string>182.04</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>gSevDrv.sev_obj.vel.atn.prm.fgn_stp</string>
+       <string>gSevDrv.sev_obj.pos.mkr.prm.decrate</string>
       </property>
       <property name="text">
        <string>0</string>
       </property>
       <property name="text">
-       <string>int16</string>
+       <string>int32</string>
       </property>
       <property name="text">
        <string>NULL</string>
@@ -1238,27 +1238,27 @@
        <string>0</string>
       </property>
       <property name="text">
-       <string>32767</string>
+       <string>2147483647</string>
       </property>
       <property name="text">
        <string>NULL</string>
       </property>
       <property name="text">
-       <string>6500</string>
+       <string>13698</string>
       </property>
       <property name="text">
-       <string>1</string>
+       <string>182.04</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>gSevDrv.sev_obj.vel.atn.prm.fgp_stp</string>
+       <string>gSevDrv.sev_obj.pos.mkr.prm.maxspd</string>
       </property>
       <property name="text">
        <string>0</string>
       </property>
       <property name="text">
-       <string>int16</string>
+       <string>int32</string>
       </property>
       <property name="text">
        <string>NULL</string>
@@ -1267,42 +1267,13 @@
        <string>0</string>
       </property>
       <property name="text">
-       <string>32767</string>
+       <string>2147483647</string>
       </property>
       <property name="text">
        <string>NULL</string>
       </property>
       <property name="text">
-       <string>6501</string>
-      </property>
-      <property name="text">
-       <string>1</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>gSevDrv.sev_obj.vel.atn.prm.fgi_stp</string>
-      </property>
-      <property name="text">
-       <string>0</string>
-      </property>
-      <property name="text">
-       <string>int16</string>
-      </property>
-      <property name="text">
-       <string>NULL</string>
-      </property>
-      <property name="text">
-       <string>0</string>
-      </property>
-      <property name="text">
-       <string>32767</string>
-      </property>
-      <property name="text">
-       <string>NULL</string>
-      </property>
-      <property name="text">
-       <string>6502</string>
+       <string>13702</string>
       </property>
       <property name="text">
        <string>1</string>

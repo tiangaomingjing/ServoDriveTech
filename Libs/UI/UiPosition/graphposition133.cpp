@@ -780,12 +780,15 @@ void GraphPosition133::syncTreeDataToUiFace()
   d->m_treeWidget->topLevelItem(KP_SW_SPDL_INX)->setText(GT::COL_PAGE_TREE_SCALE,QString::number(k,'f',3));
   d->m_treeWidget->topLevelItem(KP_SW_SPDU_INX)->setText(GT::COL_PAGE_TREE_SCALE,QString::number(k,'f',3));
   d->m_treeWidget->topLevelItem(NLC_MTN_MAXSPD_INX)->setText(GT::COL_PAGE_TREE_SCALE,QString::number(k,'f',3));
+  d->m_treeWidget->topLevelItem(NLC_SW_SPDU_INX)->setText(GT::COL_PAGE_TREE_SCALE,QString::number(k,'f',3));
+  d->m_treeWidget->topLevelItem(NLC_SW_SPDL_INX)->setText(GT::COL_PAGE_TREE_SCALE,QString::number(k,'f',3));
 
   //change ui
   quint16 sw_en = d->m_treeWidget->topLevelItem(KP_SW_EN_INX)->text(GT::COL_PAGE_TREE_VALUE).toUShort();
   d->m_pid133->setCurrentPidSegment(sw_en);
 
   quint16 sw_mask_all = d->m_treeWidget->topLevelItem(NLC_SEQ_PRM_MASKFLAG_ALL_INX)->text(GT::COL_PAGE_TREE_VALUE).toUShort();
+  qDebug()<<"sw_mask_all ="<<sw_mask_all;
   bool isNolinearController = false;
   quint16 mask = 1<<MASK_BIT_LINC;
   isNolinearController = ((sw_mask_all&mask)> 0);
@@ -816,6 +819,17 @@ void GraphPosition133::syncTreeDataToUiFace()
   //nolinear controller
   d->m_nolinearCtler->setDir(dir);
   d->m_nolinearCtler->setCurrentKuMode(kuMode);
+
+  quint16 sw_mask_antv = d->m_treeWidget->topLevelItem(NLC_MASK_FLAG_ALL_INX)->text(GT::COL_PAGE_TREE_VALUE).toUShort();
+  sw_mask_antv &=(1<<MASK_BIT_ANTV);
+  if(sw_mask_antv > 0)
+  {
+    d->m_nolinearCtler->setSwON(false);
+  }
+  else
+  {
+    d->m_nolinearCtler->setSwON(true);
+  }
 
   d->m_mapping->syncAllItem2BoxText();
   d->m_nolinearCtler->boxItemMapping()->syncAllItem2BoxText();

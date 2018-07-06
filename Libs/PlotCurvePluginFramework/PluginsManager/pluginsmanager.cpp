@@ -325,6 +325,7 @@ QList<ICurve *> PluginsManager::buildCurvesFromXml()
     if(c)
     {
       bool ok = c->read(item);
+      qDebug()<<" *************************build curve = "<<c->pluginName();
       if(ok)
         list.append(c);
       else
