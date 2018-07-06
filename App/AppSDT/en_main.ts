@@ -149,65 +149,89 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ConfigDialog/configdialog.ui" line="29"/>
-        <location filename="ConfigDialog/configdialog.ui" line="45"/>
-        <location filename="ConfigDialog/configdialog.ui" line="130"/>
+        <location filename="ConfigDialog/configdialog.ui" line="60"/>
+        <location filename="ConfigDialog/configdialog.ui" line="76"/>
         <source>TextLabel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ConfigDialog/configdialog.ui" line="38"/>
+        <location filename="ConfigDialog/configdialog.ui" line="69"/>
         <source>device info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ConfigDialog/configdialog.ui" line="63"/>
+        <location filename="ConfigDialog/configdialog.ui" line="94"/>
         <source>select device</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ConfigDialog/configdialog.ui" line="77"/>
+        <location filename="ConfigDialog/configdialog.ui" line="108"/>
         <source>1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ConfigDialog/configdialog.ui" line="106"/>
+        <location filename="ConfigDialog/configdialog.ui" line="137"/>
         <source>input rnnet station:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ConfigDialog/configdialog.ui" line="123"/>
+        <location filename="ConfigDialog/configdialog.ui" line="154"/>
         <source>station info:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ConfigDialog/configdialog.ui" line="140"/>
+        <location filename="ConfigDialog/configdialog.ui" line="171"/>
         <source>query</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ConfigDialog/configdialog.ui" line="150"/>
+        <location filename="ConfigDialog/configdialog.ui" line="181"/>
         <source>add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ConfigDialog/configdialog.ui" line="163"/>
+        <location filename="ConfigDialog/configdialog.ui" line="194"/>
         <source>current select:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ConfigDialog/configdialog.ui" line="185"/>
+        <location filename="ConfigDialog/configdialog.ui" line="216"/>
         <source>remove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ConfigDialog/configdialog.ui" line="210"/>
+        <location filename="ConfigDialog/configdialog.ui" line="35"/>
         <source>apply</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ConfigDialog/configdialog.ui" line="217"/>
+        <location filename="ConfigDialog/configdialog.ui" line="42"/>
         <source>cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ConfigDialog/configdialog.cpp" line="187"/>
+        <source>Warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ConfigDialog/configdialog.cpp" line="187"/>
+        <source>Unable to open com.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ConfigDialog/configdialog.cpp" line="201"/>
+        <source>Station Index: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ConfigDialog/configdialog.cpp" line="202"/>
+        <source>Axis Number: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ConfigDialog/configdialog.cpp" line="203"/>
+        <source>DSP Version: </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -497,12 +521,22 @@ more-&gt;option-&gt;autolaod-&gt;unchecked clicked apply
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DownloadDialog/downloaddialog.ui" line="47"/>
+        <location filename="DownloadDialog/downloaddialog.ui" line="24"/>
+        <source>Select Device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="DownloadDialog/downloaddialog.ui" line="51"/>
+        <source>Target File:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="DownloadDialog/downloaddialog.ui" line="61"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="DownloadDialog/downloaddialog.ui" line="84"/>
+        <location filename="DownloadDialog/downloaddialog.ui" line="87"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>

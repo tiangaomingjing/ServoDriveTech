@@ -6,13 +6,14 @@
 #include "Option"
 #include <qmath.h>
 
+#include <QListWidget>
+#include <QDebug>
+
 #define CON_KEYNAME_MOT_NOS         "gSevDrv.sev_obj.cur.mot.Nos_1"
-#define CMD_POS_MAXSPD              "gSevDrv.sev_obj.pos.mkr.prm.maxspd"
-#define CMD_POS_ACC                 "gSevDrv.sev_obj.pos.mkr.prm.accrate"
-#define CMD_POS_DEC                 "gSevDrv.sev_obj.pos.mkr.prm.decrate"
 #define CMD_POS_DELAY               "gSevDrv.sev_obj.pos.seq.prm.move_delay_times"
 #define CMD_POS_MODE                "gSevDrv.sev_obj.pos.seq.prm.move_mode"
 #define CMD_POS_MOV_EN              "gSevDrv.sev_obj.pos.seq.prm.rec_mov_en"
+#define CMD_POS_CMDSRC              "gSevDrv.sev_obj.pos.seq.prm.psrc_sel"
 
 class MotionPositionPrivate:public IMotionPrivate
 {
@@ -21,7 +22,7 @@ public:
     MotionPositionPrivate(){}
     ~MotionPositionPrivate(){}
 protected:
-
+    qint16 m_cmdSrc;
 };
 
 MotionPosition::MotionPosition(QListWidget *axisListWidget, SevDevice *sev, const QString &name, QObject *parent):
@@ -36,6 +37,9 @@ MotionPosition::MotionPosition(QListWidget *axisListWidget, SevDevice *sev, cons
     d->m_ui = uiPos;
     d->m_motionUnFinishVector.clear();
     connect(this, SIGNAL(motionFinish(quint16)), this, SLOT(onMotionFinish(quint16)));
+    m_count = 0;
+    m_timer.setTimerType(Qt::PreciseTimer);
+    connect(&m_timer, SIGNAL(timeout()), this, SLOT(onTimerOut()));
 }
 
 MotionPosition::~MotionPosition()
@@ -67,32 +71,36 @@ void MotionPosition::movePrepare(quint16 axisInx)
     quint64 nos = d->m_sev->genCmdRead(CON_KEYNAME_MOT_NOS, axisInx, isOk);
     double scale = nos / qPow(2, 24);
 
+    d->m_cmdSrc = d->m_sev->genCmdRead(CMD_POS_CMDSRC, axisInx, isOk);
+
+    d->m_sev->genCmdWrite(CMD_POS_CMDSRC, 1, axisInx);
+
     UiPosMotionData* data = UiMotion()->uiDataList().at(axisInx);
     if (data->m_isReci) {
         double maxVel = data->m_reciMaxVel / scale;
-        d->m_sev->genCmdWrite(CMD_POS_MAXSPD, maxVel, axisInx);
+        d->m_sev->genCmdWritePlanSpdMax(axisInx, maxVel);
 
         double acc = data->m_reciAcc;
-        d->m_sev->genCmdWrite(CMD_POS_ACC, acc, axisInx);
+        d->m_sev->genCmdWritePlanSpdAcc(axisInx, acc);
 
         double dec = data->m_reciDec;
-        d->m_sev->genCmdWrite(CMD_POS_DEC, dec, axisInx);
+        d->m_sev->genCmdWritePlanSpdDec(axisInx, dec);
 
         int pulse = data->m_reciPulse;
         d->m_sev->cmdSetPosRef(axisInx, pulse);
 
-        double delay = data->m_reciInterval;
+        double delay = data->m_reciInterval * 8;
         d->m_sev->genCmdWrite(CMD_POS_DELAY, delay, axisInx);
         d->m_sev->genCmdWrite(CMD_POS_MODE, 1, axisInx);
     } else {
         double maxVel = data->m_pointMaxVel / scale;
-        d->m_sev->genCmdWrite(CMD_POS_MAXSPD, maxVel, axisInx);
+        d->m_sev->genCmdWritePlanSpdMax(axisInx, maxVel);
 
         double acc = data->m_pointAcc;
-        d->m_sev->genCmdWrite(CMD_POS_ACC, acc, axisInx);
+        d->m_sev->genCmdWritePlanSpdAcc(axisInx, acc);
 
         double dec = data->m_pointDec;
-        d->m_sev->genCmdWrite(CMD_POS_DEC, dec, axisInx);
+        d->m_sev->genCmdWritePlanSpdDec(axisInx, dec);
 
         int pulse = data->m_pointPulse;
         d->m_sev->cmdSetPosRef(axisInx, pulse);
@@ -109,16 +117,26 @@ bool MotionPosition::move(quint16 axisInx)
     if (!d->m_sev->axisServoIsOn(axisInx)) {
         return false;
     }
+    m_timer.start(100);
     d->m_motionUnFinishVector.append(axisInx);
     d->m_ui->setEnabled(false);
+    //bool isOk;
     d->m_sev->genCmdWrite(CMD_POS_MOV_EN, 1, axisInx);
+//    GTUtils::delayms(100);
+//    quint64 ret = d->m_sev->genCmdRead(CMD_POS_MOV_EN, axisInx, isOk);
+//    qDebug()<<"move ret"<<ret;
     return true;
 }
 
 bool MotionPosition::stop(quint16 axisInx)
 {
     Q_D(MotionPosition);
+    d->m_sev->genCmdWrite(CMD_POS_CMDSRC, d->m_cmdSrc, axisInx);
+    d->m_sev->cmdSetPosRef(axisInx, 0);
     d->m_sev->genCmdWrite(CMD_POS_MOV_EN, 0, axisInx);
+//    bool isOk;
+//    quint64 ret = d->m_sev->genCmdRead(CMD_POS_MOV_EN, axisInx, isOk);
+//    qDebug()<<"stop ret"<<ret;
     d->m_ui->setEnabled(true);
     return true;
 }
@@ -131,6 +149,17 @@ void MotionPosition::updateAxisUi(quint16 axisInx)
 void MotionPosition::onMotionFinish(quint16 axisInx)
 {
 
+}
+
+void MotionPosition::onTimerOut()
+{
+    Q_D(MotionPosition);
+    for (int i = 0; i < d->m_axisListWidget->count(); i++) {
+        if (d->m_axisListWidget->item(i)->isSelected()) {
+            emit progressValueChanged(i, m_count);
+        }
+    }
+    m_count++;
 }
 
 UiMotionPosition * MotionPosition::UiMotion()

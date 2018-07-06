@@ -85,8 +85,8 @@ bool DbVerMatching::hasComponent(const VerInfo &verinfo)
             delete model;
             return false;
         }
-        delete model;
     }
+    delete model;
   return true;
 }
 

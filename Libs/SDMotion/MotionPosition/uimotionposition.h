@@ -22,7 +22,17 @@ public:
         RUN_STA_STOP_FINISH = 4
     }MotionRunSta;
     UiPosMotionData():
-        m_isReci(false)
+        m_isReci(false),
+        m_pointAcc(1300),
+        m_pointDec(1300),
+        m_pointMaxVel(1000),
+        m_pointPulse(327680),
+        m_reciAcc(1300),
+        m_reciDec(1300),
+        m_reciInterval(1000),
+        m_reciMaxVel(1000),
+        m_reciPulse(327680),
+        m_reciTimes(0)
     {}
     ~UiPosMotionData(){}
     bool m_isReci;

@@ -104,7 +104,7 @@ TabMotion::TabMotion(const QString &name, SevDevice *sev, QWidget *parent) :
   //add new motion
 
   MotionPosition *pMotion = new MotionPosition(ui->listWidget_plot_tab2_axis, m_sev, tr("Position"));
-  //connect(pMotion,SIGNAL(progressValueChanged(quint16,int)),this,SLOT(onProgressValueChanged(quint16,int)));
+  connect(pMotion,SIGNAL(progressValueChanged(quint16,int)),this,SLOT(onProgressValueChanged(quint16,int)));
   //connect(pMotion,SIGNAL(motionAllDone()),this,SLOT(onMotionAllDone()));
   m_motionList.append(pMotion);
 
@@ -161,11 +161,12 @@ void TabMotion::resetUi()
   ui->listWidget_plot_motion_type_inx->setCurrentRow(0);
   ui->stackedWidget_motion_container->setCurrentIndex(0);
   ui->tbtn_plot_servoGoMotion->setEnabled(false);
+  ui->tbtn_plot_servoBtn->setEnabled(false);
 }
 
 void TabMotion::setupIcons(const QString &css)
 {
-  QSize iconSize(100,100);
+  QSize iconSize(60, 60);
   QString iconPath=GTUtils::customPath()+"option/style/"+css+"/icon/";
   QIcon servoOnIcon;
   servoOnIcon.addPixmap(QPixmap(iconPath+ICON_NAME_SERVO_OFF),QIcon::Selected,QIcon::Off);
@@ -214,10 +215,13 @@ void TabMotion::onMotionAxisRowChanged(int row)
   qDebug()<<"Motion type "<<type<<"row "<<row;
   ui->listWidget_plot_motion_type_inx->setCurrentRow(type);
   m_motionList.at(type)->updateAxisUi(row);
-  if(type == IMotion::MOTION_TYPE_NONE)
+  if(type == IMotion::MOTION_TYPE_NONE) {
     ui->tbtn_plot_servoGoMotion->setEnabled(false);
-  else
+    ui->tbtn_plot_servoBtn->setEnabled(false);
+  } else {
     ui->tbtn_plot_servoGoMotion->setEnabled(true);
+    ui->tbtn_plot_servoBtn->setEnabled(true);
+  }
   ui->stackedWidget_motion_container->setCurrentIndex(type);
 }
 void TabMotion::onBtnCtlSrcPcClicked()
@@ -252,14 +256,23 @@ void TabMotion::onListWidgetMotionTypeInxClicked(QListWidgetItem *item)
   switch (type)
   {
   case IMotion::MOTION_TYPE_NONE:
+  {
     ui->tbtn_plot_servoGoMotion->setEnabled(false);
+    ui->tbtn_plot_servoBtn->setEnabled(false);
     break;
+  }
   case IMotion::MOTION_TYPE_VEL:
+  {
     ui->tbtn_plot_servoGoMotion->setEnabled(true);
+    ui->tbtn_plot_servoBtn->setEnabled(true);
     break;
+  }
   case IMotion::MOTION_TYPE_POS:
+  {
     ui->tbtn_plot_servoGoMotion->setEnabled(true);
+    ui->tbtn_plot_servoBtn->setEnabled(true);
     break;
+  }
   default:
     break;
   }
@@ -284,12 +297,10 @@ void TabMotion::onBtnServoOnClicked(bool checked)
     }
 
     if (checked) {
-        quint16 axis =0;
         for (int row = 0; row<ui->listWidget_plot_tab2_axis->count(); row++) {
-            axis = row;
             if (ui->listWidget_plot_tab2_axis->item(row)->isSelected()) {
-                m_axisMotionDataList.at(axis)->m_curMotion->sevDevice()->setAxisServoOn(row, true);
                 m_axisMotionDataList.at(row)->m_curMotion->stop(row);
+                m_axisMotionDataList.at(row)->m_curMotion->sevDevice()->setAxisServoOn(row, true);
                 GTUtils::delayms(5);
             }
         }
@@ -301,6 +312,10 @@ void TabMotion::onBtnServoOnClicked(bool checked)
                 m_axisMotionDataList.at(row)->m_curMotion->stop(row);
             }
         }
+        if (ui->listWidget_plot_motion_type_inx->currentRow() == 2) {
+            onMotionAllDone();
+        }
+        ui->tbtn_plot_servoGoMotion->setChecked(false);
     }
 }
 
@@ -316,6 +331,7 @@ void TabMotion::onBtnMotionGoClicked(bool checked)
       {
         quint16 axis =0;
         emit motionStart();
+        qDebug()<<"motion start";
         GTUtils::delayms(500);
         for(int row = 0;row<ui->listWidget_plot_tab2_axis->count();row++)
         {
@@ -344,6 +360,7 @@ void TabMotion::onBtnMotionGoClicked(bool checked)
             m_axisMotionDataList.at(axis)->m_curMotion->move(axis);
           }
         }
+        qDebug()<<"finish";
 
       }
       else
@@ -354,9 +371,12 @@ void TabMotion::onBtnMotionGoClicked(bool checked)
           {
             m_axisMotionDataList.at(row)->m_curMotion->stop(row);
           }
+          if (ui->listWidget_plot_motion_type_inx->currentRow() == 2) {
+              onMotionAllDone();
+          }
         }
-    //    m_barWidget->setVisible(false);
-    //    m_barWidget->hideAllBar();
+        m_barWidget->setVisible(false);
+        m_barWidget->hideAllBar();
       }
 }
 
@@ -368,6 +388,7 @@ void TabMotion::onProgressValueChanged(quint16 axisInx, int value)
 void TabMotion::onMotionAllDone()
 {
   qDebug()<<"motion AllDone";
+  ui->tbtn_plot_servoGoMotion->setChecked(false);
   GTUtils::delayms(500);
   qDebug()<<"emit motionStop";
   emit motionStop();

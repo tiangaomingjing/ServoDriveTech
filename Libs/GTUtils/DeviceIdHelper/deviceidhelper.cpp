@@ -72,7 +72,6 @@ quint32 DeviceIdHelper::readPwrId(bool &isOk)
   uint8_t cs = 0;
   errcode_t err=0;
   err=m_com->readEEPROM(ofst, value, num, cs);
-  qDebug()<<"err"<<err;
 
   if(err!=0)
   {

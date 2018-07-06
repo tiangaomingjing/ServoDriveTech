@@ -25,17 +25,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphcurrent.cpp" line="155"/>
+        <location filename="igraphcurrent.cpp" line="156"/>
         <source>CurrentFeedback</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphcurrent.cpp" line="254"/>
+        <location filename="igraphcurrent.cpp" line="255"/>
         <source>cur/torque cmd</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphcurrent.cpp" line="268"/>
+        <location filename="igraphcurrent.cpp" line="269"/>
         <source>cur/torque controller output</source>
         <translation type="unfinished"></translation>
     </message>
@@ -43,77 +43,77 @@
 <context>
     <name>IGraphPosition</name>
     <message>
-        <location filename="igraphposition.cpp" line="113"/>
+        <location filename="igraphposition.cpp" line="110"/>
         <source>InputFilter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphposition.cpp" line="142"/>
+        <location filename="igraphposition.cpp" line="140"/>
         <source>PID controller</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphposition.cpp" line="147"/>
+        <location filename="igraphposition.cpp" line="145"/>
         <source>P gain(HZ)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphposition.cpp" line="205"/>
+        <location filename="igraphposition.cpp" line="203"/>
         <source>VelCtler</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphposition.cpp" line="230"/>
+        <location filename="igraphposition.cpp" line="228"/>
         <source>CurCtler</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphposition.cpp" line="243"/>
+        <location filename="igraphposition.cpp" line="241"/>
         <source>PosFeedback</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphposition.cpp" line="261"/>
+        <location filename="igraphposition.cpp" line="259"/>
         <source>velocity feedforward (%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphposition.cpp" line="289"/>
+        <location filename="igraphposition.cpp" line="287"/>
         <source>acceleration feedforward (%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphposition.cpp" line="401"/>
+        <location filename="igraphposition.cpp" line="399"/>
         <source>max v(%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphposition.cpp" line="421"/>
+        <location filename="igraphposition.cpp" line="419"/>
         <source>positive v(%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphposition.cpp" line="441"/>
+        <location filename="igraphposition.cpp" line="439"/>
         <source>negative v(%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphposition.cpp" line="498"/>
+        <location filename="igraphposition.cpp" line="496"/>
         <source>positive MaxV</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphposition.cpp" line="505"/>
+        <location filename="igraphposition.cpp" line="503"/>
         <source>negative MaxV</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphposition.cpp" line="539"/>
+        <location filename="igraphposition.cpp" line="537"/>
         <source>pos cmd</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphposition.cpp" line="551"/>
+        <location filename="igraphposition.cpp" line="549"/>
         <source>cur/torque output</source>
         <translation type="unfinished"></translation>
     </message>
@@ -251,67 +251,67 @@ Solution:
 <context>
     <name>IGraphVelocity</name>
     <message>
-        <location filename="igraphvelocity.cpp" line="108"/>
+        <location filename="igraphvelocity.cpp" line="105"/>
         <source>InputFilter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphvelocity.cpp" line="137"/>
+        <location filename="igraphvelocity.cpp" line="134"/>
         <source>PID controller</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphvelocity.cpp" line="142"/>
+        <location filename="igraphvelocity.cpp" line="139"/>
         <source>P gain(HZ)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphvelocity.cpp" line="153"/>
+        <location filename="igraphvelocity.cpp" line="150"/>
         <source>I gain(ms)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphvelocity.cpp" line="196"/>
+        <location filename="igraphvelocity.cpp" line="193"/>
         <source>OutputFilter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphvelocity.cpp" line="209"/>
+        <location filename="igraphvelocity.cpp" line="206"/>
         <source>VelFeedback</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphvelocity.cpp" line="256"/>
+        <location filename="igraphvelocity.cpp" line="253"/>
         <source>velcmd</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphvelocity.cpp" line="268"/>
+        <location filename="igraphvelocity.cpp" line="265"/>
         <source>velctler out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphvelocity.cpp" line="326"/>
+        <location filename="igraphvelocity.cpp" line="323"/>
         <source>max Tq(%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphvelocity.cpp" line="346"/>
+        <location filename="igraphvelocity.cpp" line="343"/>
         <source>positive Tq(%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphvelocity.cpp" line="366"/>
+        <location filename="igraphvelocity.cpp" line="363"/>
         <source>negative Tq(%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphvelocity.cpp" line="423"/>
+        <location filename="igraphvelocity.cpp" line="420"/>
         <source>positive MaxTq</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="igraphvelocity.cpp" line="430"/>
+        <location filename="igraphvelocity.cpp" line="427"/>
         <source>negative MaxTq</source>
         <translation type="unfinished"></translation>
     </message>
@@ -320,7 +320,7 @@ Solution:
     <name>IUiWidget</name>
     <message>
         <location filename="iuiwidget.cpp" line="63"/>
-        <location filename="iuiwidget.cpp" line="240"/>
+        <location filename="iuiwidget.cpp" line="246"/>
         <source>switch to list view</source>
         <translation type="unfinished"></translation>
     </message>
@@ -335,7 +335,7 @@ Solution:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="iuiwidget.cpp" line="234"/>
+        <location filename="iuiwidget.cpp" line="240"/>
         <source>switch to graph view</source>
         <translation type="unfinished"></translation>
     </message>

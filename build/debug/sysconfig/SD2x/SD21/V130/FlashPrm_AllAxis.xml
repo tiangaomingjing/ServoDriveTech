@@ -707,7 +707,7 @@
                                                     <string>gSevDrv.sev_obj.cur.adc.prm.kia</string>
                                                 </property>
                                                 <property name="text">
-                                                    <string>32767</string>
+                                                    <string>8192</string>
                                                 </property>
                                                 <property name="text">
                                                     <string>int16</string>
@@ -721,7 +721,7 @@
                                                     <string>gSevDrv.sev_obj.cur.adc.prm.kib</string>
                                                 </property>
                                                 <property name="text">
-                                                    <string>32767</string>
+                                                    <string>8192</string>
                                                 </property>
                                                 <property name="text">
                                                     <string>int16</string>
@@ -735,7 +735,7 @@
                                                     <string>gSevDrv.sev_obj.cur.adc.prm.kic</string>
                                                 </property>
                                                 <property name="text">
-                                                    <string>32767</string>
+                                                    <string>8192</string>
                                                 </property>
                                                 <property name="text">
                                                     <string>int16</string>
@@ -1070,7 +1070,7 @@
                                                         <string>gSevDrv.sev_obj.cur.rsv.prm.mask_flag.all</string>
                                                     </property>
                                                     <property name="text">
-                                                        <string>4</string>
+                                                        <string>0</string>
                                                     </property>
                                                     <property name="text">
                                                         <string>Uint16</string>
@@ -1183,7 +1183,7 @@
                                                     <string>gSevDrv.sev_obj.cur.rsv.prm.klpf_spd_fb</string>
                                                 </property>
                                                 <property name="text">
-                                                    <string>6000000</string>
+                                                    <string>3355443</string>
                                                 </property>
                                                 <property name="text">
                                                     <string>int32</string>
@@ -3969,7 +3969,7 @@
                                                     <string>gSevDrv.sev_obj.vel.vrf.prm.tf_rmp</string>
                                                 </property>
                                                 <property name="text">
-                                                    <string>80</string>
+                                                    <string>200</string>
                                                 </property>
                                                 <property name="text">
                                                     <string>int32</string>
@@ -5031,7 +5031,7 @@
                                                             <string>gSevDrv.sev_obj.vel.trf.prm.prmf[0].fit_sel</string>
                                                         </property>
                                                         <property name="text">
-                                                            <string>4</string>
+                                                            <string>0</string>
                                                         </property>
                                                         <property name="text">
                                                             <string>tFitSel</string>
@@ -5325,7 +5325,7 @@
                                                             <string>gSevDrv.sev_obj.vel.trf.prm.prmf[1].fit_sel</string>
                                                         </property>
                                                         <property name="text">
-                                                            <string>4</string>
+                                                            <string>0</string>
                                                         </property>
                                                         <property name="text">
                                                             <string>tFitSel</string>
@@ -5619,7 +5619,7 @@
                                                             <string>gSevDrv.sev_obj.vel.trf.prm.prmf[2].fit_sel</string>
                                                         </property>
                                                         <property name="text">
-                                                            <string>4</string>
+                                                            <string>0</string>
                                                         </property>
                                                         <property name="text">
                                                             <string>tFitSel</string>
@@ -5913,7 +5913,7 @@
                                                             <string>gSevDrv.sev_obj.vel.trf.prm.prmf[3].fit_sel</string>
                                                         </property>
                                                         <property name="text">
-                                                            <string>4</string>
+                                                            <string>0</string>
                                                         </property>
                                                         <property name="text">
                                                             <string>tFitSel</string>
@@ -6937,7 +6937,7 @@
                                                     <string>gSevDrv.sev_obj.pos.fit.prm.maf_num</string>
                                                 </property>
                                                 <property name="text">
-                                                    <string>150</string>
+                                                    <string>256</string>
                                                 </property>
                                                 <property name="text">
                                                     <string>int32</string>
@@ -8883,7 +8883,7 @@
                                                     <string>gSevDrv.sev_obj.pos.seq.prm.rec_mov_en</string>
                                                 </property>
                                                 <property name="text">
-                                                    <string>1</string>
+                                                    <string>0</string>
                                                 </property>
                                                 <property name="text">
                                                     <string>int16</string>
@@ -8924,7 +8924,7 @@
                                                         <string>gSevDrv.sev_obj.pos.seq.prm.mask_flag.all</string>
                                                     </property>
                                                     <property name="text">
-                                                        <string>2</string>
+                                                        <string>6</string>
                                                     </property>
                                                     <property name="text">
                                                         <string>Uint16</string>
@@ -9065,7 +9065,7 @@
                                                     <string>gSevDrv.sev_obj.pos.mkr.prm.pshlx</string>
                                                 </property>
                                                 <property name="text">
-                                                    <string>16</string>
+                                                    <string>8</string>
                                                 </property>
                                                 <property name="text">
                                                     <string>Uint16</string>
@@ -9079,7 +9079,7 @@
                                                     <string>gSevDrv.sev_obj.pos.mkr.prm.rot_res</string>
                                                 </property>
                                                 <property name="text">
-                                                    <string>131072</string>
+                                                    <string>65536</string>
                                                 </property>
                                                 <property name="text">
                                                     <string>int32</string>
@@ -9428,7 +9428,7 @@
                                                         <string>gSevDrv.sev_obj.pos.gear.prm.anu[0]</string>
                                                     </property>
                                                     <property name="text">
-                                                        <string>32768</string>
+                                                        <string>128</string>
                                                     </property>
                                                     <property name="text">
                                                         <string>int32</string>
@@ -9442,7 +9442,7 @@
                                                         <string>gSevDrv.sev_obj.pos.gear.prm.anu[1]</string>
                                                     </property>
                                                     <property name="text">
-                                                        <string>32768</string>
+                                                        <string>128</string>
                                                     </property>
                                                     <property name="text">
                                                         <string>int32</string>
@@ -9456,7 +9456,7 @@
                                                         <string>gSevDrv.sev_obj.pos.gear.prm.anu[2]</string>
                                                     </property>
                                                     <property name="text">
-                                                        <string>32768</string>
+                                                        <string>128</string>
                                                     </property>
                                                     <property name="text">
                                                         <string>int32</string>
@@ -9471,7 +9471,7 @@
                                                     <string>gSevDrv.sev_obj.pos.gear.prm.a</string>
                                                 </property>
                                                 <property name="text">
-                                                    <string>32768</string>
+                                                    <string>128</string>
                                                 </property>
                                                 <property name="text">
                                                     <string>int32</string>
@@ -10227,7 +10227,7 @@
                                                     <string>gSevDrv.sev_obj.mpd.prm.ctl.fnv</string>
                                                 </property>
                                                 <property name="text">
-                                                    <string>50</string>
+                                                    <string>30</string>
                                                 </property>
                                                 <property name="text">
                                                     <string>int16</string>
@@ -10241,7 +10241,7 @@
                                                     <string>gSevDrv.sev_obj.mpd.prm.ctl.tiv</string>
                                                 </property>
                                                 <property name="text">
-                                                    <string>1000</string>
+                                                    <string>2000</string>
                                                 </property>
                                                 <property name="text">
                                                     <string>int32</string>
@@ -13433,7 +13433,7 @@
                                                     <string>gSevDrv.sev_obj.cur.adc.prm.kia</string>
                                                 </property>
                                                 <property name="text">
-                                                    <string>28633</string>
+                                                    <string>8192</string>
                                                 </property>
                                                 <property name="text">
                                                     <string>int16</string>
@@ -13447,7 +13447,7 @@
                                                     <string>gSevDrv.sev_obj.cur.adc.prm.kib</string>
                                                 </property>
                                                 <property name="text">
-                                                    <string>28633</string>
+                                                    <string>8192</string>
                                                 </property>
                                                 <property name="text">
                                                     <string>int16</string>
@@ -13461,7 +13461,7 @@
                                                     <string>gSevDrv.sev_obj.cur.adc.prm.kic</string>
                                                 </property>
                                                 <property name="text">
-                                                    <string>28633</string>
+                                                    <string>8192</string>
                                                 </property>
                                                 <property name="text">
                                                     <string>int16</string>
@@ -13796,7 +13796,7 @@
                                                         <string>gSevDrv.sev_obj.cur.rsv.prm.mask_flag.all</string>
                                                     </property>
                                                     <property name="text">
-                                                        <string>4</string>
+                                                        <string>0</string>
                                                     </property>
                                                     <property name="text">
                                                         <string>Uint16</string>
@@ -16695,7 +16695,7 @@
                                                     <string>gSevDrv.sev_obj.vel.vrf.prm.tf_rmp</string>
                                                 </property>
                                                 <property name="text">
-                                                    <string>30</string>
+                                                    <string>200</string>
                                                 </property>
                                                 <property name="text">
                                                     <string>int32</string>
@@ -19663,7 +19663,7 @@
                                                     <string>gSevDrv.sev_obj.pos.fit.prm.maf_num</string>
                                                 </property>
                                                 <property name="text">
-                                                    <string>80</string>
+                                                    <string>256</string>
                                                 </property>
                                                 <property name="text">
                                                     <string>int32</string>
@@ -21650,7 +21650,7 @@
                                                         <string>gSevDrv.sev_obj.pos.seq.prm.mask_flag.all</string>
                                                     </property>
                                                     <property name="text">
-                                                        <string>2</string>
+                                                        <string>6</string>
                                                     </property>
                                                     <property name="text">
                                                         <string>Uint16</string>
@@ -21791,7 +21791,7 @@
                                                     <string>gSevDrv.sev_obj.pos.mkr.prm.pshlx</string>
                                                 </property>
                                                 <property name="text">
-                                                    <string>16</string>
+                                                    <string>8</string>
                                                 </property>
                                                 <property name="text">
                                                     <string>Uint16</string>
@@ -21805,7 +21805,7 @@
                                                     <string>gSevDrv.sev_obj.pos.mkr.prm.rot_res</string>
                                                 </property>
                                                 <property name="text">
-                                                    <string>131072</string>
+                                                    <string>65536</string>
                                                 </property>
                                                 <property name="text">
                                                     <string>int32</string>
@@ -22154,7 +22154,7 @@
                                                         <string>gSevDrv.sev_obj.pos.gear.prm.anu[0]</string>
                                                     </property>
                                                     <property name="text">
-                                                        <string>32768</string>
+                                                        <string>128</string>
                                                     </property>
                                                     <property name="text">
                                                         <string>int32</string>
@@ -22168,7 +22168,7 @@
                                                         <string>gSevDrv.sev_obj.pos.gear.prm.anu[1]</string>
                                                     </property>
                                                     <property name="text">
-                                                        <string>32768</string>
+                                                        <string>128</string>
                                                     </property>
                                                     <property name="text">
                                                         <string>int32</string>
@@ -22182,7 +22182,7 @@
                                                         <string>gSevDrv.sev_obj.pos.gear.prm.anu[2]</string>
                                                     </property>
                                                     <property name="text">
-                                                        <string>32768</string>
+                                                        <string>128</string>
                                                     </property>
                                                     <property name="text">
                                                         <string>int32</string>
@@ -22197,7 +22197,7 @@
                                                     <string>gSevDrv.sev_obj.pos.gear.prm.a</string>
                                                 </property>
                                                 <property name="text">
-                                                    <string>32768</string>
+                                                    <string>128</string>
                                                 </property>
                                                 <property name="text">
                                                     <string>int32</string>

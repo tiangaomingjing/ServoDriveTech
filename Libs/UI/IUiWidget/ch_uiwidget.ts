@@ -25,17 +25,17 @@
         <translation>输入滤波器</translation>
     </message>
     <message>
-        <location filename="igraphcurrent.cpp" line="155"/>
+        <location filename="igraphcurrent.cpp" line="156"/>
         <source>CurrentFeedback</source>
         <translation>电流反馈</translation>
     </message>
     <message>
-        <location filename="igraphcurrent.cpp" line="254"/>
+        <location filename="igraphcurrent.cpp" line="255"/>
         <source>cur/torque cmd</source>
         <translation>电流/力矩 指令</translation>
     </message>
     <message>
-        <location filename="igraphcurrent.cpp" line="268"/>
+        <location filename="igraphcurrent.cpp" line="269"/>
         <source>cur/torque controller output</source>
         <translation>电流/力矩控制器 输出</translation>
     </message>
@@ -43,77 +43,77 @@
 <context>
     <name>IGraphPosition</name>
     <message>
-        <location filename="igraphposition.cpp" line="113"/>
+        <location filename="igraphposition.cpp" line="110"/>
         <source>InputFilter</source>
         <translation>输入滤波器</translation>
     </message>
     <message>
-        <location filename="igraphposition.cpp" line="142"/>
+        <location filename="igraphposition.cpp" line="140"/>
         <source>PID controller</source>
         <translation>PID 调节器</translation>
     </message>
     <message>
-        <location filename="igraphposition.cpp" line="147"/>
+        <location filename="igraphposition.cpp" line="145"/>
         <source>P gain(HZ)</source>
         <translation>增益系数(HZ)</translation>
     </message>
     <message>
-        <location filename="igraphposition.cpp" line="205"/>
+        <location filename="igraphposition.cpp" line="203"/>
         <source>VelCtler</source>
         <translation>速度控制器</translation>
     </message>
     <message>
-        <location filename="igraphposition.cpp" line="230"/>
+        <location filename="igraphposition.cpp" line="228"/>
         <source>CurCtler</source>
         <translation>电流控制器</translation>
     </message>
     <message>
-        <location filename="igraphposition.cpp" line="243"/>
+        <location filename="igraphposition.cpp" line="241"/>
         <source>PosFeedback</source>
         <translation>位置信号</translation>
     </message>
     <message>
-        <location filename="igraphposition.cpp" line="261"/>
+        <location filename="igraphposition.cpp" line="259"/>
         <source>velocity feedforward (%)</source>
         <translation>速度前馈增益(%)</translation>
     </message>
     <message>
-        <location filename="igraphposition.cpp" line="289"/>
+        <location filename="igraphposition.cpp" line="287"/>
         <source>acceleration feedforward (%)</source>
         <translation>加速度前馈增益(%)</translation>
     </message>
     <message>
-        <location filename="igraphposition.cpp" line="401"/>
+        <location filename="igraphposition.cpp" line="399"/>
         <source>max v(%)</source>
         <translation>最大速度(%)</translation>
     </message>
     <message>
-        <location filename="igraphposition.cpp" line="421"/>
+        <location filename="igraphposition.cpp" line="419"/>
         <source>positive v(%)</source>
         <translation>正向速度缩放(%)</translation>
     </message>
     <message>
-        <location filename="igraphposition.cpp" line="441"/>
+        <location filename="igraphposition.cpp" line="439"/>
         <source>negative v(%)</source>
         <translation>反向速度缩放(%)</translation>
     </message>
     <message>
-        <location filename="igraphposition.cpp" line="498"/>
+        <location filename="igraphposition.cpp" line="496"/>
         <source>positive MaxV</source>
         <translation>正方向最大值</translation>
     </message>
     <message>
-        <location filename="igraphposition.cpp" line="505"/>
+        <location filename="igraphposition.cpp" line="503"/>
         <source>negative MaxV</source>
         <translation>反方向最大值</translation>
     </message>
     <message>
-        <location filename="igraphposition.cpp" line="539"/>
+        <location filename="igraphposition.cpp" line="537"/>
         <source>pos cmd</source>
         <translation>位置指令</translation>
     </message>
     <message>
-        <location filename="igraphposition.cpp" line="551"/>
+        <location filename="igraphposition.cpp" line="549"/>
         <source>cur/torque output</source>
         <translation>电流控制器输出</translation>
     </message>
@@ -254,67 +254,67 @@ Solution:
 <context>
     <name>IGraphVelocity</name>
     <message>
-        <location filename="igraphvelocity.cpp" line="108"/>
+        <location filename="igraphvelocity.cpp" line="105"/>
         <source>InputFilter</source>
         <translation>输入滤波器</translation>
     </message>
     <message>
-        <location filename="igraphvelocity.cpp" line="137"/>
+        <location filename="igraphvelocity.cpp" line="134"/>
         <source>PID controller</source>
         <translation>PID 调节器</translation>
     </message>
     <message>
-        <location filename="igraphvelocity.cpp" line="142"/>
+        <location filename="igraphvelocity.cpp" line="139"/>
         <source>P gain(HZ)</source>
         <translation>增益系数(HZ)</translation>
     </message>
     <message>
-        <location filename="igraphvelocity.cpp" line="153"/>
+        <location filename="igraphvelocity.cpp" line="150"/>
         <source>I gain(ms)</source>
         <translation>积分常数(ms)</translation>
     </message>
     <message>
-        <location filename="igraphvelocity.cpp" line="196"/>
+        <location filename="igraphvelocity.cpp" line="193"/>
         <source>OutputFilter</source>
         <translation>输出滤波器</translation>
     </message>
     <message>
-        <location filename="igraphvelocity.cpp" line="209"/>
+        <location filename="igraphvelocity.cpp" line="206"/>
         <source>VelFeedback</source>
         <translation>速度反馈</translation>
     </message>
     <message>
-        <location filename="igraphvelocity.cpp" line="256"/>
+        <location filename="igraphvelocity.cpp" line="253"/>
         <source>velcmd</source>
         <translation>速度指令</translation>
     </message>
     <message>
-        <location filename="igraphvelocity.cpp" line="268"/>
+        <location filename="igraphvelocity.cpp" line="265"/>
         <source>velctler out</source>
         <translation>速度控制器输出</translation>
     </message>
     <message>
-        <location filename="igraphvelocity.cpp" line="326"/>
+        <location filename="igraphvelocity.cpp" line="323"/>
         <source>max Tq(%)</source>
         <translation>最大扭矩（%）</translation>
     </message>
     <message>
-        <location filename="igraphvelocity.cpp" line="346"/>
+        <location filename="igraphvelocity.cpp" line="343"/>
         <source>positive Tq(%)</source>
         <translation>正向扭矩缩放(%)</translation>
     </message>
     <message>
-        <location filename="igraphvelocity.cpp" line="366"/>
+        <location filename="igraphvelocity.cpp" line="363"/>
         <source>negative Tq(%)</source>
         <translation>反向扭矩缩放(%)</translation>
     </message>
     <message>
-        <location filename="igraphvelocity.cpp" line="423"/>
+        <location filename="igraphvelocity.cpp" line="420"/>
         <source>positive MaxTq</source>
         <translation>正方向最大值</translation>
     </message>
     <message>
-        <location filename="igraphvelocity.cpp" line="430"/>
+        <location filename="igraphvelocity.cpp" line="427"/>
         <source>negative MaxTq</source>
         <translation>反方向最大值</translation>
     </message>
@@ -323,7 +323,7 @@ Solution:
     <name>IUiWidget</name>
     <message>
         <location filename="iuiwidget.cpp" line="63"/>
-        <location filename="iuiwidget.cpp" line="240"/>
+        <location filename="iuiwidget.cpp" line="246"/>
         <source>switch to list view</source>
         <translation>列表视图</translation>
     </message>
@@ -338,7 +338,7 @@ Solution:
         <translation></translation>
     </message>
     <message>
-        <location filename="iuiwidget.cpp" line="234"/>
+        <location filename="iuiwidget.cpp" line="240"/>
         <source>switch to graph view</source>
         <translation>图形视图</translation>
     </message>

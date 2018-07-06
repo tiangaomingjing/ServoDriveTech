@@ -35,7 +35,7 @@ void UploadDialog::onToolButtonClicked()
 {
     int index = ui->comboBox_devUpload->currentIndex();
     QDate curDate = QDate::currentDate();
-    QString defaultName = m_devList.at(index)->modelName() + "_" + m_devList.at(index)->versionName() + "_" + QString::number(curDate.year()) + QString::number(curDate.month()) + QString::number(curDate.day());
+    QString defaultName = m_devList.at(index)->modelName() + "_" + m_devList.at(index)->versionName() + "_" + curDate.toString("yyyyMMdd");
     *m_filePath = QFileDialog::getSaveFileName(this, tr("Open XML File"), m_uploadPath + "/" + defaultName + ".xml", tr("XML Files(*.xml)"));
     QFileInfo fileInfo;
     fileInfo.setFile(*m_filePath);
