@@ -18,6 +18,7 @@
 #include "UiCurrent/graphcurrent129.h"
 #include "UiEncoder/graphencoder129.h"
 #include "UiMotor/graphmotor129.h"
+#include "UiMotor/graphmotor130.h"
 #include "UiPosition/graphposition129.h"
 #include "UiPower/graphpower129.h"
 #include "UiStatus/graphstatus129.h"
@@ -53,6 +54,7 @@ void registerUiClass(){
   UiFactory::registerClass<GraphVelocity129>();
   UiFactory::registerClass<GraphVelocity133>();
 
+  UiFactory::registerClass<GraphMotor130>();
   UiFactory::registerClass<GraphCurrent130>();
   UiFactory::registerClass<GraphCurrent133>();
   UiFactory::registerClass<GraphPosition133>();

@@ -57,34 +57,34 @@
                                 <string>0</string>
                             </property>
                             <property name="text">
-                                <string>240</string>
+                                <string>1</string>
                             </property>
                             <item>
                                 <property name="text">
-                                    <string>SD4x</string>
+                                    <string>SD6x</string>
                                 </property>
                                 <property name="text">
-                                    <string>4</string>
+                                    <string>6</string>
                                 </property>
                                 <item>
                                     <property name="text">
-                                        <string>SD42</string>
+                                        <string>SD61_PLUS</string>
                                     </property>
                                     <property name="text">
-                                        <string>4</string>
+                                        <string>6</string>
                                     </property>
                                     <property name="text">
-                                        <string>21000509</string>
+                                        <string>21000541</string>
                                     </property>
                                     <item>
                                         <property name="text">
-                                            <string>V130</string>
+                                            <string>V133</string>
                                         </property>
                                         <property name="text">
                                             <string>NULL</string>
                                         </property>
                                         <property name="text">
-                                            <string>0</string>
+                                            <string>21000543</string>
                                         </property>
                                     </item>
                                 </item>
