@@ -507,10 +507,10 @@ void GraphPosition133::onBtnAutoStartClicked(bool checked)
   if(checked)
   {
     bool ok = false;
-    d->m_nolinearAutoTurning->setAcc(d->m_nolinearCtler->boxMotionAcc()->value());
-    d->m_nolinearAutoTurning->setDec(d->m_nolinearCtler->boxMotionDec()->value());
-    d->m_nolinearAutoTurning->setMaxSpd(d->m_nolinearCtler->boxMotionMaxSpd()->value());
-    d->m_nolinearAutoTurning->setPulseNum(d->m_nolinearCtler->boxMotionPos()->value());
+    d->m_nolinearAutoTurning->setAcc(d->m_treeWidget->topLevelItem(NLC_MTN_ACC_INX)->text(GT::COL_PAGE_TREE_VALUE).toULongLong());
+    d->m_nolinearAutoTurning->setDec(d->m_treeWidget->topLevelItem(NLC_MTN_DEC_INX)->text(GT::COL_PAGE_TREE_VALUE).toULongLong());
+    d->m_nolinearAutoTurning->setMaxSpd(d->m_treeWidget->topLevelItem(NLC_MTN_MAXSPD_INX)->text(GT::COL_PAGE_TREE_VALUE).toULongLong());
+    d->m_nolinearAutoTurning->setPulseNum(d->m_nolinearCtler->boxMotionPos()->value()*65536);
     ok = d->m_nolinearAutoTurning->start();
 
     if(!ok)
@@ -523,6 +523,7 @@ void GraphPosition133::onBtnAutoStartClicked(bool checked)
   {
     d->m_nolinearAutoTurning->stop();
   }
+
 }
 
 void GraphPosition133::onAutoTurningProgressValueChanged(int value)
@@ -539,11 +540,13 @@ void GraphPosition133::onAutoTurningFinish(bool finish)
     d->m_nolinearCtler->setBtnAutoTurningUiOn(false);
     d->m_nolinearCtler->setProgressBarVisible(false);
     //更新值到kp kn ki kd
-    int axisInx = d->m_uiWidget->uiIndexs().axisInx;
-    qreal kd = (qreal)d->m_nolinearAutoTurning->autoTnFgd(axisInx);
-    qreal kp = (qreal)d->m_nolinearAutoTurning->autoTnFgp(axisInx);
-    qreal ki = (qreal)d->m_nolinearAutoTurning->autoTnFgi(axisInx);
-    qreal kn = (qreal)d->m_nolinearAutoTurning->autoTnFgn(axisInx);
+
+    qreal kd = d->m_nolinearAutoTurning->autoTnFgd();
+    qreal kp = d->m_nolinearAutoTurning->autoTnFgp();
+    qreal ki = d->m_nolinearAutoTurning->autoTnFgi();
+    qreal kn = d->m_nolinearAutoTurning->autoTnFgn();
+
+    qDebug()<<"on finish "<<"kd="<<kd<<" kp="<<kp<<" ki="<<ki<<" kn="<<kn;
 
     setBoxValue(d->m_nolinearCtler->boxKd(),kd);
     setBoxValue(d->m_nolinearCtler->boxKp(),kp);
@@ -959,10 +962,14 @@ void GraphPosition133::onDoubleSpinBoxFocusOut()
   QDoubleSpinBox *box=qobject_cast<QDoubleSpinBox *>(sender());
   QTreeWidgetItem *item=d->m_mapping->item(box);
   if(item != NULL)
+  {
     d->m_mapping->syncItem2BoxText(item);
+    qDebug()<<item->text(0);
+  }
   else
   {
     item = d->m_nolinearCtler->boxItemMapping()->item(box);
     d->m_nolinearCtler->boxItemMapping()->syncItem2BoxText(item);
+    qDebug()<<item->text(0);
   }
 }
