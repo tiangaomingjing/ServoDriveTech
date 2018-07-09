@@ -54,7 +54,7 @@ TabCtlPanel129::~TabCtlPanel129()
 
 void TabCtlPanel129::updateServoStatus()
 {
-  if(!m_sev->isConnecting())
+  if(!m_sev->isConnecting()\\ \\\\\\\\\\)
     return ;
   m_tabWidgetList.at(m_currentTabInx)->uiUpdate();
 }

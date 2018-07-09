@@ -86,7 +86,7 @@ void MotionPosition::movePrepare(quint16 axisInx)
         double dec = data->m_reciDec;
         d->m_sev->genCmdWritePlanSpdDec(axisInx, dec);
 
-        int pulse = data->m_reciPulse;
+        int pulse = data->m_reciPulse * 65536;
         d->m_sev->cmdSetPosRef(axisInx, pulse);
 
         double delay = data->m_reciInterval * 8;
@@ -102,7 +102,7 @@ void MotionPosition::movePrepare(quint16 axisInx)
         double dec = data->m_pointDec;
         d->m_sev->genCmdWritePlanSpdDec(axisInx, dec);
 
-        int pulse = data->m_pointPulse;
+        int pulse = data->m_pointPulse * 65536;
         d->m_sev->cmdSetPosRef(axisInx, pulse);
 
         d->m_sev->genCmdWrite(CMD_POS_MODE, 0, axisInx);
@@ -117,6 +117,7 @@ bool MotionPosition::move(quint16 axisInx)
     if (!d->m_sev->axisServoIsOn(axisInx)) {
         return false;
     }
+    m_count = 0;
     m_timer.start(100);
     d->m_motionUnFinishVector.append(axisInx);
     d->m_ui->setEnabled(false);
@@ -138,6 +139,7 @@ bool MotionPosition::stop(quint16 axisInx)
 //    quint64 ret = d->m_sev->genCmdRead(CMD_POS_MOV_EN, axisInx, isOk);
 //    qDebug()<<"stop ret"<<ret;
     d->m_ui->setEnabled(true);
+    m_timer.stop();
     return true;
 }
 
@@ -156,7 +158,7 @@ void MotionPosition::onTimerOut()
     Q_D(MotionPosition);
     for (int i = 0; i < d->m_axisListWidget->count(); i++) {
         if (d->m_axisListWidget->item(i)->isSelected()) {
-            emit progressValueChanged(i, m_count);
+            emit progressValueChanged(i, m_count % 100);
         }
     }
     m_count++;

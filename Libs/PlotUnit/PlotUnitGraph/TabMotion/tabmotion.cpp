@@ -323,6 +323,9 @@ void TabMotion::onBtnMotionGoClicked(bool checked)
 {
     if(!m_sev->isConnecting() || !ui->tbtn_plot_servoBtn->isChecked())
       {
+        qDebug()<<"1";
+        qDebug()<<"isConnecting"<<m_sev->isConnecting();
+        qDebug()<<"isChecked"<<ui->tbtn_plot_servoBtn->isChecked();
         ui->tbtn_plot_servoGoMotion->setChecked(false);
         return ;
       }
@@ -371,9 +374,9 @@ void TabMotion::onBtnMotionGoClicked(bool checked)
           {
             m_axisMotionDataList.at(row)->m_curMotion->stop(row);
           }
-          if (ui->listWidget_plot_motion_type_inx->currentRow() == 2) {
-              onMotionAllDone();
-          }
+        }
+        if (ui->listWidget_plot_motion_type_inx->currentRow() == 2) {
+            onMotionAllDone();
         }
         //m_barWidget->setVisible(false);
         //m_barWidget->hideAllBar();
@@ -388,12 +391,12 @@ void TabMotion::onProgressValueChanged(quint16 axisInx, int value)
 void TabMotion::onMotionAllDone()
 {
     ui->tbtn_plot_servoGoMotion->setCheckable(false);
+    ui->tbtn_plot_servoGoMotion->setChecked(false);
   qDebug()<<"motion AllDone";
   GTUtils::delayms(1000);
   qDebug()<<"emit motionStop";
   emit motionStop();
   GTUtils::delayms(500);
   ui->tbtn_plot_servoGoMotion->setCheckable(true);
-  ui->tbtn_plot_servoGoMotion->setChecked(false);
 }
 

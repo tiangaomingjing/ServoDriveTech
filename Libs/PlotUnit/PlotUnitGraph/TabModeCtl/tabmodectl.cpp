@@ -13,14 +13,18 @@
 #define ICON_NAME_SERVO_ON      "plot_son.png"
 #define ICON_NAME_SERVO_OFF     "plot_soff.png"
 
+#define GEN_CMD_ACC "gSevDrv.sev_obj.pos.mkr.prm.accrate"
+#define GEN_CMD_DEC "gSevDrv.sev_obj.pos.mkr.prm.decrate"
+#define GEN_CMD_MOVEMODE "gSevDrv.sev_obj.pos.seq.prm.move_mode"
+#define GEN_CMD_MAXVEL "gSevDrv.sev_obj.pos.mkr.prm.maxspd"
+
 class ModeCtlPrms
 {
 public:
   ModeCtlPrms():m_isChecked(false),
     m_curMode(GT::MODE_IDLE),m_ipa(0),m_uaref(0),m_ubref(0),m_ucref(0),m_udref(0),
     m_uqref(0),m_idref(0),m_iqref(0),m_vcl(0),m_vpl(0),m_vsl(0),m_pt(0),m_autAcc(0),
-    m_autDec(0),m_autfgd(0),m_autfgi(0),m_autfgn(0),m_autfgp(0),m_autMode(0),
-    m_autPulse(0),m_autVel(0)
+    m_autDec(0),m_autfgd(0),m_autfgi(0),m_autfgn(0),m_autfgp(0),m_autPulse(0),m_autVel(0)
   {
 
   }
@@ -51,7 +55,6 @@ public:
   qreal m_autDec;
   qreal m_autAcc;
   qreal m_autVel;
-  int m_autMode;
   qreal m_autPulse;
 
   qreal m_autfgd;
@@ -95,12 +98,6 @@ TabModeCtl::TabModeCtl(const QString &name, SevDevice *sev, QWidget *parent) :
 
   ui->tbtn_plot_servoOnMode->setCheckable(true);
   ui->label_plot_servo_onoff->setText(tr("SEV OFF"));
-
-  ui->comboBox_mode_auc_mode->addItem(tr("Point Mode"));
-  ui->comboBox_mode_auc_mode->addItem(tr("Reci Mode"));
-
-  QStyledItemDelegate* itemDelegate = new QStyledItemDelegate(ui->comboBox_mode_auc_mode);
-  ui->comboBox_mode_auc_mode->setItemDelegate(itemDelegate);
 
   OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
   connect(face,SIGNAL(faceCssChanged(QString)),this,SLOT(onCssChanged(QString)));
@@ -257,12 +254,10 @@ bool TabModeCtl::eventFilter(QObject *obj, QEvent *event)
           modePrms->m_autAcc = ui->doubleSpinBox_mode_autAcc->value();
           modePrms->m_autDec = ui->doubleSpinBox_mode_autDec->value();
           modePrms->m_autVel = ui->doubleSpinBox_mode_autMaxVel->value() / scale;
-          modePrms->m_autMode = ui->comboBox_mode_auc_mode->currentIndex();
           modePrms->m_autPulse = ui->doubleSpinBox_mode_aut_pulse->value() * 65536;
           m_sev->genCmdWritePlanSpdAcc(axisInx, modePrms->m_autAcc);
           m_sev->genCmdWritePlanSpdDec(axisInx, modePrms->m_autDec);
           m_sev->genCmdWritePlanSpdMax(axisInx, modePrms->m_autVel);
-          m_sev->genCmdWrite("gSevDrv.sev_obj.pos.seq.prm.move_mode", modePrms->m_autMode, axisInx);
           m_sev->cmdSetPosRef(axisInx, modePrms->m_autPulse);
 
           modePrms->m_autfgd = m_sev->genCmdReadAutoTurnningFgd(axisInx, ok);
@@ -378,12 +373,36 @@ void TabModeCtl::onModeCtlPanelModeChanged(quint16 axis, int mode)
     case GT::MODE_CSC:break;
     case GT::MODE_AUT:
     {
+        if (m_sev->isConnecting()) {
+            bool ok;
+            quint64 nos = m_sev->genCmdReadNos(axis, ok);
+            double scale = nos / (pow(2, 24));
+            modePrms->m_autAcc = m_sev->genCmdRead(GEN_CMD_ACC, axis, ok);
+            ui->doubleSpinBox_mode_autAcc->setValue(modePrms->m_autAcc);
+            modePrms->m_autDec = m_sev->genCmdRead(GEN_CMD_DEC, axis, ok);
+            ui->doubleSpinBox_mode_autDec->setValue(modePrms->m_autDec);
+            modePrms->m_autVel = m_sev->genCmdRead(GEN_CMD_MAXVEL, axis, ok) * scale;
+            ui->doubleSpinBox_mode_autMaxVel->setValue(modePrms->m_autVel);
+            m_sev->genCmdWritePlanSpdAcc(axis, modePrms->m_autAcc);
+            m_sev->genCmdWritePlanSpdDec(axis, modePrms->m_autDec);
+            m_sev->genCmdWritePlanSpdMax(axis, modePrms->m_autVel);
+            m_sev->cmdSetPosRef(axis, modePrms->m_autPulse);
+
+            modePrms->m_autfgd = m_sev->genCmdReadAutoTurnningFgd(axis, ok);
+            ui->label_mode_aut_fgd->setText(QString::number(modePrms->m_autfgd));
+            modePrms->m_autfgp = m_sev->genCmdReadAutoTurnningFgp(axis, ok);
+            ui->label_mode_aut_fgp->setText(QString::number(modePrms->m_autfgp));
+            modePrms->m_autfgi = m_sev->genCmdReadAutoTurnningFgi(axis, ok);
+            ui->label_mode_aut_fgi->setText(QString::number(modePrms->m_autfgi));
+            modePrms->m_autfgn = m_sev->genCmdReadAutoTurnningFgn(axis, ok);
+            ui->label_mode_aut_fgn->setText(QString::number(modePrms->m_autfgn));
+
+        }
         ui->doubleSpinBox_mode_aut_pulse->setValue(modePrms->m_autPulse);
         ui->label_mode_aut_fgd->setText(QString::number(modePrms->m_autfgd));
         ui->label_mode_aut_fgp->setText(QString::number(modePrms->m_autfgp));
         ui->label_mode_aut_fgi->setText(QString::number(modePrms->m_autfgi));
         ui->label_mode_aut_fgn->setText(QString::number(modePrms->m_autfgn));
-        ui->comboBox_mode_auc_mode->setCurrentIndex(modePrms->m_autMode);
         ui->doubleSpinBox_mode_autAcc->setValue(modePrms->m_autAcc);
         ui->doubleSpinBox_mode_autDec->setValue(modePrms->m_autDec);
         ui->doubleSpinBox_mode_autMaxVel->setValue(modePrms->m_autVel);
@@ -480,7 +499,6 @@ void TabModeCtl::onModeCtlPanelCheckChanged(quint16 axis, int mode)
         ui->label_mode_aut_fgp->setText(QString::number(modePrms->m_autfgp));
         ui->label_mode_aut_fgi->setText(QString::number(modePrms->m_autfgi));
         ui->label_mode_aut_fgn->setText(QString::number(modePrms->m_autfgn));
-        ui->comboBox_mode_auc_mode->setCurrentIndex(modePrms->m_autMode);
         ui->doubleSpinBox_mode_autAcc->setValue(modePrms->m_autAcc);
         ui->doubleSpinBox_mode_autDec->setValue(modePrms->m_autDec);
         ui->doubleSpinBox_mode_autMaxVel->setValue(modePrms->m_autVel);

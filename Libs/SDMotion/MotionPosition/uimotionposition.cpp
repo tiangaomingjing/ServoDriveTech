@@ -25,12 +25,12 @@ UiMotionPosition::UiMotionPosition(MotionPosition *mp, QWidget *parent) :
     ui->comboBox_pointAcc->addItem("pulse/ms^2");
     ui->comboBox_pointDec->addItem("pulse/ms^2");
     ui->comboBox_pointMaxVel->addItem("rpm");
-    ui->comboBox_pointPulse->addItem("pulse");
+    ui->comboBox_pointPulse->addItem("rounds");
 
     ui->comboBox_reciAcc->addItem("pulse/ms^2");
     ui->comboBox_reciDec->addItem("pulse/ms^2");
     ui->comboBox_reciMaxVel->addItem("rpm");
-    ui->comboBox_reciPulse->addItem("pulse");
+    ui->comboBox_reciPulse->addItem("rounds");
     ui->comboBox_reciInterval->addItem("ms");
     //ui->comboBox_reciTimes->addItem("");
 
@@ -42,13 +42,13 @@ UiMotionPosition::UiMotionPosition(MotionPosition *mp, QWidget *parent) :
     ui->doubleSpinBox_PointAcc->setValue(1300);
     ui->doubleSpinBox_PointDec->setValue(1300);
     ui->doubleSpinBox_PointMaxVel->setValue(1000);
-    ui->doubleSpinBox_PointPulse->setValue(327680);
+    ui->doubleSpinBox_PointPulse->setValue(5);
 
     ui->doubleSpinBox_ReciAcc->setValue(1300);
     ui->doubleSpinBox_ReciDec->setValue(1300);
     ui->doubleSpinBox_ReciInterval->setValue(1000);
     ui->doubleSpinBox_ReciMaxVel->setValue(1000);
-    ui->doubleSpinBox_ReciPulse->setValue(327680);
+    ui->doubleSpinBox_ReciPulse->setValue(5);
     ui->spinBox_ReciTimes->setValue(0);
 
     ui->doubleSpinBox_PointAcc->installEventFilter(this);
