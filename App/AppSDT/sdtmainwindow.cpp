@@ -587,7 +587,7 @@ void SDTMainWindow::removeAllStackedWidget()
   while (ui->mainStackedWidget->count()) {
     w=ui->mainStackedWidget->widget(0);
     ui->mainStackedWidget->removeWidget(w);
-    w->setParent(0);
+//    w->setParent(0);
     qDebug()<<"remove stackedWidget "<<i;
     i++;
     m_statusBar->statusProgressBar()->setValue(i);
