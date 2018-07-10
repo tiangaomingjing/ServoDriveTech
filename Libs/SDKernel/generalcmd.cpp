@@ -89,6 +89,7 @@ quint64 GeneralCmd::read(const QString &cmdReadName, qint16 axisIndex, bool &isO
   kgain=data->kgain;
   cmd=data->cmd;
   dataType=data->type;
+//  qDebug()<<"cmd ="<<cmd<<" dataType = "<<dataType;
 
   funcRead.mode=ComDriver::GENERAL_PDU_READ;//1:为读    0：写
   funcRead.cmd=cmd;

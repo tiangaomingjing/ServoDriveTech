@@ -3,6 +3,7 @@
 #include "gtutils.h"
 
 #include <QTimer>
+#include <QDebug>
 
 NolinearAutoTurning::NolinearAutoTurning(SevDevice *sev, quint16 axisInx, QObject *parent) : QObject(parent),
   m_sev(sev),
@@ -12,8 +13,12 @@ NolinearAutoTurning::NolinearAutoTurning(SevDevice *sev, quint16 axisInx, QObjec
   m_maxSpd(0),
   m_pulseNum(0),
   m_waitCount(0),
-  m_waitMaxCount(200),
-  m_progressValue(0)
+  m_waitMaxCount(2000000),
+  m_progressValue(0),
+  m_retFgd(0),
+  m_retFgp(0),
+  m_retFgi(0),
+  m_retFgn(0)
 {
   m_timer = new QTimer(this);
   m_timer->setInterval(100);
@@ -54,6 +59,7 @@ qreal NolinearAutoTurning::maxSpd() const
 void NolinearAutoTurning::setMaxSpd(qreal maxSpd)
 {
   m_maxSpd = maxSpd;
+  qDebug()<<"maxSpd = "<<m_maxSpd;
 }
 
 qreal NolinearAutoTurning::pulseNum() const
@@ -78,6 +84,18 @@ void NolinearAutoTurning::recoverStatus()
   }
 }
 
+void NolinearAutoTurning::readAutoTurningResultBeforeServoOff()
+{
+  bool isOk = false;
+  m_retFgd = m_sev->genCmdReadAutoTurnningFgd(m_axisInx,isOk);
+  m_retFgp = m_sev->genCmdReadAutoTurnningFgp(m_axisInx,isOk);
+  m_retFgi = m_sev->genCmdReadAutoTurnningFgi(m_axisInx,isOk);
+  m_retFgn = m_sev->genCmdReadAutoTurnningFgn(m_axisInx,isOk);
+
+  qDebug()<<"fgd ="<<m_retFgd<<" fgp = "<<m_retFgp<<" fgi = "<<m_retFgi<<" fgn = "<<m_retFgn;
+
+}
+
 void NolinearAutoTurning::onTimeOut()
 {
   m_progressValue ++;
@@ -91,15 +109,13 @@ void NolinearAutoTurning::onTimeOut()
   finish = m_sev->genCmdAutoTurnningFinishFlag(m_axisInx,isOk);
   if((finish == true))
   {
-    emit autoTurnigFinish(true);
-
     stop();
+    emit autoTurnigFinish(true);
   }
   if(m_waitCount>m_waitMaxCount)
   {
-    autoTurnigFinish(false);
-
     stop();
+    autoTurnigFinish(false);
   }
 }
 
@@ -107,7 +123,9 @@ void NolinearAutoTurning::onSevDeviceNetError(quint16 axisInx)
 {
   if(axisInx ==  m_axisInx)
   {
-    stop();
+    m_progressValue = 0;
+    m_waitCount = 0;
+    m_timer->stop();
   }
 }
 
@@ -121,28 +139,24 @@ void NolinearAutoTurning::setWaitMaxCount(quint16 waitMaxCount)
   m_waitMaxCount = waitMaxCount;
 }
 
-quint64 NolinearAutoTurning::autoTnFgd(int axisInx)
+quint64 NolinearAutoTurning::autoTnFgd()
 {
-  bool isOk ;
-  return m_sev->genCmdReadAutoTurnningFgd(axisInx,isOk);
+  return m_retFgd;
 }
 
-quint64 NolinearAutoTurning::autoTnFgp(int axisInx)
+quint64 NolinearAutoTurning::autoTnFgp()
 {
-  bool isOk ;
-  return m_sev->genCmdReadAutoTurnningFgp(axisInx,isOk);
+  return m_retFgp;
 }
 
-quint64 NolinearAutoTurning::autoTnFgi(int axisInx)
+quint64 NolinearAutoTurning::autoTnFgi()
 {
-  bool isOk ;
-  return m_sev->genCmdReadAutoTurnningFgi(axisInx,isOk);
+  return m_retFgi;
 }
 
-quint64 NolinearAutoTurning::autoTnFgn(int axisInx)
+quint64 NolinearAutoTurning::autoTnFgn()
 {
-  bool isOk ;
-  return m_sev->genCmdReadAutoTurnningFgn(axisInx,isOk);
+  return m_retFgn;
 }
 
 bool NolinearAutoTurning::start()
@@ -230,6 +244,8 @@ void NolinearAutoTurning::stop()
   m_progressValue = 0;
   m_waitCount = 0;
   m_timer->stop();
+  readAutoTurningResultBeforeServoOff();
+  qDebug()<<"stop servo";
   recoverStatus();
 }
 

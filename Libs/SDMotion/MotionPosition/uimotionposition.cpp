@@ -22,13 +22,13 @@ UiMotionPosition::UiMotionPosition(MotionPosition *mp, QWidget *parent) :
     ui->stackedWidget_Point->setCurrentIndex(0);
     m_axisCount = mp->sevDevice()->axisNum();
 
-    ui->comboBox_pointAcc->addItem("pulse/ms^2");
-    ui->comboBox_pointDec->addItem("pulse/ms^2");
+    ui->comboBox_pointAcc->addItem("deg/ms^2");
+    ui->comboBox_pointDec->addItem("deg/ms^2");
     ui->comboBox_pointMaxVel->addItem("rpm");
     ui->comboBox_pointPulse->addItem("rounds");
 
-    ui->comboBox_reciAcc->addItem("pulse/ms^2");
-    ui->comboBox_reciDec->addItem("pulse/ms^2");
+    ui->comboBox_reciAcc->addItem("deg/ms^2");
+    ui->comboBox_reciDec->addItem("deg/ms^2");
     ui->comboBox_reciMaxVel->addItem("rpm");
     ui->comboBox_reciPulse->addItem("rounds");
     ui->comboBox_reciInterval->addItem("ms");
@@ -39,13 +39,13 @@ UiMotionPosition::UiMotionPosition(MotionPosition *mp, QWidget *parent) :
         m_uiDataList.append(data);
     }
 
-    ui->doubleSpinBox_PointAcc->setValue(1300);
-    ui->doubleSpinBox_PointDec->setValue(1300);
+    ui->doubleSpinBox_PointAcc->setValue(7.14);
+    ui->doubleSpinBox_PointDec->setValue(7.14);
     ui->doubleSpinBox_PointMaxVel->setValue(1000);
     ui->doubleSpinBox_PointPulse->setValue(5);
 
-    ui->doubleSpinBox_ReciAcc->setValue(1300);
-    ui->doubleSpinBox_ReciDec->setValue(1300);
+    ui->doubleSpinBox_ReciAcc->setValue(7.14);
+    ui->doubleSpinBox_ReciDec->setValue(7.14);
     ui->doubleSpinBox_ReciInterval->setValue(1000);
     ui->doubleSpinBox_ReciMaxVel->setValue(1000);
     ui->doubleSpinBox_ReciPulse->setValue(5);
@@ -164,10 +164,10 @@ bool UiMotionPosition::eventFilter(QObject *obj, QEvent *event)
 
                 for (int i = 0; i < q_ptr->axisListWidget()->count(); i++) {
                     if (q_ptr->axisListWidget()->item(i)->isSelected()) {
-                        m_uiDataList.at(i)->m_pointAcc = ui->doubleSpinBox_PointAcc->value();
-                        m_uiDataList.at(i)->m_pointDec = ui->doubleSpinBox_PointDec->value();
+                        m_uiDataList.at(i)->m_pointAcc = ui->doubleSpinBox_PointAcc->value() / 360.0 * 65536;
+                        m_uiDataList.at(i)->m_pointDec = ui->doubleSpinBox_PointDec->value() / 360.0 * 65536;
                         m_uiDataList.at(i)->m_pointMaxVel = ui->doubleSpinBox_PointMaxVel->value();
-                        m_uiDataList.at(i)->m_pointPulse = ui->doubleSpinBox_PointPulse->value();
+                        m_uiDataList.at(i)->m_pointPulse = ui->doubleSpinBox_PointPulse->value() * 65536;
                     }
                 }
             } else if (ui->stackedWidget_Point->currentIndex() == 1) {
@@ -180,11 +180,11 @@ bool UiMotionPosition::eventFilter(QObject *obj, QEvent *event)
 
                 for (int i = 0; i < q_ptr->axisListWidget()->count(); i++) {
                     if (q_ptr->axisListWidget()->item(i)->isSelected()) {
-                        m_uiDataList.at(i)->m_reciAcc = ui->doubleSpinBox_ReciAcc->value();
-                        m_uiDataList.at(i)->m_reciDec = ui->doubleSpinBox_ReciDec->value();
+                        m_uiDataList.at(i)->m_reciAcc = ui->doubleSpinBox_ReciAcc->value() / 360.0 * 65536;
+                        m_uiDataList.at(i)->m_reciDec = ui->doubleSpinBox_ReciDec->value() / 360.0 * 65536;
                         m_uiDataList.at(i)->m_reciMaxVel = ui->doubleSpinBox_ReciMaxVel->value();
                         m_uiDataList.at(i)->m_reciInterval = ui->doubleSpinBox_ReciInterval->value();
-                        m_uiDataList.at(i)->m_reciPulse = ui->doubleSpinBox_ReciPulse->value();
+                        m_uiDataList.at(i)->m_reciPulse = ui->doubleSpinBox_ReciPulse->value() * 65536;
                         m_uiDataList.at(i)->m_reciTimes = ui->spinBox_ReciTimes->value();
                     }
                 }

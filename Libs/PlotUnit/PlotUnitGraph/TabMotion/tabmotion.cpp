@@ -390,13 +390,13 @@ void TabMotion::onProgressValueChanged(quint16 axisInx, int value)
 
 void TabMotion::onMotionAllDone()
 {
-    ui->tbtn_plot_servoGoMotion->setCheckable(false);
+    ui->tbtn_plot_servoGoMotion->setEnabled(false);
     ui->tbtn_plot_servoGoMotion->setChecked(false);
   qDebug()<<"motion AllDone";
   GTUtils::delayms(1000);
   qDebug()<<"emit motionStop";
   emit motionStop();
   GTUtils::delayms(500);
-  ui->tbtn_plot_servoGoMotion->setCheckable(true);
+  ui->tbtn_plot_servoGoMotion->setEnabled(true);
 }
 

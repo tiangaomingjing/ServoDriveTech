@@ -498,7 +498,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>Round:</string>
+          <string>Rounds:</string>
          </property>
         </widget>
        </item>
@@ -511,7 +511,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>Deceleration:</string>
+          <string>Deceleration(deg/ms^2):</string>
          </property>
         </widget>
        </item>
@@ -593,7 +593,7 @@
           <enum>QAbstractSpinBox::NoButtons</enum>
          </property>
          <property name="maximum">
-          <double>5.000000000000000</double>
+          <double>50.000000000000000</double>
          </property>
         </widget>
        </item>
@@ -603,7 +603,7 @@
           <enum>QAbstractSpinBox::NoButtons</enum>
          </property>
          <property name="maximum">
-          <double>1000.000000000000000</double>
+          <double>10000.000000000000000</double>
          </property>
         </widget>
        </item>
@@ -629,7 +629,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>Max Velocity:</string>
+          <string>Max Velocity(rpm):</string>
          </property>
         </widget>
        </item>
@@ -642,7 +642,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>Acceleration:</string>
+          <string>Acceleration(deg/ms^2):</string>
          </property>
         </widget>
        </item>

@@ -251,8 +251,8 @@ bool TabModeCtl::eventFilter(QObject *obj, QEvent *event)
           bool ok;
           quint64 nos = m_sev->genCmdReadNos(axisInx, ok);
           double scale = nos / (pow(2, 24));
-          modePrms->m_autAcc = ui->doubleSpinBox_mode_autAcc->value();
-          modePrms->m_autDec = ui->doubleSpinBox_mode_autDec->value();
+          modePrms->m_autAcc = ui->doubleSpinBox_mode_autAcc->value() / 360.0 * 65536;
+          modePrms->m_autDec = ui->doubleSpinBox_mode_autDec->value() / 360.0 * 65536;
           modePrms->m_autVel = ui->doubleSpinBox_mode_autMaxVel->value() / scale;
           modePrms->m_autPulse = ui->doubleSpinBox_mode_aut_pulse->value() * 65536;
           m_sev->genCmdWritePlanSpdAcc(axisInx, modePrms->m_autAcc);
@@ -377,16 +377,12 @@ void TabModeCtl::onModeCtlPanelModeChanged(quint16 axis, int mode)
             bool ok;
             quint64 nos = m_sev->genCmdReadNos(axis, ok);
             double scale = nos / (pow(2, 24));
-            modePrms->m_autAcc = m_sev->genCmdRead(GEN_CMD_ACC, axis, ok);
+            modePrms->m_autAcc = m_sev->genCmdRead(GEN_CMD_ACC, axis, ok) / 65536.0 * 360;
             ui->doubleSpinBox_mode_autAcc->setValue(modePrms->m_autAcc);
-            modePrms->m_autDec = m_sev->genCmdRead(GEN_CMD_DEC, axis, ok);
+            modePrms->m_autDec = m_sev->genCmdRead(GEN_CMD_DEC, axis, ok) / 65536.0 * 360;
             ui->doubleSpinBox_mode_autDec->setValue(modePrms->m_autDec);
             modePrms->m_autVel = m_sev->genCmdRead(GEN_CMD_MAXVEL, axis, ok) * scale;
             ui->doubleSpinBox_mode_autMaxVel->setValue(modePrms->m_autVel);
-            m_sev->genCmdWritePlanSpdAcc(axis, modePrms->m_autAcc);
-            m_sev->genCmdWritePlanSpdDec(axis, modePrms->m_autDec);
-            m_sev->genCmdWritePlanSpdMax(axis, modePrms->m_autVel);
-            m_sev->cmdSetPosRef(axis, modePrms->m_autPulse);
 
             modePrms->m_autfgd = m_sev->genCmdReadAutoTurnningFgd(axis, ok);
             ui->label_mode_aut_fgd->setText(QString::number(modePrms->m_autfgd));
@@ -396,7 +392,6 @@ void TabModeCtl::onModeCtlPanelModeChanged(quint16 axis, int mode)
             ui->label_mode_aut_fgi->setText(QString::number(modePrms->m_autfgi));
             modePrms->m_autfgn = m_sev->genCmdReadAutoTurnningFgn(axis, ok);
             ui->label_mode_aut_fgn->setText(QString::number(modePrms->m_autfgn));
-
         }
         ui->doubleSpinBox_mode_aut_pulse->setValue(modePrms->m_autPulse);
         ui->label_mode_aut_fgd->setText(QString::number(modePrms->m_autfgd));

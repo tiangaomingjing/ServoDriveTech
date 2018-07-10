@@ -32,10 +32,10 @@
 #define CMD_POS_MKR_PRM_MAXSPD_NAME           "gSevDrv.sev_obj.pos.mkr.prm.maxspd"
 #define CMD_POS_MKR_PRM_ACC_NAME              "gSevDrv.sev_obj.pos.mkr.prm.accrate"
 #define CMD_POS_MKR_PRM_DEC_NAME              "gSevDrv.sev_obj.pos.mkr.prm.decrate"
-#define CMD_VEL_ATN_FGD_NAME                  "gSevDrv.sev_obj.vel.atn.prm.fgd_stp"
-#define CMD_VEL_ATN_FGP_NAME                  "gSevDrv.sev_obj.vel.atn.prm.fgp_stp"
-#define CMD_VEL_ATN_FGI_NAME                  "gSevDrv.sev_obj.vel.atn.prm.fgi_stp"
-#define CMD_VEL_ATN_FGN_NAME                  "gSevDrv.sev_obj.vel.atn.prm.fgn_stp"
+#define CMD_VEL_ATN_FGD_NAME                  "gSevDrv.sev_obj.vel.atn.fgd"
+#define CMD_VEL_ATN_FGP_NAME                  "gSevDrv.sev_obj.vel.atn.fgp"
+#define CMD_VEL_ATN_FGI_NAME                  "gSevDrv.sev_obj.vel.atn.fgi"
+#define CMD_VEL_ATN_FGN_NAME                  "gSevDrv.sev_obj.vel.atn.fgn"
 #define CMD_VEL_ATN_FINISH_NAME               "gSevDrv.sev_obj.vel.atn.finish_flag"
 
 SevDevicePrivate::SevDevicePrivate(SevDevice *sev, QObject *parent):QObject(parent),
@@ -978,22 +978,30 @@ quint64 SevDevice::genCmdReadNos(int axisInx, bool &isOk)
 
 quint64 SevDevice::genCmdReadAutoTurnningFgd(int axisInx, bool &isOk)
 {
-  return genCmdRead(CMD_VEL_ATN_FGD_NAME,axisInx,isOk);
+  quint64 ret = genCmdRead(CMD_VEL_ATN_FGD_NAME,axisInx,isOk);
+  qDebug()<<"fgd = "<<ret;
+  return ret;
 }
 
 quint64 SevDevice::genCmdReadAutoTurnningFgi(int axisInx, bool &isOk)
 {
-  return genCmdRead(CMD_VEL_ATN_FGI_NAME,axisInx,isOk);
+  quint64 ret = genCmdRead(CMD_VEL_ATN_FGI_NAME,axisInx,isOk);
+  qDebug()<<"fgi = "<<ret;
+  return ret;
 }
 
 quint64 SevDevice::genCmdReadAutoTurnningFgp(int axisInx, bool &isOk)
 {
-  return genCmdRead(CMD_VEL_ATN_FGP_NAME,axisInx,isOk);
+  quint64 ret = genCmdRead(CMD_VEL_ATN_FGP_NAME,axisInx,isOk);
+  qDebug()<<"fgp = "<<ret;
+  return ret;
 }
 
 quint64 SevDevice::genCmdReadAutoTurnningFgn(int axisInx, bool &isOk)
 {
-  return genCmdRead(CMD_VEL_ATN_FGN_NAME,axisInx,isOk);
+  quint64 ret = genCmdRead(CMD_VEL_ATN_FGN_NAME,axisInx,isOk);
+  qDebug()<<"fgn = "<<ret;
+  return ret;
 }
 
 bool SevDevice::genCmdAutoTurnningFinishFlag(int axisInx, bool &isOk)
@@ -1003,6 +1011,7 @@ bool SevDevice::genCmdAutoTurnningFinishFlag(int axisInx, bool &isOk)
 
 bool SevDevice::genCmdWritePlanSpdMax(int axisInx, quint64 value)
 {
+    qDebug()<<"write spd max "<<value;
   return genCmdWrite(CMD_POS_MKR_PRM_MAXSPD_NAME,value,axisInx);
 }
 

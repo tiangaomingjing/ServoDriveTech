@@ -1432,51 +1432,70 @@ void SDTMainWindow::createSdAssemblyListByDevConfig(const QList<DeviceConfig *> 
 {
   if(configList.isEmpty())
     return;
-  QList<DeviceConfig *> devConfigBuf;
-  int configCount=configList.count();
-  qDebug()<<"configList.count()"<<configCount;
+//  QList<DeviceConfig *> devConfigBuf;
+//  int configCount=configList.count();
+//  qDebug()<<"configList.count()"<<configCount;
 
-  QList<SdAssembly*>sdAssemblyListTemp;
-  DeviceConfig* devConfig;
+//  QList<SdAssembly*>sdAssemblyListTemp;
+//  DeviceConfig* devConfig;
+//  SdAssembly* currentSdAssembly;
+
+//  for(int i=0;i<configCount;i++)
+//  {
+//    devConfig=configList.at(i);
+//    bool cp=false;
+//    for(int j=0;j<m_sdAssemblyList.count();j++)
+//    {
+//      currentSdAssembly=m_sdAssemblyList.at(j);
+//      DeviceConfig* tc=currentSdAssembly->sevDevice()->deviceConfig();
+//      bool isEqual=devConfig->isEqual(*tc);
+//      qDebug()<<"isEqual"<<isEqual;
+//      if(isEqual)//与原有的匹配
+//      {
+//        sdAssemblyListTemp.append(m_sdAssemblyList.takeAt(j));
+//        cp=true;
+//        break;
+//      }
+//    }
+//    if(!cp)
+//    {
+//      //新将找不到的devConfig缓存起来
+//      //到删除原来的后再新建，这样可以减少内存消耗
+//      devConfigBuf.append(devConfig);
+//    }
+//  }
+
+//  GT::deepClearList(m_sdAssemblyList);
+
+//  for(int i=0;i<devConfigBuf.size();i++)
+//  {
+//    DeviceConfig *cfg=devConfigBuf.at(i);
+//    currentSdAssembly=createSdAssembly(cfg);
+//    if(currentSdAssembly!=NULL)
+//    {
+//      sdAssemblyListTemp.append(currentSdAssembly);
+//    }
+//  }
+
+//  m_sdAssemblyList=sdAssemblyListTemp;
+
+  //全部移除了再新建，解决界面不响应问题
   SdAssembly* currentSdAssembly;
-
-  for(int i=0;i<configCount;i++)
-  {
-    devConfig=configList.at(i);
-    bool cp=false;
-    for(int j=0;j<m_sdAssemblyList.count();j++)
-    {
-      currentSdAssembly=m_sdAssemblyList.at(j);
-      DeviceConfig* tc=currentSdAssembly->sevDevice()->deviceConfig();
-      bool isEqual=devConfig->isEqual(*tc);
-      qDebug()<<"isEqual"<<isEqual;
-      if(isEqual)//与原有的匹配
-      {
-        sdAssemblyListTemp.append(m_sdAssemblyList.takeAt(j));
-        cp=true;
-        break;
-      }
-    }
-    if(!cp)
-    {
-      //新将找不到的devConfig缓存起来
-      //到删除原来的后再新建，这样可以减少内存消耗
-      devConfigBuf.append(devConfig);
-    }
-  }
-
   GT::deepClearList(m_sdAssemblyList);
 
-  for(int i=0;i<devConfigBuf.size();i++)
+  for(int i=0;i<configList.size();i++)
   {
-    DeviceConfig *cfg=devConfigBuf.at(i);
+    DeviceConfig *cfg=configList.at(i);
     currentSdAssembly=createSdAssembly(cfg);
     if(currentSdAssembly!=NULL)
     {
-      sdAssemblyListTemp.append(currentSdAssembly);
+      m_sdAssemblyList.append(currentSdAssembly);
     }
   }
-  m_sdAssemblyList=sdAssemblyListTemp;
+  //------全部移除了再新建，解决界面不响应问题
+
+
+
 
   for(int i=0;i<m_sdAssemblyList.size();i++)
   {

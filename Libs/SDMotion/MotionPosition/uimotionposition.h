@@ -23,12 +23,12 @@ public:
     }MotionRunSta;
     UiPosMotionData():
         m_isReci(false),
-        m_pointAcc(1300),
-        m_pointDec(1300),
+        m_pointAcc(7.14),
+        m_pointDec(7.14),
         m_pointMaxVel(1000),
         m_pointPulse(5),
-        m_reciAcc(1300),
-        m_reciDec(1300),
+        m_reciAcc(7.14),
+        m_reciDec(7.14),
         m_reciInterval(1000),
         m_reciMaxVel(1000),
         m_reciPulse(5),
