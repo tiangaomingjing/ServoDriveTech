@@ -323,9 +323,6 @@ void TabMotion::onBtnMotionGoClicked(bool checked)
 {
     if(!m_sev->isConnecting() || !ui->tbtn_plot_servoBtn->isChecked())
       {
-        qDebug()<<"1";
-        qDebug()<<"isConnecting"<<m_sev->isConnecting();
-        qDebug()<<"isChecked"<<ui->tbtn_plot_servoBtn->isChecked();
         ui->tbtn_plot_servoGoMotion->setChecked(false);
         return ;
       }

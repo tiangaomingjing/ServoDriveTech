@@ -24,6 +24,7 @@ public:
   virtual bool move(quint16 axisInx) = 0;
   virtual bool stop(quint16 axisInx) = 0;
   virtual void updateAxisUi(quint16 axisInx) = 0;
+    virtual void setMode() = 0;
   QWidget *ui();
   void setName(const QString &name);
   QString name();

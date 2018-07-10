@@ -148,6 +148,16 @@ void MotionPosition::updateAxisUi(quint16 axisInx)
     UiMotion()->updataUi(axisInx);
 }
 
+void MotionPosition::setMode()
+{
+    Q_D(MotionPosition);
+    for (int i = 0; i < d->m_axisListWidget->count(); i++) {
+        if (d->m_axisListWidget->item(i)->isSelected()) {
+            d->m_sev->setCurrentTaskServoMode(i, GT::MODE_PT);
+        }
+    }
+}
+
 void MotionPosition::onMotionFinish(quint16 axisInx)
 {
 
