@@ -491,6 +491,9 @@ void EpromManager::onLineTextChange_2(QString text) {
 }
 
 void EpromManager::onTextChange(QString text, QTreeWidget *tree, const QString &id) {
+    if (tree->topLevelItemCount() == 0) {
+        return;
+    }
     QTreeWidgetItem *item = GLO::findItem("PCBA code", tree, TREE_NAME);
     QTreeWidgetItem *item_2 = tree->topLevelItem(1)->child(0)->child(0)->child(0)->child(0);
     if (item != NULL) {

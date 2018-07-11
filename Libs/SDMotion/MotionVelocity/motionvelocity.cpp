@@ -92,6 +92,16 @@ void MotionVelocity::updateAxisUi(quint16 axisInx)
   ui->updataUi(axisInx);
 }
 
+void MotionVelocity::setMode()
+{
+    Q_D(MotionVelocity);
+    for (int i = 0; i < d->m_axisListWidget->count(); i++) {
+        if (d->m_axisListWidget->item(i)->isSelected()) {
+            d->m_sev->setCurrentTaskServoMode(i, GT::MODE_VCL);
+        }
+    }
+}
+
 void MotionVelocity::onMotionFinish(quint16 axisInx)
 {
   Q_D(MotionVelocity);
