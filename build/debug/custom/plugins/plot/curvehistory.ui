@@ -54,7 +54,7 @@
                                 <string>AxisCount</string>
                             </property>
                             <property name="text">
-                                <string>6</string>
+                                <string>4</string>
                             </property>
                         </item>
                         <item>
@@ -245,7 +245,7 @@
                                 <string>AxisCount</string>
                             </property>
                             <property name="text">
-                                <string>6</string>
+                                <string>4</string>
                             </property>
                         </item>
                         <item>
@@ -436,7 +436,7 @@
                                 <string>AxisCount</string>
                             </property>
                             <property name="text">
-                                <string>6</string>
+                                <string>4</string>
                             </property>
                         </item>
                         <item>
@@ -635,7 +635,7 @@
                                 <string>AxisCount</string>
                             </property>
                             <property name="text">
-                                <string>6</string>
+                                <string>4</string>
                             </property>
                         </item>
                         <item>

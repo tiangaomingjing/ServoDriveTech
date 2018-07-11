@@ -140,6 +140,9 @@ public:
   bool genCmdWritePlanSpdAcc(int axisInx,quint64 value);//78
   bool genCmdWritePlanSpdDec(int axisInx,quint64 value);//79
 
+  bool writeGearPrm(quint16 axisInx,qint32 a,qint32 b);
+  bool readGearPrm(quint16 axisInx,qint32 &a,qint32 &b);
+
 
 signals:
   void initProgressInfo(int value,QString msg);

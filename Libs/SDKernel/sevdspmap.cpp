@@ -41,7 +41,9 @@ bool SevDspMap::initTreeMap()
   {
     sum+=inc;
     emit initProgressInfo(sum,tr("New AxisTreeMap %1").arg(i+1));
+    qDebug()<<"********************************new AxisTreeMap***************************";
     GTUtils::delayms(10);
+    qDebug()<<"********************************new AxisTreeMap***************************2";
     treeMap=new AxisTreeMap(i,target,q_ptr->m_filePath);
     Q_ASSERT(treeMap!=NULL);
     m_axisTreeMapList.append(treeMap);
