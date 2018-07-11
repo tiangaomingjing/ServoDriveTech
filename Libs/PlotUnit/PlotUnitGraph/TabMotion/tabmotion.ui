@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>701</width>
-    <height>215</height>
+    <width>740</width>
+    <height>213</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -142,6 +142,9 @@
    </item>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_go">
+     <property name="spacing">
+      <number>0</number>
+     </property>
      <property name="rightMargin">
       <number>0</number>
      </property>
@@ -157,6 +160,9 @@
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <property name="spacing">
+        <number>0</number>
+       </property>
        <item>
         <widget class="QToolButton" name="tbtn_plot_servoBtn">
          <property name="sizePolicy">
@@ -167,14 +173,14 @@
          </property>
          <property name="minimumSize">
           <size>
-           <width>40</width>
-           <height>40</height>
+           <width>50</width>
+           <height>50</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>40</width>
-           <height>40</height>
+           <width>50</width>
+           <height>50</height>
           </size>
          </property>
          <property name="text">
@@ -202,6 +208,9 @@
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="spacing">
+        <number>0</number>
+       </property>
        <item>
         <spacer name="horizontalSpacer">
          <property name="orientation">
@@ -225,14 +234,14 @@
          </property>
          <property name="minimumSize">
           <size>
-           <width>40</width>
-           <height>40</height>
+           <width>50</width>
+           <height>50</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>40</width>
-           <height>40</height>
+           <width>50</width>
+           <height>50</height>
           </size>
          </property>
          <property name="text">

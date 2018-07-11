@@ -407,7 +407,6 @@ bool SDTMainWindow::deviceInit()
 
   for(int i=0;i<devConfigList.count();i++)
   {
-    qDebug()<<"************************new SdAssembly "<<i;
     SdAssembly *sdriver=createSdAssembly(devConfigList.at(i));
     m_sdAssemblyList.append(sdriver);
   }
@@ -955,6 +954,7 @@ void SDTMainWindow::onActnDisConnectClicked(bool checked)
   m_statusMonitor->stopMonitor();
   disactiveAllUi();
   setConnect(false);
+
   m_actnNewConfig->setEnabled(true);
 
   qDebug()<<"checked"<<checked;
@@ -1332,9 +1332,7 @@ SdAssembly *SDTMainWindow::createSdAssembly(DeviceConfig *cfg)
   SdAssembly *sd= new SdAssembly();
   connect(sd,SIGNAL(initProgressInfo(int,QString)),this,SLOT(onProgressInfo(int,QString)));
 
-  qDebug()<<"***************************initOK=sd->init(cfg)**********************";
   initOK=sd->init(cfg);
-  qDebug()<<"***************************initOK=sd->init(cfg)**********************end";
   if(initOK)
   {
     SevDevice *sev = sd->sevDevice();
@@ -1482,6 +1480,9 @@ void SDTMainWindow::createSdAssemblyListByDevConfig(const QList<DeviceConfig *> 
 //  m_sdAssemblyList=sdAssemblyListTemp;
 
   //全部移除了再新建，解决界面不响应问题
+  disactiveAllUi();
+  emit beforeSevDeviceChanged();
+
   SdAssembly* currentSdAssembly;
   GT::deepClearList(m_sdAssemblyList);
 

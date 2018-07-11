@@ -15,7 +15,7 @@ INodeConnection::INodeConnection(NodePort *p1, NodePort *p2, INodeConnection::Li
 {
   m_port1->addNodeConnection(this);
   m_port2->addNodeConnection(this);
-  qDebug()<<"INodeConnection construct";
+//  qDebug()<<"INodeConnection construct";
 }
 
 INodeConnection::~INodeConnection()

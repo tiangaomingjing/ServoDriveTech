@@ -166,7 +166,7 @@ void TabMotion::resetUi()
 
 void TabMotion::setupIcons(const QString &css)
 {
-  QSize iconSize(40, 40);
+  QSize iconSize(50, 50);
   QString iconPath=GTUtils::customPath()+"option/style/"+css+"/icon/";
   QIcon servoOnIcon;
   servoOnIcon.addPixmap(QPixmap(iconPath+ICON_NAME_SERVO_OFF),QIcon::Selected,QIcon::Off);
