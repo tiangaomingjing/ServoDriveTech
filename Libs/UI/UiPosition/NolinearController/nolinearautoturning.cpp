@@ -59,6 +59,7 @@ qreal NolinearAutoTurning::maxSpd() const
 void NolinearAutoTurning::setMaxSpd(qreal maxSpd)
 {
   m_maxSpd = maxSpd;
+  qDebug()<<"maxSpd = "<<m_maxSpd;
 }
 
 qreal NolinearAutoTurning::pulseNum() const

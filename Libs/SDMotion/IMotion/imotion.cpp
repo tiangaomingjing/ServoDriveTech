@@ -117,5 +117,10 @@ bool MotionNone::stop(quint16 axisInx)
 
 void MotionNone::updateAxisUi(quint16 axisInx)
 {
-  Q_UNUSED(axisInx)
+    Q_UNUSED(axisInx)
+}
+
+void MotionNone::setMode()
+{
+
 }

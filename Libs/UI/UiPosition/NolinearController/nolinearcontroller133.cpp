@@ -59,7 +59,7 @@ NolinearController133::~NolinearController133()
 void NolinearController133::adjustPostion()
 {
   m_dirItem->setPos(80,-(m_dirItem->boundingRect().height()/2-m_startPort->rect().height()/2));
-  m_inputFilterItem->setPos(m_inputFilterItem->boundingRect().width()+30,-(m_inputFilterItem->boundingRect().height()-m_dirItem->boundingRect().height())/2);
+  m_inputFilterItem->setPos(m_dirItem->boundingRect().width()+20,-(m_inputFilterItem->boundingRect().height()-m_dirItem->boundingRect().height())/2);
   m_midPort1->setPos(m_inputFilterItem->boundingRect().width()+15,-(m_midPort1->rect().height()-m_inputFilterItem->boundingRect().height())/2);
   m_sum1Item->setPos(m_midPort1->boundingRect().width()+15,-(m_sum1Item->boundingRect().height()-m_midPort1->boundingRect().height())/2);
   m_midPort2->setPos(m_sum1Item->boundingRect().width()+30,-(m_midPort2->rect().height()-m_sum1Item->boundingRect().height())/2);

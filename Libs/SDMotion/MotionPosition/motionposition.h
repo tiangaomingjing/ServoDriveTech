@@ -22,6 +22,7 @@ public:
     bool move(quint16 axisInx) Q_DECL_OVERRIDE;
     bool stop(quint16 axisInx) Q_DECL_OVERRIDE;
     void updateAxisUi(quint16 axisInx) Q_DECL_OVERRIDE;
+    void setMode() Q_DECL_OVERRIDE;
 private slots:
     void onMotionFinish(quint16 axisInx);
     void onTimerOut();
