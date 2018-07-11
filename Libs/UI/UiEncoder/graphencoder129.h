@@ -48,7 +48,7 @@ private slots:
 
   void onBtnClearEcnAlarmClicked();
 
-
+  void onCheckBoxGearAssociationClicked(bool checked);
 
 
 private:
@@ -61,8 +61,14 @@ private:
   void showEncoderError(quint16 lost,quint16 encinfo);
   void initCurEncConfigItem();
 
+  void setGearAssociateUiEnable(bool en);
+
+  quint32 gdc(qint32 a,qint32 b);
+  void readGearPrm();
+
 private:
   Ui::GraphEncoder129 *ui;
+
 };
 
 #endif // GRAPHENCODER129_H

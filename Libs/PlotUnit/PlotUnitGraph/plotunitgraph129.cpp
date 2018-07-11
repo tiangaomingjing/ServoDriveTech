@@ -237,9 +237,15 @@ PlotUnitGraph129::~PlotUnitGraph129()
 void PlotUnitGraph129::respondUiActive(bool actived)
 {
   Q_D(PlotUnitGraph129);
-  d->m_isActiving=actived;
-  qDebug()<<"respond Ui active "<<actived;
-  setTimerStatus();
+  if(!d->m_sevList.isEmpty())
+  {
+    if(d->m_sevList.at(0)->isConnecting())
+    {
+      d->m_isActiving = actived;
+      qDebug()<<"respond Ui active "<<actived;
+      setTimerStatus();
+    }
+  }
 }
 
 QColor PlotUnitGraph129::curveShowColor() const
@@ -689,9 +695,9 @@ void PlotUnitGraph129::initialCurvesFromXml()
 {
   Q_D(PlotUnitGraph129);
   //反序列化测试
-  qDebug()<<"build curve form xml ----------------------------0";
+//  qDebug()<<"build curve form xml ----------------------------0";
   QList<ICurve *>curveList = d->m_pluginManager->buildCurvesFromXml();
-  qDebug()<<"build curve form xml ----------------------------1";
+//  qDebug()<<"build curve form xml ----------------------------1";
   foreach (ICurve *c, curveList) {
     qDebug()<<"Curve = "<<c->pluginName();
     qDebug()<<"DevIndex = "<<c->devInx();
@@ -882,7 +888,7 @@ void PlotUnitGraph129::onTimeOut()
 {
   Q_D(PlotUnitGraph129);
   static quint32 i=0;
-//  qDebug()<<"time out"<<i;
+  qDebug()<<"time out"<<i;
   i++;
   //更新当前设备当前轴 tab1  mode servo状态
   //更新当前设备当前轴 tab2  控制权状态

@@ -29,6 +29,8 @@
 #define FPGA_ABS_CFG_INDEX 3
 #define PRM_SEQ_DIR_INX 4
 
+#define POW2_24             16777216
+
 class GraphEncoder129Private:public IGraphEncoderPrivate
 {
   Q_DECLARE_PUBLIC(GraphEncoder129)
@@ -74,6 +76,9 @@ GraphEncoder129::GraphEncoder129(QWidget *parent) :
 
   ui->label_encSearchValue->setText("5");
 
+  ui->checkBox_gear->setChecked(true);
+  setGearAssociateUiEnable(false);
+
 //  QStringList list;
 //  list<<tr("0 DuoMoChuan")<<tr("1 NiKang")<<tr("2 Haidehan")<<tr("3 SanXie")<<tr("4 XiongXia")<<tr("5 AnChuan");
 //  ui->listWidget_encAbsolute->addItems(list);
@@ -87,6 +92,8 @@ GraphEncoder129::GraphEncoder129(QWidget *parent) :
   connect(ui->rbtn_encLine,SIGNAL(toggled(bool)),this,SLOT(onRadioBtnClicked()));
   connect(ui->btn_encSearch,SIGNAL(clicked(bool)),this,SLOT(onBtnSearchPhaseClicked()));
   connect(ui->btn_encSavePhase,SIGNAL(clicked(bool)),this,SLOT(onBtnSavePhaseClicked()));
+
+  connect(ui->checkBox_gear,SIGNAL(clicked(bool)),this,SLOT(onCheckBoxGearAssociationClicked(bool)));
 }
 
 GraphEncoder129::~GraphEncoder129()
@@ -123,6 +130,7 @@ void GraphEncoder129::syncTreeDataToUiFace()
   Q_D(GraphEncoder129);
   qDebug()<<"TEST_OUT syncMultiTreeToUiData";
   d->m_iDataBinding->syncMultiTreeToUiData();//just sync tree data to encconfigdata
+
 }
 quint32 GraphEncoder129::getLineNumber()
 {
@@ -297,16 +305,37 @@ void GraphEncoder129::onEncConfigListWidgetRowChanged(int curRow)
   }
   qDebug()<<"current row="<<curRow;
 }
+void GraphEncoder129::readGearPrm()
+{
+  Q_D(GraphEncoder129);
+  qint32 a = 1;
+  qint32 b = 1;
+  bool ret = d->m_dev->readGearPrm(d->m_uiWidget->uiIndexs().axisInx,a,b);
+  if(ret)
+  {
+    ui->spinBox_gear_a->setValue(a);
+    ui->spinBox_gear_b->setValue(b);
+  }
+}
+
 void GraphEncoder129::onEncActive()
 {
   qDebug()<<"onEncActive";
   initCurEncConfigItem();
+
+  //读取电子齿轮参数
+  readGearPrm();
 }
 void GraphEncoder129::onBtnClearEcnAlarmClicked()
 {
   Q_D(GraphEncoder129);
   d->m_dev->genCmdWrite(KEY_NAME_ENC_INFO,0,d->m_uiWidget->uiIndexs().axisInx);
   qDebug()<<"clear enc alarm";
+}
+
+void GraphEncoder129::onCheckBoxGearAssociationClicked(bool checked)
+{
+  setGearAssociateUiEnable(!checked);
 }
 
 void GraphEncoder129::onBtnEncConfigSaveClicked()
@@ -333,6 +362,19 @@ void GraphEncoder129::onBtnEncConfigSaveClicked()
     d->m_iDataBinding->syncMultiUiDataToTree();
   }
   d->m_uiWidget->writePageFLASH();
+
+  //写电子齿轮参数
+  qint32 a = ui->spinBox_gear_a->value();
+  qint32 b = ui->spinBox_gear_b->value();
+  if(ui->checkBox_gear->isChecked())
+  {
+    b = d->m_curEncConfigItem->lineNumber();
+    a = POW2_24;
+  }
+
+  quint32 f = gdc(a,b);
+
+  d->m_dev->writeGearPrm(d->m_uiWidget->uiIndexs().axisInx,a/f,b/f);
 
   ui->label_encMsg->setVisible(true);
 
@@ -470,4 +512,29 @@ void GraphEncoder129::initCurEncConfigItem()
   d->m_iDataBinding->bind(ui->listWidget_encAbsolute,d->m_treeWidget->topLevelItem(FPGA_ABS_CFG_INDEX));//FPGA.prm.ABS_ENC_CFG.all
   d->m_iDataBinding->syncTreeItemToUiData();
   d->m_curEncConfigItem=d->m_encConfigManage->encItem(ui->listWidget_encAbsolute->currentRow());
+
+  readGearPrm();
+}
+
+void GraphEncoder129::setGearAssociateUiEnable(bool en)
+{
+  ui->label_gear_a->setVisible(en);
+  ui->label_gear_b->setVisible(en);
+  ui->spinBox_gear_a->setVisible(en);
+  ui->spinBox_gear_b->setVisible(en);
+}
+
+quint32 GraphEncoder129::gdc(qint32 a, qint32 b)
+{
+  quint32 ret ;
+  if(a > b)
+    ret = b;
+  else
+    ret = a;
+  while((a%ret!=0)||(b%ret!=0))
+  {
+    ret --;
+    qDebug()<<"ret = "<<ret;
+  }
+  return ret;
 }

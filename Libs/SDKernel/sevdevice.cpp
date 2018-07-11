@@ -38,6 +38,10 @@
 #define CMD_VEL_ATN_FGN_NAME                  "gSevDrv.sev_obj.vel.atn.fgn"
 #define CMD_VEL_ATN_FINISH_NAME               "gSevDrv.sev_obj.vel.atn.finish_flag"
 
+//偶数轴的地址加32678
+#define ADDR_POS_GEAR_PRM_ANU_0   13790
+#define ADDR_POS_GEAR_PRM_B       13798
+
 SevDevicePrivate::SevDevicePrivate(SevDevice *sev, QObject *parent):QObject(parent),
   q_ptr(sev),
   m_configTree(NULL),
@@ -1022,6 +1026,48 @@ bool SevDevice::genCmdWritePlanSpdAcc(int axisInx, quint64 value)
 bool SevDevice::genCmdWritePlanSpdDec(int axisInx, quint64 value)
 {
   return genCmdWrite(CMD_POS_MKR_PRM_DEC_NAME,value,axisInx);
+}
+
+bool SevDevice::writeGearPrm(quint16 axisInx, qint32 a, qint32 b)
+{
+  Q_D(SevDevice);
+  if(isConnecting() == false)
+    return false;
+
+  quint16 addr_a = ADDR_POS_GEAR_PRM_ANU_0;
+  quint16 addr_b = ADDR_POS_GEAR_PRM_B;
+  if(axisInx%2 !=0)
+  {
+    addr_a += 32768;
+    addr_b += 32768;
+  }
+  ComDriver::errcode_t err = 0;
+  err = d->m_socket->comObject()->writeFLASH32(axisInx,addr_a,0,a);
+  err = d->m_socket->comObject()->writeFLASH32(axisInx,addr_b,0,b);
+  return err == 0;
+}
+
+bool SevDevice::readGearPrm(quint16 axisInx, qint32 &a, qint32 &b)
+{
+  Q_D(SevDevice);
+  if(isConnecting() == false)
+    return false;
+
+  quint16 addr_a = ADDR_POS_GEAR_PRM_ANU_0;
+  quint16 addr_b = ADDR_POS_GEAR_PRM_B;
+  if(axisInx%2 !=0)
+  {
+    addr_a += 32768;
+    addr_b += 32768;
+  }
+  ComDriver::errcode_t err = 0;
+  ComDriver::int32_t va = 0;
+  ComDriver::int32_t vb = 0;
+  err = d->m_socket->comObject()->readFLASH32(axisInx,addr_a,0,va);
+  err = d->m_socket->comObject()->readFLASH32(axisInx,addr_b,0,vb);
+  a = va;
+  b = vb;
+  return err == 0;
 }
 
 bool SevDevice::checkLoadParameters(QTreeWidget *tree, int itemNum)

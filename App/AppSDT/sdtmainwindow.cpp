@@ -1332,7 +1332,9 @@ SdAssembly *SDTMainWindow::createSdAssembly(DeviceConfig *cfg)
   SdAssembly *sd= new SdAssembly();
   connect(sd,SIGNAL(initProgressInfo(int,QString)),this,SLOT(onProgressInfo(int,QString)));
 
+  qDebug()<<"***************************initOK=sd->init(cfg)**********************";
   initOK=sd->init(cfg);
+  qDebug()<<"***************************initOK=sd->init(cfg)**********************end";
   if(initOK)
   {
     SevDevice *sev = sd->sevDevice();

@@ -4,17 +4,17 @@ hover :#D0D0D0 ,color :black
 checked:gray ,color:white
 
 */
-QDoubleSpinBox{
-	min-height:30px;
-	min-width:150px;
+QDoubleSpinBox,QSpinBox{
+	min-height:24px;
+	min-width:80px;
 	border-radius:5px;
 	padding-left:5px;
 	border:1px solid #BBB9B9;
 }
-QDoubleSpinBox:focus{
+QDoubleSpinBox:focus,QSpinBox:focus{
 	border:1px solid black;
 }
-QDoubleSpinBox:!enabled{
+QDoubleSpinBox:!enabled,QSpinBox:!enabled{
 	border:none;
 	color:gray;
 	background-color:gray;
@@ -185,12 +185,17 @@ QMenu::item:selected { /* when user selects item using mouse or keyboard */
 	font-weight:bold;
 }
 
-QWidget#iirfilter{
+QWidget#iirfilter,QWidget#posFirfilter{
 	background-color: #E0DDDD;
 	border-radius:5px;
 	border:2px solid #BBB9B9;
 }
-QLabel#irrfilter_title{
+QGraphicsView#graphicsview_iirfilter,QGraphicsView#graphicsview_posfilter{
+	background-color: #F0F0F0;
+	border:none;
+}
+
+QLabel#irrfilter_title,QLabel#posFirfilter_title{
 	border:1px solid #BBB9B9;
 	border-top:none;
 	border-left:none;
@@ -572,6 +577,11 @@ QLabel#label_currentInputFilter{
 	min-height:50px;
 	padding:10px;
 }
+QLabel#label_currentInputFilter:hover{
+	background-color:#A0A0A0;
+	border:2px solid gray;
+	border-radius:10px;
+}
 QLabel#label_currentFeedback{
 	background-color: #E0DDDD;
 	border:2px solid #BBB9B9;
@@ -597,8 +607,8 @@ QWidget#widget_velSaturation{
 	border:none;
 } 
 QWidget#widget_velSaturation:hover{
-	background-color:#E0DDDD;
-	border:2px solid red;
+	background-color:gray;
+	border:2px solid gray;
 	border-radius:5px;
 }
 
@@ -643,13 +653,26 @@ QLabel#label_velTextPositiveMaxTq,QLabel#label_velTextNegativeMaxTq{
 }
 
 /*====================Position 位置控制器页面===================*/
-
+QFrame#line,QFrame#line_2,QFrame#line_3{
+	background-color: #BBB9B9;
+}
 QWidget#widget_posPid{
 	background-color: #E0DDDD;
 	border:2px solid #BBB9B9;
 	border-radius:10px;
 }
+QWidget#widget_nolinearCtl_autoTurning{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+
 QWidget#widget_posFFvel{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+QWidget#widget_posDir{
 	background-color: #E0DDDD;
 	border:2px solid #BBB9B9;
 	border-radius:10px;
@@ -664,12 +687,12 @@ QWidget#widget_posSaturation{
 	border:none;
 } 
 QWidget#widget_posSaturation:hover{
-	background-color:#E0DDDD;
-	border:2px solid red;
+	background-color:gray;
+	border:2px solid gray;
 	border-radius:5px;
 }
 
-QLabel#label_posPidTitle{
+QLabel#label_posPidTitle ,QLabel#label_posDirControl,QLabel#label_nolinearCtl_autoTurning {
 	padding-bottom:10px;
 	margin-bottom:5px;
 	color:black;
@@ -684,6 +707,11 @@ QLabel#label_posInputFilter{
 	border-radius:10px;
 	min-height:50px;
 	padding:5px;
+}
+QLabel#label_posInputFilter:hover{
+	background-color:#A0A0A0;
+	border:2px solid gray;
+	border-radius:10px;
 }
 QLabel#label_posPosFeedback{
 	background-color: #E0DDDD;
@@ -725,6 +753,25 @@ QWidget#widget_posMaxVel,QWidget#widget_posMaxVelPositive,QWidget#widget_posMaxV
 QLabel#label_posTextPositiveMaxV,QLabel#label_posTextNegativeMaxV{
 	background-color: transparent;
 	border:none;
+}
+/**********nolinear controller****************/
+QWidget#widget_posKp,QWidget#widget_posKi,QWidget#widget_posKn,QWidget#widget_posKd,QWidget#widget_posANVSFreq,QWidget#widget_posANVSGain{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+QLabel#label_posFB
+{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:40px;
+}
+
+QPushButton#btn_nolinearCtl_autoStart:checked{
+border:1px solid red;
+background-color:red;
+color:white;
 }
 
 /*=====================Status状态界面===========================*/
@@ -865,11 +912,11 @@ QWidget#widget_plotGraph_right QToolButton{
 } 
 
 
-QToolButton#tbtn_plot_servoOnMode,QToolButton#tbtn_plot_servoGoMotion{
+QToolButton#tbtn_plot_servoOnMode,QToolButton#tbtn_plot_servoGoMotion,QToolButton#tbtn_plot_servoBtn{
 	background-color:transparent;
 	
 }
-QToolButton#tbtn_plot_servoOnMode:hover,QToolButton#tbtn_plot_servoGoMotion:hover{
+QToolButton#tbtn_plot_servoOnMode:hover,QToolButton#tbtn_plot_servoGoMotion:hover,QToolButton#tbtn_plot_servoBtn:hover{
 	border:1px solid gray;
 	border-radius:50px;
 	
