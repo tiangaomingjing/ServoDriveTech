@@ -23,7 +23,7 @@
    <item>
     <widget class="QStackedWidget" name="stackedWidget_Point">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="page">
       <layout class="QGridLayout" name="gridLayout">
@@ -81,7 +81,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>Pulse:</string>
+          <string>Rounds:</string>
          </property>
         </widget>
        </item>
@@ -185,7 +185,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>Pulse:</string>
+          <string>Rounds:</string>
          </property>
         </widget>
        </item>

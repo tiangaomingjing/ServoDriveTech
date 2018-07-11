@@ -1016,6 +1016,7 @@ bool SevDevice::genCmdAutoTurnningFinishFlag(int axisInx, bool &isOk)
 
 bool SevDevice::genCmdWritePlanSpdMax(int axisInx, quint64 value)
 {
+    qDebug()<<"write spd max "<<value;
   return genCmdWrite(CMD_POS_MKR_PRM_MAXSPD_NAME,value,axisInx);
 }
 

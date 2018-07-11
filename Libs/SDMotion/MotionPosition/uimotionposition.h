@@ -26,12 +26,12 @@ public:
         m_pointAcc(1300),
         m_pointDec(1300),
         m_pointMaxVel(1000),
-        m_pointPulse(327680),
+        m_pointPulse(5),
         m_reciAcc(1300),
         m_reciDec(1300),
         m_reciInterval(1000),
         m_reciMaxVel(1000),
-        m_reciPulse(327680),
+        m_reciPulse(5),
         m_reciTimes(0)
     {}
     ~UiPosMotionData(){}

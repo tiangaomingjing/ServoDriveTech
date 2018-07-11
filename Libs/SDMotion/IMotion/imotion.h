@@ -24,6 +24,7 @@ public:
   virtual bool move(quint16 axisInx) = 0;
   virtual bool stop(quint16 axisInx) = 0;
   virtual void updateAxisUi(quint16 axisInx) = 0;
+    virtual void setMode() = 0;
   QWidget *ui();
   void setName(const QString &name);
   QString name();
@@ -57,6 +58,7 @@ public:
   bool move(quint16 axisInx) Q_DECL_OVERRIDE;
   bool stop(quint16 axisInx) Q_DECL_OVERRIDE;
   void updateAxisUi(quint16 axisInx) Q_DECL_OVERRIDE;
+  void setMode() Q_DECL_OVERRIDE;
 };
 
 #endif // IMOTION_H

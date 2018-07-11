@@ -54,7 +54,7 @@ bool SevDspMap::initTreeMap()
   {
     item=target->child(GT::ROW_TARGET_CONFIG_GLOBAL)->child(i);
     file=q_ptr->m_filePath+item->text(GT::COL_TARGET_CONFIG_XML)+".xml";
-
+    qDebug()<<"file"<<file;
     tree=QtTreeManager::createTreeWidgetFromXmlFile(file);
     Q_ASSERT(tree);
     m_globalTreeList.append(tree);

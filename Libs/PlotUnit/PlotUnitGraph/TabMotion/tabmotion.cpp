@@ -166,7 +166,7 @@ void TabMotion::resetUi()
 
 void TabMotion::setupIcons(const QString &css)
 {
-  QSize iconSize(60, 60);
+  QSize iconSize(50, 50);
   QString iconPath=GTUtils::customPath()+"option/style/"+css+"/icon/";
   QIcon servoOnIcon;
   servoOnIcon.addPixmap(QPixmap(iconPath+ICON_NAME_SERVO_OFF),QIcon::Selected,QIcon::Off);
@@ -300,6 +300,7 @@ void TabMotion::onBtnServoOnClicked(bool checked)
         for (int row = 0; row<ui->listWidget_plot_tab2_axis->count(); row++) {
             if (ui->listWidget_plot_tab2_axis->item(row)->isSelected()) {
                 m_axisMotionDataList.at(row)->m_curMotion->stop(row);
+                m_axisMotionDataList.at(row)->m_curMotion->setMode();
                 m_axisMotionDataList.at(row)->m_curMotion->sevDevice()->setAxisServoOn(row, true);
                 GTUtils::delayms(5);
             }
@@ -371,9 +372,9 @@ void TabMotion::onBtnMotionGoClicked(bool checked)
           {
             m_axisMotionDataList.at(row)->m_curMotion->stop(row);
           }
-          if (ui->listWidget_plot_motion_type_inx->currentRow() == 2) {
-              onMotionAllDone();
-          }
+        }
+        if (ui->listWidget_plot_motion_type_inx->currentRow() == 2) {
+            onMotionAllDone();
         }
         //m_barWidget->setVisible(false);
         //m_barWidget->hideAllBar();
@@ -387,13 +388,13 @@ void TabMotion::onProgressValueChanged(quint16 axisInx, int value)
 
 void TabMotion::onMotionAllDone()
 {
-    ui->tbtn_plot_servoGoMotion->setCheckable(false);
+    ui->tbtn_plot_servoGoMotion->setEnabled(false);
+    ui->tbtn_plot_servoGoMotion->setChecked(false);
   qDebug()<<"motion AllDone";
   GTUtils::delayms(1000);
   qDebug()<<"emit motionStop";
   emit motionStop();
   GTUtils::delayms(500);
-  ui->tbtn_plot_servoGoMotion->setCheckable(true);
-  ui->tbtn_plot_servoGoMotion->setChecked(false);
+  ui->tbtn_plot_servoGoMotion->setEnabled(true);
 }
 
