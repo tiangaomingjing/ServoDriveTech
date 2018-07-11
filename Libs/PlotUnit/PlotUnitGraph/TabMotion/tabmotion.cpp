@@ -300,6 +300,7 @@ void TabMotion::onBtnServoOnClicked(bool checked)
         for (int row = 0; row<ui->listWidget_plot_tab2_axis->count(); row++) {
             if (ui->listWidget_plot_tab2_axis->item(row)->isSelected()) {
                 m_axisMotionDataList.at(row)->m_curMotion->stop(row);
+                m_axisMotionDataList.at(row)->m_curMotion->setMode();
                 m_axisMotionDataList.at(row)->m_curMotion->sevDevice()->setAxisServoOn(row, true);
                 GTUtils::delayms(5);
             }

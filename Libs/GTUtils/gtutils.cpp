@@ -83,8 +83,9 @@ QString GTUtils::cmdPath()
 void GTUtils::delayms(quint16 ms)
 {
   QTime dieTime = QTime::currentTime().addMSecs(ms);
-  while( QTime::currentTime() < dieTime )
+  while( QTime::currentTime() < dieTime ) {
     QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+  }
 }
 QList<QTranslator*> GTUtils::setupTranslators(const QString &path)
 {
