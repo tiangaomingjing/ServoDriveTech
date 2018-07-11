@@ -237,15 +237,12 @@ PlotUnitGraph129::~PlotUnitGraph129()
 void PlotUnitGraph129::respondUiActive(bool actived)
 {
   Q_D(PlotUnitGraph129);
-  if(!d->m_sevList.isEmpty())
-  {
-    if(d->m_sevList.at(0)->isConnecting())
-    {
-      d->m_isActiving = actived;
-      qDebug()<<"respond Ui active "<<actived;
-      setTimerStatus();
-    }
-  }
+
+  d->m_isActiving = actived;
+  qDebug()<<"respond Ui active "<<actived;
+
+  setTimerStatus();
+
 }
 
 QColor PlotUnitGraph129::curveShowColor() const
@@ -385,7 +382,9 @@ void PlotUnitGraph129::onSocketConnectionChanged(bool isConnected)
       ui->tbtn_plot_startSampling->setChecked(false);
       onBtnStartSampleClicked(false);
     }
+
   }
+  setTimerStatus();
 }
 
 void PlotUnitGraph129::createConnections()
@@ -431,7 +430,7 @@ void PlotUnitGraph129::onBtnFloatInClicked(bool checked)
 {
   Q_UNUSED(checked);
   Q_D(PlotUnitGraph129);
-  d->m_winIsIn=!d->m_winIsIn;
+  d->m_winIsIn=checked;
   setTimerStatus();
   emit winFloatingChange(d->m_winIsIn);
 }
@@ -694,42 +693,42 @@ void PlotUnitGraph129::onBtnOpenCurveClicked(bool checked)
 void PlotUnitGraph129::initialCurvesFromXml()
 {
   Q_D(PlotUnitGraph129);
-  //反序列化测试
-//  qDebug()<<"build curve form xml ----------------------------0";
-  QList<ICurve *>curveList = d->m_pluginManager->buildCurvesFromXml();
-//  qDebug()<<"build curve form xml ----------------------------1";
-  foreach (ICurve *c, curveList) {
-    qDebug()<<"Curve = "<<c->pluginName();
-    qDebug()<<"DevIndex = "<<c->devInx();
-    qDebug()<<"AxisIndex = "<<c->axisInx();
-    qDebug()<<"AxisCount = "<<c->axisCount();
-    qDebug()<<"Name = "<<c->name();
-    qDebug()<<"Note = "<<c->note();
-    qDebug()<<"Color = "<<c->color();
-    qDebug()<<"IsDraw = "<<c->isDraw();
-    qDebug()<<"Unit = "<<c->curUnitName();
-    for(int i = 0;i<c->unitNames().size();i++)
-    {
-      qDebug()<<"--"<<c->unitNames().at(i)<<c->unitValue(c->unitNames().at(i));
-    }
-    qDebug()<<"ConstInputs size = "<<c->constInputKeys().size();
-    for(int i =0;i<c->constInputs().size();i++)
-    {
-      qDebug()<<"--const "<<c->constInputs().at(i).keyName;
-      qDebug()<<"----"<<"base"<<c->constInputs().at(i).prm.baseAddr;
-      qDebug()<<"----"<<"offt"<<c->constInputs().at(i).prm.offtAddr;
-      qDebug()<<"----"<<"bytes"<<c->constInputs().at(i).prm.bytes;
-    }
 
-    qDebug()<<"VarInputs size = "<<c->varInputsKeys().size();
-    for(int i =0;i<c->varInputs().size();i++)
-    {
-      qDebug()<<"--var "<<c->varInputs().at(i).keyName;
-      qDebug()<<"----"<<"base"<<c->varInputs().at(i).prm.baseAddr;
-      qDebug()<<"----"<<"offt"<<c->varInputs().at(i).prm.offtAddr;
-      qDebug()<<"----"<<"bytes"<<c->varInputs().at(i).prm.bytes;
-    }
-    qDebug()<<"*****************************************\n";
+  QList<ICurve *>curveList = d->m_pluginManager->buildCurvesFromXml();
+  //反序列化测试
+  foreach (ICurve *c, curveList)
+  {
+//    qDebug()<<"Curve = "<<c->pluginName();
+//    qDebug()<<"DevIndex = "<<c->devInx();
+//    qDebug()<<"AxisIndex = "<<c->axisInx();
+//    qDebug()<<"AxisCount = "<<c->axisCount();
+//    qDebug()<<"Name = "<<c->name();
+//    qDebug()<<"Note = "<<c->note();
+//    qDebug()<<"Color = "<<c->color();
+//    qDebug()<<"IsDraw = "<<c->isDraw();
+//    qDebug()<<"Unit = "<<c->curUnitName();
+//    for(int i = 0;i<c->unitNames().size();i++)
+//    {
+//      qDebug()<<"--"<<c->unitNames().at(i)<<c->unitValue(c->unitNames().at(i));
+//    }
+//    qDebug()<<"ConstInputs size = "<<c->constInputKeys().size();
+//    for(int i =0;i<c->constInputs().size();i++)
+//    {
+//      qDebug()<<"--const "<<c->constInputs().at(i).keyName;
+//      qDebug()<<"----"<<"base"<<c->constInputs().at(i).prm.baseAddr;
+//      qDebug()<<"----"<<"offt"<<c->constInputs().at(i).prm.offtAddr;
+//      qDebug()<<"----"<<"bytes"<<c->constInputs().at(i).prm.bytes;
+//    }
+
+//    qDebug()<<"VarInputs size = "<<c->varInputsKeys().size();
+//    for(int i =0;i<c->varInputs().size();i++)
+//    {
+//      qDebug()<<"--var "<<c->varInputs().at(i).keyName;
+//      qDebug()<<"----"<<"base"<<c->varInputs().at(i).prm.baseAddr;
+//      qDebug()<<"----"<<"offt"<<c->varInputs().at(i).prm.offtAddr;
+//      qDebug()<<"----"<<"bytes"<<c->varInputs().at(i).prm.bytes;
+//    }
+//    qDebug()<<"*****************************************\n";
 
     d->m_curveManager->addCurve(c);
 
@@ -1565,7 +1564,7 @@ void PlotUnitGraph129::setTimerStatus()
   bool needOpen;
   needOpen=d->m_isActiving||(!d->m_winIsIn);
   qDebug()<<"needOpen = "<<needOpen;
-  if(needOpen)
+  if(needOpen&&d->m_sevList.at(0)->isConnecting())
   {
     if(d->m_timer->isActive()==false)
       d->m_timer->start();
