@@ -149,7 +149,7 @@ QWidget#widget{
      <item>
       <widget class="QStackedWidget" name="stack">
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="Select">
         <layout class="QGridLayout" name="gridLayout_10">
@@ -208,29 +208,7 @@ QWidget#widget{
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="typeLabel">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>150</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>255</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">background-color: rgb(255, 255, 255);
-border:1px solid gray;</string>
-               </property>
+              <widget class="QLabel" name="label_Shown">
                <property name="text">
                 <string/>
                </property>

@@ -84,16 +84,6 @@ EpromManager::EpromManager(QWidget *parent) :
     connect(ui->hexButton, SIGNAL(clicked()), this, SLOT(selectHex()));
     connect(ui->xmlButton, SIGNAL(clicked()), this, SLOT(selectXml()));
     connect(ui->flashButton, SIGNAL(clicked()), this, SLOT(onActionFlashClicked()));
-
-    QTranslator *trans = NULL;
-    QString langPath = GTUtils::languagePath() + "ch/ch_eeprom.qm";
-    QString lang = GTUtils::data(path, "face", "language", "").toString();
-    if (lang.compare("chinese") == 0) {
-        trans=new QTranslator;
-        qDebug()<<langPath;
-        trans->load(langPath);
-        qApp->installTranslator(trans);
-    }
 }
 
 EpromManager::~EpromManager()
@@ -273,19 +263,24 @@ void EpromManager::treeItemClicked(QTreeWidgetItem* item, int column) {
 
 void EpromManager::changeConfigText(QString text, QTreeWidget *tree) {
     QTreeWidgetItem *item = GLO::findItem(text, tree, TREE_VALUE);
-    m_configText = item->text(TREE_NAME);
-    int count = 0;
-    QTreeWidgetItem *currentItem = item;
-    while (count < 3) {
-        currentItem = currentItem->parent();
-        m_configText = currentItem->text(TREE_NAME) + "->\n" + m_configText;
-        count++;
-    }
+    m_configText = tr("Type Name: ") + item->text(TREE_NAME);
+    item = item->parent();
+    m_configText = tr("Series Num: ") + item->text(TREE_NAME) + "\n" + m_configText;
+    item = item->parent();
+    m_configText = tr("Series Name: ") + item->text(TREE_NAME) + "\n" + m_configText;
+//    int count = 0;
+//    QTreeWidgetItem *currentItem = item;
+//    while (count < 3) {
+//        currentItem = currentItem->parent();
+//        m_configText = currentItem->text(TREE_NAME) + "->\n" + m_configText;
+//        count++;
+//    }
 }
 
 void EpromManager::showText(QString configText, QString comText) {
-    QString typeText = configText + "\n\n" + "Com Type:\n" + comText;
-    ui->typeLabel->setText(typeText);
+    //QString typeText = configText + "\n\n" + "Com Type:\n" + comText;
+    ui->label_Shown->setText(configText);
+    ui->comLabel->setText(comText);
 }
 
 
