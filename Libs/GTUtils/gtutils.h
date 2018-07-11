@@ -2,6 +2,8 @@
 #define UTILS_H
 
 #include "gtutils_global.h"
+#include <QStringList>
+#include <QVariant>
 
 //对应目录下相关文件名
 #define SYSCONFIGTREE_NAME            "SysConfigTree.ui"
@@ -30,6 +32,7 @@ public:
   static QString iconPath();
   static QString ubootPath();
   static QString languagePath();
+  static QString cmdPath();
   static void delayms(quint16 ms);
 //  static QTreeWidgetItem* findItem(QString text, QTreeWidget* tree, int col);
 //  static QTreeWidgetItem* findItemByValue(Uint8* value, Uint16 num, QTreeWidget *tree);
@@ -39,9 +42,16 @@ public:
 
   static void clearTreeWidgetList(QList<QTreeWidget*> &list);
 
+  static QTreeWidgetItem* findTopLevelItem(QTreeWidgetItem *item);
+
+  static QTreeWidgetItem* findItem(const QString &text, QTreeWidget* tree, int col);
+  static QTreeWidgetItem* findItemInItem(const QString &text, QTreeWidgetItem* treeItem, int col);
+
+  static int byteNumbers(const QString &str);
+
+  static QVariant data(const QString &path, const QString &group, const QString &key, const QVariant &defaultValue);
 private:
   inline static QString sdtPath();
 };
-
 
 #endif // UTILS_H

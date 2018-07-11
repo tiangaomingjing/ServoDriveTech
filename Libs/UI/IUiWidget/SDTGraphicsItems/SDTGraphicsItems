@@ -1,0 +1,10 @@
+﻿#include "widgetitem.h"
+#include "anchoritemhelper.h"
+#include "arrowitem.h"
+#include "sumitemwidget.h"
+#include "targetitemwidget.h"
+#include "labelitemwidget.h"
+#include "saturationitemwidget.h"
+#include "frameitemwidget.h"
+#include <QGraphicsItem>
+#include <QGraphicsProxyWidget>

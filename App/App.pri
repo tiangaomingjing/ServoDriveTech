@@ -3,15 +3,25 @@ COMMON_PATH=$${PWD}/../Common
 
 INCLUDEPATH+=$${LIBS_PATH}/Com/Communication\
             $${LIBS_PATH}/GTUtils\
+            $${LIBS_PATH}/DbManager\
             $${LIBS_PATH}/GTUtils/QtTreeManager\
+            $${LIBS_PATH}/GTUtils/FolderCompressor\
+            $${LIBS_PATH}/GTUtils/DeviceIdHelper\
+            $${LIBS_PATH}/GTUtils/SelfBuilder\
+            $${LIBS_PATH}/GTUtils/CmdManager\
             $${LIBS_PATH}/SDKernel\
+            $${LIBS_PATH}/AdvUser\
             $${LIBS_PATH}/UI\
+            $${LIBS_PATH}/UI/UiPlot\
             $${LIBS_PATH}/UI/IUiWidget\
             $${LIBS_PATH}/Option\
-            $${LIBS_PATH}/PlotUnit\
+            $${LIBS_PATH}/PlotUnit/PlotUnitGraph\
+            $${LIBS_PATH}/PlotUnit/IPlotUnit\
+            $${LIBS_PATH}/PlotCurvePluginFramework/ICurve\
             $${COMMON_PATH}/src\
             $${COMMON_PATH}/src/Kernel\
-            $${COMMON_PATH}/src/UiFactory
+            $${COMMON_PATH}/src/UiFactory\
+            $${COMMON_PATH}/src/SdtGlobal
 
 
 CONFIG(debug, debug|release){
@@ -19,6 +29,7 @@ CONFIG(debug, debug|release){
     LIBPATH=$${APPTEST_OUT_PATH}
     LIBS +=-lCommunicationd\
           -lGTUtilsd\
+          -lDbManagerd\
           -lIUiWidgetd\
           -lUiBraked\
           -lUiCurrentd\
@@ -34,13 +45,16 @@ CONFIG(debug, debug|release){
           -lUiVelocityd\
           -lSDKerneld\
           -lOptiond\
-          -lPlotUnitd
+          -lPlotUnitGraphd\
+          -lIPlotUnitd\
+          -lAdvUserd
 } else{
     APPTEST_OUT_PATH=$${PWD}/../build/release/bin
     LIBPATH=$${APPTEST_OUT_PATH}
 #    LIBS +=$${APPTEST_OUT_PATH}\Communication.lib\
 #           $${APPTEST_OUT_PATH}\GTUtils.lib
     LIBS +=-lCommunication\
+          -lDbManager\
           -lGTUtils\
           -lIUiWidget\
           -lUiBrake\
@@ -57,6 +71,8 @@ CONFIG(debug, debug|release){
           -lUiVelocity\
           -lSDKernel\
           -lOption\
-          -lPlotUnit
+          -lPlotUnitGraph\
+          -lIPlotUnit\
+          -lAdvUser
 }
 DESTDIR =$${APPTEST_OUT_PATH}

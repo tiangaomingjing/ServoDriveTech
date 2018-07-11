@@ -2,6 +2,7 @@
 #define SDTMAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTcpSocket>
 
 namespace Ui {
 class SDTMainWindow;
@@ -18,6 +19,10 @@ class GlobalUiControler;
 class IUiWidget;
 class PlotUnit;
 class DeviceConfig;
+class QProcess;
+class MessageServer;
+class StatusMonitor;
+class SevDevice;
 
 class SDTMainWindow : public QMainWindow
 {
@@ -61,9 +66,12 @@ private:
 
   void setNavCurrentSelectedInfo();
 
-  void createSdAssemblyByDevConfig(const QList<DeviceConfig *> &configList);
+  void createSdAssemblyListByDevConfig(const QList<DeviceConfig *> &configList);
+  void updateSDTMainUiByConfigList(const QList<DeviceConfig *> &configList);
+  void updateStatusMonitorDevice(const QList<SevDevice *> &list);
 
   SdAssembly *createSdAssembly(DeviceConfig *cfg);
+  QList<SevDevice *> sevList();
 
   //ui显示状态相关
   void setUiStatusConnect(bool isNet);
@@ -71,26 +79,61 @@ private:
 
   bool setConnect(bool net);
 
+  bool isAutoLoad();
+
+  bool MessageBoxAsk(const QString &msg);
+  void startListen();
+
 signals:
   void initProgressInfo(int barValue,QString msg);
+  void sendDevConfigToServer(QByteArray block);
+  void currentTitleChanged(const QString &title);
+  void appClosed();
+  void beforeSevDeviceChanged();
+
 private slots:
   void onActnOptionClicked();
   void onActnTbtnMoreClicked();
   void onActnConnectClicked(bool checked);
   void onActnDisConnectClicked(bool checked);
-  void onActnHelpDeviceInfo();
+  void onActnHelpDeviceInfoClicked();
+  void onActnVersionInfoClicked();
+  void onActnHelpSoftInfoClicked();
+  void onActnNewConfigClicked();
+  void onActnSaveClicked();
+  void onActnConfigClicked();
+  void onActnDownloadClicked();
+  void onActnUploadClicked();
+  void onActnProduceClicked();
+  void onActnAdvUserClicked();
+  void onActnCompareClicked();
+  void onActnUpdateFirmwareClicked();
+  void onActnResetDspClicked();
+  void onStartMsgReceived();
+  void onCloseMsgReceived();
 
   //响应option选项slots
   void onOptAutoLoadChanged(bool changed);
-  void onOptFaceCssChanged(QString css);
+  void onOptFaceCssChanged(const QString &css);
+  void onOptUserChanged(bool isAdmin);
+  void onOptPathChanged(const QStringList &list);
 
-  void onProgressInfo(int barValue, QString msg);
+  void onProgressInfo(int barValue, const QString &msg);
 
   void onNavTreeWidgetItemClicked(QTreeWidgetItem * item, int column);
 
   void onStatusBarPageChanged(int pIndex);
 
-  void onPlotFloatingChanged(bool floating);
+  //响应状态监视器
+  void onDeviceAlarmError(quint16 devId,quint16 axisInx,bool hasError);
+  void onDeviceNetError(quint16 devId);
+
+  //响应寻相操作
+  void onIpaSearchPhaseInfo(int barValue, const QString &msg);
+  void onIpaWarningMsg(const QString &msg);
+  void onIpaDone();
+
+  void onSaveMsgReceived(int value, const QString &msg, bool isStart);
 
 
 private:
@@ -111,10 +154,12 @@ private:
   QToolButton *m_tbtnHelp;
   QAction *m_actnAboutHardware;
   QAction *m_actnAboutSoftware;
+  QAction *m_actnAboutVersion;
   QAction *m_actnReset;
   QAction *m_actnUpdateFlash;
   QAction *m_actnOption;
   QAction *m_actnProduce;
+  QAction *m_actnAdvUser;
   SdtStatusBar *m_statusBar;
   QProgressBar *mp_progressBar;
   UiShowStatus m_currentUiStatus;
@@ -126,10 +171,19 @@ private:
   GlobalUiControler *m_gUiControl;
   OptContainer *m_optc;
   SdAssembly *m_currentSdAssembly;
+  
+  //-------socket-------
+  bool m_produceClicked;
+  QProcess *m_process;
+  MessageServer *m_server;
+
 
   PlotUnit *m_plot;
   bool m_connecting;
+  StatusMonitor *m_statusMonitor;
 
+  QString m_downloadPath;
+  QString m_uploadPath;
 };
 
 #endif // SDTMAINWINDOW_H

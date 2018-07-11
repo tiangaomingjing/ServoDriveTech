@@ -86,6 +86,7 @@ typedef enum{
   TASK_MODE_IDLE,
   TASK_MODE_ADC,
   TASK_MODE_POS_ADJ,
+  TASK_MODE_MACHINE_INDENTIFY,
   TASK_MODE_CUR_OPEN,
   TASK_MODE_CUR_CLOSE,
   TASK_MODE_VEL_CLOSE,
@@ -95,7 +96,8 @@ typedef enum{
   TASK_MODE_POS_FOL,
   TASK_MODE_DB,
   TASK_MODE_CUR_FOL,
-}ServoTaskMode_t;
+  TASK_MODE_AUTN
+}TaskServoMode;
 typedef enum{
   NET_1000M,
   NET_ERR,
@@ -119,19 +121,22 @@ typedef enum{
   EEPROM_CS_POWER,
   EEPROM_CS_CONTROL
 }EEPROMSelect;
-/* |mode|cmd|len|<-------data------>|
- * |_ _ |_ _|_ _|_ _|_ _|_ _|_ _|_ _|
- * len是指data的长度
- * 1级指令cmd<41  data[0]开始就是数据
- * 2级指令cmd=41  data[0]是2级ID data[1]开始是数据
- * 3与王彬结构体少了前面的3个data,所以在调他的函数时要插多3个word
+
+typedef enum{
+  PLOT_DISABLE = 0,
+  PLOT_ENABLE = 1
+}PlotEnableState;
+/* |mode|cmd|len|<-------data-->|
+ * |_ _ |_ _|_ _|_ _|_ _|_ _|_ _|
+ * len是指data的长度 以int16为单位
+ * 32低位在data低,高在高
  * */
 typedef struct{
   uint16_t mode;
   uint16_t cmd;
   uint16_t length;
-  uint16_t subId;
-  int16_t data[COM_PDU_DATA_LEN];//一次最大传64位
+  int16_t subId;
+  uint16_t data[COM_PDU_DATA_LEN];//一次最大传64位
 }GeneralPDU;
 typedef struct{
   uint16_t		bytes;																// variable storage bytes

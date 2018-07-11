@@ -1,4 +1,4 @@
-QT += core widgets
+ QT += core widgets
 QT -= gui
 
 TARGET = src
@@ -7,13 +7,20 @@ CONFIG -= app_bundle
 
 INCLUDEPATH+=../../Libs/Com/Communication\
               ../../Libs/GTUtils/QtTreeManager\
+              ../../Libs/GTUtils/DeviceIdHelper\
+              ../../Libs/GTUtils/SelfBuilder\
               ../../Libs/GTUtils\
               ../../Libs/UI\
               ../../Libs/UI/IUiWidget\
               ../../Libs/SDKernel\
               ../../Libs/Option\
+              ../../Libs/PlotUnit/PlotUnitGraph\
+              ../../Libs/PlotUnit/IPlotUnit\
+              $${PWD}/../../Libs/PlotCurvePluginFramework/ICurve\
               $${PWD}/UiFactory\
-              $${PWD}/Kernel
+              $${PWD}/Kernel\
+              $${PWD}/SdtGlobal\
+              $${PWD}/FolderCompressor
 
 CONFIG(debug, debug|release){
     COMMONSRC_OUT_PATH=$${PWD}/../../build/debug/bin
@@ -35,7 +42,9 @@ CONFIG(debug, debug|release){
           -lUiStatusd\
           -lUiVelocityd\
           -lSDKerneld\
-          -lOptiond
+          -lOptiond\
+          -lPlotUnitGraphd\
+          -lIPlotUnitd
     TARGET = CommonSrcAppd
 } else{
     COMMONSRC_OUT_PATH=$${PWD}/../../build/release/bin
@@ -59,7 +68,9 @@ CONFIG(debug, debug|release){
           -lUiStatus\
           -lUiVelocity\
           -lSDKernel\
-          -lOption
+          -lOption\
+          -lPlotUnitGraph\
+          -lIPlotUnit
     TARGET = CommonSrcApp
 }
 DESTDIR =$${COMMONSRC_OUT_PATH}
@@ -76,12 +87,13 @@ SOURCES += main.cpp \
     Kernel/deviceconfig.cpp \
     UiFactory/uifactory.cpp \
     Kernel/globaluicontroler.cpp \
-    Kernel/deviceidhelper.cpp \
-    test.c
+    test.c \
+    SdtGlobal/sdtglobaldef.cpp \
+    Kernel/sdterror.cpp \
+    ledalarm.cpp
 
 
 HEADERS += \
-    sdtglobaldef.h \
     Kernel/idevreadwriter.h \
     Kernel/iuicontroler.h \
     Kernel/sevuicontroler.h \
@@ -94,8 +106,10 @@ HEADERS += \
     UiFactory/uifactory.h \
     UiFactory/registerfunction.h \
     Kernel/globaluicontroler.h \
-    Kernel/deviceidhelper.h \
-    test.h
+    test.h \
+    SdtGlobal/sdtglobaldef.h \
+    Kernel/sdterror.h \
+    ledalarm.h
 
 DISTFILES += \
     ../../build/debug/custom/option/qmlstyle/MyQmlStyle/qmldir \

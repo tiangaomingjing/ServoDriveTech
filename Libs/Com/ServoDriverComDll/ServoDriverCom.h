@@ -5,6 +5,8 @@
 #include "RnDriverPlot.h"
 #include "ServoDriverComDef.h"
 #include "Eeprom.h"
+#include<vector>  
+using namespace std;
 
 class CServoDriverCom
 {
@@ -17,6 +19,12 @@ protected:
 	CRnDriverPlot*		m_pPlot;
 	CEeprom* m_pEeprom;
 public:
+	//add by luo.mj 20180328
+	Uint16 m_station_id;
+	short SetStationId(Uint16 station_id);
+	short GetStationIdList(vector<int16>& stationIdList);
+	short GetStationAxisNum(int16* axisNum);
+	/////////////////////////////////////////////
 	short Initial(CRingNetInterface* pDriver);
 	short InitialEeprom(CEeprom* pEeprom);
 	Uint16 ConvertAxiToStationId(int16 axi_id){ return m_pMapping->ConvertAxiToStationId(axi_id); };
@@ -182,5 +190,11 @@ public:
 // 
 // 	int16 GTSD_CMD_ResetFPGA(int16 axis);
 // 	int16 GTSD_CMD_ConfigEEPROM(int16 com_type = GTSD_COM_TYPE_NET, int16 stationId = 0xf0);
+	short GTSD_CMD_XmlWriteFile(int16 axis, char* pFileNameList[], int pFileTypeList[], int file_num,
+		void(*tpfUpdataProgressPt)(void*, short*), void* ptrv, short& progress);
+
+	short GTSD_CMD_XmlReadFile(int16 axis, char* pFileNameList[], int pFileTypeList[], int& file_num,
+		void(*tpfUpdataProgressPt)(void*, short*), void* ptrv, short& progress);
+
 };
 

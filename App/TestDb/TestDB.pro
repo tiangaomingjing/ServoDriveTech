@@ -11,7 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TEMPLATE = app
 
 INCLUDEPATH += $${PWD}/dbManager\
-               $${PWD}/ControlServo\
+               $${PWD}/../../Libs/Com/ServoDriverComDll/DllCom\
                $${PWD}/TreeManage\
                $${PWD}/Eprom\
 
@@ -34,7 +34,6 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     dbManager/dbmanager.cpp \
     tabletest.cpp \
-    ControlServo/controlservo.cpp \
     Eprom/eprom.cpp \
     Eprom/eprom_control.cpp \
     Eprom/eprom_power.cpp \
@@ -45,10 +44,6 @@ HEADERS  += mainwindow.h \
     dbManager/dbmanager.h \
     tabletest.h \
     globaldefine.h \
-    ControlServo/Basetype_def.h \
-    ControlServo/controlservo.h \
-    ControlServo/ServoDriverComDef.h \
-    ControlServo/ServoDriverComDll.h \
     Eprom/eprom.h \
     Eprom/eprom_control.h \
     Eprom/eprom_power.h \

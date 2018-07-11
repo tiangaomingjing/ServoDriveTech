@@ -16,22 +16,32 @@ class SdtStatusBar : public QWidget
   Q_OBJECT
 
 public:
+  enum MsgType{
+    MSG_TYPE_NORMAL,
+    MSG_TYPE_WARNING,
+    MSG_TYPE_ERROR
+  };
+
   explicit SdtStatusBar(QTreeWidget *navTree,QWidget *parent = 0);
   ~SdtStatusBar();
   void resetStatus();
-  void setWarningMsg(const QString &str);
+  void setMsg(const QString &str,MsgType type=MSG_TYPE_NORMAL);
   void setConnectStatus(bool connected);
-  void showErrorStatus(bool show);
-  void updateDeviceWhenChanged(QTreeWidget *navTree);//当设备变化后要重新调用，并在生成导航树之后
+  void setErrorStatus(bool hasError);
+  void updateDeviceNavTreeWhenChanged(QTreeWidget *navTree);
   QProgressBar *statusProgressBar()const;
+  void setAlarmErrorStatus(quint32 devInx,qint16 axis,bool hasErr);
 
 signals:
   void statusErr(quint32 devInx,qint16 axis,bool hasErr);//由主窗口传入信息给状态栏
   void statusPageChanged(int pIndex);//信息连接接力，接m_errDialog传出来的信息
+//public slots:
+//  void onStatusErr(quint32 devInx,qint16 axis,bool hasErr);
 private slots:
 //  void onActnClickedtest(QAction* act);
   void onActnToolClicked();
 //  void onActnToolTrig(QAction *act);
+
 protected:
 //  bool eventFilter(QObject *watched, QEvent *event)override;
 private:

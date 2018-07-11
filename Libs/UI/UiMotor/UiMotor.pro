@@ -20,11 +20,13 @@ CONFIG(debug, debug|release){
 }
 
 SOURCES += uimotor.cpp \
-    graphmotor129.cpp
+    graphmotor129.cpp \
+    graphmotor130.cpp
 
 HEADERS += uimotor.h\
         uimotor_global.h \
-    graphmotor129.h
+    graphmotor129.h \
+    graphmotor130.h
 
 unix {
     target.path = /usr/lib
@@ -33,6 +35,7 @@ unix {
 
 FORMS += \
     uimotor.ui \
-    graphmotor129.ui
+    graphmotor129.ui \
+    graphmotor130.ui
 
 TRANSLATIONS    += ch_uimotor.ts en_uimotor.ts

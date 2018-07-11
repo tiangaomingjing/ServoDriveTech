@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>794</width>
-    <height>719</height>
+    <width>400</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,13 +29,6 @@
      <item>
       <property name="text">
        <string>XML Information</string>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
       </property>
       <property name="text">
        <string/>
@@ -69,13 +62,6 @@
       <property name="text">
        <string>Basic Information</string>
       </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
       <property name="text">
        <string/>
       </property>
@@ -83,50 +69,62 @@
        <property name="text">
         <string>M</string>
        </property>
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
        <property name="text">
         <string/>
        </property>
        <item>
         <property name="text">
-         <string>M4</string>
+         <string>M1</string>
         </property>
-        <property name="font">
-         <font>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
+        <item>
+         <property name="text">
+          <string>series1</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>21000506</string>
+          </property>
+          <property name="text">
+           <string>21000506</string>
+          </property>
+         </item>
+        </item>
+       </item>
+       <item>
+        <property name="text">
+         <string>M2</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>series1</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>21000507</string>
+          </property>
+          <property name="text">
+           <string>21000507</string>
+          </property>
+         </item>
+        </item>
+       </item>
+       <item>
+        <property name="text">
+         <string>M4</string>
         </property>
         <property name="text">
          <string>Marvie4</string>
         </property>
         <item>
          <property name="text">
-          <string>Series1</string>
-         </property>
-         <property name="font">
-          <font>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
+          <string>series1</string>
          </property>
          <property name="text">
           <string>Marvie42</string>
          </property>
          <item>
           <property name="text">
-           <string>SD43P003</string>
-          </property>
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
+           <string>21000508</string>
           </property>
           <property name="text">
            <string>21000508</string>
@@ -138,49 +136,19 @@
         <property name="text">
          <string>M6</string>
         </property>
-        <property name="font">
-         <font>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
         <property name="text">
          <string>Marvie6</string>
         </property>
-        <property name="font">
-         <font>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
         <item>
          <property name="text">
-          <string>Series1</string>
-         </property>
-         <property name="font">
-          <font>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
+          <string>series1</string>
          </property>
          <property name="text">
           <string>Marvie61</string>
          </property>
-         <property name="font">
-          <font>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
          <item>
           <property name="text">
-           <string>SD63P003</string>
-          </property>
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
+           <string>21000543</string>
           </property>
           <property name="text">
            <string>21000543</string>

@@ -35,3 +35,4 @@ unix {
 FORMS += \
     uipower.ui \
     graphpower129.ui
+TRANSLATIONS    += ch_uipower.ts en_uipower.ts

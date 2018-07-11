@@ -1,6 +1,9 @@
 ﻿#include "sdtmainwindow.h"
+#include "combinedwindow.h"
 #include <QApplication>
 #include <QTranslator>
+#include <QDesktopWidget>
+#include <QSettings>
 #include <QDebug>
 
 #include "optautoload.h"
@@ -9,6 +12,13 @@
 #include "optface.h"
 #include "optplot.h"
 #include "optuser.h"
+#include "optpath.h"
+
+#include "iadvuser.h"
+#include "advusercheck.h"
+#include "advusermask.h"
+#include "advusercontainer.h"
+#include "advusercompress.h"
 
 #include "gtutils.h"
 
@@ -42,9 +52,29 @@
 //  }
 //}
 
+QVariant data(const QString &group, const QString &key, const QVariant &defaultValue)
+{
+  QString path = GTUtils::customPath() + "option/" + "opt.ini";
+  QSettings settings(path, QSettings::IniFormat);
+  QVariant vd;
+  settings.beginGroup(group);
+  vd = settings.value(key,defaultValue);
+  settings.endGroup();
+  return vd;
+}
+
 int main(int argc, char *argv[])
 {
   QApplication a(argc, argv);
+
+  QString langPath=GTUtils::languagePath();
+  QString lang;
+  QString currentLang = data("face", "language", "").toString();
+  if(currentLang == "chinese")
+    lang=langPath+"ch/";
+  else
+    lang=langPath+"en/";
+  GTUtils::setupTranslators(lang);
 
   OptContainer *optc=OptContainer::instance();
 
@@ -56,21 +86,22 @@ int main(int argc, char *argv[])
   optc->addOptItem(opt);
   opt=new OptFace("optface",0);
   optc->addOptItem(opt);
+  opt = new OptPath("optpath", 0);
+  optc->addOptItem(opt);
+
+  AdvUserContainer *advc = AdvUserContainer::instance();
+  IAdvUser *adv = new AdvUserCheck("advusercheck", 0);
+  advc->addAdvUserItem(adv);
+  adv = new AdvUserMask("advusermask", 0);
+  advc->addAdvUserItem(adv);
+  adv = new AdvUserCompress("advusercompress", 0);
+  advc->addAdvUserItem(adv);
 
   opt=optc->optItem("optface");
   OptFace *optFace=dynamic_cast<OptFace *>(opt);
-
   QString pixPath=GTUtils::customPath()+"option/style/"+optFace->css()+"/icon/"+START_UP_PIXMAP;
   qDebug()<<"pixPath"<<pixPath;
   ScreenStartup *startup=new ScreenStartup(QPixmap(pixPath));
-
-  QString langPath=GTUtils::languagePath();
-  QString lang;
-  if(optFace->language()=="chinese")
-    lang=langPath+"ch/";
-  else
-    lang=langPath+"en/";
-  GTUtils::setupTranslators(lang);
 
   optFace->setFaceStyle(optFace->css());
   optFace->setFaceFontSize(optFace->fontSize());
@@ -81,11 +112,21 @@ int main(int argc, char *argv[])
   RegisterFunction::registerUiClass();
 
   SDTMainWindow w;
+  CombinedWindow w2;
   QObject::connect(&w,SIGNAL(initProgressInfo(int,QString)),startup,SLOT(onProgressMessage(int ,QString)));
+  QObject::connect(&w,SIGNAL(currentTitleChanged(QString)),&w2,SLOT(onTitleChanged(QString)));
   w.init();
-  w.showMaximized();
+  optFace->setFaceStyle(optFace->css());
 
-  startup->finish(&w);
+  w2.insertWindow(&w);
+
+  //qDebug()<<"index"<<currentIndex;
+//  w2.show();
+//  int x = (qApp->desktop()->screen(0)->width() - w2.width()) / 2;
+//  int y = (qApp->desktop()->screen(0)->height() - w2.height()) / 2;
+//  w2.move(x, y);
+  w2.showMaximized();
+  startup->finish(&w2);
   delete startup;
 
   return a.exec();

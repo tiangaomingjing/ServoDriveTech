@@ -15,6 +15,7 @@ public:
   virtual ~IDspMap();
   virtual bool initTreeMap()=0;
   QTreeWidget *axisTreeWidget(int axis,int page) const ;
+  QTreeWidget *axisTreeWidget(int axis,const QString &name) const ;
   QTreeWidget *globalTreeWidget(int page) const ;
 
 signals:

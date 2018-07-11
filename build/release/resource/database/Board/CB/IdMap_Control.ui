@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>599</width>
-    <height>272</height>
+    <width>400</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,6 +36,45 @@
        <string>nickname</string>
       </property>
      </column>
+     <column>
+      <property name="text">
+       <string>axisNum</string>
+      </property>
+     </column>
+     <item>
+      <property name="text">
+       <string>21000506</string>
+      </property>
+      <property name="text">
+       <string>SD1x</string>
+      </property>
+      <property name="text">
+       <string>SD1</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>21000507</string>
+      </property>
+      <property name="text">
+       <string>SD2x</string>
+      </property>
+      <property name="text">
+       <string>SD21</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string>2</string>
+      </property>
+     </item>
      <item>
       <property name="text">
        <string>21000508</string>
@@ -48,6 +87,9 @@
       </property>
       <property name="text">
        <string>SD43P003</string>
+      </property>
+      <property name="text">
+       <string>4</string>
       </property>
      </item>
      <item>
@@ -63,6 +105,9 @@
       <property name="text">
        <string>SD43P004</string>
       </property>
+      <property name="text">
+       <string>4</string>
+      </property>
      </item>
      <item>
       <property name="text">
@@ -72,10 +117,13 @@
        <string>SD6x</string>
       </property>
       <property name="text">
-       <string>SD61</string>
+       <string>SD61_PLUS</string>
       </property>
       <property name="text">
        <string>SD63P006</string>
+      </property>
+      <property name="text">
+       <string>6</string>
       </property>
      </item>
      <item>
@@ -90,6 +138,9 @@
       </property>
       <property name="text">
        <string>SD63P003</string>
+      </property>
+      <property name="text">
+       <string>6</string>
       </property>
      </item>
     </widget>

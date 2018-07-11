@@ -32,6 +32,9 @@
     </property>
     <item>
      <widget class="QStackedWidget" name="mainStackedWidget">
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
       <widget class="QWidget" name="page"/>
       <widget class="QWidget" name="page_2"/>
      </widget>
@@ -63,11 +66,23 @@
    <property name="minimumSize">
     <size>
      <width>0</width>
-     <height>40</height>
+     <height>32</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>16777215</width>
+     <height>34</height>
     </size>
    </property>
   </widget>
   <widget class="QDockWidget" name="dockWidgetNav">
+   <property name="maximumSize">
+    <size>
+     <width>524287</width>
+     <height>524287</height>
+    </size>
+   </property>
    <property name="features">
     <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
    </property>
@@ -92,7 +107,7 @@
       <number>0</number>
      </property>
      <item>
-      <widget class="QTreeWidget" name="treeWidget">
+      <widget class="SdtTreeWidgetNav" name="treeWidget">
        <property name="rootIsDecorated">
         <bool>true</bool>
        </property>
@@ -111,6 +126,13 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>SdtTreeWidgetNav</class>
+   <extends>QTreeWidget</extends>
+   <header>sdttreewidgetnav.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

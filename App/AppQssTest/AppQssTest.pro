@@ -15,12 +15,14 @@ TEMPLATE = app
 SOURCES += main.cpp\
         qssmainwindow.cpp \
     SystemInfo/syswin.cpp \
-    stylewidget.cpp
+    stylewidget.cpp \
+    gtdoublespinbox.cpp
 
 HEADERS  += qssmainwindow.h \
     styleiconwidget.h \
     SystemInfo/isysinfo.h \
     SystemInfo/syswin.h \
-    stylewidget.h
+    stylewidget.h \
+    gtdoublespinbox.h
 
 FORMS    += qssmainwindow.ui

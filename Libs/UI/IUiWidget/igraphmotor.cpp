@@ -4,19 +4,10 @@
 
 #include <QDebug>
 
-IGraphMotorPrivate::IGraphMotorPrivate()
-{
+//IGraphMotor::IGraphMotor(QWidget *parent) : IGraph(*(new IGraphMotorPrivate),parent)
+//{
 
-}
-IGraphMotorPrivate::~IGraphMotorPrivate()
-{
-
-}
-
-IGraphMotor::IGraphMotor(QWidget *parent) : IGraph(*(new IGraphMotorPrivate),parent)
-{
-
-}
+//}
 IGraphMotor::~IGraphMotor()
 {
   qDebug()<<"IGraphMotor destruct-->";

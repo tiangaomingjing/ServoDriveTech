@@ -20,16 +20,22 @@ public:
   ~UiStatus();
 
   void accept(QWidget*w) Q_DECL_OVERRIDE;
+  void setUiActive(bool actived) Q_DECL_OVERRIDE;
+  bool hasConfigFunc()Q_DECL_OVERRIDE;
+  bool hasSaveFunc()Q_DECL_OVERRIDE;
+
+private slots:
+  void onDspReset() Q_DECL_OVERRIDE;
+
+protected:
+  void setContextAction() Q_DECL_OVERRIDE;
 
 private:
   QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;
   QVBoxLayout *getVBoxLayout(void)Q_DECL_OVERRIDE;
   void setDefaultUi()Q_DECL_OVERRIDE;
-  void readPageFLASH()Q_DECL_OVERRIDE{}
-  void writePageFLASH()Q_DECL_OVERRIDE{}
-  void setQmlContext()Q_DECL_OVERRIDE;
-  void setQmlSignalSlot()Q_DECL_OVERRIDE;
-  void addQmlWidget()Q_DECL_OVERRIDE;
+  bool readPageFLASH()Q_DECL_OVERRIDE{return true;}
+  bool writePageFLASH()Q_DECL_OVERRIDE{return true;}
 
 private:
   Ui::UiStatus *ui;

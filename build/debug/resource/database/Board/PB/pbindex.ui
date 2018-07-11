@@ -54,7 +54,7 @@
         <string>xmlBaseAddress</string>
        </property>
        <property name="text">
-        <string>64</string>
+        <string>128</string>
        </property>
       </item>
      </item>
@@ -74,6 +74,42 @@
        </property>
        <item>
         <property name="text">
+         <string>M1</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>series1</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>SD1</string>
+          </property>
+          <property name="text">
+           <string>21000506</string>
+          </property>
+         </item>
+        </item>
+       </item>
+       <item>
+        <property name="text">
+         <string>M2</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>series1</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>SD21</string>
+          </property>
+          <property name="text">
+           <string>21000507</string>
+          </property>
+         </item>
+        </item>
+       </item>
+       <item>
+        <property name="text">
          <string>M4</string>
         </property>
         <property name="text">
@@ -88,26 +124,18 @@
          </property>
          <item>
           <property name="text">
-           <string>SD43P003</string>
+           <string>SD41</string>
+          </property>
+          <property name="text">
+           <string>21000508</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>SD42</string>
           </property>
           <property name="text">
            <string>21000509</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>SD43P004</string>
-          </property>
-          <property name="text">
-           <string>41000509</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>SD43P005</string>
-          </property>
-          <property name="text">
-           <string>51000509</string>
           </property>
          </item>
         </item>
@@ -138,7 +166,7 @@
          </property>
          <item>
           <property name="text">
-           <string>SD63P003</string>
+           <string>SD61_MINI</string>
           </property>
           <property name="text">
            <string>21000595</string>
@@ -146,7 +174,7 @@
          </item>
          <item>
           <property name="text">
-           <string>SD63P006</string>
+           <string>SD61_PLUS</string>
           </property>
           <property name="text">
            <string>21000541</string>

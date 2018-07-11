@@ -1,9 +1,12 @@
 ﻿#include "uipower.h"
 #include "ui_uipower.h"
 #include "iuiwidget_p.h"
+#include "sevdevice.h"
+#include "igraphpower.h"
 
 #include <QQuickWidget>
 #include <QQmlContext>
+#include <QDebug>
 
 class UiPowerPrivate:public IUiWidgetPrivate
 {
@@ -12,14 +15,16 @@ public:
   UiPowerPrivate();
   ~UiPowerPrivate();
 protected:
+  IGraphPower *m_graphPower;
 };
-UiPowerPrivate::UiPowerPrivate()
+UiPowerPrivate::UiPowerPrivate():
+    m_graphPower(NULL)
 {
 
 }
 UiPowerPrivate::~UiPowerPrivate()
 {
-
+    delete m_graphPower;
 }
 
 UiPower::UiPower(QWidget *parent):IUiWidget(*(new UiPowerPrivate),parent),ui(new Ui::UiPower)
@@ -34,8 +39,62 @@ UiPower::~UiPower()
 
 void UiPower::accept(QWidget *w)
 {
-  ui->qmlHboxLayout->addWidget(w);
+    Q_D(UiPower);
+    ui->qmlHboxLayout->addWidget(w);
+    d->m_graphPower=dynamic_cast<IGraphPower *>(w);
+    d->m_graphPower->visit(this);
 }
+
+void UiPower::setUiActive(bool actived)
+{
+  if(actived)
+  {
+    Q_D(UiPower);
+    if(readGenPageRAM())
+      d->m_graphPower->syncTreeDataToUiFace();
+  }
+}
+
+bool UiPower::writePageFLASH()
+{
+  Q_D(UiPower);
+  bool wOk=true;
+  wOk=IUiWidget::writePageFLASH();
+  if(wOk)
+  {
+    d->m_graphPower->syncTreeDataToUiFace();
+  }
+  return true;
+}
+
+bool UiPower::hasConfigFunc()
+{
+  return false;
+}
+
+bool UiPower::hasSaveFunc()
+{
+  return true;
+}
+
+void UiPower::setContextAction()
+{
+  createActionSwitchView();
+}
+
+//void UiPower::onActionReadRAM()
+//{
+//  Q_D(UiPower);
+//  if(readGenPageRAM())
+//    d->m_graphPower->syncTreeDataToUiFace();
+//}
+
+//void UiPower::onActionReadFLASH()
+//{
+//  Q_D(UiPower);
+//  if(readPageFLASH())
+//    d->m_graphPower->syncTreeDataToUiFace();
+//}
 
 QStackedWidget *UiPower::getUiStackedWidget(void)
 {
@@ -49,19 +108,4 @@ QVBoxLayout *UiPower::getVBoxLayout(void)
 void UiPower::setDefaultUi()
 {
   setCurrentUiIndex(0);
-}
-void UiPower::setQmlContext()
-{
-
-}
-
-void UiPower::setQmlSignalSlot()
-{
-
-}
-
-void UiPower::addQmlWidget()
-{
-  Q_D(UiPower);
-  ui->qmlHboxLayout->addWidget(d->m_qwidget);
 }

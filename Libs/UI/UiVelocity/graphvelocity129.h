@@ -5,9 +5,9 @@
 #include "uivelocity_global.h"
 #include "igraphvelocity.h"
 
-namespace Ui {
-class GraphVelocity129;
-}
+//namespace Ui {
+//class GraphVelocity129;
+//}
 class GraphVelocity129Private;
 
 class UIVELOCITYSHARED_EXPORT GraphVelocity129 : public IGraphVelocity
@@ -19,11 +19,13 @@ public:
   ~GraphVelocity129();
 
 protected:
-  void visitActive(IUiWidget *uiWidget)Q_DECL_OVERRIDE;
-  void setUiVersionName()Q_DECL_OVERRIDE;
+  void setCustomVisitActive(IUiWidget *uiWidget) Q_DECL_OVERRIDE;
+  void setUiVersionName() Q_DECL_OVERRIDE;
+  void setupDataMappings() Q_DECL_OVERRIDE;
+  QPointF pidInitPos() Q_DECL_OVERRIDE;
 
 private:
-  Ui::GraphVelocity129 *ui;
+//  Ui::GraphVelocity129 *ui;
 };
 
 #endif // GRAPHVELOCITY129_H

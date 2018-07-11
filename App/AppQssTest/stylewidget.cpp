@@ -75,3 +75,45 @@ void StyleWidget::setdsBoxTextDefColor(const QColor &dsBoxTextDefColor)
   }
 }
 
+QColor StyleWidget::msgNormalColor() const
+{
+  return m_msgNormalColor;
+}
+
+void StyleWidget::setMsgNormalColor(const QColor &msgNormalColor)
+{
+  if(m_msgNormalColor != msgNormalColor)
+  {
+    m_msgNormalColor = msgNormalColor;
+    emit msgNormalColorChanged(m_msgNormalColor);
+  }
+}
+
+QColor StyleWidget::msgWarningColor() const
+{
+  return m_msgWarningColor;
+}
+
+void StyleWidget::setMsgWarningColor(const QColor &msgWarningColor)
+{
+  if(m_msgWarningColor != msgWarningColor)
+  {
+    m_msgWarningColor = msgWarningColor;
+    emit msgWarningColorChanged(m_msgWarningColor);
+  }
+}
+
+QColor StyleWidget::msgErrorColor() const
+{
+  return m_msgErrorColor;
+}
+
+void StyleWidget::setMsgErrorColor(const QColor &msgErrorColor)
+{
+  if(m_msgErrorColor != msgErrorColor)
+  {
+    m_msgErrorColor = msgErrorColor;
+    emit msgErrorColorChanged(m_msgErrorColor);
+  }
+}
+

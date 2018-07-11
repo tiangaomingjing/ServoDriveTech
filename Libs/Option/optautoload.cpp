@@ -40,6 +40,7 @@ OptAutoLoad::~OptAutoLoad()
 void OptAutoLoad::uiInit()
 {
   Q_D(OptAutoLoad);
+    qDebug()<<"autoload uiInit";
   ui->checkBox->setChecked(d->m_auto);
 }
 bool OptAutoLoad::autoLoad() const
@@ -86,4 +87,8 @@ void OptAutoLoad::onRespondErrorExe()
 {
   QMessageBox::warning(0,"error","error");
   qDebug()<<"error test";
+}
+
+QString OptAutoLoad::nickName() {
+    return tr("Autoload");
 }

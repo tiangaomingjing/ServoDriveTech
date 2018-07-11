@@ -5,8 +5,7 @@
 #include <QMenu>
 
 #include "gtutils.h"
-#include "optcontainer.h"
-#include "optface.h"
+#include "Option"
 #include "appiconname.h"
 
 #include "statuserrdialog.h"
@@ -20,14 +19,22 @@ SdtStatusBar::SdtStatusBar(QTreeWidget *navTree, QWidget *parent) :
   m_errDialog=new StatusErrDialog(navTree,this);
   connect(m_errDialog,SIGNAL(statusPageChanged(int)),this,SIGNAL(statusPageChanged(int)));
 
-  QPalette pa;
-  pa.setColor(QPalette::WindowText,Qt::red);
-  ui->labelMsg->setPalette(pa);
+//  QPalette pa;
+//  pa.setColor(QPalette::WindowText,Qt::red);
+//  ui->labelMsg->setPalette(pa);
 //  ui->tbtnError->setPopupMode(QToolButton::MenuButtonPopup);
+
+  QSize iconSize(32,32);
+  OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
+  QString path=GTUtils::customPath()+"option/style/"+face->css()+"/icon/"+ICON_STATUS_ERROR;
+
+  ui->tbtnError->setIcon(QIcon(path));
+  ui->tbtnError->setIconSize(iconSize);
   ui->tbtnError->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-  ui->tbtnError->setText(tr("Error"));
-  ui->tbtnError->setIconSize(QSize(32,32));
+  ui->tbtnError->setText(tr("Alarm"));
+
   ui->tbtnError->setAutoRaise(true);
+
   connect(ui->tbtnError,SIGNAL(clicked(bool)),this,SLOT(onActnToolClicked()));
 //  connect(ui->tbtnError,SIGNAL(triggered(QAction*)),this,SLOT(onActnToolTrig(QAction*)));
 
@@ -48,7 +55,7 @@ SdtStatusBar::SdtStatusBar(QTreeWidget *navTree, QWidget *parent) :
 
 //  resetStatus();
   setConnectStatus(false);
-  showErrorStatus(true);
+  setErrorStatus(true);
 }
 
 SdtStatusBar::~SdtStatusBar()
@@ -60,15 +67,36 @@ void SdtStatusBar::resetStatus()
 {
   ui->labelMsg->setText("");
   ui->progressBar->setValue(0);
-  ui->labelMsg->hide();
-  ui->progressBar->hide();
-  ui->tbtnError->hide();
+  ui->progressBar->setVisible(false);
+  ui->tbtnError->setVisible(false);
 }
 
-void SdtStatusBar::setWarningMsg(const QString &str)
+void SdtStatusBar::setMsg(const QString &str,MsgType type)
 {
+  OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
+  StyleWidget *style=face->customStyleWidget();
+  int r,g,b;
+  QString ss;
+  QColor color;
+  switch (type)
+  {
+  case MSG_TYPE_NORMAL:
+    color=style->msgNormalColor();
+    break;
+  case MSG_TYPE_WARNING:
+    color=style->msgWarningColor();
+    break;
+  case MSG_TYPE_ERROR:
+    color=style->msgErrorColor();
+    break;
+  default:
+    break;
+  }
+  FILL_RGB(color,r,g,b);
+  ss=QString("QLabel{color:rgb(%1,%2,%3);}").arg(r).arg(g).arg(b);
+//  qDebug()<<"setMsg "<<ss;
   ui->labelMsg->setText(str);
-
+  ui->labelMsg->setStyleSheet(ss);
 }
 
 void SdtStatusBar::setConnectStatus(bool connected)
@@ -84,24 +112,38 @@ void SdtStatusBar::setConnectStatus(bool connected)
   ui->tbtnNet->setIcon(QIcon(path));
 }
 
-void SdtStatusBar::showErrorStatus(bool show)
+void SdtStatusBar::setErrorStatus(bool hasError)
 {
-  if(show)
-  {
-    OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
-    QString path=GTUtils::customPath()+"option/style/"+face->css()+"/icon/"+ICON_STATUS_ERROR;
-    ui->tbtnError->setIcon(QIcon(path));
-  }
-  ui->tbtnError->setVisible(show);
+//  if(hasError)
+//  {
+//    OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
+//    QString path=GTUtils::customPath()+"option/style/"+face->css()+"/icon/"+ICON_STATUS_ERROR;
+//    ui->tbtnError->setIcon(QIcon(path));
+////    qDebug()<<"setErrorStatus"<<path;
+//  }
+  ui->tbtnError->setVisible(hasError);
+//  qDebug()<<"hasError"<<hasError;
 }
 
-void SdtStatusBar::updateDeviceWhenChanged(QTreeWidget *navTree)
+
+//!
+//! \brief SdtStatusBar::updateDeviceNavTreeWhenChanged
+//! 当设备变化后要重新调用，并在生成导航树之后
+//! \param navTree
+//!
+void SdtStatusBar::updateDeviceNavTreeWhenChanged(QTreeWidget *navTree)
 {
   m_errDialog->updateDevice(navTree);
 }
 QProgressBar *SdtStatusBar::statusProgressBar()const
 {
   return ui->progressBar;
+}
+
+void SdtStatusBar::setAlarmErrorStatus(quint32 devInx, qint16 axis, bool hasErr)
+{
+  m_errDialog->setStatusError(devInx,axis,hasErr);
+//  qDebug()<<"SdtStatusBar::onStatusErr";
 }
 
 //bool SdtStatusBar::eventFilter(QObject *watched, QEvent *event)
@@ -123,6 +165,12 @@ void SdtStatusBar::onActnToolClicked()
   qDebug()<<"bbbbbbbbb";
   m_errDialog->show();
 }
+
+//void SdtStatusBar::onStatusErr(quint32 devInx, qint16 axis, bool hasErr)
+//{
+//  m_errDialog->setStatusError(devInx,axis,hasErr);
+//  qDebug()<<"SdtStatusBar::onStatusErr";
+//}
 //void SdtStatusBar::onActnToolTrig(QAction *act)
 //{
 //  qDebug()<<"aaaaaaaaaa"<<act->data();

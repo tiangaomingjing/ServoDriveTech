@@ -4,11 +4,14 @@
 #include <QWidget>
 #include "uimotor_global.h"
 #include "igraphmotor.h"
+#include "optface.h"
 
 namespace Ui {
 class GraphMotor129;
 }
 class GraphMotor129Private;
+class QDoubleSpinBox;
+class QTreeWidgetItem;
 class UIMOTORSHARED_EXPORT GraphMotor129 : public IGraphMotor
 {
   Q_OBJECT
@@ -17,15 +20,15 @@ public:
   explicit GraphMotor129(QWidget *parent = 0);
   ~GraphMotor129();
 
-protected:
-  void visitActive(IUiWidget *uiWidget)Q_DECL_OVERRIDE;
-  void setUiVersionName()Q_DECL_OVERRIDE;
+  void syncTreeDataToUiFace() Q_DECL_OVERRIDE;
 
 protected:
-  bool eventFilter(QObject *obj, QEvent *event);
+  void setCustomVisitActive(IUiWidget *uiWidget) Q_DECL_OVERRIDE;
+  void setUiVersionName() Q_DECL_OVERRIDE;
+  void setupDataMappings() Q_DECL_OVERRIDE;
 
 protected slots:
-  void onUiActivedChanged(bool actived)Q_DECL_OVERRIDE;
+  void onDoubleSpinBoxFocusOut();
 
 private:
   Ui::GraphMotor129 *ui;

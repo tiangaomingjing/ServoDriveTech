@@ -1,9 +1,12 @@
 ﻿#include "uibrake.h"
 #include "ui_uibrake.h"
 #include "iuiwidget_p.h"
+#include "sevdevice.h"
+#include "igraphbrake.h"
 
 #include <QQuickWidget>
 #include <QQmlContext>
+#include <QDebug>
 
 class UiBrakePrivate:public IUiWidgetPrivate
 {
@@ -12,15 +15,17 @@ public:
   UiBrakePrivate();
   ~UiBrakePrivate();
 protected:
-  int test;
+  IGraphBrake *m_graphBrake;
 };
-UiBrakePrivate::UiBrakePrivate()
+UiBrakePrivate::UiBrakePrivate():
+    m_graphBrake(NULL)
 {
 
 }
 UiBrakePrivate::~UiBrakePrivate()
 {
-
+    delete m_graphBrake;
+    qDebug()<<"UiBrakePrivate destruct-->";
 }
 
 UiBrake::UiBrake(QWidget *parent):IUiWidget(*(new UiBrakePrivate),parent),ui(new Ui::UiBrake)
@@ -34,7 +39,55 @@ UiBrake::~UiBrake()
 }
 void UiBrake::accept(QWidget *w)
 {
+    Q_D(UiBrake);
   ui->qmlHboxLayout->addWidget(w);
+  d->m_graphBrake=dynamic_cast<IGraphBrake *>(w);
+  d->m_graphBrake->visit(this);
+}
+
+void UiBrake::setUiActive(bool actived)
+{
+  if(actived)
+  {
+    Q_D(UiBrake);
+    if(readGenPageRAM())
+      d->m_graphBrake->syncTreeDataToUiFace();
+  }
+}
+bool UiBrake::writePageFLASH()
+{
+  Q_D(UiBrake);
+  bool wOk=true;
+  wOk=IUiWidget::writePageFLASH();
+  if(wOk)
+  {
+    d->m_graphBrake->syncTreeDataToUiFace();
+  }
+  return true;
+}
+
+bool UiBrake::hasConfigFunc()
+{
+  return false;
+}
+
+bool UiBrake::hasSaveFunc()
+{
+  return true;
+}
+
+void UiBrake::onActionReadFLASH()
+{
+  Q_D(UiBrake);
+  if(readGenPageRAM())
+    d->m_graphBrake->syncTreeDataToUiFace();
+}
+
+void UiBrake::onActionReadRAM()
+{
+  Q_D(UiBrake);
+  if(readPageFLASH())
+    d->m_graphBrake->syncTreeDataToUiFace();
 }
 
 QStackedWidget *UiBrake::getUiStackedWidget(void)
@@ -49,18 +102,4 @@ void UiBrake::setDefaultUi()
 {
   setCurrentUiIndex(0);
 }
-void UiBrake::setQmlContext()
-{
 
-}
-
-void UiBrake::setQmlSignalSlot()
-{
-
-}
-
-void UiBrake::addQmlWidget()
-{
-  Q_D(UiBrake);
-  ui->qmlHboxLayout->addWidget(d->m_qwidget);
-}

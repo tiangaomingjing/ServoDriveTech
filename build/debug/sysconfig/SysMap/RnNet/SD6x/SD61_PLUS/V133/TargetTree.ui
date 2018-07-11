@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>852</width>
+    <height>431</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTreeWidget" name="treeWidget">
+     <column>
+      <property name="text">
+       <string>name</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>parameter</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>className</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>xmlName</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>index</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>fileSrcType</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>uiGraph</string>
+      </property>
+     </column>
+     <item>
+      <property name="text">
+       <string>V133</string>
+      </property>
+      <property name="text">
+       <string>NULL</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <item>
+       <property name="text">
+        <string>Axis</string>
+       </property>
+       <property name="text">
+        <string>NULL</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <item>
+        <property name="text">
+         <string>Motor</string>
+        </property>
+        <property name="text">
+         <string>NULL</string>
+        </property>
+        <property name="text">
+         <string>UiMotor</string>
+        </property>
+        <property name="text">
+         <string>PrmFuncMotor</string>
+        </property>
+        <property name="text">
+         <string>0</string>
+        </property>
+        <property name="text">
+         <string>1</string>
+        </property>
+        <property name="text">
+         <string>GraphMotor129</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Encoder</string>
+        </property>
+        <property name="text">
+         <string>NULL</string>
+        </property>
+        <property name="text">
+         <string>UiEncoder</string>
+        </property>
+        <property name="text">
+         <string>PrmFuncEncoder</string>
+        </property>
+        <property name="text">
+         <string>1</string>
+        </property>
+        <property name="text">
+         <string>1</string>
+        </property>
+        <property name="text">
+         <string>GraphEncoder129</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Power</string>
+        </property>
+        <property name="text">
+         <string>NULL</string>
+        </property>
+        <property name="text">
+         <string>UiPower</string>
+        </property>
+        <property name="text">
+         <string>PrmFuncPower</string>
+        </property>
+        <property name="text">
+         <string>2</string>
+        </property>
+        <property name="text">
+         <string>1</string>
+        </property>
+        <property name="text">
+         <string>GraphPower129</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Current</string>
+        </property>
+        <property name="text">
+         <string>NULL</string>
+        </property>
+        <property name="text">
+         <string>UiCurrent</string>
+        </property>
+        <property name="text">
+         <string>PrmFuncCurrentloop</string>
+        </property>
+        <property name="text">
+         <string>3</string>
+        </property>
+        <property name="text">
+         <string>1</string>
+        </property>
+        <property name="text">
+         <string>GraphCurrent133</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Velocity</string>
+        </property>
+        <property name="text">
+         <string>NULL</string>
+        </property>
+        <property name="text">
+         <string>UiVelocity</string>
+        </property>
+        <property name="text">
+         <string>PrmFuncSpeedloop</string>
+        </property>
+        <property name="text">
+         <string>4</string>
+        </property>
+        <property name="text">
+         <string>1</string>
+        </property>
+        <property name="text">
+         <string>GraphVelocity133</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Position</string>
+        </property>
+        <property name="text">
+         <string>NULL</string>
+        </property>
+        <property name="text">
+         <string>UiPosition</string>
+        </property>
+        <property name="text">
+         <string>PrmFuncPositionloop</string>
+        </property>
+        <property name="text">
+         <string>5</string>
+        </property>
+        <property name="text">
+         <string>1</string>
+        </property>
+        <property name="text">
+         <string>GraphPosition133</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Brake</string>
+        </property>
+        <property name="text">
+         <string>NULL</string>
+        </property>
+        <property name="text">
+         <string>UiBrake</string>
+        </property>
+        <property name="text">
+         <string>PrmFuncBrake</string>
+        </property>
+        <property name="text">
+         <string>6</string>
+        </property>
+        <property name="text">
+         <string>1</string>
+        </property>
+        <property name="text">
+         <string>GraphBrake129</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Status</string>
+        </property>
+        <property name="text">
+         <string>NULL</string>
+        </property>
+        <property name="text">
+         <string>UiStatus</string>
+        </property>
+        <property name="text">
+         <string>PrmFuncDeviceStatus</string>
+        </property>
+        <property name="text">
+         <string>7</string>
+        </property>
+        <property name="text">
+         <string>0</string>
+        </property>
+        <property name="text">
+         <string>GraphStatus129</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>RAM</string>
+        </property>
+        <property name="text">
+         <string>NULL</string>
+        </property>
+        <property name="text">
+         <string>UiRAM</string>
+        </property>
+        <property name="text">
+         <string>PrmRAMAxis</string>
+        </property>
+        <property name="text">
+         <string>8</string>
+        </property>
+        <property name="text">
+         <string>1</string>
+        </property>
+        <property name="text">
+         <string>NULL</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>FLASH</string>
+        </property>
+        <property name="text">
+         <string>NULL</string>
+        </property>
+        <property name="text">
+         <string>UiFLASH</string>
+        </property>
+        <property name="text">
+         <string>PrmFlashAxis</string>
+        </property>
+        <property name="text">
+         <string>9</string>
+        </property>
+        <property name="text">
+         <string>1</string>
+        </property>
+        <property name="text">
+         <string>NULL</string>
+        </property>
+       </item>
+      </item>
+      <item>
+       <property name="text">
+        <string>UiGlobal</string>
+       </property>
+       <property name="text">
+        <string>NULL</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <item>
+        <property name="text">
+         <string>IO</string>
+        </property>
+        <property name="text">
+         <string>NULL</string>
+        </property>
+        <property name="text">
+         <string>UiIO</string>
+        </property>
+        <property name="text">
+         <string>PrmIO</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="text">
+         <string>0</string>
+        </property>
+        <property name="text">
+         <string>NULL</string>
+        </property>
+       </item>
+      </item>
+      <item>
+       <property name="text">
+        <string>Global</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>Plot</string>
+        </property>
+        <property name="text">
+         <string>NULL</string>
+        </property>
+       </item>
+      </item>
+     </item>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

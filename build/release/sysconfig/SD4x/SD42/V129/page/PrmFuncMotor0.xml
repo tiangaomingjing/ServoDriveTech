@@ -38,12 +38,12 @@
      </column>
      <column>
       <property name="text">
-       <string>downlimit</string>
+       <string>downLimit</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>uplimit</string>
+       <string>upLimit</string>
       </property>
      </column>
      <column>
@@ -58,7 +58,7 @@
      </column>
      <column>
       <property name="text">
-       <string>scale</string>
+       <string>Scale</string>
       </property>
      </column>
      <item>
@@ -319,7 +319,7 @@
        <string>108</string>
       </property>
       <property name="text">
-       <string>10</string>
+       <string>493</string>
       </property>
      </item>
      <item>

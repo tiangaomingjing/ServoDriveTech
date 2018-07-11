@@ -17,6 +17,16 @@ public:
   explicit OptPlot(const QString &optName, QWidget *parent = 0);
   ~OptPlot();
   void uiInit()Q_DECL_OVERRIDE;
+  QString nickName()Q_DECL_OVERRIDE;
+
+  quint16 delayTime();
+  double xStoreTime();
+  double xDisplayTime();
+  double yMax();
+  double yMin();
+  double storedTime();
+  quint16 pointNum();
+  QString plotColor();
 protected:
   bool optActive()Q_DECL_OVERRIDE;
   bool readOpt()Q_DECL_OVERRIDE;
@@ -24,10 +34,13 @@ protected:
   void respondErrorExecute()Q_DECL_OVERRIDE;
 
 signals:
-
-public slots:
+    void plotParametersChanged();
+private slots:
+    void onComboBoxColorChanged(int inx);
 private:
   Ui::OptPlot *ui;
+private slots:
+  void valueModified();
 };
 
 #endif // OPTPLOT_H

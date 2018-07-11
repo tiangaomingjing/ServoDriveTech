@@ -1,0 +1,62 @@
+﻿生成启动时间为 2018/2/11 15:37:41。
+     1>项目“E:\Working\New\App\EpromManager\EpromManager.vcxproj”在节点 2 上(Rebuild 个目标)。
+     1>CustomBuild:
+         Moc'ing controlservo.h...
+         Moc'ing eprom.h...
+         Moc'ing eprommanager.h...
+         Moc'ing flashclass.h...
+         Moc'ing tcpconnect.h...
+         Moc'ing treemanager.h...
+         Uic'ing eprommanager.ui...
+     1>E:\Working\New\App\EpromManager\eprommanager.ui : warning : Z-order assignment: '' is not a valid widget.
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(935,5): warning MSB8027: Two or more files with the name of moc_controlservo.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are Debug\moc_controlservo.cpp, Release\moc_controlservo.cpp.
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(935,5): warning MSB8027: Two or more files with the name of moc_eprom.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are Debug\moc_eprom.cpp, Release\moc_eprom.cpp.
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(935,5): warning MSB8027: Two or more files with the name of moc_eprommanager.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are Debug\moc_eprommanager.cpp, Release\moc_eprommanager.cpp.
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(935,5): warning MSB8027: Two or more files with the name of moc_flashclass.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are Debug\moc_flashclass.cpp, Release\moc_flashclass.cpp.
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(935,5): warning MSB8027: Two or more files with the name of moc_tcpconnect.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are Debug\moc_tcpconnect.cpp, Release\moc_tcpconnect.cpp.
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(935,5): warning MSB8027: Two or more files with the name of moc_treemanager.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are Debug\moc_treemanager.cpp, Release\moc_treemanager.cpp.
+       ClCompile:
+         D:\VS2013\VC\bin\CL.exe /c /I. /IControlServo /IFlash /IJsonReader /ITreeManage /IEprom /ITcpConnect /ID:\Qt\Qt5.5.1\5.5\msvc2013\include /ID:\Qt\Qt5.5.1\5.5\msvc2013\include\QtDesigner /ID:\Qt\Qt5.5.1\5.5\msvc2013\include\QtUiPlugin /ID:\Qt\Qt5.5.1\5.5\msvc2013\include\QtWidgets /ID:\Qt\Qt5.5.1\5.5\msvc2013\include\QtGui /ID:\Qt\Qt5.5.1\5.5\msvc2013\include\QtANGLE /ID:\Qt\Qt5.5.1\5.5\msvc2013\include\QtXml /ID:\Qt\Qt5.5.1\5.5\msvc2013\include\QtNetwork /ID:\Qt\Qt5.5.1\5.5\msvc2013\include\QtCore /Idebug /I. /I"D:\Qt\Qt5.5.1\5.5\msvc2013\mkspecs\win32-msvc2013" /I.\GeneratedFiles /Zi /nologo /W3 /WX- /Od /Oy- /D _WINDOWS /D UNICODE /D WIN32 /D QT_DESIGNER_LIB /D QT_UIPLUGIN_LIB /D QT_WIDGETS_LIB /D QT_GUI_LIB /D QT_XML_LIB /D QT_NETWORK_LIB /D QT_CORE_LIB /Gm- /EHsc /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"Win32\Debug\\" /Fd"Win32\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt -w34100 -w34189 -w44996 ControlServo\controlservo.cpp Debug\moc_controlservo.cpp Debug\moc_eprom.cpp Debug\moc_eprommanager.cpp Debug\moc_flashclass.cpp Debug\moc_tcpconnect.cpp Debug\moc_treemanager.cpp Eprom\eprom.cpp Eprom\eprom_control.cpp Eprom\eprom_power.cpp eprommanager.cpp Flash\flashclass.cpp globaldefine.cpp JsonReader\jsonreader.cpp main.cpp TcpConnect\tcpconnect.cpp TreeManage\treemanager.cpp
+         controlservo.cpp
+         moc_controlservo.cpp
+         moc_eprom.cpp
+         moc_eprommanager.cpp
+         moc_flashclass.cpp
+         moc_tcpconnect.cpp
+         moc_treemanager.cpp
+         eprom.cpp
+         eprom_control.cpp
+         eprom_power.cpp
+         eprommanager.cpp
+         flashclass.cpp
+         globaldefine.cpp
+         jsonreader.cpp
+         main.cpp
+         tcpconnect.cpp
+         treemanager.cpp
+         正在生成代码...
+       Link:
+         D:\VS2013\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"..\..\build\debug\Bin\\EpromManager_d.exe" /NOLOGO /LIBPATH:D:\Qt\Qt5.5.1\5.5\msvc2013\lib /LIBPATH:D:/qt/qt5.5.1/5.5/msvc2013/lib /LIBPATH:D:\Qt\Qt5.5.1\5.5\msvc2013\lib D:\Qt\Qt5.5.1\5.5\msvc2013\lib\qtmaind.lib shell32.lib D:/qt/qt5.5.1/5.5/msvc2013/lib\Qt5Cored.lib E:/Working/New/App/EpromManager/../../build/debug/Bin/ServoDriverComDlld.lib D:\Qt\Qt5.5.1\5.5\msvc2013\lib\Qt5Designerd.lib D:\Qt\Qt5.5.1\5.5\msvc2013\lib\Qt5Widgetsd.lib D:\Qt\Qt5.5.1\5.5\msvc2013\lib\Qt5Guid.lib D:\Qt\Qt5.5.1\5.5\msvc2013\lib\Qt5Xmld.lib D:\Qt\Qt5.5.1\5.5\msvc2013\lib\Qt5Networkd.lib D:\Qt\Qt5.5.1\5.5\msvc2013\lib\Qt5Cored.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"..\..\build\debug\Bin\EpromManager_d.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /MACHINE:X86 /SAFESEH "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" Win32\Debug\controlservo.obj
+         Win32\Debug\moc_controlservo.obj
+         Win32\Debug\moc_eprom.obj
+         Win32\Debug\moc_eprommanager.obj
+         Win32\Debug\moc_flashclass.obj
+         Win32\Debug\moc_tcpconnect.obj
+         Win32\Debug\moc_treemanager.obj
+         Win32\Debug\eprom.obj
+         Win32\Debug\eprom_control.obj
+         Win32\Debug\eprom_power.obj
+         Win32\Debug\eprommanager.obj
+         Win32\Debug\flashclass.obj
+         Win32\Debug\globaldefine.obj
+         Win32\Debug\jsonreader.obj
+         Win32\Debug\main.obj
+         Win32\Debug\tcpconnect.obj
+         Win32\Debug\treemanager.obj
+         LINK : 没有找到 ..\..\build\debug\Bin\\EpromManager_d.exe 或上一个增量链接没有生成它；正在执行完全链接
+         EpromManager.vcxproj -> E:\Working\New\App\EpromManager\..\..\build\debug\Bin\EpromManager_d.exe
+     1>已完成生成项目“E:\Working\New\App\EpromManager\EpromManager.vcxproj”(Rebuild 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:36.25

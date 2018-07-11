@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>plot_start.png</file>
+        <file>plot_stop.png</file>
+    </qresource>
+</RCC>

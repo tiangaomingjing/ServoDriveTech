@@ -34,19 +34,19 @@ private:
     void changeComText();
     void showText(QString configText, QString comText);
     void showTree(QString text, QTreeWidget *tree, QTreeWidget *uiTree);
-    void onTextChange(QString text, QTreeWidget *tree);
+    void onTextChange(QString text, QTreeWidget *tree, const QString &id);
     void onOkClicked();
     void closeEvent(QCloseEvent *event);
 private:
-    EPROM *powerBoard;
-    EPROM *controlBoard;
-    QTreeWidget *powerMap;
-    QTreeWidget *controlMap;
-    QTreeWidget *powerIndex;
-    QTreeWidget *controlIndex;
-    QString itemText;
+    EPROM *m_powerBoard;
+    EPROM *m_controlBoard;
+    QTreeWidget *m_powerMap;
+    QTreeWidget *m_controlMap;
+    QTreeWidget *m_powerIndex;
+    QTreeWidget *m_controlIndex;
+    QString m_itemText;
     int m_dspNum;
-    int barCount;
+    int m_barCount;
     bool m_isOpenCom;
     QString m_filePath;
     QString m_hexPath;
@@ -57,8 +57,11 @@ private:
     QString m_comText;
     QString m_powerPath;
     QString m_controlPath;
+    QString m_typeName;
+    QString m_modeName;
+    TcpConnect *m_tcpClient;
+    bool m_tcpSuccess;    
 
-    TcpConnect *tcpClient;
 private slots:
     void onWriteClicked();
     void treeItemClicked(QTreeWidgetItem* item, int column);
@@ -79,10 +82,9 @@ private slots:
     void selectXml();
     void scrollTree(QTreeWidgetItem* item);
     void scrollTree_2(QTreeWidgetItem* item);
-    void onComButtonClicked();
+//    void onComButtonClicked();
     
-    void onActionConnectToServer();
-    void onActionStopConnection();
+    void receiveConfig(const QStringList &list);
 };
 
 #endif // EPROMMANAGER_H

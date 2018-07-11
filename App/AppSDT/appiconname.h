@@ -18,5 +18,12 @@
 #define ICON_STATUS_DISCONNECT "status_disconnect.png"
 #define ICON_STATUS_ERROR      "status_error.png"
 
+#define ICON_TOPWIDGET_CLOSE   "topwidget_close.png"
+#define ICON_TOPWIDGET_MAX     "topwidget_max.png"
+#define ICON_TOPWIDGET_MIN     "topwidget_min.png"
+#define ICON_TOPWIDGET_RESTORE "topwidget_restore.png"
+
+#define ICON_GOOGOL             "googol.png"
+
 #endif // APPICONNAME
 

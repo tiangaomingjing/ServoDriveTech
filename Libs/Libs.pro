@@ -4,9 +4,17 @@ CONFIG   += ordered
 SUBDIRS += \
     Com \
     GTUtils \
+    DbManager \
     Option\
     SDKernel\
+    AdvUser\
+    PlotUnit/IPlotUnit\
     UI \
-    PlotUnit
+    PlotCurvePluginFramework\
+    SDMotion\
+    PlotUnit/PlotUnitGraph
+
+
+
 
 

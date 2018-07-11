@@ -34,3 +34,5 @@ unix {
 FORMS += \
     uistatus.ui \
     graphstatus129.ui
+
+TRANSLATIONS    += ch_uistatus.ts en_uistatus.ts

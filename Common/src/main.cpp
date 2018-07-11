@@ -7,6 +7,7 @@
 #include <QFileInfo>
 
 #include "test.h"
+#include <iostream>
 
 
 
@@ -87,6 +88,35 @@ void readStyleINI()
   file.close();
 }
 
+
+class A
+{
+public:
+  ~A(){}
+  virtual void display(){dosomething();}
+protected:
+  virtual void dosomething(){}
+//  void dosomething(){}//这个没有通过多态的方式调用
+};
+class B:public A
+{
+public:
+  B(){}
+protected:
+  void dosomething()
+  {
+    std::cout<<"this is B";
+  }
+};
+class C:public B
+{
+protected:
+  void dosomething()
+  {
+    std::cout<<"this is C";
+  }
+};
+
 int main(int argc, char *argv[])
 {
 //  QCoreApplication a(argc, argv);
@@ -104,15 +134,38 @@ int main(int argc, char *argv[])
 //  getFileDirNameTest();
 //  readStyleINI();
 
-  QList<QString *>strList;
-  QString *stest;
-  for(int i=0;i<10;i++)
+  qDebug()<<"10.00 toUshort"<<QString("10.00").toUShort();
+  qDebug()<<"10.00.toDouble()"<<QString("10.00").toDouble();
+
+  B *b=new C;
+  b->display();
+
+  qDebug()<<"sizeof uint"<<sizeof(uint);
+  qDebug()<<"sizeof int"<<sizeof(int);
+  qDebug()<<"sizeof ushort"<<sizeof(ushort);
+  qDebug()<<"sizeof uint"<<sizeof(ulong);
+
+  //data to string
+  QByteArray byte;
+  byte.append(65);
+  byte.append(66);
+  qDebug()<<"str "<<QString::fromLatin1(byte);
+
+  //string to data
+  QString s2d="AB";
+  for(int i=0;i<s2d.toLatin1().size();i++)
   {
-    stest=new QString(QString::number(i));
-    strList.append(stest);
+    qDebug()<<"s2d:"<<QString::number(s2d.toLatin1().at(i));
   }
-  int s=sum(2,3);
-  qDebug()<<"sum"<<s;
+
+  QString test="helloworld";
+  int length=test.size();
+  qDebug()<<"test size"<<test.size();
+  char *p=(char *)malloc(length+1);
+  memcpy_s(p,length,test.toStdString().c_str(),length);
+  p[length]='\0';
+  printf("after %s",p);
+
   return a.exec();
 }
 

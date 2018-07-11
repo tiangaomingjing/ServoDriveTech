@@ -1,6 +1,8 @@
 ﻿#include "uistatus.h"
 #include "ui_uistatus.h"
 #include "iuiwidget_p.h"
+#include "igraphstatus.h"
+#include "sevdevice.h"
 
 #include <QQuickWidget>
 #include <QQmlContext>
@@ -12,7 +14,7 @@ public:
   UiStatusPrivate();
   ~UiStatusPrivate();
 protected:
-  int test;
+  IGraphStatus *m_graphStatus;
 };
 UiStatusPrivate::UiStatusPrivate()
 {
@@ -34,7 +36,39 @@ UiStatus::~UiStatus()
 }
 void UiStatus::accept(QWidget *w)
 {
+  Q_D(UiStatus);
   ui->qmlHboxLayout->addWidget(w);
+
+  d->m_graphStatus=dynamic_cast<IGraphStatus *>(w);
+  d->m_graphStatus->visit(this);
+}
+void UiStatus::setUiActive(bool actived)
+{
+  Q_D(UiStatus);
+  if(d->m_device->isConnecting())
+   d->m_graphStatus->setTimerActive(actived);
+  else
+    d->m_graphStatus->setTimerActive(false);
+}
+
+bool UiStatus::hasConfigFunc()
+{
+  return false;
+}
+
+bool UiStatus::hasSaveFunc()
+{
+  return false;
+}
+
+void UiStatus::onDspReset()
+{
+  setUiActive(false);
+}
+
+void UiStatus::setContextAction()
+{
+  createActionSwitchView();
 }
 
 QStackedWidget *UiStatus::getUiStackedWidget(void)
@@ -49,18 +83,4 @@ void UiStatus::setDefaultUi()
 {
   setCurrentUiIndex(0);
 }
-void UiStatus::setQmlContext()
-{
 
-}
-
-void UiStatus::setQmlSignalSlot()
-{
-
-}
-
-void UiStatus::addQmlWidget()
-{
-  Q_D(UiStatus);
-  ui->qmlHboxLayout->addWidget(d->m_qwidget);
-}

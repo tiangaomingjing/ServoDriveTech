@@ -36,7 +36,7 @@ void SevUiControler::createUis()
   QString uiGraphName;
   double sum=65;
   double dec=35.0/(m_sev->axisNum()*axisItem->childCount());
-  //与轴相关的模块
+
   setTransLanguage();
 
   for(int i=0;i<m_sev->axisNum();i++)//哪一个轴
@@ -45,7 +45,6 @@ void SevUiControler::createUis()
     {
       className=axisItem->child(j)->text(2);
       uiGraphName=axisItem->child(j)->text(6);
-
       ui=dynamic_cast<IUiWidget *> (UiFactory::createObject(className.toLatin1()));
       ui->init(m_sev);
       UiIndexs index;
@@ -60,17 +59,13 @@ void SevUiControler::createUis()
         QWidget *uiGraph=UiFactory::createObject(uiGraphName.toLatin1());
         ui->accept(uiGraph);
       }
-//      ui->createQmlWidget();
-
-
       m_uiLists.append(ui);
-//      qDebug()<<"class name "<<ui->objectName();
       sum+=dec;
-//      qDebug()<<"sum"<<sum;
       emit initProgressInfo((int)sum,tr("build ui %1").arg(className));
     }
-    qDebug()<<"------------------build device ui :"<<i;
   }
+
+
   //单个设备中通用模块
   for(int i=0;i<globalItem->childCount();i++)
   {
@@ -83,12 +78,8 @@ void SevUiControler::createUis()
     index.pageInx=i;
     ui->setUiIndexs(index);
     ui->addTreeWidget(m_sev->globalTreeSource(i));
-    connect(ui,SIGNAL(sglReadPageFlash(int,QTreeWidget*)),m_sev,SLOT(onReadPageFlash(int,QTreeWidget*)));
-
     m_uiLists.append(ui);
-//    qDebug()<<"class name "<<ui->objectName();
     sum=100;
-//    qDebug()<<"sum"<<sum;
     emit initProgressInfo((int)sum,tr("build ui %1").arg(className));
   }
 }

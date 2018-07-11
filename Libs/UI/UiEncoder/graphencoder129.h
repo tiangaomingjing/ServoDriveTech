@@ -9,6 +9,7 @@ namespace Ui {
 class GraphEncoder129;
 }
 class GraphEncoder129Private;
+class QwtDial;
 
 class UIENCODERSHARED_EXPORT GraphEncoder129 : public IGraphEncoder
 {
@@ -19,12 +20,55 @@ public:
   explicit GraphEncoder129(QWidget *parent = 0);
   ~GraphEncoder129();
 
+  void syncTreeDataToUiFace()Q_DECL_OVERRIDE;
+
 protected:
-  void visitActive(IUiWidget *uiWidget)Q_DECL_OVERRIDE;
+  void setCustomVisitActive(IUiWidget *uiWidget)Q_DECL_OVERRIDE;
   void setUiVersionName()Q_DECL_OVERRIDE;
+  void setupDataMappings() Q_DECL_OVERRIDE;
+
+
+
+  quint32 getLineNumber()Q_DECL_OVERRIDE;
+  void createSupportEncoderItem() Q_DECL_OVERRIDE;
+
+protected slots:
+  void onUpdateTimeOut() Q_DECL_OVERRIDE;
+
+private slots:
+  void onBtnEncConfigClicked(bool checked);//打开编码器配置界面
+  void onBtnEncConfigSaveClicked();//保存编码器配置
+  void onRadioBtnClicked();
+  void onBtnSearchPhaseClicked();
+  void onBtnSavePhaseClicked();
+
+  void onEncConfigListWidgetRowChanged(int curRow);
+
+  void onEncActive();
+
+  void onBtnClearEcnAlarmClicked();
+
+  void onCheckBoxGearAssociationClicked(bool checked);
+
+
+private:
+  void initDial(QwtDial *dial);
+  void setEncConfigUiEnable(bool en);
+  void setEncErrorUiEnable(bool en);
+
+  void updateEncConfigUiByCurrentConfigItem();
+
+  void showEncoderError(quint16 lost,quint16 encinfo);
+  void initCurEncConfigItem();
+
+  void setGearAssociateUiEnable(bool en);
+
+  quint32 gdc(qint32 a,qint32 b);
+  void readGearPrm();
 
 private:
   Ui::GraphEncoder129 *ui;
+
 };
 
 #endif // GRAPHENCODER129_H

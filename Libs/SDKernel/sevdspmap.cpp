@@ -40,8 +40,10 @@ bool SevDspMap::initTreeMap()
   for(int i=0;i<q_ptr->m_devConfig->m_axisNum;i++)
   {
     sum+=inc;
-    emit initProgressInfo(sum,tr("new AxisTreeMap %1").arg(i+1));
+    emit initProgressInfo(sum,tr("New AxisTreeMap %1").arg(i+1));
+    qDebug()<<"********************************new AxisTreeMap***************************";
     GTUtils::delayms(10);
+    qDebug()<<"********************************new AxisTreeMap***************************2";
     treeMap=new AxisTreeMap(i,target,q_ptr->m_filePath);
     Q_ASSERT(treeMap!=NULL);
     m_axisTreeMapList.append(treeMap);
@@ -54,7 +56,7 @@ bool SevDspMap::initTreeMap()
   {
     item=target->child(GT::ROW_TARGET_CONFIG_GLOBAL)->child(i);
     file=q_ptr->m_filePath+item->text(GT::COL_TARGET_CONFIG_XML)+".xml";
-
+    qDebug()<<"file"<<file;
     tree=QtTreeManager::createTreeWidgetFromXmlFile(file);
     Q_ASSERT(tree);
     m_globalTreeList.append(tree);

@@ -100,14 +100,16 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionmainwindow.ui" line="211"/>
+        <location filename="optionmainwindow.ui" line="277"/>
         <source>PushButton</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionmainwindow.ui" line="42"/>
-        <location filename="optionmainwindow.ui" line="218"/>
-        <location filename="optionmainwindow.ui" line="238"/>
+        <location filename="optionmainwindow.ui" line="64"/>
+        <location filename="optionmainwindow.ui" line="95"/>
+        <location filename="optionmainwindow.ui" line="108"/>
+        <location filename="optionmainwindow.ui" line="284"/>
+        <location filename="optionmainwindow.ui" line="304"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -117,69 +119,69 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionmainwindow.ui" line="50"/>
+        <location filename="optionmainwindow.ui" line="116"/>
         <source>aaaaa</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionmainwindow.ui" line="55"/>
+        <location filename="optionmainwindow.ui" line="121"/>
         <source>bbbbb</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionmainwindow.ui" line="60"/>
+        <location filename="optionmainwindow.ui" line="126"/>
         <source>ccccc</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionmainwindow.ui" line="65"/>
+        <location filename="optionmainwindow.ui" line="131"/>
         <source>dddd</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionmainwindow.ui" line="74"/>
+        <location filename="optionmainwindow.ui" line="140"/>
         <source>1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionmainwindow.ui" line="79"/>
-        <location filename="optionmainwindow.ui" line="84"/>
-        <location filename="optionmainwindow.ui" line="89"/>
+        <location filename="optionmainwindow.ui" line="145"/>
+        <location filename="optionmainwindow.ui" line="150"/>
+        <location filename="optionmainwindow.ui" line="155"/>
         <source>新建列</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionmainwindow.ui" line="94"/>
-        <location filename="optionmainwindow.ui" line="99"/>
-        <location filename="optionmainwindow.ui" line="108"/>
-        <location filename="optionmainwindow.ui" line="113"/>
-        <location filename="optionmainwindow.ui" line="119"/>
-        <location filename="optionmainwindow.ui" line="128"/>
-        <location filename="optionmainwindow.ui" line="133"/>
-        <location filename="optionmainwindow.ui" line="139"/>
-        <location filename="optionmainwindow.ui" line="144"/>
-        <location filename="optionmainwindow.ui" line="149"/>
+        <location filename="optionmainwindow.ui" line="160"/>
+        <location filename="optionmainwindow.ui" line="165"/>
+        <location filename="optionmainwindow.ui" line="174"/>
+        <location filename="optionmainwindow.ui" line="179"/>
+        <location filename="optionmainwindow.ui" line="185"/>
+        <location filename="optionmainwindow.ui" line="194"/>
+        <location filename="optionmainwindow.ui" line="199"/>
+        <location filename="optionmainwindow.ui" line="205"/>
+        <location filename="optionmainwindow.ui" line="210"/>
+        <location filename="optionmainwindow.ui" line="215"/>
         <source>新建项目</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionmainwindow.ui" line="103"/>
-        <location filename="optionmainwindow.ui" line="123"/>
+        <location filename="optionmainwindow.ui" line="169"/>
+        <location filename="optionmainwindow.ui" line="189"/>
         <source>新建子项目</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionmainwindow.ui" line="247"/>
+        <location filename="optionmainwindow.ui" line="313"/>
         <source>option</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionmainwindow.ui" line="252"/>
+        <location filename="optionmainwindow.ui" line="318"/>
         <source>transTest1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="optionmainwindow.ui" line="257"/>
+        <location filename="optionmainwindow.ui" line="323"/>
         <source>transTest2</source>
         <translation type="unfinished"></translation>
     </message>

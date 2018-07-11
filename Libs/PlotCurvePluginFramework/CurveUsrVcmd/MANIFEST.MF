@@ -1,0 +1,8 @@
+﻿Plugin-SymbolicName: CurveUsrVcmd
+Plugin-ActivationPolicy: eager
+Plugin-Category: Demos
+Plugin-ContactAddress: https://github.com/Waleon
+Plugin-Description: A plugin for plot curve usr velocity cmd
+Plugin-Name: CurveUsrVcmd
+Plugin-Vendor: chenchao
+Plugin-Version: 1.0.0

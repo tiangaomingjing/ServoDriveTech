@@ -18,10 +18,16 @@ public:
   explicit UiPlot(QWidget *parent = 0);
   ~UiPlot();
 
-  void readPageFLASH()Q_DECL_OVERRIDE{}
-  void writePageFLASH()Q_DECL_OVERRIDE{}
-  void createQmlWidget()Q_DECL_OVERRIDE{}
+  void accept(QWidget*w) Q_DECL_OVERRIDE;
+  bool readPageFLASH() Q_DECL_OVERRIDE{return true;}
+  bool writePageFLASH() Q_DECL_OVERRIDE{return true;}
   QHBoxLayout *hBoxLayout();
+  bool hasConfigFunc() {return false;}
+  bool hasSaveFunc() {return false;}
+  void setUiActive(bool actived) Q_DECL_OVERRIDE;
+
+private slots:
+  void onWinFloatChanged(bool isIn);
 
 private:
     QStackedWidget *getUiStackedWidget(void)Q_DECL_OVERRIDE;

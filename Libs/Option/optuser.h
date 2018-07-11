@@ -2,11 +2,17 @@
 #define OPTUSER_H
 
 #include <QObject>
+#include <QWidget>
+#include <QLayout>
+#include <QLabel>
+#include <QLineEdit>
 #include "iopt.h"
 namespace Ui {
 class OptUser;
 }
+
 class OptUserPrivate;
+
 class OPTIONSHARED_EXPORT OptUser : public IOpt
 {
   Q_OBJECT
@@ -18,7 +24,7 @@ public:
   void uiInit()Q_DECL_OVERRIDE;
 
   bool isAdmin() const;
-
+  QString nickName()Q_DECL_OVERRIDE;
 protected:
   bool optActive()Q_DECL_OVERRIDE;
   bool readOpt()Q_DECL_OVERRIDE;
@@ -30,6 +36,10 @@ signals:
 public slots:
 private:
   Ui::OptUser *ui;
+private slots:
+  void onActionLineChange();
+  void onActionBtnChecked();
+private:
 };
 
 #endif // OPTUSER_H

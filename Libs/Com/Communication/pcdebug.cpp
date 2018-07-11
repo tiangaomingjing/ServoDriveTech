@@ -20,7 +20,7 @@ PcDebug::PcDebug(const string &objectName):ICom(*new PcDebugPrivate())
   Q_D(PcDebug);
   d->m_objectName=objectName;
   d->m_comType=ICOM_TYPE_PCDEBUG;
-  printf("pcdebug object name =%s\n",objectName.c_str());
+//  printf("pcdebug object name =%s\n",objectName.c_str());
 }
 PcDebug::PcDebug(PcDebugPrivate &dd):ICom(dd)
 {
@@ -30,21 +30,6 @@ PcDebug::PcDebug(PcDebugPrivate &dd):ICom(dd)
 PcDebug::~PcDebug()
 {
 
-}
-
-errcode_t PcDebug::open(void (*processCallBack)(void *, short *), void *parameter)
-{
-  Q_D(PcDebug);
-  int16_t ret=GTSD_CMD_Open(processCallBack,parameter,d->m_comType);
-  return ret;
-}
-
-errcode_t PcDebug::close()
-{
-  Q_D(PcDebug);
-
-  int16_t ret=GTSD_CMD_Close(d->m_comType);
-  return ret;
 }
 
 errcode_t PcDebug::setServoEnable(uint8_t axis, bool on)
@@ -73,15 +58,23 @@ errcode_t PcDebug::checkServoIsEnable(uint8_t axis, bool &enable)
   return ret;
 }
 
-errcode_t PcDebug::setServoTaskMode(uint8_t axis,ServoTaskMode_t mode)
+errcode_t PcDebug::clearAlarm(uint8_t axis)
 {
   Q_D(PcDebug);
 
-  int16_t ret=GTSD_CMD_SetServoTaskMode(axis,(ServoTaskMode)mode ,d->m_comType);
+  int16_t ret=GTSD_CMD_ClrAlarm(axis,d->m_comType);
   return ret;
 }
 
-ServoTaskMode_t PcDebug::currentServoTaskMode(uint8_t axis,errcode_t &errcode)
+errcode_t PcDebug::setServoTaskMode(uint8_t axis,int16_t mode)
+{
+  Q_D(PcDebug);
+
+  int16_t ret=GTSD_CMD_SetServoTaskMode(axis,mode ,d->m_comType);
+  return ret;
+}
+
+int16_t PcDebug::currentServoTaskMode(uint8_t axis,errcode_t &errcode)
 {
   Q_D(PcDebug);
   SERVO_MODE mode;
@@ -89,7 +82,7 @@ ServoTaskMode_t PcDebug::currentServoTaskMode(uint8_t axis,errcode_t &errcode)
   ret=GTSD_CMD_GetServoTaskMode(axis,&mode,d->m_comType);
   errcode=ret;
 
-  return ServoTaskMode_t(mode.usr_mode);
+  return int16_t(mode.usr_mode);
 }
 
 errcode_t PcDebug::setIdRef(uint8_t axis ,double idRef)
@@ -138,6 +131,16 @@ errcode_t PcDebug::getSpdRef(uint8_t axis,double &value)
   SPD_STATE spdState;
   int16_t ret=GTSD_CMD_GetSpdRef(axis,&spdState,d->m_comType);
   value=spdState.ctl_spd_ref;
+  return ret;
+}
+
+errcode_t PcDebug::getSpdFb(uint8_t axis, double &value)
+{
+  Q_D(PcDebug);
+
+  SPD_STATE spdState;
+  int16_t ret=GTSD_CMD_GetSpdRef(axis,&spdState,d->m_comType);
+  value=spdState.rsv_mot_spd;
   return ret;
 }
 errcode_t PcDebug::setUdRef(uint8_t axis,double udRef)
@@ -251,6 +254,17 @@ errcode_t PcDebug::sendGeneralCmd(uint8_t axis, GeneralPDU &pdu)
   errno_t err;
   int16_t buf[16]={0};
   //王彬data[0],data[1],data[2]存放协议的东西
+
+  /**填王彬结构体，然后调用它的指令下发
+   *
+   * cmd 是指其指令号
+   * GENERALFUNCTION 中的data[]数组长度为:length
+   * data[0],data[1]不用填，他下面已经写了
+   * data[3]当xml表中的id不为-1时，data[3]=id
+   * GTSD_CMD_ProcessorGeneralFunc(axisIndex,&func,comtype)中func写下去，再由下面修改，其返回结果在func中
+   * 返回结果从getIndex位开始获得
+   * 读命令返回的最终结果要/kgain,如果是设置写命令要*kgain
+  */
   if(pdu.subId>0)//有二级ID
   {
     buf[3]=pdu.subId;
@@ -360,7 +374,7 @@ bool PcDebug::checkResetFinish(uint8_t dspInx, errcode_t &errCode)
   Q_D(PcDebug);
 
   bool finish=false;
-  int16_t ret=GTSD_CMD_ResetSystem(dspInx*2,finish,d->m_comType);
+  int16_t ret=GTSD_CMD_CheckResetFinish(dspInx*2,finish,d->m_comType);
   errCode=ret;
   return finish;
 }
@@ -387,9 +401,6 @@ errcode_t PcDebug::readEEPROM(uint16_t ofst, uint8_t* value, uint16_t num,uint8_
 
   int16_t ret=-1;
   EEPROMSelect select=EEPROMSelect(cs);
-  qDebug()<<"ofst"<<ofst;
-  qDebug()<<"num"<<num;
-  qDebug()<<"select"<<select;
   switch (select)
   {
   case EEPROM_CS_CONTROL:
@@ -431,12 +442,6 @@ errcode_t PcDebug::writeEEPROM(uint16_t ofst, const uint8_t* value, uint16_t num
   return ret;
 }
 
-NetCardInfo PcDebug::getNetCardInformation()
-{
-  NetCardInfo carInf;
-  carInf=NetCardInfo(GTSD_CMD_GetNetCardMsg());
-  return carInf;
-}
 errcode_t PcDebug::startPlot(const PlotControlPrm &ctrPrm)
 {
   Q_D(PcDebug);
@@ -525,20 +530,6 @@ errcode_t PcDebug::getPlotData(const PlotControlPrm &ctrPrm, CurveList &curveLis
   }
   return ret;
 }
-
-errcode_t PcDebug::enableCRC(bool enable)
-{
-  //mode :1 force to on
-  //mode: 2 force to off
-  if(enable)
-    GTSD_CMD_FroceCheckMode(1);
-  else
-    GTSD_CMD_FroceCheckMode(2);
-  return 0;
-}
-
-
-
 
 //----------------------------------protected------------------------
 //--------读写RAM操作------------------
@@ -698,4 +689,16 @@ errcode_t PcDebug::writeFPGAReg64(uint8_t fpgaInx,uint16_t address,int64_t value
   UN_USED(value);
   UN_USED(base);
   return -1;
+}
+
+errcode_t PcDebug::writeXML(uint8_t axis, char* pFileNameList[], int pFileTypeList[], int file_num, void (*processCallBack)(void *, short *), void* ptrv, short& progress) {
+    Q_D(PcDebug);
+    short ret = GTSD_CMD_XmlWriteFile(axis, pFileNameList, pFileTypeList, file_num, processCallBack, ptrv, progress, d->m_comType, 0xf0);
+    return ret;
+}
+
+errcode_t PcDebug::readXML(uint8_t axis, char* pFileNameList[], int pFileTypeList[], int file_num, void (*processCallBack)(void *, short *), void* ptrv, short& progress) {
+    Q_D(PcDebug);
+    short ret = GTSD_CMD_XmlReadFile(axis, pFileNameList, pFileTypeList, file_num, processCallBack, ptrv, progress, d->m_comType, 0xf0);
+    return ret;
 }

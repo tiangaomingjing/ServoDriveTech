@@ -9,13 +9,21 @@ class GlobalUiControler: public IUiControler
 {
   Q_OBJECT
 public:
-  explicit GlobalUiControler(QObject *parent=0);
+  explicit GlobalUiControler(QList<SevDevice *>&sevList,QObject *parent=0);
   ~GlobalUiControler();
 
   void createUis()Q_DECL_OVERRIDE;
-  IUiWidget *getUiWidgetByClassName(const QString &name);
+  IUiWidget *uiWidget(const QString &name);
+  void setSevDeviceList(const QList<SevDevice *> &sevList);
 signals:
+  void sevDeviceListChanged(const QList<SevDevice *> &sevList);
+  void appClosed();
+  void beforeSevDeviceChanged();
+  void sendSaveMsgToMain(int value, const QString &msg, bool isStart);
+
 public slots:
+private:
+  QList<SevDevice *>m_sevList;
 };
 
 #endif // GLOBALUICONTROLER_H

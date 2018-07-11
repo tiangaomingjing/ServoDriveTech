@@ -1,43 +1,72 @@
-QPushButton{
-  border-style: none;
-  border: 0px;
-  color: #F0F0F0;
-  padding: 5px;
-  margin:1px;
-  min-height: 24px;
-  min-width: 40px;
-  border-radius:5px;
-  background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 #4D4D4D, stop:1 #292929);
+﻿/*==========================全局属性===================================*/
+/*
+hover :#D0D0D0 ,color :black
+checked:gray ,color:white
+
+*/
+QDoubleSpinBox,QSpinBox{
+	min-height:24px;
+	min-width:80px;
+	border-radius:5px;
+	padding-left:5px;
+	border:1px solid #BBB9B9;
 }
-QPushButton:hover:!pressed{
-  border-style: none;
-  border: 0px;
-  color: #F0F0F0;
-  padding: 5px;
-  margin:1px;
-  min-height: 24px;
-  min-width: 40px;
-  border-radius:5px;
-  background: lightblue;
+QDoubleSpinBox:focus,QSpinBox:focus{
+	border:1px solid black;
 }
-QPushButton:hover:pressed{
-  border-style: none;
-  border: 0px;
-  color: #F0F0F0;
-  padding: 5px;
-  margin:1px;
-  min-height: 30px;
-  min-width: 40px;
-  border-radius:5px;
-  background: gray;
+QDoubleSpinBox:!enabled,QSpinBox:!enabled{
+	border:none;
+	color:gray;
+	background-color:gray;
 }
+
+QMainWindow#CombinedWindow {
+	background-color:#F0F0F0;
+}
+
+QComboBox{
+	border-radius: 3px;
+	margin:0px;
+	padding-bottom:0px;
+	padding-top:0px;
+	padding-left:5px;
+	padding-right:0px;
+	border: none;
+	background-color:transparent;
+	min-height:24px;
+}
+QComboBox:hover{
+	border-radius: 3px;
+	padding-bottom:0px;
+	padding-top:0px;
+	padding-right:0px;
+	border: 1px solid #636363;
+	background-color: #D0D0D0;
+	color:black;
+}
+QComboBox::drop-down{
+	subcontrol-origin: padding;
+	subcontrol-position: top right;
+	width: 15px; 
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-left-color: transparent;
+}
+QComboBox::down-arrow{
+ 
+	image: url(../custom/option/style/black/icon/array_down.png);
+}
+
 QListView::item {
 	border: 1px solid #d9d9d9;
 	border-left-color: transparent;
 	border-top-color: transparent;
+	min-height:24px;
 }
 QListView::item:hover {
-	background: lightgray;
+	background: #D0D0D0;
 	border: 1px solid #bfcde4;
 }
 QListView::item:selected {
@@ -49,23 +78,165 @@ QListView::item:selected:active{
 QListView::item:selected:!active {
 	background: gray;
 }
+
+QTreeView,QListView {
+	show-decoration-selected: 1;
+	border:none; 
+  }
+QTreeView::item,QListView::item {
+      border: 1px solid #d9d9d9;
+      border-left-color: transparent;
+      border-top-color: transparent;
+	  min-height:20px;
+  }
+QTreeView::item:hover,QListView::item:hover {
+      background: #D0D0D0;
+      border: 1px solid #B0B0B0;
+  }
+QTreeView::item:selected,QListView::item:selected {
+	  background: #A0A0A0;
+      border: 1px solid #A0A0A0;
+  }
+QTreeView::item:selected:active,QListView::item:selected:active{
+      background: #A0A0A0;
+  }
+QTreeView::item:selected:!active,QListView::item:selected:!active {
+      background: #A0A0A0;
+  }
+
+QCheckBox{
+    margin:0px 0px 0px 0px;
+}
+QCheckBox::indicator::unchecked{
+    image:url(../custom/option/style/black/icon/checkbox_unchecked.png);
+}
+/*QCheckBox::indicator:unchecked:hover{
+    image:url(../custom/option/style/black/icon/checkbox_unchecked_hover.png);
+}*/
+QCheckBox::indicator:unchecked:hover{
+    image:url(../custom/option/style/black/icon/checkbox_checked_hover.png);
+}
+QCheckBox::indicator::checked {
+    image:url(../custom/option/style/black/icon/checkbox_checked.png);
+}
+/*QCheckBox::indicator:checked:hover{
+    image:url(../custom/option/style/black/icon/checkbox_checked_hover.png);
+}*/
+
+/*QPushButton#btn_statusClearAlarm{
+	min-height:50px;
+	min-width:100px;
+	border:2px solid #BBB9B9;
+	background-color:transparent;
+	border-radius:10px;
+}
+QPushButton#btn_statusClearAlarm:hover{
+	background-color:gray;
+	font-weight:bold;
+}
+QPushButton#btn_statusClearAlarm:hover:pressed{
+	background-color:#404040;
+	font-weight:normal;
+}*/
+
+QPushButton{
+border:1px solid #D0D0D0;
+border-radius:5px;
+background-color:transparent;
+min-height:30px;
+min-width:80px;
+color:black;
+font-weight:normal;
+}
+QPushButton:hover:!pressed{
+border:1px solid gray;
+background-color:#D0D0D0;
+font-weight:bold;
+}
+QPushButton:hover:pressed{
+border:none;
+background-color:gray;
+}
+QPushButton:checked{
+border:1px solid black;
+background-color:gray;
+color:white;
+}
+
+
+QMenu {
+    background-color: #E0DDDD; /* sets background of the menu */
+    border-left:1px solid #BBB9B9;
+	border-bottom:1px solid #BBB9B9;
+	border-right:1px solid #BBB9B9;
+}
+
+QMenu::item {
+    /* sets background of menu item. set this to something non-transparent
+        if you want menu color and menu item color to be different */
+    background-color: #E0DDDD;
+	font-weight:normal;
+	min-height:24px;
+}
+
+QMenu::item:selected { /* when user selects item using mouse or keyboard */
+    background-color: #D0D0D0;
+	color:black;
+	font-weight:bold;
+}
+
+QWidget#iirfilter,QWidget#posFirfilter{
+	background-color: #E0DDDD;
+	border-radius:5px;
+	border:2px solid #BBB9B9;
+}
+QGraphicsView#graphicsview_iirfilter,QGraphicsView#graphicsview_posfilter{
+	background-color: #F0F0F0;
+	border:none;
+}
+
+QLabel#irrfilter_title,QLabel#posFirfilter_title{
+	border:1px solid #BBB9B9;
+	border-top:none;
+	border-left:none;
+	border-right:none;
+	padding-bottom: 10px;
+}
+
+
+/*==========================main treeWidget 导航栏=====================*/
+QDockWidget  QTreeView {
+	border:1px solid lightgray;
+	border-bottom-color:transparent;
+	border-top-color:transparent;
+}
+
+
+
 QWidget#dockWidgetContents_2{
 background-color: rgb(161, 161, 161);
 }
+
+/*====================工具栏=======================*/
 QToolBar {
 	border:none;
-    background: rgb(113, 113, 113);
+    background-color: #252A3E;
+	/*background: #000066;
+	background: seagreen;*/
     spacing: 3px; /* spacing between items in the tool bar */
 }
 QToolButton { /* all types of tool button */
     border: none;
-	padding-top:5px;
-	padding-bottom:5px;
+	padding-top:1px;
+	padding-bottom:1px;
 	padding-left:0px;
 	padding-right:0px;
 	color:white;
-    border-radius: 5px;
-    background-color:rgb(113, 113, 113);
+    border-radius: 0px;
+    background-color: #252A3E;
+	font-weight:normal;
+	/*background-color:#000066;
+	background-color:seagreen;*/
 }
 
 QToolButton[popupMode="1"] { /* only for MenuButtonPopup */
@@ -74,10 +245,16 @@ QToolButton[popupMode="1"] { /* only for MenuButtonPopup */
 
 QToolButton:hover:!pressed {
     background-color: gray;
-	border:1px solid white;
+	border:none;
+	font-weight:bold;
 }
 QToolButton:hover:pressed {
     background-color: rgb(86, 86, 86);
+	font-weight:normal;
+	color:#252A3E;
+}
+QToolButton:!enabled {
+	color:gray;
 }
 /*QToolButton:checked {
     background-color: rgb(40, 40, 40);
@@ -88,34 +265,699 @@ QToolButton:checked {
 	border-color:white;
 	border-width:1px;
 	border-style:solid;*/
-	background-color: blue;
+	background-color: #DBDBDB;
 	border-radius:0px;
+	color:black;
 }
 QToolButton:hover:checked {
 	/*border-radius:0px;
 	border-color:white;
 	border-width:1px;
 	border-style:solid;*/
-	background-color: blue;
+	background-color: #DBDBDB;
 	border-radius:0px;
+	color:black;
 }
 
 /* the subcontrols below are used only in the MenuButtonPopup mode */
 QToolButton::menu-button {
-    border: 2px solid gray;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 6px;
+    /*border:2px solid white;*/
+	
     /* 16px width + 4px for border = 20px allocated above */
-    width: 16px;
+    width: 20px;
+}
+QToolButton::menu-button:hover:!checked {
+    border:1px solid white;
+	border-radius:2px;
+    /* 16px width + 4px for border = 20px allocated above */
+    width: 20px;
 }
 
 QToolButton::menu-arrow {
-    image: url(downarrow.png);
+    /*image: url(downarrow.png);*/
 }
 
 QToolButton::menu-arrow:open {
     top: 1px; left: 1px; /* shift it a bit */
 }
+
+
 QWidget#statusBar{
-background-color: rgb(113, 113, 113);
+background-color: #F0F0F0;
 }
+QWidget#mainStackedWidget{
+background-color: #F0F0F0;
+}
+/*==============================状态栏====================================*/
+QWidget#statusBar{
+	border:none;
+	/*border-left-color:transparent;
+	border-bottom-color:transparent;
+	border-right-color:transparent;*/
+	background-color:#E0DDDD;
+}
+QToolButton#tbtnError,QToolButton#tbtnNet { /* all types of tool button */
+    border: none;
+	padding-top:5px;
+	padding-bottom:5px;
+	padding-left:0px;
+	padding-right:0px;
+	color:red;
+    border-radius: 5px;
+    background-color: transparent;
+}
+QToolButton#tbtnError:hover{
+    background-color: #252A3E;
+	color:white;
+}
+
+
+
+/*============自定义stylewidget 可以在C++环境中索引到其值=================*/
+StyleWidget{
+	qproperty-dsBoxBackgroundDefColor:white;
+	qproperty-dsBoxBackgroundReadyColor:yellow;
+	qproperty-dsBoxBackgroundErrorColor:#E61EE4;
+	qproperty-dsBoxTextEditColor:red;
+	qproperty-dsBoxTextDefColor:black;
+	
+	qproperty-msgNormalColor:black;
+	qproperty-msgWarningColor:blue;
+	qproperty-msgErrorColor:red;
+}
+
+UiFlash {
+	qproperty-flashNodeColor:blue;
+	qproperty-ramNodeColor:blue;
+}
+
+
+/*====================电机界面===================*/
+QWidget#widget_machinePrm{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+QWidget#widget_currentPrm{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+QWidget#widget_impedancePrm{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+QWidget#widget_torquePrm{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+QWidget#widget_velocityPrm{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QLabel#label_motorCur{
+border:1px solid #BBB9B9;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_MotorMac{
+border:1px solid #BBB9B9;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_motorVel{
+border:1px solid #BBB9B9;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_MotorImp{
+border:1px solid #BBB9B9;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_motorTor{
+border:1px solid #BBB9B9;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+/*====================编码器界面===================*/
+QLabel#label_encMsg{
+	font-weight:bold;
+	color:red;
+	margin-top:10px;
+}
+QListWidget#listWidget_encErr{
+border:none;
+background-color:transparent;
+color:red;
+font-weight:bold;
+}
+QPushButton#btn_encClearErr{
+border:1px solid red;
+border-radius:5px;
+background-color:red;
+min-height:30px;
+color:white;
+font-weight:normal;
+}
+QPushButton#btn_encClearErr:hover:!pressed{
+border:none;
+background-color:#A00000;
+font-weight:bold;
+}
+QPushButton#btn_encClearErr:hover:pressed{
+border:none;
+background-color:#680000;
+}
+
+
+
+/*================================功率界面===============================*/
+
+QWidget#widget_pwrBus{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QWidget#widget_pwrBrake{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QWidget#widget_pwrRelay{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QLabel#label_pwrBVP{
+border:1px solid #BBB9B9;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_pwrSSRV{
+border:1px solid #BBB9B9;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_pwrBHV{
+border:1px solid #BBB9B9;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+/*===============================制动界面===============================*/
+
+QWidget#widget_brakeDynamic{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QWidget#widget_brakeEmergency{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QWidget#widget_brakeExternal{
+background-color: #E0DDDD;
+border-radius:5px;
+border:2px solid #BBB9B9;
+}
+
+QLabel#label_brakeEmergency{
+border:1px solid #BBB9B9;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_brakeDynamic{
+border:1px solid #BBB9B9;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+QLabel#label_brakeExternal{
+border:1px solid #BBB9B9;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-bottom: 10px;
+}
+
+/*====================Current 电流控制器页面===================*/
+IGraphWidget{
+	border:none;
+	qproperty-backGroundColor:#F0F0F0;
+	qproperty-arrowColor:gray;
+}
+SumItemWidget{
+	background-color:transparent;
+	border:none;
+	qproperty-lineColor: gray;
+	qproperty-fillColor: #E0DDDD;
+} 
+SaturationItemWidget{
+    qproperty-lineColor: gray;
+	qproperty-fillColor: #E0DDDD;
+}
+
+
+QWidget#widget_currentPid{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+QLabel#label_currentTitle{
+	padding-bottom:10px;
+	margin-bottom:5px;
+	color:black;
+	border:1px solid transparent;
+	border-bottom-color:#BBB9B9;
+	font-weight:bold;
+}
+
+QLabel#label_currentInputFilter{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:50px;
+	padding:10px;
+}
+QLabel#label_currentInputFilter:hover{
+	background-color:#A0A0A0;
+	border:2px solid gray;
+	border-radius:10px;
+}
+QLabel#label_currentFeedback{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:30px;
+	padding:10px;
+}
+QLabel#label_currentEndText,QLabel#label_currentStartText{
+	background-color: transparent;
+	border:none;
+}
+
+/*====================Velocity 速度控制器页面==================*/
+
+QWidget#widget_velPid{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+
+QWidget#widget_velSaturation{
+	background-color:transparent;
+	border:none;
+} 
+QWidget#widget_velSaturation:hover{
+	background-color:gray;
+	border:2px solid gray;
+	border-radius:5px;
+}
+
+QLabel#label_velPidTitle{
+	padding-bottom:10px;
+	margin-bottom:5px;
+	color:black;
+	border:1px solid transparent;
+	border-bottom-color:#BBB9B9;
+	font-weight:bold;
+}
+
+QLabel#label_velInputFilter,QLabel#label_velOutputFilter{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:50px;
+	padding:5px;
+}
+QLabel#label_velVelocityFeedback{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:30px;
+	padding:10px;
+}
+QLabel#label_velStartText,QLabel#label_velEndText{
+	background-color: transparent;
+	border:none;
+}
+
+/*饱和控制项*/
+
+QWidget#widget_velMaxTq,QWidget#widget_velMaxTqPositive,QWidget#widget_velMaxTqNegative{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+QLabel#label_velTextPositiveMaxTq,QLabel#label_velTextNegativeMaxTq{
+	background-color: transparent;
+	border:none;
+}
+
+/*====================Position 位置控制器页面===================*/
+QFrame#line,QFrame#line_2,QFrame#line_3{
+	background-color: #BBB9B9;
+}
+QWidget#widget_posPid{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+QWidget#widget_nolinearCtl_autoTurning{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+
+QWidget#widget_posFFvel{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+QWidget#widget_posDir{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+QWidget#widget_posFFacc{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+QWidget#widget_posSaturation{
+	background-color:transparent;
+	border:none;
+} 
+QWidget#widget_posSaturation:hover{
+	background-color:gray;
+	border:2px solid gray;
+	border-radius:5px;
+}
+
+QLabel#label_posPidTitle ,QLabel#label_posDirControl,QLabel#label_nolinearCtl_autoTurning {
+	padding-bottom:10px;
+	margin-bottom:5px;
+	color:black;
+	border:1px solid transparent;
+	border-bottom-color:#BBB9B9;
+	font-weight:bold;
+}
+
+QLabel#label_posInputFilter{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:50px;
+	padding:5px;
+}
+QLabel#label_posInputFilter:hover{
+	background-color:#A0A0A0;
+	border:2px solid gray;
+	border-radius:10px;
+}
+QLabel#label_posPosFeedback{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:30px;
+	padding:10px;
+}
+QLabel#label_posStartText,QLabel#label_posEndText{
+	background-color: transparent;
+	border:none;
+}
+
+QLabel#label_posVelCtler{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:50px;
+	padding:5px;
+}
+QLabel#label_posCurCtler{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:50px;
+	padding:5px;
+}
+/*饱和控制项*/
+FrameItemWidget{
+	background-color:transparent;
+	qproperty-lineColor: #BBB9B9;
+	qproperty-fillColor: #E0DDDD;
+}
+QWidget#widget_posMaxVel,QWidget#widget_posMaxVelPositive,QWidget#widget_posMaxVelNegative{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+QLabel#label_posTextPositiveMaxV,QLabel#label_posTextNegativeMaxV{
+	background-color: transparent;
+	border:none;
+}
+/**********nolinear controller****************/
+QWidget#widget_posKp,QWidget#widget_posKi,QWidget#widget_posKn,QWidget#widget_posKd,QWidget#widget_posANVSFreq,QWidget#widget_posANVSGain{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+}
+QLabel#label_posFB
+{
+	background-color: #E0DDDD;
+	border:2px solid #BBB9B9;
+	border-radius:10px;
+	min-height:40px;
+}
+
+QPushButton#btn_nolinearCtl_autoStart:checked{
+border:1px solid red;
+background-color:red;
+color:white;
+}
+
+/*=====================Status状态界面===========================*/
+QWidget#widget_statusAlarm,QWidget#widget_statusInfo{
+background-color: #E0DDDD;
+border-radius:10px;
+border:2px solid #BBB9B9;
+}
+QPushButton#btn_statusClearAlarm{
+	min-height:50px;
+	min-width:100px;
+	border:2px solid #BBB9B9;
+	background-color:transparent;
+	border-radius:10px;
+	color:black;
+}
+QPushButton#btn_statusClearAlarm:hover{
+	background-color:gray;
+	font-weight:bold;
+}
+QPushButton#btn_statusClearAlarm:hover:pressed{
+	background-color:#404040;
+	font-weight:normal;
+}
+
+
+/*====================option设置对话框===================*/
+
+/*--------------------用户-------------------------*/
+QRadioButton::indicator::unchecked#btn_Admin {
+    image:url(../custom/option/style/black/icon/user_admin_unchecked.png)
+}
+
+QRadioButton::indicator:unchecked:hover#btn_Admin {
+    image:url(../custom/option/style/black/icon/user_admin_hover.png)
+}
+
+
+QRadioButton::indicator::checked#btn_Admin {
+    image:url(../custom/option/style/black/icon/user_admin_checked.png)
+}
+
+QRadioButton::indicator:checked:hover#btn_Admin {
+    image:url(../custom/option/style/black/icon/user_admin_checked.png)
+}
+
+QRadioButton::indicator::unchecked#btn_General {
+    image:url(../custom/option/style/black/icon/user_general_unchecked.png)
+}
+
+QRadioButton::indicator:unchecked:hover#btn_General {
+    image:url(../custom/option/style/black/icon/user_general_hover.png)
+}
+
+
+QRadioButton::indicator::checked#btn_General {
+    image:url(../custom/option/style/black/icon/user_general_checked.png)
+}
+
+QRadioButton::indicator:checked:hover#btn_General {
+    image:url(../custom/option/style/black/icon/user_general_checked.png)
+}
+
+QWidget#pswWidget {
+    background-color:lightgray;
+}
+
+QGroupBox#userBox {
+	border:0px
+}
+
+QGroupBox#pswBox {
+	border:0px
+}
+
+/*=========================================无窗口边框=============================*/
+
+QToolButton#btn_Min,QToolButton#btn_icon,QToolButton#btn_Max,QToolButton#btn_Close{
+	background-color: #252A3E;
+	min-width:30px;
+}
+
+QToolButton#btn_Min:hover{
+	background-color: gray;
+}
+
+QToolButton#btn_Max:hover{
+	background-color: gray;
+}
+
+QToolButton#btn_Close:hover{
+	background-color: rgb(207, 73, 53);
+}
+
+QLabel#label_title,QLabel#label_combinedInfo{
+	color: rgb(255, 255, 255);
+}
+
+QWidget#widget_frameWidget {	
+	background-color: rgb(37, 42, 62);
+}
+
+/*=========================PlotUintGraph=====================*/
+QWidget#widget_plot_up{
+	background-color:#F0F0F0;
+} 
+QWidget#widget_plot_up  QToolButton:hover{
+	background-color:#D0D0D0;
+} 
+QWidget#widget_plot_up  QToolButton:checked{
+	background-color:#E0E0E0;
+	border: 1px solid #D0D0D0;
+	border-radius:5px;
+}
+QWidget#widget_plot_up  QToolButton:checked:hover{
+	background-color:#D0D0D0;
+	border: 1px solid #D0D0D0;
+	border-radius:5px;
+}
+QWidget#widget_plot_up QToolButton:hover:pressed{
+	background-color:gray;
+} 
+QWidget#widget_plot_up QToolButton{
+	background-color:transparent;
+	min-width:40px;
+} 
+
+QWidget#widget_plotGraph_right QToolButton:hover{
+	background-color:#C0C0C0;
+} 
+QWidget#widget_plotGraph_right QToolButton:hover:pressed{
+	background-color:gray;
+} 
+QWidget#widget_plotGraph_right QToolButton{
+	background-color:transparent;
+	min-width:40px;
+	color:black;
+} 
+
+
+QToolButton#tbtn_plot_servoOnMode,QToolButton#tbtn_plot_servoGoMotion,QToolButton#tbtn_plot_servoBtn{
+	background-color:transparent;
+	
+}
+QToolButton#tbtn_plot_servoOnMode:hover,QToolButton#tbtn_plot_servoGoMotion:hover,QToolButton#tbtn_plot_servoBtn:hover{
+	border:1px solid gray;
+	border-radius:50px;
+	
+}
+/************PC GLINK2 ToolButton******/
+QToolButton#tbtn_plot_ctlsrc_pc:hover,QToolButton#tbtn_plot_ctlsrc_glink2:hover{
+	background-color:#D0D0D0;
+} 
+QToolButton#tbtn_plot_ctlsrc_pc:checked,QToolButton#tbtn_plot_ctlsrc_glink2:checked{
+	background-color:#E0E0E0;
+	border: 1px solid gray;
+	border-radius:5px;
+}
+QToolButton#tbtn_plot_ctlsrc_pc:checked:hover,QToolButton#tbtn_plot_ctlsrc_glink2:checked:hover{
+	background-color:#D0D0D0;
+	border: 1px solid #D0D0D0;
+	border-radius:5px;
+}
+QToolButton#tbtn_plot_ctlsrc_pc:hover:pressed,QToolButton#tbtn_plot_ctlsrc_glink2:hover:pressed{
+	background-color:gray;
+} 
+QToolButton#tbtn_plot_ctlsrc_pc,QToolButton#tbtn_plot_ctlsrc_glink2{
+	background-color:transparent;
+	min-width:40px;
+	color:black;
+}
+
+QTableWidget{
+	border:none;
+	background-color:#E8E8E8;
+}
+
+TabMotion QProgressBar::chunk {
+	background-color: gray;
+	height: 2px;
+	margin: 0px;
+	width:5px;
+}
+TabMotion QProgressBar {
+	border: 1px solid gray;
+	border-radius: 0px;
+	text-align: center;
+}
+	

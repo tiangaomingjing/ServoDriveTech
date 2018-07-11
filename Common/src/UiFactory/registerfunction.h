@@ -18,10 +18,16 @@
 #include "UiCurrent/graphcurrent129.h"
 #include "UiEncoder/graphencoder129.h"
 #include "UiMotor/graphmotor129.h"
+#include "UiMotor/graphmotor130.h"
 #include "UiPosition/graphposition129.h"
 #include "UiPower/graphpower129.h"
 #include "UiStatus/graphstatus129.h"
 #include "UiVelocity/graphvelocity129.h"
+#include "UiVelocity/graphvelocity133.h"
+
+#include "UiCurrent/graphcurrent130.h"
+#include "UiCurrent/graphcurrent133.h"
+#include "UiPosition/graphposition133.h"
 
 namespace RegisterFunction {
 void registerUiClass(){
@@ -46,6 +52,12 @@ void registerUiClass(){
   UiFactory::registerClass<GraphPower129>();
   UiFactory::registerClass<GraphStatus129>();
   UiFactory::registerClass<GraphVelocity129>();
+  UiFactory::registerClass<GraphVelocity133>();
+
+  UiFactory::registerClass<GraphMotor130>();
+  UiFactory::registerClass<GraphCurrent130>();
+  UiFactory::registerClass<GraphCurrent133>();
+  UiFactory::registerClass<GraphPosition133>();
 }
 
 }

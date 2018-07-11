@@ -4,36 +4,45 @@
 #include "gtutils.h"
 
 #include "Option"
+#include "advusercheck.h"
+#include "advusercontainer.h"
 
 #include <QTreeWidget>
 #include <QStackedWidget>
 #include <QVBoxLayout>
 #include <QDebug>
-#include <QTreeWidgetItem>
 #include <QQuickWidget>
 #include <QQmlContext>
 #include <QAction>
 #include <QQmlEngine>
 #include <QLabel>
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
+#include <QDebug>
 
-IUiWidget::IUiWidget(QWidget *parent):QWidget(parent),d_ptr(new IUiWidgetPrivate())
-{
-  d_ptr->q_ptr=this;
-}
+//IUiWidget::IUiWidget(QWidget *parent):QWidget(parent),d_ptr(new IUiWidgetPrivate())
+//{
+//  d_ptr->q_ptr=this;
+//}
 IUiWidget::~IUiWidget()
 {
   delete d_ptr;
+//  qDebug()<<"IUiWidget destruct-->";
 }
 IUiWidget::IUiWidget(IUiWidgetPrivate &dd,QWidget *parent):QWidget(parent),d_ptr(&dd)
 {
   d_ptr->q_ptr=this;
 }
+//特例说明，UiPlot中init(NULL)
+//其它的都是传入对应的设备
 bool IUiWidget::init(SevDevice *device)
 {
   Q_D(IUiWidget);
   d->m_uiStackedWidget=getUiStackedWidget();
   d->m_vboxLayout=getVBoxLayout();
   d->m_device=device;
+  if(device !=NULL)
+    connect(device,SIGNAL(dspReset()),this,SLOT(onDspReset()));
 
   setDefaultUi();
 
@@ -47,7 +56,7 @@ void IUiWidget::setCurrentUiIndex(quint8 index)
     inx=d->m_uiStackedWidget->count()-1;
   d->m_uiStackedWidget->setCurrentIndex(inx);
 }
-void IUiWidget::setContextAction()
+void IUiWidget::createActionSwitchView()
 {
   Q_D(IUiWidget);
   d->m_actSwitchView=new QAction(this);
@@ -56,6 +65,13 @@ void IUiWidget::setContextAction()
   d->m_actSwitchView->setChecked(false);
   connect(d->m_actSwitchView,SIGNAL(triggered(bool)),this,SLOT(onSwitchView(bool)));
   this->addAction(d->m_actSwitchView);
+}
+
+void IUiWidget::setContextAction()
+{
+  Q_D(IUiWidget);
+  createActionSwitchView();
+
   QAction *actSeparator=new QAction(this);
   actSeparator->setSeparator(true);
   this->addAction(actSeparator);
@@ -71,55 +87,12 @@ void IUiWidget::setContextAction()
   this->addAction(d->m_actReadFLASH);
 }
 
-//!
-//! \brief IUiWidget::updateUi 每一个子类中更新 ui的方法不一样，主要是从ram 还是从flash里读取数据更新树
-//!
-void IUiWidget::updateUi()
-{
-  qDebug()<<this->objectName()<<"updateUi";
-}
 SevDevice*IUiWidget::device()
 {
   Q_D(IUiWidget);
   return d->m_device;
 }
 
-void IUiWidget::createQmlWidget()
-{
-  Q_D(IUiWidget);
-
-  /*d->m_qmlpath=GTUtils::sysPath()+\
-      d->m_device->typeName()+"/"+\
-      d->m_device->modelName()+"/"+\
-      d->m_device->versionName()+"/ui/"+\
-      objectName()+".qml";
-  d->m_qwidget=new QQuickWidget(this);
-//  d->m_qwidget->setMinimumSize(600,560);
-  qDebug()<<"load qml from:"<<d->m_qmlpath;
-
-  //style context
-  QString qmlStyleModulePath=GTUtils::customPath()+"option/qmlstyle/";
-  d->m_qwidget->engine()->addImportPath(qmlStyleModulePath);
-  OptFace *face=dynamic_cast<OptFace *>(OptContainer::instance()->optItem("optface"));
-  QmlStyleHelper *helper=face->qmlStyleHelper();
-  d->m_qwidget->rootContext()->setContextProperty("qmlStyleHelper",helper);
-
-  d->m_qwidget->rootContext()->setContextProperty("cDevice",d->m_device);
-
-  setQmlContext();
-  d->m_qwidget->setResizeMode(QQuickWidget::SizeRootObjectToView );
-  d->m_qwidget->setSource(QUrl::fromLocalFile(d->m_qmlpath));
-  setQmlSignalSlot();
-  addQmlWidget();*/
-
-  d->m_qwidget=new QWidget(this);
-  QVBoxLayout *layout=new QVBoxLayout(d->m_qwidget);
-  QLabel *label=new QLabel(this);
-  label->setText(this->objectName());
-  layout->addWidget(label);
-  d->m_qwidget->setLayout(layout);
-  addQmlWidget();
-}
 void IUiWidget::accept(QWidget *w)
 {
   Q_UNUSED(w);
@@ -139,6 +112,7 @@ void IUiWidget::addTreeWidget(QTreeWidget *tree)
   Q_D(IUiWidget);
   d->m_dataTree=tree;
   d->m_vboxLayout->addWidget(tree);
+  tree->resizeColumnToContents(0);
   connect(tree,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(onTreeItemClickedEdit(QTreeWidgetItem*,int)));
 
   setContextAction();
@@ -156,35 +130,95 @@ UiIndexs IUiWidget::uiIndexs() const
 //!
 //! \brief IUiWidget::readPageFLASH 委托设备去读FLASH
 //!
-void IUiWidget::readPageFLASH()
+bool IUiWidget::readPageFLASH()
 {
   Q_D(IUiWidget);
   qDebug()<<this->objectName()<<"read flash";
 //  emit sglReadPageFlash(d->axisInx,d->m_dataTree);
-  d->m_device->onReadPageFlash(d->m_index.axisInx,d->m_dataTree);
+  bool rOk;
+  rOk=d->m_device->readPageFlash(d->m_index.axisInx,d->m_dataTree);
+  return rOk;
 }
 
 //!
 //! \brief IUiWidget::writePageFLASH 委托设备去写FLASH
 //!
-void IUiWidget::writePageFLASH()
+bool IUiWidget::parametersNeedChecked()
+{
+  bool needChecked = false;
+  OptUser *user = dynamic_cast<OptUser *>(OptContainer::instance()->optItem("optuser"));
+  AdvUserCheck *usrCheck = dynamic_cast<AdvUserCheck *>(AdvUserContainer::instance()->advItem("advusercheck"));
+  bool isAdmin = user->isAdmin();
+  bool isChecked = usrCheck->isChecked();
+  if (!isAdmin || (isAdmin && isChecked)) {
+      //check
+    needChecked = true;
+  }
+  return needChecked;
+}
+
+bool IUiWidget::writePageFLASH()
 {
   Q_D(IUiWidget);
-  qDebug()<<this->objectName()<<"read flash";
-//  emit sglWritePageFlash(d->axisInx,d->m_dataTree);
-  d->m_device->onWritePageFlash(d->m_index.axisInx,d->m_dataTree);
+  qDebug()<<this->objectName()<<"write page flash";
+  if(d->m_device->isConnecting() == false)
+    return true;
+
+  bool wOk=true;
+  //检查参数
+  bool needChecked = parametersNeedChecked();
+  bool checkOk = true;
+  qDebug()<<"needChecked = "<<needChecked;
+  if(needChecked)
+    checkOk = d->m_device->checkPageParameters(d->m_index.axisInx,d->m_dataTree);
+
+  if(checkOk)
+    wOk=d->m_device->writePageFlash(d->m_index.axisInx,d->m_dataTree);
+  else
+    wOk = false;
+
+  return wOk;
+}
+
+bool IUiWidget::readGenPageRAM()
+{
+  Q_D(IUiWidget);
+  bool wOk=true;
+  wOk=d->m_device->readGenPageRAM(d->m_index.axisInx,d->m_dataTree);
+  return wOk;
+}
+
+bool IUiWidget::writeGenPageRAM()
+{
+  Q_D(IUiWidget);
+  if(d->m_device->isConnecting() == false)
+    return true;
+
+  bool wOk=true;
+  if(hasConfigFunc())
+  {
+    bool needChecked = parametersNeedChecked();
+    bool checkOk = true;
+    if(needChecked)
+      checkOk = d->m_device->checkPageParameters(d->m_index.axisInx,d->m_dataTree);
+
+    if(checkOk)
+      wOk=d->m_device->writeGenPageRAM(d->m_index.axisInx,d->m_dataTree);
+    else
+      wOk = false;
+  }
+  return wOk;
 }
 void IUiWidget::setUiActive(bool actived)
 {
-  if(actived)
-    updateUi();
-  emit uiActiveChanged(actived);
+  Q_UNUSED(actived);
+//  qDebug()<<"TEST_OUT ui"<<this->objectName()<<"active"<<actived;
 }
 
 void IUiWidget::onTreeItemClickedEdit(QTreeWidgetItem *item, int column)
 {
   Q_D(IUiWidget);
-  if(column==UI::COL_PAGE_TREE_VALUE)
+  if(column==GT::COL_PAGE_TREE_VALUE)
   {
     if(item->childCount()==0)
     {
@@ -221,4 +255,9 @@ void IUiWidget::onActionReadRAM()
 void IUiWidget::onActionReadFLASH()
 {
   qDebug()<<"read flash";
+}
+
+void IUiWidget::onDspReset()
+{
+
 }

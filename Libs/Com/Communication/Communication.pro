@@ -3,7 +3,7 @@ TEMPLATE = lib
 DEFINES+=COM_SHARED_LIBRARY
 include(../Com.pri)
 
-INCLUDEPATH+=$${PWD}/../ServoDriverComDll
+INCLUDEPATH+=$${PWD}/../ServoDriverComDll/DllCom
 
 CONFIG(debug, debug|release){
     LIBS +=$${COM_OUT_PATH}/ServoDriverComDlld.lib

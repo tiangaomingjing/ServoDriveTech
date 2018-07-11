@@ -10,9 +10,14 @@ QT       -= gui
 
 INCLUDEPATH+=$${PWD}/../GTUtils\
             $${PWD}/../GTUtils/QtTreeManager\
+            $${PWD}/../GTUtils/DeviceIdHelper\
+            $${PWD}/../GTUtils/IFRamManager\
+            $${PWD}/../GTUtils/CmdManager\
+            $${PWD}/../Option\
             $${PWD}/../Com/Communication\
             $${PWD}/../../Common/src\
-            $${PWD}/../../Common/src/kernel
+            $${PWD}/../../Common/src/Kernel\
+            $${PWD}/../../Common/src/SdtGlobal
 
 TEMPLATE = lib
 
@@ -21,13 +26,16 @@ DEFINES += SDKERNEL_LIBRARY
 CONFIG(debug, debug|release){
     SDKERNEL_OUT_PATH = $${APP_BUILD_PATH}/debug/bin
     LIBS+=$${SDKERNEL_OUT_PATH}/Communicationd.lib\
-          $${SDKERNEL_OUT_PATH}/GTUtilsd.lib
+          $${SDKERNEL_OUT_PATH}/GTUtilsd.lib\
+          $${SDKERNEL_OUT_PATH}/Optiond.lib
 
     TARGET = SDKerneld
 } else{
     SDKERNEL_OUT_PATH = $${APP_BUILD_PATH}/release/bin
     LIBS+=$${SDKERNEL_OUT_PATH}/Communication.lib\
-          $${SDKERNEL_OUT_PATH}/GTUtils.lib
+          $${SDKERNEL_OUT_PATH}/GTUtils.lib\
+          $${SDKERNEL_OUT_PATH}/Option.lib
+
     TARGET = SDKernel
 }
 DESTDIR =$${SDKERNEL_OUT_PATH}
@@ -44,7 +52,10 @@ SOURCES += \
     sevpwrboard.cpp \
     PowerTreeManage/powertreemanage.cpp \
     ../../Common/src/Kernel/deviceconfig.cpp \
-    sdkernel_global.cpp
+    verattribute.cpp \
+    generalcmd.cpp \
+    sevsearchphasehelper.cpp \
+    imaxprmassociationhelper.cpp
 
 HEADERS += \
     sdkernel_global.h \
@@ -59,9 +70,14 @@ HEADERS += \
     sevdspmap.h \
     sevpwrboard.h \
     PowerTreeManage/powertreemanage.h \
-    ../../Common/src/Kernel/deviceconfig.h
+    ../../Common/src/Kernel/deviceconfig.h \
+    verattribute.h \
+    generalcmd.h \
+    sevsearchphasehelper.h \
+    imaxprmassociationhelper.h
 
 unix {
     target.path = /usr/lib
     INSTALLS += target
 }
+TRANSLATIONS    += ch_sdkernel.ts en_sdkernel.ts

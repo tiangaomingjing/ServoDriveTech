@@ -12,15 +12,14 @@ public:
   explicit PcDebug(const string &objectName="PcDebug");
   virtual ~PcDebug();
 
-  errcode_t open(void(*processCallBack)(void *, short *), void *parameter)override;
-  errcode_t close()override;
-
   //------伺服操作相关---------
   errcode_t setServoEnable(uint8_t axis, bool on)override;
   errcode_t checkServoIsEnable(uint8_t axis,bool &enable) override;
 
-  errcode_t setServoTaskMode(uint8_t axis,ServoTaskMode_t mode);
-  ServoTaskMode_t currentServoTaskMode(uint8_t axis,errcode_t &errcode);
+  errcode_t clearAlarm(uint8_t axis) override;
+
+  errcode_t setServoTaskMode(uint8_t axis, int16_t mode);
+  int16_t currentServoTaskMode(uint8_t axis,errcode_t &errcode);
 
   errcode_t setIdRef(uint8_t axis ,double idRef)override;
   errcode_t getIdRef(uint8_t axis ,double &value)override;
@@ -28,6 +27,7 @@ public:
   errcode_t getIqRef(uint8_t axis, double &value)override;
   errcode_t setSpdRef(uint8_t axis,double spdRef)override;
   errcode_t getSpdRef(uint8_t axis,double &value)override;
+  errcode_t getSpdFb(uint8_t axis,double &value)override;
   errcode_t setUdRef(uint8_t axis,double udRef)override;
   errcode_t getUdRef(uint8_t axis,double &value)override;
   errcode_t setUqRef(uint8_t axis,double uqRef)override;
@@ -64,15 +64,10 @@ public:
   errcode_t readEEPROM(uint16_t ofst, uint8_t* value, uint16_t num,uint8_t cs)override;
   errcode_t writeEEPROM(uint16_t ofst, const uint8_t* value, uint16_t num,uint8_t cs)override;
 
-  //------------获得网卡信息------------------
-  NetCardInfo getNetCardInformation(void)override;
-
   //------------画图相关---------------------
   errcode_t startPlot(const PlotControlPrm &ctrPrm)override;
   errcode_t stopPlot(const PlotControlPrm &ctrPrm)override;
   errcode_t getPlotData(const PlotControlPrm &ctrPrm,CurveList &curveList)override;
-
-  errcode_t enableCRC(bool enable)override;
 
   //--------读写RAM操作------------------
   errcode_t writeRAM16(uint8_t axis,uint16_t ofst,uint8_t page,int16_t value)override;
@@ -99,6 +94,8 @@ public:
   errcode_t writeFPGAReg64(uint8_t fpgaInx,uint16_t address,int64_t value,uint16_t base)override;
 
 
+  errcode_t writeXML(uint8_t axis, char *pFileNameList[], int pFileTypeList[], int file_num, void (*processCallBack)(void *, short *), void *ptrv, short &progress);
+  errcode_t readXML(uint8_t axis, char *pFileNameList[], int pFileTypeList[], int file_num, void (*processCallBack)(void *, short *), void *ptrv, short &progress);
 protected:
   PcDebug(PcDebugPrivate &dd);
 };

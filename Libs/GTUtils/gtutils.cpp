@@ -5,6 +5,8 @@
 #include <QTreeWidget>
 #include <QDebug>
 #include <QTranslator>
+#include <QSettings>
+
 
 //这些路径都是相对debug/release目录下
 #define DIR_COMMON "common/"
@@ -15,6 +17,7 @@
 #define DIR_ICON "resource/icon/"
 #define DIR_UBOOT "resource/uboot/"
 #define DIR_LANGUAGE "resource/language/"
+#define DIR_CMD "resource/cmd/"
 
 
 GTUtils::GTUtils()
@@ -71,11 +74,18 @@ QString GTUtils::languagePath()
   return path;
 }
 
+QString GTUtils::cmdPath()
+{
+    QString path=sdtPath()+DIR_CMD;
+    return path;
+}
+
 void GTUtils::delayms(quint16 ms)
 {
   QTime dieTime = QTime::currentTime().addMSecs(ms);
-  while( QTime::currentTime() < dieTime )
+  while( QTime::currentTime() < dieTime ) {
     QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+  }
 }
 QList<QTranslator*> GTUtils::setupTranslators(const QString &path)
 {
@@ -112,59 +122,82 @@ void GTUtils::clearTreeWidgetList(QList<QTreeWidget *> &list)
   }
   list.clear();
 }
+QTreeWidgetItem* GTUtils::findTopLevelItem(QTreeWidgetItem *item)
+{
+  QTreeWidgetItem* top=item;
+  while(top->parent()!=NULL)
+    top=top->parent();
+  return top;
+}
 
-//QTreeWidgetItem* findItem(QString text, QTreeWidget* tree, int col) {
-//    QTreeWidgetItemIterator treeIter(tree);
-//    QTreeWidgetItem *result = NULL;
-//    while (*treeIter){
-//        if ((*treeIter)->text(col).compare(text) == 0) {
-//            result = *treeIter;
-//            return result;
-//        }
-//        ++treeIter;
-//    }
-//    return result;
-//}
 
-//QTreeWidgetItem* findItemByValue(Uint8* value, Uint16 num, QTreeWidget *tree) {
-//    int tempValue = 0;
-//    for (int i = 0; i < num; i++) {
-//        tempValue = tempValue + (value[i] << (i * 8));
-//    }
-//    QTreeWidgetItemIterator treeIter(tree);
-//    QTreeWidgetItem *result = NULL;
-//    while (*treeIter){
-//        if ((*treeIter)->text(TREE_VALUE) == QString::number(tempValue, 10)) {
-//            result = *treeIter;
-//            return result;
-//        }
-//        ++treeIter;
-//    }
-//    return result;
-//}
+QTreeWidgetItem* GTUtils::findItem(const QString &text, QTreeWidget* tree, int col) {
+    QTreeWidgetItemIterator treeIter(tree);
+    QTreeWidgetItem *result = NULL;
+    while (*treeIter){
+        if ((*treeIter)->text(col).compare(text) == 0) {
+            result = *treeIter;
+            return result;
+        }
+        ++treeIter;
+    }
+    return result;
+}
 
-//QString getPath(QTreeWidgetItem *item) {
-//    QString result = item->text(TREE_NAME);
-//    QString fileName = item->text(TREE_NAME) + ".ui";
-//    int count = 0;
-//    QTreeWidgetItem *currentItem = item;
-//    while (count < 3) {
-//        currentItem = currentItem->parent();
-//        result = currentItem->text(TREE_NAME) + "/" + result;
-//        count++;
-//    }
-//    result = result + "/" + fileName;
-//    return result;
-//}
+QTreeWidgetItem* GTUtils::findItemInItem(const QString &text, QTreeWidgetItem* treeItem, int col)
+{
+  QTreeWidgetItem *result = NULL;
+//  qDebug()<<treeItem->text(col);
+  if(treeItem->text(col).compare(text) == 0)
+  {
+    result = treeItem;
+    return result;
+  }
+  else
+  {
+    for(int i = 0;i<treeItem->childCount();i++)
+    {
+      result = findItemInItem(text,treeItem->child(i),col);
+      if(result != NULL)
+        break;
+    }
+    return result;
+  }
+
+}
+
+int GTUtils::byteNumbers(const QString &str)
+{
+  int num;
+  if(str.contains("16"))
+    num=2;
+  else if(str.contains("32"))
+    num=4;
+  else if(str.contains("64"))
+    num=8;
+  else
+    num=2;
+  return num;
+}
 
 //--------------------private function-------------------------------
 QString GTUtils::sdtPath()
 {
-  QString path=QApplication::applicationDirPath();
+  QString path=qApp->applicationDirPath();
   QDir dir(path);
   dir.cdUp();
   path=dir.absolutePath()+"/";
   return path;
+}
+
+QVariant GTUtils::data(const QString &path, const QString &group, const QString &key, const QVariant &defaultValue)
+{
+  QSettings settings(path,QSettings::IniFormat);
+  QVariant vd;
+  settings.beginGroup(group);
+  vd=settings.value(key,defaultValue);
+  settings.endGroup();
+  return vd;
 }
 
 

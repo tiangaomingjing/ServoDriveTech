@@ -1,4 +1,7 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    GraphTreeEditTest
+    GraphTreeEditTest \
+    GraphWidgetLayoutTest \
+    ItemAnchorTest \
+    NodeEditTest
