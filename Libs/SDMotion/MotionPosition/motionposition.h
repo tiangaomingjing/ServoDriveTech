@@ -23,12 +23,13 @@ public:
     bool stop(quint16 axisInx) Q_DECL_OVERRIDE;
     void updateAxisUi(quint16 axisInx) Q_DECL_OVERRIDE;
     void setMode() Q_DECL_OVERRIDE;
+    UiMotionPosition * UiMotion();
 private slots:
     void onMotionFinish(quint16 axisInx);
     void onTimerOut();
 
 private:
-    UiMotionPosition * UiMotion();
+
 private:
     QTimer m_timer;
     int m_count;
