@@ -1,6 +1,8 @@
 #ifndef UIMOTIONPOSITION_H
 #define UIMOTIONPOSITION_H
 
+#include "motionposition_global.h"
+
 #include <QWidget>
 
 namespace Ui {
@@ -26,12 +28,12 @@ public:
         m_pointAcc(1300),
         m_pointDec(1300),
         m_pointMaxVel(1000),
-        m_pointPulse(5),
+        m_pointPulse(327680),
         m_reciAcc(1300),
         m_reciDec(1300),
         m_reciInterval(1000),
         m_reciMaxVel(1000),
-        m_reciPulse(5),
+        m_reciPulse(327680),
         m_reciTimes(0)
     {}
     ~UiPosMotionData(){}
@@ -51,7 +53,7 @@ public:
     MotionRunSta m_motionSta;
 };
 
-class UiMotionPosition : public QWidget
+class MOTIONPOSITIONSHARED_EXPORT UiMotionPosition : public QWidget
 {
     Q_OBJECT
 

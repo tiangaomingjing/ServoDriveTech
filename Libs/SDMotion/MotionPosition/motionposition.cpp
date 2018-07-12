@@ -86,7 +86,7 @@ void MotionPosition::movePrepare(quint16 axisInx)
         double dec = data->m_reciDec;
         d->m_sev->genCmdWritePlanSpdDec(axisInx, dec);
 
-        int pulse = data->m_reciPulse * 65536;
+        int pulse = data->m_reciPulse;
         d->m_sev->cmdSetPosRef(axisInx, pulse);
 
         double delay = data->m_reciInterval * 8;
@@ -102,7 +102,7 @@ void MotionPosition::movePrepare(quint16 axisInx)
         double dec = data->m_pointDec;
         d->m_sev->genCmdWritePlanSpdDec(axisInx, dec);
 
-        int pulse = data->m_pointPulse * 65536;
+        int pulse = data->m_pointPulse;
         d->m_sev->cmdSetPosRef(axisInx, pulse);
 
         d->m_sev->genCmdWrite(CMD_POS_MODE, 0, axisInx);

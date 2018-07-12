@@ -6,13 +6,21 @@
 #include "imotion.h"
 #include "motionvelocity.h"
 #include "motionposition.h"
+#include "uimotionposition.h"
 
 #include <QMessageBox>
 #include <QDebug>
 #include <QProgressBar>
+#include <qmath.h>
 
 #define ICON_NAME_SERVO_ON      "plot_son.png"
 #define ICON_NAME_SERVO_OFF     "plot_soff.png"
+
+#define CON_KEYNAME_MOT_NOS         "gSevDrv.sev_obj.cur.mot.Nos_1"
+#define CMD_POS_DELAY               "gSevDrv.sev_obj.pos.seq.prm.move_delay_times"
+#define CMD_POS_MAXSPD              "gSevDrv.sev_obj.pos.mkr.prm.maxspd"
+#define CMD_POS_ACC                 "gSevDrv.sev_obj.pos.mkr.prm.accrate"
+#define CMD_POS_DEC                 "gSevDrv.sev_obj.pos.mkr.prm.decrate"
 
 #define TEST_DEBUG 1
 
@@ -154,7 +162,7 @@ void TabMotion::resetUi()
 {
   ui->listWidget_plot_tab2_axis->setCurrentRow(0);
   m_currentAxis = 0;
-  for(int i = 0;i<m_axisMotionDataList.size();i++)
+  for (int i = 0; i<m_axisMotionDataList.size(); i++)
   {
     m_axisMotionDataList.at(i)->m_curMotion = m_motionList.at(0);
   }
@@ -162,6 +170,29 @@ void TabMotion::resetUi()
   ui->stackedWidget_motion_container->setCurrentIndex(0);
   ui->tbtn_plot_servoGoMotion->setEnabled(false);
   ui->tbtn_plot_servoBtn->setEnabled(false);
+
+  MotionPosition *pMotion = dynamic_cast<MotionPosition*>(m_motionList.at(2));
+  if (pMotion->sevDevice()->isConnecting()) {
+      for (int i = 0; i < pMotion->UiMotion()->uiDataList().count(); i++) {
+          bool isOk;
+          quint64 acc = pMotion->sevDevice()->genCmdRead(CMD_POS_ACC, i ,isOk);
+          pMotion->UiMotion()->uiDataList().at(i)->m_pointAcc = acc;
+          pMotion->UiMotion()->uiDataList().at(i)->m_reciAcc = acc;
+          quint64 dec = pMotion->sevDevice()->genCmdRead(CMD_POS_DEC, i ,isOk);
+          pMotion->UiMotion()->uiDataList().at(i)->m_pointDec = dec;
+          pMotion->UiMotion()->uiDataList().at(i)->m_reciDec = dec;
+
+          quint64 nos = pMotion->sevDevice()->genCmdRead(CON_KEYNAME_MOT_NOS, i, isOk);
+          double scale = nos / qPow(2, 24);
+
+          quint64 maxSpd = pMotion->sevDevice()->genCmdRead(CMD_POS_MAXSPD, i, isOk);
+          pMotion->UiMotion()->uiDataList().at(i)->m_pointMaxVel = maxSpd * scale;
+          pMotion->UiMotion()->uiDataList().at(i)->m_reciMaxVel = maxSpd * scale;
+
+          quint64 delayTime = pMotion->sevDevice()->genCmdRead(CMD_POS_DELAY, i, isOk);
+          pMotion->UiMotion()->uiDataList().at(i)->m_reciInterval = delayTime;
+      }
+  }
 }
 
 void TabMotion::setupIcons(const QString &css)

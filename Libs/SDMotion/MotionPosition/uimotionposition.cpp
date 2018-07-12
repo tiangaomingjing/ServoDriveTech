@@ -51,6 +51,7 @@ UiMotionPosition::UiMotionPosition(MotionPosition *mp, QWidget *parent) :
     ui->doubleSpinBox_ReciPulse->setValue(5);
     ui->spinBox_ReciTimes->setValue(0);
 
+
     ui->doubleSpinBox_PointAcc->installEventFilter(this);
     ui->doubleSpinBox_PointDec->installEventFilter(this);
     ui->doubleSpinBox_PointMaxVel->installEventFilter(this);
@@ -91,11 +92,11 @@ void UiMotionPosition::updataUi(int axisInx)
     if (data->m_isReci) {
         ui->checkBox_PositionMotion->setChecked(true);
         ui->stackedWidget_Point->setCurrentIndex(1);
-        ui->doubleSpinBox_ReciAcc->setValue(data->m_reciAcc);
-        ui->doubleSpinBox_ReciDec->setValue(data->m_reciDec);
+        ui->doubleSpinBox_ReciAcc->setValue(data->m_reciAcc / 65536.0 * 360);
+        ui->doubleSpinBox_ReciDec->setValue(data->m_reciDec / 65536.0 * 360);
         ui->doubleSpinBox_ReciInterval->setValue(data->m_reciInterval);
         ui->doubleSpinBox_ReciMaxVel->setValue(data->m_reciMaxVel);
-        ui->doubleSpinBox_ReciPulse->setValue(data->m_reciPulse);
+        ui->doubleSpinBox_ReciPulse->setValue(data->m_reciPulse / 65536.0);
         ui->spinBox_ReciTimes->setValue(data->m_reciTimes);
 
         ui->doubleSpinBox_ReciAcc->setStyleSheet("color:black");
@@ -107,10 +108,10 @@ void UiMotionPosition::updataUi(int axisInx)
     } else {
         ui->checkBox_PositionMotion->setChecked(false);
         ui->stackedWidget_Point->setCurrentIndex(0);
-        ui->doubleSpinBox_PointAcc->setValue(data->m_pointAcc);
-        ui->doubleSpinBox_PointDec->setValue(data->m_pointDec);
+        ui->doubleSpinBox_PointAcc->setValue(data->m_pointAcc / 65536.0 * 360);
+        ui->doubleSpinBox_PointDec->setValue(data->m_pointDec / 65536.0 * 360);
         ui->doubleSpinBox_PointMaxVel->setValue(data->m_pointMaxVel);
-        ui->doubleSpinBox_PointPulse->setValue(data->m_pointPulse);
+        ui->doubleSpinBox_PointPulse->setValue(data->m_pointPulse / 65536.0);
 
         ui->doubleSpinBox_PointAcc->setStyleSheet("color:black");
         ui->doubleSpinBox_PointDec->setStyleSheet("color:black");
